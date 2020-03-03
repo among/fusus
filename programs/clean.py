@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 
 from parameters import ELEMENT_DIR, PREOCR_INPUT, OCR_INPUT
 from image import ProcessedImage
@@ -22,55 +21,58 @@ ELEMENT_INSTRUCTIONS = (
     ("alayh", 0.65),
 )
 
-COLOR = {
-    False: (255, 0, 255),
-    True: (255, 255, 255),
-}
+DIVISOR = "division"
 
-BORDER = {
-    False: 3,
-    True: -1,
-}
+WHITE = [255, 255, 255]
+BORDER_WIDTH = 0
 
 
 class CleanupEngine:
     def __init__(self, elementDir):
         self.elementDir = elementDir
+        self.loadDivisor()
         self.loadElements()
+
+    def loadDivisor(self):
+        elemPath = f"{self.elementDir}/{DIVISOR}.jpg"
+        elem = cv2.imread(elemPath)
+        elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
+        self.divisor = elem
 
     def loadElements(self):
         self.elements = []
+        bw = BORDER_WIDTH
         for (elem, acc) in ELEMENT_INSTRUCTIONS:
             elemPath = f"{self.elementDir}/{elem}.jpg"
             elem = cv2.imread(elemPath)
-            self.elements.append((cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY), acc))
+            elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
+            if bw:
+                elem = cv2.copyMakeBorder(
+                    elem, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=WHITE
+                )
+            self.elements.append((elem, acc))
 
-    def useElements(self, img, gray, color, border):
-        for (elem, acc) in self.elements:
-            (H, W) = elem.shape[:2]
-            result = cv2.matchTemplate(gray, elem, cv2.TM_CCOEFF_NORMED)
-            loc = np.where(result >= acc)
-            for pt in zip(*loc[::-1]):
-                cv2.rectangle(img, pt, (pt[0] + W, pt[1] + H), color, border)
-                cv2.rectangle(gray, pt, (pt[0] + W, pt[1] + H), color, border)
-
-    def treatImage(self, folderIn, folderOut, name, ext='jpg', destroy=True):
-        color = COLOR[destroy]
-        border = BORDER[destroy]
-        showRep = '' if destroy else '-find'
+    def treatImage(self, folderIn, folderOut, name, ext="jpg", destroy=True):
+        showRep = "" if destroy else "-find"
 
         pImg = ProcessedImage(folderIn, name, ext=ext)
-        self.useElements(pImg.img, pImg.gray, color, border)
+        pImg.normalize()
+        pImg.histogram()
+        pImg.margins(self.divisor)
+        pImg.clean(self.elements, destroy)
+
         pImg.write(folder=folderOut, name=f"{name}{showRep}")
         return (pImg, showRep)
 
 
 def main():
     CL = CleanupEngine(ELEMENT_DIR)
-    (pImg, showRep) = CL.treatImage(PREOCR_INPUT, OCR_INPUT, 'qay_Page_1', destroy=False)
+    (pImg, showRep) = CL.treatImage(
+        PREOCR_INPUT, OCR_INPUT, "qay_Page_1", destroy=False
+    )
     answer = input("show result image? [Y] ")
-    if answer == 'Y':
-        pImg.show()
+    if answer == "Y":
+        pImg.show(stage=None)
 
 
 if __name__ == "__main__":
