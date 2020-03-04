@@ -1,78 +1,75 @@
+import sys
 import cv2
 
-from parameters import ELEMENT_DIR, PREOCR_INPUT, OCR_INPUT
+from parameters import Config
+
 from image import ProcessedImage
 
 
-ELEMENT_INSTRUCTIONS = (
-    ("shadda", 0.8),
-    ("shadda2", 0.8),
-    ("shadda3", 0.8),
-    ("semicolon", 0.8),
-    ("colon", 0.8),
-    ("period", 0.9),
-    ("comma", 0.6),
-    ("tanwin", 0.7),
-    ("tanwin2", 0.7),
-    ("longA", 0.8),
-    ("doubleOpen", 0.7),
-    ("doubleClose", 0.7),
-    ("salla", 0.75),
-    ("alayh", 0.65),
-)
-
-DIVISOR = "division"
-
-WHITE = [255, 255, 255]
-BORDER_WIDTH = 0
-
-
 class CleanupEngine:
-    def __init__(self, elementDir):
-        self.elementDir = elementDir
+    def __init__(self, **parameters):
+        self.config = Config(parameters)
         self.loadDivisor()
-        self.loadElements()
+        self.elements = {}
+
+    def reconfigure(self, **parameters):
+        C = self.config
+        C.reconfigure(**parameters)
+        if set(parameters) & C.reloadElements:
+            self.elements = {}
 
     def loadDivisor(self):
-        elemPath = f"{self.elementDir}/{DIVISOR}.jpg"
+        C = self.config
+
+        elemPath = f"{C.ELEMENT_DIR}/{C.DIVISOR}.jpg"
         elem = cv2.imread(elemPath)
         elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
         self.divisor = elem
 
-    def loadElements(self):
-        self.elements = []
-        bw = BORDER_WIDTH
-        for (elem, acc) in ELEMENT_INSTRUCTIONS:
-            elemPath = f"{self.elementDir}/{elem}.jpg"
-            elem = cv2.imread(elemPath)
-            elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
-            if bw:
-                elem = cv2.copyMakeBorder(
-                    elem, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=WHITE
-                )
-            self.elements.append((elem, acc))
+    def loadElement(self, elemName, bw):
+        if elemName in self.elements and bw in self.elements[elemName]:
+            return
 
-    def treatImage(self, folderIn, folderOut, name, ext="jpg", destroy=True):
-        showRep = "" if destroy else "-find"
+        C = self.config
 
-        pImg = ProcessedImage(folderIn, name, ext=ext)
+        if elemName not in C.ELEMENT_INSTRUCTIONS:
+            sys.stderr.write(f'Element "{elemName}" not declared')
+
+        elemPath = f"{C.ELEMENT_DIR}/{elemName}.jpg"
+        elem = cv2.imread(elemPath)
+        elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
+        if bw is None:
+            bw = C.BORDER_WIDTH
+        if bw:
+            elem = cv2.copyMakeBorder(
+                elem, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=C.WHITE
+            )
+        self.elements.setdefault(elemName, {})[bw] = elem
+
+    def start(self, name, ext="jpg"):
+        return ProcessedImage(self, name, ext=ext)
+
+    def testClean(self, name, ext="jpg", **kwargs):
+        pImg = ProcessedImage(self, name, ext=ext)
+        pImg.clean(**kwargs)
+        pImg.show(stage="boxed")
+        return pImg
+
+    def process(self, name, ext="jpg"):
+        pImg = ProcessedImage(self, name, ext=ext)
         pImg.normalize()
         pImg.histogram()
-        pImg.margins(self.divisor)
-        pImg.clean(self.elements, destroy)
-
-        pImg.write(folder=folderOut, name=f"{name}{showRep}")
-        return (pImg, showRep)
+        pImg.margins()
+        pImg.clean()
+        return pImg
 
 
 def main():
-    CL = CleanupEngine(ELEMENT_DIR)
-    (pImg, showRep) = CL.treatImage(
-        PREOCR_INPUT, OCR_INPUT, "qay_Page_1", destroy=False
-    )
+    CL = CleanupEngine()
+    pImg = CL.treatImage("qay_Page_1")
     answer = input("show result image? [Y] ")
     if answer == "Y":
-        pImg.show(stage=None)
+        pImg.show(stage="clean")
 
 
 if __name__ == "__main__":
