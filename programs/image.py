@@ -243,6 +243,8 @@ class ProcessedImage:
         C = self.config
         engine = self.engine
 
+        (hlclr, hlbrd) = C.CLEAN_HIGHLIGHT
+
         if bw is None:
             bw = C.BORDER_WIDTH
 
@@ -278,7 +280,7 @@ class ProcessedImage:
             stages[stage] = (demarginedC if stage == "boxed" else demargined).copy()
 
         tasks = [
-            (stages[stage], color[stage], bw if stage == "boxed" else -1)
+            (stage, stages[stage], color[stage], bw if stage == "boxed" else -1)
             for stage in resultStages
         ]
 
@@ -311,12 +313,18 @@ class ProcessedImage:
                         point=pt,
                     )
                 )
+                hitb = (
+                    (pt[1] - hbw - 1, pt[0] - hbw - 1),
+                    (pt[1] + w + hbw + 1, pt[0] + h + hbw + 1),
+                )
                 hit = (
                     (pt[1] + hbw, pt[0] + hbw),
                     (pt[1] + w - hbw, pt[0] + h - hbw),
                 )
-                for (im, clr, brd) in tasks:
+                for (stage, im, clr, brd) in tasks:
                     cv2.rectangle(im, *hit, clr, brd)
+                    if stage == "boxed":
+                        cv2.rectangle(im, *hitb, hlclr, hlbrd)
 
         self.cleanInfo = info
 

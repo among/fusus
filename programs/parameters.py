@@ -14,6 +14,7 @@ class Config:
         ACCURACY=0.8,
         MARGIN_THRESHOLD=5,
         MARGIN_COLOR=(250, 250, 250),
+        CLEAN_HIGHLIGHT=((240, 170, 20), 3),
         ELEMENT_INSTRUCTIONS=dict(
             shadda=0.8,
             shadda2=0.8,
@@ -36,7 +37,7 @@ class Config:
         CLEAN_COLOR=dict(
             clean=(255, 255, 255),
             cleanh=(220, 220, 220),
-            boxed=(255, 0, 128),
+            boxed=(200, 80, 255),
         ),
         STAGE_ORDER="""
             orig
