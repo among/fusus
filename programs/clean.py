@@ -46,6 +46,10 @@ class CleanupEngine:
             )
         self.elements.setdefault(elemName, {})[bw] = elem
 
+    def definedElements(self):
+        C = self.config
+        return C.ELEMENT_INSTRUCTIONS
+
     def start(self, name, ext="jpg"):
         return ProcessedImage(self, name, ext=ext)
 
