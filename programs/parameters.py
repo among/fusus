@@ -14,31 +14,38 @@ class Config:
         ACCURACY=0.8,
         MARGIN_THRESHOLD=5,
         MARGIN_COLOR=(250, 250, 250),
-        CLEAN_HIGHLIGHT=((240, 170, 20), 3),
+        GRID_UPPER_COLOR=(0, 0, 255),
+        GRID_LOWER_COLOR=(0, 255, 0),
+        GRID_UPPER_LEEWAY=10,
+        GRID_LOWER_LEEWAY=20,
+        CLEAN_HIGHLIGHT=((240, 170, 20), (170, 240, 40), 3),
+        CLEAN_CONNECT_THRESHOLD=200 * 200,
+        CLEAN_CONNECT_RATIO=0.1,
+        BORDER_WIDTH=4,
         ELEMENT_INSTRUCTIONS=dict(
-            shadda=0.8,
-            shadda2=0.8,
-            shadda3=0.8,
-            semicolon=0.8,
-            colon=0.8,
-            period=0.9,
-            comma=0.8,
-            tanwin=0.7,
-            tanwin2=0.7,
-            longA=0.8,
-            doubleOpen=0.7,
-            doubleClose=0.7,
-            salla=0.75,
-            alayh=0.65,
+            shadda=dict(),
+            shadda2=dict(),
+            shadda3=dict(),
+            semicolon=dict(),
+            colon=dict(),
+            period=dict(acc=0.9),
+            comma=dict(bw=5),
+            tanwin=dict(acc=0.7),
+            tanwin2=dict(acc=0.7),
+            longA=dict(),
+            doubleOpen=dict(acc=0.7),
+            doubleClose=dict(acc=0.7),
+            salla=dict(acc=0.75),
+            alayh=dict(acc=0.65),
         ),
         DIVISOR="division",
         WHITE=[255, 255, 255],
-        BORDER_WIDTH=1,
         CLEAN_COLOR=dict(
             clean=(255, 255, 255),
             cleanh=(220, 220, 220),
             boxed=(200, 80, 255),
         ),
+        CLEAN_MAX_HITS=5000,
         STAGE_ORDER="""
             orig
             gray
@@ -84,7 +91,7 @@ class Config:
 
         for (k, v) in sorted(parameters.items()):
             if k not in c:
-                sys.stderr.write(f'Unknown parameter "{k}" ignored')
+                sys.stderr.write(f'Unknown parameter "{k}" ignored\n')
 
         for (k, v) in c.items():
             c[k] = parameters.get(k, v)

@@ -1,50 +1,29 @@
 import sys
-import io
+import os
 import cv2
 import numpy as np
-import PIL.Image
-from IPython.display import HTML, Image, display
+from IPython.display import HTML, display
 
-
-def showarray(a, fmt="jpeg", **kwargs):
-    a = np.uint8(np.clip(a, 0, 255))
-    f = io.BytesIO()
-    PIL.Image.fromarray(a).save(f, fmt)
-    display(Image(data=f.getvalue(), **kwargs))
-
-
-def cluster(points):
-    def d(p1, p2):
-        if p1 == p2:
-            return 0
-        (x1, y1) = p1
-        (x2, y2) = p2
-        return abs(x1 - x2) + abs(y1 - y2)
-
-    clusters = []
-    for p in points:
-        stored = False
-        for c in clusters:
-            for q in c:
-                if d(p, q) <= 2:
-                    c.append(p)
-                    stored = True
-                    break
-            if stored:
-                break
-        if not stored:
-            clusters.append([p])
-    return clusters
+from lib import showarray, cluster, connected
 
 
 class ProcessedImage:
-    def __init__(self, engine, name, ext="jpg"):
+    def __init__(self, engine, name, ext="jpg", batch=False):
         self.engine = engine
         self.config = engine.config
         C = self.config
         self.name = name
         self.ext = ext
+        self.empty = True
+        self.batch = batch
+        self.stages = {}
+
         path = f"{C.PREOCR_INPUT}/{name}.{ext}"
+        if not batch and not os.path.exists(path):
+            sys.stderr.write(f"Image file not found: {path}")
+            return
+
+        self.empty = False
         orig = cv2.imread(path)
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         self.stages = {"orig": orig, "gray": gray}
@@ -68,13 +47,27 @@ class ProcessedImage:
             return
 
         if stage not in stages:
-            sys.stderr.write(f"Unknown stage: {stage}, showing original stage")
+            sys.stderr.write(f"Unknown stage: {stage}, showing original stage\n")
             stage = "orig"
         what = stages.get(stage, None)
         if what is None:
-            sys.stderr.write(f"No stage: orig")
+            sys.stderr.write(f"No stage: orig\n")
         else:
             showarray(what, **kwargs)
+
+    def layer(self, stage):
+        """Returns a stage of an image.
+        """
+
+        stages = self.stages
+
+        if stage not in stages:
+            sys.stderr.write(f"Unknown stage: {stage}, showing original stage\n")
+            stage = "orig"
+        what = stages.get(stage, None)
+        if what is None:
+            sys.stderr.write(f"No stage: orig\n")
+        return what
 
     def write(self, name=None, ext=None, stage=None):
         """Writes a stage of an image to disk.
@@ -95,10 +88,10 @@ class ProcessedImage:
             return
 
         if stage not in stages:
-            sys.stderr.write(f"Unknown stage: {stage}, writing clean stage")
+            sys.stderr.write(f"Unknown stage: {stage}, writing clean stage\n")
         what = stages.get(stage, "clean")
         if what is None:
-            sys.stderr.write(f"No stage: clean")
+            sys.stderr.write(f"No stage: clean\n")
 
         if name is None:
             name = self.name
@@ -116,6 +109,9 @@ class ProcessedImage:
 
         Unskewing is needed otherwise the footnote line will not be found.
         """
+
+        if self.empty:
+            return
 
         stages = self.stages
         orig = stages["orig"]
@@ -155,6 +151,9 @@ class ProcessedImage:
         The histogram values are preserved as well.
         """
 
+        if self.empty:
+            return
+
         stages = self.stages
         normalizedC = stages["normalizedC"]
         rotated = stages["rotated"]
@@ -170,7 +169,7 @@ class ProcessedImage:
                 cv2.line(histogram, index, value, color, 1)
         stages["histogram"] = histogram
 
-    def margins(self):
+    def margins(self, upperLeeway=None, lowerLeeway=None):
         """Chop off margins of an image.
 
         A new stage of the image, *demargined*, is added.
@@ -179,10 +178,15 @@ class ProcessedImage:
             This method uses the histogram info of the image.
         """
 
+        if self.empty:
+            return
+
         C = self.config
 
         threshold = C.MARGIN_THRESHOLD
         mcolor = C.MARGIN_COLOR
+        gucolor = C.GRID_UPPER_COLOR
+        glcolor = C.GRID_LOWER_COLOR
         engine = self.engine
         divisor = engine.divisor
         stages = self.stages
@@ -193,6 +197,11 @@ class ProcessedImage:
 
         histX = self.histX
         histY = self.histY
+
+        if upperLeeway is None:
+            upperLeeway = C.GRID_UPPER_LEEWAY
+        if lowerLeeway is None:
+            lowerLeeway = C.GRID_LOWER_LEEWAY
 
         (h, w) = normalized.shape[:2]
         for pixel in range(0, w):
@@ -210,12 +219,21 @@ class ProcessedImage:
             for y in range(h - 1)
             if histY[y] > threshold and histY[y + 1] <= threshold
         ]
+        inter = []
 
         cv2.rectangle(demargined, (0, 0), (w, uppers[0]), mcolor, -1)
         cv2.rectangle(demarginedC, (0, 0), (w, uppers[0]), mcolor, -1)
+        (divh, divw) = divisor.shape[:2]
 
-        for i in range(1, len(uppers)):
-            roi = normalized[uppers[i] - 5 : lowers[i] + 4, 10 : w - 10]
+        for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
+            if i > 0:
+                inter[i - 1][1] = upper
+            inter.append([lower, None])
+            roi = normalized[upper - 5 : lower + 4, 10 : w - 10]
+            (roih, roiw) = roi.shape[:2]
+            if roih > divh or roiw > divw:
+                # divisor template exceeds roi image
+                continue
             result = cv2.matchTemplate(roi, divisor, cv2.TM_CCOEFF_NORMED)
             loc = np.where(result >= 0.5)
             if loc[0].size:
@@ -224,11 +242,42 @@ class ProcessedImage:
                 break
             else:
                 continue
+        inter.pop()
+
+        for (upper, lower) in inter:
+            cv2.line(
+                demarginedC,
+                (10, upper - upperLeeway),
+                (w - 10, upper - upperLeeway),
+                gucolor,
+                2,
+            )
+            cv2.line(
+                demarginedC,
+                (10, lower + lowerLeeway),
+                (w - 10, lower + lowerLeeway),
+                glcolor,
+                2,
+            )
+            cv2.line(
+                demarginedC,
+                (10, upper - upperLeeway),
+                (10, lower + lowerLeeway),
+                gucolor,
+                2,
+            )
+            cv2.line(
+                demarginedC,
+                (w - 10, upper - upperLeeway),
+                (w - 10, lower + lowerLeeway),
+                gucolor,
+                2,
+            )
 
         self.stages["demargined"] = demargined
         self.stages["demarginedC"] = demarginedC
 
-    def clean(self, element=None, bw=None, acc=None):
+    def clean(self, element=None, bw=None, acc=None, threshold=None, ratio=None):
         """Remove marks from the image.
 
         The image is cleaned of a given list of elements.
@@ -240,37 +289,42 @@ class ProcessedImage:
         *   *boxed* all targeted marks boxed in light gray
         """
 
+        if self.empty:
+            return
+
         C = self.config
         engine = self.engine
+        batch = self.batch
 
-        (hlclr, hlbrd) = C.CLEAN_HIGHLIGHT
+        (hlclr, hlclrc, hlbrd) = C.CLEAN_HIGHLIGHT
 
-        if bw is None:
-            bw = C.BORDER_WIDTH
+        if not batch:
+            if bw is None:
+                bw = C.BORDER_WIDTH
+            if bw <= 0:
+                sys.stderr.write(f"border width in clean: changed {bw} to 1\n")
+                bw = 1
+            if acc is None:
+                acc = C.ACCURACY
+            if threshold is None:
+                threshold = C.CLEAN_CONNECT_THRESHOLD
+            if ratio is None:
+                ratio = C.CLEAN_CONNECT_RATIO
 
-        if element is None:
-            for elemName in C.ELEMENT_INSTRUCTIONS:
-                engine.loadElement(elemName, bw)
-            searchElements = (
-                C.ELEMENT_INSTRUCTIONS
-                if acc is None
-                else {e: acc for e in C.ELEMENT_INSTRUCTIONS}
-            )
-        elif type(element) in {list, tuple}:
-            searchElements = {}
-            for el in element:
-                engine.loadElement(el, bw)
-                acc = C.ELEMENT_INSTRUCTIONS.get(el, C.ACCURACY) if acc is None else acc
-                searchElements[el] = acc
-        else:
-            engine.loadElement(element, bw)
-            acc = (
-                C.ELEMENT_INSTRUCTIONS.get(element, C.ACCURACY) if acc is None else acc
-            )
-            searchElements = {element: acc}
+            if element is None:
+                for elemName in C.ELEMENT_INSTRUCTIONS:
+                    engine.loadElement(elemName, acc, bw)
+                searchElements = set(C.ELEMENT_INSTRUCTIONS)
+            elif type(element) in {list, tuple}:
+                searchElements = set()
+                for el in element:
+                    engine.loadElement(el, acc, bw)
+                    searchElements.add(el)
+            else:
+                engine.loadElement(element, acc, bw)
+                searchElements = {element}
 
         color = C.CLEAN_COLOR
-        hbw = int(round(0.5 * bw))
 
         stages = self.stages
         demargined = stages.get("demargined", stages["gray"])
@@ -285,46 +339,58 @@ class ProcessedImage:
         ]
 
         info = {}
-        for (elemName, acc) in searchElements.items():
-            elem = engine.elements[elemName][bw]
+        maxHits = C.CLEAN_MAX_HITS
+
+        for elemName in searchElements:
+            elemInfo = engine.elements[elemName]
+            elem = elemInfo["image"]
+            if batch:
+                bw = elemInfo["bw"]
+                acc = elemInfo["acc"]
             (h, w) = elem.shape[:2]
             result = cv2.matchTemplate(demargined, elem, cv2.TM_CCOEFF_NORMED)
             loc = np.where(result >= acc)
             pts = list(zip(*loc))
-            if not pts:
+            if len(pts) > maxHits:
+                sys.stderr.write(
+                    f"Too many hit points for template {elemName}:"
+                    f" {len(pts)} > {maxHits}\n"
+                    f"Increase accuracy for this template\n"
+                )
                 continue
-            clusters = cluster(pts)
-            info[elemName] = {}
-            einfo = info[elemName]
-            einfo["npoints"] = len(pts)
-            einfo["nclusters"] = len(clusters)
-            einfo["hits"] = []
-            einfo["border"] = bw
-            hits = einfo["hits"]
-            for cl in clusters:
-                bestValue = max(result[p] for p in cl)
-                bestPoints = [p for p in cl if result[p] == bestValue]
-                pt = bestPoints[0]
-                hits.append(
-                    dict(
-                        length=len(cl),
-                        accuracy=bestValue,
-                        nbestPoints=len(bestPoints),
-                        point=pt,
-                    )
+            if not pts:
+                sys.stderr.write(f'No hit points for template "{elemName}"\n')
+                continue
+            clusters = cluster(pts, result)
+            if not batch:
+                info[elemName] = {}
+                einfo = info[elemName]
+                einfo["npoints"] = len(pts)
+                einfo["hits"] = []
+                einfo["connected"] = 0
+                einfo["border"] = bw
+                einfo["ratio"] = ratio
+                hits = einfo["hits"]
+            else:
+                hits = []
+
+            for (pt, bestValue) in clusters:
+                connDegree = connected(
+                    h, w, bw, threshold, demargined, pt
                 )
-                hitb = (
-                    (pt[1] - hbw - 1, pt[0] - hbw - 1),
-                    (pt[1] + w + hbw + 1, pt[0] + h + hbw + 1),
-                )
+                hits.append(dict(accuracy=bestValue, conn=connDegree, point=pt))
                 hit = (
-                    (pt[1] + hbw, pt[0] + hbw),
-                    (pt[1] + w - hbw, pt[0] + h - hbw),
+                    (pt[1], pt[0]),
+                    (pt[1] + w, pt[0] + h),
                 )
                 for (stage, im, clr, brd) in tasks:
-                    cv2.rectangle(im, *hit, clr, brd)
-                    if stage == "boxed":
-                        cv2.rectangle(im, *hitb, hlclr, hlbrd)
+                    isBoxed = stage == "boxed"
+                    if connDegree > ratio and isBoxed:
+                        cv2.rectangle(im, *hit, hlclrc, hlbrd)
+                    else:
+                        theClr = hlclr if isBoxed else clr
+                        theBrd = hlbrd if isBoxed else -1
+                        cv2.rectangle(im, *hit, theClr, theBrd)
 
         self.cleanInfo = info
 
@@ -336,18 +402,25 @@ class ProcessedImage:
         for elemName in sorted(info):
             einfo = info[elemName]
             bw = einfo["border"]
-            showarray(engine.elements[elemName][bw])
+            ratio = einfo["ratio"]
+            showarray(engine.elements[elemName]["image"])
+            totalHits = len(einfo['hits'])
+            connHits = len([h for h in einfo['hits'] if h["conn"] > ratio])
+            realHits = totalHits - connHits
+            total += realHits
             print(
-                f"{elemName:<12} with border {bw}:"
-                f" {einfo['nclusters']} x in {einfo['npoints']} points"
+                f"{elemName:<12} with border {bw}:\n"
+                f" {realHits} hits in {einfo['npoints']} points\n"
+                f" {connHits} connected hits removed from {totalHits} candidate hits"
             )
             for hit in einfo["hits"]:
+                conn = hit['conn']
+                ast = '*' if conn > ratio else ' '
                 print(
-                    f"\tcluster of size {hit['length']:>2}"
+                    f"\t{ast}hit"
                     f" with accuracy {hit['accuracy']:5.2f}"
-                    f" reached by {hit['nbestPoints']:>2} points"
-                    f" - chosen {hit['point']}"
+                    f" with connectivity {ast}{hit['conn']:5.2f}"
+                    f" reached by {hit['point']}"
                 )
-                total += 1
 
         print(f"{total} marks wiped clean")
