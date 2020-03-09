@@ -58,8 +58,8 @@ def measure(borderInside, borderOutside, threshold):
 
 def showit(label, texto, texti, val):
     print(f"{label}: = {val}")
-    print("E", " ".join(f"{e:>3}" for e in texto))
-    print("T", " ".join(f"{e:>3}" for e in texti))
+    print("Outer", " ".join(f"{e:>3}" for e in texto))
+    print("Inner", " ".join(f"{e:>3}" for e in texti))
 
 
 def connected(h, w, bw, threshold, gray, hitPoint):
@@ -74,10 +74,14 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     f = max((0, hitX - bw)) if hitX > 0 else None
     if f is not None:
         t = hitX
-        texto = np.array((-gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16)
+        texto = np.array(
+            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+        )
         fi = hitX
         ti = hitX + bw
-        texti = np.array((-gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16)
+        texti = np.array(
+            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+        )
         val = measure(texto, texti, threshold)
         # showit("l", texto, texti, val)
         connDegree += val
@@ -87,13 +91,15 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     t = min((textW, hitX + w + bw + 1)) if hitX + w + bw < textW else None
     if t is not None:
         f = hitX + w
+        # texto = np.array(gray[hitY : hitY + h, f:t])
+        # print(texto)
         texto = np.array(
-            (-gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
         )
         ti = hitX + w
         fi = hitX + w - bw
         texti = np.array(
-            (-gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
         # showit("r", texto, texti, val)
@@ -105,10 +111,14 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     f = max((0, hitY - bw)) if hitY > 0 else None
     if f is not None:
         t = hitY
-        texto = np.array((-gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16)
+        texto = np.array(
+            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+        )
         fi = hitY
         ti = hitY + bw + 1
-        texti = np.array((-gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16)
+        texti = np.array(
+            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+        )
         val = measure(texto, texti, threshold)
         # showit("t", texto, texti, val)
         connDegree += val
@@ -120,12 +130,12 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     if t is not None:
         f = hitY + h
         texto = np.array(
-            (-gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
         )
         ti = hitY + h
         fi = hitY + h - bw
         texti = np.array(
-            (-gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
         # showit("b", texto, texti, val)
