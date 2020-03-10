@@ -2,8 +2,6 @@ import os
 import sys
 import cv2
 
-from glob import glob
-
 from parameters import Config
 
 from image import ProcessedImage
@@ -102,18 +100,33 @@ class CleanupEngine:
             pImg.clean()
         return pImg
 
-    def batch(self, name, ext="jpg"):
+    def batch(self, ext="jpg"):
         C = self.config
+        inDir = C.PREOCR_INPUT
+        theExt = None if not ext else f".{ext}"
 
-        if not os.path.exists(C.PREOCR_INPUT):
-            sys.stderr.write("PreOCR input directory not found: {C.PREOCR_INPUT}\n")
+        if not os.path.exists(inDir):
+            sys.stderr.write("PreOCR input directory not found: {inDir}\n")
             return False
 
         self.loadElements()
 
-        for imFile in sorted(glob(f"{C.PREOCR_INPUT}/*.jpg")):
+        imageFiles = []
+        with os.scandir(inDir) as it:
+            for entry in it:
+                name = entry.name
+                if (
+                    not name.startswith(".")
+                    and entry.is_file()
+                    and (theExt is None or name.endswith(theExt))
+                ):
+                    imageFiles.append(name)
+        sys.stdout.write(f"Batch of {len(imageFiles)} pages in {inDir} :\n")
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            sys.stdout.write(f"\r\t{i + 1:>5} {imFile:<40}  ...")
             pImg = self.process(imFile[0:-4], ext="jpg", batch=True)
             pImg.write(stage="clean")
+        sys.stdout.write(f"\r\t{i + 1:>5} {imFile:<40}  Done")
 
 
 def main():

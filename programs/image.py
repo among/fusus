@@ -182,6 +182,7 @@ class ProcessedImage:
             return
 
         C = self.config
+        batch = self.batch
 
         threshold = C.MARGIN_THRESHOLD
         mcolor = C.MARGIN_COLOR
@@ -225,24 +226,33 @@ class ProcessedImage:
         cv2.rectangle(demarginedC, (0, 0), (w, uppers[0]), mcolor, -1)
         (divh, divw) = divisor.shape[:2]
 
+        divisorFound = (False, None)
+
         for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
             if i > 0:
                 inter[i - 1][1] = upper
             inter.append([lower, None])
             roi = normalized[upper - 5 : lower + 4, 10 : w - 10]
             (roih, roiw) = roi.shape[:2]
-            if roih > divh or roiw > divw:
+            if roih < divh or roiw < divw:
                 # divisor template exceeds roi image
                 continue
             result = cv2.matchTemplate(roi, divisor, cv2.TM_CCOEFF_NORMED)
             loc = np.where(result >= 0.5)
             if loc[0].size:
+                divisorFound = (True, roi)
                 cv2.rectangle(demargined, (0, uppers[i]), (w, h), mcolor, -1)
                 cv2.rectangle(demarginedC, (0, uppers[i]), (w, h), mcolor, -1)
                 break
             else:
                 continue
         inter.pop()
+
+        if not batch:
+            if divisorFound[0]:
+                showarray(divisorFound[1])
+            else:
+                sys.stdout.write("no divisor on page\n")
 
         for (upper, lower) in inter:
             cv2.line(
@@ -298,6 +308,11 @@ class ProcessedImage:
 
         (hlclr, hlclrc, hlbrd) = C.CLEAN_HIGHLIGHT
 
+        if threshold is None:
+            threshold = C.CLEAN_CONNECT_THRESHOLD
+        if ratio is None:
+            ratio = C.CLEAN_CONNECT_RATIO
+
         if not batch:
             if bw is None:
                 bw = C.BORDER_WIDTH
@@ -306,11 +321,6 @@ class ProcessedImage:
                 bw = 1
             if acc is None:
                 acc = C.ACCURACY
-            if threshold is None:
-                threshold = C.CLEAN_CONNECT_THRESHOLD
-            if ratio is None:
-                ratio = C.CLEAN_CONNECT_RATIO
-
             if element is None:
                 for elemName in C.ELEMENT_INSTRUCTIONS:
                     engine.loadElement(elemName, acc, bw)
@@ -329,7 +339,7 @@ class ProcessedImage:
         stages = self.stages
         demargined = stages.get("demargined", stages["gray"])
         demarginedC = stages.get("demarginedC", stages["orig"])
-        resultStages = ("clean", "cleanh", "boxed")
+        resultStages = ("clean",) if batch else ("clean", "cleanh", "boxed")
         for stage in resultStages:
             stages[stage] = (demarginedC if stage == "boxed" else demargined).copy()
 
@@ -341,7 +351,7 @@ class ProcessedImage:
         info = {}
         maxHits = C.CLEAN_MAX_HITS
 
-        for elemName in searchElements:
+        for elemName in engine.elements if batch else searchElements:
             elemInfo = engine.elements[elemName]
             elem = elemInfo["image"]
             if batch:
@@ -359,7 +369,8 @@ class ProcessedImage:
                 )
                 continue
             if not pts:
-                sys.stderr.write(f'No hit points for template "{elemName}"\n')
+                if not batch:
+                    sys.stderr.write(f'No hit points for template "{elemName}"\n')
                 continue
             clusters = cluster(pts, result)
             if not batch:
@@ -375,18 +386,18 @@ class ProcessedImage:
                 hits = []
 
             for (pt, bestValue) in clusters:
-                connDegree = connected(
-                    h, w, bw, threshold, demargined, pt
-                )
-                hits.append(dict(accuracy=bestValue, conn=connDegree, point=pt))
+                connDegree = connected(h, w, bw, threshold, demargined, pt)
+                if not batch:
+                    hits.append(dict(accuracy=bestValue, conn=connDegree, point=pt))
                 hit = (
                     (pt[1], pt[0]),
                     (pt[1] + w, pt[0] + h),
                 )
                 for (stage, im, clr, brd) in tasks:
                     isBoxed = stage == "boxed"
-                    if connDegree > ratio and isBoxed:
-                        cv2.rectangle(im, *hit, hlclrc, hlbrd)
+                    if connDegree > ratio:
+                        if isBoxed:
+                            cv2.rectangle(im, *hit, hlclrc, hlbrd)
                     else:
                         theClr = hlclr if isBoxed else clr
                         theBrd = hlbrd if isBoxed else -1
@@ -404,8 +415,8 @@ class ProcessedImage:
             bw = einfo["border"]
             ratio = einfo["ratio"]
             showarray(engine.elements[elemName]["image"])
-            totalHits = len(einfo['hits'])
-            connHits = len([h for h in einfo['hits'] if h["conn"] > ratio])
+            totalHits = len(einfo["hits"])
+            connHits = len([h for h in einfo["hits"] if h["conn"] > ratio])
             realHits = totalHits - connHits
             total += realHits
             print(
@@ -414,8 +425,8 @@ class ProcessedImage:
                 f" {connHits} connected hits removed from {totalHits} candidate hits"
             )
             for hit in einfo["hits"]:
-                conn = hit['conn']
-                ast = '*' if conn > ratio else ' '
+                conn = hit["conn"]
+                ast = "*" if conn > ratio else " "
                 print(
                     f"\t{ast}hit"
                     f" with accuracy {hit['accuracy']:5.2f}"
