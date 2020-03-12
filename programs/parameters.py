@@ -25,6 +25,7 @@ class Config:
         PROJECT="fusus",
         STEP_PREOCR="preocr",
         STEP_OCR="ocr",
+        SKEW_BORDER=30,
         ACCURACY=0.8,
         MARGIN_COLOR=(250, 250, 250),
         BAND_THRESHOLD=5,

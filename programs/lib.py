@@ -2,6 +2,7 @@ import io
 
 import numpy as np
 import PIL.Image
+import cv2
 from IPython.display import HTML, Image, display
 
 
@@ -143,3 +144,14 @@ def connected(h, w, bw, threshold, gray, hitPoint):
         nparts += 1
     # print(f"connectedDegree = {connDegree}\n")
     return connDegree
+
+
+def removeSkewStripes(img, skewBorder, skewColor):
+    (h, w) = img.shape[0:2]
+    for rect in (
+            ((0, 0), (skewBorder, h)),
+            ((0, 0), (w, skewBorder)),
+            ((w, h), (w - skewBorder, 0)),
+            ((w, h), (0, h - skewBorder)),
+    ):
+        cv2.rectangle(img, *rect, skewColor, -1)

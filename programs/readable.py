@@ -229,6 +229,21 @@ class Readable:
         return rImg
 
     def batch(self, ext="jpg", quiet=True, boxed=False):
+        """Process a directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        ext: string, optional `jpg`
+            The extension of the file names of the images.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of footnote separators.
+        """
+
         C = self.config
         tm = self.tm
         info = tm.info

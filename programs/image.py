@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from IPython.display import HTML, display
 
-from lib import showarray, cluster, connected
+from lib import showarray, cluster, connected, removeSkewStripes
 
 
 class ReadableImage:
@@ -28,7 +28,9 @@ class ReadableImage:
 
         self.empty = False
         orig = cv2.imread(path)
+        removeSkewStripes(orig, C.SKEW_BORDER, (255, 255, 255))
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
+
         self.stages = {"orig": orig, "gray": gray}
 
     def show(self, stage=None, **kwargs):
@@ -115,7 +117,7 @@ class ReadableImage:
     def normalize(self):
         """Normalizes an image.
 
-        It removes a stage that is unskewed: *rotated* and blurred.
+        It produces a stage that is unskewed: *rotated* and blurred.
         The same rotation will be applied to the original image,
         resulting in stage *normalized*.
 
@@ -125,6 +127,7 @@ class ReadableImage:
         if self.empty:
             return
 
+        C = self.config
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
@@ -147,9 +150,12 @@ class ReadableImage:
         M = cv2.getRotationMatrix2D((cx, cy), ang, 1.0)
 
         rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
+        removeSkewStripes(rotated, C.SKEW_BORDER, (0, 0, 0))
         normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
+        removeSkewStripes(normalized, C.SKEW_BORDER, 255)
         if not batch or boxed:
             normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
+            removeSkewStripes(normalizedC, C.SKEW_BORDER, (255, 255, 255))
             stages["normalizedC"] = normalizedC
 
         stages["rotated"] = rotated
