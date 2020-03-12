@@ -9,3 +9,6 @@ There are commands at several levels of detail:
 *   single preprocessing step for a single page
 
 ## Configuration
+
+The pipeline can be configured at several levels.
+See [Configure](configure.md).

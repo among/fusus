@@ -60,9 +60,12 @@ plugins:
 
 nav:
   - Home: 'index.md'
-  - Use: 'use.md'
-  - Methods: 'methods.md'
-  - docstrings: 'apidocs/html/pipeline/index.html'
+  - About:
+    - Methods: 'methods.md'
+  - Operation:
+    - Configure: 'configure.md'
+    - Use: 'use.md'
+    - docstrings: 'apidocs/html/pipeline/index.html'
 
 extra:
   among: https://github.com/among
