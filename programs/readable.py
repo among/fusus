@@ -10,89 +10,146 @@ from image import ReadableImage
 
 class Readable:
     def __init__(self, **parameters):
-        self.config = Config(parameters)
+        self.config = Config(**parameters)
         self.loadDivisor()
-        self.elements = {}
+        self.marks = {}
         self.tm = Timestamp()
 
-    def reconfigure(self, **parameters):
+    def reconfigure(self, reset=False, **parameters):
+        """Override configuration settings.
+
+        Configuration settings can be selectively modified.
+
+        !!! caution "Mark loading"
+            Mark images may have been loaded, based on the
+            previous settings. If the new settings invalidate
+            those marks, the loaded marks will be cleared.
+            Because of dynamic loading of marks, they will
+            be reloaded when needed.
+
+        Parameters
+        ----------
+        reset: boolean, optional `False`
+            Whether to reset the config settings to their default values
+            before merging in the new parameters.
+        parameters: key=value pairs
+            The keys are settings, the values are new values for those settings.
+            If a key is not a known setting, a warning will be generated and the
+            key will be ignored. If the value is a dictionary, the value
+            will be recursively merged into the existing value.
+        """
+
         C = self.config
-        C.reconfigure(**parameters)
-        if set(parameters) & C.reloadElements:
-            self.elements = {}
+        C.reconfigure(reset=reset, **parameters)
+        if set(parameters) & C.reloadMarks:
+            self.marks = {}
 
     def loadDivisor(self):
+        """Load the mark that indicates the division between text and footnotes.
+        """
+
         C = self.config
 
-        elemPath = f"{C.ELEMENT_DIR}/{C.DIVISOR}.jpg"
-        elem = cv2.imread(elemPath)
-        elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
-        self.divisor = elem
+        markPath = f"{C.MARK_DIR}/{C.DIVISOR}.jpg"
+        mark = cv2.imread(markPath)
+        mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+        self.divisor = mark
 
-    def loadElement(self, elemName, acc, bw):
+    def loadMark(self, markName, acc, bw):
+        """Load a single mark.
+
+        Used for loading marks on demand.
+
+        Marks specify their own accuracy, border width and band.
+        You can override accuracy and border width.
+        """
+
         tm = self.tm
         warning = tm.error
         C = self.config
-        elements = self.elements
+        marks = self.marks
 
-        if elemName not in self.elements:
-            if elemName not in C.ELEMENT_INSTRUCTIONS:
-                warning(f'Element "{elemName}" not declared')
+        if markName not in self.marks:
+            if markName not in C.MARK_INSTRUCTIONS:
+                warning(f'Mark "{markName}" not declared')
 
-            elemPath = f"{C.ELEMENT_DIR}/{elemName}.jpg"
-            if not os.path.exists(elemPath):
-                warning(f'Element "{elemName}" not found')
+            markPath = f"{C.MARK_DIR}/{markName}.jpg"
+            if not os.path.exists(markPath):
+                warning(f'Mark "{markName}" not found')
                 return
 
-            elem = cv2.imread(elemPath)
-            elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
-            elements[elemName] = dict(image=elem)
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            marks[markName] = dict(image=mark)
         else:
-            elem = elements[elemName]["image"]
+            mark = marks[markName]["image"]
 
-        elemInfo = elements[elemName]
+        markInfo = marks[markName]
         if bw is None:
-            bw = C.ELEMENT_INSTRUCTIONS.get(elemName, {}).get("bw", C.BORDER_WIDTH)
+            bw = C.MARK_INSTRUCTIONS.get(markName, {}).get("bw", C.BORDER_WIDTH)
         if bw <= 0:
-            warning(f"border width of {elemName}: changed {bw} to 1")
+            warning(f"border width of {markName}: changed {bw} to 1")
             bw = 1
 
         if acc is None:
-            acc = C.ELEMENT_INSTRUCTIONS.get(elemName, {}).get("acc", C.ACCURACY)
+            acc = C.MARK_INSTRUCTIONS.get(markName, {}).get("acc", C.ACCURACY)
 
-        band = C.ELEMENT_INSTRUCTIONS.get(elemName, {}).get("band", C.BAND)
+        band = C.MARK_INSTRUCTIONS.get(markName, {}).get("band", C.BAND)
 
-        elemInfo["bw"] = bw
-        elemInfo["acc"] = acc
-        elemInfo["band"] = band
+        markInfo["bw"] = bw
+        markInfo["acc"] = acc
+        markInfo["band"] = band
 
-    def loadElements(self):
+    def loadMarks(self):
+        """Load all known marks.
+
+        Used for loading marks before batch processing of many images.
+        """
+
         tm = self.tm
         warning = tm.error
         C = self.config
-        elements = self.elements
+        marks = self.marks
 
-        for (elemName, elemParams) in C.ELEMENT_INSTRUCTIONS.items():
-            elemPath = f"{C.ELEMENT_DIR}/{elemName}.jpg"
-            if not os.path.exists(elemPath):
-                warning(f'Element "{elemName}" not found')
+        for (markName, markParams) in C.MARK_INSTRUCTIONS.items():
+            markPath = f"{C.MARK_DIR}/{markName}.jpg"
+            if not os.path.exists(markPath):
+                warning(f'Mark "{markName}" not found')
                 continue
 
-            elem = cv2.imread(elemPath)
-            elem = cv2.cvtColor(elem, cv2.COLOR_BGR2GRAY)
-            bw = elemParams.get("bw", C.BORDER_WIDTH)
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            bw = markParams.get("bw", C.BORDER_WIDTH)
             if bw <= 0:
-                warning(f"border width of {elemName}: changed {bw} to 1")
+                warning(f"border width of {markName}: changed {bw} to 1")
                 bw = 1
-            acc = elemParams.get("acc", C.ACCURACY)
-            band = elemParams.get("band", C.BAND)
-            elements[elemName] = dict(image=elem, band=band, bw=bw, acc=acc)
+            acc = markParams.get("acc", C.ACCURACY)
+            band = markParams.get("band", C.BAND)
+            marks[markName] = dict(image=mark, band=band, bw=bw, acc=acc)
 
-    def definedElements(self):
+    def definedMarks(self):
+        """Return the currently declared mark instructions.
+        """
+
         C = self.config
-        return C.ELEMENT_INSTRUCTIONS
+        return C.MARK_INSTRUCTIONS
 
     def start(self, name, ext="jpg"):
+        """Initialize an image for processing.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+
+        Returns
+        -------
+        A readable image object, which is the handle for applying
+        further operations.
+        """
+
         return ReadableImage(self, name, ext=ext)
 
     def testClean(self, name, ext="jpg", **kwargs):
@@ -102,6 +159,33 @@ class Readable:
         return rImg
 
     def process(self, name, ext="jpg", batch=False, boxed=True, quiet=False):
+        """Process a single image.
+
+        Executes all processing steps for a single image.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A readable image object, which is the handle for further
+        inspection of what has happened during processing.
+        """
+
         tm = self.tm
         info = tm.info
         indent = tm.indent
@@ -175,7 +259,7 @@ class Readable:
         info(f"Batch of {len(imageFiles)} pages in {inDir}")
         info(f"Loading marks for cleaning")
 
-        self.loadElements()
+        self.loadMarks()
 
         info(f"Start batch processing images")
         for (i, imFile) in enumerate(sorted(imageFiles)):

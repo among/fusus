@@ -190,7 +190,7 @@ class ReadableImage:
                         cv2.line(histogram, index, value, color, 1)
                 stages["histogram"] = histogram
 
-    def margins(self, showBands=None, bandParams=None):
+    def margins(self, bandParams=None):
         """Chop off margins of an image.
 
         A new stage of the image, *demargined*, is added.
@@ -314,11 +314,11 @@ class ReadableImage:
                 cv2.rectangle(img, (w - 10, upper), (w, lower), bColor, -1)
 
     def clean(
-        self, element=None, line=None, bw=None, acc=None, threshold=None, ratio=None
+        self, mark=None, line=None, bw=None, acc=None, threshold=None, ratio=None
     ):
         """Remove marks from the image.
 
-        The image is cleaned of a given list of elements.
+        The image is cleaned of a given list of marks.
 
         New stages of the image are added:
 
@@ -355,18 +355,18 @@ class ReadableImage:
                 bw = 1
             if acc is None:
                 acc = C.ACCURACY
-            if element is None:
-                for elemName in C.ELEMENT_INSTRUCTIONS:
-                    engine.loadElement(elemName, acc, bw)
-                searchElements = set(C.ELEMENT_INSTRUCTIONS)
-            elif type(element) in {list, tuple}:
-                searchElements = set()
-                for el in element:
-                    engine.loadElement(el, acc, bw)
-                    searchElements.add(el)
+            if mark is None:
+                for markName in C.MARK_INSTRUCTIONS:
+                    engine.loadMark(markName, acc, bw)
+                searchMarks = set(C.MARK_INSTRUCTIONS)
+            elif type(mark) in {list, tuple}:
+                searchMarks = set()
+                for mk in mark:
+                    engine.loadMark(mk, acc, bw)
+                    searchMarks.add(mk)
             else:
-                engine.loadElement(element, acc, bw)
-                searchElements = {element}
+                engine.loadMark(mark, acc, bw)
+                searchMarks = {mark}
 
         color = C.CLEAN_COLOR
 
@@ -394,23 +394,23 @@ class ReadableImage:
         bands = self.bands
         imageAsRoi = dict(uppers=[0], lowers=[demargined.shape[0]])
 
-        for elemName in engine.elements if batch else searchElements:
-            foundHits[elemName] = 0
-            elemInfo = engine.elements[elemName]
-            elem = elemInfo["image"]
-            band = elemInfo["band"]
+        for markName in engine.marks if batch else searchMarks:
+            foundHits[markName] = 0
+            markInfo = engine.marks[markName]
+            mark = markInfo["image"]
+            band = markInfo["band"]
             if batch:
-                bw = elemInfo["bw"]
-                acc = elemInfo["acc"]
-            (h, w) = elem.shape[:2]
+                bw = markInfo["bw"]
+                acc = markInfo["acc"]
+            (h, w) = mark.shape[:2]
             bandData = bands.get(band, imageAsRoi)
             uppers = bandData["uppers"]
             lowers = bandData["lowers"]
             nPts = 0
             clusters = []
             if not batch:
-                cInfo[elemName] = {}
-                einfo = cInfo[elemName]
+                cInfo[markName] = {}
+                einfo = cInfo[markName]
                 einfo["hits"] = []
                 einfo["connected"] = 0
                 einfo["border"] = bw
@@ -433,11 +433,11 @@ class ReadableImage:
                     continue
                 if line is not None:
                     showarray(roi)
-                result = cv2.matchTemplate(roi, elem, cv2.TM_CCOEFF_NORMED)
+                result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                 loc = np.where(result >= acc)
                 pts = list(zip(*loc))
                 if len(pts) > maxHits:
-                    error(f"mark '{elemName}': too many hits: {len(pts)} > {maxHits}")
+                    error(f"mark '{markName}': too many hits: {len(pts)} > {maxHits}")
                     warning(f"Increase accuracy for this template")
                     continue
                 if not pts:
@@ -459,7 +459,7 @@ class ReadableImage:
                         if not batch or boxed:
                             cv2.rectangle(stages["boxed"], *hit, hlclrc, hlbrd)
                     else:
-                        foundHits[elemName] += 1
+                        foundHits[markName] += 1
                         if batch and not boxed:
                             cv2.rectangle(stages["clean"], *hit, cleanClr, -1)
                         else:
@@ -488,19 +488,19 @@ class ReadableImage:
         cInfo = self.cleanInfo
         total = 0
 
-        for elemName in sorted(cInfo):
-            einfo = cInfo[elemName]
+        for markName in sorted(cInfo):
+            einfo = cInfo[markName]
             totalHits = len(einfo["hits"])
             if not totalHits:
                 continue
             bw = einfo["border"]
             ratio = einfo["ratio"]
-            showarray(engine.elements[elemName]["image"])
+            showarray(engine.marks[markName]["image"])
             connHits = len([h for h in einfo["hits"] if h["conn"] > ratio])
             realHits = totalHits - connHits
             total += realHits
             info(
-                f"{elemName:<12} with border {bw}:\n"
+                f"{markName:<12} with border {bw}:\n"
                 f" {realHits} hits in {einfo['npoints']} points\n"
                 f" {connHits} connected hits removed from {totalHits} candidate hits",
                 tm=False,
