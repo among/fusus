@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>rb.readable API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rb.readable</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import cv2
+
+from tf.core.timestamp import Timestamp
+
+from .parameters import Config
+from .lib import showarray
+from .image import ReadableImage
+
+
+class Readable:
+    def __init__(self, **parameters):
+        self.config = Config(**parameters)
+        self.loadDivisor()
+        self.marks = {}
+        self.tm = Timestamp()
+
+    def reconfigure(self, reset=False, **parameters):
+        &#34;&#34;&#34;Override configuration settings.
+
+        Configuration settings can be selectively modified.
+
+        !!! caution &#34;Mark loading&#34;
+            Mark images may have been loaded, based on the
+            previous settings. If the new settings invalidate
+            those marks, the loaded marks will be cleared.
+            Because of dynamic loading of marks, they will
+            be reloaded when needed.
+
+        Parameters
+        ----------
+        reset: boolean, optional `False`
+            Whether to reset the config settings to their default values
+            before merging in the new parameters.
+        parameters: key=value pairs
+            The keys are settings, the values are new values for those settings.
+            If a key is not a known setting, a warning will be generated and the
+            key will be ignored. If the value is a dictionary, the value
+            will be recursively merged into the existing value.
+        &#34;&#34;&#34;
+
+        C = self.config
+        C.reconfigure(reset=reset, **parameters)
+        if set(parameters) &amp; C.reloadMarks:
+            self.marks = {}
+
+    def loadDivisor(self):
+        &#34;&#34;&#34;Load the mark that indicates the division between text and footnotes.
+        &#34;&#34;&#34;
+
+        C = self.config
+
+        markPath = f&#34;{C.MARK_DIR}/{C.DIVISOR}.jpg&#34;
+        mark = cv2.imread(markPath)
+        mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+        self.divisor = mark
+
+    def loadMark(self, markName, acc, bw):
+        &#34;&#34;&#34;Load a single mark.
+
+        Used for loading marks on demand.
+
+        Marks specify their own accuracy, border width and band.
+        You can override accuracy and border width.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        warning = tm.error
+        C = self.config
+        marks = self.marks
+
+        if markName not in self.marks:
+            if markName not in C.MARK_INSTRUCTIONS:
+                warning(f&#39;Mark &#34;{markName}&#34; not declared&#39;)
+
+            markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+            if not os.path.exists(markPath):
+                warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+                return
+
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            marks[markName] = dict(image=mark)
+        else:
+            mark = marks[markName][&#34;image&#34;]
+
+        markInfo = marks[markName]
+        if bw is None:
+            bw = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;bw&#34;, C.BORDER_WIDTH)
+        if bw &lt;= 0:
+            warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+            bw = 1
+
+        if acc is None:
+            acc = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;acc&#34;, C.ACCURACY)
+
+        band = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;band&#34;, C.BAND)
+
+        markInfo[&#34;bw&#34;] = bw
+        markInfo[&#34;acc&#34;] = acc
+        markInfo[&#34;band&#34;] = band
+
+    def loadMarks(self):
+        &#34;&#34;&#34;Load all known marks.
+
+        Used for loading marks before batch processing of many images.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        warning = tm.error
+        C = self.config
+        marks = self.marks
+
+        for (markName, markParams) in C.MARK_INSTRUCTIONS.items():
+            markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+            if not os.path.exists(markPath):
+                warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+                continue
+
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            bw = markParams.get(&#34;bw&#34;, C.BORDER_WIDTH)
+            if bw &lt;= 0:
+                warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+                bw = 1
+            acc = markParams.get(&#34;acc&#34;, C.ACCURACY)
+            band = markParams.get(&#34;band&#34;, C.BAND)
+            marks[markName] = dict(image=mark, band=band, bw=bw, acc=acc)
+
+    def definedMarks(self):
+        &#34;&#34;&#34;Return the currently declared mark instructions.
+        &#34;&#34;&#34;
+
+        C = self.config
+        return C.MARK_INSTRUCTIONS
+
+    def start(self, name, ext=&#34;jpg&#34;):
+        &#34;&#34;&#34;Initialize an image for processing.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+
+        Returns
+        -------
+        A readable image object, which is the handle for applying
+        further operations.
+        &#34;&#34;&#34;
+
+        return ReadableImage(self, name, ext=ext)
+
+    def testClean(self, name, ext=&#34;jpg&#34;, **kwargs):
+        rImg = ReadableImage(self, name, ext=ext)
+        rImg.clean(**kwargs)
+        rImg.show(stage=&#34;boxed&#34;)
+        return rImg
+
+    def process(self, name, ext=&#34;jpg&#34;, batch=False, boxed=True, quiet=False):
+        &#34;&#34;&#34;Process a single image.
+
+        Executes all processing steps for a single image.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A readable image object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        baseLevel = 1 if batch else 0
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+        if not batch:
+            info(f&#34;Processing {name}&#34;)
+
+        rImg = ReadableImage(self, name, ext=ext, batch=batch, boxed=boxed)
+        if batch or not rImg.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            rImg.normalize()
+            if not batch:
+                info(&#34;histogram&#34;)
+            rImg.histogram()
+            if not batch:
+                info(&#34;margins&#34;)
+            rImg.margins()
+            if not batch:
+                info(&#34;cleaning&#34;)
+            rImg.clean()
+
+        tm.silentOff()
+
+        if not batch:
+            indent(level=baseLevel)
+            div = rImg.divisor
+            info(f&#34;Done, kept {div[2]:&gt;3}% of the page&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showarray(divIm)
+        return rImg
+
+    def batch(self, ext=&#34;jpg&#34;, quiet=True, boxed=False):
+        &#34;&#34;&#34;Process a directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        ext: string, optional `jpg`
+            The extension of the file names of the images.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of footnote separators.
+        &#34;&#34;&#34;
+
+        C = self.config
+        tm = self.tm
+        info = tm.info
+        error = tm.error
+        indent = tm.indent
+        tm.silentOff()
+
+        indent(reset=True)
+
+        inDir = C.PREOCR_INPUT
+        theExt = None if not ext else f&#34;.{ext}&#34;
+
+        if not os.path.exists(inDir):
+            error(&#34;PreOCR input directory not found: {inDir}&#34;)
+            return False
+
+        imageFiles = []
+        with os.scandir(inDir) as it:
+            for entry in it:
+                name = entry.name
+                if (
+                    not name.startswith(&#34;.&#34;)
+                    and entry.is_file()
+                    and (theExt is None or name.endswith(theExt))
+                ):
+                    imageFiles.append(name)
+
+        info(f&#34;Batch of {len(imageFiles)} pages in {inDir}&#34;)
+        info(f&#34;Loading marks for cleaning&#34;)
+
+        self.loadMarks()
+
+        info(f&#34;Start batch processing images&#34;)
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            rImg = self.process(
+                imFile[0:-4], ext=&#34;jpg&#34;, batch=True, boxed=boxed, quiet=quiet
+            )
+            rImg.write(stage=&#34;clean&#34;)
+            if boxed:
+                rImg.write(stage=&#34;boxed&#34;)
+            div = rImg.divisor
+            info(f&#34;{msg} {div[2]:&gt;3}%&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showarray(divIm)
+        indent(level=0)
+        info(&#34;all done&#34;)
+
+
+def main():
+    RB = Readable()
+    rImg = RB.treatImage(&#34;qay_Page_1&#34;)
+    answer = input(&#34;show result image? [Y] &#34;)
+    if answer == &#34;Y&#34;:
+        rImg.show(stage=&#34;clean&#34;)
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rb.readable.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    RB = Readable()
+    rImg = RB.treatImage(&#34;qay_Page_1&#34;)
+    answer = input(&#34;show result image? [Y] &#34;)
+    if answer == &#34;Y&#34;:
+        rImg.show(stage=&#34;clean&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rb.readable.Readable"><code class="flex name class">
+<span>class <span class="ident">Readable</span></span>
+<span>(</span><span>**parameters)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Readable:
+    def __init__(self, **parameters):
+        self.config = Config(**parameters)
+        self.loadDivisor()
+        self.marks = {}
+        self.tm = Timestamp()
+
+    def reconfigure(self, reset=False, **parameters):
+        &#34;&#34;&#34;Override configuration settings.
+
+        Configuration settings can be selectively modified.
+
+        !!! caution &#34;Mark loading&#34;
+            Mark images may have been loaded, based on the
+            previous settings. If the new settings invalidate
+            those marks, the loaded marks will be cleared.
+            Because of dynamic loading of marks, they will
+            be reloaded when needed.
+
+        Parameters
+        ----------
+        reset: boolean, optional `False`
+            Whether to reset the config settings to their default values
+            before merging in the new parameters.
+        parameters: key=value pairs
+            The keys are settings, the values are new values for those settings.
+            If a key is not a known setting, a warning will be generated and the
+            key will be ignored. If the value is a dictionary, the value
+            will be recursively merged into the existing value.
+        &#34;&#34;&#34;
+
+        C = self.config
+        C.reconfigure(reset=reset, **parameters)
+        if set(parameters) &amp; C.reloadMarks:
+            self.marks = {}
+
+    def loadDivisor(self):
+        &#34;&#34;&#34;Load the mark that indicates the division between text and footnotes.
+        &#34;&#34;&#34;
+
+        C = self.config
+
+        markPath = f&#34;{C.MARK_DIR}/{C.DIVISOR}.jpg&#34;
+        mark = cv2.imread(markPath)
+        mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+        self.divisor = mark
+
+    def loadMark(self, markName, acc, bw):
+        &#34;&#34;&#34;Load a single mark.
+
+        Used for loading marks on demand.
+
+        Marks specify their own accuracy, border width and band.
+        You can override accuracy and border width.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        warning = tm.error
+        C = self.config
+        marks = self.marks
+
+        if markName not in self.marks:
+            if markName not in C.MARK_INSTRUCTIONS:
+                warning(f&#39;Mark &#34;{markName}&#34; not declared&#39;)
+
+            markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+            if not os.path.exists(markPath):
+                warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+                return
+
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            marks[markName] = dict(image=mark)
+        else:
+            mark = marks[markName][&#34;image&#34;]
+
+        markInfo = marks[markName]
+        if bw is None:
+            bw = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;bw&#34;, C.BORDER_WIDTH)
+        if bw &lt;= 0:
+            warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+            bw = 1
+
+        if acc is None:
+            acc = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;acc&#34;, C.ACCURACY)
+
+        band = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;band&#34;, C.BAND)
+
+        markInfo[&#34;bw&#34;] = bw
+        markInfo[&#34;acc&#34;] = acc
+        markInfo[&#34;band&#34;] = band
+
+    def loadMarks(self):
+        &#34;&#34;&#34;Load all known marks.
+
+        Used for loading marks before batch processing of many images.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        warning = tm.error
+        C = self.config
+        marks = self.marks
+
+        for (markName, markParams) in C.MARK_INSTRUCTIONS.items():
+            markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+            if not os.path.exists(markPath):
+                warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+                continue
+
+            mark = cv2.imread(markPath)
+            mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+            bw = markParams.get(&#34;bw&#34;, C.BORDER_WIDTH)
+            if bw &lt;= 0:
+                warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+                bw = 1
+            acc = markParams.get(&#34;acc&#34;, C.ACCURACY)
+            band = markParams.get(&#34;band&#34;, C.BAND)
+            marks[markName] = dict(image=mark, band=band, bw=bw, acc=acc)
+
+    def definedMarks(self):
+        &#34;&#34;&#34;Return the currently declared mark instructions.
+        &#34;&#34;&#34;
+
+        C = self.config
+        return C.MARK_INSTRUCTIONS
+
+    def start(self, name, ext=&#34;jpg&#34;):
+        &#34;&#34;&#34;Initialize an image for processing.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+
+        Returns
+        -------
+        A readable image object, which is the handle for applying
+        further operations.
+        &#34;&#34;&#34;
+
+        return ReadableImage(self, name, ext=ext)
+
+    def testClean(self, name, ext=&#34;jpg&#34;, **kwargs):
+        rImg = ReadableImage(self, name, ext=ext)
+        rImg.clean(**kwargs)
+        rImg.show(stage=&#34;boxed&#34;)
+        return rImg
+
+    def process(self, name, ext=&#34;jpg&#34;, batch=False, boxed=True, quiet=False):
+        &#34;&#34;&#34;Process a single image.
+
+        Executes all processing steps for a single image.
+
+        Parameters
+        ----------
+        name: string
+            The file name of the image (without extension, without directory)
+        ext: string, optional `jpg`
+            The extension of the file name of the image.
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A readable image object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        baseLevel = 1 if batch else 0
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+        if not batch:
+            info(f&#34;Processing {name}&#34;)
+
+        rImg = ReadableImage(self, name, ext=ext, batch=batch, boxed=boxed)
+        if batch or not rImg.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            rImg.normalize()
+            if not batch:
+                info(&#34;histogram&#34;)
+            rImg.histogram()
+            if not batch:
+                info(&#34;margins&#34;)
+            rImg.margins()
+            if not batch:
+                info(&#34;cleaning&#34;)
+            rImg.clean()
+
+        tm.silentOff()
+
+        if not batch:
+            indent(level=baseLevel)
+            div = rImg.divisor
+            info(f&#34;Done, kept {div[2]:&gt;3}% of the page&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showarray(divIm)
+        return rImg
+
+    def batch(self, ext=&#34;jpg&#34;, quiet=True, boxed=False):
+        &#34;&#34;&#34;Process a directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        ext: string, optional `jpg`
+            The extension of the file names of the images.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of footnote separators.
+        &#34;&#34;&#34;
+
+        C = self.config
+        tm = self.tm
+        info = tm.info
+        error = tm.error
+        indent = tm.indent
+        tm.silentOff()
+
+        indent(reset=True)
+
+        inDir = C.PREOCR_INPUT
+        theExt = None if not ext else f&#34;.{ext}&#34;
+
+        if not os.path.exists(inDir):
+            error(&#34;PreOCR input directory not found: {inDir}&#34;)
+            return False
+
+        imageFiles = []
+        with os.scandir(inDir) as it:
+            for entry in it:
+                name = entry.name
+                if (
+                    not name.startswith(&#34;.&#34;)
+                    and entry.is_file()
+                    and (theExt is None or name.endswith(theExt))
+                ):
+                    imageFiles.append(name)
+
+        info(f&#34;Batch of {len(imageFiles)} pages in {inDir}&#34;)
+        info(f&#34;Loading marks for cleaning&#34;)
+
+        self.loadMarks()
+
+        info(f&#34;Start batch processing images&#34;)
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            rImg = self.process(
+                imFile[0:-4], ext=&#34;jpg&#34;, batch=True, boxed=boxed, quiet=quiet
+            )
+            rImg.write(stage=&#34;clean&#34;)
+            if boxed:
+                rImg.write(stage=&#34;boxed&#34;)
+            div = rImg.divisor
+            info(f&#34;{msg} {div[2]:&gt;3}%&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showarray(divIm)
+        indent(level=0)
+        info(&#34;all done&#34;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="rb.readable.Readable.batch"><code class="name flex">
+<span>def <span class="ident">batch</span></span>(<span>self, ext='jpg', quiet=True, boxed=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Process a directory of images.</p>
+<p>Executes all processing steps for all images.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ext</code></strong> :&ensp;<code>string</code>, optional <code>jpg</code></dt>
+<dd>The extension of the file names of the images.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If in batch mode, produce also images that display the cleaned marks
+in boxes.</dd>
+<dt><strong><code>quiet</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to suppress warnings and the display of footnote separators.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def batch(self, ext=&#34;jpg&#34;, quiet=True, boxed=False):
+    &#34;&#34;&#34;Process a directory of images.
+
+    Executes all processing steps for all images.
+
+    Parameters
+    ----------
+    ext: string, optional `jpg`
+        The extension of the file names of the images.
+    boxed: boolean, optional `False`
+        If in batch mode, produce also images that display the cleaned marks
+        in boxes.
+    quiet: boolean, optional `True`
+        Whether to suppress warnings and the display of footnote separators.
+    &#34;&#34;&#34;
+
+    C = self.config
+    tm = self.tm
+    info = tm.info
+    error = tm.error
+    indent = tm.indent
+    tm.silentOff()
+
+    indent(reset=True)
+
+    inDir = C.PREOCR_INPUT
+    theExt = None if not ext else f&#34;.{ext}&#34;
+
+    if not os.path.exists(inDir):
+        error(&#34;PreOCR input directory not found: {inDir}&#34;)
+        return False
+
+    imageFiles = []
+    with os.scandir(inDir) as it:
+        for entry in it:
+            name = entry.name
+            if (
+                not name.startswith(&#34;.&#34;)
+                and entry.is_file()
+                and (theExt is None or name.endswith(theExt))
+            ):
+                imageFiles.append(name)
+
+    info(f&#34;Batch of {len(imageFiles)} pages in {inDir}&#34;)
+    info(f&#34;Loading marks for cleaning&#34;)
+
+    self.loadMarks()
+
+    info(f&#34;Start batch processing images&#34;)
+    for (i, imFile) in enumerate(sorted(imageFiles)):
+        indent(level=1, reset=True)
+        msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+        info(f&#34;{msg}\r&#34;, nl=False)
+        rImg = self.process(
+            imFile[0:-4], ext=&#34;jpg&#34;, batch=True, boxed=boxed, quiet=quiet
+        )
+        rImg.write(stage=&#34;clean&#34;)
+        if boxed:
+            rImg.write(stage=&#34;boxed&#34;)
+        div = rImg.divisor
+        info(f&#34;{msg} {div[2]:&gt;3}%&#34;)
+        if not quiet:
+            divIm = div[1]
+            if divIm is not None:
+                showarray(divIm)
+    indent(level=0)
+    info(&#34;all done&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.definedMarks"><code class="name flex">
+<span>def <span class="ident">definedMarks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Return the currently declared mark instructions.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def definedMarks(self):
+    &#34;&#34;&#34;Return the currently declared mark instructions.
+    &#34;&#34;&#34;
+
+    C = self.config
+    return C.MARK_INSTRUCTIONS</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.loadDivisor"><code class="name flex">
+<span>def <span class="ident">loadDivisor</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Load the mark that indicates the division between text and footnotes.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadDivisor(self):
+    &#34;&#34;&#34;Load the mark that indicates the division between text and footnotes.
+    &#34;&#34;&#34;
+
+    C = self.config
+
+    markPath = f&#34;{C.MARK_DIR}/{C.DIVISOR}.jpg&#34;
+    mark = cv2.imread(markPath)
+    mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+    self.divisor = mark</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.loadMark"><code class="name flex">
+<span>def <span class="ident">loadMark</span></span>(<span>self, markName, acc, bw)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Load a single mark.</p>
+<p>Used for loading marks on demand.</p>
+<p>Marks specify their own accuracy, border width and band.
+You can override accuracy and border width.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadMark(self, markName, acc, bw):
+    &#34;&#34;&#34;Load a single mark.
+
+    Used for loading marks on demand.
+
+    Marks specify their own accuracy, border width and band.
+    You can override accuracy and border width.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    warning = tm.error
+    C = self.config
+    marks = self.marks
+
+    if markName not in self.marks:
+        if markName not in C.MARK_INSTRUCTIONS:
+            warning(f&#39;Mark &#34;{markName}&#34; not declared&#39;)
+
+        markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+        if not os.path.exists(markPath):
+            warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+            return
+
+        mark = cv2.imread(markPath)
+        mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+        marks[markName] = dict(image=mark)
+    else:
+        mark = marks[markName][&#34;image&#34;]
+
+    markInfo = marks[markName]
+    if bw is None:
+        bw = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;bw&#34;, C.BORDER_WIDTH)
+    if bw &lt;= 0:
+        warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+        bw = 1
+
+    if acc is None:
+        acc = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;acc&#34;, C.ACCURACY)
+
+    band = C.MARK_INSTRUCTIONS.get(markName, {}).get(&#34;band&#34;, C.BAND)
+
+    markInfo[&#34;bw&#34;] = bw
+    markInfo[&#34;acc&#34;] = acc
+    markInfo[&#34;band&#34;] = band</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.loadMarks"><code class="name flex">
+<span>def <span class="ident">loadMarks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Load all known marks.</p>
+<p>Used for loading marks before batch processing of many images.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadMarks(self):
+    &#34;&#34;&#34;Load all known marks.
+
+    Used for loading marks before batch processing of many images.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    warning = tm.error
+    C = self.config
+    marks = self.marks
+
+    for (markName, markParams) in C.MARK_INSTRUCTIONS.items():
+        markPath = f&#34;{C.MARK_DIR}/{markName}.jpg&#34;
+        if not os.path.exists(markPath):
+            warning(f&#39;Mark &#34;{markName}&#34; not found&#39;)
+            continue
+
+        mark = cv2.imread(markPath)
+        mark = cv2.cvtColor(mark, cv2.COLOR_BGR2GRAY)
+        bw = markParams.get(&#34;bw&#34;, C.BORDER_WIDTH)
+        if bw &lt;= 0:
+            warning(f&#34;border width of {markName}: changed {bw} to 1&#34;)
+            bw = 1
+        acc = markParams.get(&#34;acc&#34;, C.ACCURACY)
+        band = markParams.get(&#34;band&#34;, C.BAND)
+        marks[markName] = dict(image=mark, band=band, bw=bw, acc=acc)</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.process"><code class="name flex">
+<span>def <span class="ident">process</span></span>(<span>self, name, ext='jpg', batch=False, boxed=True, quiet=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Process a single image.</p>
+<p>Executes all processing steps for a single image.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file name of the image (without extension, without directory)</dd>
+<dt><strong><code>ext</code></strong> :&ensp;<code>string</code>, optional <code>jpg</code></dt>
+<dd>The extension of the file name of the image.</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to run in batch mode.
+In batch mode everything is geared to the final output.
+Less intermediate results are computed and stored.
+Less feedback happens on the console.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>If in batch mode, produce also images that display the cleaned marks
+in boxes.</dd>
+<dt><strong><code>quiet</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to suppress warnings and the display of footnote separators.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>readable</code> <code>image</code> <code>object</code>, <code>which</code> <code>is</code> <code>the</code> <code>handle</code> <code>for</code> <code>further</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>inspection of what has happened during processing.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process(self, name, ext=&#34;jpg&#34;, batch=False, boxed=True, quiet=False):
+    &#34;&#34;&#34;Process a single image.
+
+    Executes all processing steps for a single image.
+
+    Parameters
+    ----------
+    name: string
+        The file name of the image (without extension, without directory)
+    ext: string, optional `jpg`
+        The extension of the file name of the image.
+    batch: boolean, optional `False`
+        Whether to run in batch mode.
+        In batch mode everything is geared to the final output.
+        Less intermediate results are computed and stored.
+        Less feedback happens on the console.
+    boxed: boolean, optional `True`
+        If in batch mode, produce also images that display the cleaned marks
+        in boxes.
+    quiet: boolean, optional `False`
+        Whether to suppress warnings and the display of footnote separators.
+
+    Returns
+    -------
+    A readable image object, which is the handle for further
+    inspection of what has happened during processing.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+    indent = tm.indent
+    if quiet:
+        tm.silentOn(deep=True)
+    else:
+        tm.silentOff()
+
+    baseLevel = 1 if batch else 0
+    subLevel = baseLevel + 1
+    indent(level=baseLevel, reset=True)
+    if not batch:
+        info(f&#34;Processing {name}&#34;)
+
+    rImg = ReadableImage(self, name, ext=ext, batch=batch, boxed=boxed)
+    if batch or not rImg.empty:
+        if not batch:
+            indent(level=subLevel, reset=True)
+            info(&#34;normalizing&#34;)
+        rImg.normalize()
+        if not batch:
+            info(&#34;histogram&#34;)
+        rImg.histogram()
+        if not batch:
+            info(&#34;margins&#34;)
+        rImg.margins()
+        if not batch:
+            info(&#34;cleaning&#34;)
+        rImg.clean()
+
+    tm.silentOff()
+
+    if not batch:
+        indent(level=baseLevel)
+        div = rImg.divisor
+        info(f&#34;Done, kept {div[2]:&gt;3}% of the page&#34;)
+        if not quiet:
+            divIm = div[1]
+            if divIm is not None:
+                showarray(divIm)
+    return rImg</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.reconfigure"><code class="name flex">
+<span>def <span class="ident">reconfigure</span></span>(<span>self, reset=False, **parameters)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Override configuration settings.</p>
+<p>Configuration settings can be selectively modified.</p>
+<div class="admonition caution">
+<p class="admonition-title">Mark loading</p>
+<p>Mark images may have been loaded, based on the
+previous settings. If the new settings invalidate
+those marks, the loaded marks will be cleared.
+Because of dynamic loading of marks, they will
+be reloaded when needed.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>reset</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to reset the config settings to their default values
+before merging in the new parameters.</dd>
+<dt><strong><code>parameters</code></strong> :&ensp;<code>key</code>=<code>value</code> <code>pairs</code></dt>
+<dd>The keys are settings, the values are new values for those settings.
+If a key is not a known setting, a warning will be generated and the
+key will be ignored. If the value is a dictionary, the value
+will be recursively merged into the existing value.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reconfigure(self, reset=False, **parameters):
+    &#34;&#34;&#34;Override configuration settings.
+
+    Configuration settings can be selectively modified.
+
+    !!! caution &#34;Mark loading&#34;
+        Mark images may have been loaded, based on the
+        previous settings. If the new settings invalidate
+        those marks, the loaded marks will be cleared.
+        Because of dynamic loading of marks, they will
+        be reloaded when needed.
+
+    Parameters
+    ----------
+    reset: boolean, optional `False`
+        Whether to reset the config settings to their default values
+        before merging in the new parameters.
+    parameters: key=value pairs
+        The keys are settings, the values are new values for those settings.
+        If a key is not a known setting, a warning will be generated and the
+        key will be ignored. If the value is a dictionary, the value
+        will be recursively merged into the existing value.
+    &#34;&#34;&#34;
+
+    C = self.config
+    C.reconfigure(reset=reset, **parameters)
+    if set(parameters) &amp; C.reloadMarks:
+        self.marks = {}</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self, name, ext='jpg')</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Initialize an image for processing.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file name of the image (without extension, without directory)</dd>
+<dt><strong><code>ext</code></strong> :&ensp;<code>string</code>, optional <code>jpg</code></dt>
+<dd>The extension of the file name of the image.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>readable</code> <code>image</code> <code>object</code>, <code>which</code> <code>is</code> <code>the</code> <code>handle</code> <code>for</code> <code>applying</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>further operations.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self, name, ext=&#34;jpg&#34;):
+    &#34;&#34;&#34;Initialize an image for processing.
+
+    Parameters
+    ----------
+    name: string
+        The file name of the image (without extension, without directory)
+    ext: string, optional `jpg`
+        The extension of the file name of the image.
+
+    Returns
+    -------
+    A readable image object, which is the handle for applying
+    further operations.
+    &#34;&#34;&#34;
+
+    return ReadableImage(self, name, ext=ext)</code></pre>
+</details>
+</dd>
+<dt id="rb.readable.Readable.testClean"><code class="name flex">
+<span>def <span class="ident">testClean</span></span>(<span>self, name, ext='jpg', **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testClean(self, name, ext=&#34;jpg&#34;, **kwargs):
+    rImg = ReadableImage(self, name, ext=ext)
+    rImg.clean(**kwargs)
+    rImg.show(stage=&#34;boxed&#34;)
+    return rImg</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rb" href="index.html">rb</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rb.readable.main" href="#rb.readable.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rb.readable.Readable" href="#rb.readable.Readable">Readable</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rb.readable.Readable.batch" href="#rb.readable.Readable.batch">batch</a></code></li>
+<li><code><a title="rb.readable.Readable.definedMarks" href="#rb.readable.Readable.definedMarks">definedMarks</a></code></li>
+<li><code><a title="rb.readable.Readable.loadDivisor" href="#rb.readable.Readable.loadDivisor">loadDivisor</a></code></li>
+<li><code><a title="rb.readable.Readable.loadMark" href="#rb.readable.Readable.loadMark">loadMark</a></code></li>
+<li><code><a title="rb.readable.Readable.loadMarks" href="#rb.readable.Readable.loadMarks">loadMarks</a></code></li>
+<li><code><a title="rb.readable.Readable.process" href="#rb.readable.Readable.process">process</a></code></li>
+<li><code><a title="rb.readable.Readable.reconfigure" href="#rb.readable.Readable.reconfigure">reconfigure</a></code></li>
+<li><code><a title="rb.readable.Readable.start" href="#rb.readable.Readable.start">start</a></code></li>
+<li><code><a title="rb.readable.Readable.testClean" href="#rb.readable.Readable.testClean">testClean</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
