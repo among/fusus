@@ -174,11 +174,13 @@ def connected(h, w, bw, threshold, gray, hitPoint):
 
 def removeSkewStripes(img, skewBorder, skewColor):
     (h, w) = img.shape[0:2]
+    if min((h, w)) &lt; skewBorder * 10:
+        return
     for rect in (
-            ((0, 0), (skewBorder, h)),
-            ((0, 0), (w, skewBorder)),
-            ((w, h), (w - skewBorder, 0)),
-            ((w, h), (0, h - skewBorder)),
+        ((0, 0), (skewBorder, h)),
+        ((0, 0), (w, skewBorder)),
+        ((w, h), (w - skewBorder, 0)),
+        ((w, h), (0, h - skewBorder)),
     ):
         cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
 </details>
@@ -354,11 +356,13 @@ def removeSkewStripes(img, skewBorder, skewColor):
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
     (h, w) = img.shape[0:2]
+    if min((h, w)) &lt; skewBorder * 10:
+        return
     for rect in (
-            ((0, 0), (skewBorder, h)),
-            ((0, 0), (w, skewBorder)),
-            ((w, h), (w - skewBorder, 0)),
-            ((w, h), (0, h - skewBorder)),
+        ((0, 0), (skewBorder, h)),
+        ((0, 0), (w, skewBorder)),
+        ((w, h), (w - skewBorder, 0)),
+        ((w, h), (0, h - skewBorder)),
     ):
         cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
 </details>

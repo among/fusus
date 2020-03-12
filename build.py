@@ -13,8 +13,9 @@ command:
 --help
 help  : print help and exit
 
-adocs : build apidocs
-docs  : serve docs locally
+adocs    : build apidocs
+docs     : serve docs locally
+shipdocs : ship (publish) docs on GitHub
 """
 
 

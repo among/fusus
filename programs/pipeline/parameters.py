@@ -20,7 +20,7 @@ class Config:
     default = dict(
         DATA_BASE_DIR=os.path.expanduser("~/Documents"),
         CODE_BASE_DIR=os.path.expanduser("~/github"),
-        CODE_ORG="dirkroorda",
+        CODE_ORG="among",
         DATA_ORG="annotation",
         PROJECT="fusus",
         STEP_PREOCR="preocr",
