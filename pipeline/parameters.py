@@ -1,7 +1,101 @@
+"""Configuration
+
+All choosable aspects of the pipeline can be tuned here.
+"""
+
 import sys
 import os
 import copy
 import collections
+import re
+
+
+DATA_BASE_DIR = os.path.expanduser("~/Documents")
+CODE_BASE_DIR = os.path.expanduser("~/github")
+CODE_ORG = "among"
+DATA_ORG = "annotation"
+PROJECT = "fusus"
+STEP_PREOCR = "preocr"
+STEP_OCR = "ocr"
+SKEW_BORDER = 30
+ACCURACY = 0.8
+BLUR_X = 31
+"""Blurring in X-direction
+
+In order to produce a good histogram, we need an inverted, blurred copy of the page.
+A Gaussian blur is performed, with a kernel whose X-dimension is given here.
+"""
+
+BLUR_Y = 11
+"""Blurring in Y-direction
+
+A Gaussian blur is performed, with a kernel whose Y-dimension is given here.
+"""
+
+MARGIN_COLOR = (250, 250, 250)
+BAND_THRESHOLD = 5
+BANDS = dict(
+    main=dict(isInter=False, color=(40, 40, 40)),
+    broad=dict(isInter=False, up=-15, down=10, color=(0, 0, 255)),
+    narrow=dict(isInter=False, up=10, down=-5, color=(128, 128, 255)),
+    inter=dict(isInter=True, up=5, down=5, color=(255, 200, 200)),
+)
+CLEAN_HIGHLIGHT = ((240, 170, 20), (170, 240, 40), 3)
+CLEAN_CONNECT_THRESHOLD = 200 * 200
+CLEAN_CONNECT_RATIO = 0.1
+BORDER_WIDTH = 4
+BAND = "inter"
+MARK_INSTRUCTIONS = dict(
+    shadda=dict(),
+    shadda2=dict(),
+    shadda3=dict(),
+    semicolon=dict(),
+    colon=dict(),
+    period=dict(acc=0.9),
+    comma=dict(bw=5, band="narrow"),
+    comma2=dict(bw=5, band="narrow"),
+    tanwin=dict(acc=0.7),
+    tanwin2=dict(acc=0.7),
+    longA=dict(),
+    doubleOpen=dict(acc=0.7, band="broad"),
+    doubleClose=dict(acc=0.7, band="broad"),
+    salla=dict(acc=0.75),
+    alayh=dict(acc=0.65),
+)
+DIVISOR = "division"
+WHITE = [255, 255, 255]
+CLEAN_COLOR = dict(clean=(255, 255, 255), cleanh=(220, 220, 220), boxed=(200, 80, 255))
+CLEAN_MAX_HITS = 5000
+STAGE_ORDER = """
+    orig
+    gray
+    rotated
+    normalized
+    normalizedC
+    histogram
+    demargined
+    demarginedC
+    boxed
+    cleanh
+    clean
+""".strip().split()
+
+DATA_PATH = "{DATA_BASE_DIR}/{DATA_ORG}/{PROJECT}"
+CODE_PATH = "{CODE_BASE_DIR}/{CODE_ORG}/{PROJECT}"
+PREOCR_INPUT = "{DATA_PATH}/{STEP_PREOCR}/input"
+OCR_INPUT = "{DATA_PATH}/{STEP_OCR}/input"
+MARK_DIR = "{CODE_PATH}/marks"
+
+
+capitalRe = re.compile(r"^[A-Z][A-Z_]*$")
+
+
+def collect():
+    keys = {}
+    for (k, v) in globals().items():
+        if capitalRe.match(k):
+            keys[k] = v
+    return keys
 
 
 def merge(dest, updates):
@@ -17,73 +111,14 @@ def merge(dest, updates):
 
 
 class Config:
-    default = dict(
-        DATA_BASE_DIR=os.path.expanduser("~/Documents"),
-        CODE_BASE_DIR=os.path.expanduser("~/github"),
-        CODE_ORG="among",
-        DATA_ORG="annotation",
-        PROJECT="fusus",
-        STEP_PREOCR="preocr",
-        STEP_OCR="ocr",
-        SKEW_BORDER=30,
-        ACCURACY=0.8,
-        MARGIN_COLOR=(250, 250, 250),
-        BAND_THRESHOLD=5,
-        BANDS=dict(
-            main=dict(isInter=False, color=(40, 40, 40),),
-            broad=dict(isInter=False, up=-15, down=10, color=(0, 0, 255),),
-            narrow=dict(isInter=False, up=10, down=-5, color=(128, 128, 255),),
-            inter=dict(isInter=True, up=5, down=5, color=(255, 200, 200),),
-        ),
-        CLEAN_HIGHLIGHT=((240, 170, 20), (170, 240, 40), 3),
-        CLEAN_CONNECT_THRESHOLD=200 * 200,
-        CLEAN_CONNECT_RATIO=0.1,
-        BORDER_WIDTH=4,
-        BAND="inter",
-        MARK_INSTRUCTIONS=dict(
-            shadda=dict(),
-            shadda2=dict(),
-            shadda3=dict(),
-            semicolon=dict(),
-            colon=dict(),
-            period=dict(acc=0.9),
-            comma=dict(bw=5, band="narrow"),
-            comma2=dict(bw=5, band="narrow"),
-            tanwin=dict(acc=0.7),
-            tanwin2=dict(acc=0.7),
-            longA=dict(),
-            doubleOpen=dict(acc=0.7, band="broad"),
-            doubleClose=dict(acc=0.7, band="broad"),
-            salla=dict(acc=0.75),
-            alayh=dict(acc=0.65),
-        ),
-        DIVISOR="division",
-        WHITE=[255, 255, 255],
-        CLEAN_COLOR=dict(
-            clean=(255, 255, 255), cleanh=(220, 220, 220), boxed=(200, 80, 255),
-        ),
-        CLEAN_MAX_HITS=5000,
-        STAGE_ORDER="""
-            orig
-            gray
-            rotated
-            normalized
-            normalizedC
-            histogram
-            demargined
-            demarginedC
-            boxed
-            cleanh
-            clean
-        """.strip().split(),
-    )
-    derived = dict(
-        DATA_PATH="{DATA_BASE_DIR}/{DATA_ORG}/{PROJECT}",
-        CODE_PATH="{CODE_BASE_DIR}/{CODE_ORG}/{PROJECT}",
-        PREOCR_INPUT="{DATA_PATH}/{STEP_PREOCR}/input",
-        OCR_INPUT="{DATA_PATH}/{STEP_OCR}/input",
-        MARK_DIR="{CODE_PATH}/marks",
-    )
+    default = collect()
+    derivedKeys = set("""
+        DATA_PATH
+        CODE_PATH
+        PREOCR_INPUT
+        OCR_INPUT
+        MARK_DIR
+    """.strip().split())
     reloadMarks = set(
         """
         MARK_INSTRUCTIONS
@@ -113,7 +148,9 @@ class Config:
             Configuration settings that override the defaults.
         """
         default = self.default
+        derivedKeys = self.derivedKeys
         self.config = copy.deepcopy(default)
+        self.derived = {k: self.config[k] for k in derivedKeys}
         self.derive({})
         self.reconfigure(**parameters)
 

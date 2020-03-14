@@ -134,7 +134,7 @@ class ReadableImage:
         orig = stages["orig"]
         gray = stages["gray"]
 
-        blurred = cv2.GaussianBlur(gray, (21, 21), 60, 0)
+        blurred = cv2.GaussianBlur(gray, (C.BLUR_X, C.BLUR_Y), 0, 0)
 
         (th, threshed) = cv2.threshold(
             blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
@@ -178,14 +178,9 @@ class ReadableImage:
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
-        normalized = stages["normalized"]
-        blurred = cv2.GaussianBlur(normalized, (9, 9), 60, 0)
-        (th, threshed) = cv2.threshold(
-            blurred, 240, 255, cv2.THRESH_BINARY_INV
-        )
-
-        self.histX = cv2.reduce(threshed, 0, cv2.REDUCE_AVG).reshape(-1)
-        self.histY = cv2.reduce(threshed, 1, cv2.REDUCE_AVG).reshape(-1)
+        rotated = self.stages["rotated"]
+        self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
+        self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
 
         if not batch or boxed:
             normalizedC = stages["normalizedC"]
@@ -239,16 +234,34 @@ class ReadableImage:
                 if not batch or boxed:
                     cv2.line(demarginedC, (pixel, 0), (pixel, h), mcolor, 1)
 
-        uppers = tuple(
-            y
-            for y in range(h - 1)
-            if histY[y] <= threshold and histY[y + 1] > threshold
-        )
-        lowers = tuple(
-            y
-            for y in range(h - 1)
-            if histY[y] > threshold and histY[y + 1] <= threshold
-        )
+        uppers = []
+        lowers = []
+
+        inline = False
+        detectedUpper = False
+        detectedLower = False
+
+        for y in range(h - 1):
+            if inline:
+                if detectedLower:
+                    if histY[y] >= threshold:
+                        lowers[-1] = y
+                    elif histY[y] <= 1:
+                        inline = False
+                elif histY[y] > threshold and histY[y + 1] <= threshold:
+                    lowers.append(y)
+                    detectedLower = True
+                    detectedUpper = False
+                    if histY[y] <= 1:
+                        inline = False
+            else:
+                if histY[y] <= threshold and histY[y + 1] > threshold:
+                    if not detectedUpper:
+                        inline = True
+                        uppers.append(y)
+                        detectedUpper = True
+                        detectedLower = False
+
         # look for divisor
 
         (divh, divw) = divisor.shape[:2]
@@ -275,6 +288,7 @@ class ReadableImage:
         lowers = lowers[0:lastLine]
 
         bandData = {}
+        self.bands = bandData
         bandData["main"] = dict(uppers=uppers, lowers=lowers)
         for (band, bandDefaults) in bandConfig.items():
             params = (bandParams or {}).get(band, {})
@@ -290,15 +304,15 @@ class ReadableImage:
 
         broadBand = bandData["broad"]
         broadUppers = broadBand["uppers"]
-        top = broadUppers[0]
-        cv2.rectangle(demargined, (0, 0), (w, top), mcolor, -1)
-        if not batch or boxed:
-            cv2.rectangle(demarginedC, (0, 0), (w, top), mcolor, -1)
+        if broadUppers:
+            top = broadUppers[0]
+            cv2.rectangle(demargined, (0, 0), (w, top), mcolor, -1)
+            if not batch or boxed:
+                cv2.rectangle(demarginedC, (0, 0), (w, top), mcolor, -1)
 
         self.stages["demargined"] = demargined
         if not batch or boxed:
             self.stages["demarginedC"] = demarginedC
-        self.bands = bandData
 
         # show bands
 
