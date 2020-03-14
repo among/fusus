@@ -13,6 +13,8 @@ this software in the
 [docs](https://among.github.io/fusus/).
 
 
+[Installation](https://among.github.io/fusus/Install.md)
+
 Here is a direct link to detailed 
 [API documentation](https://among.github.io/fusus/apidocs/html/pipeline/index.html)
 

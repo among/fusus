@@ -63,6 +63,7 @@ nav:
   - About:
     - Methods: 'methods.md'
   - Operation:
+    - Install: 'install.md'
     - Configure: 'configure.md'
     - Use: 'use.md'
     - docstrings: 'apidocs/html/pipeline/index.html'

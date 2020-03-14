@@ -58,7 +58,7 @@ def apidocs():
         " --force"
         " --html"
         " --output-dir docs/apidocs/html"
-        " programs/pipeline"
+        " pipeline"
     )
     run(cmdLine, shell=True)
 

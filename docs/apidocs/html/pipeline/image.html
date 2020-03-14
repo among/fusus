@@ -204,10 +204,14 @@ class ReadableImage:
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
-        rotated = stages[&#34;rotated&#34;]
+        normalized = stages[&#34;normalized&#34;]
+        blurred = cv2.GaussianBlur(normalized, (9, 9), 60, 0)
+        (th, threshed) = cv2.threshold(
+            blurred, 240, 255, cv2.THRESH_BINARY_INV
+        )
 
-        self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
-        self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
+        self.histX = cv2.reduce(threshed, 0, cv2.REDUCE_AVG).reshape(-1)
+        self.histY = cv2.reduce(threshed, 1, cv2.REDUCE_AVG).reshape(-1)
 
         if not batch or boxed:
             normalizedC = stages[&#34;normalizedC&#34;]
@@ -742,10 +746,14 @@ class ReadableImage:
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
-        rotated = stages[&#34;rotated&#34;]
+        normalized = stages[&#34;normalized&#34;]
+        blurred = cv2.GaussianBlur(normalized, (9, 9), 60, 0)
+        (th, threshed) = cv2.threshold(
+            blurred, 240, 255, cv2.THRESH_BINARY_INV
+        )
 
-        self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
-        self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
+        self.histX = cv2.reduce(threshed, 0, cv2.REDUCE_AVG).reshape(-1)
+        self.histY = cv2.reduce(threshed, 1, cv2.REDUCE_AVG).reshape(-1)
 
         if not batch or boxed:
             normalizedC = stages[&#34;normalizedC&#34;]
@@ -1304,10 +1312,14 @@ horizontal and in vertical rows.</p>
     batch = self.batch
     boxed = self.boxed
     stages = self.stages
-    rotated = stages[&#34;rotated&#34;]
+    normalized = stages[&#34;normalized&#34;]
+    blurred = cv2.GaussianBlur(normalized, (9, 9), 60, 0)
+    (th, threshed) = cv2.threshold(
+        blurred, 240, 255, cv2.THRESH_BINARY_INV
+    )
 
-    self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
-    self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
+    self.histX = cv2.reduce(threshed, 0, cv2.REDUCE_AVG).reshape(-1)
+    self.histY = cv2.reduce(threshed, 1, cv2.REDUCE_AVG).reshape(-1)
 
     if not batch or boxed:
         normalizedC = stages[&#34;normalizedC&#34;]
