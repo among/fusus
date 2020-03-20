@@ -6,6 +6,7 @@ setup(
         "pipeline",
     ],
     install_requires=[
+        "pyyaml",
         "ipython",
         "numpy",
         "pillow",

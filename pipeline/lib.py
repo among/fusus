@@ -1,16 +1,48 @@
+import os
+from copy import deepcopy
 import io
+import collections
 
 import numpy as np
 import PIL.Image
-import cv2
 from IPython.display import HTML, Image, display
+import cv2
+
+EXTENSIONS = set("""
+    jpeg
+    jpg
+    png
+    tif
+    tiff
+""".strip().split())
+
+
+def merge(dest, updates):
+    for k, v in updates.items():
+        if (
+            k in dest
+            and isinstance(dest[k], dict)
+            and isinstance(updates[k], collections.Mapping)
+        ):
+            merge(dest[k], updates[k])
+        else:
+            dest[k] = updates[k]
+
+
+def configure(defaults, updates):
+    if updates:
+        C = deepcopy(defaults)
+        merge(C, updates)
+    else:
+        C = defaults
+    return C
 
 
 def img(data):
     return f"""<img src="data:image/jpeg;base64,{data}">"""
 
 
-def showarray(a, fmt="jpeg", **kwargs):
+def showImage(a, fmt="jpeg", **kwargs):
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
@@ -25,6 +57,57 @@ def showarray(a, fmt="jpeg", **kwargs):
         f = io.BytesIO()
         PIL.Image.fromarray(ai).save(f, fmt)
         display(Image(data=f.getvalue(), **kwargs))
+
+
+def splitext(f):
+    (bare, ext) = os.path.splitext(f)
+    if ext:
+        ext = ext[1:]
+    return (bare, ext)
+
+
+def imageFileList(imDir):
+    if not os.path.exists(imDir):
+        return []
+
+    imageFiles = []
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            (bare, ext) = splitext(name)
+
+            if (
+                not name.startswith(".")
+                and entry.is_file()
+                and ext in EXTENSIONS
+            ):
+                imageFiles.append(name)
+    return sorted(imageFiles)
+
+
+def select(source, selection):
+    if selection is None:
+        return sorted(source)
+
+    index = {int(splitext(f)[0].lstrip('0')): f for f in source}
+    universe = set(index)
+    if type(selection) is int:
+        return sorted(index[n] for n in {selection} & universe)
+
+    minu = min(universe, default=0)
+    maxu = max(universe, default=0)
+    selected = set()
+    for rng in selection.split(','):
+        parts = rng.split('-')
+        if len(parts) == 2:
+            (lower, upper) = parts
+            lower = minu if lower == '' else int(lower)
+            upper = maxu if upper == '' else int(upper)
+        else:
+            lower = int(parts[0])
+            upper = lower
+        selected |= set(range(lower, upper + 1)) & universe
+    return sorted(index[n] for n in selected)
 
 
 def cluster(points, result):

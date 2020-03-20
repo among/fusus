@@ -3,32 +3,83 @@ import cv2
 import numpy as np
 from IPython.display import HTML, display
 
-from .lib import showarray, cluster, connected, removeSkewStripes
+from .lib import showImage, cluster, connected, removeSkewStripes, splitext, configure
+
+
+BLACK_GRS = 0
+WHITE_GRS = 255
+
+BLACK_RGB = (0, 0, 0)
+WHITE_RGB = (255, 255, 255)
+NEAR_WHITE_RGB = (250, 250, 250)
+
+SKEW_BORDER = 30
+
+STAGE_ORDER = """
+    orig
+    gray
+    rotated
+    normalized
+    normalizedC
+    histogram
+    demargined
+    demarginedC
+    boxed
+    cleanh
+    clean
+""".strip().split()
+
+STAGES = set(STAGE_ORDER)
+
+NORMALIZE = dict(blurX=31, blurY=11)
+
+MARGINS = dict(
+    color=NEAR_WHITE_RGB,
+    threshold=5,
+    bands=dict(
+        main=dict(isInter=False, color=(40, 40, 40)),
+        broad=dict(isInter=False, up=-15, down=10, color=(0, 0, 255)),
+        narrow=dict(isInter=False, up=10, down=-5, color=(128, 128, 255)),
+        inter=dict(isInter=True, up=5, down=5, color=(255, 200, 200)),
+    ),
+)
+
+CLEAN = dict(
+    color=dict(clean=(255, 255, 255), cleanh=(220, 220, 220)),
+    boxDelete=(240, 170, 20),
+    boxRemain=(170, 240, 40),
+    boxBorder=3,
+    connectThreshold=200 * 200,
+    connectRatio=0.1,
+    connectBorder=4,
+    maxHits=5000,
+)
 
 
 class ReadableImage:
-    def __init__(self, engine, name, ext="jpg", batch=False, boxed=True):
+    def __init__(self, engine, f, batch=False, boxed=True):
         self.engine = engine
-        self.config = engine.config
+        self.C = engine.C
+        C = self.C
         tm = engine.tm
         error = tm.error
-        C = self.config
-        self.name = name
-        self.ext = ext
+        self.file = f
+        (self.bare, self.ext) = splitext(f)
         self.empty = True
         self.batch = batch
         self.boxed = boxed
         self.stages = {}
         self.bands = {}
 
-        path = f"{C.PREOCR_INPUT}/{name}.{ext}"
+        inDir = C["inDir"]
+        path = f"{inDir}/{f}"
         if not batch and not os.path.exists(path):
             error(f"Image file not found: {path}")
             return
 
         self.empty = False
         orig = cv2.imread(path)
-        removeSkewStripes(orig, C.SKEW_BORDER, (255, 255, 255))
+        removeSkewStripes(orig, SKEW_BORDER, WHITE_RGB)
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
 
         self.stages = {"orig": orig, "gray": gray}
@@ -42,26 +93,23 @@ class ReadableImage:
         engine = self.engine
         tm = engine.tm
         error = tm.error
-        C = self.config
 
         stages = self.stages
-        if stage is None:
-            for s in C.STAGE_ORDER:
-                if s not in stages:
-                    continue
-                img = stages[s]
-                display(HTML(f"<div>{s}</div>"))
-                showarray(img, width=400)
-            return
-
-        if stage not in stages:
-            error(f"Unknown stage: {stage}, showing original stage")
-            stage = "orig"
-        what = stages.get(stage, None)
-        if what is None:
-            error(f"No stage: orig")
-        else:
-            showarray(what, **kwargs)
+        doStages = (
+            STAGE_ORDER
+            if stage is None
+            else {stage}
+            if type(stage) is str
+            else list(stage)
+        )
+        for s in STAGE_ORDER:
+            if s not in doStages:
+                continue
+            if s not in stages:
+                error(f"Unknown stage: {s}")
+            img = stages[s]
+            display(HTML(f"<div>{s}</div>"))
+            showImage(img, **kwargs)
 
     def layer(self, stage):
         """Returns a stage of an image.
@@ -73,14 +121,15 @@ class ReadableImage:
         stages = self.stages
 
         if stage not in stages:
-            error(f"Unknown stage: {stage}, showing original stage")
+            diag = "Unknown stage" if stage not in STAGES else "Stage not present"
+            error(f"{diag}: {stage}, showing original stage")
             stage = "orig"
         what = stages.get(stage, None)
         if what is None:
             error(f"No stage: orig")
         return what
 
-    def write(self, name=None, ext=None, stage=None):
+    def write(self, stage=None):
         """Writes a stage of an image to disk.
 
         If no stage is passed, all stages are written.
@@ -89,15 +138,19 @@ class ReadableImage:
         engine = self.engine
         tm = engine.tm
         error = tm.error
-        C = self.config
+        C = self.C
+        interDir = C["interDir"]
 
+        bare = self.bare
+        ext = self.ext
         stages = self.stages
+
         if stage is None:
-            for s in C.STAGE_ORDER:
+            for s in STAGE_ORDER:
                 if s not in stages:
                     continue
                 img = stages[s]
-                path = f"{C.OCR_INPUT}/{name}-{s}.{ext}"
+                path = f"{interDir}/{bare}-{s}.{ext}"
                 cv2.imwrite(path, img)
             return
 
@@ -107,14 +160,10 @@ class ReadableImage:
         if what is None:
             error(f"No stage: clean")
 
-        if name is None:
-            name = self.name
-        if ext is None:
-            ext = self.ext
-        path = f"{C.OCR_INPUT}/{name}-{stage}.{ext}"
+        path = f"{interDir}/{bare}-{stage}.{ext}"
         cv2.imwrite(path, what)
 
-    def normalize(self):
+    def normalize(self, **params):
         """Normalizes an image.
 
         It produces a stage that is unskewed: *rotated* and blurred.
@@ -127,14 +176,15 @@ class ReadableImage:
         if self.empty:
             return
 
-        C = self.config
+        C = configure(NORMALIZE, params)
+
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
         orig = stages["orig"]
         gray = stages["gray"]
 
-        blurred = cv2.GaussianBlur(gray, (C.BLUR_X, C.BLUR_Y), 0, 0)
+        blurred = cv2.GaussianBlur(gray, (C["blurX"], C["blurY"]), 0, 0)
 
         (th, threshed) = cv2.threshold(
             blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
@@ -150,12 +200,12 @@ class ReadableImage:
         M = cv2.getRotationMatrix2D((cx, cy), ang, 1.0)
 
         rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-        removeSkewStripes(rotated, C.SKEW_BORDER, (0, 0, 0))
+        removeSkewStripes(rotated, SKEW_BORDER, BLACK_RGB)
         normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-        removeSkewStripes(normalized, C.SKEW_BORDER, 255)
+        removeSkewStripes(normalized, SKEW_BORDER, WHITE_GRS)
         if not batch or boxed:
             normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-            removeSkewStripes(normalizedC, C.SKEW_BORDER, (255, 255, 255))
+            removeSkewStripes(normalizedC, SKEW_BORDER, WHITE_RGB)
             stages["normalizedC"] = normalizedC
 
         stages["rotated"] = rotated
@@ -195,7 +245,7 @@ class ReadableImage:
                         cv2.line(histogram, index, value, color, 1)
                 stages["histogram"] = histogram
 
-    def margins(self, bandParams=None):
+    def margins(self, **params):
         """Chop off margins of an image.
 
         A new stage of the image, *demargined*, is added.
@@ -207,16 +257,18 @@ class ReadableImage:
         if self.empty:
             return
 
+        C = configure(MARGINS, params)
+
         engine = self.engine
-        C = self.config
         batch = self.batch
         boxed = self.boxed
 
-        threshold = C.BAND_THRESHOLD
-        bandConfig = C.BANDS
-        mcolor = C.MARGIN_COLOR
+        threshold = C["threshold"]
+        bandConfig = C["bands"]
+        mcolor = C["color"]
+
         engine = self.engine
-        divisor = engine.divisor
+        dividers = engine.dividers
         stages = self.stages
         normalized = stages["normalized"]
         demargined = normalized.copy()
@@ -262,40 +314,41 @@ class ReadableImage:
                         detectedUpper = True
                         detectedLower = False
 
-        # look for divisor
+        # look for dividers
 
-        (divh, divw) = divisor.shape[:2]
-        divisorFound = (False, None, 100)
-        for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
-            roi = normalized[upper - 10 : lower + 10, 10 : w - 10]
-            (roih, roiw) = roi.shape[:2]
-            if roih < divh or roiw < divw:
-                # divisor template exceeds roi image
-                continue
-            result = cv2.matchTemplate(roi, divisor, cv2.TM_CCOEFF_NORMED)
-            loc = np.where(result >= 0.5)
-            if loc[0].size:
-                divisorFound = (True, roi, int(round(100 * uppers[i] / h)))
-                cv2.rectangle(demargined, (0, uppers[i]), (w, h), mcolor, -1)
-                if not batch or boxed:
-                    cv2.rectangle(demarginedC, (0, uppers[i]), (w, h), mcolor, -1)
-                break
-            else:
-                continue
-        self.divisor = divisorFound
-        lastLine = i if divisorFound[0] else i + 1
-        uppers = uppers[0:lastLine]
-        lowers = lowers[0:lastLine]
+        footnoteFound = (False, None, 100)
+        footnoteMark = dividers.get("footnote", {}).get("gray", None)
+        if footnoteMark is not None:
+            (divh, divw) = footnoteMark.shape[:2]
+            for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
+                roi = normalized[upper - 10 : lower + 10, 10 : w - 10]
+                (roih, roiw) = roi.shape[:2]
+                if roih < divh or roiw < divw:
+                    # divider template exceeds roi image
+                    continue
+                result = cv2.matchTemplate(roi, footnoteMark, cv2.TM_CCOEFF_NORMED)
+                loc = np.where(result >= 0.5)
+                if loc[0].size:
+                    footnoteFound = (True, roi, int(round(100 * uppers[i] / h)))
+                    cv2.rectangle(demargined, (0, uppers[i]), (w, h), mcolor, -1)
+                    if not batch or boxed:
+                        cv2.rectangle(demarginedC, (0, uppers[i]), (w, h), mcolor, -1)
+                    break
+                else:
+                    continue
+            lastLine = i if footnoteFound[0] else i + 1
+            uppers = uppers[0:lastLine]
+            lowers = lowers[0:lastLine]
+        self.dividers = dict(footnote=footnoteFound)
 
         bandData = {}
         self.bands = bandData
         bandData["main"] = dict(uppers=uppers, lowers=lowers)
-        for (band, bandDefaults) in bandConfig.items():
-            params = (bandParams or {}).get(band, {})
-            isInter = params.get("isInter", bandDefaults["isInter"])
-            up = params.get("up", bandDefaults.get("up", 0))
-            down = params.get("low", bandDefaults.get("down", 0))
-            color = params.get("color", bandDefaults["color"])
+        for (band, params) in bandConfig.items():
+            isInter = params["isInter"]
+            up = params.get("up", 0)
+            down = params.get("down", 0)
+            color = params["color"]
             theUppers = tuple(x + up for x in (lowers[:-1] if isInter else uppers))
             theLowers = tuple(x + down for x in (uppers[1:] if isInter else lowers))
             bandData[band] = dict(uppers=theUppers, lowers=theLowers, color=color)
@@ -337,9 +390,7 @@ class ReadableImage:
                 cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
                 cv2.rectangle(img, (w - 10, upper), (w, lower), bColor, -1)
 
-    def clean(
-        self, mark=None, line=None, bw=None, acc=None, threshold=None, ratio=None
-    ):
+    def clean(self, mark=None, line=None, **params):
         """Remove marks from the image.
 
         The image is cleaned of a given list of marks.
@@ -354,45 +405,37 @@ class ReadableImage:
         if self.empty:
             return
 
+        C = configure(CLEAN, params)
+
         engine = self.engine
+        marks = engine.marks
         tm = engine.tm
         indent = tm.indent
         info = tm.info
         error = tm.error
         warning = tm.warning
-        C = self.config
         batch = self.batch
         boxed = self.boxed
 
-        (hlclr, hlclrc, hlbrd) = C.CLEAN_HIGHLIGHT
+        boxDelete = C["boxDelete"]
+        boxRemain = C["boxRemain"]
+        boxBorder = C["boxBorder"]
 
-        if threshold is None:
-            threshold = C.CLEAN_CONNECT_THRESHOLD
-        if ratio is None:
-            ratio = C.CLEAN_CONNECT_RATIO
+        connectBorder = C["connectBorder"]
+        threshold = C["connectThreshold"]
+        ratio = C["connectRatio"]
+        maxHits = C["maxHits"]
+        color = C["color"]
 
-        if not batch:
-            if bw is None:
-                bw = C.BORDER_WIDTH
-            if bw <= 0:
-                warning(f"border width in clean: changed {bw} to 1")
-                bw = 1
-            if acc is None:
-                acc = C.ACCURACY
-            if mark is None:
-                for markName in C.MARK_INSTRUCTIONS:
-                    engine.loadMark(markName, acc, bw)
-                searchMarks = set(C.MARK_INSTRUCTIONS)
-            elif type(mark) in {list, tuple}:
-                searchMarks = set()
-                for mk in mark:
-                    engine.loadMark(mk, acc, bw)
-                    searchMarks.add(mk)
-            else:
-                engine.loadMark(mark, acc, bw)
-                searchMarks = {mark}
-
-        color = C.CLEAN_COLOR
+        searchMarks = (
+            set(marks)
+            if mark is None
+            else set(mark)
+            if type(mark) in {list, tuple}
+            else {mark}
+            if mark in marks
+            else set()
+        )
 
         stages = self.stages
         demargined = stages.get("demargined", stages["gray"])
@@ -407,25 +450,28 @@ class ReadableImage:
             stages[stage] = (demarginedC if stage == "boxed" else demargined).copy()
 
         tasks = [
-            (stage, stages[stage], color[stage], bw if stage == "boxed" else -1)
+            (
+                stage,
+                stages[stage],
+                None if stage == "boxed" else color[stage],
+                boxBorder if stage == "boxed" else -1,
+            )
             for stage in resultStages
         ]
 
         cInfo = {}
-        maxHits = C.CLEAN_MAX_HITS
         foundHits = {}
         cleanClr = color["clean"]
         bands = self.bands
         imageAsRoi = dict(uppers=[0], lowers=[demargined.shape[0]])
 
-        for markName in engine.marks if batch else searchMarks:
+        for markName in searchMarks:
             foundHits[markName] = 0
             markInfo = engine.marks[markName]
-            mark = markInfo["image"]
+            mark = markInfo["gray"]
             band = markInfo["band"]
-            if batch:
-                bw = markInfo["bw"]
-                acc = markInfo["acc"]
+            connectBorder = markInfo["connectBorder"]
+            accuracy = markInfo["accuracy"]
             (h, w) = mark.shape[:2]
             bandData = bands.get(band, imageAsRoi)
             uppers = bandData["uppers"]
@@ -437,7 +483,7 @@ class ReadableImage:
                 einfo = cInfo[markName]
                 einfo["hits"] = []
                 einfo["connected"] = 0
-                einfo["border"] = bw
+                einfo["border"] = connectBorder
                 einfo["ratio"] = ratio
                 hits = einfo["hits"]
             else:
@@ -456,9 +502,9 @@ class ReadableImage:
                     # search template exceeds roi image
                     continue
                 if line is not None:
-                    showarray(roi)
+                    showImage(roi)
                 result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
-                loc = np.where(result >= acc)
+                loc = np.where(result >= accuracy)
                 pts = list(zip(*loc))
                 if len(pts) > maxHits:
                     error(f"mark '{markName}': too many hits: {len(pts)} > {maxHits}")
@@ -471,7 +517,7 @@ class ReadableImage:
                 clusters = cluster(pts, result)
 
                 for (pt, bestValue) in clusters:
-                    connDegree = connected(h, w, bw, threshold, roi, pt)
+                    connDegree = connected(h, w, connectBorder, threshold, roi, pt)
                     pt = (pt[0] + upper, pt[1])
                     if not batch:
                         hits.append(dict(accuracy=bestValue, conn=connDegree, point=pt))
@@ -481,7 +527,7 @@ class ReadableImage:
                     )
                     if connDegree > ratio:
                         if not batch or boxed:
-                            cv2.rectangle(stages["boxed"], *hit, hlclrc, hlbrd)
+                            cv2.rectangle(stages["boxed"], *hit, boxRemain, boxBorder)
                     else:
                         foundHits[markName] += 1
                         if batch and not boxed:
@@ -489,8 +535,8 @@ class ReadableImage:
                         else:
                             for (stage, im, clr, brd) in tasks:
                                 isBoxed = stage == "boxed"
-                                theClr = hlclr if isBoxed else clr
-                                theBrd = hlbrd if isBoxed else -1
+                                theClr = boxDelete if isBoxed else clr
+                                theBrd = boxBorder if isBoxed else -1
                                 cv2.rectangle(im, *hit, theClr, theBrd)
 
             if not batch:
@@ -517,14 +563,14 @@ class ReadableImage:
             totalHits = len(einfo["hits"])
             if not totalHits:
                 continue
-            bw = einfo["border"]
+            connectBorder = einfo["border"]
             ratio = einfo["ratio"]
-            showarray(engine.marks[markName]["image"])
+            showImage(engine.marks[markName]["gray"])
             connHits = len([h for h in einfo["hits"] if h["conn"] > ratio])
             realHits = totalHits - connHits
             total += realHits
             info(
-                f"{markName:<12} with border {bw}:\n"
+                f"{markName:<12} with border {connectBorder}:\n"
                 f" {realHits} hits in {einfo['npoints']} points\n"
                 f" {connHits} connected hits removed from {totalHits} candidate hits",
                 tm=False,
