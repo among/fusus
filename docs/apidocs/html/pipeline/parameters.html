@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
 <title>pipeline.parameters API documentation</title>
-<meta name="description" content="Configuration …" />
+<meta name="description" content="Settings and configuration" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,80 +20,44 @@
 <h1 class="title">Module <code>pipeline.parameters</code></h1>
 </header>
 <section id="section-intro">
-<p>Configuration</p>
-<p>All choosable aspects of the pipeline can be tuned here.</p>
+<p>Settings and configuration</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Configuration
-
-All choosable aspects of the pipeline can be tuned here.
+<pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
 
-import sys
-import os
-import copy
-import collections
-import re
+from copy import deepcopy
 
 
-DATA_BASE_DIR = os.path.expanduser(&#34;~/Documents&#34;)
-CODE_BASE_DIR = os.path.expanduser(&#34;~/github&#34;)
-CODE_ORG = &#34;among&#34;
-DATA_ORG = &#34;annotation&#34;
-PROJECT = &#34;fusus&#34;
-STEP_PREOCR = &#34;preocr&#34;
-STEP_OCR = &#34;ocr&#34;
-SKEW_BORDER = 30
-ACCURACY = 0.8
-BLUR_X = 31
-&#34;&#34;&#34;Blurring in X-direction
-
-In order to produce a good histogram, we need an inverted, blurred copy of the page.
-A Gaussian blur is performed, with a kernel whose X-dimension is given here.
-&#34;&#34;&#34;
-
-BLUR_Y = 11
-&#34;&#34;&#34;Blurring in Y-direction
-
-A Gaussian blur is performed, with a kernel whose Y-dimension is given here.
-&#34;&#34;&#34;
-
-MARGIN_COLOR = (250, 250, 250)
-BAND_THRESHOLD = 5
-BANDS = dict(
-    main=dict(isInter=False, color=(40, 40, 40)),
-    broad=dict(isInter=False, up=-15, down=10, color=(0, 0, 255)),
-    narrow=dict(isInter=False, up=10, down=-5, color=(128, 128, 255)),
-    inter=dict(isInter=True, up=5, down=5, color=(255, 200, 200)),
+COLORS = dict(
+    blackGRS=0,
+    blackRGB=(0, 0, 0),
+    whiteGRS=255,
+    whiteRGB=(255, 255, 255),
+    marginRGB=(250, 250, 250),
+    cleanRGB=(255, 255, 255),
+    cleanhRGB=(220, 220, 220),
+    boxDeleteRGB=(240, 170, 20),
+    boxRemainRGB=(170, 240, 40),
 )
-CLEAN_HIGHLIGHT = ((240, 170, 20), (170, 240, 40), 3)
-CLEAN_CONNECT_THRESHOLD = 200 * 200
-CLEAN_CONNECT_RATIO = 0.1
-BORDER_WIDTH = 4
-BAND = &#34;inter&#34;
-MARK_INSTRUCTIONS = dict(
-    shadda=dict(),
-    shadda2=dict(),
-    shadda3=dict(),
-    semicolon=dict(),
-    colon=dict(),
-    period=dict(acc=0.9),
-    comma=dict(bw=5, band=&#34;narrow&#34;),
-    comma2=dict(bw=5, band=&#34;narrow&#34;),
-    tanwin=dict(acc=0.7),
-    tanwin2=dict(acc=0.7),
-    longA=dict(),
-    doubleOpen=dict(acc=0.7, band=&#34;broad&#34;),
-    doubleClose=dict(acc=0.7, band=&#34;broad&#34;),
-    salla=dict(acc=0.75),
-    alayh=dict(acc=0.65),
+&#34;&#34;&#34;Named colors. &#34;&#34;&#34;
+
+
+BAND_COLORS = dict(
+    main=(40, 40, 40),
+    inter=(255, 200, 200),
+    broad=(0, 0, 255),
+    high=(128, 128, 255),
+    mid=(128, 255, 128),
+    low=(255, 128, 128),
 )
-DIVISOR = &#34;division&#34;
-WHITE = [255, 255, 255]
-CLEAN_COLOR = dict(clean=(255, 255, 255), cleanh=(220, 220, 220), boxed=(200, 80, 255))
-CLEAN_MAX_HITS = 5000
+&#34;&#34;&#34;Band colors.
+
+Each band will be displayed in its own color.
+&#34;&#34;&#34;
+
 STAGE_ORDER = &#34;&#34;&#34;
     orig
     gray
@@ -107,147 +71,292 @@ STAGE_ORDER = &#34;&#34;&#34;
     cleanh
     clean
 &#34;&#34;&#34;.strip().split()
+&#34;&#34;&#34;Stages in page processing.
 
-DATA_PATH = &#34;{DATA_BASE_DIR}/{DATA_ORG}/{PROJECT}&#34;
-CODE_PATH = &#34;{CODE_BASE_DIR}/{CODE_ORG}/{PROJECT}&#34;
-PREOCR_INPUT = &#34;{DATA_PATH}/{STEP_PREOCR}/input&#34;
-OCR_INPUT = &#34;{DATA_PATH}/{STEP_OCR}/input&#34;
-MARK_DIR = &#34;{CODE_PATH}/marks&#34;
+When we process a scanned page,
+we produce named intermediate stages,
+in this order.
+&#34;&#34;&#34;
 
+SETTINGS = dict(
+    inDir=&#34;in&#34;,
+    outDir=&#34;out&#34;,
+    interDir=&#34;inter&#34;,
+    marksDir=&#34;marks&#34;,
+    skewBorder=30,
+    blurX=31,
+    blurY=11,
+    marginThreshold=5,
+    accuracy=0.8,
+    connectBorder=4,
+    connectThreshold=200 * 200,
+    connectRatio=0.1,
+    boxBorder=3,
+    maxHits=5000,
+    bandMain=(0, 0),
+    bandInter=(5, 5),
+    bandBroad=(-15, 10),
+    bandMid=(10, -5),
+    bandHigh=(10, 30),
+    bandLow=(-10, -10),
+)
+&#34;&#34;&#34;Customizable settings.
 
-capitalRe = re.compile(r&#34;^[A-Z][A-Z_]*$&#34;)
+These are the settings that can be customized
+by calling the `Config` constructor and the
+`Config.configure` method.
 
+The default values can be inspected by expanding the source code.
 
-def collect():
-    keys = {}
-    for (k, v) in globals().items():
-        if capitalRe.match(k):
-            keys[k] = v
-    return keys
+inDir
+:   name of the subdirectory with page scans
 
+outDir
+:   name of the subdirectory with the final results of the pipeline
 
-def merge(dest, updates):
-    for k, v in updates.items():
-        if (
-            k in dest
-            and isinstance(dest[k], dict)
-            and isinstance(updates[k], collections.Mapping)
-        ):
-            merge(dest[k], updates[k])
-        else:
-            dest[k] = updates[k]
+interDir
+:   name of the subdirectory with the intermediate results of the pipeline
+
+marksDir
+:   name of the subdirectory with the marks and dividers
+
+skewBorder
+:   the  width of the page  margins that will be whitened in order to
+    suppress the sharp black triangles introduces by skewing the page
+
+blurX
+:   the amount of blur in the X-direction.
+    Blurring is needed to get betterskewing and histograms
+
+blurY
+:   the amount of blur in the X-direction.
+    Blurring is needed to get betterskewing and histograms.
+
+    !!! caution &#34;Amount of Y-blurring&#34;
+        Too much vertical blurring will cause the disappearance of horizontal
+        bars from the histogram. Footnote  bars will go undetected.
+
+        Too little vertical blurring will result in ragged histograms,
+        from which it is difficult to get vertical line boundaries.
+
+marginThreshold
+:   used when interpreting histograms.
+
+    Vertical lines in the page where the histogram is below this threshold will
+    be whitened.
+
+    When histograms for horizontal lines cross this value,  it will taken as an
+    indication that a line boundary (upper or lower) has been reached.
+
+    !!! hint &#34;Ragged histograms&#34;
+        Histograms may be a bit ragged.
+
+        When a histogram dives below the threshold, but jumps above it
+        later, without having become zero in the meantime, the last such point
+        will be taken as a lower boundary.
+
+        When a histogram jumps above the threshold, but dives below it
+        later, without touching zero, and then jumps above the threshold
+        again, the latter point will *not* become the upper boundary.
+
+accuracy
+:   When marks are searched for in the page, we get the result in the form
+    of a grayscale page where the value in each point reflects how much
+    the page in that area resembles the mark.
+    Only hits above the value of *accuracy* will be considered.
+
+connectBorder
+:   When marks are found, each hit will be inspected:
+    is the ink in the hit connected to the ink outside the hit?
+    This will be measured in an inner and outer border of the page,
+    whose thickness is given by this parameter.
+
+connectThreshold
+:   After computing inner and outer borders,
+    they will be inverted, so that black has the maximum
+    value. Then the inside and outside borders are multiplied pixel wise,
+    so that places where they are both black get very high values.
+    All places where this product is higher than the value of *connectThreshold*
+    are retained for further calculation.
+
+connectRatio
+:   After computing the places where inner and outer borders contain
+    joint ink, the ratio of such places with respect to the total border size
+    is calculated. If that ratio is greater than *connectRatio*,
+    the hit counts as connected to its surroundings.
+    We have not found a true instance of the mark, and the mark will not be cleaned.
+
+boxBorder
+:   The hits after searching for marks will be indicated on the `boxed` stage
+    of the page by means of a small coloured border around each hit.
+    The width of this border is *boxBorder*.
+
+maxHits
+:   When searching for marks, there are usually multiple hits: the place where
+    the mark occurs, and some places very nearby.
+    The cleaning algorithm will cluster nearby hits and pick the best
+    hit per cluster.
+    But if the number of hits is very large, it is a sign that the mark
+    is not searched with the right accuracy, and clustering will be
+    prevented. It would become very expensive, and useless anyway.
+    A warning will be issued in such cases.
+
+bandMain
+:   Offsets for the `main` band. Given as `(top, bottom)`, with
+    `top` and `bottom` positive or negative integers.
+
+    This band covers most of the ink in a line.
+
+    The `main` band is computed from the histogram after which the
+    height of the top and bottom boundaries are adjusted relative to the
+    values obtained by the histogram algorithm.
+
+    You can adjust these values: higher values move the boundaries down,
+    lower values move them up.
+
+bandInter
+:   Offsets for the `inter` band.
+
+    This band covers most of the white between two lines.
+
+    The `inter` band is computed from the histogram.
+
+bandBroad
+:   Offsets for the `broad` band.
+
+    This band s like `main` but covers even more ink in a line.
+
+bandMid
+:   Offsets for the `mid` band.
+
+    This band s like `main` but covers the densest part in a line.
+
+bandHigh
+:   Offsets for the `high` band.
+
+    This band s like `inter` but covers the upper part of the letters and the white
+    space above it.
+
+bandLow
+:   Offsets for the `low` band.
+
+    This band s like `inter` but covers the lower part of the letters and the white
+    space below it.
+&#34;&#34;&#34;
 
 
 class Config:
-    default = collect()
-    derivedKeys = set(&#34;&#34;&#34;
-        DATA_PATH
-        CODE_PATH
-        PREOCR_INPUT
-        OCR_INPUT
-        MARK_DIR
-    &#34;&#34;&#34;.strip().split())
-    reloadMarks = set(
-        &#34;&#34;&#34;
-        MARK_INSTRUCTIONS
-        MARK_DIR
-        CODE_PATH
-        STEP_PREOCR
-    &#34;&#34;&#34;.strip().split()
-    )
+    def __init__(self, tm, **params):
+        &#34;&#34;&#34;Settings manager.
 
-    def __init__(self, **parameters):
-        &#34;&#34;&#34;Configuration object.
+        It will expose all settings as attributes to the rest
+        of the application.
 
-        It maintains all configuration settings,
-        can derive settings from other settings,
-        can override settings with given parameters.
+        It has methods to collect modified settings from the
+        user and apply them.
 
-        It starts out with a deep copy of the default settings.
-        Overrides are merged into this deep copy.
+        The default settings are kept as a separate copy that
+        will not be changed in any way.
 
-        The settings are available to the rest of the application as members
-        of this object. These members are set on the basis of
-        the deep copy of current settings.
+        User modifications act on the current settings,
+        which have been obtained by deep-copying the defaults.
 
         Parameters
         ----------
-        kwargs: key value pairs
-            Configuration settings that override the defaults.
+        tm: object
+            Can display timed info/error messages to the display
+        params: dict
+            key-value pairs that act as updates for the settings.
+            If a value is `None`, the original value will be reinstated.
         &#34;&#34;&#34;
-        default = self.default
-        derivedKeys = self.derivedKeys
-        self.config = copy.deepcopy(default)
-        self.derived = {k: self.config[k] for k in derivedKeys}
-        self.derive({})
-        self.reconfigure(**parameters)
 
-    def derive(self, parameters):
-        &#34;&#34;&#34;Compute derived parameters.
+        self.tm = tm
 
-        Some settings are derived from other settings.
-        If those other settings change, derived settings have to
-        be recomputed.
+        # colors are fixed
+        for (k, v) in COLORS.items():
+            setattr(self, k, v)
 
-        !!! caution &#34;Overriding a derived setting&#34;
-            A derived setting can also be overriden.
-            For such a setting, no recomputation will take place,
-            so it gets the value that is specified.
+        # bands
+        setattr(self, &#34;colorBand&#34;, BAND_COLORS)
 
-            This might lead to an inconsistency between the basic settings
-            and the derived, overridden setting.
-        &#34;&#34;&#34;
-        c = self.config
-        d = self.derived
+        # stages
+        setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
+        setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
 
-        for (k, v) in d.items():
-            dv = parameters.get(k, v.format(**c))
-            c[k] = dv
+        # settings
+        self.settings = deepcopy(SETTINGS)
 
-    def reconfigure(self, reset=False, **parameters):
-        &#34;&#34;&#34;Override configuration settings.
+        # configure
+        self.configure(reset=False, **params)
 
-        Configuration settings can be selectively modified.
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        User modifications act on the current settings,
+        which have been obtained by deep-copying the defaults.
 
         Parameters
         ----------
         reset: boolean, optional `False`
-            Whether to reset the config settings to their default values
-            before merging in the new parameters.
-        parameters: key=value pairs
-            The keys are settings, the values are new values for those settings.
-            If a key is not a known setting, a warning will be generated and the
-            key will be ignored. If the value is a dictionary, the value
-            will be recursively merged into the existing value.
+            If `True`, a fresh deep copy of the defaults will be made
+            and that will be the basis for the new current settings.
+        params: dict
+            key-value pairs that act as updates for the settings.
+            If a value is `None`, the original value will be reinstated.
         &#34;&#34;&#34;
 
-        default = self.default
+        error = self.tm.error
+
         if reset:
-            self.config = copy.deepcopy(default)
-            self.derive({})
+            self.settings = deepcopy(SETTINGS)
 
-        c = self.config
+        settings = self.settings
 
-        for (k, v) in sorted(parameters.items()):
-            if k not in c:
-                sys.stderr.write(f&#39;Unknown parameter &#34;{k}&#34; ignored\n&#39;)
+        for (k, v) in params.items():
+            if k in SETTINGS:
+                settings[k] = SETTINGS[k] if v is None else v
+            else:
+                error(f&#34;Unknown setting: {k}&#34;)
 
-        merge(c, parameters)
-        self.derive(parameters)
+        # band offsets
 
-        for (k, v) in c.items():
-            setattr(self, k, parameters.get(k, v))
+        offsetBand = {}
+        settings[&#34;offsetBand&#34;] = offsetBand
 
-    def show(self):
-        &#34;&#34;&#34;Show current configuration
+        for band in self.colorBand:
+            bandOff = f&#34;band{band[0].upper()}{band[1:]}&#34;
+            offsetBand[band] = settings[bandOff]
 
-        The current configuration will be printed.
+        # deliver as attributes
+
+        for (k, v) in settings.items():
+            if not k.startswith(&#34;band&#34;):
+                setattr(self, k, v)
+
+    def show(self, params=None):
+        &#34;&#34;&#34;Display current settings.
+
+        Parameters
+        ----------
+        params: str, optional `None`
+            If `None`, all settings will be displayed.
+            Else it should be a comma-separated string of legal
+            parameter names whose values are to be displayed.
         &#34;&#34;&#34;
+        tm = self.tm
+        error = tm.error
+        info = tm.info
 
-        c = self.config
-        for k in sorted(c):
-            v = getattr(self, k, None)
-            sys.stdout.write(f&#34;{k:&gt;20} = {v}\n&#34;)</code></pre>
+        settings = self.settings
+
+        params = sorted(set(params.split(&#39;,&#39;)) if params else settings)
+
+        for k in params:
+            if k in settings and k not in SETTINGS:
+                continue
+            if k not in SETTINGS:
+                error(f&#34;No such setting: {k}&#34;, tm=False)
+            info(f&#34;{k:&lt;20} = {settings[k]}&#34;, tm=False)</code></pre>
 </details>
 </section>
 <section>
@@ -255,335 +364,408 @@ class Config:
 <section>
 <h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
-<dt id="pipeline.parameters.BLUR_X"><code class="name">var <span class="ident">BLUR_X</span></code></dt>
+<dt id="pipeline.parameters.BAND_COLORS"><code class="name">var <span class="ident">BAND_COLORS</span></code></dt>
 <dd>
-<section class="desc"><p>Blurring in X-direction</p>
-<p>In order to produce a good histogram, we need an inverted, blurred copy of the page.
-A Gaussian blur is performed, with a kernel whose X-dimension is given here.</p></section>
+<section class="desc"><p>Band colors.</p>
+<p>Each band will be displayed in its own color.</p></section>
 </dd>
-<dt id="pipeline.parameters.BLUR_Y"><code class="name">var <span class="ident">BLUR_Y</span></code></dt>
+<dt id="pipeline.parameters.COLORS"><code class="name">var <span class="ident">COLORS</span></code></dt>
 <dd>
-<section class="desc"><p>Blurring in Y-direction</p>
-<p>A Gaussian blur is performed, with a kernel whose Y-dimension is given here.</p></section>
+<section class="desc"><p>Named colors.</p></section>
+</dd>
+<dt id="pipeline.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
+<dd>
+<section class="desc"><p>Customizable settings.</p>
+<p>These are the settings that can be customized
+by calling the <a title="pipeline.parameters.Config" href="#pipeline.parameters.Config"><code>Config</code></a> constructor and the
+<a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure"><code>Config.configure()</code></a> method.</p>
+<p>The default values can be inspected by expanding the source code.</p>
+<dl>
+<dt>inDir</dt>
+<dd>name of the subdirectory with page scans</dd>
+<dt>outDir</dt>
+<dd>name of the subdirectory with the final results of the pipeline</dd>
+<dt>interDir</dt>
+<dd>name of the subdirectory with the intermediate results of the pipeline</dd>
+<dt>marksDir</dt>
+<dd>name of the subdirectory with the marks and dividers</dd>
+<dt>skewBorder</dt>
+<dd>the
+width of the page
+margins that will be whitened in order to
+suppress the sharp black triangles introduces by skewing the page</dd>
+<dt>blurX</dt>
+<dd>the amount of blur in the X-direction.
+Blurring is needed to get betterskewing and histograms</dd>
+<dt>blurY</dt>
+<dd>
+<p>the amount of blur in the X-direction.
+Blurring is needed to get betterskewing and histograms.</p>
+<div class="admonition caution">
+<p class="admonition-title">Amount of Y-blurring</p>
+<p>Too much vertical blurring will cause the disappearance of horizontal
+bars from the histogram. Footnote
+bars will go undetected.</p>
+<p>Too little vertical blurring will result in ragged histograms,
+from which it is difficult to get vertical line boundaries.</p>
+</div>
+</dd>
+<dt>marginThreshold</dt>
+<dd>
+<p>used when interpreting histograms.</p>
+<p>Vertical lines in the page where the histogram is below this threshold will
+be whitened.</p>
+<p>When histograms for horizontal lines cross this value,
+it will taken as an
+indication that a line boundary (upper or lower) has been reached.</p>
+<div class="admonition hint">
+<p class="admonition-title">Ragged histograms</p>
+<p>Histograms may be a bit ragged.</p>
+<p>When a histogram dives below the threshold, but jumps above it
+later, without having become zero in the meantime, the last such point
+will be taken as a lower boundary.</p>
+<p>When a histogram jumps above the threshold, but dives below it
+later, without touching zero, and then jumps above the threshold
+again, the latter point will <em>not</em> become the upper boundary.</p>
+</div>
+</dd>
+<dt>accuracy</dt>
+<dd>When marks are searched for in the page, we get the result in the form
+of a grayscale page where the value in each point reflects how much
+the page in that area resembles the mark.
+Only hits above the value of <em>accuracy</em> will be considered.</dd>
+<dt>connectBorder</dt>
+<dd>When marks are found, each hit will be inspected:
+is the ink in the hit connected to the ink outside the hit?
+This will be measured in an inner and outer border of the page,
+whose thickness is given by this parameter.</dd>
+<dt>connectThreshold</dt>
+<dd>After computing inner and outer borders,
+they will be inverted, so that black has the maximum
+value. Then the inside and outside borders are multiplied pixel wise,
+so that places where they are both black get very high values.
+All places where this product is higher than the value of <em>connectThreshold</em>
+are retained for further calculation.</dd>
+<dt>connectRatio</dt>
+<dd>After computing the places where inner and outer borders contain
+joint ink, the ratio of such places with respect to the total border size
+is calculated. If that ratio is greater than <em>connectRatio</em>,
+the hit counts as connected to its surroundings.
+We have not found a true instance of the mark, and the mark will not be cleaned.</dd>
+<dt>boxBorder</dt>
+<dd>The hits after searching for marks will be indicated on the <code>boxed</code> stage
+of the page by means of a small coloured border around each hit.
+The width of this border is <em>boxBorder</em>.</dd>
+<dt>maxHits</dt>
+<dd>When searching for marks, there are usually multiple hits: the place where
+the mark occurs, and some places very nearby.
+The cleaning algorithm will cluster nearby hits and pick the best
+hit per cluster.
+But if the number of hits is very large, it is a sign that the mark
+is not searched with the right accuracy, and clustering will be
+prevented. It would become very expensive, and useless anyway.
+A warning will be issued in such cases.</dd>
+<dt>bandMain</dt>
+<dd>
+<p>Offsets for the <code>main</code> band. Given as <code>(top, bottom)</code>, with
+<code>top</code> and <code>bottom</code> positive or negative integers.</p>
+<p>This band covers most of the ink in a line.</p>
+<p>The <code>main</code> band is computed from the histogram after which the
+height of the top and bottom boundaries are adjusted relative to the
+values obtained by the histogram algorithm.</p>
+<p>You can adjust these values: higher values move the boundaries down,
+lower values move them up.</p>
+</dd>
+<dt>bandInter</dt>
+<dd>
+<p>Offsets for the <code>inter</code> band.</p>
+<p>This band covers most of the white between two lines.</p>
+<p>The <code>inter</code> band is computed from the histogram.</p>
+</dd>
+<dt>bandBroad</dt>
+<dd>
+<p>Offsets for the <code>broad</code> band.</p>
+<p>This band s like <code>main</code> but covers even more ink in a line.</p>
+</dd>
+<dt>bandMid</dt>
+<dd>
+<p>Offsets for the <code>mid</code> band.</p>
+<p>This band s like <code>main</code> but covers the densest part in a line.</p>
+</dd>
+<dt>bandHigh</dt>
+<dd>
+<p>Offsets for the <code>high</code> band.</p>
+<p>This band s like <code>inter</code> but covers the upper part of the letters and the white
+space above it.</p>
+</dd>
+<dt>bandLow</dt>
+<dd>
+<p>Offsets for the <code>low</code> band.</p>
+<p>This band s like <code>inter</code> but covers the lower part of the letters and the white
+space below it.</p>
+</dd>
+</dl></section>
+</dd>
+<dt id="pipeline.parameters.STAGE_ORDER"><code class="name">var <span class="ident">STAGE_ORDER</span></code></dt>
+<dd>
+<section class="desc"><p>Stages in page processing.</p>
+<p>When we process a scanned page,
+we produce named intermediate stages,
+in this order.</p></section>
 </dd>
 </dl>
 </section>
 <section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="pipeline.parameters.collect"><code class="name flex">
-<span>def <span class="ident">collect</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def collect():
-    keys = {}
-    for (k, v) in globals().items():
-        if capitalRe.match(k):
-            keys[k] = v
-    return keys</code></pre>
-</details>
-</dd>
-<dt id="pipeline.parameters.merge"><code class="name flex">
-<span>def <span class="ident">merge</span></span>(<span>dest, updates)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def merge(dest, updates):
-    for k, v in updates.items():
-        if (
-            k in dest
-            and isinstance(dest[k], dict)
-            and isinstance(updates[k], collections.Mapping)
-        ):
-            merge(dest[k], updates[k])
-        else:
-            dest[k] = updates[k]</code></pre>
-</details>
-</dd>
-</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
 <dt id="pipeline.parameters.Config"><code class="flex name class">
 <span>class <span class="ident">Config</span></span>
-<span>(</span><span>**parameters)</span>
+<span>(</span><span>tm, **params)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Configuration object.</p>
-<p>It maintains all configuration settings,
-can derive settings from other settings,
-can override settings with given parameters.</p>
-<p>It starts out with a deep copy of the default settings.
-Overrides are merged into this deep copy.</p>
-<p>The settings are available to the rest of the application as members
-of this object. These members are set on the basis of
-the deep copy of current settings.</p>
+<section class="desc"><p>Settings manager.</p>
+<p>It will expose all settings as attributes to the rest
+of the application.</p>
+<p>It has methods to collect modified settings from the
+user and apply them.</p>
+<p>The default settings are kept as a separate copy that
+will not be changed in any way.</p>
+<p>User modifications act on the current settings,
+which have been obtained by deep-copying the defaults.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>kwargs</code></strong> :&ensp;<code>key</code> <code>value</code> <code>pairs</code></dt>
-<dd>Configuration settings that override the defaults.</dd>
+<dt><strong><code>tm</code></strong> :&ensp;<code>object</code></dt>
+<dd>Can display timed info/error messages to the display</dd>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>key-value pairs that act as updates for the settings.
+If a value is <code>None</code>, the original value will be reinstated.</dd>
 </dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Config:
-    default = collect()
-    derivedKeys = set(&#34;&#34;&#34;
-        DATA_PATH
-        CODE_PATH
-        PREOCR_INPUT
-        OCR_INPUT
-        MARK_DIR
-    &#34;&#34;&#34;.strip().split())
-    reloadMarks = set(
-        &#34;&#34;&#34;
-        MARK_INSTRUCTIONS
-        MARK_DIR
-        CODE_PATH
-        STEP_PREOCR
-    &#34;&#34;&#34;.strip().split()
-    )
+    def __init__(self, tm, **params):
+        &#34;&#34;&#34;Settings manager.
 
-    def __init__(self, **parameters):
-        &#34;&#34;&#34;Configuration object.
+        It will expose all settings as attributes to the rest
+        of the application.
 
-        It maintains all configuration settings,
-        can derive settings from other settings,
-        can override settings with given parameters.
+        It has methods to collect modified settings from the
+        user and apply them.
 
-        It starts out with a deep copy of the default settings.
-        Overrides are merged into this deep copy.
+        The default settings are kept as a separate copy that
+        will not be changed in any way.
 
-        The settings are available to the rest of the application as members
-        of this object. These members are set on the basis of
-        the deep copy of current settings.
+        User modifications act on the current settings,
+        which have been obtained by deep-copying the defaults.
 
         Parameters
         ----------
-        kwargs: key value pairs
-            Configuration settings that override the defaults.
+        tm: object
+            Can display timed info/error messages to the display
+        params: dict
+            key-value pairs that act as updates for the settings.
+            If a value is `None`, the original value will be reinstated.
         &#34;&#34;&#34;
-        default = self.default
-        derivedKeys = self.derivedKeys
-        self.config = copy.deepcopy(default)
-        self.derived = {k: self.config[k] for k in derivedKeys}
-        self.derive({})
-        self.reconfigure(**parameters)
 
-    def derive(self, parameters):
-        &#34;&#34;&#34;Compute derived parameters.
+        self.tm = tm
 
-        Some settings are derived from other settings.
-        If those other settings change, derived settings have to
-        be recomputed.
+        # colors are fixed
+        for (k, v) in COLORS.items():
+            setattr(self, k, v)
 
-        !!! caution &#34;Overriding a derived setting&#34;
-            A derived setting can also be overriden.
-            For such a setting, no recomputation will take place,
-            so it gets the value that is specified.
+        # bands
+        setattr(self, &#34;colorBand&#34;, BAND_COLORS)
 
-            This might lead to an inconsistency between the basic settings
-            and the derived, overridden setting.
-        &#34;&#34;&#34;
-        c = self.config
-        d = self.derived
+        # stages
+        setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
+        setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
 
-        for (k, v) in d.items():
-            dv = parameters.get(k, v.format(**c))
-            c[k] = dv
+        # settings
+        self.settings = deepcopy(SETTINGS)
 
-    def reconfigure(self, reset=False, **parameters):
-        &#34;&#34;&#34;Override configuration settings.
+        # configure
+        self.configure(reset=False, **params)
 
-        Configuration settings can be selectively modified.
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        User modifications act on the current settings,
+        which have been obtained by deep-copying the defaults.
 
         Parameters
         ----------
         reset: boolean, optional `False`
-            Whether to reset the config settings to their default values
-            before merging in the new parameters.
-        parameters: key=value pairs
-            The keys are settings, the values are new values for those settings.
-            If a key is not a known setting, a warning will be generated and the
-            key will be ignored. If the value is a dictionary, the value
-            will be recursively merged into the existing value.
+            If `True`, a fresh deep copy of the defaults will be made
+            and that will be the basis for the new current settings.
+        params: dict
+            key-value pairs that act as updates for the settings.
+            If a value is `None`, the original value will be reinstated.
         &#34;&#34;&#34;
 
-        default = self.default
+        error = self.tm.error
+
         if reset:
-            self.config = copy.deepcopy(default)
-            self.derive({})
+            self.settings = deepcopy(SETTINGS)
 
-        c = self.config
+        settings = self.settings
 
-        for (k, v) in sorted(parameters.items()):
-            if k not in c:
-                sys.stderr.write(f&#39;Unknown parameter &#34;{k}&#34; ignored\n&#39;)
+        for (k, v) in params.items():
+            if k in SETTINGS:
+                settings[k] = SETTINGS[k] if v is None else v
+            else:
+                error(f&#34;Unknown setting: {k}&#34;)
 
-        merge(c, parameters)
-        self.derive(parameters)
+        # band offsets
 
-        for (k, v) in c.items():
-            setattr(self, k, parameters.get(k, v))
+        offsetBand = {}
+        settings[&#34;offsetBand&#34;] = offsetBand
 
-    def show(self):
-        &#34;&#34;&#34;Show current configuration
+        for band in self.colorBand:
+            bandOff = f&#34;band{band[0].upper()}{band[1:]}&#34;
+            offsetBand[band] = settings[bandOff]
 
-        The current configuration will be printed.
+        # deliver as attributes
+
+        for (k, v) in settings.items():
+            if not k.startswith(&#34;band&#34;):
+                setattr(self, k, v)
+
+    def show(self, params=None):
+        &#34;&#34;&#34;Display current settings.
+
+        Parameters
+        ----------
+        params: str, optional `None`
+            If `None`, all settings will be displayed.
+            Else it should be a comma-separated string of legal
+            parameter names whose values are to be displayed.
         &#34;&#34;&#34;
+        tm = self.tm
+        error = tm.error
+        info = tm.info
 
-        c = self.config
-        for k in sorted(c):
-            v = getattr(self, k, None)
-            sys.stdout.write(f&#34;{k:&gt;20} = {v}\n&#34;)</code></pre>
+        settings = self.settings
+
+        params = sorted(set(params.split(&#39;,&#39;)) if params else settings)
+
+        for k in params:
+            if k in settings and k not in SETTINGS:
+                continue
+            if k not in SETTINGS:
+                error(f&#34;No such setting: {k}&#34;, tm=False)
+            info(f&#34;{k:&lt;20} = {settings[k]}&#34;, tm=False)</code></pre>
 </details>
-<h3>Class variables</h3>
-<dl>
-<dt id="pipeline.parameters.Config.default"><code class="name">var <span class="ident">default</span></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt id="pipeline.parameters.Config.derivedKeys"><code class="name">var <span class="ident">derivedKeys</span></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt id="pipeline.parameters.Config.reloadMarks"><code class="name">var <span class="ident">reloadMarks</span></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-</dl>
 <h3>Methods</h3>
 <dl>
-<dt id="pipeline.parameters.Config.derive"><code class="name flex">
-<span>def <span class="ident">derive</span></span>(<span>self, parameters)</span>
+<dt id="pipeline.parameters.Config.configure"><code class="name flex">
+<span>def <span class="ident">configure</span></span>(<span>self, reset=False, **params)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Compute derived parameters.</p>
-<p>Some settings are derived from other settings.
-If those other settings change, derived settings have to
-be recomputed.</p>
-<div class="admonition caution">
-<p class="admonition-title">Overriding a derived setting</p>
-<p>A derived setting can also be overriden.
-For such a setting, no recomputation will take place,
-so it gets the value that is specified.</p>
-<p>This might lead to an inconsistency between the basic settings
-and the derived, overridden setting.</p>
-</div></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def derive(self, parameters):
-    &#34;&#34;&#34;Compute derived parameters.
-
-    Some settings are derived from other settings.
-    If those other settings change, derived settings have to
-    be recomputed.
-
-    !!! caution &#34;Overriding a derived setting&#34;
-        A derived setting can also be overriden.
-        For such a setting, no recomputation will take place,
-        so it gets the value that is specified.
-
-        This might lead to an inconsistency between the basic settings
-        and the derived, overridden setting.
-    &#34;&#34;&#34;
-    c = self.config
-    d = self.derived
-
-    for (k, v) in d.items():
-        dv = parameters.get(k, v.format(**c))
-        c[k] = dv</code></pre>
-</details>
-</dd>
-<dt id="pipeline.parameters.Config.reconfigure"><code class="name flex">
-<span>def <span class="ident">reconfigure</span></span>(<span>self, reset=False, **parameters)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Override configuration settings.</p>
-<p>Configuration settings can be selectively modified.</p>
+<section class="desc"><p>Updates current settings based on new values.</p>
+<p>User modifications act on the current settings,
+which have been obtained by deep-copying the defaults.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>reset</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
-<dd>Whether to reset the config settings to their default values
-before merging in the new parameters.</dd>
-<dt><strong><code>parameters</code></strong> :&ensp;<code>key</code>=<code>value</code> <code>pairs</code></dt>
-<dd>The keys are settings, the values are new values for those settings.
-If a key is not a known setting, a warning will be generated and the
-key will be ignored. If the value is a dictionary, the value
-will be recursively merged into the existing value.</dd>
+<dd>If <code>True</code>, a fresh deep copy of the defaults will be made
+and that will be the basis for the new current settings.</dd>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>key-value pairs that act as updates for the settings.
+If a value is <code>None</code>, the original value will be reinstated.</dd>
 </dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def reconfigure(self, reset=False, **parameters):
-    &#34;&#34;&#34;Override configuration settings.
+<pre><code class="python">def configure(self, reset=False, **params):
+    &#34;&#34;&#34;Updates current settings based on new values.
 
-    Configuration settings can be selectively modified.
+    User modifications act on the current settings,
+    which have been obtained by deep-copying the defaults.
 
     Parameters
     ----------
     reset: boolean, optional `False`
-        Whether to reset the config settings to their default values
-        before merging in the new parameters.
-    parameters: key=value pairs
-        The keys are settings, the values are new values for those settings.
-        If a key is not a known setting, a warning will be generated and the
-        key will be ignored. If the value is a dictionary, the value
-        will be recursively merged into the existing value.
+        If `True`, a fresh deep copy of the defaults will be made
+        and that will be the basis for the new current settings.
+    params: dict
+        key-value pairs that act as updates for the settings.
+        If a value is `None`, the original value will be reinstated.
     &#34;&#34;&#34;
 
-    default = self.default
+    error = self.tm.error
+
     if reset:
-        self.config = copy.deepcopy(default)
-        self.derive({})
+        self.settings = deepcopy(SETTINGS)
 
-    c = self.config
+    settings = self.settings
 
-    for (k, v) in sorted(parameters.items()):
-        if k not in c:
-            sys.stderr.write(f&#39;Unknown parameter &#34;{k}&#34; ignored\n&#39;)
+    for (k, v) in params.items():
+        if k in SETTINGS:
+            settings[k] = SETTINGS[k] if v is None else v
+        else:
+            error(f&#34;Unknown setting: {k}&#34;)
 
-    merge(c, parameters)
-    self.derive(parameters)
+    # band offsets
 
-    for (k, v) in c.items():
-        setattr(self, k, parameters.get(k, v))</code></pre>
+    offsetBand = {}
+    settings[&#34;offsetBand&#34;] = offsetBand
+
+    for band in self.colorBand:
+        bandOff = f&#34;band{band[0].upper()}{band[1:]}&#34;
+        offsetBand[band] = settings[bandOff]
+
+    # deliver as attributes
+
+    for (k, v) in settings.items():
+        if not k.startswith(&#34;band&#34;):
+            setattr(self, k, v)</code></pre>
 </details>
 </dd>
 <dt id="pipeline.parameters.Config.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>self)</span>
+<span>def <span class="ident">show</span></span>(<span>self, params=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Show current configuration</p>
-<p>The current configuration will be printed.</p></section>
+<section class="desc"><p>Display current settings.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>str</code>, optional <code>None</code></dt>
+<dd>If <code>None</code>, all settings will be displayed.
+Else it should be a comma-separated string of legal
+parameter names whose values are to be displayed.</dd>
+</dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show(self):
-    &#34;&#34;&#34;Show current configuration
+<pre><code class="python">def show(self, params=None):
+    &#34;&#34;&#34;Display current settings.
 
-    The current configuration will be printed.
+    Parameters
+    ----------
+    params: str, optional `None`
+        If `None`, all settings will be displayed.
+        Else it should be a comma-separated string of legal
+        parameter names whose values are to be displayed.
     &#34;&#34;&#34;
+    tm = self.tm
+    error = tm.error
+    info = tm.info
 
-    c = self.config
-    for k in sorted(c):
-        v = getattr(self, k, None)
-        sys.stdout.write(f&#34;{k:&gt;20} = {v}\n&#34;)</code></pre>
+    settings = self.settings
+
+    params = sorted(set(params.split(&#39;,&#39;)) if params else settings)
+
+    for k in params:
+        if k in settings and k not in SETTINGS:
+            continue
+        if k not in SETTINGS:
+            error(f&#34;No such setting: {k}&#34;, tm=False)
+        info(f&#34;{k:&lt;20} = {settings[k]}&#34;, tm=False)</code></pre>
 </details>
 </dd>
 </dl>
@@ -604,26 +786,18 @@ will be recursively merged into the existing value.</dd>
 </li>
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
-<li><code><a title="pipeline.parameters.BLUR_X" href="#pipeline.parameters.BLUR_X">BLUR_X</a></code></li>
-<li><code><a title="pipeline.parameters.BLUR_Y" href="#pipeline.parameters.BLUR_Y">BLUR_Y</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="pipeline.parameters.collect" href="#pipeline.parameters.collect">collect</a></code></li>
-<li><code><a title="pipeline.parameters.merge" href="#pipeline.parameters.merge">merge</a></code></li>
+<li><code><a title="pipeline.parameters.BAND_COLORS" href="#pipeline.parameters.BAND_COLORS">BAND_COLORS</a></code></li>
+<li><code><a title="pipeline.parameters.COLORS" href="#pipeline.parameters.COLORS">COLORS</a></code></li>
+<li><code><a title="pipeline.parameters.SETTINGS" href="#pipeline.parameters.SETTINGS">SETTINGS</a></code></li>
+<li><code><a title="pipeline.parameters.STAGE_ORDER" href="#pipeline.parameters.STAGE_ORDER">STAGE_ORDER</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
 <h4><code><a title="pipeline.parameters.Config" href="#pipeline.parameters.Config">Config</a></code></h4>
-<ul class="two-column">
-<li><code><a title="pipeline.parameters.Config.default" href="#pipeline.parameters.Config.default">default</a></code></li>
-<li><code><a title="pipeline.parameters.Config.derive" href="#pipeline.parameters.Config.derive">derive</a></code></li>
-<li><code><a title="pipeline.parameters.Config.derivedKeys" href="#pipeline.parameters.Config.derivedKeys">derivedKeys</a></code></li>
-<li><code><a title="pipeline.parameters.Config.reconfigure" href="#pipeline.parameters.Config.reconfigure">reconfigure</a></code></li>
-<li><code><a title="pipeline.parameters.Config.reloadMarks" href="#pipeline.parameters.Config.reloadMarks">reloadMarks</a></code></li>
+<ul class="">
+<li><code><a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure">configure</a></code></li>
 <li><code><a title="pipeline.parameters.Config.show" href="#pipeline.parameters.Config.show">show</a></code></li>
 </ul>
 </li>

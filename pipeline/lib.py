@@ -1,41 +1,22 @@
 import os
-from copy import deepcopy
 import io
-import collections
 
 import numpy as np
 import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
 
-EXTENSIONS = set("""
+from tf.core.helpers import rangesFromList, specFromRanges
+
+EXTENSIONS = set(
+    """
     jpeg
     jpg
     png
     tif
     tiff
-""".strip().split())
-
-
-def merge(dest, updates):
-    for k, v in updates.items():
-        if (
-            k in dest
-            and isinstance(dest[k], dict)
-            and isinstance(updates[k], collections.Mapping)
-        ):
-            merge(dest[k], updates[k])
-        else:
-            dest[k] = updates[k]
-
-
-def configure(defaults, updates):
-    if updates:
-        C = deepcopy(defaults)
-        merge(C, updates)
-    else:
-        C = defaults
-    return C
+""".strip().split()
+)
 
 
 def img(data):
@@ -76,20 +57,33 @@ def imageFileList(imDir):
             name = entry.name
             (bare, ext) = splitext(name)
 
-            if (
-                not name.startswith(".")
-                and entry.is_file()
-                and ext in EXTENSIONS
-            ):
+            if not name.startswith(".") and entry.is_file() and ext in EXTENSIONS:
                 imageFiles.append(name)
     return sorted(imageFiles)
+
+
+def imageFileListSub(imDir):
+    if not os.path.exists(imDir):
+        return {}
+    imageFiles = {}
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            if not name.startswith(".") and entry.is_dir():
+                imageFiles[name] = imageFileList(f"{imDir}/{name}")
+    return imageFiles
+
+
+def pagesRep(source):
+    pages = [int(splitext(f)[0].lstrip("0")) for f in source]
+    return specFromRanges(rangesFromList(pages))
 
 
 def select(source, selection):
     if selection is None:
         return sorted(source)
 
-    index = {int(splitext(f)[0].lstrip('0')): f for f in source}
+    index = {int(splitext(f)[0].lstrip("0")): f for f in source}
     universe = set(index)
     if type(selection) is int:
         return sorted(index[n] for n in {selection} & universe)
@@ -97,12 +91,12 @@ def select(source, selection):
     minu = min(universe, default=0)
     maxu = max(universe, default=0)
     selected = set()
-    for rng in selection.split(','):
-        parts = rng.split('-')
+    for rng in selection.split(","):
+        parts = rng.split("-")
         if len(parts) == 2:
             (lower, upper) = parts
-            lower = minu if lower == '' else int(lower)
-            upper = maxu if upper == '' else int(upper)
+            lower = minu if lower == "" else int(lower)
+            upper = maxu if upper == "" else int(upper)
         else:
             lower = int(parts[0])
             upper = lower
@@ -146,7 +140,7 @@ def showit(label, texto, texti, val):
     print("Inner", " ".join(f"{e:>3}" for e in texti))
 
 
-def connected(h, w, bw, threshold, gray, hitPoint):
+def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
     (hitY, hitX) = hitPoint
 
@@ -154,89 +148,125 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     connDegree = 0
     nparts = 0
 
+    realBw = min((bw, markW, markH))
+
     # left boundary
-    f = max((0, hitX - bw)) if hitX > 0 else None
-    if f is not None:
-        t = hitX
+
+    fo = max((0, hitX - realBw)) if hitX > 0 else None
+    if fo is not None:
+        to = hitX
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
         fi = hitX
-        ti = hitX + bw
+        ti = hitX + realBw
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit("l", texto, texti, val)
         connDegree += val
         nparts += 1
 
     # right boundary
-    t = min((textW, hitX + w + bw + 1)) if hitX + w + bw < textW else None
-    if t is not None:
-        f = hitX + w
-        # texto = np.array(gray[hitY : hitY + h, f:t])
-        # print(texto)
+
+    to = (
+        min((textW, hitX + markW + realBw + 1))
+        if hitX + markW + realBw < textW
+        else None
+    )
+    if to is not None:
+        fo = hitX + markW
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
-        ti = hitX + w
-        fi = hitX + w - bw
+        fi = hitX + markW - realBw
+        ti = hitX + markW
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit("r", texto, texti, val)
         connDegree += val
         nparts += 1
 
     # top boundary
 
-    f = max((0, hitY - bw)) if hitY > 0 else None
+    f = max((0, hitY - realBw)) if hitY > 0 else None
     if f is not None:
         t = hitY
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         fi = hitY
-        ti = hitY + bw + 1
+        ti = hitY + realBw + 1
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit("t", texto, texti, val)
         connDegree += val
         nparts += 1
 
     # bottom boundary
 
-    t = min((textH - 1, hitY + h + bw + 1)) if hitY + h + bw < textH else None
+    t = (
+        min((textH - 1, hitY + markH + realBw + 1))
+        if hitY + markH + realBw < textH
+        else None
+    )
     if t is not None:
-        f = hitY + h
+        f = hitY + markH
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
-        ti = hitY + h
-        fi = hitY + h - bw
+        ti = hitY + markH
+        fi = hitY + markH - realBw
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit("b", texto, texti, val)
         connDegree += val
         nparts += 1
-    # print(f"connectedDegree = {connDegree}\n")
+
     return connDegree
 
 
 def removeSkewStripes(img, skewBorder, skewColor):
-    (h, w) = img.shape[0:2]
-    if min((h, w)) < skewBorder * 10:
+    (imH, imW) = img.shape[0:2]
+    if min((imH, imW)) < skewBorder * 10:
         return
     for rect in (
-        ((0, 0), (skewBorder, h)),
-        ((0, 0), (w, skewBorder)),
-        ((w, h), (w - skewBorder, 0)),
-        ((w, h), (0, h - skewBorder)),
+        ((0, 0), (skewBorder, imH)),
+        ((0, 0), (imW, skewBorder)),
+        ((imW, imH), (imW - skewBorder, 0)),
+        ((imW, imH), (0, imH - skewBorder)),
     ):
         cv2.rectangle(img, *rect, skewColor, -1)
+
+
+def parseStages(stage, allStages, sortedStages, error):
+    doStages = (
+        allStages
+        if stage is None
+        else set()
+        if not stage
+        else set(stage.split(","))
+        if type(stage) is str
+        else set(stage)
+    )
+    illegalStages = doStages - allStages
+    if illegalStages:
+        error(f"Will skip illegal stages: {', '.join(sorted(illegalStages))}")
+
+    doStages = doStages - illegalStages
+
+    return tuple(s for s in sortedStages if s in doStages)
+
+
+def parseBands(band, allBands, error):
+    sortedBands = sorted(allBands)
+    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    illegalBands = doBands - allBands
+    if illegalBands:
+        error(f"Will skip illegal bands: {', '.join(sorted(illegalBands))}")
+
+    doBands = doBands - illegalBands
+    return tuple(b for b in sortedBands if b in doBands)

@@ -60,17 +60,17 @@ plugins:
 
 nav:
   - Home: 'index.md'
-  - About:
-    - Methods: 'methods.md'
   - Operation:
     - Install: 'install.md'
-    - Configure: 'configure.md'
     - Use: 'use.md'
+    - Methods: 'methods.md'
     - docstrings: 'apidocs/html/pipeline/index.html'
 
 extra:
   among: https://github.com/among
   dans: https://dans.knaw.nl/en
+  fusus: https://github.com/among/fusus/blob/master
+  fususloc: https://github.com/among/fusus
   jup: https://jupyter.org
   mkdocs: https://mkdocs.readthedocs.io/en/stable/
   python: https://docs.python.org/3

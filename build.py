@@ -15,7 +15,7 @@ help  : print help and exit
 
 adocs    : build apidocs
 docs     : serve docs locally
-shipdocs : ship (publish) docs on GitHub
+ship msg : push repo and publish docs on GitHub
 """
 
 
@@ -28,15 +28,21 @@ def readArgs():
     if arg not in {
         "adocs",
         "docs",
-        "shipdocs",
+        "ship",
     }:
         print(HELP)
         return (False, None, [])
-    return (arg, None, [])
+
+    if arg in {'ship'} and len(args) < 2:
+        print(HELP)
+        print("Provide a commit message")
+        return (False, None, [])
+    return (arg, None, [" ".join(args[1:])])
 
 
-def shipDocs():
+def ship(msg):
     apidocs()
+    pushrepo(msg)
     run(["mkdocs", "gh-deploy"])
 
 
@@ -63,6 +69,15 @@ def apidocs():
     run(cmdLine, shell=True)
 
 
+def pushrepo(msg):
+    for cmdLine in (
+        "git add --all .",
+        f'''git commit -m "{msg}"''',
+        "git push origin master",
+    ):
+        run(cmdLine, shell=True)
+
+
 def main():
     (task, msg, remaining) = readArgs()
     if not task:
@@ -71,8 +86,8 @@ def main():
         apidocs()
     elif task == "docs":
         serveDocs()
-    elif task == "shipdocs":
-        shipDocs()
+    elif task == "ship":
+        ship(remaining[0])
 
 
 main()

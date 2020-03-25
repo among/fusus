@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>pipeline.book API documentation</title>
+<meta name="description" content="Book pipeline" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pipeline.book</code></h1>
+</header>
+<section id="section-intro">
+<p>Book pipeline</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Book pipeline
+&#34;&#34;&#34;
+
+import sys
+import os
+
+import cv2
+
+from tf.core.timestamp import Timestamp
+
+from .parameters import Config
+from .lib import showImage, imageFileList, imageFileListSub, select, splitext, pagesRep
+from .page import Page
+
+
+class Book:
+    def __init__(self, **params):
+        &#34;&#34;&#34;Engine for book conversion.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+            They will be in effect when running the pipeline, until
+            a `Book.configure` action will modify them.
+        &#34;&#34;&#34;
+
+        tm = Timestamp()
+        self.tm = tm
+        self.C = Config(tm, **params)
+        self._applySettings()
+
+    def _applySettings(self):
+        &#34;&#34;&#34;After a settings update, recompute derived settings.
+        &#34;&#34;&#34;
+
+        C = self.C
+        tm = self.tm
+        error = tm.error
+
+        markParams = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;)
+
+        self.marks = {}
+        marks = self.marks
+        self.dividers = {}
+        dividers = self.dividers
+        offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
+        self.offsetBand = offsetBand
+
+        files = imageFileListSub(C.marksDir)
+
+        for (band, images) in files.items():
+            for f in images:
+                tweakDict = {}
+                (bare, ext) = splitext(f)
+                parts = bare.rsplit(&#34;(&#34;, 1)
+                if len(parts) &gt; 1:
+                    bare = parts[0]
+                    tweaks = parts[1][0:-1].split(&#34;,&#34;)
+                    for tweak in tweaks:
+                        if &#34;=&#34; not in tweak:
+                            error(f&#34;Malformed image parameter for {bare}: {tweak}&#34;)
+                            continue
+                        (k, v) = tweak.split(&#34;=&#34;, 1)
+                        if k not in markParams:
+                            error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
+                            continue
+                        try:
+                            tweakDict[k] = int(v) if k == &#34;cb&#34; else float(v)
+                        except Exception:
+                            error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
+
+                full = f&#34;{C.marksDir}/{band}/{f}&#34;
+                image = cv2.imread(full)
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+                if band == &#34;divider&#34;:
+                    dividers[bare] = dict(gray=gray)
+                    dest = dividers[bare]
+                else:
+                    marks.setdefault(band, {})[bare] = dict(gray=gray)
+                    dest = marks[band][bare]
+                for (k, kLong) in markParams.items():
+                    dest[kLong] = tweakDict.get(k, getattr(C, kLong))
+
+        self.pages = imageFileList(C.inDir)
+
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        The signature is the same as `pipeline.parameters.Config.configure`.
+        &#34;&#34;&#34;
+
+        self.C.configure(reset=reset, **params)
+        self._applySettings()
+
+    def showSettings(self, params=None):
+        &#34;&#34;&#34;Display settings.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+            The current values of given parameters will be displayed.
+            The values that you give each of the `params` here is not used,
+            only their names. It is recommended to pass `None` as values:
+
+            `B.showSettings(blurX=None, blurY=None)`
+        &#34;&#34;&#34;
+        self.C.show(params=params)
+
+    def availableBands(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *bands*.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        info(&#34;Available bands and their offsets&#34;, tm=False)
+        for (band, offset) in sorted(self.offsetBand.items()):
+            bandRep = f&#34;«{band}»&#34;
+            info(f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False)
+
+    def availableMarks(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        marks = self.marks
+
+        info(&#34;Marks and their settings&#34;, tm=False)
+        for (band, markItems) in sorted(marks.items()):
+            bandRep = f&#34;[{band}]&#34;
+            info(f&#34;\tband {bandRep}&#34;, tm=False)
+            for (mark, markInfo) in sorted(markItems.items()):
+                markRep = f&#34;«{mark}»&#34;
+                acc = markInfo[&#34;accuracy&#34;]
+                cb = markInfo[&#34;connectBorder&#34;]
+                info(
+                    f&#34;\t\t{markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
+                    tm=False,
+                )
+                showImage(markInfo[&#34;gray&#34;])
+
+    def availablePages(self):
+        &#34;&#34;&#34;Display the amount and page numbers of all pages.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        pages = self.pages
+        nPages = len(pages)
+        pagesDesc = pagesRep(self.pages)
+
+        info(f&#34;{nPages} pages: {pagesDesc}&#34;)
+
+    def _doPage(
+        self, f, batch=False, boxed=True, quiet=False,
+    ):
+        &#34;&#34;&#34;Process a single page.
+
+        Executes all processing steps for a single page.
+
+        Parameters
+        ----------
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A `pipeline.page.Page` object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        baseLevel = 1 if batch else 0
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+
+        (bare, ext) = splitext(f)
+
+        if not batch:
+            info(f&#34;Processing {bare}&#34;)
+
+        page = Page(self, f, batch=batch, boxed=boxed)
+        if batch or not page.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            page.normalize()
+            if not batch:
+                info(&#34;histogram&#34;)
+            page.histogram()
+            if not batch:
+                info(&#34;margins&#34;)
+            page.margins()
+            if not batch:
+                info(&#34;cleaning&#34;)
+            page.clean()
+
+        tm.silentOff()
+
+        if not batch:
+            indent(level=baseLevel)
+            div = page.dividers.get(&#34;footnote&#34;, None)
+            if div:
+                msg = &#34;footer&#34;
+                amount = f&#34;at height {div[2]:&gt;3}%&#34;
+            else:
+                msg = &#34;no footer&#34;
+                amount = &#34;&#34;
+            info(f&#34;Done, {msg} {amount}&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showImage(divIm)
+        return page
+
+    def process(
+        self, pages=None, batch=True, quiet=True, boxed=False,
+    ):
+        &#34;&#34;&#34;Process directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+        batch: boolean, optional `True`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A `pipeline.page.Page` object for the last page processed,
+        which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        tm.silentOff()
+
+        indent(reset=True)
+
+        C = self.C
+        inDir = C.inDir
+        interDir = C.interDir
+        outDir = C.outDir
+        for d in (interDir, outDir):
+            if not os.path.exists(d):
+                os.makedirs(d, exist_ok=True)
+
+        imageFiles = select(imageFileList(inDir), pages)
+        info(f&#34;Batch of {len(imageFiles)} pages&#34;)
+
+        info(f&#34;Start batch processing images&#34;)
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = self._doPage(imFile, batch=batch, boxed=boxed, quiet=quiet,)
+            page.write(stage=&#34;clean&#34;)
+            if boxed:
+                page.write(stage=&#34;boxed&#34;)
+            div = page.dividers.get(&#34;footnote&#34;, None)
+            amount = div[2] if div else 100
+            info(f&#34;{msg} {amount:&gt;3}%&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showImage(divIm)
+        indent(level=0)
+        info(&#34;all done&#34;)
+        return page  # the last page processed
+
+
+def main():
+    &#34;&#34;&#34;Process a whole book with default settings.
+
+    Go to the book directory and say
+
+    ```
+    python3 -m pipeline.book [pages]
+    ```
+
+    where `pages` is an optional string specifying ranges
+    of pages as in `Book.process`
+    &#34;&#34;&#34;
+
+    pages = None
+    if len(sys.argv) &gt; 1:
+        pages = sys.argv[1]
+    B = Book()
+    B.process(pages=pages)
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pipeline.book.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Process a whole book with default settings.</p>
+<p>Go to the book directory and say</p>
+<pre><code>python3 -m pipeline.book [pages]
+</code></pre>
+<p>where <code>pages</code> is an optional string specifying ranges
+of pages as in <a title="pipeline.book.Book.process" href="#pipeline.book.Book.process"><code>Book.process()</code></a></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;Process a whole book with default settings.
+
+    Go to the book directory and say
+
+    ```
+    python3 -m pipeline.book [pages]
+    ```
+
+    where `pages` is an optional string specifying ranges
+    of pages as in `Book.process`
+    &#34;&#34;&#34;
+
+    pages = None
+    if len(sys.argv) &gt; 1:
+        pages = sys.argv[1]
+    B = Book()
+    B.process(pages=pages)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pipeline.book.Book"><code class="flex name class">
+<span>class <span class="ident">Book</span></span>
+<span>(</span><span>**params)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Engine for book conversion.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Any number of customizable settings from <a title="pipeline.parameters.SETTINGS" href="parameters.html#pipeline.parameters.SETTINGS"><code>SETTINGS</code></a>.</p>
+<p>They will be in effect when running the pipeline, until
+a <a title="pipeline.book.Book.configure" href="#pipeline.book.Book.configure"><code>Book.configure()</code></a> action will modify them.</p>
+</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Book:
+    def __init__(self, **params):
+        &#34;&#34;&#34;Engine for book conversion.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+            They will be in effect when running the pipeline, until
+            a `Book.configure` action will modify them.
+        &#34;&#34;&#34;
+
+        tm = Timestamp()
+        self.tm = tm
+        self.C = Config(tm, **params)
+        self._applySettings()
+
+    def _applySettings(self):
+        &#34;&#34;&#34;After a settings update, recompute derived settings.
+        &#34;&#34;&#34;
+
+        C = self.C
+        tm = self.tm
+        error = tm.error
+
+        markParams = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;)
+
+        self.marks = {}
+        marks = self.marks
+        self.dividers = {}
+        dividers = self.dividers
+        offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
+        self.offsetBand = offsetBand
+
+        files = imageFileListSub(C.marksDir)
+
+        for (band, images) in files.items():
+            for f in images:
+                tweakDict = {}
+                (bare, ext) = splitext(f)
+                parts = bare.rsplit(&#34;(&#34;, 1)
+                if len(parts) &gt; 1:
+                    bare = parts[0]
+                    tweaks = parts[1][0:-1].split(&#34;,&#34;)
+                    for tweak in tweaks:
+                        if &#34;=&#34; not in tweak:
+                            error(f&#34;Malformed image parameter for {bare}: {tweak}&#34;)
+                            continue
+                        (k, v) = tweak.split(&#34;=&#34;, 1)
+                        if k not in markParams:
+                            error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
+                            continue
+                        try:
+                            tweakDict[k] = int(v) if k == &#34;cb&#34; else float(v)
+                        except Exception:
+                            error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
+
+                full = f&#34;{C.marksDir}/{band}/{f}&#34;
+                image = cv2.imread(full)
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+                if band == &#34;divider&#34;:
+                    dividers[bare] = dict(gray=gray)
+                    dest = dividers[bare]
+                else:
+                    marks.setdefault(band, {})[bare] = dict(gray=gray)
+                    dest = marks[band][bare]
+                for (k, kLong) in markParams.items():
+                    dest[kLong] = tweakDict.get(k, getattr(C, kLong))
+
+        self.pages = imageFileList(C.inDir)
+
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        The signature is the same as `pipeline.parameters.Config.configure`.
+        &#34;&#34;&#34;
+
+        self.C.configure(reset=reset, **params)
+        self._applySettings()
+
+    def showSettings(self, params=None):
+        &#34;&#34;&#34;Display settings.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+            The current values of given parameters will be displayed.
+            The values that you give each of the `params` here is not used,
+            only their names. It is recommended to pass `None` as values:
+
+            `B.showSettings(blurX=None, blurY=None)`
+        &#34;&#34;&#34;
+        self.C.show(params=params)
+
+    def availableBands(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *bands*.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        info(&#34;Available bands and their offsets&#34;, tm=False)
+        for (band, offset) in sorted(self.offsetBand.items()):
+            bandRep = f&#34;«{band}»&#34;
+            info(f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False)
+
+    def availableMarks(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        marks = self.marks
+
+        info(&#34;Marks and their settings&#34;, tm=False)
+        for (band, markItems) in sorted(marks.items()):
+            bandRep = f&#34;[{band}]&#34;
+            info(f&#34;\tband {bandRep}&#34;, tm=False)
+            for (mark, markInfo) in sorted(markItems.items()):
+                markRep = f&#34;«{mark}»&#34;
+                acc = markInfo[&#34;accuracy&#34;]
+                cb = markInfo[&#34;connectBorder&#34;]
+                info(
+                    f&#34;\t\t{markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
+                    tm=False,
+                )
+                showImage(markInfo[&#34;gray&#34;])
+
+    def availablePages(self):
+        &#34;&#34;&#34;Display the amount and page numbers of all pages.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        pages = self.pages
+        nPages = len(pages)
+        pagesDesc = pagesRep(self.pages)
+
+        info(f&#34;{nPages} pages: {pagesDesc}&#34;)
+
+    def _doPage(
+        self, f, batch=False, boxed=True, quiet=False,
+    ):
+        &#34;&#34;&#34;Process a single page.
+
+        Executes all processing steps for a single page.
+
+        Parameters
+        ----------
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A `pipeline.page.Page` object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        baseLevel = 1 if batch else 0
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+
+        (bare, ext) = splitext(f)
+
+        if not batch:
+            info(f&#34;Processing {bare}&#34;)
+
+        page = Page(self, f, batch=batch, boxed=boxed)
+        if batch or not page.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            page.normalize()
+            if not batch:
+                info(&#34;histogram&#34;)
+            page.histogram()
+            if not batch:
+                info(&#34;margins&#34;)
+            page.margins()
+            if not batch:
+                info(&#34;cleaning&#34;)
+            page.clean()
+
+        tm.silentOff()
+
+        if not batch:
+            indent(level=baseLevel)
+            div = page.dividers.get(&#34;footnote&#34;, None)
+            if div:
+                msg = &#34;footer&#34;
+                amount = f&#34;at height {div[2]:&gt;3}%&#34;
+            else:
+                msg = &#34;no footer&#34;
+                amount = &#34;&#34;
+            info(f&#34;Done, {msg} {amount}&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showImage(divIm)
+        return page
+
+    def process(
+        self, pages=None, batch=True, quiet=True, boxed=False,
+    ):
+        &#34;&#34;&#34;Process directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+        batch: boolean, optional `True`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A `pipeline.page.Page` object for the last page processed,
+        which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        tm.silentOff()
+
+        indent(reset=True)
+
+        C = self.C
+        inDir = C.inDir
+        interDir = C.interDir
+        outDir = C.outDir
+        for d in (interDir, outDir):
+            if not os.path.exists(d):
+                os.makedirs(d, exist_ok=True)
+
+        imageFiles = select(imageFileList(inDir), pages)
+        info(f&#34;Batch of {len(imageFiles)} pages&#34;)
+
+        info(f&#34;Start batch processing images&#34;)
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = self._doPage(imFile, batch=batch, boxed=boxed, quiet=quiet,)
+            page.write(stage=&#34;clean&#34;)
+            if boxed:
+                page.write(stage=&#34;boxed&#34;)
+            div = page.dividers.get(&#34;footnote&#34;, None)
+            amount = div[2] if div else 100
+            info(f&#34;{msg} {amount:&gt;3}%&#34;)
+            if not quiet:
+                divIm = div[1]
+                if divIm is not None:
+                    showImage(divIm)
+        indent(level=0)
+        info(&#34;all done&#34;)
+        return page  # the last page processed</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pipeline.book.Book.availableBands"><code class="name flex">
+<span>def <span class="ident">availableBands</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display the characteristics of all defined <em>bands</em>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def availableBands(self):
+    &#34;&#34;&#34;Display the characteristics of all defined *bands*.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    info(&#34;Available bands and their offsets&#34;, tm=False)
+    for (band, offset) in sorted(self.offsetBand.items()):
+        bandRep = f&#34;«{band}»&#34;
+        info(f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.book.Book.availableMarks"><code class="name flex">
+<span>def <span class="ident">availableMarks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display the characteristics of all defined <em>marks</em>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def availableMarks(self):
+    &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+    marks = self.marks
+
+    info(&#34;Marks and their settings&#34;, tm=False)
+    for (band, markItems) in sorted(marks.items()):
+        bandRep = f&#34;[{band}]&#34;
+        info(f&#34;\tband {bandRep}&#34;, tm=False)
+        for (mark, markInfo) in sorted(markItems.items()):
+            markRep = f&#34;«{mark}»&#34;
+            acc = markInfo[&#34;accuracy&#34;]
+            cb = markInfo[&#34;connectBorder&#34;]
+            info(
+                f&#34;\t\t{markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
+                tm=False,
+            )
+            showImage(markInfo[&#34;gray&#34;])</code></pre>
+</details>
+</dd>
+<dt id="pipeline.book.Book.availablePages"><code class="name flex">
+<span>def <span class="ident">availablePages</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display the amount and page numbers of all pages.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def availablePages(self):
+    &#34;&#34;&#34;Display the amount and page numbers of all pages.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    pages = self.pages
+    nPages = len(pages)
+    pagesDesc = pagesRep(self.pages)
+
+    info(f&#34;{nPages} pages: {pagesDesc}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.book.Book.configure"><code class="name flex">
+<span>def <span class="ident">configure</span></span>(<span>self, reset=False, **params)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Updates current settings based on new values.</p>
+<p>The signature is the same as <a title="pipeline.parameters.Config.configure" href="parameters.html#pipeline.parameters.Config.configure"><code>Config.configure()</code></a>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def configure(self, reset=False, **params):
+    &#34;&#34;&#34;Updates current settings based on new values.
+
+    The signature is the same as `pipeline.parameters.Config.configure`.
+    &#34;&#34;&#34;
+
+    self.C.configure(reset=reset, **params)
+    self._applySettings()</code></pre>
+</details>
+</dd>
+<dt id="pipeline.book.Book.process"><code class="name flex">
+<span>def <span class="ident">process</span></span>(<span>self, pages=None, batch=True, quiet=True, boxed=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Process directory of images.</p>
+<p>Executes all processing steps for all images.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pages</code></strong> :&ensp;<code>string</code> | <code>int</code>, optional <code>None</code></dt>
+<dd>Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code> (from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to run in batch mode.
+In batch mode everything is geared to the final output.
+Less intermediate results are computed and stored.
+Less feedback happens on the console.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If in batch mode, produce also images that display the cleaned marks
+in boxes.</dd>
+<dt><strong><code>quiet</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to suppress warnings and the display of footnote separators.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt>A <a title="pipeline.page.Page" href="page.html#pipeline.page.Page"><code>Page</code></a> object for the last page processed,</dt>
+<dt><code>which</code> <code>is</code> <code>the</code> <code>handle</code> <code>for</code> <code>further</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>inspection of what has happened during processing.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process(
+    self, pages=None, batch=True, quiet=True, boxed=False,
+):
+    &#34;&#34;&#34;Process directory of images.
+
+    Executes all processing steps for all images.
+
+    Parameters
+    ----------
+    pages: string | int, optional `None`
+        Specification of pages to do. If absent or `None`: all pages.
+        If an int, do only that page.
+        Otherwise it must be a comma separated string of (ranges of) page numbers.
+        Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+        and `10-` (from 10 till end).
+        E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+        No spaces allowed.
+    batch: boolean, optional `True`
+        Whether to run in batch mode.
+        In batch mode everything is geared to the final output.
+        Less intermediate results are computed and stored.
+        Less feedback happens on the console.
+    boxed: boolean, optional `False`
+        If in batch mode, produce also images that display the cleaned marks
+        in boxes.
+    quiet: boolean, optional `True`
+        Whether to suppress warnings and the display of footnote separators.
+
+    Returns
+    -------
+    A `pipeline.page.Page` object for the last page processed,
+    which is the handle for further
+    inspection of what has happened during processing.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+    indent = tm.indent
+    tm.silentOff()
+
+    indent(reset=True)
+
+    C = self.C
+    inDir = C.inDir
+    interDir = C.interDir
+    outDir = C.outDir
+    for d in (interDir, outDir):
+        if not os.path.exists(d):
+            os.makedirs(d, exist_ok=True)
+
+    imageFiles = select(imageFileList(inDir), pages)
+    info(f&#34;Batch of {len(imageFiles)} pages&#34;)
+
+    info(f&#34;Start batch processing images&#34;)
+    for (i, imFile) in enumerate(sorted(imageFiles)):
+        indent(level=1, reset=True)
+        msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+        info(f&#34;{msg}\r&#34;, nl=False)
+        page = self._doPage(imFile, batch=batch, boxed=boxed, quiet=quiet,)
+        page.write(stage=&#34;clean&#34;)
+        if boxed:
+            page.write(stage=&#34;boxed&#34;)
+        div = page.dividers.get(&#34;footnote&#34;, None)
+        amount = div[2] if div else 100
+        info(f&#34;{msg} {amount:&gt;3}%&#34;)
+        if not quiet:
+            divIm = div[1]
+            if divIm is not None:
+                showImage(divIm)
+    indent(level=0)
+    info(&#34;all done&#34;)
+    return page  # the last page processed</code></pre>
+</details>
+</dd>
+<dt id="pipeline.book.Book.showSettings"><code class="name flex">
+<span>def <span class="ident">showSettings</span></span>(<span>self, params=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Display settings.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Any number of customizable settings from <a title="pipeline.parameters.SETTINGS" href="parameters.html#pipeline.parameters.SETTINGS"><code>SETTINGS</code></a>.</p>
+<p>The current values of given parameters will be displayed.
+The values that you give each of the <code>params</code> here is not used,
+only their names. It is recommended to pass <code>None</code> as values:</p>
+<p><code>B.showSettings(blurX=None, blurY=None)</code></p>
+</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def showSettings(self, params=None):
+    &#34;&#34;&#34;Display settings.
+
+    Parameters
+    ----------
+    params: dict, optional
+        Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+        The current values of given parameters will be displayed.
+        The values that you give each of the `params` here is not used,
+        only their names. It is recommended to pass `None` as values:
+
+        `B.showSettings(blurX=None, blurY=None)`
+    &#34;&#34;&#34;
+    self.C.show(params=params)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pipeline" href="index.html">pipeline</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pipeline.book.main" href="#pipeline.book.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pipeline.book.Book" href="#pipeline.book.Book">Book</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pipeline.book.Book.availableBands" href="#pipeline.book.Book.availableBands">availableBands</a></code></li>
+<li><code><a title="pipeline.book.Book.availableMarks" href="#pipeline.book.Book.availableMarks">availableMarks</a></code></li>
+<li><code><a title="pipeline.book.Book.availablePages" href="#pipeline.book.Book.availablePages">availablePages</a></code></li>
+<li><code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.configure">configure</a></code></li>
+<li><code><a title="pipeline.book.Book.process" href="#pipeline.book.Book.process">process</a></code></li>
+<li><code><a title="pipeline.book.Book.showSettings" href="#pipeline.book.Book.showSettings">showSettings</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

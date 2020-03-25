@@ -24,19 +24,32 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import io
+<pre><code class="python">import os
+import io
 
 import numpy as np
 import PIL.Image
-import cv2
 from IPython.display import HTML, Image, display
+import cv2
+
+from tf.core.helpers import rangesFromList, specFromRanges
+
+EXTENSIONS = set(
+    &#34;&#34;&#34;
+    jpeg
+    jpg
+    png
+    tif
+    tiff
+&#34;&#34;&#34;.strip().split()
+)
 
 
 def img(data):
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;
 
 
-def showarray(a, fmt=&#34;jpeg&#34;, **kwargs):
+def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
@@ -51,6 +64,70 @@ def showarray(a, fmt=&#34;jpeg&#34;, **kwargs):
         f = io.BytesIO()
         PIL.Image.fromarray(ai).save(f, fmt)
         display(Image(data=f.getvalue(), **kwargs))
+
+
+def splitext(f):
+    (bare, ext) = os.path.splitext(f)
+    if ext:
+        ext = ext[1:]
+    return (bare, ext)
+
+
+def imageFileList(imDir):
+    if not os.path.exists(imDir):
+        return []
+
+    imageFiles = []
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            (bare, ext) = splitext(name)
+
+            if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
+                imageFiles.append(name)
+    return sorted(imageFiles)
+
+
+def imageFileListSub(imDir):
+    if not os.path.exists(imDir):
+        return {}
+    imageFiles = {}
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            if not name.startswith(&#34;.&#34;) and entry.is_dir():
+                imageFiles[name] = imageFileList(f&#34;{imDir}/{name}&#34;)
+    return imageFiles
+
+
+def pagesRep(source):
+    pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
+    return specFromRanges(rangesFromList(pages))
+
+
+def select(source, selection):
+    if selection is None:
+        return sorted(source)
+
+    index = {int(splitext(f)[0].lstrip(&#34;0&#34;)): f for f in source}
+    universe = set(index)
+    if type(selection) is int:
+        return sorted(index[n] for n in {selection} &amp; universe)
+
+    minu = min(universe, default=0)
+    maxu = max(universe, default=0)
+    selected = set()
+    for rng in selection.split(&#34;,&#34;):
+        parts = rng.split(&#34;-&#34;)
+        if len(parts) == 2:
+            (lower, upper) = parts
+            lower = minu if lower == &#34;&#34; else int(lower)
+            upper = maxu if upper == &#34;&#34; else int(upper)
+        else:
+            lower = int(parts[0])
+            upper = lower
+        selected |= set(range(lower, upper + 1)) &amp; universe
+    return sorted(index[n] for n in selected)
 
 
 def cluster(points, result):
@@ -89,7 +166,7 @@ def showit(label, texto, texti, val):
     print(&#34;Inner&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texti))
 
 
-def connected(h, w, bw, threshold, gray, hitPoint):
+def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
     (hitY, hitX) = hitPoint
 
@@ -97,92 +174,128 @@ def connected(h, w, bw, threshold, gray, hitPoint):
     connDegree = 0
     nparts = 0
 
+    realBw = min((bw, markW, markH))
+
     # left boundary
-    f = max((0, hitX - bw)) if hitX &gt; 0 else None
-    if f is not None:
-        t = hitX
+
+    fo = max((0, hitX - realBw)) if hitX &gt; 0 else None
+    if fo is not None:
+        to = hitX
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
         fi = hitX
-        ti = hitX + bw
+        ti = hitX + realBw
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;l&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # right boundary
-    t = min((textW, hitX + w + bw + 1)) if hitX + w + bw &lt; textW else None
-    if t is not None:
-        f = hitX + w
-        # texto = np.array(gray[hitY : hitY + h, f:t])
-        # print(texto)
+
+    to = (
+        min((textW, hitX + markW + realBw + 1))
+        if hitX + markW + realBw &lt; textW
+        else None
+    )
+    if to is not None:
+        fo = hitX + markW
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
-        ti = hitX + w
-        fi = hitX + w - bw
+        fi = hitX + markW - realBw
+        ti = hitX + markW
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;r&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # top boundary
 
-    f = max((0, hitY - bw)) if hitY &gt; 0 else None
+    f = max((0, hitY - realBw)) if hitY &gt; 0 else None
     if f is not None:
         t = hitY
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         fi = hitY
-        ti = hitY + bw + 1
+        ti = hitY + realBw + 1
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;t&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # bottom boundary
 
-    t = min((textH - 1, hitY + h + bw + 1)) if hitY + h + bw &lt; textH else None
+    t = (
+        min((textH - 1, hitY + markH + realBw + 1))
+        if hitY + markH + realBw &lt; textH
+        else None
+    )
     if t is not None:
-        f = hitY + h
+        f = hitY + markH
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
-        ti = hitY + h
-        fi = hitY + h - bw
+        ti = hitY + markH
+        fi = hitY + markH - realBw
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;b&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
-    # print(f&#34;connectedDegree = {connDegree}\n&#34;)
+
     return connDegree
 
 
 def removeSkewStripes(img, skewBorder, skewColor):
-    (h, w) = img.shape[0:2]
-    if min((h, w)) &lt; skewBorder * 10:
+    (imH, imW) = img.shape[0:2]
+    if min((imH, imW)) &lt; skewBorder * 10:
         return
     for rect in (
-        ((0, 0), (skewBorder, h)),
-        ((0, 0), (w, skewBorder)),
-        ((w, h), (w - skewBorder, 0)),
-        ((w, h), (0, h - skewBorder)),
+        ((0, 0), (skewBorder, imH)),
+        ((0, 0), (imW, skewBorder)),
+        ((imW, imH), (imW - skewBorder, 0)),
+        ((imW, imH), (0, imH - skewBorder)),
     ):
-        cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
+        cv2.rectangle(img, *rect, skewColor, -1)
+
+
+def parseStages(stage, allStages, sortedStages, error):
+    doStages = (
+        allStages
+        if stage is None
+        else set()
+        if not stage
+        else set(stage.split(&#34;,&#34;))
+        if type(stage) is str
+        else set(stage)
+    )
+    illegalStages = doStages - allStages
+    if illegalStages:
+        error(f&#34;Will skip illegal stages: {&#39;, &#39;.join(sorted(illegalStages))}&#34;)
+
+    doStages = doStages - illegalStages
+
+    return tuple(s for s in sortedStages if s in doStages)
+
+
+def parseBands(band, allBands, error):
+    sortedBands = sorted(allBands)
+    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    illegalBands = doBands - allBands
+    if illegalBands:
+        error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
+
+    doBands = doBands - illegalBands
+    return tuple(b for b in sortedBands if b in doBands)</code></pre>
 </details>
 </section>
 <section>
@@ -227,7 +340,7 @@ def removeSkewStripes(img, skewBorder, skewColor):
 </details>
 </dd>
 <dt id="pipeline.lib.connected"><code class="name flex">
-<span>def <span class="ident">connected</span></span>(<span>h, w, bw, threshold, gray, hitPoint)</span>
+<span>def <span class="ident">connected</span></span>(<span>markH, markW, bw, threshold, gray, hitPoint)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -235,7 +348,7 @@ def removeSkewStripes(img, skewBorder, skewColor):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def connected(h, w, bw, threshold, gray, hitPoint):
+<pre><code class="python">def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
     (hitY, hitX) = hitPoint
 
@@ -243,79 +356,130 @@ def removeSkewStripes(img, skewBorder, skewColor):
     connDegree = 0
     nparts = 0
 
+    realBw = min((bw, markW, markH))
+
     # left boundary
-    f = max((0, hitX - bw)) if hitX &gt; 0 else None
-    if f is not None:
-        t = hitX
+
+    fo = max((0, hitX - realBw)) if hitX &gt; 0 else None
+    if fo is not None:
+        to = hitX
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
         fi = hitX
-        ti = hitX + bw
+        ti = hitX + realBw
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;l&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # right boundary
-    t = min((textW, hitX + w + bw + 1)) if hitX + w + bw &lt; textW else None
-    if t is not None:
-        f = hitX + w
-        # texto = np.array(gray[hitY : hitY + h, f:t])
-        # print(texto)
+
+    to = (
+        min((textW, hitX + markW + realBw + 1))
+        if hitX + markW + realBw &lt; textW
+        else None
+    )
+    if to is not None:
+        fo = hitX + markW
         texto = np.array(
-            (255 - gray[hitY : hitY + h, f:t]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
         )
-        ti = hitX + w
-        fi = hitX + w - bw
+        fi = hitX + markW - realBw
+        ti = hitX + markW
         texti = np.array(
-            (255 - gray[hitY : hitY + h, fi:ti]).max(axis=1), dtype=np.uint16
+            (255 - gray[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;r&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # top boundary
 
-    f = max((0, hitY - bw)) if hitY &gt; 0 else None
+    f = max((0, hitY - realBw)) if hitY &gt; 0 else None
     if f is not None:
         t = hitY
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         fi = hitY
-        ti = hitY + bw + 1
+        ti = hitY + realBw + 1
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;t&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
 
     # bottom boundary
 
-    t = min((textH - 1, hitY + h + bw + 1)) if hitY + h + bw &lt; textH else None
+    t = (
+        min((textH - 1, hitY + markH + realBw + 1))
+        if hitY + markH + realBw &lt; textH
+        else None
+    )
     if t is not None:
-        f = hitY + h
+        f = hitY + markH
         texto = np.array(
-            (255 - gray[f:t, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
-        ti = hitY + h
-        fi = hitY + h - bw
+        ti = hitY + markH
+        fi = hitY + markH - realBw
         texti = np.array(
-            (255 - gray[fi:ti, hitX : hitX + w]).max(axis=0), dtype=np.uint16
+            (255 - gray[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
         )
         val = measure(texto, texti, threshold)
-        # showit(&#34;b&#34;, texto, texti, val)
         connDegree += val
         nparts += 1
-    # print(f&#34;connectedDegree = {connDegree}\n&#34;)
+
     return connDegree</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.imageFileList"><code class="name flex">
+<span>def <span class="ident">imageFileList</span></span>(<span>imDir)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def imageFileList(imDir):
+    if not os.path.exists(imDir):
+        return []
+
+    imageFiles = []
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            (bare, ext) = splitext(name)
+
+            if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
+                imageFiles.append(name)
+    return sorted(imageFiles)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.imageFileListSub"><code class="name flex">
+<span>def <span class="ident">imageFileListSub</span></span>(<span>imDir)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def imageFileListSub(imDir):
+    if not os.path.exists(imDir):
+        return {}
+    imageFiles = {}
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            if not name.startswith(&#34;.&#34;) and entry.is_dir():
+                imageFiles[name] = imageFileList(f&#34;{imDir}/{name}&#34;)
+    return imageFiles</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.img"><code class="name flex">
@@ -345,6 +509,68 @@ def removeSkewStripes(img, skewBorder, skewColor):
     return np.where(connections &gt; threshold)[0].size / borderOutside.size</code></pre>
 </details>
 </dd>
+<dt id="pipeline.lib.pagesRep"><code class="name flex">
+<span>def <span class="ident">pagesRep</span></span>(<span>source)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pagesRep(source):
+    pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
+    return specFromRanges(rangesFromList(pages))</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.parseBands"><code class="name flex">
+<span>def <span class="ident">parseBands</span></span>(<span>band, allBands, error)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parseBands(band, allBands, error):
+    sortedBands = sorted(allBands)
+    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    illegalBands = doBands - allBands
+    if illegalBands:
+        error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
+
+    doBands = doBands - illegalBands
+    return tuple(b for b in sortedBands if b in doBands)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.parseStages"><code class="name flex">
+<span>def <span class="ident">parseStages</span></span>(<span>stage, allStages, sortedStages, error)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
+    doStages = (
+        allStages
+        if stage is None
+        else set()
+        if not stage
+        else set(stage.split(&#34;,&#34;))
+        if type(stage) is str
+        else set(stage)
+    )
+    illegalStages = doStages - allStages
+    if illegalStages:
+        error(f&#34;Will skip illegal stages: {&#39;, &#39;.join(sorted(illegalStages))}&#34;)
+
+    doStages = doStages - illegalStages
+
+    return tuple(s for s in sortedStages if s in doStages)</code></pre>
+</details>
+</dd>
 <dt id="pipeline.lib.removeSkewStripes"><code class="name flex">
 <span>def <span class="ident">removeSkewStripes</span></span>(<span>img, skewBorder, skewColor)</span>
 </code></dt>
@@ -355,20 +581,20 @@ def removeSkewStripes(img, skewBorder, skewColor):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
-    (h, w) = img.shape[0:2]
-    if min((h, w)) &lt; skewBorder * 10:
+    (imH, imW) = img.shape[0:2]
+    if min((imH, imW)) &lt; skewBorder * 10:
         return
     for rect in (
-        ((0, 0), (skewBorder, h)),
-        ((0, 0), (w, skewBorder)),
-        ((w, h), (w - skewBorder, 0)),
-        ((w, h), (0, h - skewBorder)),
+        ((0, 0), (skewBorder, imH)),
+        ((0, 0), (imW, skewBorder)),
+        ((imW, imH), (imW - skewBorder, 0)),
+        ((imW, imH), (0, imH - skewBorder)),
     ):
         cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.showarray"><code class="name flex">
-<span>def <span class="ident">showarray</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
+<dt id="pipeline.lib.select"><code class="name flex">
+<span>def <span class="ident">select</span></span>(<span>source, selection)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -376,7 +602,41 @@ def removeSkewStripes(img, skewBorder, skewColor):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def showarray(a, fmt=&#34;jpeg&#34;, **kwargs):
+<pre><code class="python">def select(source, selection):
+    if selection is None:
+        return sorted(source)
+
+    index = {int(splitext(f)[0].lstrip(&#34;0&#34;)): f for f in source}
+    universe = set(index)
+    if type(selection) is int:
+        return sorted(index[n] for n in {selection} &amp; universe)
+
+    minu = min(universe, default=0)
+    maxu = max(universe, default=0)
+    selected = set()
+    for rng in selection.split(&#34;,&#34;):
+        parts = rng.split(&#34;-&#34;)
+        if len(parts) == 2:
+            (lower, upper) = parts
+            lower = minu if lower == &#34;&#34; else int(lower)
+            upper = maxu if upper == &#34;&#34; else int(upper)
+        else:
+            lower = int(parts[0])
+            upper = lower
+        selected |= set(range(lower, upper + 1)) &amp; universe
+    return sorted(index[n] for n in selected)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.showImage"><code class="name flex">
+<span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
@@ -408,6 +668,22 @@ def removeSkewStripes(img, skewBorder, skewColor):
     print(&#34;Inner&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texti))</code></pre>
 </details>
 </dd>
+<dt id="pipeline.lib.splitext"><code class="name flex">
+<span>def <span class="ident">splitext</span></span>(<span>f)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def splitext(f):
+    (bare, ext) = os.path.splitext(f)
+    if ext:
+        ext = ext[1:]
+    return (bare, ext)</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -428,11 +704,18 @@ def removeSkewStripes(img, skewBorder, skewColor):
 <ul class="two-column">
 <li><code><a title="pipeline.lib.cluster" href="#pipeline.lib.cluster">cluster</a></code></li>
 <li><code><a title="pipeline.lib.connected" href="#pipeline.lib.connected">connected</a></code></li>
+<li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
+<li><code><a title="pipeline.lib.imageFileListSub" href="#pipeline.lib.imageFileListSub">imageFileListSub</a></code></li>
 <li><code><a title="pipeline.lib.img" href="#pipeline.lib.img">img</a></code></li>
 <li><code><a title="pipeline.lib.measure" href="#pipeline.lib.measure">measure</a></code></li>
+<li><code><a title="pipeline.lib.pagesRep" href="#pipeline.lib.pagesRep">pagesRep</a></code></li>
+<li><code><a title="pipeline.lib.parseBands" href="#pipeline.lib.parseBands">parseBands</a></code></li>
+<li><code><a title="pipeline.lib.parseStages" href="#pipeline.lib.parseStages">parseStages</a></code></li>
 <li><code><a title="pipeline.lib.removeSkewStripes" href="#pipeline.lib.removeSkewStripes">removeSkewStripes</a></code></li>
-<li><code><a title="pipeline.lib.showarray" href="#pipeline.lib.showarray">showarray</a></code></li>
+<li><code><a title="pipeline.lib.select" href="#pipeline.lib.select">select</a></code></li>
+<li><code><a title="pipeline.lib.showImage" href="#pipeline.lib.showImage">showImage</a></code></li>
 <li><code><a title="pipeline.lib.showit" href="#pipeline.lib.showit">showit</a></code></li>
+<li><code><a title="pipeline.lib.splitext" href="#pipeline.lib.splitext">splitext</a></code></li>
 </ul>
 </li>
 </ul>

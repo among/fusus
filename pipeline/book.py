@@ -1,92 +1,174 @@
+"""Book pipeline
+"""
+
 import sys
 import os
 
-import yaml
 import cv2
 
 from tf.core.timestamp import Timestamp
 
-from .lib import showImage, imageFileList, select, splitext, configure
-from .image import ReadableImage
-
-DEFAULTS = dict(
-    inDir="in",
-    outDir="out",
-    interDir="inter",
-    marks="marks",
-    dividers="dividers",
-    accuracy=0.8,
-    connectBorder=4,
-    band="inter",
-)
+from .parameters import Config
+from .lib import showImage, imageFileList, imageFileListSub, select, splitext, pagesRep
+from .page import Page
 
 
 class Book:
     def __init__(self, **params):
-        C = configure(DEFAULTS, params)
-        self.C = C
-        self.tm = Timestamp()
-
-        params = ("accuracy", "connectBorder", "band")
-        infoFile = "marks.yaml"
-
-        self.dividers = {}
-        self.marks = {}
-
-        if os.path.exists(infoFile):
-            with open(infoFile) as fh:
-                markInfo = yaml.load(fh, Loader=yaml.FullLoader)
-        else:
-            markInfo = {}
-
-        for (path, dest) in (
-            (C["dividers"], self.dividers),
-            (C["marks"], self.marks),
-        ):
-            files = imageFileList(path)
-            for f in files:
-                (bare, ext) = splitext(f)
-                full = f"{path}/{f}"
-                image = cv2.imread(full)
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                dest[bare] = dict(gray=gray)
-                for k in params:
-                    dest[bare][k] = markInfo.get(bare, {}).get(k, DEFAULTS[k])
-
-    def start(self, f):
-        """Initialize an image for processing.
+        """Engine for book conversion.
 
         Parameters
         ----------
-        f: string
-            The file name of the image with extension, without directory
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
 
-        Returns
-        -------
-        A readable image object, which is the handle for applying
-        further operations.
+            They will be in effect when running the pipeline, until
+            a `Book.configure` action will modify them.
         """
 
-        return ReadableImage(self, f)
+        tm = Timestamp()
+        self.tm = tm
+        self.C = Config(tm, **params)
+        self._applySettings()
 
-    def process(
-        self,
-        f,
-        batch=False,
-        boxed=True,
-        quiet=False,
-        normalize=None,
-        margins=None,
-        clean=None,
+    def _applySettings(self):
+        """After a settings update, recompute derived settings.
+        """
+
+        C = self.C
+        tm = self.tm
+        error = tm.error
+
+        markParams = dict(acc="accuracy", cb="connectBorder")
+
+        self.marks = {}
+        marks = self.marks
+        self.dividers = {}
+        dividers = self.dividers
+        offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
+        self.offsetBand = offsetBand
+
+        files = imageFileListSub(C.marksDir)
+
+        for (band, images) in files.items():
+            for f in images:
+                tweakDict = {}
+                (bare, ext) = splitext(f)
+                parts = bare.rsplit("(", 1)
+                if len(parts) > 1:
+                    bare = parts[0]
+                    tweaks = parts[1][0:-1].split(",")
+                    for tweak in tweaks:
+                        if "=" not in tweak:
+                            error(f"Malformed image parameter for {bare}: {tweak}")
+                            continue
+                        (k, v) = tweak.split("=", 1)
+                        if k not in markParams:
+                            error(f"Unknown image parameter for {bare}: {k} in {k}={v}")
+                            continue
+                        try:
+                            tweakDict[k] = int(v) if k == "cb" else float(v)
+                        except Exception:
+                            error(f"Unknown image parameter for {bare}: {v} in {k}={v}")
+
+                full = f"{C.marksDir}/{band}/{f}"
+                image = cv2.imread(full)
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+                if band == "divider":
+                    dividers[bare] = dict(gray=gray)
+                    dest = dividers[bare]
+                else:
+                    marks.setdefault(band, {})[bare] = dict(gray=gray)
+                    dest = marks[band][bare]
+                for (k, kLong) in markParams.items():
+                    dest[kLong] = tweakDict.get(k, getattr(C, kLong))
+
+        self.pages = imageFileList(C.inDir)
+
+    def configure(self, reset=False, **params):
+        """Updates current settings based on new values.
+
+        The signature is the same as `pipeline.parameters.Config.configure`.
+        """
+
+        self.C.configure(reset=reset, **params)
+        self._applySettings()
+
+    def showSettings(self, params=None):
+        """Display settings.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `pipeline.parameters.SETTINGS`.
+
+            The current values of given parameters will be displayed.
+            The values that you give each of the `params` here is not used,
+            only their names. It is recommended to pass `None` as values:
+
+            `B.showSettings(blurX=None, blurY=None)`
+        """
+        self.C.show(params=params)
+
+    def availableBands(self):
+        """Display the characteristics of all defined *bands*.
+        """
+
+        tm = self.tm
+        info = tm.info
+
+        info("Available bands and their offsets", tm=False)
+        for (band, offset) in sorted(self.offsetBand.items()):
+            bandRep = f"«{band}»"
+            info(f"\t{bandRep:<10}: top={offset[0]:>4}, bottom={offset[1]:>4}", tm=False)
+
+    def availableMarks(self):
+        """Display the characteristics of all defined *marks*.
+        """
+
+        tm = self.tm
+        info = tm.info
+        marks = self.marks
+
+        info("Marks and their settings", tm=False)
+        for (band, markItems) in sorted(marks.items()):
+            bandRep = f"[{band}]"
+            info(f"\tband {bandRep}", tm=False)
+            for (mark, markInfo) in sorted(markItems.items()):
+                markRep = f"«{mark}»"
+                acc = markInfo["accuracy"]
+                cb = markInfo["connectBorder"]
+                info(
+                    f"\t\t{markRep:<20} accuracy={acc}, connectBorder={cb}",
+                    tm=False,
+                )
+                showImage(markInfo["gray"])
+
+    def availablePages(self):
+        """Display the amount and page numbers of all pages.
+        """
+
+        tm = self.tm
+        info = tm.info
+
+        pages = self.pages
+        nPages = len(pages)
+        pagesDesc = pagesRep(self.pages)
+
+        info(f"{nPages} pages: {pagesDesc}")
+
+    def _doPage(
+        self, f, batch=False, boxed=True, quiet=False,
     ):
-        """Process a single image.
+        """Process a single page.
 
-        Executes all processing steps for a single image.
+        Executes all processing steps for a single page.
 
         Parameters
         ----------
         f: string
-            The file name of the image with extension, without directory
+            The file name of the scanned page with extension, without directory
         batch: boolean, optional `False`
             Whether to run in batch mode.
             In batch mode everything is geared to the final output.
@@ -100,7 +182,7 @@ class Book:
 
         Returns
         -------
-        A readable image object, which is the handle for further
+        A `pipeline.page.Page` object, which is the handle for further
         inspection of what has happened during processing.
         """
 
@@ -121,27 +203,27 @@ class Book:
         if not batch:
             info(f"Processing {bare}")
 
-        rImg = ReadableImage(self, f, batch=batch, boxed=boxed)
-        if batch or not rImg.empty:
+        page = Page(self, f, batch=batch, boxed=boxed)
+        if batch or not page.empty:
             if not batch:
                 indent(level=subLevel, reset=True)
                 info("normalizing")
-            rImg.normalize(**(normalize or {}))
+            page.normalize()
             if not batch:
                 info("histogram")
-            rImg.histogram()
+            page.histogram()
             if not batch:
                 info("margins")
-            rImg.margins(**(margins or {}))
+            page.margins()
             if not batch:
                 info("cleaning")
-            rImg.clean(**(clean or {}))
+            page.clean()
 
         tm.silentOff()
 
         if not batch:
             indent(level=baseLevel)
-            div = rImg.dividers.get("footnote", None)
+            div = page.dividers.get("footnote", None)
             if div:
                 msg = "footer"
                 amount = f"at height {div[2]:>3}%"
@@ -153,17 +235,10 @@ class Book:
                 divIm = div[1]
                 if divIm is not None:
                     showImage(divIm)
-        return rImg
+        return page
 
-    def batch(
-        self,
-        pages=None,
-        batch=True,
-        quiet=True,
-        boxed=False,
-        normalize=None,
-        margins=None,
-        clean=None,
+    def process(
+        self, pages=None, batch=True, quiet=True, boxed=False,
     ):
         """Process directory of images.
 
@@ -179,11 +254,22 @@ class Book:
             and `10-` (from 10 till end).
             E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
             No spaces allowed.
+        batch: boolean, optional `True`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
         boxed: boolean, optional `False`
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `True`
             Whether to suppress warnings and the display of footnote separators.
+
+        Returns
+        -------
+        A `pipeline.page.Page` object for the last page processed,
+        which is the handle for further
+        inspection of what has happened during processing.
         """
 
         tm = self.tm
@@ -194,9 +280,9 @@ class Book:
         indent(reset=True)
 
         C = self.C
-        inDir = C["inDir"]
-        interDir = C["interDir"]
-        outDir = C["outDir"]
+        inDir = C.inDir
+        interDir = C.interDir
+        outDir = C.outDir
         for d in (interDir, outDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
@@ -209,19 +295,11 @@ class Book:
             indent(level=1, reset=True)
             msg = f"{i + 1:>5} {imFile:<40}"
             info(f"{msg}\r", nl=False)
-            rImg = self.process(
-                imFile,
-                batch=batch,
-                boxed=boxed,
-                quiet=quiet,
-                normalize=normalize,
-                margins=margins,
-                clean=clean,
-            )
-            rImg.write(stage="clean")
+            page = self._doPage(imFile, batch=batch, boxed=boxed, quiet=quiet,)
+            page.write(stage="clean")
             if boxed:
-                rImg.write(stage="boxed")
-            div = rImg.dividers.get("footnote", None)
+                page.write(stage="boxed")
+            div = page.dividers.get("footnote", None)
             amount = div[2] if div else 100
             info(f"{msg} {amount:>3}%")
             if not quiet:
@@ -230,15 +308,27 @@ class Book:
                     showImage(divIm)
         indent(level=0)
         info("all done")
-        return rImg  # the last image processed
+        return page  # the last page processed
 
 
 def main():
+    """Process a whole book with default settings.
+
+    Go to the book directory and say
+
+    ```
+    python3 -m pipeline.book [pages]
+    ```
+
+    where `pages` is an optional string specifying ranges
+    of pages as in `Book.process`
+    """
+
     pages = None
     if len(sys.argv) > 1:
         pages = sys.argv[1]
-    EX = Book()
-    EX.batch(pages=pages)
+    B = Book()
+    B.process(pages=pages)
 
 
 if __name__ == "__main__":
