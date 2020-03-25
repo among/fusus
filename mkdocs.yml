@@ -61,9 +61,9 @@ plugins:
 nav:
   - Home: 'index.md'
   - Operation:
-    - Install: 'install.md'
-    - Use: 'use.md'
-    - Methods: 'methods.md'
+    - install: 'install.md'
+    - use: 'use.md'
+    - methods: 'methods.md'
     - docstrings: 'apidocs/html/pipeline/index.html'
 
 extra:
