@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>pipeline.image API documentation</title>
-<meta name="description" content="" />
+<title>pipeline.page API documentation</title>
+<meta name="description" content="Single page processing." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,14 +17,18 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pipeline.image</code></h1>
+<h1 class="title">Module <code>pipeline.page</code></h1>
 </header>
 <section id="section-intro">
+<p>Single page processing.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import os
+<pre><code class="python">&#34;&#34;&#34;Single page processing.
+&#34;&#34;&#34;
+
+import os
 import cv2
 import numpy as np
 from IPython.display import HTML, display
@@ -40,8 +44,26 @@ from .lib import (
 )
 
 
-class ReadableImage:
+class Page:
     def __init__(self, engine, f, batch=False, boxed=True):
+        &#34;&#34;&#34;All processing steps for a single page.
+
+        Parameters
+        ----------
+        engine: object
+            The `pipeline.book.Book` object
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        &#34;&#34;&#34;
+
         self.engine = engine
         C = engine.C
         tm = engine.tm
@@ -57,7 +79,7 @@ class ReadableImage:
         inDir = C.inDir
         path = f&#34;{inDir}/{f}&#34;
         if not batch and not os.path.exists(path):
-            error(f&#34;Image file not found: {path}&#34;)
+            error(f&#34;Page file not found: {path}&#34;)
             return
 
         self.empty = False
@@ -65,10 +87,21 @@ class ReadableImage:
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, **kwargs):
-        &#34;&#34;&#34;Displays a stage of an image.
+    def show(self, stage=None, **displayParams):
+        &#34;&#34;&#34;Displays processing stages of an page.
 
-        If no stage is passed, all stages are shown as thumbnails.
+        See `pipeline.parameters.STAGE_ORDER`.
+
+        Parameters
+        ----------
+        stage: string | iterable, optional `None`
+            If no stage is passed, all stages are shown as thumbnails.
+            Otherwise, the indicated stages are shown.
+            If a string, it may be a comma-separated list of stage names.
+            Otherwise it is an iterable of stage names.
+        display: dict, optional
+            A set of display parameters, such as `width`, `height`
+            (anything accepted by `IPython.display.Image`).
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -80,12 +113,23 @@ class ReadableImage:
 
         for s in parseStages(stage, set(stages), C.stageOrder, error):
             display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-            showImage(stages[s], **kwargs)
+            showImage(stages[s], **displayParams)
 
     def write(self, stage=None):
-        &#34;&#34;&#34;Writes a stage of an image to disk.
+        &#34;&#34;&#34;Writes processing stages of an page to disk.
 
-        If no stage is passed, all stages are written.
+        Parameters
+        ----------
+        stage: string | iterable, optional `None`
+            If no stage is passed, all stages are shown as thumbnails.
+            Otherwise, the indicated stages are shown.
+            If a string, it may be a comma-separated list of stage names.
+            Otherwise it is an iterable of stage names.
+
+        Returns
+        -------
+            The stages are written into the `inter` subdirectory,
+            with the name of the stage appended to the file name.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -105,11 +149,11 @@ class ReadableImage:
             path = f&#34;{interDir}/{bare}-{s}.{ext}&#34;
             cv2.imwrite(path, img)
 
-    def normalize(self, **params):
-        &#34;&#34;&#34;Normalizes an image.
+    def normalize(self):
+        &#34;&#34;&#34;Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
-        The same rotation will be applied to the original image,
+        The same rotation will be applied to the original scan,
         resulting in stage *normalized*.
 
         Unskewing is needed otherwise the footnote line will not be found.
@@ -159,9 +203,9 @@ class ReadableImage:
         stages[&#34;normalized&#34;] = normalized
 
     def histogram(self):
-        &#34;&#34;&#34;Add histograms to an image.
+        &#34;&#34;&#34;Add histograms to a page.
 
-        A new stage of the image, *histogram*, is added.
+        A new stage of the page, *histogram*, is added.
 
         The histograms contain an indication of the amount of ink in
         horizontal and in vertical rows.
@@ -192,13 +236,13 @@ class ReadableImage:
                         cv2.line(histogram, index, value, color, 1)
                 stages[&#34;histogram&#34;] = histogram
 
-    def margins(self, **params):
-        &#34;&#34;&#34;Chop off margins of an image.
+    def margins(self):
+        &#34;&#34;&#34;Chop off margins of an page.
 
-        A new stage of the image, *demargined*, is added.
+        A new stage of the page, *demargined*, is added.
 
-        !!! caution &#34;it is assumed that the image has a histogram&#34;
-            This method uses the histogram info of the image.
+        !!! caution &#34;it is assumed that the page has a histogram&#34;
+            This method uses the histogram info of the page.
         &#34;&#34;&#34;
 
         if self.empty:
@@ -352,12 +396,12 @@ class ReadableImage:
         display(HTML(f&#34;&lt;div&gt;{&#39;, &#39;.join(doBands)}&lt;/div&gt;&#34;))
         showImage(img, **kwargs)
 
-    def clean(self, mark=None, line=None, **params):
-        &#34;&#34;&#34;Remove marks from the image.
+    def clean(self, mark=None, line=None):
+        &#34;&#34;&#34;Remove marks from the page.
 
-        The image is cleaned of marks.
+        The page is cleaned of marks.
 
-        New stages of the image are added:
+        New stages of the page are added:
 
         *   *clean* all targeted marks removed
         *   *cleanh* all targeted marks highlighted in light gray
@@ -365,7 +409,7 @@ class ReadableImage:
 
         Parameters
         ----------
-        marks: iterable of tuples (band, mark, [params]), optional None
+        marks: iterable of tuples (band, mark, [params]), optional `None`
             If `None`, all non-divider marks that are presented in the book
             directory are used.
             Otherwise, a series of marks is specified together with the band
@@ -590,18 +634,51 @@ class ReadableImage:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pipeline.image.ReadableImage"><code class="flex name class">
-<span>class <span class="ident">ReadableImage</span></span>
+<dt id="pipeline.page.Page"><code class="flex name class">
+<span>class <span class="ident">Page</span></span>
 <span>(</span><span>engine, f, batch=False, boxed=True)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>All processing steps for a single page.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>engine</code></strong> :&ensp;<code>object</code></dt>
+<dd>The <a title="pipeline.book.Book" href="book.html#pipeline.book.Book"><code>Book</code></a> object</dd>
+<dt><strong><code>f</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file name of the scanned page with extension, without directory</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to run in batch mode.
+In batch mode everything is geared to the final output.
+Less intermediate results are computed and stored.
+Less feedback happens on the console.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>If in batch mode, produce also images that display the cleaned marks
+in boxes.</dd>
+</dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class ReadableImage:
+<pre><code class="python">class Page:
     def __init__(self, engine, f, batch=False, boxed=True):
+        &#34;&#34;&#34;All processing steps for a single page.
+
+        Parameters
+        ----------
+        engine: object
+            The `pipeline.book.Book` object
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        &#34;&#34;&#34;
+
         self.engine = engine
         C = engine.C
         tm = engine.tm
@@ -617,7 +694,7 @@ class ReadableImage:
         inDir = C.inDir
         path = f&#34;{inDir}/{f}&#34;
         if not batch and not os.path.exists(path):
-            error(f&#34;Image file not found: {path}&#34;)
+            error(f&#34;Page file not found: {path}&#34;)
             return
 
         self.empty = False
@@ -625,10 +702,21 @@ class ReadableImage:
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, **kwargs):
-        &#34;&#34;&#34;Displays a stage of an image.
+    def show(self, stage=None, **displayParams):
+        &#34;&#34;&#34;Displays processing stages of an page.
 
-        If no stage is passed, all stages are shown as thumbnails.
+        See `pipeline.parameters.STAGE_ORDER`.
+
+        Parameters
+        ----------
+        stage: string | iterable, optional `None`
+            If no stage is passed, all stages are shown as thumbnails.
+            Otherwise, the indicated stages are shown.
+            If a string, it may be a comma-separated list of stage names.
+            Otherwise it is an iterable of stage names.
+        display: dict, optional
+            A set of display parameters, such as `width`, `height`
+            (anything accepted by `IPython.display.Image`).
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -640,12 +728,23 @@ class ReadableImage:
 
         for s in parseStages(stage, set(stages), C.stageOrder, error):
             display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-            showImage(stages[s], **kwargs)
+            showImage(stages[s], **displayParams)
 
     def write(self, stage=None):
-        &#34;&#34;&#34;Writes a stage of an image to disk.
+        &#34;&#34;&#34;Writes processing stages of an page to disk.
 
-        If no stage is passed, all stages are written.
+        Parameters
+        ----------
+        stage: string | iterable, optional `None`
+            If no stage is passed, all stages are shown as thumbnails.
+            Otherwise, the indicated stages are shown.
+            If a string, it may be a comma-separated list of stage names.
+            Otherwise it is an iterable of stage names.
+
+        Returns
+        -------
+            The stages are written into the `inter` subdirectory,
+            with the name of the stage appended to the file name.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -665,11 +764,11 @@ class ReadableImage:
             path = f&#34;{interDir}/{bare}-{s}.{ext}&#34;
             cv2.imwrite(path, img)
 
-    def normalize(self, **params):
-        &#34;&#34;&#34;Normalizes an image.
+    def normalize(self):
+        &#34;&#34;&#34;Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
-        The same rotation will be applied to the original image,
+        The same rotation will be applied to the original scan,
         resulting in stage *normalized*.
 
         Unskewing is needed otherwise the footnote line will not be found.
@@ -719,9 +818,9 @@ class ReadableImage:
         stages[&#34;normalized&#34;] = normalized
 
     def histogram(self):
-        &#34;&#34;&#34;Add histograms to an image.
+        &#34;&#34;&#34;Add histograms to a page.
 
-        A new stage of the image, *histogram*, is added.
+        A new stage of the page, *histogram*, is added.
 
         The histograms contain an indication of the amount of ink in
         horizontal and in vertical rows.
@@ -752,13 +851,13 @@ class ReadableImage:
                         cv2.line(histogram, index, value, color, 1)
                 stages[&#34;histogram&#34;] = histogram
 
-    def margins(self, **params):
-        &#34;&#34;&#34;Chop off margins of an image.
+    def margins(self):
+        &#34;&#34;&#34;Chop off margins of an page.
 
-        A new stage of the image, *demargined*, is added.
+        A new stage of the page, *demargined*, is added.
 
-        !!! caution &#34;it is assumed that the image has a histogram&#34;
-            This method uses the histogram info of the image.
+        !!! caution &#34;it is assumed that the page has a histogram&#34;
+            This method uses the histogram info of the page.
         &#34;&#34;&#34;
 
         if self.empty:
@@ -912,12 +1011,12 @@ class ReadableImage:
         display(HTML(f&#34;&lt;div&gt;{&#39;, &#39;.join(doBands)}&lt;/div&gt;&#34;))
         showImage(img, **kwargs)
 
-    def clean(self, mark=None, line=None, **params):
-        &#34;&#34;&#34;Remove marks from the image.
+    def clean(self, mark=None, line=None):
+        &#34;&#34;&#34;Remove marks from the page.
 
-        The image is cleaned of marks.
+        The page is cleaned of marks.
 
-        New stages of the image are added:
+        New stages of the page are added:
 
         *   *clean* all targeted marks removed
         *   *cleanh* all targeted marks highlighted in light gray
@@ -925,7 +1024,7 @@ class ReadableImage:
 
         Parameters
         ----------
-        marks: iterable of tuples (band, mark, [params]), optional None
+        marks: iterable of tuples (band, mark, [params]), optional `None`
             If `None`, all non-divider marks that are presented in the book
             directory are used.
             Otherwise, a series of marks is specified together with the band
@@ -1142,13 +1241,13 @@ class ReadableImage:
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pipeline.image.ReadableImage.clean"><code class="name flex">
-<span>def <span class="ident">clean</span></span>(<span>self, mark=None, line=None, **params)</span>
+<dt id="pipeline.page.Page.clean"><code class="name flex">
+<span>def <span class="ident">clean</span></span>(<span>self, mark=None, line=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Remove marks from the image.</p>
-<p>The image is cleaned of marks.</p>
-<p>New stages of the image are added:</p>
+<section class="desc"><p>Remove marks from the page.</p>
+<p>The page is cleaned of marks.</p>
+<p>New stages of the page are added:</p>
 <ul>
 <li><em>clean</em> all targeted marks removed</li>
 <li><em>cleanh</em> all targeted marks highlighted in light gray</li>
@@ -1167,12 +1266,12 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def clean(self, mark=None, line=None, **params):
-    &#34;&#34;&#34;Remove marks from the image.
+<pre><code class="python">def clean(self, mark=None, line=None):
+    &#34;&#34;&#34;Remove marks from the page.
 
-    The image is cleaned of marks.
+    The page is cleaned of marks.
 
-    New stages of the image are added:
+    New stages of the page are added:
 
     *   *clean* all targeted marks removed
     *   *cleanh* all targeted marks highlighted in light gray
@@ -1180,7 +1279,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
 
     Parameters
     ----------
-    marks: iterable of tuples (band, mark, [params]), optional None
+    marks: iterable of tuples (band, mark, [params]), optional `None`
         If `None`, all non-divider marks that are presented in the book
         directory are used.
         Otherwise, a series of marks is specified together with the band
@@ -1358,12 +1457,12 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
     self.cleanInfo = cInfo</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.histogram"><code class="name flex">
+<dt id="pipeline.page.Page.histogram"><code class="name flex">
 <span>def <span class="ident">histogram</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Add histograms to an image.</p>
-<p>A new stage of the image, <em>histogram</em>, is added.</p>
+<section class="desc"><p>Add histograms to a page.</p>
+<p>A new stage of the page, <em>histogram</em>, is added.</p>
 <p>The histograms contain an indication of the amount of ink in
 horizontal and in vertical rows.</p>
 <p>The histogram values are preserved as well.</p></section>
@@ -1372,9 +1471,9 @@ horizontal and in vertical rows.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def histogram(self):
-    &#34;&#34;&#34;Add histograms to an image.
+    &#34;&#34;&#34;Add histograms to a page.
 
-    A new stage of the image, *histogram*, is added.
+    A new stage of the page, *histogram*, is added.
 
     The histograms contain an indication of the amount of ink in
     horizontal and in vertical rows.
@@ -1406,27 +1505,27 @@ horizontal and in vertical rows.</p>
             stages[&#34;histogram&#34;] = histogram</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.margins"><code class="name flex">
-<span>def <span class="ident">margins</span></span>(<span>self, **params)</span>
+<dt id="pipeline.page.Page.margins"><code class="name flex">
+<span>def <span class="ident">margins</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Chop off margins of an image.</p>
-<p>A new stage of the image, <em>demargined</em>, is added.</p>
+<section class="desc"><p>Chop off margins of an page.</p>
+<p>A new stage of the page, <em>demargined</em>, is added.</p>
 <div class="admonition caution">
-<p class="admonition-title">it is assumed that the image has a histogram</p>
-<p>This method uses the histogram info of the image.</p>
+<p class="admonition-title">it is assumed that the page has a histogram</p>
+<p>This method uses the histogram info of the page.</p>
 </div></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def margins(self, **params):
-    &#34;&#34;&#34;Chop off margins of an image.
+<pre><code class="python">def margins(self):
+    &#34;&#34;&#34;Chop off margins of an page.
 
-    A new stage of the image, *demargined*, is added.
+    A new stage of the page, *demargined*, is added.
 
-    !!! caution &#34;it is assumed that the image has a histogram&#34;
-        This method uses the histogram info of the image.
+    !!! caution &#34;it is assumed that the page has a histogram&#34;
+        This method uses the histogram info of the page.
     &#34;&#34;&#34;
 
     if self.empty:
@@ -1552,24 +1651,24 @@ horizontal and in vertical rows.</p>
         self.stages[&#34;demarginedC&#34;] = demarginedC</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.normalize"><code class="name flex">
-<span>def <span class="ident">normalize</span></span>(<span>self, **params)</span>
+<dt id="pipeline.page.Page.normalize"><code class="name flex">
+<span>def <span class="ident">normalize</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Normalizes an image.</p>
+<section class="desc"><p>Normalizes a page.</p>
 <p>It produces a stage that is unskewed: <em>rotated</em> and blurred.
-The same rotation will be applied to the original image,
+The same rotation will be applied to the original scan,
 resulting in stage <em>normalized</em>.</p>
 <p>Unskewing is needed otherwise the footnote line will not be found.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def normalize(self, **params):
-    &#34;&#34;&#34;Normalizes an image.
+<pre><code class="python">def normalize(self):
+    &#34;&#34;&#34;Normalizes a page.
 
     It produces a stage that is unskewed: *rotated* and blurred.
-    The same rotation will be applied to the original image,
+    The same rotation will be applied to the original scan,
     resulting in stage *normalized*.
 
     Unskewing is needed otherwise the footnote line will not be found.
@@ -1619,20 +1718,42 @@ resulting in stage <em>normalized</em>.</p>
     stages[&#34;normalized&#34;] = normalized</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>self, stage=None, **kwargs)</span>
+<dt id="pipeline.page.Page.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>self, stage=None, **displayParams)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Displays a stage of an image.</p>
-<p>If no stage is passed, all stages are shown as thumbnails.</p></section>
+<section class="desc"><p>Displays processing stages of an page.</p>
+<p>See <a title="pipeline.parameters.STAGE_ORDER" href="parameters.html#pipeline.parameters.STAGE_ORDER"><code>STAGE_ORDER</code></a>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dd>If no stage is passed, all stages are shown as thumbnails.
+Otherwise, the indicated stages are shown.
+If a string, it may be a comma-separated list of stage names.
+Otherwise it is an iterable of stage names.</dd>
+<dt><strong><code>display</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>A set of display parameters, such as <code>width</code>, <code>height</code>
+(anything accepted by <code>IPython.display.Image</code>).</dd>
+</dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show(self, stage=None, **kwargs):
-    &#34;&#34;&#34;Displays a stage of an image.
+<pre><code class="python">def show(self, stage=None, **displayParams):
+    &#34;&#34;&#34;Displays processing stages of an page.
 
-    If no stage is passed, all stages are shown as thumbnails.
+    See `pipeline.parameters.STAGE_ORDER`.
+
+    Parameters
+    ----------
+    stage: string | iterable, optional `None`
+        If no stage is passed, all stages are shown as thumbnails.
+        Otherwise, the indicated stages are shown.
+        If a string, it may be a comma-separated list of stage names.
+        Otherwise it is an iterable of stage names.
+    display: dict, optional
+        A set of display parameters, such as `width`, `height`
+        (anything accepted by `IPython.display.Image`).
     &#34;&#34;&#34;
 
     engine = self.engine
@@ -1644,10 +1765,10 @@ resulting in stage <em>normalized</em>.</p>
 
     for s in parseStages(stage, set(stages), C.stageOrder, error):
         display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-        showImage(stages[s], **kwargs)</code></pre>
+        showImage(stages[s], **displayParams)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.showBands"><code class="name flex">
+<dt id="pipeline.page.Page.showBands"><code class="name flex">
 <span>def <span class="ident">showBands</span></span>(<span>self, stage, showBand, **kwargs)</span>
 </code></dt>
 <dd>
@@ -1684,7 +1805,7 @@ resulting in stage <em>normalized</em>.</p>
     showImage(img, **kwargs)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.showCleanInfo"><code class="name flex">
+<dt id="pipeline.page.Page.showCleanInfo"><code class="name flex">
 <span>def <span class="ident">showCleanInfo</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -1732,20 +1853,42 @@ resulting in stage <em>normalized</em>.</p>
     info(f&#34;{total} marks wiped clean&#34;, tm=False)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.image.ReadableImage.write"><code class="name flex">
+<dt id="pipeline.page.Page.write"><code class="name flex">
 <span>def <span class="ident">write</span></span>(<span>self, stage=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Writes a stage of an image to disk.</p>
-<p>If no stage is passed, all stages are written.</p></section>
+<section class="desc"><p>Writes processing stages of an page to disk.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dd>If no stage is passed, all stages are shown as thumbnails.
+Otherwise, the indicated stages are shown.
+If a string, it may be a comma-separated list of stage names.
+Otherwise it is an iterable of stage names.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>The stages are written into the `inter` subdirectory,
+with the name of the stage appended to the file name.
+</code></pre></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def write(self, stage=None):
-    &#34;&#34;&#34;Writes a stage of an image to disk.
+    &#34;&#34;&#34;Writes processing stages of an page to disk.
 
-    If no stage is passed, all stages are written.
+    Parameters
+    ----------
+    stage: string | iterable, optional `None`
+        If no stage is passed, all stages are shown as thumbnails.
+        Otherwise, the indicated stages are shown.
+        If a string, it may be a comma-separated list of stage names.
+        Otherwise it is an iterable of stage names.
+
+    Returns
+    -------
+        The stages are written into the `inter` subdirectory,
+        with the name of the stage appended to the file name.
     &#34;&#34;&#34;
 
     engine = self.engine
@@ -1785,16 +1928,16 @@ resulting in stage <em>normalized</em>.</p>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pipeline.image.ReadableImage" href="#pipeline.image.ReadableImage">ReadableImage</a></code></h4>
+<h4><code><a title="pipeline.page.Page" href="#pipeline.page.Page">Page</a></code></h4>
 <ul class="two-column">
-<li><code><a title="pipeline.image.ReadableImage.clean" href="#pipeline.image.ReadableImage.clean">clean</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.histogram" href="#pipeline.image.ReadableImage.histogram">histogram</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.margins" href="#pipeline.image.ReadableImage.margins">margins</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.normalize" href="#pipeline.image.ReadableImage.normalize">normalize</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.show" href="#pipeline.image.ReadableImage.show">show</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.showBands" href="#pipeline.image.ReadableImage.showBands">showBands</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.showCleanInfo" href="#pipeline.image.ReadableImage.showCleanInfo">showCleanInfo</a></code></li>
-<li><code><a title="pipeline.image.ReadableImage.write" href="#pipeline.image.ReadableImage.write">write</a></code></li>
+<li><code><a title="pipeline.page.Page.clean" href="#pipeline.page.Page.clean">clean</a></code></li>
+<li><code><a title="pipeline.page.Page.histogram" href="#pipeline.page.Page.histogram">histogram</a></code></li>
+<li><code><a title="pipeline.page.Page.margins" href="#pipeline.page.Page.margins">margins</a></code></li>
+<li><code><a title="pipeline.page.Page.normalize" href="#pipeline.page.Page.normalize">normalize</a></code></li>
+<li><code><a title="pipeline.page.Page.show" href="#pipeline.page.Page.show">show</a></code></li>
+<li><code><a title="pipeline.page.Page.showBands" href="#pipeline.page.Page.showBands">showBands</a></code></li>
+<li><code><a title="pipeline.page.Page.showCleanInfo" href="#pipeline.page.Page.showCleanInfo">showCleanInfo</a></code></li>
+<li><code><a title="pipeline.page.Page.write" href="#pipeline.page.Page.write">write</a></code></li>
 </ul>
 </li>
 </ul>
