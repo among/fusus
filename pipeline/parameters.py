@@ -13,7 +13,9 @@ COLORS = dict(
     cleanRGB=(255, 255, 255),
     cleanhRGB=(220, 220, 220),
     boxDeleteRGB=(240, 170, 20),
+    boxDeleteNRGB=(140, 70, 0),
     boxRemainRGB=(170, 240, 40),
+    boxRemainNRGB=(70, 140, 0),
 )
 """Named colors. """
 
@@ -43,13 +45,21 @@ STAGE_ORDER = """
     boxed
     cleanh
     clean
+    data
 """.strip().split()
 """Stages in page processing.
 
 When we process a scanned page,
 we produce named intermediate stages,
 in this order.
+
+The stages before `data` are images,
+the `data` stage is a tab separated file with OCR result data.
 """
+
+STAGES_TEXT = set("""
+    data
+""".strip().split())
 
 SETTINGS = dict(
     inDir="in",
@@ -255,6 +265,7 @@ class Config:
         # stages
         setattr(self, "stageOrder", STAGE_ORDER)
         setattr(self, "stages", set(STAGE_ORDER))
+        setattr(self, "stagesText", STAGES_TEXT)
 
         # settings
         self.settings = deepcopy(SETTINGS)

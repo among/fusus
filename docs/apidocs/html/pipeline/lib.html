@@ -26,6 +26,7 @@
 </summary>
 <pre><code class="python">import os
 import io
+from tempfile import NamedTemporaryFile
 
 import numpy as np
 import PIL.Image
@@ -43,6 +44,12 @@ EXTENSIONS = set(
     tiff
 &#34;&#34;&#34;.strip().split()
 )
+
+FONT = cv2.FONT_HERSHEY_SIMPLEX
+
+
+def tempFile():
+    return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)
 
 
 def img(data):
@@ -66,9 +73,9 @@ def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
-def splitext(f):
+def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
-    if ext:
+    if ext and not withDot:
         ext = ext[1:]
     return (bare, ext)
 
@@ -81,7 +88,7 @@ def imageFileList(imDir):
     with os.scandir(imDir) as it:
         for entry in it:
             name = entry.name
-            (bare, ext) = splitext(name)
+            (bare, ext) = splitext(name, withDot=False)
 
             if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
                 imageFiles.append(name)
@@ -268,6 +275,25 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
+def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+    colorDeg = (100, 100, 255)
+    ptSeq = (tl[0], tl[1] - offset - 2)
+    ptDeg = (tl[0], br[1] + offset + 8)
+    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    deg = int(round(deg * 100))
+    if deg:
+        cv2.putText(
+            img,
+            str(deg),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
+        )
+
+
 def parseStages(stage, allStages, sortedStages, error):
     doStages = (
         allStages
@@ -289,7 +315,13 @@ def parseStages(stage, allStages, sortedStages, error):
 
 def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
-    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    doBands = (
+        allBands
+        if band is None
+        else set(band.split(&#34;,&#34;))
+        if type(band) is str
+        else set(band)
+    )
     illegalBands = doBands - allBands
     if illegalBands:
         error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
@@ -305,6 +337,34 @@ def parseBands(band, allBands, error):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="pipeline.lib.addSeq"><code class="name flex">
+<span>def <span class="ident">addSeq</span></span>(<span>img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+    colorDeg = (100, 100, 255)
+    ptSeq = (tl[0], tl[1] - offset - 2)
+    ptDeg = (tl[0], br[1] + offset + 8)
+    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    deg = int(round(deg * 100))
+    if deg:
+        cv2.putText(
+            img,
+            str(deg),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
+        )</code></pre>
+</details>
+</dd>
 <dt id="pipeline.lib.cluster"><code class="name flex">
 <span>def <span class="ident">cluster</span></span>(<span>points, result)</span>
 </code></dt>
@@ -454,7 +514,7 @@ def parseBands(band, allBands, error):
     with os.scandir(imDir) as it:
         for entry in it:
             name = entry.name
-            (bare, ext) = splitext(name)
+            (bare, ext) = splitext(name, withDot=False)
 
             if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
                 imageFiles.append(name)
@@ -534,7 +594,13 @@ def parseBands(band, allBands, error):
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
-    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    doBands = (
+        allBands
+        if band is None
+        else set(band.split(&#34;,&#34;))
+        if type(band) is str
+        else set(band)
+    )
     illegalBands = doBands - allBands
     if illegalBands:
         error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
@@ -669,7 +735,7 @@ def parseBands(band, allBands, error):
 </details>
 </dd>
 <dt id="pipeline.lib.splitext"><code class="name flex">
-<span>def <span class="ident">splitext</span></span>(<span>f)</span>
+<span>def <span class="ident">splitext</span></span>(<span>f, withDot=True)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -677,11 +743,24 @@ def parseBands(band, allBands, error):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def splitext(f):
+<pre><code class="python">def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
-    if ext:
+    if ext and not withDot:
         ext = ext[1:]
     return (bare, ext)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.tempFile"><code class="name flex">
+<span>def <span class="ident">tempFile</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tempFile():
+    return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -702,6 +781,7 @@ def parseBands(band, allBands, error):
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
+<li><code><a title="pipeline.lib.addSeq" href="#pipeline.lib.addSeq">addSeq</a></code></li>
 <li><code><a title="pipeline.lib.cluster" href="#pipeline.lib.cluster">cluster</a></code></li>
 <li><code><a title="pipeline.lib.connected" href="#pipeline.lib.connected">connected</a></code></li>
 <li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
@@ -716,6 +796,7 @@ def parseBands(band, allBands, error):
 <li><code><a title="pipeline.lib.showImage" href="#pipeline.lib.showImage">showImage</a></code></li>
 <li><code><a title="pipeline.lib.showit" href="#pipeline.lib.showit">showit</a></code></li>
 <li><code><a title="pipeline.lib.splitext" href="#pipeline.lib.splitext">splitext</a></code></li>
+<li><code><a title="pipeline.lib.tempFile" href="#pipeline.lib.tempFile">tempFile</a></code></li>
 </ul>
 </li>
 </ul>

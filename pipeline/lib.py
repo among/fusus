@@ -1,5 +1,6 @@
 import os
 import io
+from tempfile import NamedTemporaryFile
 
 import numpy as np
 import PIL.Image
@@ -17,6 +18,12 @@ EXTENSIONS = set(
     tiff
 """.strip().split()
 )
+
+FONT = cv2.FONT_HERSHEY_SIMPLEX
+
+
+def tempFile():
+    return NamedTemporaryFile(mode="w", dir=".")
 
 
 def img(data):
@@ -40,9 +47,9 @@ def showImage(a, fmt="jpeg", **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
-def splitext(f):
+def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
-    if ext:
+    if ext and not withDot:
         ext = ext[1:]
     return (bare, ext)
 
@@ -55,7 +62,7 @@ def imageFileList(imDir):
     with os.scandir(imDir) as it:
         for entry in it:
             name = entry.name
-            (bare, ext) = splitext(name)
+            (bare, ext) = splitext(name, withDot=False)
 
             if not name.startswith(".") and entry.is_file() and ext in EXTENSIONS:
                 imageFiles.append(name)
@@ -242,6 +249,25 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
+def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+    colorDeg = (100, 100, 255)
+    ptSeq = (tl[0], tl[1] - offset - 2)
+    ptDeg = (tl[0], br[1] + offset + 8)
+    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    deg = int(round(deg * 100))
+    if deg:
+        cv2.putText(
+            img,
+            str(deg),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
+        )
+
+
 def parseStages(stage, allStages, sortedStages, error):
     doStages = (
         allStages
@@ -263,7 +289,13 @@ def parseStages(stage, allStages, sortedStages, error):
 
 def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
-    doBands = allBands if band is None else {band} if type(band) is str else set(band)
+    doBands = (
+        allBands
+        if band is None
+        else set(band.split(","))
+        if type(band) is str
+        else set(band)
+    )
     illegalBands = doBands - allBands
     if illegalBands:
         error(f"Will skip illegal bands: {', '.join(sorted(illegalBands))}")

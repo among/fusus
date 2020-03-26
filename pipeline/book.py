@@ -9,8 +9,17 @@ import cv2
 from tf.core.timestamp import Timestamp
 
 from .parameters import Config
-from .lib import showImage, imageFileList, imageFileListSub, select, splitext, pagesRep
+from .lib import (
+    showImage,
+    imageFileList,
+    imageFileListSub,
+    select,
+    splitext,
+    pagesRep,
+    tempFile,
+)
 from .page import Page
+from .ocr import OCR
 
 
 class Book:
@@ -50,10 +59,12 @@ class Book:
 
         files = imageFileListSub(C.marksDir)
 
+        seq = 0
+
         for (band, images) in files.items():
             for f in images:
                 tweakDict = {}
-                (bare, ext) = splitext(f)
+                bare = splitext(f)[0]
                 parts = bare.rsplit("(", 1)
                 if len(parts) > 1:
                     bare = parts[0]
@@ -79,12 +90,14 @@ class Book:
                     dividers[bare] = dict(gray=gray)
                     dest = dividers[bare]
                 else:
-                    marks.setdefault(band, {})[bare] = dict(gray=gray)
+                    seq += 1
+                    marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
                     dest = marks[band][bare]
                 for (k, kLong) in markParams.items():
                     dest[kLong] = tweakDict.get(k, getattr(C, kLong))
 
-        self.pages = imageFileList(C.inDir)
+        self.allPages = imageFileList(C.inDir)
+        self.allPagesDesc = pagesRep(self.allPages)
 
     def configure(self, reset=False, **params):
         """Updates current settings based on new values.
@@ -121,7 +134,9 @@ class Book:
         info("Available bands and their offsets", tm=False)
         for (band, offset) in sorted(self.offsetBand.items()):
             bandRep = f"«{band}»"
-            info(f"\t{bandRep:<10}: top={offset[0]:>4}, bottom={offset[1]:>4}", tm=False)
+            info(
+                f"\t{bandRep:<10}: top={offset[0]:>4}, bottom={offset[1]:>4}", tm=False
+            )
 
     def availableMarks(self):
         """Display the characteristics of all defined *marks*.
@@ -137,10 +152,11 @@ class Book:
             info(f"\tband {bandRep}", tm=False)
             for (mark, markInfo) in sorted(markItems.items()):
                 markRep = f"«{mark}»"
+                seq = markInfo["seq"]
                 acc = markInfo["accuracy"]
                 cb = markInfo["connectBorder"]
                 info(
-                    f"\t\t{markRep:<20} accuracy={acc}, connectBorder={cb}",
+                    f"\t\t{seq:>3}: {markRep:<20} accuracy={acc}, connectBorder={cb}",
                     tm=False,
                 )
                 showImage(markInfo["gray"])
@@ -152,14 +168,13 @@ class Book:
         tm = self.tm
         info = tm.info
 
-        pages = self.pages
-        nPages = len(pages)
-        pagesDesc = pagesRep(self.pages)
+        allPages = self.allPages
+        pagesDesc = self.allPagesDesc
 
-        info(f"{nPages} pages: {pagesDesc}")
+        info(f"{len(allPages)} pages: {pagesDesc}")
 
     def _doPage(
-        self, f, batch=False, boxed=True, quiet=False,
+        self, f, batch=False, boxed=True, quiet=False, doOcr=True,
     ):
         """Process a single page.
 
@@ -179,6 +194,8 @@ class Book:
             in boxes.
         quiet: boolean, optional `False`
             Whether to suppress warnings and the display of footnote separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
 
         Returns
         -------
@@ -194,11 +211,12 @@ class Book:
         else:
             tm.silentOff()
 
-        baseLevel = 1 if batch else 0
+        # baseLevel = 1 if batch else 0
+        baseLevel = 1
         subLevel = baseLevel + 1
         indent(level=baseLevel, reset=True)
 
-        (bare, ext) = splitext(f)
+        bare = splitext(f)[0]
 
         if not batch:
             info(f"Processing {bare}")
@@ -218,27 +236,17 @@ class Book:
             if not batch:
                 info("cleaning")
             page.clean()
+            if not batch:
+                if doOcr:
+                    info("ocr")
+                    page.ocr()
 
         tm.silentOff()
 
-        if not batch:
-            indent(level=baseLevel)
-            div = page.dividers.get("footnote", None)
-            if div:
-                msg = "footer"
-                amount = f"at height {div[2]:>3}%"
-            else:
-                msg = "no footer"
-                amount = ""
-            info(f"Done, {msg} {amount}")
-            if not quiet:
-                divIm = div[1]
-                if divIm is not None:
-                    showImage(divIm)
         return page
 
     def process(
-        self, pages=None, batch=True, quiet=True, boxed=False,
+        self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
     ):
         """Process directory of images.
 
@@ -264,6 +272,8 @@ class Book:
             in boxes.
         quiet: boolean, optional `True`
             Whether to suppress warnings and the display of footnote separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
 
         Returns
         -------
@@ -275,28 +285,35 @@ class Book:
         tm = self.tm
         info = tm.info
         indent = tm.indent
+
+        allPages = self.allPages
+
         tm.silentOff()
 
         indent(reset=True)
 
         C = self.C
-        inDir = C.inDir
         interDir = C.interDir
         outDir = C.outDir
         for d in (interDir, outDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
 
-        imageFiles = select(imageFileList(inDir), pages)
-        info(f"Batch of {len(imageFiles)} pages")
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
 
         info(f"Start batch processing images")
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f"{i + 1:>5} {imFile:<40}"
             info(f"{msg}\r", nl=False)
-            page = self._doPage(imFile, batch=batch, boxed=boxed, quiet=quiet,)
+            page = self._doPage(
+                imFile, batch=batch, boxed=boxed, quiet=quiet, doOcr=doOcr
+            )
             page.write(stage="clean")
+            if not batch:
+                page.write(stage="data")
             if boxed:
                 page.write(stage="boxed")
             div = page.dividers.get("footnote", None)
@@ -308,6 +325,29 @@ class Book:
                     showImage(divIm)
         indent(level=0)
         info("all done")
+
+        if doOcr and batch:
+            indent(level=1, reset=True)
+            info(f"Start batch OCR of all clean images")
+
+            with tempFile() as tmp:
+                for pg in imageFiles:
+                    (bare, ext) = splitext(pg)
+                    pgClean = f"{bare}-clean{ext}"
+                    tmp.write(f"{interDir}/{pgClean}\n")
+                tmp.flush()
+                name = tmp.name
+                reader = OCR(self, pageFile=name)
+                data = reader.read()
+                dataFile = f"{outDir}/data{'' if pages is None else pagesDesc}.tsv"
+                if data is not None:
+                    with open(dataFile, "w") as df:
+                        df.write(data)
+
+            info("OCR done")
+            indent(level=0)
+        info("all done")
+
         return page  # the last page processed
 
 
