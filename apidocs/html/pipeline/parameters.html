@@ -40,7 +40,9 @@ COLORS = dict(
     cleanRGB=(255, 255, 255),
     cleanhRGB=(220, 220, 220),
     boxDeleteRGB=(240, 170, 20),
+    boxDeleteNRGB=(140, 70, 0),
     boxRemainRGB=(170, 240, 40),
+    boxRemainNRGB=(70, 140, 0),
 )
 &#34;&#34;&#34;Named colors. &#34;&#34;&#34;
 
@@ -70,13 +72,21 @@ STAGE_ORDER = &#34;&#34;&#34;
     boxed
     cleanh
     clean
+    data
 &#34;&#34;&#34;.strip().split()
 &#34;&#34;&#34;Stages in page processing.
 
 When we process a scanned page,
 we produce named intermediate stages,
 in this order.
+
+The stages before `data` are images,
+the `data` stage is a tab separated file with OCR result data.
 &#34;&#34;&#34;
+
+STAGES_TEXT = set(&#34;&#34;&#34;
+    data
+&#34;&#34;&#34;.strip().split())
 
 SETTINGS = dict(
     inDir=&#34;in&#34;,
@@ -282,6 +292,7 @@ class Config:
         # stages
         setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
         setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
+        setattr(self, &#34;stagesText&#34;, STAGES_TEXT)
 
         # settings
         self.settings = deepcopy(SETTINGS)
@@ -511,7 +522,9 @@ space below it.</p>
 <section class="desc"><p>Stages in page processing.</p>
 <p>When we process a scanned page,
 we produce named intermediate stages,
-in this order.</p></section>
+in this order.</p>
+<p>The stages before <code>data</code> are images,
+the <code>data</code> stage is a tab separated file with OCR result data.</p></section>
 </dd>
 </dl>
 </section>
@@ -583,6 +596,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
         # stages
         setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
         setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
+        setattr(self, &#34;stagesText&#34;, STAGES_TEXT)
 
         # settings
         self.settings = deepcopy(SETTINGS)

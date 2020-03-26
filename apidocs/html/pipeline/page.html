@@ -41,7 +41,9 @@ from .lib import (
     splitext,
     parseStages,
     parseBands,
+    addSeq,
 )
+from .ocr import OCR
 
 
 class Page:
@@ -69,7 +71,7 @@ class Page:
         tm = engine.tm
         error = tm.error
         self.file = f
-        (self.bare, self.ext) = splitext(f)
+        (self.bare, self.ext) = splitext(f, withDot=False)
         self.empty = True
         self.batch = batch
         self.boxed = boxed
@@ -87,7 +89,7 @@ class Page:
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, **displayParams):
+    def show(self, stage=None, band=None, **displayParams):
         &#34;&#34;&#34;Displays processing stages of an page.
 
         See `pipeline.parameters.STAGE_ORDER`.
@@ -99,6 +101,11 @@ class Page:
             Otherwise, the indicated stages are shown.
             If a string, it may be a comma-separated list of stage names.
             Otherwise it is an iterable of stage names.
+        band: string | iterable, optional `None`
+            If no band is passed, no bands are indicated.
+            Otherwise, the indicated bands are shown.
+            If a string, it may be a comma-separated list of band names.
+            Otherwise it is an iterable of band names.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
@@ -107,13 +114,43 @@ class Page:
         engine = self.engine
         tm = engine.tm
         error = tm.error
+        info = tm.info
         C = engine.C
 
         stages = self.stages
+        bands = self.bands
+
+        doBands = None if band is None else parseBands(band, set(bands), error)
+        bandRep = None if doBands is None else &#34;, &#34;.join(doBands)
+        bandRep = &#34;&#34; if bandRep is None else f&#34; with bands {bandRep}&#34;
 
         for s in parseStages(stage, set(stages), C.stageOrder, error):
-            display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-            showImage(stages[s], **displayParams)
+            stageData = stages[s]
+
+            display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
+
+            if s in C.stagesText:
+                info(stageData, tm=False)
+            else:
+                img = stageData
+                if doBands is not None:
+                    img = stageData.copy()
+                    imW = img.shape[1]
+                    for band in doBands:
+                        bandInfo = bands[band]
+                        uppers = bandInfo[&#34;uppers&#34;]
+                        lowers = bandInfo[&#34;lowers&#34;]
+                        bColor = bandInfo[&#34;color&#34;]
+                        for (upper, lower) in zip(uppers, lowers):
+                            cv2.rectangle(
+                                img, (10, upper), (imW - 10, lower), bColor, 2
+                            )
+                            cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
+                            cv2.rectangle(
+                                img, (imW - 10, upper), (imW, lower), bColor, -1
+                            )
+
+                showImage(img, **displayParams)
 
     def write(self, stage=None):
         &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -145,9 +182,14 @@ class Page:
         for s in parseStages(stage, C.stages, C.stageOrder, error):
             if s not in stages:
                 continue
-            img = stages[s]
-            path = f&#34;{interDir}/{bare}-{s}.{ext}&#34;
-            cv2.imwrite(path, img)
+            stageData = stages[s]
+            isText = stage in C.stagesText
+            path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
+            if stage in C.stagesText:
+                with open(path, &#34;w&#34;) as f:
+                    f.write(stageData)
+            else:
+                cv2.imwrite(path, stageData)
 
     def normalize(self):
         &#34;&#34;&#34;Normalizes a page.
@@ -229,7 +271,7 @@ class Page:
                 histogram = normalizedC.copy()
 
                 for (hist, vert) in ((self.histY, True), (self.histX, False)):
-                    for (i, val) in enumerate(self.histY):
+                    for (i, val) in enumerate(hist):
                         color = (int(val), int(2 * val), int(val))
                         index = (0, i) if vert else (i, 0)
                         value = (val, i) if vert else (i, val)
@@ -367,35 +409,6 @@ class Page:
         if not batch or boxed:
             self.stages[&#34;demarginedC&#34;] = demarginedC
 
-        # show bands
-
-    def showBands(self, stage, showBand, **kwargs):
-        engine = self.engine
-        tm = engine.tm
-        error = tm.error
-
-        bands = self.bands
-        stages = self.stages
-        if stage not in stages:
-            error(f&#34;No stage {stage}&#34;)
-            return
-        img = stages[stage].copy()
-        imW = img.shape[1]
-
-        doBands = parseBands(showBand, set(bands), error)
-
-        for band in doBands:
-            bandInfo = bands[band]
-            uppers = bandInfo[&#34;uppers&#34;]
-            lowers = bandInfo[&#34;lowers&#34;]
-            bColor = bandInfo[&#34;color&#34;]
-            for (upper, lower) in zip(uppers, lowers):
-                cv2.rectangle(img, (10, upper), (imW - 10, lower), bColor, 2)
-                cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
-                cv2.rectangle(img, (imW - 10, upper), (imW, lower), bColor, -1)
-        display(HTML(f&#34;&lt;div&gt;{&#39;, &#39;.join(doBands)}&lt;/div&gt;&#34;))
-        showImage(img, **kwargs)
-
     def clean(self, mark=None, line=None):
         &#34;&#34;&#34;Remove marks from the page.
 
@@ -433,7 +446,9 @@ class Page:
         boxed = self.boxed
 
         boxDelete = C.boxDeleteRGB
+        boxDeleteN = C.boxDeleteNRGB
         boxRemain = C.boxRemainRGB
+        boxRemainN = C.boxRemainNRGB
         boxBorder = C.boxBorder
 
         connectBorder = C.connectBorder
@@ -494,8 +509,8 @@ class Page:
 
         for (band, markData) in searchMarks.items():
             for (markName, markInfo) in markData.items():
-                markInfoName = f&#34;{band}.{markName}&#34;
-                foundHits[markInfoName] = 0
+                foundHits.setdefault(band, {})[markName] = 0
+                seq = markInfo[&#34;seq&#34;]
                 mark = markInfo[&#34;gray&#34;]
                 connectBorder = markInfo[&#34;connectBorder&#34;]
                 accuracy = markInfo[&#34;accuracy&#34;]
@@ -506,8 +521,8 @@ class Page:
                 nPts = 0
                 clusters = []
                 if not batch:
-                    cInfo[markInfoName] = {}
-                    einfo = cInfo[markInfoName]
+                    cInfo.setdefault(band, {})[markName] = {}
+                    einfo = cInfo[band][markName]
                     einfo[&#34;hits&#34;] = []
                     einfo[&#34;connected&#34;] = 0
                     einfo[&#34;border&#34;] = connectBorder
@@ -535,7 +550,7 @@ class Page:
                     pts = list(zip(*loc))
                     if len(pts) &gt; maxHits:
                         error(
-                            f&#34;mark &#39;{markInfoName}&#39;:&#34;
+                            f&#34;mark &#39;{band}:{markName}&#39;:&#34;
                             f&#34; too many hits: {len(pts)} &gt; {maxHits}&#34;
                         )
                         warning(f&#34;Increase accuracy for this template&#34;)
@@ -561,11 +576,18 @@ class Page:
                         )
                         if connDegree &gt; ratio:
                             if not batch or boxed:
-                                cv2.rectangle(
-                                    stages[&#34;boxed&#34;], *hit, boxRemain, boxBorder
+                                im = stages[&#34;boxed&#34;]
+                                cv2.rectangle(im, *hit, boxRemain, boxBorder)
+                                addSeq(
+                                    im,
+                                    *hit,
+                                    boxBorder,
+                                    seq,
+                                    connDegree,
+                                    boxRemainN,
                                 )
                         else:
-                            foundHits[markInfoName] += 1
+                            foundHits[band][markName] += 1
                             if batch and not boxed:
                                 cv2.rectangle(stages[&#34;clean&#34;], *hit, cleanClr, -1)
                             else:
@@ -574,13 +596,23 @@ class Page:
                                     theClr = boxDelete if isBoxed else clr
                                     theBrd = boxBorder if isBoxed else -1
                                     cv2.rectangle(im, *hit, theClr, theBrd)
+                                    if isBoxed:
+                                        addSeq(
+                                            im,
+                                            *hit,
+                                            theBrd,
+                                            seq,
+                                            connDegree,
+                                            boxDeleteN,
+                                        )
 
                 if not batch:
                     einfo[&#34;npoints&#34;] = nPts
-        for (mark, found) in sorted(foundHits.items()):
-            indent(level=2)
-            if found:
-                warning(f&#34;{mark:&gt;20} {found:&gt;4} times&#34;, tm=False)
+        for (band, bandMarks) in sorted(foundHits.items()):
+            for (mark, found) in sorted(bandMarks.items()):
+                indent(level=2)
+                if found:
+                    warning(f&#34;{band:&lt;10}: {mark:&lt;20} {found:&gt;4} times&#34;, tm=False)
         indent(level=1)
         info(&#34;cleaning done&#34;)
 
@@ -588,41 +620,46 @@ class Page:
 
     def showCleanInfo(self):
         engine = self.engine
-        engine = self.engine
         tm = engine.tm
         info = tm.info
         cInfo = self.cleanInfo
         total = 0
 
-        for markInfoName in sorted(cInfo):
-            einfo = cInfo[markInfoName]
-            totalHits = len(einfo[&#34;hits&#34;])
-            if not totalHits:
-                continue
-            connectBorder = einfo[&#34;border&#34;]
-            ratio = einfo[&#34;ratio&#34;]
-            showImage(engine.marks[markInfoName][&#34;gray&#34;])
-            connHits = len([hit for hit in einfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
-            realHits = totalHits - connHits
-            total += realHits
-            info(
-                f&#34;{markInfoName:&lt;20} with border {connectBorder}:\n&#34;
-                f&#34; {realHits} hits in {einfo[&#39;npoints&#39;]} points\n&#34;
-                f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
-                tm=False,
-            )
-            for hit in einfo[&#34;hits&#34;]:
-                conn = hit[&#34;conn&#34;]
-                ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+        for (band, markInfo) in sorted(cInfo.items()):
+            for (markName, eInfo) in sorted(markInfo.items()):
+                totalHits = len(eInfo[&#34;hits&#34;])
+                if not totalHits:
+                    continue
+                connectBorder = eInfo[&#34;border&#34;]
+                ratio = eInfo[&#34;ratio&#34;]
+                showImage(engine.marks[band][markName][&#34;gray&#34;])
+                connHits = len([hit for hit in eInfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
+                realHits = totalHits - connHits
+                total += realHits
                 info(
-                    f&#34;\t{ast}hit&#34;
-                    f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
-                    f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
-                    f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                    f&#34;{band:&lt;10}: {markName:&lt;20} with border {connectBorder}:\n&#34;
+                    f&#34; {realHits} hits in {eInfo[&#39;npoints&#39;]} points\n&#34;
+                    f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
                     tm=False,
                 )
+                for hit in eInfo[&#34;hits&#34;]:
+                    conn = hit[&#34;conn&#34;]
+                    ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+                    info(
+                        f&#34;\t{ast}hit&#34;
+                        f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
+                        f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
+                        f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                        tm=False,
+                    )
 
-        info(f&#34;{total} marks wiped clean&#34;, tm=False)</code></pre>
+        info(f&#34;{total} marks wiped clean&#34;, tm=False)
+
+    def ocr(self):
+        stages = self.stages
+
+        reader = OCR(self.engine, page=self)
+        stages[&#34;data&#34;] = reader.read()</code></pre>
 </details>
 </section>
 <section>
@@ -684,7 +721,7 @@ in boxes.</dd>
         tm = engine.tm
         error = tm.error
         self.file = f
-        (self.bare, self.ext) = splitext(f)
+        (self.bare, self.ext) = splitext(f, withDot=False)
         self.empty = True
         self.batch = batch
         self.boxed = boxed
@@ -702,7 +739,7 @@ in boxes.</dd>
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, **displayParams):
+    def show(self, stage=None, band=None, **displayParams):
         &#34;&#34;&#34;Displays processing stages of an page.
 
         See `pipeline.parameters.STAGE_ORDER`.
@@ -714,6 +751,11 @@ in boxes.</dd>
             Otherwise, the indicated stages are shown.
             If a string, it may be a comma-separated list of stage names.
             Otherwise it is an iterable of stage names.
+        band: string | iterable, optional `None`
+            If no band is passed, no bands are indicated.
+            Otherwise, the indicated bands are shown.
+            If a string, it may be a comma-separated list of band names.
+            Otherwise it is an iterable of band names.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
@@ -722,13 +764,43 @@ in boxes.</dd>
         engine = self.engine
         tm = engine.tm
         error = tm.error
+        info = tm.info
         C = engine.C
 
         stages = self.stages
+        bands = self.bands
+
+        doBands = None if band is None else parseBands(band, set(bands), error)
+        bandRep = None if doBands is None else &#34;, &#34;.join(doBands)
+        bandRep = &#34;&#34; if bandRep is None else f&#34; with bands {bandRep}&#34;
 
         for s in parseStages(stage, set(stages), C.stageOrder, error):
-            display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-            showImage(stages[s], **displayParams)
+            stageData = stages[s]
+
+            display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
+
+            if s in C.stagesText:
+                info(stageData, tm=False)
+            else:
+                img = stageData
+                if doBands is not None:
+                    img = stageData.copy()
+                    imW = img.shape[1]
+                    for band in doBands:
+                        bandInfo = bands[band]
+                        uppers = bandInfo[&#34;uppers&#34;]
+                        lowers = bandInfo[&#34;lowers&#34;]
+                        bColor = bandInfo[&#34;color&#34;]
+                        for (upper, lower) in zip(uppers, lowers):
+                            cv2.rectangle(
+                                img, (10, upper), (imW - 10, lower), bColor, 2
+                            )
+                            cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
+                            cv2.rectangle(
+                                img, (imW - 10, upper), (imW, lower), bColor, -1
+                            )
+
+                showImage(img, **displayParams)
 
     def write(self, stage=None):
         &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -760,9 +832,14 @@ in boxes.</dd>
         for s in parseStages(stage, C.stages, C.stageOrder, error):
             if s not in stages:
                 continue
-            img = stages[s]
-            path = f&#34;{interDir}/{bare}-{s}.{ext}&#34;
-            cv2.imwrite(path, img)
+            stageData = stages[s]
+            isText = stage in C.stagesText
+            path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
+            if stage in C.stagesText:
+                with open(path, &#34;w&#34;) as f:
+                    f.write(stageData)
+            else:
+                cv2.imwrite(path, stageData)
 
     def normalize(self):
         &#34;&#34;&#34;Normalizes a page.
@@ -844,7 +921,7 @@ in boxes.</dd>
                 histogram = normalizedC.copy()
 
                 for (hist, vert) in ((self.histY, True), (self.histX, False)):
-                    for (i, val) in enumerate(self.histY):
+                    for (i, val) in enumerate(hist):
                         color = (int(val), int(2 * val), int(val))
                         index = (0, i) if vert else (i, 0)
                         value = (val, i) if vert else (i, val)
@@ -982,35 +1059,6 @@ in boxes.</dd>
         if not batch or boxed:
             self.stages[&#34;demarginedC&#34;] = demarginedC
 
-        # show bands
-
-    def showBands(self, stage, showBand, **kwargs):
-        engine = self.engine
-        tm = engine.tm
-        error = tm.error
-
-        bands = self.bands
-        stages = self.stages
-        if stage not in stages:
-            error(f&#34;No stage {stage}&#34;)
-            return
-        img = stages[stage].copy()
-        imW = img.shape[1]
-
-        doBands = parseBands(showBand, set(bands), error)
-
-        for band in doBands:
-            bandInfo = bands[band]
-            uppers = bandInfo[&#34;uppers&#34;]
-            lowers = bandInfo[&#34;lowers&#34;]
-            bColor = bandInfo[&#34;color&#34;]
-            for (upper, lower) in zip(uppers, lowers):
-                cv2.rectangle(img, (10, upper), (imW - 10, lower), bColor, 2)
-                cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
-                cv2.rectangle(img, (imW - 10, upper), (imW, lower), bColor, -1)
-        display(HTML(f&#34;&lt;div&gt;{&#39;, &#39;.join(doBands)}&lt;/div&gt;&#34;))
-        showImage(img, **kwargs)
-
     def clean(self, mark=None, line=None):
         &#34;&#34;&#34;Remove marks from the page.
 
@@ -1048,7 +1096,9 @@ in boxes.</dd>
         boxed = self.boxed
 
         boxDelete = C.boxDeleteRGB
+        boxDeleteN = C.boxDeleteNRGB
         boxRemain = C.boxRemainRGB
+        boxRemainN = C.boxRemainNRGB
         boxBorder = C.boxBorder
 
         connectBorder = C.connectBorder
@@ -1109,8 +1159,8 @@ in boxes.</dd>
 
         for (band, markData) in searchMarks.items():
             for (markName, markInfo) in markData.items():
-                markInfoName = f&#34;{band}.{markName}&#34;
-                foundHits[markInfoName] = 0
+                foundHits.setdefault(band, {})[markName] = 0
+                seq = markInfo[&#34;seq&#34;]
                 mark = markInfo[&#34;gray&#34;]
                 connectBorder = markInfo[&#34;connectBorder&#34;]
                 accuracy = markInfo[&#34;accuracy&#34;]
@@ -1121,8 +1171,8 @@ in boxes.</dd>
                 nPts = 0
                 clusters = []
                 if not batch:
-                    cInfo[markInfoName] = {}
-                    einfo = cInfo[markInfoName]
+                    cInfo.setdefault(band, {})[markName] = {}
+                    einfo = cInfo[band][markName]
                     einfo[&#34;hits&#34;] = []
                     einfo[&#34;connected&#34;] = 0
                     einfo[&#34;border&#34;] = connectBorder
@@ -1150,7 +1200,7 @@ in boxes.</dd>
                     pts = list(zip(*loc))
                     if len(pts) &gt; maxHits:
                         error(
-                            f&#34;mark &#39;{markInfoName}&#39;:&#34;
+                            f&#34;mark &#39;{band}:{markName}&#39;:&#34;
                             f&#34; too many hits: {len(pts)} &gt; {maxHits}&#34;
                         )
                         warning(f&#34;Increase accuracy for this template&#34;)
@@ -1176,11 +1226,18 @@ in boxes.</dd>
                         )
                         if connDegree &gt; ratio:
                             if not batch or boxed:
-                                cv2.rectangle(
-                                    stages[&#34;boxed&#34;], *hit, boxRemain, boxBorder
+                                im = stages[&#34;boxed&#34;]
+                                cv2.rectangle(im, *hit, boxRemain, boxBorder)
+                                addSeq(
+                                    im,
+                                    *hit,
+                                    boxBorder,
+                                    seq,
+                                    connDegree,
+                                    boxRemainN,
                                 )
                         else:
-                            foundHits[markInfoName] += 1
+                            foundHits[band][markName] += 1
                             if batch and not boxed:
                                 cv2.rectangle(stages[&#34;clean&#34;], *hit, cleanClr, -1)
                             else:
@@ -1189,13 +1246,23 @@ in boxes.</dd>
                                     theClr = boxDelete if isBoxed else clr
                                     theBrd = boxBorder if isBoxed else -1
                                     cv2.rectangle(im, *hit, theClr, theBrd)
+                                    if isBoxed:
+                                        addSeq(
+                                            im,
+                                            *hit,
+                                            theBrd,
+                                            seq,
+                                            connDegree,
+                                            boxDeleteN,
+                                        )
 
                 if not batch:
                     einfo[&#34;npoints&#34;] = nPts
-        for (mark, found) in sorted(foundHits.items()):
-            indent(level=2)
-            if found:
-                warning(f&#34;{mark:&gt;20} {found:&gt;4} times&#34;, tm=False)
+        for (band, bandMarks) in sorted(foundHits.items()):
+            for (mark, found) in sorted(bandMarks.items()):
+                indent(level=2)
+                if found:
+                    warning(f&#34;{band:&lt;10}: {mark:&lt;20} {found:&gt;4} times&#34;, tm=False)
         indent(level=1)
         info(&#34;cleaning done&#34;)
 
@@ -1203,41 +1270,46 @@ in boxes.</dd>
 
     def showCleanInfo(self):
         engine = self.engine
-        engine = self.engine
         tm = engine.tm
         info = tm.info
         cInfo = self.cleanInfo
         total = 0
 
-        for markInfoName in sorted(cInfo):
-            einfo = cInfo[markInfoName]
-            totalHits = len(einfo[&#34;hits&#34;])
-            if not totalHits:
-                continue
-            connectBorder = einfo[&#34;border&#34;]
-            ratio = einfo[&#34;ratio&#34;]
-            showImage(engine.marks[markInfoName][&#34;gray&#34;])
-            connHits = len([hit for hit in einfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
-            realHits = totalHits - connHits
-            total += realHits
-            info(
-                f&#34;{markInfoName:&lt;20} with border {connectBorder}:\n&#34;
-                f&#34; {realHits} hits in {einfo[&#39;npoints&#39;]} points\n&#34;
-                f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
-                tm=False,
-            )
-            for hit in einfo[&#34;hits&#34;]:
-                conn = hit[&#34;conn&#34;]
-                ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+        for (band, markInfo) in sorted(cInfo.items()):
+            for (markName, eInfo) in sorted(markInfo.items()):
+                totalHits = len(eInfo[&#34;hits&#34;])
+                if not totalHits:
+                    continue
+                connectBorder = eInfo[&#34;border&#34;]
+                ratio = eInfo[&#34;ratio&#34;]
+                showImage(engine.marks[band][markName][&#34;gray&#34;])
+                connHits = len([hit for hit in eInfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
+                realHits = totalHits - connHits
+                total += realHits
                 info(
-                    f&#34;\t{ast}hit&#34;
-                    f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
-                    f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
-                    f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                    f&#34;{band:&lt;10}: {markName:&lt;20} with border {connectBorder}:\n&#34;
+                    f&#34; {realHits} hits in {eInfo[&#39;npoints&#39;]} points\n&#34;
+                    f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
                     tm=False,
                 )
+                for hit in eInfo[&#34;hits&#34;]:
+                    conn = hit[&#34;conn&#34;]
+                    ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+                    info(
+                        f&#34;\t{ast}hit&#34;
+                        f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
+                        f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
+                        f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                        tm=False,
+                    )
 
-        info(f&#34;{total} marks wiped clean&#34;, tm=False)</code></pre>
+        info(f&#34;{total} marks wiped clean&#34;, tm=False)
+
+    def ocr(self):
+        stages = self.stages
+
+        reader = OCR(self.engine, page=self)
+        stages[&#34;data&#34;] = reader.read()</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -1303,7 +1375,9 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
     boxed = self.boxed
 
     boxDelete = C.boxDeleteRGB
+    boxDeleteN = C.boxDeleteNRGB
     boxRemain = C.boxRemainRGB
+    boxRemainN = C.boxRemainNRGB
     boxBorder = C.boxBorder
 
     connectBorder = C.connectBorder
@@ -1364,8 +1438,8 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
 
     for (band, markData) in searchMarks.items():
         for (markName, markInfo) in markData.items():
-            markInfoName = f&#34;{band}.{markName}&#34;
-            foundHits[markInfoName] = 0
+            foundHits.setdefault(band, {})[markName] = 0
+            seq = markInfo[&#34;seq&#34;]
             mark = markInfo[&#34;gray&#34;]
             connectBorder = markInfo[&#34;connectBorder&#34;]
             accuracy = markInfo[&#34;accuracy&#34;]
@@ -1376,8 +1450,8 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
             nPts = 0
             clusters = []
             if not batch:
-                cInfo[markInfoName] = {}
-                einfo = cInfo[markInfoName]
+                cInfo.setdefault(band, {})[markName] = {}
+                einfo = cInfo[band][markName]
                 einfo[&#34;hits&#34;] = []
                 einfo[&#34;connected&#34;] = 0
                 einfo[&#34;border&#34;] = connectBorder
@@ -1405,7 +1479,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                 pts = list(zip(*loc))
                 if len(pts) &gt; maxHits:
                     error(
-                        f&#34;mark &#39;{markInfoName}&#39;:&#34;
+                        f&#34;mark &#39;{band}:{markName}&#39;:&#34;
                         f&#34; too many hits: {len(pts)} &gt; {maxHits}&#34;
                     )
                     warning(f&#34;Increase accuracy for this template&#34;)
@@ -1431,11 +1505,18 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                     )
                     if connDegree &gt; ratio:
                         if not batch or boxed:
-                            cv2.rectangle(
-                                stages[&#34;boxed&#34;], *hit, boxRemain, boxBorder
+                            im = stages[&#34;boxed&#34;]
+                            cv2.rectangle(im, *hit, boxRemain, boxBorder)
+                            addSeq(
+                                im,
+                                *hit,
+                                boxBorder,
+                                seq,
+                                connDegree,
+                                boxRemainN,
                             )
                     else:
-                        foundHits[markInfoName] += 1
+                        foundHits[band][markName] += 1
                         if batch and not boxed:
                             cv2.rectangle(stages[&#34;clean&#34;], *hit, cleanClr, -1)
                         else:
@@ -1444,13 +1525,23 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                                 theClr = boxDelete if isBoxed else clr
                                 theBrd = boxBorder if isBoxed else -1
                                 cv2.rectangle(im, *hit, theClr, theBrd)
+                                if isBoxed:
+                                    addSeq(
+                                        im,
+                                        *hit,
+                                        theBrd,
+                                        seq,
+                                        connDegree,
+                                        boxDeleteN,
+                                    )
 
             if not batch:
                 einfo[&#34;npoints&#34;] = nPts
-    for (mark, found) in sorted(foundHits.items()):
-        indent(level=2)
-        if found:
-            warning(f&#34;{mark:&gt;20} {found:&gt;4} times&#34;, tm=False)
+    for (band, bandMarks) in sorted(foundHits.items()):
+        for (mark, found) in sorted(bandMarks.items()):
+            indent(level=2)
+            if found:
+                warning(f&#34;{band:&lt;10}: {mark:&lt;20} {found:&gt;4} times&#34;, tm=False)
     indent(level=1)
     info(&#34;cleaning done&#34;)
 
@@ -1497,7 +1588,7 @@ horizontal and in vertical rows.</p>
             histogram = normalizedC.copy()
 
             for (hist, vert) in ((self.histY, True), (self.histX, False)):
-                for (i, val) in enumerate(self.histY):
+                for (i, val) in enumerate(hist):
                     color = (int(val), int(2 * val), int(val))
                     index = (0, i) if vert else (i, 0)
                     value = (val, i) if vert else (i, val)
@@ -1718,8 +1809,24 @@ resulting in stage <em>normalized</em>.</p>
     stages[&#34;normalized&#34;] = normalized</code></pre>
 </details>
 </dd>
+<dt id="pipeline.page.Page.ocr"><code class="name flex">
+<span>def <span class="ident">ocr</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ocr(self):
+    stages = self.stages
+
+    reader = OCR(self.engine, page=self)
+    stages[&#34;data&#34;] = reader.read()</code></pre>
+</details>
+</dd>
 <dt id="pipeline.page.Page.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>self, stage=None, **displayParams)</span>
+<span>def <span class="ident">show</span></span>(<span>self, stage=None, band=None, **displayParams)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Displays processing stages of an page.</p>
@@ -1731,6 +1838,11 @@ resulting in stage <em>normalized</em>.</p>
 Otherwise, the indicated stages are shown.
 If a string, it may be a comma-separated list of stage names.
 Otherwise it is an iterable of stage names.</dd>
+<dt><strong><code>band</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dd>If no band is passed, no bands are indicated.
+Otherwise, the indicated bands are shown.
+If a string, it may be a comma-separated list of band names.
+Otherwise it is an iterable of band names.</dd>
 <dt><strong><code>display</code></strong> :&ensp;<code>dict</code>, optional</dt>
 <dd>A set of display parameters, such as <code>width</code>, <code>height</code>
 (anything accepted by <code>IPython.display.Image</code>).</dd>
@@ -1739,7 +1851,7 @@ Otherwise it is an iterable of stage names.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show(self, stage=None, **displayParams):
+<pre><code class="python">def show(self, stage=None, band=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
 
     See `pipeline.parameters.STAGE_ORDER`.
@@ -1751,6 +1863,11 @@ Otherwise it is an iterable of stage names.</dd>
         Otherwise, the indicated stages are shown.
         If a string, it may be a comma-separated list of stage names.
         Otherwise it is an iterable of stage names.
+    band: string | iterable, optional `None`
+        If no band is passed, no bands are indicated.
+        Otherwise, the indicated bands are shown.
+        If a string, it may be a comma-separated list of band names.
+        Otherwise it is an iterable of band names.
     display: dict, optional
         A set of display parameters, such as `width`, `height`
         (anything accepted by `IPython.display.Image`).
@@ -1759,50 +1876,43 @@ Otherwise it is an iterable of stage names.</dd>
     engine = self.engine
     tm = engine.tm
     error = tm.error
+    info = tm.info
     C = engine.C
 
     stages = self.stages
+    bands = self.bands
+
+    doBands = None if band is None else parseBands(band, set(bands), error)
+    bandRep = None if doBands is None else &#34;, &#34;.join(doBands)
+    bandRep = &#34;&#34; if bandRep is None else f&#34; with bands {bandRep}&#34;
 
     for s in parseStages(stage, set(stages), C.stageOrder, error):
-        display(HTML(f&#34;&lt;div&gt;{s}&lt;/div&gt;&#34;))
-        showImage(stages[s], **displayParams)</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.showBands"><code class="name flex">
-<span>def <span class="ident">showBands</span></span>(<span>self, stage, showBand, **kwargs)</span>
-</code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def showBands(self, stage, showBand, **kwargs):
-    engine = self.engine
-    tm = engine.tm
-    error = tm.error
+        stageData = stages[s]
 
-    bands = self.bands
-    stages = self.stages
-    if stage not in stages:
-        error(f&#34;No stage {stage}&#34;)
-        return
-    img = stages[stage].copy()
-    imW = img.shape[1]
+        display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
 
-    doBands = parseBands(showBand, set(bands), error)
+        if s in C.stagesText:
+            info(stageData, tm=False)
+        else:
+            img = stageData
+            if doBands is not None:
+                img = stageData.copy()
+                imW = img.shape[1]
+                for band in doBands:
+                    bandInfo = bands[band]
+                    uppers = bandInfo[&#34;uppers&#34;]
+                    lowers = bandInfo[&#34;lowers&#34;]
+                    bColor = bandInfo[&#34;color&#34;]
+                    for (upper, lower) in zip(uppers, lowers):
+                        cv2.rectangle(
+                            img, (10, upper), (imW - 10, lower), bColor, 2
+                        )
+                        cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
+                        cv2.rectangle(
+                            img, (imW - 10, upper), (imW, lower), bColor, -1
+                        )
 
-    for band in doBands:
-        bandInfo = bands[band]
-        uppers = bandInfo[&#34;uppers&#34;]
-        lowers = bandInfo[&#34;lowers&#34;]
-        bColor = bandInfo[&#34;color&#34;]
-        for (upper, lower) in zip(uppers, lowers):
-            cv2.rectangle(img, (10, upper), (imW - 10, lower), bColor, 2)
-            cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
-            cv2.rectangle(img, (imW - 10, upper), (imW, lower), bColor, -1)
-    display(HTML(f&#34;&lt;div&gt;{&#39;, &#39;.join(doBands)}&lt;/div&gt;&#34;))
-    showImage(img, **kwargs)</code></pre>
+            showImage(img, **displayParams)</code></pre>
 </details>
 </dd>
 <dt id="pipeline.page.Page.showCleanInfo"><code class="name flex">
@@ -1816,39 +1926,38 @@ Otherwise it is an iterable of stage names.</dd>
 </summary>
 <pre><code class="python">def showCleanInfo(self):
     engine = self.engine
-    engine = self.engine
     tm = engine.tm
     info = tm.info
     cInfo = self.cleanInfo
     total = 0
 
-    for markInfoName in sorted(cInfo):
-        einfo = cInfo[markInfoName]
-        totalHits = len(einfo[&#34;hits&#34;])
-        if not totalHits:
-            continue
-        connectBorder = einfo[&#34;border&#34;]
-        ratio = einfo[&#34;ratio&#34;]
-        showImage(engine.marks[markInfoName][&#34;gray&#34;])
-        connHits = len([hit for hit in einfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
-        realHits = totalHits - connHits
-        total += realHits
-        info(
-            f&#34;{markInfoName:&lt;20} with border {connectBorder}:\n&#34;
-            f&#34; {realHits} hits in {einfo[&#39;npoints&#39;]} points\n&#34;
-            f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
-            tm=False,
-        )
-        for hit in einfo[&#34;hits&#34;]:
-            conn = hit[&#34;conn&#34;]
-            ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+    for (band, markInfo) in sorted(cInfo.items()):
+        for (markName, eInfo) in sorted(markInfo.items()):
+            totalHits = len(eInfo[&#34;hits&#34;])
+            if not totalHits:
+                continue
+            connectBorder = eInfo[&#34;border&#34;]
+            ratio = eInfo[&#34;ratio&#34;]
+            showImage(engine.marks[band][markName][&#34;gray&#34;])
+            connHits = len([hit for hit in eInfo[&#34;hits&#34;] if hit[&#34;conn&#34;] &gt; ratio])
+            realHits = totalHits - connHits
+            total += realHits
             info(
-                f&#34;\t{ast}hit&#34;
-                f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
-                f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
-                f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                f&#34;{band:&lt;10}: {markName:&lt;20} with border {connectBorder}:\n&#34;
+                f&#34; {realHits} hits in {eInfo[&#39;npoints&#39;]} points\n&#34;
+                f&#34; {connHits} connected hits removed from {totalHits} candidate hits&#34;,
                 tm=False,
             )
+            for hit in eInfo[&#34;hits&#34;]:
+                conn = hit[&#34;conn&#34;]
+                ast = &#34;*&#34; if conn &gt; ratio else &#34; &#34;
+                info(
+                    f&#34;\t{ast}hit&#34;
+                    f&#34; with accuracy {hit[&#39;accuracy&#39;]:5.2f}&#34;
+                    f&#34; with connectivity {ast}{hit[&#39;conn&#39;]:5.2f}&#34;
+                    f&#34; reached by {hit[&#39;point&#39;]}&#34;,
+                    tm=False,
+                )
 
     info(f&#34;{total} marks wiped clean&#34;, tm=False)</code></pre>
 </details>
@@ -1904,9 +2013,14 @@ with the name of the stage appended to the file name.
     for s in parseStages(stage, C.stages, C.stageOrder, error):
         if s not in stages:
             continue
-        img = stages[s]
-        path = f&#34;{interDir}/{bare}-{s}.{ext}&#34;
-        cv2.imwrite(path, img)</code></pre>
+        stageData = stages[s]
+        isText = stage in C.stagesText
+        path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
+        if stage in C.stagesText:
+            with open(path, &#34;w&#34;) as f:
+                f.write(stageData)
+        else:
+            cv2.imwrite(path, stageData)</code></pre>
 </details>
 </dd>
 </dl>
@@ -1934,8 +2048,8 @@ with the name of the stage appended to the file name.
 <li><code><a title="pipeline.page.Page.histogram" href="#pipeline.page.Page.histogram">histogram</a></code></li>
 <li><code><a title="pipeline.page.Page.margins" href="#pipeline.page.Page.margins">margins</a></code></li>
 <li><code><a title="pipeline.page.Page.normalize" href="#pipeline.page.Page.normalize">normalize</a></code></li>
+<li><code><a title="pipeline.page.Page.ocr" href="#pipeline.page.Page.ocr">ocr</a></code></li>
 <li><code><a title="pipeline.page.Page.show" href="#pipeline.page.Page.show">show</a></code></li>
-<li><code><a title="pipeline.page.Page.showBands" href="#pipeline.page.Page.showBands">showBands</a></code></li>
 <li><code><a title="pipeline.page.Page.showCleanInfo" href="#pipeline.page.Page.showCleanInfo">showCleanInfo</a></code></li>
 <li><code><a title="pipeline.page.Page.write" href="#pipeline.page.Page.write">write</a></code></li>
 </ul>
