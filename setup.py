@@ -13,7 +13,7 @@ setup(
         "opencv-contrib-python",
         "text-fabric",
     ],
-    python_requires=">=3.8.0",
+    python_requires=">=3.7.0",
     include_package_data=True,
     exclude_package_data={"": ["pipeline.egg-info", "__pycache__", ".DS_Store"]},
     zip_safe=False,
