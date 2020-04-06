@@ -26,6 +26,7 @@
 </summary>
 <pre><code class="python">import os
 import io
+from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
 import numpy as np
@@ -275,23 +276,58 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
     colorDeg = (100, 100, 255)
     ptSeq = (tl[0], tl[1] - offset - 2)
     ptDeg = (tl[0], br[1] + offset + 8)
-    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    cv2.putText(
+        img,
+        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;,
+        ptSeq,
+        FONT,
+        size,
+        colorSeq,
+        weight,
+        cv2.LINE_AA,
+    )
     deg = int(round(deg * 100))
     if deg:
         cv2.putText(
-            img,
-            str(deg),
-            ptDeg,
-            FONT,
-            size,
-            colorDeg,
-            weight,
-            cv2.LINE_AA,
+            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
         )
+
+
+def getLargest(hist, width, threshold):
+    &#34;&#34;&#34;Get biggest chunk of nonzero values
+
+    Chunks are consecutive indices of a source array whose values count as nonzero.
+    After chunking a source array, we compute the chunk with width greater than half
+    of the source array, if such a chunk exists. And then we deliver
+    everything outside that chunk.
+
+    Otherwise we deliver all values from the source array that count as zero.
+
+    Parameters
+    ----------
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    &#34;&#34;&#34;
+    result = None
+    for chunk in (
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
+        if key &gt;= threshold
+    ):
+        if len(chunk) &gt; width / 2:
+            result = list(chain(range(chunk[0]), range(chunk[-1] + 1, width)))
+            break
+    if result is None:
+        result = [i for (i, value) in enumerate(hist) if value &lt; threshold]
+    return result
 
 
 def parseStages(stage, allStages, sortedStages, error):
@@ -338,7 +374,7 @@ def parseBands(band, allBands, error):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pipeline.lib.addSeq"><code class="name flex">
-<span>def <span class="ident">addSeq</span></span>(<span>img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1)</span>
+<span>def <span class="ident">addSeq</span></span>(<span>img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -346,22 +382,24 @@ def parseBands(band, allBands, error):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+<pre><code class="python">def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
     colorDeg = (100, 100, 255)
     ptSeq = (tl[0], tl[1] - offset - 2)
     ptDeg = (tl[0], br[1] + offset + 8)
-    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    cv2.putText(
+        img,
+        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;,
+        ptSeq,
+        FONT,
+        size,
+        colorSeq,
+        weight,
+        cv2.LINE_AA,
+    )
     deg = int(round(deg * 100))
     if deg:
         cv2.putText(
-            img,
-            str(deg),
-            ptDeg,
-            FONT,
-            size,
-            colorDeg,
-            weight,
-            cv2.LINE_AA,
+            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
         )</code></pre>
 </details>
 </dd>
@@ -495,6 +533,62 @@ def parseBands(band, allBands, error):
         nparts += 1
 
     return connDegree</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.getLargest"><code class="name flex">
+<span>def <span class="ident">getLargest</span></span>(<span>hist, width, threshold)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get biggest chunk of nonzero values</p>
+<p>Chunks are consecutive indices of a source array whose values count as nonzero.
+After chunking a source array, we compute the chunk with width greater than half
+of the source array, if such a chunk exists. And then we deliver
+everything outside that chunk.</p>
+<p>Otherwise we deliver all values from the source array that count as zero.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>hist</code></strong> :&ensp;[<code>int</code>]</dt>
+<dd>Source array of pixel values</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum index of the source array</dd>
+<dt><strong><code>threshold</code></strong> :&ensp;<code>int</code></dt>
+<dd>Value below which pixels count as zero</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getLargest(hist, width, threshold):
+    &#34;&#34;&#34;Get biggest chunk of nonzero values
+
+    Chunks are consecutive indices of a source array whose values count as nonzero.
+    After chunking a source array, we compute the chunk with width greater than half
+    of the source array, if such a chunk exists. And then we deliver
+    everything outside that chunk.
+
+    Otherwise we deliver all values from the source array that count as zero.
+
+    Parameters
+    ----------
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    &#34;&#34;&#34;
+    result = None
+    for chunk in (
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
+        if key &gt;= threshold
+    ):
+        if len(chunk) &gt; width / 2:
+            result = list(chain(range(chunk[0]), range(chunk[-1] + 1, width)))
+            break
+    if result is None:
+        result = [i for (i, value) in enumerate(hist) if value &lt; threshold]
+    return result</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.imageFileList"><code class="name flex">
@@ -784,6 +878,7 @@ def parseBands(band, allBands, error):
 <li><code><a title="pipeline.lib.addSeq" href="#pipeline.lib.addSeq">addSeq</a></code></li>
 <li><code><a title="pipeline.lib.cluster" href="#pipeline.lib.cluster">cluster</a></code></li>
 <li><code><a title="pipeline.lib.connected" href="#pipeline.lib.connected">connected</a></code></li>
+<li><code><a title="pipeline.lib.getLargest" href="#pipeline.lib.getLargest">getLargest</a></code></li>
 <li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
 <li><code><a title="pipeline.lib.imageFileListSub" href="#pipeline.lib.imageFileListSub">imageFileListSub</a></code></li>
 <li><code><a title="pipeline.lib.img" href="#pipeline.lib.img">img</a></code></li>

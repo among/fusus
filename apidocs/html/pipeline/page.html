@@ -42,6 +42,7 @@ from .lib import (
     parseStages,
     parseBands,
     addSeq,
+    getLargest,
 )
 from .ocr import OCR
 
@@ -297,8 +298,10 @@ class Page:
         boxed = self.boxed
         dividers = engine.dividers
 
-        threshold = C.marginThreshold
-        mcolor = C.marginRGB
+        thresholdX = C.marginThresholdX
+        thresholdY = C.marginThresholdY
+        mColor = C.marginRGB
+        mWhite = C.marginGRS
 
         stages = self.stages
         normalized = stages[&#34;normalized&#34;]
@@ -311,11 +314,12 @@ class Page:
         histY = self.histY
 
         (normH, normW) = normalized.shape[:2]
-        for pixel in range(0, normW):
-            if histX[pixel] &lt; threshold:
-                cv2.line(demargined, (pixel, 0), (pixel, normH), mcolor, 1)
-                if not batch or boxed:
-                    cv2.line(demarginedC, (pixel, 0), (pixel, normH), mcolor, 1)
+        body = getLargest(histX, normW, thresholdX)
+
+        for posX in body:
+            cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
+            if not batch or boxed:
+                cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
 
         uppers = []
         lowers = []
@@ -327,18 +331,18 @@ class Page:
         for y in range(normH - 1):
             if inline:
                 if detectedLower:
-                    if histY[y] &gt;= threshold:
+                    if histY[y] &gt;= thresholdY:
                         lowers[-1] = y
                     elif histY[y] &lt;= 1:
                         inline = False
-                elif histY[y] &gt; threshold and histY[y + 1] &lt;= threshold:
+                elif histY[y] &gt; thresholdY and histY[y + 1] &lt;= thresholdY:
                     lowers.append(y)
                     detectedLower = True
                     detectedUpper = False
                     if histY[y] &lt;= 1:
                         inline = False
             else:
-                if histY[y] &lt;= threshold and histY[y + 1] &gt; threshold:
+                if histY[y] &lt;= thresholdY and histY[y + 1] &gt; thresholdY:
                     if not detectedUpper:
                         inline = True
                         uppers.append(y)
@@ -363,11 +367,11 @@ class Page:
                 if loc[0].size:
                     footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
                     cv2.rectangle(
-                        demargined, (0, uppers[i]), (normW, normH), mcolor, -1
+                        demargined, (0, uppers[i]), (normW, normH), mWhite, -1
                     )
                     if not batch or boxed:
                         cv2.rectangle(
-                            demarginedC, (0, uppers[i]), (normW, normH), mcolor, -1
+                            demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
                         )
                     break
                 else:
@@ -401,9 +405,9 @@ class Page:
         broadUppers = broadBand[&#34;uppers&#34;]
         if broadUppers:
             top = broadUppers[0]
-            cv2.rectangle(demargined, (0, 0), (normW, top), mcolor, -1)
+            cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
             if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, 0), (normW, top), mcolor, -1)
+                cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
 
         self.stages[&#34;demargined&#34;] = demargined
         if not batch or boxed:
@@ -582,6 +586,7 @@ class Page:
                                     im,
                                     *hit,
                                     boxBorder,
+                                    band,
                                     seq,
                                     connDegree,
                                     boxRemainN,
@@ -601,6 +606,7 @@ class Page:
                                             im,
                                             *hit,
                                             theBrd,
+                                            band,
                                             seq,
                                             connDegree,
                                             boxDeleteN,
@@ -947,8 +953,10 @@ in boxes.</dd>
         boxed = self.boxed
         dividers = engine.dividers
 
-        threshold = C.marginThreshold
-        mcolor = C.marginRGB
+        thresholdX = C.marginThresholdX
+        thresholdY = C.marginThresholdY
+        mColor = C.marginRGB
+        mWhite = C.marginGRS
 
         stages = self.stages
         normalized = stages[&#34;normalized&#34;]
@@ -961,11 +969,12 @@ in boxes.</dd>
         histY = self.histY
 
         (normH, normW) = normalized.shape[:2]
-        for pixel in range(0, normW):
-            if histX[pixel] &lt; threshold:
-                cv2.line(demargined, (pixel, 0), (pixel, normH), mcolor, 1)
-                if not batch or boxed:
-                    cv2.line(demarginedC, (pixel, 0), (pixel, normH), mcolor, 1)
+        body = getLargest(histX, normW, thresholdX)
+
+        for posX in body:
+            cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
+            if not batch or boxed:
+                cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
 
         uppers = []
         lowers = []
@@ -977,18 +986,18 @@ in boxes.</dd>
         for y in range(normH - 1):
             if inline:
                 if detectedLower:
-                    if histY[y] &gt;= threshold:
+                    if histY[y] &gt;= thresholdY:
                         lowers[-1] = y
                     elif histY[y] &lt;= 1:
                         inline = False
-                elif histY[y] &gt; threshold and histY[y + 1] &lt;= threshold:
+                elif histY[y] &gt; thresholdY and histY[y + 1] &lt;= thresholdY:
                     lowers.append(y)
                     detectedLower = True
                     detectedUpper = False
                     if histY[y] &lt;= 1:
                         inline = False
             else:
-                if histY[y] &lt;= threshold and histY[y + 1] &gt; threshold:
+                if histY[y] &lt;= thresholdY and histY[y + 1] &gt; thresholdY:
                     if not detectedUpper:
                         inline = True
                         uppers.append(y)
@@ -1013,11 +1022,11 @@ in boxes.</dd>
                 if loc[0].size:
                     footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
                     cv2.rectangle(
-                        demargined, (0, uppers[i]), (normW, normH), mcolor, -1
+                        demargined, (0, uppers[i]), (normW, normH), mWhite, -1
                     )
                     if not batch or boxed:
                         cv2.rectangle(
-                            demarginedC, (0, uppers[i]), (normW, normH), mcolor, -1
+                            demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
                         )
                     break
                 else:
@@ -1051,9 +1060,9 @@ in boxes.</dd>
         broadUppers = broadBand[&#34;uppers&#34;]
         if broadUppers:
             top = broadUppers[0]
-            cv2.rectangle(demargined, (0, 0), (normW, top), mcolor, -1)
+            cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
             if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, 0), (normW, top), mcolor, -1)
+                cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
 
         self.stages[&#34;demargined&#34;] = demargined
         if not batch or boxed:
@@ -1232,6 +1241,7 @@ in boxes.</dd>
                                     im,
                                     *hit,
                                     boxBorder,
+                                    band,
                                     seq,
                                     connDegree,
                                     boxRemainN,
@@ -1251,6 +1261,7 @@ in boxes.</dd>
                                             im,
                                             *hit,
                                             theBrd,
+                                            band,
                                             seq,
                                             connDegree,
                                             boxDeleteN,
@@ -1511,6 +1522,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                                 im,
                                 *hit,
                                 boxBorder,
+                                band,
                                 seq,
                                 connDegree,
                                 boxRemainN,
@@ -1530,6 +1542,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                                         im,
                                         *hit,
                                         theBrd,
+                                        band,
                                         seq,
                                         connDegree,
                                         boxDeleteN,
@@ -1629,8 +1642,10 @@ horizontal and in vertical rows.</p>
     boxed = self.boxed
     dividers = engine.dividers
 
-    threshold = C.marginThreshold
-    mcolor = C.marginRGB
+    thresholdX = C.marginThresholdX
+    thresholdY = C.marginThresholdY
+    mColor = C.marginRGB
+    mWhite = C.marginGRS
 
     stages = self.stages
     normalized = stages[&#34;normalized&#34;]
@@ -1643,11 +1658,12 @@ horizontal and in vertical rows.</p>
     histY = self.histY
 
     (normH, normW) = normalized.shape[:2]
-    for pixel in range(0, normW):
-        if histX[pixel] &lt; threshold:
-            cv2.line(demargined, (pixel, 0), (pixel, normH), mcolor, 1)
-            if not batch or boxed:
-                cv2.line(demarginedC, (pixel, 0), (pixel, normH), mcolor, 1)
+    body = getLargest(histX, normW, thresholdX)
+
+    for posX in body:
+        cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
+        if not batch or boxed:
+            cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
 
     uppers = []
     lowers = []
@@ -1659,18 +1675,18 @@ horizontal and in vertical rows.</p>
     for y in range(normH - 1):
         if inline:
             if detectedLower:
-                if histY[y] &gt;= threshold:
+                if histY[y] &gt;= thresholdY:
                     lowers[-1] = y
                 elif histY[y] &lt;= 1:
                     inline = False
-            elif histY[y] &gt; threshold and histY[y + 1] &lt;= threshold:
+            elif histY[y] &gt; thresholdY and histY[y + 1] &lt;= thresholdY:
                 lowers.append(y)
                 detectedLower = True
                 detectedUpper = False
                 if histY[y] &lt;= 1:
                     inline = False
         else:
-            if histY[y] &lt;= threshold and histY[y + 1] &gt; threshold:
+            if histY[y] &lt;= thresholdY and histY[y + 1] &gt; thresholdY:
                 if not detectedUpper:
                     inline = True
                     uppers.append(y)
@@ -1695,11 +1711,11 @@ horizontal and in vertical rows.</p>
             if loc[0].size:
                 footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
                 cv2.rectangle(
-                    demargined, (0, uppers[i]), (normW, normH), mcolor, -1
+                    demargined, (0, uppers[i]), (normW, normH), mWhite, -1
                 )
                 if not batch or boxed:
                     cv2.rectangle(
-                        demarginedC, (0, uppers[i]), (normW, normH), mcolor, -1
+                        demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
                     )
                 break
             else:
@@ -1733,9 +1749,9 @@ horizontal and in vertical rows.</p>
     broadUppers = broadBand[&#34;uppers&#34;]
     if broadUppers:
         top = broadUppers[0]
-        cv2.rectangle(demargined, (0, 0), (normW, top), mcolor, -1)
+        cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
         if not batch or boxed:
-            cv2.rectangle(demarginedC, (0, 0), (normW, top), mcolor, -1)
+            cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
 
     self.stages[&#34;demargined&#34;] = demargined
     if not batch or boxed:
