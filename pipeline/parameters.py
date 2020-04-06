@@ -9,6 +9,7 @@ COLORS = dict(
     blackRGB=(0, 0, 0),
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
+    marginGRS=255,
     marginRGB=(250, 250, 250),
     cleanRGB=(255, 255, 255),
     cleanhRGB=(220, 220, 220),
@@ -69,7 +70,8 @@ SETTINGS = dict(
     skewBorder=30,
     blurX=31,
     blurY=11,
-    marginThreshold=5,
+    marginThresholdX=1,
+    marginThresholdY=5,
     accuracy=0.8,
     connectBorder=4,
     connectThreshold=200 * 200,
@@ -122,13 +124,23 @@ blurY
         Too little vertical blurring will result in ragged histograms,
         from which it is difficult to get vertical line boundaries.
 
-marginThreshold
+marginThresholdX, marginThresholdY
 :   used when interpreting histograms.
 
-    Vertical lines in the page where the histogram is below this threshold will
-    be whitened.
+    **Vertical lines**:
 
-    When histograms for horizontal lines cross this value,  it will taken as an
+    The histogram for vertical lines will be chunked into groups,
+    and only the biggest group will be retained.
+
+    More precisely, values in the histogram for vertical lines that are below
+    marginThresholdX will be considered 0. After that, the histogram points
+    will be grouped into consecutive chunks with nonzero values.
+    The biggest such group will have the vertical lines that contain the page material.
+    All other vertical lines will be whitened.
+
+    **Horizontal lines**:
+
+    When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
 
     !!! hint "Ragged histograms"

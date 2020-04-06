@@ -1,5 +1,6 @@
 import os
 import io
+from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
 import numpy as np
@@ -249,23 +250,58 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addSeq(img, tl, br, offset, seq, deg, colorSeq, size=0.5, weight=1):
+def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
     colorDeg = (100, 100, 255)
     ptSeq = (tl[0], tl[1] - offset - 2)
     ptDeg = (tl[0], br[1] + offset + 8)
-    cv2.putText(img, str(seq), ptSeq, FONT, size, colorSeq, weight, cv2.LINE_AA)
+    cv2.putText(
+        img,
+        f"{'' if band == 'main' else band[0]}{seq}",
+        ptSeq,
+        FONT,
+        size,
+        colorSeq,
+        weight,
+        cv2.LINE_AA,
+    )
     deg = int(round(deg * 100))
     if deg:
         cv2.putText(
-            img,
-            str(deg),
-            ptDeg,
-            FONT,
-            size,
-            colorDeg,
-            weight,
-            cv2.LINE_AA,
+            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
         )
+
+
+def getLargest(hist, width, threshold):
+    """Get biggest chunk of nonzero values
+
+    Chunks are consecutive indices of a source array whose values count as nonzero.
+    After chunking a source array, we compute the chunk with width greater than half
+    of the source array, if such a chunk exists. And then we deliver
+    everything outside that chunk.
+
+    Otherwise we deliver all values from the source array that count as zero.
+
+    Parameters
+    ----------
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    """
+    result = None
+    for chunk in (
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] >= threshold)
+        if key >= threshold
+    ):
+        if len(chunk) > width / 2:
+            result = list(chain(range(chunk[0]), range(chunk[-1] + 1, width)))
+            break
+    if result is None:
+        result = [i for (i, value) in enumerate(hist) if value < threshold]
+    return result
 
 
 def parseStages(stage, allStages, sortedStages, error):

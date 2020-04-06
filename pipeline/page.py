@@ -15,6 +15,7 @@ from .lib import (
     parseStages,
     parseBands,
     addSeq,
+    getLargest,
 )
 from .ocr import OCR
 
@@ -270,8 +271,10 @@ class Page:
         boxed = self.boxed
         dividers = engine.dividers
 
-        threshold = C.marginThreshold
-        mcolor = C.marginRGB
+        thresholdX = C.marginThresholdX
+        thresholdY = C.marginThresholdY
+        mColor = C.marginRGB
+        mWhite = C.marginGRS
 
         stages = self.stages
         normalized = stages["normalized"]
@@ -284,11 +287,12 @@ class Page:
         histY = self.histY
 
         (normH, normW) = normalized.shape[:2]
-        for pixel in range(0, normW):
-            if histX[pixel] < threshold:
-                cv2.line(demargined, (pixel, 0), (pixel, normH), mcolor, 1)
-                if not batch or boxed:
-                    cv2.line(demarginedC, (pixel, 0), (pixel, normH), mcolor, 1)
+        body = getLargest(histX, normW, thresholdX)
+
+        for posX in body:
+            cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
+            if not batch or boxed:
+                cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
 
         uppers = []
         lowers = []
@@ -300,18 +304,18 @@ class Page:
         for y in range(normH - 1):
             if inline:
                 if detectedLower:
-                    if histY[y] >= threshold:
+                    if histY[y] >= thresholdY:
                         lowers[-1] = y
                     elif histY[y] <= 1:
                         inline = False
-                elif histY[y] > threshold and histY[y + 1] <= threshold:
+                elif histY[y] > thresholdY and histY[y + 1] <= thresholdY:
                     lowers.append(y)
                     detectedLower = True
                     detectedUpper = False
                     if histY[y] <= 1:
                         inline = False
             else:
-                if histY[y] <= threshold and histY[y + 1] > threshold:
+                if histY[y] <= thresholdY and histY[y + 1] > thresholdY:
                     if not detectedUpper:
                         inline = True
                         uppers.append(y)
@@ -336,11 +340,11 @@ class Page:
                 if loc[0].size:
                     footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
                     cv2.rectangle(
-                        demargined, (0, uppers[i]), (normW, normH), mcolor, -1
+                        demargined, (0, uppers[i]), (normW, normH), mWhite, -1
                     )
                     if not batch or boxed:
                         cv2.rectangle(
-                            demarginedC, (0, uppers[i]), (normW, normH), mcolor, -1
+                            demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
                         )
                     break
                 else:
@@ -374,9 +378,9 @@ class Page:
         broadUppers = broadBand["uppers"]
         if broadUppers:
             top = broadUppers[0]
-            cv2.rectangle(demargined, (0, 0), (normW, top), mcolor, -1)
+            cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
             if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, 0), (normW, top), mcolor, -1)
+                cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
 
         self.stages["demargined"] = demargined
         if not batch or boxed:
@@ -555,6 +559,7 @@ class Page:
                                     im,
                                     *hit,
                                     boxBorder,
+                                    band,
                                     seq,
                                     connDegree,
                                     boxRemainN,
@@ -574,6 +579,7 @@ class Page:
                                             im,
                                             *hit,
                                             theBrd,
+                                            band,
                                             seq,
                                             connDegree,
                                             boxDeleteN,
