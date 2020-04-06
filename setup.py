@@ -12,6 +12,7 @@ setup(
         "pillow",
         "opencv-contrib-python",
         "text-fabric",
+        "pytesseract",
     ],
     python_requires=">=3.7.0",
     include_package_data=True,

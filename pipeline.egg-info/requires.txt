@@ -1,5 +1,7 @@
+pyyaml
 ipython
 numpy
 pillow
 opencv-contrib-python
 text-fabric
+pytesseract

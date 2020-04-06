@@ -1,9 +1,10 @@
 README.md
 setup.py
 pipeline/__init__.py
-pipeline/exe.py
-pipeline/image.py
+pipeline/book.py
 pipeline/lib.py
+pipeline/ocr.py
+pipeline/page.py
 pipeline/parameters.py
 pipeline.egg-info/PKG-INFO
 pipeline.egg-info/SOURCES.txt

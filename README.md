@@ -12,9 +12,9 @@ There is more documentation about sources, the research project, and how to use
 this software in the
 [docs](https://among.github.io/fusus/).
 
-[Installation](https://among.github.io/fusus/install.md)
+[Installation](https://among.github.io/fusus/install/)
 
-[Usage](https://among.github.io/fusus/usage.md)
+[Usage](https://among.github.io/fusus/use/)
 
 [API documentation](https://among.github.io/fusus/apidocs/html/pipeline/index.html)
 
