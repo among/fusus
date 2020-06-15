@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>pipeline.lib API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cse.google.com/cse.js?cx=017837193012385208679:pey8ky8gdqw"></script>
+<style>.gsc-control-cse {padding:0 !important;margin-top:1em}</style>
 </head>
 <body>
 <main>
@@ -23,9 +25,11 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L0-L413" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import io
+import yaml
 from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
@@ -34,6 +38,7 @@ import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
 
+from tf.advanced.helpers import showDict
 from tf.core.helpers import rangesFromList, specFromRanges
 
 EXTENSIONS = set(
@@ -276,24 +281,42 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
+def addSeq(
+    img,
+    topLeft,
+    bottomRight,
+    frameWidth,
+    frameColor,
+    band,
+    markSeq,
+    connectionDegree,
+    size=0.5,
+    weight=1,
+):
     colorDeg = (100, 100, 255)
-    ptSeq = (tl[0], tl[1] - offset - 2)
-    ptDeg = (tl[0], br[1] + offset + 8)
+    ptSeq = (topLeft[0], topLeft[1] - frameWidth - 2)
+    ptDeg = (topLeft[0], bottomRight[1] + frameWidth + 8)
     cv2.putText(
         img,
-        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;,
+        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
         ptSeq,
         FONT,
         size,
-        colorSeq,
+        frameColor,
         weight,
         cv2.LINE_AA,
     )
-    deg = int(round(deg * 100))
-    if deg:
+    connectionDegree = int(round(connectionDegree * 100))
+    if connectionDegree:
         cv2.putText(
-            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
+            img,
+            str(connectionDegree),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
         )
 
 
@@ -363,7 +386,61 @@ def parseBands(band, allBands, error):
         error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
 
     doBands = doBands - illegalBands
-    return tuple(b for b in sortedBands if b in doBands)</code></pre>
+    return tuple(b for b in sortedBands if b in doBands)
+
+
+def serial(data, extension, handle=None):
+    &#34;&#34;&#34;serializes data in accordance with file type.
+
+    Parameters
+    ----------
+    data:
+        The data to serialize. The type of data must be compatible with
+        the *extension*.
+    extension: string
+        The file type according to which the data must be serialized.
+    handle: string, optional `None`
+        If `None`, output is prepared for display in a Jupter notebook,
+        else it is a file handle and the data is serialized
+        in the canonical way and written to that file.
+
+    Returns
+    -------
+    string
+        The serialized data.
+        If the extension does not match a recognized file type,
+        the Python `repr` of the data is returned.
+
+    Notes
+    -----
+    The following data type/extension combinations are supported:
+
+    extension | data type
+    --- | ---
+    tsv | tuple/list of tuple/list
+    yaml | dict
+    &#34;&#34;&#34;
+
+    if handle:
+        handle.write(
+            yaml.dump(data, allow_unicode=True, sort_keys=False)
+            if extension == &#34;yaml&#34;
+            else
+            &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
+            if extension == &#34;tsv&#34;
+            else
+            repr(data)
+        )
+    else:
+        showDict(data)
+
+
+def markRep(hit, wipe, connDegree):
+    return [
+        [int(hit[0][1]), int(hit[1][1]), int(hit[0][0]), int(hit[1][0])],
+        wipe,
+        connDegree,
+    ]</code></pre>
 </details>
 </section>
 <section>
@@ -374,32 +451,51 @@ def parseBands(band, allBands, error):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pipeline.lib.addSeq"><code class="name flex">
-<span>def <span class="ident">addSeq</span></span>(<span>img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1)</span>
+<span>def <span class="ident">addSeq</span></span>(<span>img, topLeft, bottomRight, frameWidth, frameColor, band, markSeq, connectionDegree, size=0.5, weight=1)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L255-L291" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
+<pre><code class="python">def addSeq(
+    img,
+    topLeft,
+    bottomRight,
+    frameWidth,
+    frameColor,
+    band,
+    markSeq,
+    connectionDegree,
+    size=0.5,
+    weight=1,
+):
     colorDeg = (100, 100, 255)
-    ptSeq = (tl[0], tl[1] - offset - 2)
-    ptDeg = (tl[0], br[1] + offset + 8)
+    ptSeq = (topLeft[0], topLeft[1] - frameWidth - 2)
+    ptDeg = (topLeft[0], bottomRight[1] + frameWidth + 8)
     cv2.putText(
         img,
-        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;,
+        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
         ptSeq,
         FONT,
         size,
-        colorSeq,
+        frameColor,
         weight,
         cv2.LINE_AA,
     )
-    deg = int(round(deg * 100))
-    if deg:
+    connectionDegree = int(round(connectionDegree * 100))
+    if connectionDegree:
         cv2.putText(
-            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
+            img,
+            str(connectionDegree),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
         )</code></pre>
 </details>
 </dd>
@@ -407,10 +503,11 @@ def parseBands(band, allBands, error):
 <span>def <span class="ident">cluster</span></span>(<span>points, result)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L117-L139" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cluster(points, result):
     def d(p1, p2):
@@ -441,10 +538,11 @@ def parseBands(band, allBands, error):
 <span>def <span class="ident">connected</span></span>(<span>markH, markW, bw, threshold, gray, hitPoint)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L153-L239" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
@@ -539,7 +637,7 @@ def parseBands(band, allBands, error):
 <span>def <span class="ident">getLargest</span></span>(<span>hist, width, threshold)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Get biggest chunk of nonzero values</p>
+<div class="desc"><p>Get biggest chunk of nonzero values</p>
 <p>Chunks are consecutive indices of a source array whose values count as nonzero.
 After chunking a source array, we compute the chunk with width greater than half
 of the source array, if such a chunk exists. And then we deliver
@@ -547,16 +645,17 @@ everything outside that chunk.</p>
 <p>Otherwise we deliver all values from the source array that count as zero.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>hist</code></strong> :&ensp;[<code>int</code>]</dt>
+<dt><strong><code>hist</code></strong> :&ensp;<code>[int]</code></dt>
 <dd>Source array of pixel values</dd>
 <dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
 <dd>Maximum index of the source array</dd>
 <dt><strong><code>threshold</code></strong> :&ensp;<code>int</code></dt>
 <dd>Value below which pixels count as zero</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L294-L324" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getLargest(hist, width, threshold):
     &#34;&#34;&#34;Get biggest chunk of nonzero values
@@ -595,10 +694,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">imageFileList</span></span>(<span>imDir)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L60-L72" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileList(imDir):
     if not os.path.exists(imDir):
@@ -619,10 +719,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">imageFileListSub</span></span>(<span>imDir)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L75-L84" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileListSub(imDir):
     if not os.path.exists(imDir):
@@ -640,23 +741,43 @@ everything outside that chunk.</p>
 <span>def <span class="ident">img</span></span>(<span>data)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L32-L33" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def img(data):
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.markRep"><code class="name flex">
+<span>def <span class="ident">markRep</span></span>(<span>hit, wipe, connDegree)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L409-L414" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def markRep(hit, wipe, connDegree):
+    return [
+        [int(hit[0][1]), int(hit[1][1]), int(hit[0][0]), int(hit[1][0])],
+        wipe,
+        connDegree,
+    ]</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.measure"><code class="name flex">
 <span>def <span class="ident">measure</span></span>(<span>borderInside, borderOutside, threshold)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L142-L144" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def measure(borderInside, borderOutside, threshold):
     connections = borderInside * borderOutside
@@ -667,10 +788,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">pagesRep</span></span>(<span>source)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L87-L89" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pagesRep(source):
     pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
@@ -681,10 +803,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">parseBands</span></span>(<span>band, allBands, error)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L346-L360" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
@@ -707,10 +830,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">parseStages</span></span>(<span>stage, allStages, sortedStages, error)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L327-L343" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
     doStages = (
@@ -735,10 +859,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">removeSkewStripes</span></span>(<span>img, skewBorder, skewColor)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L242-L252" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
     (imH, imW) = img.shape[0:2]
@@ -757,10 +882,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">select</span></span>(<span>source, selection)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L92-L114" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def select(source, selection):
     if selection is None:
@@ -787,14 +913,110 @@ everything outside that chunk.</p>
     return sorted(index[n] for n in selected)</code></pre>
 </details>
 </dd>
+<dt id="pipeline.lib.serial"><code class="name flex">
+<span>def <span class="ident">serial</span></span>(<span>data, extension, handle=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>serializes data in accordance with file type.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>data:</dt>
+<dt>The data to serialize. The type of data must be compatible with</dt>
+<dt>the <em>extension</em>.</dt>
+<dt><strong><code>extension</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file type according to which the data must be serialized.</dd>
+<dt><strong><code>handle</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>If <code>None</code>, output is prepared for display in a Jupter notebook,
+else it is a file handle and the data is serialized
+in the canonical way and written to that file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>string</code></dt>
+<dd>The serialized data.
+If the extension does not match a recognized file type,
+the Python <code>repr</code> of the data is returned.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The following data type/extension combinations are supported:</p>
+<table>
+<thead>
+<tr>
+<th>extension</th>
+<th>data type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tsv</td>
+<td>tuple/list of tuple/list</td>
+</tr>
+<tr>
+<td>yaml</td>
+<td>dict</td>
+</tr>
+</tbody>
+</table></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L363-L406" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def serial(data, extension, handle=None):
+    &#34;&#34;&#34;serializes data in accordance with file type.
+
+    Parameters
+    ----------
+    data:
+        The data to serialize. The type of data must be compatible with
+        the *extension*.
+    extension: string
+        The file type according to which the data must be serialized.
+    handle: string, optional `None`
+        If `None`, output is prepared for display in a Jupter notebook,
+        else it is a file handle and the data is serialized
+        in the canonical way and written to that file.
+
+    Returns
+    -------
+    string
+        The serialized data.
+        If the extension does not match a recognized file type,
+        the Python `repr` of the data is returned.
+
+    Notes
+    -----
+    The following data type/extension combinations are supported:
+
+    extension | data type
+    --- | ---
+    tsv | tuple/list of tuple/list
+    yaml | dict
+    &#34;&#34;&#34;
+
+    if handle:
+        handle.write(
+            yaml.dump(data, allow_unicode=True, sort_keys=False)
+            if extension == &#34;yaml&#34;
+            else
+            &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
+            if extension == &#34;tsv&#34;
+            else
+            repr(data)
+        )
+    else:
+        showDict(data)</code></pre>
+</details>
+</dd>
 <dt id="pipeline.lib.showImage"><code class="name flex">
 <span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L36-L50" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     if type(a) in {list, tuple}:
@@ -817,10 +1039,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">showit</span></span>(<span>label, texto, texti, val)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L147-L150" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showit(label, texto, texti, val):
     print(f&#34;{label}: = {val}&#34;)
@@ -832,10 +1055,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">splitext</span></span>(<span>f, withDot=True)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L53-L57" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
@@ -848,10 +1072,11 @@ everything outside that chunk.</p>
 <span>def <span class="ident">tempFile</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L28-L29" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tempFile():
     return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)</code></pre>
@@ -863,6 +1088,12 @@ everything outside that chunk.</p>
 </section>
 </article>
 <nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<div class="gcse-search" style="height: 70px"
+data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
+data-gaCategoryParameter="pipeline.lib">
+</div>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -882,12 +1113,14 @@ everything outside that chunk.</p>
 <li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
 <li><code><a title="pipeline.lib.imageFileListSub" href="#pipeline.lib.imageFileListSub">imageFileListSub</a></code></li>
 <li><code><a title="pipeline.lib.img" href="#pipeline.lib.img">img</a></code></li>
+<li><code><a title="pipeline.lib.markRep" href="#pipeline.lib.markRep">markRep</a></code></li>
 <li><code><a title="pipeline.lib.measure" href="#pipeline.lib.measure">measure</a></code></li>
 <li><code><a title="pipeline.lib.pagesRep" href="#pipeline.lib.pagesRep">pagesRep</a></code></li>
 <li><code><a title="pipeline.lib.parseBands" href="#pipeline.lib.parseBands">parseBands</a></code></li>
 <li><code><a title="pipeline.lib.parseStages" href="#pipeline.lib.parseStages">parseStages</a></code></li>
 <li><code><a title="pipeline.lib.removeSkewStripes" href="#pipeline.lib.removeSkewStripes">removeSkewStripes</a></code></li>
 <li><code><a title="pipeline.lib.select" href="#pipeline.lib.select">select</a></code></li>
+<li><code><a title="pipeline.lib.serial" href="#pipeline.lib.serial">serial</a></code></li>
 <li><code><a title="pipeline.lib.showImage" href="#pipeline.lib.showImage">showImage</a></code></li>
 <li><code><a title="pipeline.lib.showit" href="#pipeline.lib.showit">showit</a></code></li>
 <li><code><a title="pipeline.lib.splitext" href="#pipeline.lib.splitext">splitext</a></code></li>
@@ -898,7 +1131,9 @@ everything outside that chunk.</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<a href="https://www.annotation.nl">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

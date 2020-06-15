@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>pipeline.page API documentation</title>
 <meta name="description" content="Single page processing." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cse.google.com/cse.js?cx=017837193012385208679:pey8ky8gdqw"></script>
+<style>.gsc-control-cse {padding:0 !important;margin-top:1em}</style>
 </head>
 <body>
 <main>
@@ -24,6 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L0-L658" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -42,7 +45,9 @@ from .lib import (
     parseStages,
     parseBands,
     addSeq,
+    markRep,
     getLargest,
+    serial,
 )
 from .ocr import OCR
 
@@ -90,10 +95,10 @@ class Page:
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, band=None, **displayParams):
+    def show(self, stage=None, band=None, mark=None, **displayParams):
         &#34;&#34;&#34;Displays processing stages of an page.
 
-        See `pipeline.parameters.STAGE_ORDER`.
+        See `pipeline.parameters.STAGES`.
 
         Parameters
         ----------
@@ -107,6 +112,13 @@ class Page:
             Otherwise, the indicated bands are shown.
             If a string, it may be a comma-separated list of band names.
             Otherwise it is an iterable of band names.
+        mark: string | iterable, optional `None`
+            If `None` is passed, no marks are shown.
+            If `&#34;&#34;` is passed, all marks on the selected bands are shown.
+            Otherwise, the indicated marks are shown.
+            If a string, it may be a comma-separated list of mark names.
+            Otherwise it is an iterable of mark names.
+            If the stage does not have marks, no marks will be shown.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
@@ -115,7 +127,6 @@ class Page:
         engine = self.engine
         tm = engine.tm
         error = tm.error
-        info = tm.info
         C = engine.C
 
         stages = self.stages
@@ -130,8 +141,9 @@ class Page:
 
             display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
 
-            if s in C.stagesText:
-                info(stageData, tm=False)
+            (stageType, stageExt) = C.stages[s]
+            if stageType == &#34;data&#34;:
+                serial(stageData, stageExt)
             else:
                 img = stageData
                 if doBands is not None:
@@ -180,15 +192,15 @@ class Page:
         ext = self.ext
         stages = self.stages
 
-        for s in parseStages(stage, C.stages, C.stageOrder, error):
+        for s in parseStages(stage, set(C.stages), C.stageOrder, error):
             if s not in stages:
                 continue
             stageData = stages[s]
-            isText = stage in C.stagesText
-            path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
-            if stage in C.stagesText:
+            (stageType, stageExt) = C.stages[s]
+            path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
+            if stageType == &#34;data&#34;:
                 with open(path, &#34;w&#34;) as f:
-                    f.write(stageData)
+                    serial(stageData, stageExt, f)
             else:
                 cv2.imwrite(path, stageData)
 
@@ -423,6 +435,7 @@ class Page:
         *   *clean* all targeted marks removed
         *   *cleanh* all targeted marks highlighted in light gray
         *   *boxed* all targeted marks boxed in light gray
+        *   *markData* information about each detected mark.
 
         Parameters
         ----------
@@ -510,6 +523,7 @@ class Page:
         foundHits = {}
         cleanClr = color[&#34;clean&#34;]
         bands = self.bands
+        markResults = {}
 
         for (band, markData) in searchMarks.items():
             for (markName, markInfo) in markData.items():
@@ -586,11 +600,14 @@ class Page:
                                     im,
                                     *hit,
                                     boxBorder,
+                                    boxRemainN,
                                     band,
                                     seq,
                                     connDegree,
-                                    boxRemainN,
                                 )
+                                markResults.setdefault(band, {}).setdefault(
+                                    f&#34;{seq}:{markName}&#34;, []
+                                ).append(markRep(hit, False, connDegree))
                         else:
                             foundHits[band][markName] += 1
                             if batch and not boxed:
@@ -606,14 +623,18 @@ class Page:
                                             im,
                                             *hit,
                                             theBrd,
+                                            boxDeleteN,
                                             band,
                                             seq,
                                             connDegree,
-                                            boxDeleteN,
                                         )
+                                        markResults.setdefault(band, {}).setdefault(
+                                            f&#34;{seq}:{markName}&#34;, []
+                                        ).append(markRep(hit, True, connDegree))
 
                 if not batch:
                     einfo[&#34;npoints&#34;] = nPts
+        stages[&#34;markData&#34;] = markResults
         for (band, bandMarks) in sorted(foundHits.items()):
             for (mark, found) in sorted(bandMarks.items()):
                 indent(level=2)
@@ -665,7 +686,7 @@ class Page:
         stages = self.stages
 
         reader = OCR(self.engine, page=self)
-        stages[&#34;data&#34;] = reader.read()</code></pre>
+        stages[&#34;ocrData&#34;] = reader.read()</code></pre>
 </details>
 </section>
 <section>
@@ -682,11 +703,11 @@ class Page:
 <span>(</span><span>engine, f, batch=False, boxed=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>All processing steps for a single page.</p>
+<div class="desc"><p>All processing steps for a single page.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>engine</code></strong> :&ensp;<code>object</code></dt>
-<dd>The <a title="pipeline.book.Book" href="book.html#pipeline.book.Book"><code>Book</code></a> object</dd>
+<dd>The <code><a title="pipeline.book.Book" href="book.html#pipeline.book.Book">Book</a></code> object</dd>
 <dt><strong><code>f</code></strong> :&ensp;<code>string</code></dt>
 <dd>The file name of the scanned page with extension, without directory</dd>
 <dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
@@ -697,10 +718,11 @@ Less feedback happens on the console.</dd>
 <dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
 <dd>If in batch mode, produce also images that display the cleaned marks
 in boxes.</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L25-L659" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(self, engine, f, batch=False, boxed=True):
@@ -745,10 +767,10 @@ in boxes.</dd>
 
         self.stages = {&#34;orig&#34;: orig}
 
-    def show(self, stage=None, band=None, **displayParams):
+    def show(self, stage=None, band=None, mark=None, **displayParams):
         &#34;&#34;&#34;Displays processing stages of an page.
 
-        See `pipeline.parameters.STAGE_ORDER`.
+        See `pipeline.parameters.STAGES`.
 
         Parameters
         ----------
@@ -762,6 +784,13 @@ in boxes.</dd>
             Otherwise, the indicated bands are shown.
             If a string, it may be a comma-separated list of band names.
             Otherwise it is an iterable of band names.
+        mark: string | iterable, optional `None`
+            If `None` is passed, no marks are shown.
+            If `&#34;&#34;` is passed, all marks on the selected bands are shown.
+            Otherwise, the indicated marks are shown.
+            If a string, it may be a comma-separated list of mark names.
+            Otherwise it is an iterable of mark names.
+            If the stage does not have marks, no marks will be shown.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
@@ -770,7 +799,6 @@ in boxes.</dd>
         engine = self.engine
         tm = engine.tm
         error = tm.error
-        info = tm.info
         C = engine.C
 
         stages = self.stages
@@ -785,8 +813,9 @@ in boxes.</dd>
 
             display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
 
-            if s in C.stagesText:
-                info(stageData, tm=False)
+            (stageType, stageExt) = C.stages[s]
+            if stageType == &#34;data&#34;:
+                serial(stageData, stageExt)
             else:
                 img = stageData
                 if doBands is not None:
@@ -835,15 +864,15 @@ in boxes.</dd>
         ext = self.ext
         stages = self.stages
 
-        for s in parseStages(stage, C.stages, C.stageOrder, error):
+        for s in parseStages(stage, set(C.stages), C.stageOrder, error):
             if s not in stages:
                 continue
             stageData = stages[s]
-            isText = stage in C.stagesText
-            path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
-            if stage in C.stagesText:
+            (stageType, stageExt) = C.stages[s]
+            path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
+            if stageType == &#34;data&#34;:
                 with open(path, &#34;w&#34;) as f:
-                    f.write(stageData)
+                    serial(stageData, stageExt, f)
             else:
                 cv2.imwrite(path, stageData)
 
@@ -1078,6 +1107,7 @@ in boxes.</dd>
         *   *clean* all targeted marks removed
         *   *cleanh* all targeted marks highlighted in light gray
         *   *boxed* all targeted marks boxed in light gray
+        *   *markData* information about each detected mark.
 
         Parameters
         ----------
@@ -1165,6 +1195,7 @@ in boxes.</dd>
         foundHits = {}
         cleanClr = color[&#34;clean&#34;]
         bands = self.bands
+        markResults = {}
 
         for (band, markData) in searchMarks.items():
             for (markName, markInfo) in markData.items():
@@ -1241,11 +1272,14 @@ in boxes.</dd>
                                     im,
                                     *hit,
                                     boxBorder,
+                                    boxRemainN,
                                     band,
                                     seq,
                                     connDegree,
-                                    boxRemainN,
                                 )
+                                markResults.setdefault(band, {}).setdefault(
+                                    f&#34;{seq}:{markName}&#34;, []
+                                ).append(markRep(hit, False, connDegree))
                         else:
                             foundHits[band][markName] += 1
                             if batch and not boxed:
@@ -1261,14 +1295,18 @@ in boxes.</dd>
                                             im,
                                             *hit,
                                             theBrd,
+                                            boxDeleteN,
                                             band,
                                             seq,
                                             connDegree,
-                                            boxDeleteN,
                                         )
+                                        markResults.setdefault(band, {}).setdefault(
+                                            f&#34;{seq}:{markName}&#34;, []
+                                        ).append(markRep(hit, True, connDegree))
 
                 if not batch:
                     einfo[&#34;npoints&#34;] = nPts
+        stages[&#34;markData&#34;] = markResults
         for (band, bandMarks) in sorted(foundHits.items()):
             for (mark, found) in sorted(bandMarks.items()):
                 indent(level=2)
@@ -1320,7 +1358,7 @@ in boxes.</dd>
         stages = self.stages
 
         reader = OCR(self.engine, page=self)
-        stages[&#34;data&#34;] = reader.read()</code></pre>
+        stages[&#34;ocrData&#34;] = reader.read()</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -1328,26 +1366,28 @@ in boxes.</dd>
 <span>def <span class="ident">clean</span></span>(<span>self, mark=None, line=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Remove marks from the page.</p>
+<div class="desc"><p>Remove marks from the page.</p>
 <p>The page is cleaned of marks.</p>
 <p>New stages of the page are added:</p>
 <ul>
 <li><em>clean</em> all targeted marks removed</li>
 <li><em>cleanh</em> all targeted marks highlighted in light gray</li>
 <li><em>boxed</em> all targeted marks boxed in light gray</li>
+<li><em>markData</em> information about each detected mark.</li>
 </ul>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>marks</code></strong> :&ensp;<code>iterable</code> of <code>tuples</code> (<code>band</code>, <code>mark</code>, [<code>params</code>]), optional <code>None</code></dt>
+<dt><strong><code>marks</code></strong> :&ensp;<code>iterable</code> of <code>tuples (band, mark, [params])</code>, optional <code>None</code></dt>
 <dd>If <code>None</code>, all non-divider marks that are presented in the book
 directory are used.
 Otherwise, a series of marks is specified together with the band
 where this mark is searched in. Optionally you can also
 put parameters in the tuple: the accuracy and the connectBorder.</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L398-L616" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def clean(self, mark=None, line=None):
     &#34;&#34;&#34;Remove marks from the page.
@@ -1359,6 +1399,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
     *   *clean* all targeted marks removed
     *   *cleanh* all targeted marks highlighted in light gray
     *   *boxed* all targeted marks boxed in light gray
+    *   *markData* information about each detected mark.
 
     Parameters
     ----------
@@ -1446,6 +1487,7 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
     foundHits = {}
     cleanClr = color[&#34;clean&#34;]
     bands = self.bands
+    markResults = {}
 
     for (band, markData) in searchMarks.items():
         for (markName, markInfo) in markData.items():
@@ -1522,11 +1564,14 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                                 im,
                                 *hit,
                                 boxBorder,
+                                boxRemainN,
                                 band,
                                 seq,
                                 connDegree,
-                                boxRemainN,
                             )
+                            markResults.setdefault(band, {}).setdefault(
+                                f&#34;{seq}:{markName}&#34;, []
+                            ).append(markRep(hit, False, connDegree))
                     else:
                         foundHits[band][markName] += 1
                         if batch and not boxed:
@@ -1542,14 +1587,18 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
                                         im,
                                         *hit,
                                         theBrd,
+                                        boxDeleteN,
                                         band,
                                         seq,
                                         connDegree,
-                                        boxDeleteN,
                                     )
+                                    markResults.setdefault(band, {}).setdefault(
+                                        f&#34;{seq}:{markName}&#34;, []
+                                    ).append(markRep(hit, True, connDegree))
 
             if not batch:
                 einfo[&#34;npoints&#34;] = nPts
+    stages[&#34;markData&#34;] = markResults
     for (band, bandMarks) in sorted(foundHits.items()):
         for (mark, found) in sorted(bandMarks.items()):
             indent(level=2)
@@ -1565,14 +1614,15 @@ put parameters in the tuple: the accuracy and the connectBorder.</dd>
 <span>def <span class="ident">histogram</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Add histograms to a page.</p>
+<div class="desc"><p>Add histograms to a page.</p>
 <p>A new stage of the page, <em>histogram</em>, is added.</p>
 <p>The histograms contain an indication of the amount of ink in
 horizontal and in vertical rows.</p>
-<p>The histogram values are preserved as well.</p></section>
+<p>The histogram values are preserved as well.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L230-L262" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def histogram(self):
     &#34;&#34;&#34;Add histograms to a page.
@@ -1613,15 +1663,16 @@ horizontal and in vertical rows.</p>
 <span>def <span class="ident">margins</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Chop off margins of an page.</p>
+<div class="desc"><p>Chop off margins of an page.</p>
 <p>A new stage of the page, <em>demargined</em>, is added.</p>
 <div class="admonition caution">
 <p class="admonition-title">it is assumed that the page has a histogram</p>
 <p>This method uses the histogram info of the page.</p>
-</div></section>
+</div></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L264-L396" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def margins(self):
     &#34;&#34;&#34;Chop off margins of an page.
@@ -1762,14 +1813,15 @@ horizontal and in vertical rows.</p>
 <span>def <span class="ident">normalize</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Normalizes a page.</p>
+<div class="desc"><p>Normalizes a page.</p>
 <p>It produces a stage that is unskewed: <em>rotated</em> and blurred.
 The same rotation will be applied to the original scan,
 resulting in stage <em>normalized</em>.</p>
-<p>Unskewing is needed otherwise the footnote line will not be found.</p></section>
+<p>Unskewing is needed otherwise the footnote line will not be found.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L177-L228" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalize(self):
     &#34;&#34;&#34;Normalizes a page.
@@ -1829,48 +1881,57 @@ resulting in stage <em>normalized</em>.</p>
 <span>def <span class="ident">ocr</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L655-L659" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocr(self):
     stages = self.stages
 
     reader = OCR(self.engine, page=self)
-    stages[&#34;data&#34;] = reader.read()</code></pre>
+    stages[&#34;ocrData&#34;] = reader.read()</code></pre>
 </details>
 </dd>
 <dt id="pipeline.page.Page.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>self, stage=None, band=None, **displayParams)</span>
+<span>def <span class="ident">show</span></span>(<span>self, stage=None, band=None, mark=None, **displayParams)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Displays processing stages of an page.</p>
-<p>See <a title="pipeline.parameters.STAGE_ORDER" href="parameters.html#pipeline.parameters.STAGE_ORDER"><code>STAGE_ORDER</code></a>.</p>
+<div class="desc"><p>Displays processing stages of an page.</p>
+<p>See <code><a title="pipeline.parameters.STAGES" href="parameters.html#pipeline.parameters.STAGES">STAGES</a></code>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string | iterable</code>, optional <code>None</code></dt>
 <dd>If no stage is passed, all stages are shown as thumbnails.
 Otherwise, the indicated stages are shown.
 If a string, it may be a comma-separated list of stage names.
 Otherwise it is an iterable of stage names.</dd>
-<dt><strong><code>band</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dt><strong><code>band</code></strong> :&ensp;<code>string | iterable</code>, optional <code>None</code></dt>
 <dd>If no band is passed, no bands are indicated.
 Otherwise, the indicated bands are shown.
 If a string, it may be a comma-separated list of band names.
 Otherwise it is an iterable of band names.</dd>
+<dt><strong><code>mark</code></strong> :&ensp;<code>string | iterable</code>, optional <code>None</code></dt>
+<dd>If <code>None</code> is passed, no marks are shown.
+If <code>""</code> is passed, all marks on the selected bands are shown.
+Otherwise, the indicated marks are shown.
+If a string, it may be a comma-separated list of mark names.
+Otherwise it is an iterable of mark names.
+If the stage does not have marks, no marks will be shown.</dd>
 <dt><strong><code>display</code></strong> :&ensp;<code>dict</code>, optional</dt>
 <dd>A set of display parameters, such as <code>width</code>, <code>height</code>
 (anything accepted by <code>IPython.display.Image</code>).</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L68-L136" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def show(self, stage=None, band=None, **displayParams):
+<pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
 
-    See `pipeline.parameters.STAGE_ORDER`.
+    See `pipeline.parameters.STAGES`.
 
     Parameters
     ----------
@@ -1884,6 +1945,13 @@ Otherwise it is an iterable of band names.</dd>
         Otherwise, the indicated bands are shown.
         If a string, it may be a comma-separated list of band names.
         Otherwise it is an iterable of band names.
+    mark: string | iterable, optional `None`
+        If `None` is passed, no marks are shown.
+        If `&#34;&#34;` is passed, all marks on the selected bands are shown.
+        Otherwise, the indicated marks are shown.
+        If a string, it may be a comma-separated list of mark names.
+        Otherwise it is an iterable of mark names.
+        If the stage does not have marks, no marks will be shown.
     display: dict, optional
         A set of display parameters, such as `width`, `height`
         (anything accepted by `IPython.display.Image`).
@@ -1892,7 +1960,6 @@ Otherwise it is an iterable of band names.</dd>
     engine = self.engine
     tm = engine.tm
     error = tm.error
-    info = tm.info
     C = engine.C
 
     stages = self.stages
@@ -1907,8 +1974,9 @@ Otherwise it is an iterable of band names.</dd>
 
         display(HTML(f&#34;&lt;div&gt;{s}{bandRep}&lt;/div&gt;&#34;))
 
-        if s in C.stagesText:
-            info(stageData, tm=False)
+        (stageType, stageExt) = C.stages[s]
+        if stageType == &#34;data&#34;:
+            serial(stageData, stageExt)
         else:
             img = stageData
             if doBands is not None:
@@ -1935,10 +2003,11 @@ Otherwise it is an iterable of band names.</dd>
 <span>def <span class="ident">showCleanInfo</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L618-L653" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showCleanInfo(self):
     engine = self.engine
@@ -1982,22 +2051,23 @@ Otherwise it is an iterable of band names.</dd>
 <span>def <span class="ident">write</span></span>(<span>self, stage=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Writes processing stages of an page to disk.</p>
+<div class="desc"><p>Writes processing stages of an page to disk.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> | <code>iterable</code>, optional <code>None</code></dt>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string | iterable</code>, optional <code>None</code></dt>
 <dd>If no stage is passed, all stages are shown as thumbnails.
 Otherwise, the indicated stages are shown.
 If a string, it may be a comma-separated list of stage names.
 Otherwise it is an iterable of stage names.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<pre><code>The stages are written into the `inter` subdirectory,
+<pre><code>The stages are written into the &lt;code&gt;inter&lt;/code&gt; subdirectory,
 with the name of the stage appended to the file name.
-</code></pre></section>
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/page.py#L138-L175" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None):
     &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -2026,15 +2096,15 @@ with the name of the stage appended to the file name.
     ext = self.ext
     stages = self.stages
 
-    for s in parseStages(stage, C.stages, C.stageOrder, error):
+    for s in parseStages(stage, set(C.stages), C.stageOrder, error):
         if s not in stages:
             continue
         stageData = stages[s]
-        isText = stage in C.stagesText
-        path = f&#34;{interDir}/{bare}-{s}.{&#39;tsv&#39; if isText else ext}&#34;
-        if stage in C.stagesText:
+        (stageType, stageExt) = C.stages[s]
+        path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
+        if stageType == &#34;data&#34;:
             with open(path, &#34;w&#34;) as f:
-                f.write(stageData)
+                serial(stageData, stageExt, f)
         else:
             cv2.imwrite(path, stageData)</code></pre>
 </details>
@@ -2045,6 +2115,12 @@ with the name of the stage appended to the file name.
 </section>
 </article>
 <nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<div class="gcse-search" style="height: 70px"
+data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
+data-gaCategoryParameter="pipeline.page">
+</div>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -2076,7 +2152,9 @@ with the name of the stage appended to the file name.
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<a href="https://www.annotation.nl">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pipeline API documentation</title>
-<meta name="description" content="![logo](images/fusus-small.png) …" />
+<title>pipeline.about.use API documentation</title>
+<meta name="description" content="Book processing …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -19,66 +19,109 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>pipeline</code></h1>
+<h1 class="title">Module <code>pipeline.about.use</code></h1>
 </header>
 <section id="section-intro">
-<p><img alt="logo" src="images/fusus-small.png"></p>
-<h1 id="fusus-pipeline">Fusus Pipeline</h1>
-<p>A pipeline from Arabic page images to textual data.</p>
-<h2 id="straight-to">Straight to &hellip;</h2>
+<h1 id="book-processing">Book processing</h1>
+<p>We will transform scanned pages of a book into Unicode text
+following a number of processing steps.</p>
+<h2 id="the-express-way">The express way</h2>
+<p>In the terminal, <code>cd</code> to a book directory (see below) and run</p>
+<pre><code>python3 -m pipeline.book
+</code></pre>
+<p>This will process all scanned pages with default settings.</p>
+<h2 id="with-more-control-and-feedback">With more control and feedback</h2>
+<p>Copy the notebook <code>example/do.ipynb</code> into a book directory (see below).
+Run cells in the notebook, and see
+<a href="https://github.com/among/fusus/blob/master/example/doExample.ipynb">doExample</a>
+to learn by example how you can configure the processing parameters
+and control the processing of pages.</p>
+<h2 id="book-directory">Book directory</h2>
+<p>A book directory should have subdirectories:</p>
 <ul>
-<li>Install (<code>tf.about.install</code>)</li>
-<li>Use (<code>tf.about.use</code>)</li>
-<li>API (<code>tf.cheatsheet</code>)</li>
+<li><code>in</code>
+Contains mage files (scans at 1800 x2700 pixels approximately)</li>
+<li>
+<p><code>marks</code>
+Contains subdirectories with little rectangles copied from the scans
+and saved in individual files at the same resolution.</p>
+<p>Marks can be <em>dividers</em> or normal marks.</p>
+</li>
 </ul>
-<h2 id="author">Author</h2>
-<p><strong>Authors</strong>:</p>
-<ul>
-<li><a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a></li>
-<li><a href="https://www.annotation.nl">Dirk Roorda</a></li>
-</ul>
+<h3 id="dividers">Dividers</h3>
+<p>Dividers are used to skip portions of the page.</p>
+<h3 id="marks">Marks</h3>
+<p>Marks are spots that will be wiped clean wherever they are found.</p>
+<p>They are organized in <em>bands</em> which are sets of horizontal strokes on the page,
+relative to the individual lines.</p>
+<p>Marks will only be searched for within the bands they belong to, in order to
+avoid false positives.</p>
+<p>The <code>marks</code> directory may contain the following bands:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>kind</th>
+<th>items</th>
+<th>remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>divider</code></td>
+<td>dividers</td>
+<td><code>footnote.</code><em>ext</em></td>
+<td><em>not a band</em></td>
+</tr>
+<tr>
+<td><code>high</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the upper band of a line</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the lower band of a line</td>
+</tr>
+<tr>
+<td><code>mid</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the central, narrow band of a line, with lots of ink</td>
+</tr>
+<tr>
+<td><code>main</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the band where nearly all the letter material is</td>
+</tr>
+<tr>
+<td><code>broad</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>as <code>main</code>, but a bit broader</td>
+</tr>
+<tr>
+<td><code>inter</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>between the lines</td>
+</tr>
+</tbody>
+</table>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/__init__.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/about/use.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-.. include:: ../docs/main/top.md
+.. include:: ../../docs/about/use.md
 &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="pipeline.about" href="about/index.html">pipeline.about</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pipeline.book" href="book.html">pipeline.book</a></code></dt>
-<dd>
-<div class="desc"><p>Book pipeline</p></div>
-</dd>
-<dt><code class="name"><a title="pipeline.cheatsheet" href="cheatsheet.html">pipeline.cheatsheet</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pipeline.lib" href="lib.html">pipeline.lib</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pipeline.ocr" href="ocr.html">pipeline.ocr</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pipeline.page" href="page.html">pipeline.page</a></code></dt>
-<dd>
-<div class="desc"><p>Single page processing.</p></div>
-</dd>
-<dt><code class="name"><a title="pipeline.parameters" href="parameters.html">pipeline.parameters</a></code></dt>
-<dd>
-<div class="desc"><p>Settings and configuration</p></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
@@ -92,28 +135,27 @@
 <p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
 <div class="gcse-search" style="height: 70px"
 data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
-data-gaCategoryParameter="pipeline">
+data-gaCategoryParameter="pipeline.about.use">
 </div>
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#fusus-pipeline">Fusus Pipeline</a><ul>
-<li><a href="#straight-to">Straight to &hellip;</a></li>
-<li><a href="#author">Author</a></li>
+<li><a href="#book-processing">Book processing</a><ul>
+<li><a href="#the-express-way">The express way</a></li>
+<li><a href="#with-more-control-and-feedback">With more control and feedback</a></li>
+<li><a href="#book-directory">Book directory</a><ul>
+<li><a href="#dividers">Dividers</a></li>
+<li><a href="#marks">Marks</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pipeline.about" href="about/index.html">pipeline.about</a></code></li>
-<li><code><a title="pipeline.book" href="book.html">pipeline.book</a></code></li>
-<li><code><a title="pipeline.cheatsheet" href="cheatsheet.html">pipeline.cheatsheet</a></code></li>
-<li><code><a title="pipeline.lib" href="lib.html">pipeline.lib</a></code></li>
-<li><code><a title="pipeline.ocr" href="ocr.html">pipeline.ocr</a></code></li>
-<li><code><a title="pipeline.page" href="page.html">pipeline.page</a></code></li>
-<li><code><a title="pipeline.parameters" href="parameters.html">pipeline.parameters</a></code></li>
+<li><code><a title="pipeline.about" href="index.html">pipeline.about</a></code></li>
 </ul>
 </li>
 </ul>

@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.5" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>pipeline.parameters API documentation</title>
 <meta name="description" content="Settings and configuration" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cse.google.com/cse.js?cx=017837193012385208679:pey8ky8gdqw"></script>
+<style>.gsc-control-cse {padding:0 !important;margin-top:1em}</style>
 </head>
 <body>
 <main>
@@ -24,6 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L0-L349" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -61,33 +64,29 @@ BAND_COLORS = dict(
 Each band will be displayed in its own color.
 &#34;&#34;&#34;
 
-STAGE_ORDER = &#34;&#34;&#34;
-    orig
-    gray
-    rotated
-    normalized
-    normalizedC
-    histogram
-    demargined
-    demarginedC
-    boxed
-    cleanh
-    clean
-    data
-&#34;&#34;&#34;.strip().split()
+STAGES = dict(
+    orig=(&#34;image&#34;, None),
+    gray=(&#34;image&#34;, None),
+    rotated=(&#34;image&#34;, None),
+    normalized=(&#34;image&#34;, None),
+    normalizedC=(&#34;image&#34;, None),
+    histogram=(&#34;image&#34;, None),
+    demargined=(&#34;image&#34;, None),
+    demarginedC=(&#34;image&#34;, None),
+    markData=(&#34;data&#34;, &#34;yaml&#34;),
+    boxed=(&#34;image&#34;, None),
+    cleanh=(&#34;image&#34;, None),
+    clean=(&#34;image&#34;, None),
+    ocrData=(&#34;data&#34;, &#34;tsv&#34;),
+)
 &#34;&#34;&#34;Stages in page processing.
 
 When we process a scanned page,
 we produce named intermediate stages,
 in this order.
 
-The stages before `data` are images,
-the `data` stage is a tab separated file with OCR result data.
+The `...Data` stages are tab separated files with unicode data.
 &#34;&#34;&#34;
-
-STAGES_TEXT = set(&#34;&#34;&#34;
-    data
-&#34;&#34;&#34;.strip().split())
 
 SETTINGS = dict(
     inDir=&#34;in&#34;,
@@ -302,9 +301,8 @@ class Config:
         setattr(self, &#34;colorBand&#34;, BAND_COLORS)
 
         # stages
-        setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
-        setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
-        setattr(self, &#34;stagesText&#34;, STAGES_TEXT)
+        setattr(self, &#34;stageOrder&#34;, tuple(STAGES))
+        setattr(self, &#34;stages&#34;, STAGES)
 
         # settings
         self.settings = deepcopy(SETTINGS)
@@ -389,19 +387,19 @@ class Config:
 <dl>
 <dt id="pipeline.parameters.BAND_COLORS"><code class="name">var <span class="ident">BAND_COLORS</span></code></dt>
 <dd>
-<section class="desc"><p>Band colors.</p>
-<p>Each band will be displayed in its own color.</p></section>
+<div class="desc"><p>Band colors.</p>
+<p>Each band will be displayed in its own color.</p></div>
 </dd>
 <dt id="pipeline.parameters.COLORS"><code class="name">var <span class="ident">COLORS</span></code></dt>
 <dd>
-<section class="desc"><p>Named colors.</p></section>
+<div class="desc"><p>Named colors.</p></div>
 </dd>
 <dt id="pipeline.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
 <dd>
-<section class="desc"><p>Customizable settings.</p>
+<div class="desc"><p>Customizable settings.</p>
 <p>These are the settings that can be customized
-by calling the <a title="pipeline.parameters.Config" href="#pipeline.parameters.Config"><code>Config</code></a> constructor and the
-<a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure"><code>Config.configure()</code></a> method.</p>
+by calling the <code><a title="pipeline.parameters.Config" href="#pipeline.parameters.Config">Config</a></code> constructor and the
+<code><a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure">Config.configure()</a></code> method.</p>
 <p>The default values can be inspected by expanding the source code.</p>
 <dl>
 <dt>inDir</dt>
@@ -534,16 +532,15 @@ space above it.</p>
 <p>This band s like <code>inter</code> but covers the lower part of the letters and the white
 space below it.</p>
 </dd>
-</dl></section>
+</dl></div>
 </dd>
-<dt id="pipeline.parameters.STAGE_ORDER"><code class="name">var <span class="ident">STAGE_ORDER</span></code></dt>
+<dt id="pipeline.parameters.STAGES"><code class="name">var <span class="ident">STAGES</span></code></dt>
 <dd>
-<section class="desc"><p>Stages in page processing.</p>
+<div class="desc"><p>Stages in page processing.</p>
 <p>When we process a scanned page,
 we produce named intermediate stages,
 in this order.</p>
-<p>The stages before <code>data</code> are images,
-the <code>data</code> stage is a tab separated file with OCR result data.</p></section>
+<p>The <code>&hellip;Data</code> stages are tab separated files with unicode data.</p></div>
 </dd>
 </dl>
 </section>
@@ -557,7 +554,7 @@ the <code>data</code> stage is a tab separated file with OCR result data.</p></s
 <span>(</span><span>tm, **params)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Settings manager.</p>
+<div class="desc"><p>Settings manager.</p>
 <p>It will expose all settings as attributes to the rest
 of the application.</p>
 <p>It has methods to collect modified settings from the
@@ -573,10 +570,11 @@ which have been obtained by deep-copying the defaults.</p>
 <dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
 <dd>key-value pairs that act as updates for the settings.
 If a value is <code>None</code>, the original value will be reinstated.</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L239-L350" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -613,9 +611,8 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
         setattr(self, &#34;colorBand&#34;, BAND_COLORS)
 
         # stages
-        setattr(self, &#34;stageOrder&#34;, STAGE_ORDER)
-        setattr(self, &#34;stages&#34;, set(STAGE_ORDER))
-        setattr(self, &#34;stagesText&#34;, STAGES_TEXT)
+        setattr(self, &#34;stageOrder&#34;, tuple(STAGES))
+        setattr(self, &#34;stages&#34;, STAGES)
 
         # settings
         self.settings = deepcopy(SETTINGS)
@@ -698,7 +695,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <span>def <span class="ident">configure</span></span>(<span>self, reset=False, **params)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Updates current settings based on new values.</p>
+<div class="desc"><p>Updates current settings based on new values.</p>
 <p>User modifications act on the current settings,
 which have been obtained by deep-copying the defaults.</p>
 <h2 id="parameters">Parameters</h2>
@@ -709,10 +706,11 @@ and that will be the basis for the new current settings.</dd>
 <dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
 <dd>key-value pairs that act as updates for the settings.
 If a value is <code>None</code>, the original value will be reinstated.</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L283-L325" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -763,17 +761,18 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <span>def <span class="ident">show</span></span>(<span>self, params=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Display current settings.</p>
+<div class="desc"><p>Display current settings.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>params</code></strong> :&ensp;<code>str</code>, optional <code>None</code></dt>
 <dd>If <code>None</code>, all settings will be displayed.
 Else it should be a comma-separated string of legal
 parameter names whose values are to be displayed.</dd>
-</dl></section>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L327-L350" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
@@ -807,6 +806,12 @@ parameter names whose values are to be displayed.</dd>
 </section>
 </article>
 <nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<div class="gcse-search" style="height: 70px"
+data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
+data-gaCategoryParameter="pipeline.parameters">
+</div>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -822,7 +827,7 @@ parameter names whose values are to be displayed.</dd>
 <li><code><a title="pipeline.parameters.BAND_COLORS" href="#pipeline.parameters.BAND_COLORS">BAND_COLORS</a></code></li>
 <li><code><a title="pipeline.parameters.COLORS" href="#pipeline.parameters.COLORS">COLORS</a></code></li>
 <li><code><a title="pipeline.parameters.SETTINGS" href="#pipeline.parameters.SETTINGS">SETTINGS</a></code></li>
-<li><code><a title="pipeline.parameters.STAGE_ORDER" href="#pipeline.parameters.STAGE_ORDER">STAGE_ORDER</a></code></li>
+<li><code><a title="pipeline.parameters.STAGES" href="#pipeline.parameters.STAGES">STAGES</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -840,7 +845,9 @@ parameter names whose values are to be displayed.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+<a href="https://www.annotation.nl">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
