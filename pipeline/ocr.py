@@ -44,12 +44,12 @@ class OCR:
             error(f"No such read mode: {mode}")
 
         if batch:
-            data = method(self.pageFile, lang="ara")
+            ocrData = method(self.pageFile, lang="ara")
         else:
             scan = self.page.stages.get("clean", None)
             if scan is None:
                 return None
 
-            data = method(scan, lang="ara")
+            ocrData = method(scan, lang="ara")
 
-        return data
+        return ocrData

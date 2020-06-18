@@ -20,6 +20,20 @@ EXTENSIONS = set(
 """.strip().split()
 )
 
+MARK_HEADERS = """
+    band
+    seq
+    mark
+    kept
+    value
+    connectdegree
+    connectborder
+    top
+    bottom
+    left
+    right
+""".strip().split()
+
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 
@@ -250,25 +264,85 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addSeq(img, tl, br, offset, band, seq, deg, colorSeq, size=0.5, weight=1):
+def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
+    fill = C.boxRemainRGB if kept else C.boxDeleteRGB
+    fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
+    border = C.boxBorder
+
+    cv2.rectangle(im, (left, top), (right, bottom), fill, border)
+    addSeq(
+        im,
+        top,
+        bottom,
+        left,
+        right,
+        border,
+        fillN,
+        band,
+        seq,
+        connDegree,
+    )
+
+
+def addSeq(
+    img,
+    top,
+    bottom,
+    left,
+    right,
+    frameWidth,
+    frameColor,
+    band,
+    markSeq,
+    connectionDegree,
+    size=0.5,
+    weight=1,
+):
     colorDeg = (100, 100, 255)
-    ptSeq = (tl[0], tl[1] - offset - 2)
-    ptDeg = (tl[0], br[1] + offset + 8)
+    ptSeq = (left, top - frameWidth - 2)
+    ptDeg = (left, bottom + frameWidth + 8)
     cv2.putText(
         img,
-        f"{'' if band == 'main' else band[0]}{seq}",
+        f"{'' if band == 'main' else band[0]}{markSeq}",
         ptSeq,
         FONT,
         size,
-        colorSeq,
+        frameColor,
         weight,
         cv2.LINE_AA,
     )
-    deg = int(round(deg * 100))
-    if deg:
+    connectionDegree = int(round(connectionDegree * 100))
+    if connectionDegree:
         cv2.putText(
-            img, str(deg), ptDeg, FONT, size, colorDeg, weight, cv2.LINE_AA,
+            img,
+            str(connectionDegree),
+            ptDeg,
+            FONT,
+            size,
+            colorDeg,
+            weight,
+            cv2.LINE_AA,
         )
+
+
+def storeCleanInfo(source):
+    data = []
+    data.append(MARK_HEADERS)
+
+    for (band, markInfo) in sorted(source.items()):
+        for ((seq, mark), entries) in sorted(markInfo.items()):
+            for entry in sorted(entries):
+                data.append((band, seq, mark, *entry))
+    return data
+
+
+def loadCleanInfo(self, data):
+    cInfo = {}
+
+    for (band, seq, mark, *entry) in data:
+        cInfo.setdefault(band, {}).setdefault((seq, mark), []).append(entry)
+
+    return cInfo
 
 
 def getLargest(hist, width, threshold):
@@ -336,5 +410,28 @@ def parseBands(band, allBands, error):
     if illegalBands:
         error(f"Will skip illegal bands: {', '.join(sorted(illegalBands))}")
 
-    doBands = doBands - illegalBands
+    doBands -= illegalBands
     return tuple(b for b in sortedBands if b in doBands)
+
+
+def parseMarks(mark, allMarks, bands, error):
+    markIndex = {}
+    for (band, bandMarks) in allMarks.items():
+        for m in bandMarks:
+            markIndex.setdefault(m, set()).add(band)
+
+    doMarks = (
+        set()
+        if mark is None
+        else set(chain.from_iterable(allMarks.get(band, ()) for band in bands))
+        if mark == ""
+        else set(mark.split(","))
+        if type(mark) is str
+        else set(mark)
+    )
+    illegalMarks = doMarks - set(markIndex)
+    if illegalMarks:
+        error(f"Will skip illegal marks: {', '.join(sorted(illegalMarks))}")
+
+    doMarks -= illegalMarks
+    return doMarks

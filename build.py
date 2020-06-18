@@ -1,72 +1,56 @@
 import sys
 
-from time import sleep
-from subprocess import run, Popen
+from subprocess import run
+
+from pdocs import console, pdoc3serve, pdoc3, shipDocs
 
 
-HELP = f"""
+HELP = """
 python3 build.py command
 
 command:
 
 -h
 --help
-help  : print help and exit
+help  : display help and exit
 
-adocs    : build apidocs
 docs     : serve docs locally
+pdocs    : build docs
+sdocs    : ship docs
 ship msg : push repo and publish docs on GitHub
 """
+
+
+ORG = "among"
+REPO = "fusus"
+PKG = "pipeline"
 
 
 def readArgs():
     args = sys.argv[1:]
     if not len(args) or args[0] in {"-h", "--help", "help"}:
-        print(HELP)
+        console(HELP)
         return (False, None, [])
     arg = args[0]
     if arg not in {
-        "adocs",
         "docs",
+        "pdocs",
+        "sdocs",
         "ship",
     }:
-        print(HELP)
+        console(HELP)
         return (False, None, [])
 
     if arg in {'ship'} and len(args) < 2:
-        print(HELP)
-        print("Provide a commit message")
+        console(HELP)
+        console("Provide a commit message")
         return (False, None, [])
     return (arg, None, [" ".join(args[1:])])
 
 
 def ship(msg):
-    apidocs()
+    shipDocs(ORG, REPO, PKG)
     pushrepo(msg)
-    run(["mkdocs", "gh-deploy"])
-
-
-def serveDocs():
-    apidocs()
-    proc = Popen(["mkdocs", "serve"])
-    sleep(3)
-    run("open http://127.0.0.1:8000", shell=True)
-    try:
-        proc.wait()
-    except KeyboardInterrupt:
-        pass
-    proc.terminate()
-
-
-def apidocs():
-    cmdLine = (
-        "pdoc3"
-        " --force"
-        " --html"
-        " --output-dir docs/apidocs/html"
-        " pipeline"
-    )
-    run(cmdLine, shell=True)
 
 
 def pushrepo(msg):
@@ -82,10 +66,12 @@ def main():
     (task, msg, remaining) = readArgs()
     if not task:
         return
-    elif task == "adocs":
-        apidocs()
     elif task == "docs":
-        serveDocs()
+        pdoc3serve(PKG)
+    elif task == "pdocs":
+        pdoc3(PKG)
+    elif task == "sdocs":
+        shipDocs(ORG, REPO, PKG)
     elif task == "ship":
         ship(remaining[0])
 

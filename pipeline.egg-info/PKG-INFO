@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: pipeline
-Version: 0.0.1
+Version: 0.0.2
 Summary: Pipeline for converting Arabic scanned pages into readable text
 Home-page: https://github.com/among/fusus
 Author: Cornelis van Lit, Dirk Roorda

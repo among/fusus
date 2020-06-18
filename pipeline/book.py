@@ -303,7 +303,7 @@ class Book:
         pagesDesc = pagesRep(imageFiles)
         info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
 
-        info(f"Start batch processing images")
+        info("Start batch processing images")
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f"{i + 1:>5} {imFile:<40}"
@@ -313,7 +313,8 @@ class Book:
             )
             page.write(stage="clean")
             if not batch:
-                page.write(stage="data")
+                page.write(stage="markData")
+                page.write(stage="ocrData")
             if boxed:
                 page.write(stage="boxed")
             div = page.dividers.get("footnote", None)
@@ -328,7 +329,7 @@ class Book:
 
         if doOcr and batch:
             indent(level=1, reset=True)
-            info(f"Start batch OCR of all clean images")
+            info("Start batch OCR of all clean images")
 
             with tempFile() as tmp:
                 for pg in imageFiles:
@@ -338,11 +339,11 @@ class Book:
                 tmp.flush()
                 name = tmp.name
                 reader = OCR(self, pageFile=name)
-                data = reader.read()
-                dataFile = f"{outDir}/data{'' if pages is None else pagesDesc}.tsv"
-                if data is not None:
-                    with open(dataFile, "w") as df:
-                        df.write(data)
+                ocrData = reader.read()
+                ocrDataFile = f"{outDir}/ocrData{'' if pages is None else pagesDesc}.tsv"
+                if ocrData is not None:
+                    with open(ocrDataFile, "w") as df:
+                        df.write(ocrData)
 
             info("OCR done")
             indent(level=0)

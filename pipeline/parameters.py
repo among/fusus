@@ -34,33 +34,29 @@ BAND_COLORS = dict(
 Each band will be displayed in its own color.
 """
 
-STAGE_ORDER = """
-    orig
-    gray
-    rotated
-    normalized
-    normalizedC
-    histogram
-    demargined
-    demarginedC
-    boxed
-    cleanh
-    clean
-    data
-""".strip().split()
+STAGES = dict(
+    orig=("image", None),
+    gray=("image", None),
+    rotated=("image", None),
+    normalized=("image", None),
+    normalizedC=("image", None),
+    histogram=("image", None),
+    demargined=("image", None),
+    demarginedC=("image", None),
+    markData=("data", "tsv"),
+    boxed=("image", None),
+    cleanh=("image", None),
+    clean=("image", None),
+    ocrData=("data", "tsv"),
+)
 """Stages in page processing.
 
 When we process a scanned page,
 we produce named intermediate stages,
 in this order.
 
-The stages before `data` are images,
-the `data` stage is a tab separated file with OCR result data.
+The `...Data` stages are tab separated files with unicode data.
 """
-
-STAGES_TEXT = set("""
-    data
-""".strip().split())
 
 SETTINGS = dict(
     inDir="in",
@@ -275,9 +271,8 @@ class Config:
         setattr(self, "colorBand", BAND_COLORS)
 
         # stages
-        setattr(self, "stageOrder", STAGE_ORDER)
-        setattr(self, "stages", set(STAGE_ORDER))
-        setattr(self, "stagesText", STAGES_TEXT)
+        setattr(self, "stageOrder", tuple(STAGES))
+        setattr(self, "stages", STAGES)
 
         # settings
         self.settings = deepcopy(SETTINGS)

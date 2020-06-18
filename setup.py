@@ -6,7 +6,6 @@ setup(
         "pipeline",
     ],
     install_requires=[
-        "pyyaml",
         "ipython",
         "numpy",
         "pillow",
@@ -18,7 +17,7 @@ setup(
     include_package_data=True,
     exclude_package_data={"": ["pipeline.egg-info", "__pycache__", ".DS_Store"]},
     zip_safe=False,
-    version='0.0.1',
+    version='0.0.2',
     description="""Pipeline for converting Arabic scanned pages into readable text""",
     author="Cornelis van Lit, Dirk Roorda",
     author_email="info@annotation.nl",
