@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
 <title>pipeline.cheatsheet API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="All functions below are illustrated in the example
+[notebook](https://nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb) …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -22,6 +23,66 @@
 <h1 class="title">Module <code>pipeline.cheatsheet</code></h1>
 </header>
 <section id="section-intro">
+<p>All functions below are illustrated in the example
+<a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb">notebook</a></p>
+<h1 id="book">Book</h1>
+<pre><code class="python">from pipeline.book import Book
+</code></pre>
+<dl>
+<dt><code>B = Book()</code></dt>
+<dd>start up</dd>
+<dd><code><a title="pipeline.book.Book" href="book.html#pipeline.book.Book">Book</a></code></dd>
+<dt><code>B.showSettings(params)</code></dt>
+<dd>show settings</dd>
+<dd><code><a title="pipeline.book.Book.showSettings" href="book.html#pipeline.book.Book.showSettings">Book.showSettings()</a></code></dd>
+<dd>See also <code><a title="pipeline.parameters" href="parameters.html">pipeline.parameters</a></code></dd>
+<dt><code>B.availableBands()</code></dt>
+<dd>show the bands defined for this book</dd>
+<dd><code><a title="pipeline.book.Book.availableBands" href="book.html#pipeline.book.Book.availableBands">Book.availableBands()</a></code></dd>
+<dt><code>B.availableMarks()</code></dt>
+<dd>show the marks defined for this book</dd>
+<dd><code><a title="pipeline.book.Book.availableMarks" href="book.html#pipeline.book.Book.availableMarks">Book.availableMarks()</a></code></dd>
+<dt><code>B.availablePages()</code></dt>
+<dd>show the page ranges contained in this book</dd>
+<dd><code><a title="pipeline.book.Book.availablePages" href="book.html#pipeline.book.Book.availablePages">Book.availablePages()</a></code></dd>
+<dt><code>B.configure(**kwargs)</code></dt>
+<dd>modify settings, bands, marks</dd>
+<dd><code><a title="pipeline.book.Book.configure" href="book.html#pipeline.book.Book.configure">Book.configure()</a></code></dd>
+<dd>See also <code><a title="pipeline.parameters" href="parameters.html">pipeline.parameters</a></code></dd>
+<dt><code>lastPage = B.process()</code></dt>
+<dd>Process all pages in a book and return a handle
+to the last processed page.</dd>
+<dd><code><a title="pipeline.book.Book.process" href="book.html#pipeline.book.Book.process">Book.process()</a></code></dd>
+<dt><code>lastPage = B.process(pages="48-60,67", doOcr=False)</code></dt>
+<dd>Process all specified pages and return a handle
+to the last processed page. Skip OCR.</dd>
+<dd><code><a title="pipeline.book.Book.process" href="book.html#pipeline.book.Book.process">Book.process()</a></code></dd>
+</dl>
+<h1 id="page">Page</h1>
+<dl>
+<dt><code>page = B.process(pages="48", doOcr=False, batch=False)</code></dt>
+<dd>Process all specified pages and return a handle
+to the last processed page. Skip OCR. Retain intermediate data for inspection.</dd>
+<dd><code><a title="pipeline.book.Book.process" href="book.html#pipeline.book.Book.process">Book.process()</a></code></dd>
+<dt><code>page.show(**options)</code></dt>
+<dd>show the data/images of all intermediate stages that the page went through
+during processing.</dd>
+<dd><code><a title="pipeline.page.Page.show" href="page.html#pipeline.page.Page.show">Page.show()</a></code></dd>
+<dt><code>page.show(stage='histogram,cleanh')</code></dt>
+<dd>show specific stages</dd>
+<dd><code><a title="pipeline.page.Page.show" href="page.html#pipeline.page.Page.show">Page.show()</a></code></dd>
+<dd>See also <code><a title="pipeline.parameters.STAGES" href="parameters.html#pipeline.parameters.STAGES">STAGES</a></code></dd>
+<dt><code>page.show(stage=stages, band='histogram,cleanh')</code></dt>
+<dd>show specific stages with specific bands marked/</dd>
+<dd><code><a title="pipeline.page.Page.show" href="page.html#pipeline.page.Page.show">Page.show()</a></code></dd>
+<dd>See also <code><a title="pipeline.parameters.BAND_COLORS" href="parameters.html#pipeline.parameters.BAND_COLORS">BAND_COLORS</a></code></dd>
+<dt><code>page.show(stage='boxed', band="high,mid", mark="comma,a")</code></dt>
+<dd>show specific marks only</dd>
+<dd><code><a title="pipeline.page.Page.show" href="page.html#pipeline.page.Page.show">Page.show()</a></code></dd>
+<dt><code>page.write(stage='histogram')</code></dt>
+<dd>write some or all stages of the page to disk</dd>
+<dd><code><a title="pipeline.page.Page.write" href="page.html#pipeline.page.Page.write">Page.write()</a></code></dd>
+</dl>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -50,7 +111,10 @@ data-gaCategoryParameter="pipeline.cheatsheet">
 </div>
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#book">Book</a></li>
+<li><a href="#page">Page</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
@@ -62,6 +126,7 @@ data-gaCategoryParameter="pipeline.cheatsheet">
 </nav>
 </main>
 <footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
 <p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>

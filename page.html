@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L0-L782" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L0-L803" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -120,10 +120,19 @@ class Page:
             If given as a string, it may be a comma-separated list of mark names.
             Otherwise it is an iterable of mark names.
             This information will be taken from the result of the `markData` stage.
-            If the stage does not have marks, no marks will be shown.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
+
+        Notes
+        -----
+        The mark option works for the &#34;boxed&#34; stage:
+        All marks not specified in the mark parameter will not be shown.
+
+        But this option also works for all other image stages: the marks
+        will be displayed on a fresh copy of that stage.
+
+        When used for a grayscale stage, the color of the mark boxes is lost.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -151,13 +160,13 @@ class Page:
 
             (stageType, stageExt) = C.stages[s]
             if stageType == &#34;data&#34;:
-                self.serial(s, stageData, stageExt)
+                self._serial(s, stageData, stageExt)
             else:
                 img = stageData
-                if doBands or marks is not None:
+                if doBands or mark is not None:
                     img = (
                         stages[&#34;demarginedC&#34;]
-                        if s == &#34;boxed&#34; and marks is not None
+                        if s == &#34;boxed&#34; and mark is not None
                         else stageData
                     ).copy()
                     imW = img.shape[1]
@@ -174,51 +183,56 @@ class Page:
                             cv2.rectangle(
                                 img, (imW - 10, upper), (imW, lower), bColor, -1
                             )
-                markData = stages[&#34;markData&#34;]
-                markLegend = {}
-                for (band, bandMarks) in markData.items():
-                    if doBands and band not in doBandSet:
-                        continue
-                    for ((seq, mark), hits) in bandMarks.items():
-                        if mark not in doMarks:
+                    markData = stages[&#34;markData&#34;]
+                    markLegend = {}
+                    for (band, bandMarks) in markData.items():
+                        if doBands and band not in doBandSet:
                             continue
-                        markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
-                        markValue = (band, mark, len(hits))
-                        markLegend[markKey] = markValue
-                        for (
-                            kept,
-                            value,
-                            connDegree,
-                            connectBorder,
-                            top,
-                            bottom,
-                            left,
-                            right,
-                        ) in hits:
-                            addBox(
-                                C,
-                                img,
+                        for ((seq, mark), hits) in bandMarks.items():
+                            if mark not in doMarks:
+                                continue
+                            markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
+                            markValue = (band, mark, len(hits))
+                            markLegend[markKey] = markValue
+                            for (
+                                kept,
+                                value,
+                                connDegree,
+                                connectBorder,
                                 top,
                                 bottom,
                                 left,
                                 right,
-                                kept,
-                                band,
-                                seq,
-                                connDegree,
-                            )
+                            ) in hits:
+                                addBox(
+                                    C,
+                                    img,
+                                    top,
+                                    bottom,
+                                    left,
+                                    right,
+                                    kept,
+                                    band,
+                                    seq,
+                                    connDegree,
+                                )
 
-                html = []
-                html.append(&#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;)
-                html.append(
-                    &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
-                )
-                for (k, (b, m, n)) in sorted(markLegend.items()):
-                    html.append(
-                        f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
-                    )
-                html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
-                display(HTML(&#34;&#34;.join(html)))
+                    if markLegend:
+                        html = []
+                        html.append(
+                            &#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;
+                        )
+                        html.append(
+                            &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&#34;
+                            &#34;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
+                        )
+                        for (k, (b, m, n)) in sorted(markLegend.items()):
+                            html.append(
+                                f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&#34;
+                                f&#34;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
+                            )
+                        html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
+                        display(HTML(&#34;&#34;.join(html)))
                 showImage(img, **displayParams)
 
     def write(self, stage=None):
@@ -234,6 +248,7 @@ class Page:
 
         Returns
         -------
+        None
             The stages are written into the `inter` subdirectory,
             with the name of the stage appended to the file name.
         &#34;&#34;&#34;
@@ -256,11 +271,11 @@ class Page:
             path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
             if stageType == &#34;data&#34;:
                 with open(path, &#34;w&#34;) as f:
-                    self.serial(s, stageData, stageExt, f)
+                    self._serial(s, stageData, stageExt, f)
             else:
                 cv2.imwrite(path, stageData)
 
-    def serial(self, stage, data, extension, handle=None):
+    def _serial(self, stage, data, extension, handle=None):
         &#34;&#34;&#34;serializes data in accordance with file type.
 
         Parameters
@@ -305,11 +320,11 @@ class Page:
             )
         else:
             if stage == &#34;markData&#34;:
-                self.showCleanInfo()
+                self._showCleanInfo()
             else:
                 info(repr(data), tm=False)
 
-    def normalize(self):
+    def _normalize(self):
         &#34;&#34;&#34;Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
@@ -362,7 +377,7 @@ class Page:
         stages[&#34;rotated&#34;] = rotated
         stages[&#34;normalized&#34;] = normalized
 
-    def histogram(self):
+    def _histogram(self):
         &#34;&#34;&#34;Add histograms to a page.
 
         A new stage of the page, *histogram*, is added.
@@ -396,7 +411,7 @@ class Page:
                         cv2.line(histogram, index, value, color, 1)
                 stages[&#34;histogram&#34;] = histogram
 
-    def margins(self):
+    def _margins(self):
         &#34;&#34;&#34;Chop off margins of an page.
 
         A new stage of the page, *demargined*, is added.
@@ -530,7 +545,7 @@ class Page:
         if not batch or boxed:
             self.stages[&#34;demarginedC&#34;] = demarginedC
 
-    def clean(self, mark=None, line=None):
+    def _clean(self, mark=None, line=None):
         &#34;&#34;&#34;Remove marks from the page.
 
         The page is cleaned of marks.
@@ -769,17 +784,20 @@ class Page:
         indent(level=1)
         info(&#34;cleaning done&#34;)
 
-    def showCleanInfo(self):
+    def _showCleanInfo(self):
+        &#34;&#34;&#34;Pretty-prints the result of the cleaning stage.
+        &#34;&#34;&#34;
+
         engine = self.engine
         tm = engine.tm
         info = tm.info
         indent = tm.indent
         stages = self.stages
-        cInfo = stages.get(&#34;markData&#34;, {})
+        markData = stages.get(&#34;markData&#34;, {})
         total = 0
 
         total = 0
-        for (band, markInfo) in sorted(cInfo.items()):
+        for (band, markInfo) in sorted(markData.items()):
             indent(level=0)
             info(band, tm=False)
             for ((seq, mark), entries) in sorted(markInfo.items()):
@@ -806,7 +824,10 @@ class Page:
                         tm=False,
                     )
 
-    def ocr(self):
+    def _ocr(self):
+        &#34;&#34;&#34;Calls the OCR engine for a page.
+        &#34;&#34;&#34;
+
         stages = self.stages
 
         reader = OCR(self.engine, page=self)
@@ -846,7 +867,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L25-L783" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L25-L804" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(self, engine, f, batch=False, boxed=True):
@@ -916,10 +937,19 @@ in boxes.</dd>
             If given as a string, it may be a comma-separated list of mark names.
             Otherwise it is an iterable of mark names.
             This information will be taken from the result of the `markData` stage.
-            If the stage does not have marks, no marks will be shown.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
+
+        Notes
+        -----
+        The mark option works for the &#34;boxed&#34; stage:
+        All marks not specified in the mark parameter will not be shown.
+
+        But this option also works for all other image stages: the marks
+        will be displayed on a fresh copy of that stage.
+
+        When used for a grayscale stage, the color of the mark boxes is lost.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -947,13 +977,13 @@ in boxes.</dd>
 
             (stageType, stageExt) = C.stages[s]
             if stageType == &#34;data&#34;:
-                self.serial(s, stageData, stageExt)
+                self._serial(s, stageData, stageExt)
             else:
                 img = stageData
-                if doBands or marks is not None:
+                if doBands or mark is not None:
                     img = (
                         stages[&#34;demarginedC&#34;]
-                        if s == &#34;boxed&#34; and marks is not None
+                        if s == &#34;boxed&#34; and mark is not None
                         else stageData
                     ).copy()
                     imW = img.shape[1]
@@ -970,51 +1000,56 @@ in boxes.</dd>
                             cv2.rectangle(
                                 img, (imW - 10, upper), (imW, lower), bColor, -1
                             )
-                markData = stages[&#34;markData&#34;]
-                markLegend = {}
-                for (band, bandMarks) in markData.items():
-                    if doBands and band not in doBandSet:
-                        continue
-                    for ((seq, mark), hits) in bandMarks.items():
-                        if mark not in doMarks:
+                    markData = stages[&#34;markData&#34;]
+                    markLegend = {}
+                    for (band, bandMarks) in markData.items():
+                        if doBands and band not in doBandSet:
                             continue
-                        markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
-                        markValue = (band, mark, len(hits))
-                        markLegend[markKey] = markValue
-                        for (
-                            kept,
-                            value,
-                            connDegree,
-                            connectBorder,
-                            top,
-                            bottom,
-                            left,
-                            right,
-                        ) in hits:
-                            addBox(
-                                C,
-                                img,
+                        for ((seq, mark), hits) in bandMarks.items():
+                            if mark not in doMarks:
+                                continue
+                            markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
+                            markValue = (band, mark, len(hits))
+                            markLegend[markKey] = markValue
+                            for (
+                                kept,
+                                value,
+                                connDegree,
+                                connectBorder,
                                 top,
                                 bottom,
                                 left,
                                 right,
-                                kept,
-                                band,
-                                seq,
-                                connDegree,
-                            )
+                            ) in hits:
+                                addBox(
+                                    C,
+                                    img,
+                                    top,
+                                    bottom,
+                                    left,
+                                    right,
+                                    kept,
+                                    band,
+                                    seq,
+                                    connDegree,
+                                )
 
-                html = []
-                html.append(&#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;)
-                html.append(
-                    &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
-                )
-                for (k, (b, m, n)) in sorted(markLegend.items()):
-                    html.append(
-                        f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
-                    )
-                html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
-                display(HTML(&#34;&#34;.join(html)))
+                    if markLegend:
+                        html = []
+                        html.append(
+                            &#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;
+                        )
+                        html.append(
+                            &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&#34;
+                            &#34;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
+                        )
+                        for (k, (b, m, n)) in sorted(markLegend.items()):
+                            html.append(
+                                f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&#34;
+                                f&#34;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
+                            )
+                        html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
+                        display(HTML(&#34;&#34;.join(html)))
                 showImage(img, **displayParams)
 
     def write(self, stage=None):
@@ -1030,6 +1065,7 @@ in boxes.</dd>
 
         Returns
         -------
+        None
             The stages are written into the `inter` subdirectory,
             with the name of the stage appended to the file name.
         &#34;&#34;&#34;
@@ -1052,11 +1088,11 @@ in boxes.</dd>
             path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
             if stageType == &#34;data&#34;:
                 with open(path, &#34;w&#34;) as f:
-                    self.serial(s, stageData, stageExt, f)
+                    self._serial(s, stageData, stageExt, f)
             else:
                 cv2.imwrite(path, stageData)
 
-    def serial(self, stage, data, extension, handle=None):
+    def _serial(self, stage, data, extension, handle=None):
         &#34;&#34;&#34;serializes data in accordance with file type.
 
         Parameters
@@ -1101,11 +1137,11 @@ in boxes.</dd>
             )
         else:
             if stage == &#34;markData&#34;:
-                self.showCleanInfo()
+                self._showCleanInfo()
             else:
                 info(repr(data), tm=False)
 
-    def normalize(self):
+    def _normalize(self):
         &#34;&#34;&#34;Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
@@ -1158,7 +1194,7 @@ in boxes.</dd>
         stages[&#34;rotated&#34;] = rotated
         stages[&#34;normalized&#34;] = normalized
 
-    def histogram(self):
+    def _histogram(self):
         &#34;&#34;&#34;Add histograms to a page.
 
         A new stage of the page, *histogram*, is added.
@@ -1192,7 +1228,7 @@ in boxes.</dd>
                         cv2.line(histogram, index, value, color, 1)
                 stages[&#34;histogram&#34;] = histogram
 
-    def margins(self):
+    def _margins(self):
         &#34;&#34;&#34;Chop off margins of an page.
 
         A new stage of the page, *demargined*, is added.
@@ -1326,7 +1362,7 @@ in boxes.</dd>
         if not batch or boxed:
             self.stages[&#34;demarginedC&#34;] = demarginedC
 
-    def clean(self, mark=None, line=None):
+    def _clean(self, mark=None, line=None):
         &#34;&#34;&#34;Remove marks from the page.
 
         The page is cleaned of marks.
@@ -1565,17 +1601,20 @@ in boxes.</dd>
         indent(level=1)
         info(&#34;cleaning done&#34;)
 
-    def showCleanInfo(self):
+    def _showCleanInfo(self):
+        &#34;&#34;&#34;Pretty-prints the result of the cleaning stage.
+        &#34;&#34;&#34;
+
         engine = self.engine
         tm = engine.tm
         info = tm.info
         indent = tm.indent
         stages = self.stages
-        cInfo = stages.get(&#34;markData&#34;, {})
+        markData = stages.get(&#34;markData&#34;, {})
         total = 0
 
         total = 0
-        for (band, markInfo) in sorted(cInfo.items()):
+        for (band, markInfo) in sorted(markData.items()):
             indent(level=0)
             info(band, tm=False)
             for ((seq, mark), entries) in sorted(markInfo.items()):
@@ -1602,7 +1641,10 @@ in boxes.</dd>
                         tm=False,
                     )
 
-    def ocr(self):
+    def _ocr(self):
+        &#34;&#34;&#34;Calls the OCR engine for a page.
+        &#34;&#34;&#34;
+
         stages = self.stages
 
         reader = OCR(self.engine, page=self)
@@ -1610,655 +1652,6 @@ in boxes.</dd>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pipeline.page.Page.clean"><code class="name flex">
-<span>def <span class="ident">clean</span></span>(<span>self, mark=None, line=None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Remove marks from the page.</p>
-<p>The page is cleaned of marks.</p>
-<p>New stages of the page are added:</p>
-<ul>
-<li><em>clean</em> all targeted marks removed</li>
-<li><em>cleanh</em> all targeted marks highlighted in light gray</li>
-<li><em>boxed</em> all targeted marks boxed in light gray</li>
-<li><em>markData</em> information about each detected mark.</li>
-</ul>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>mark</code></strong> :&ensp;<code>iterable</code> of <code>tuples (band, mark, [params])</code>, optional <code>None</code></dt>
-<dd>If <code>None</code>, all non-divider marks that are presented in the book
-directory are used.
-Otherwise, a series of marks is specified together with the band
-where this mark is searched in. Optionally you can also
-put parameters in the tuple: the accuracy and the connectBorder.</dd>
-<dt><strong><code>line</code></strong> :&ensp;<code>integer</code>, optional <code>None</code></dt>
-<dd>Line number specifying the line to clean. If absent, cleans all
-lines.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L503-L740" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def clean(self, mark=None, line=None):
-    &#34;&#34;&#34;Remove marks from the page.
-
-    The page is cleaned of marks.
-
-    New stages of the page are added:
-
-    *   *clean* all targeted marks removed
-    *   *cleanh* all targeted marks highlighted in light gray
-    *   *boxed* all targeted marks boxed in light gray
-    *   *markData* information about each detected mark.
-
-    Parameters
-    ----------
-    mark: iterable of tuples (band, mark, [params]), optional `None`
-        If `None`, all non-divider marks that are presented in the book
-        directory are used.
-        Otherwise, a series of marks is specified together with the band
-        where this mark is searched in. Optionally you can also
-        put parameters in the tuple: the accuracy and the connectBorder.
-    line: integer, optional `None`
-        Line number specifying the line to clean. If absent, cleans all  lines.
-    &#34;&#34;&#34;
-
-    if self.empty:
-        return
-
-    engine = self.engine
-    tm = engine.tm
-    indent = tm.indent
-    info = tm.info
-    error = tm.error
-    warning = tm.warning
-    C = engine.C
-
-    marks = engine.marks
-    batch = self.batch
-    boxed = self.boxed
-
-    boxBorder = C.boxBorder
-
-    connectBorder = C.connectBorder
-    threshold = C.connectThreshold
-    ratio = C.connectRatio
-    maxHits = C.maxHits
-    color = dict(clean=C.cleanRGB, cleanh=C.cleanhRGB,)
-
-    if mark is None:
-        searchMarks = {
-            subdir: markItems
-            for (subdir, markItems) in marks.items()
-            if subdir != &#34;divider&#34;
-        }
-    else:
-        for item in mark:
-            (band, name) = item[0:2]
-            if band == &#34;divider&#34;:
-                error(&#34;No dividers allowed for cleaning&#34;)
-                continue
-            if band not in marks or name not in marks[band]:
-                error(f&#34;No such mark: {band}/{mark}&#34;)
-                continue
-            markParams = item[2] if len(mark) &gt; 2 else {}
-            configuredMark = marks[band][mark]
-            searchMarks.setdefault(band, {})[mark] = dict(
-                gray=configuredMark[&#34;gray&#34;]
-            )
-            for k in (&#34;accuracy&#34;, &#34;connectBorder&#34;):
-                searchMarks[band][mark][k] = markParams.get(k, configuredMark[k])
-
-    stages = self.stages
-    demargined = stages.get(&#34;demargined&#34;, stages[&#34;gray&#34;])
-    if batch:
-        resultStages = (&#34;clean&#34;, &#34;boxed&#34;) if boxed else (&#34;clean&#34;,)
-        if boxed:
-            demarginedC = stages.get(&#34;demarginedC&#34;, stages[&#34;orig&#34;])
-    else:
-        demarginedC = stages.get(&#34;demarginedC&#34;, stages[&#34;orig&#34;])
-        resultStages = (&#34;clean&#34;, &#34;cleanh&#34;, &#34;boxed&#34;)
-    for stage in resultStages:
-        stages[stage] = (demarginedC if stage == &#34;boxed&#34; else demargined).copy()
-
-    tasks = [
-        (
-            stage,
-            stages[stage],
-            None if stage == &#34;boxed&#34; else color[stage],
-            boxBorder if stage == &#34;boxed&#34; else -1,
-        )
-        for stage in resultStages
-    ]
-
-    foundHits = {}
-    cleanClr = color[&#34;clean&#34;]
-    bands = self.bands
-    markResults = {}
-
-    for (band, markData) in searchMarks.items():
-        for (markName, markInfo) in markData.items():
-            foundHits.setdefault(band, {})[markName] = 0
-            seq = markInfo[&#34;seq&#34;]
-            mark = markInfo[&#34;gray&#34;]
-            connectBorder = markInfo[&#34;connectBorder&#34;]
-            accuracy = markInfo[&#34;accuracy&#34;]
-            (markH, markW) = mark.shape[:2]
-            bandData = bands[band]
-            uppers = bandData[&#34;uppers&#34;]
-            lowers = bandData[&#34;lowers&#34;]
-            nPts = 0
-            clusters = []
-            for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
-                if line is not None:
-                    if i &lt; line - 1:
-                        continue
-                    elif i &gt; line - 1:
-                        break
-                roi = demargined[
-                    upper : lower + 1,
-                ]
-                (roih, roiw) = roi.shape[:2]
-                if roih &lt; markH or roiw &lt; markW:
-                    # search template exceeds roi image
-                    continue
-                if line is not None:
-                    showImage(roi)
-                result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
-                loc = np.where(result &gt;= accuracy)
-                pts = list(zip(*loc))
-                if len(pts) &gt; maxHits:
-                    error(
-                        f&#34;mark &#39;{band}:{markName}&#39;:&#34;
-                        f&#34; too many hits: {len(pts)} &gt; {maxHits}&#34;
-                    )
-                    warning(&#34;Increase accuracy for this template&#34;)
-                    continue
-                if not pts:
-                    continue
-
-                nPts += len(pts)
-                clusters = cluster(pts, result)
-
-                for (pt, value) in clusters:
-                    connDegree = connected(
-                        markH, markW, connectBorder, threshold, roi, pt
-                    )
-                    pt = (pt[0] + upper, pt[1])
-                    (top, bottom, left, right) = (
-                        pt[0],
-                        pt[0] + markH,
-                        pt[1],
-                        pt[1] + markW,
-                    )
-                    if connDegree &gt; ratio:
-                        if not batch or boxed:
-                            im = stages[&#34;boxed&#34;]
-                            addBox(
-                                C,
-                                im,
-                                top,
-                                bottom,
-                                left,
-                                right,
-                                True,
-                                band,
-                                seq,
-                                connDegree,
-                            )
-                            markResults.setdefault(band, {}).setdefault(
-                                (seq, markName), []
-                            ).append(
-                                (
-                                    True,
-                                    value,
-                                    connDegree,
-                                    connectBorder,
-                                    top,
-                                    bottom,
-                                    left,
-                                    right,
-                                )
-                            )
-                    else:
-                        if batch and not boxed:
-                            cv2.rectangle(
-                                stages[&#34;clean&#34;],
-                                (left, top),
-                                (right, bottom),
-                                cleanClr,
-                                -1,
-                            )
-                        else:
-                            for (stage, im, clr, brd) in tasks:
-                                isBoxed = stage == &#34;boxed&#34;
-                                if isBoxed:
-                                    addBox(
-                                        C,
-                                        im,
-                                        top,
-                                        bottom,
-                                        left,
-                                        right,
-                                        False,
-                                        band,
-                                        seq,
-                                        connDegree,
-                                    )
-                                    markResults.setdefault(band, {}).setdefault(
-                                        (seq, markName), []
-                                    ).append(
-                                        (
-                                            False,
-                                            value,
-                                            connDegree,
-                                            connectBorder,
-                                            top,
-                                            bottom,
-                                            left,
-                                            right,
-                                        )
-                                    )
-                                else:
-                                    cv2.rectangle(
-                                        im, (left, top), (right, bottom), clr, -1
-                                    )
-
-    stages[&#34;markData&#34;] = markResults
-    for (band, bandMarks) in sorted(markResults.items()):
-        for ((seq, mark), entries) in sorted(bandMarks.items()):
-            indent(level=2)
-            kept = sum(1 for e in entries if e[0])
-            wiped = len(entries) - kept
-            warning(
-                f&#34;{seq:&gt;2} - {band:&lt;10}: {mark:&lt;20}&#34;
-                f&#34; wiped {wiped:&gt;4} x, kept {kept:&gt;4} x&#34;,
-                tm=False,
-            )
-    indent(level=1)
-    info(&#34;cleaning done&#34;)</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.histogram"><code class="name flex">
-<span>def <span class="ident">histogram</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Add histograms to a page.</p>
-<p>A new stage of the page, <em>histogram</em>, is added.</p>
-<p>The histograms contain an indication of the amount of ink in
-horizontal and in vertical rows.</p>
-<p>The histogram values are preserved as well.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L335-L367" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def histogram(self):
-    &#34;&#34;&#34;Add histograms to a page.
-
-    A new stage of the page, *histogram*, is added.
-
-    The histograms contain an indication of the amount of ink in
-    horizontal and in vertical rows.
-
-    The histogram values are preserved as well.
-    &#34;&#34;&#34;
-
-    if self.empty:
-        return
-
-    batch = self.batch
-    boxed = self.boxed
-    stages = self.stages
-    rotated = self.stages[&#34;rotated&#34;]
-    self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
-    self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
-
-    if not batch or boxed:
-        normalizedC = stages[&#34;normalizedC&#34;]
-        if not batch:
-            histogram = normalizedC.copy()
-
-            for (hist, vert) in ((self.histY, True), (self.histX, False)):
-                for (i, val) in enumerate(hist):
-                    color = (int(val), int(2 * val), int(val))
-                    index = (0, i) if vert else (i, 0)
-                    value = (val, i) if vert else (i, val)
-                    cv2.line(histogram, index, value, color, 1)
-            stages[&#34;histogram&#34;] = histogram</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.margins"><code class="name flex">
-<span>def <span class="ident">margins</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Chop off margins of an page.</p>
-<p>A new stage of the page, <em>demargined</em>, is added.</p>
-<div class="admonition caution">
-<p class="admonition-title">it is assumed that the page has a histogram</p>
-<p>This method uses the histogram info of the page.</p>
-</div></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L369-L501" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def margins(self):
-    &#34;&#34;&#34;Chop off margins of an page.
-
-    A new stage of the page, *demargined*, is added.
-
-    !!! caution &#34;it is assumed that the page has a histogram&#34;
-        This method uses the histogram info of the page.
-    &#34;&#34;&#34;
-
-    if self.empty:
-        return
-
-    engine = self.engine
-    C = engine.C
-
-    batch = self.batch
-    boxed = self.boxed
-    dividers = engine.dividers
-
-    thresholdX = C.marginThresholdX
-    thresholdY = C.marginThresholdY
-    mColor = C.marginRGB
-    mWhite = C.marginGRS
-
-    stages = self.stages
-    normalized = stages[&#34;normalized&#34;]
-    demargined = normalized.copy()
-    if not batch or boxed:
-        normalizedC = stages[&#34;normalizedC&#34;]
-        demarginedC = normalizedC.copy()
-
-    histX = self.histX
-    histY = self.histY
-
-    (normH, normW) = normalized.shape[:2]
-    body = getLargest(histX, normW, thresholdX)
-
-    for posX in body:
-        cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
-        if not batch or boxed:
-            cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
-
-    uppers = []
-    lowers = []
-
-    inline = False
-    detectedUpper = False
-    detectedLower = False
-
-    for y in range(normH - 1):
-        if inline:
-            if detectedLower:
-                if histY[y] &gt;= thresholdY:
-                    lowers[-1] = y
-                elif histY[y] &lt;= 1:
-                    inline = False
-            elif histY[y] &gt; thresholdY and histY[y + 1] &lt;= thresholdY:
-                lowers.append(y)
-                detectedLower = True
-                detectedUpper = False
-                if histY[y] &lt;= 1:
-                    inline = False
-        else:
-            if histY[y] &lt;= thresholdY and histY[y + 1] &gt; thresholdY:
-                if not detectedUpper:
-                    inline = True
-                    uppers.append(y)
-                    detectedUpper = True
-                    detectedLower = False
-
-    # look for dividers
-
-    footnoteMark = dividers.get(&#34;footnote&#34;, {}).get(&#34;gray&#34;, None)
-    footnoteFound = (False, None, 100)
-
-    if footnoteMark is not None:
-        (divh, divw) = footnoteMark.shape[:2]
-        for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
-            roi = normalized[upper - 10 : lower + 10, 10 : normW - 10]
-            (roih, roiw) = roi.shape[:2]
-            if roih &lt; divh or roiw &lt; divw:
-                # divider template exceeds roi image
-                continue
-            result = cv2.matchTemplate(roi, footnoteMark, cv2.TM_CCOEFF_NORMED)
-            loc = np.where(result &gt;= 0.5)
-            if loc[0].size:
-                footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
-                cv2.rectangle(
-                    demargined, (0, uppers[i]), (normW, normH), mWhite, -1
-                )
-                if not batch or boxed:
-                    cv2.rectangle(
-                        demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
-                    )
-                break
-            else:
-                continue
-        # lastLine = i if footnoteFound[0] else i + 1
-        lastLine = i + 1
-        uppers = uppers[0:lastLine]
-        lowers = lowers[0:lastLine]
-    self.dividers = dict(footnote=footnoteFound)
-
-    offsetBand = C.offsetBand
-    colorBand = C.colorBand
-
-    bands = {}
-    self.bands = bands
-
-    bands[&#34;main&#34;] = dict(uppers=uppers, lowers=lowers)
-    for (band, bandColor) in colorBand.items():
-        (top, bottom) = offsetBand[band]
-        isInter = band in {&#34;inter&#34;, &#34;low&#34;, &#34;high&#34;}
-        theUppers = tuple(x + top for x in (lowers[:-1] if isInter else uppers))
-        theLowers = tuple(x + bottom for x in (uppers[1:] if isInter else lowers))
-        if band not in {&#34;inter&#34;, &#34;low&#34;}:
-            theUppers = theUppers[0:-1]
-            theLowers = theLowers[0:-1]
-        bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
-
-    # remove top white space
-
-    broadBand = bands[&#34;broad&#34;]
-    broadUppers = broadBand[&#34;uppers&#34;]
-    if broadUppers:
-        top = broadUppers[0]
-        cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
-        if not batch or boxed:
-            cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
-
-    self.stages[&#34;demargined&#34;] = demargined
-    if not batch or boxed:
-        self.stages[&#34;demarginedC&#34;] = demarginedC</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.normalize"><code class="name flex">
-<span>def <span class="ident">normalize</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Normalizes a page.</p>
-<p>It produces a stage that is unskewed: <em>rotated</em> and blurred.
-The same rotation will be applied to the original scan,
-resulting in stage <em>normalized</em>.</p>
-<p>Unskewing is needed otherwise the footnote line will not be found.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L282-L333" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def normalize(self):
-    &#34;&#34;&#34;Normalizes a page.
-
-    It produces a stage that is unskewed: *rotated* and blurred.
-    The same rotation will be applied to the original scan,
-    resulting in stage *normalized*.
-
-    Unskewing is needed otherwise the footnote line will not be found.
-    &#34;&#34;&#34;
-
-    if self.empty:
-        return
-
-    engine = self.engine
-    C = engine.C
-
-    batch = self.batch
-    boxed = self.boxed
-    stages = self.stages
-    orig = stages[&#34;orig&#34;]
-
-    removeSkewStripes(orig, C.skewBorder, C.whiteRGB)
-    gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
-    stages[&#34;gray&#34;] = gray
-
-    blurred = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
-
-    (th, threshed) = cv2.threshold(
-        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
-    )
-    pts = cv2.findNonZero(threshed)
-    ret = cv2.minAreaRect(pts)
-
-    (cx, cy), (rw, rh), ang = ret
-    if rw &gt; rh:
-        rw, rh = rh, rw
-        ang += 90
-
-    M = cv2.getRotationMatrix2D((cx, cy), ang, 1.0)
-
-    rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-    removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
-    normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-    removeSkewStripes(normalized, C.skewBorder, C.whiteGRS)
-
-    if not batch or boxed:
-        normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-        removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-        stages[&#34;normalizedC&#34;] = normalizedC
-
-    stages[&#34;rotated&#34;] = rotated
-    stages[&#34;normalized&#34;] = normalized</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.ocr"><code class="name flex">
-<span>def <span class="ident">ocr</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L779-L783" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def ocr(self):
-    stages = self.stages
-
-    reader = OCR(self.engine, page=self)
-    stages[&#34;ocrData&#34;] = reader.read()</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.serial"><code class="name flex">
-<span>def <span class="ident">serial</span></span>(<span>self, stage, data, extension, handle=None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>serializes data in accordance with file type.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt>data:</dt>
-<dt>The data to serialize. The type of data must be compatible with</dt>
-<dt>the <em>extension</em>.</dt>
-<dt><strong><code>extension</code></strong> :&ensp;<code>string</code></dt>
-<dd>The file type according to which the data must be serialized.</dd>
-<dt><strong><code>handle</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
-<dd>If <code>None</code>, output is prepared for display in a Jupter notebook,
-else it is a file handle and the data is serialized
-in the canonical way and written to that file.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>string</code></dt>
-<dd>The serialized data.
-If the extension does not match a recognized file type,
-the Python <code>repr</code> of the data is returned.</dd>
-</dl>
-<h2 id="notes">Notes</h2>
-<p>The following data type/extension combinations are supported:</p>
-<table>
-<thead>
-<tr>
-<th>extension</th>
-<th>data type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>tsv</td>
-<td>tuple/list of tuple/list</td>
-</tr>
-</tbody>
-</table></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L233-L280" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def serial(self, stage, data, extension, handle=None):
-    &#34;&#34;&#34;serializes data in accordance with file type.
-
-    Parameters
-    ----------
-    data:
-        The data to serialize. The type of data must be compatible with
-        the *extension*.
-    extension: string
-        The file type according to which the data must be serialized.
-    handle: string, optional `None`
-        If `None`, output is prepared for display in a Jupter notebook,
-        else it is a file handle and the data is serialized
-        in the canonical way and written to that file.
-
-    Returns
-    -------
-    string
-        The serialized data.
-        If the extension does not match a recognized file type,
-        the Python `repr` of the data is returned.
-
-    Notes
-    -----
-    The following data type/extension combinations are supported:
-
-    extension | data type
-    --- | ---
-    tsv | tuple/list of tuple/list
-    &#34;&#34;&#34;
-
-    engine = self.engine
-    tm = engine.tm
-    info = tm.info
-
-    if handle:
-        if stage == &#34;markData&#34;:
-            data = storeCleanInfo(data)
-        handle.write(
-            &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
-            if extension == &#34;tsv&#34;
-            else repr(data)
-        )
-    else:
-        if stage == &#34;markData&#34;:
-            self.showCleanInfo()
-        else:
-            info(repr(data), tm=False)</code></pre>
-</details>
-</dd>
 <dt id="pipeline.page.Page.show"><code class="name flex">
 <span>def <span class="ident">show</span></span>(<span>self, stage=None, band=None, mark=None, **displayParams)</span>
 </code></dt>
@@ -2284,16 +1677,21 @@ Otherwise, the indicated mark boxes are shown, irrespective
 of their bands:
 If given as a string, it may be a comma-separated list of mark names.
 Otherwise it is an iterable of mark names.
-This information will be taken from the result of the <code>markData</code> stage.
-If the stage does not have marks, no marks will be shown.</dd>
+This information will be taken from the result of the <code>markData</code> stage.</dd>
 <dt><strong><code>display</code></strong> :&ensp;<code>dict</code>, optional</dt>
 <dd>A set of display parameters, such as <code>width</code>, <code>height</code>
 (anything accepted by <code>IPython.display.Image</code>).</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The mark option works for the "boxed" stage:
+All marks not specified in the mark parameter will not be shown.</p>
+<p>But this option also works for all other image stages: the marks
+will be displayed on a fresh copy of that stage.</p>
+<p>When used for a grayscale stage, the color of the mark boxes is lost.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L68-L192" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L68-L206" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -2320,10 +1718,19 @@ If the stage does not have marks, no marks will be shown.</dd>
         If given as a string, it may be a comma-separated list of mark names.
         Otherwise it is an iterable of mark names.
         This information will be taken from the result of the `markData` stage.
-        If the stage does not have marks, no marks will be shown.
     display: dict, optional
         A set of display parameters, such as `width`, `height`
         (anything accepted by `IPython.display.Image`).
+
+    Notes
+    -----
+    The mark option works for the &#34;boxed&#34; stage:
+    All marks not specified in the mark parameter will not be shown.
+
+    But this option also works for all other image stages: the marks
+    will be displayed on a fresh copy of that stage.
+
+    When used for a grayscale stage, the color of the mark boxes is lost.
     &#34;&#34;&#34;
 
     engine = self.engine
@@ -2351,13 +1758,13 @@ If the stage does not have marks, no marks will be shown.</dd>
 
         (stageType, stageExt) = C.stages[s]
         if stageType == &#34;data&#34;:
-            self.serial(s, stageData, stageExt)
+            self._serial(s, stageData, stageExt)
         else:
             img = stageData
-            if doBands or marks is not None:
+            if doBands or mark is not None:
                 img = (
                     stages[&#34;demarginedC&#34;]
-                    if s == &#34;boxed&#34; and marks is not None
+                    if s == &#34;boxed&#34; and mark is not None
                     else stageData
                 ).copy()
                 imW = img.shape[1]
@@ -2374,100 +1781,57 @@ If the stage does not have marks, no marks will be shown.</dd>
                         cv2.rectangle(
                             img, (imW - 10, upper), (imW, lower), bColor, -1
                         )
-            markData = stages[&#34;markData&#34;]
-            markLegend = {}
-            for (band, bandMarks) in markData.items():
-                if doBands and band not in doBandSet:
-                    continue
-                for ((seq, mark), hits) in bandMarks.items():
-                    if mark not in doMarks:
+                markData = stages[&#34;markData&#34;]
+                markLegend = {}
+                for (band, bandMarks) in markData.items():
+                    if doBands and band not in doBandSet:
                         continue
-                    markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
-                    markValue = (band, mark, len(hits))
-                    markLegend[markKey] = markValue
-                    for (
-                        kept,
-                        value,
-                        connDegree,
-                        connectBorder,
-                        top,
-                        bottom,
-                        left,
-                        right,
-                    ) in hits:
-                        addBox(
-                            C,
-                            img,
+                    for ((seq, mark), hits) in bandMarks.items():
+                        if mark not in doMarks:
+                            continue
+                        markKey = f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{seq}&#34;
+                        markValue = (band, mark, len(hits))
+                        markLegend[markKey] = markValue
+                        for (
+                            kept,
+                            value,
+                            connDegree,
+                            connectBorder,
                             top,
                             bottom,
                             left,
                             right,
-                            kept,
-                            band,
-                            seq,
-                            connDegree,
+                        ) in hits:
+                            addBox(
+                                C,
+                                img,
+                                top,
+                                bottom,
+                                left,
+                                right,
+                                kept,
+                                band,
+                                seq,
+                                connDegree,
+                            )
+
+                if markLegend:
+                    html = []
+                    html.append(
+                        &#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;
+                    )
+                    html.append(
+                        &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&#34;
+                        &#34;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
+                    )
+                    for (k, (b, m, n)) in sorted(markLegend.items()):
+                        html.append(
+                            f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&#34;
+                            f&#34;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
                         )
-
-            html = []
-            html.append(&#34;&lt;details open&gt;&lt;summary&gt;Mark legend&lt;/summary&gt;&lt;table&gt;&#34;)
-            html.append(
-                &#34;&lt;tr&gt;&lt;th&gt;acro&lt;/th&gt;&lt;th&gt;band&lt;/th&gt;&lt;th&gt;mark&lt;/th&gt;&lt;th&gt;hits&lt;/th&gt;&lt;/tr&gt;&#34;
-            )
-            for (k, (b, m, n)) in sorted(markLegend.items()):
-                html.append(
-                    f&#34;&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{b}&lt;/td&gt;&lt;td&gt;{m}&lt;/td&gt;&lt;td&gt;{n}&lt;/td&gt;&lt;/tr&gt;&#34;
-                )
-            html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
-            display(HTML(&#34;&#34;.join(html)))
+                    html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
+                    display(HTML(&#34;&#34;.join(html)))
             showImage(img, **displayParams)</code></pre>
-</details>
-</dd>
-<dt id="pipeline.page.Page.showCleanInfo"><code class="name flex">
-<span>def <span class="ident">showCleanInfo</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L742-L777" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def showCleanInfo(self):
-    engine = self.engine
-    tm = engine.tm
-    info = tm.info
-    indent = tm.indent
-    stages = self.stages
-    cInfo = stages.get(&#34;markData&#34;, {})
-    total = 0
-
-    total = 0
-    for (band, markInfo) in sorted(cInfo.items()):
-        indent(level=0)
-        info(band, tm=False)
-        for ((seq, mark), entries) in sorted(markInfo.items()):
-            indent(level=1)
-            wiped = sum(1 for e in entries if not e[0])
-            total += wiped
-            notWiped = len(entries) - wiped
-            showImage(engine.marks[band][mark][&#34;gray&#34;])
-            info(
-                f&#34;{seq:&gt;2}: {mark:&lt;20} wiped {wiped:&gt;4} x, kept {notWiped:&gt;4} x&#34;,
-                tm=False,
-            )
-            info(
-                f&#34;{&#39;&#39;:24} kept  {notWiped:&gt;4} x&#34;, tm=False,
-            )
-            for (k, value, conn, border, top, bottom, left, right) in sorted(
-                entries
-            ):
-                indent(level=2)
-                wRep = &#34;kept&#34; if k else &#34;wiped&#34;
-                info(
-                    f&#34;{wRep:&lt;5} tblr={top:&gt;4} {bottom:&gt;4} {left:&gt;4} {right:&gt;4},&#34;
-                    f&#34; value={value:5.2f} conn={conn:5.3f} border={border:&gt;2}&#34;,
-                    tm=False,
-                )</code></pre>
 </details>
 </dd>
 <dt id="pipeline.page.Page.write"><code class="name flex">
@@ -2484,13 +1848,15 @@ If a string, it may be a comma-separated list of stage names.
 Otherwise it is an iterable of stage names.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<pre><code>The stages are written into the &lt;code&gt;inter&lt;/code&gt; subdirectory,
-with the name of the stage appended to the file name.
-</code></pre></div>
+<dl>
+<dt><code>None</code></dt>
+<dd>The stages are written into the <code>inter</code> subdirectory,
+with the name of the stage appended to the file name.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L194-L231" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/page.py#L208-L246" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None):
     &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -2505,6 +1871,7 @@ with the name of the stage appended to the file name.
 
     Returns
     -------
+    None
         The stages are written into the `inter` subdirectory,
         with the name of the stage appended to the file name.
     &#34;&#34;&#34;
@@ -2527,7 +1894,7 @@ with the name of the stage appended to the file name.
         path = f&#34;{interDir}/{bare}-{s}.{stageExt or ext}&#34;
         if stageType == &#34;data&#34;:
             with open(path, &#34;w&#34;) as f:
-                self.serial(s, stageData, stageExt, f)
+                self._serial(s, stageData, stageExt, f)
         else:
             cv2.imwrite(path, stageData)</code></pre>
 </details>
@@ -2558,15 +1925,8 @@ data-gaCategoryParameter="pipeline.page">
 <ul>
 <li>
 <h4><code><a title="pipeline.page.Page" href="#pipeline.page.Page">Page</a></code></h4>
-<ul class="two-column">
-<li><code><a title="pipeline.page.Page.clean" href="#pipeline.page.Page.clean">clean</a></code></li>
-<li><code><a title="pipeline.page.Page.histogram" href="#pipeline.page.Page.histogram">histogram</a></code></li>
-<li><code><a title="pipeline.page.Page.margins" href="#pipeline.page.Page.margins">margins</a></code></li>
-<li><code><a title="pipeline.page.Page.normalize" href="#pipeline.page.Page.normalize">normalize</a></code></li>
-<li><code><a title="pipeline.page.Page.ocr" href="#pipeline.page.Page.ocr">ocr</a></code></li>
-<li><code><a title="pipeline.page.Page.serial" href="#pipeline.page.Page.serial">serial</a></code></li>
+<ul class="">
 <li><code><a title="pipeline.page.Page.show" href="#pipeline.page.Page.show">show</a></code></li>
-<li><code><a title="pipeline.page.Page.showCleanInfo" href="#pipeline.page.Page.showCleanInfo">showCleanInfo</a></code></li>
 <li><code><a title="pipeline.page.Page.write" href="#pipeline.page.Page.write">write</a></code></li>
 </ul>
 </li>
@@ -2576,6 +1936,7 @@ data-gaCategoryParameter="pipeline.page">
 </nav>
 </main>
 <footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
 <p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>

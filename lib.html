@@ -25,7 +25,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L0-L436" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L0-L445" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import io
@@ -67,14 +67,23 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 
 def tempFile():
+    &#34;&#34;&#34;Get a temporary file.
+    &#34;&#34;&#34;
+
     return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)
 
 
 def img(data):
+    &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
+    &#34;&#34;&#34;
+
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;
 
 
 def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
+    &#34;&#34;&#34;Show one or more images.
+    &#34;&#34;&#34;
+
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
@@ -481,7 +490,7 @@ def parseMarks(mark, allMarks, bands, error):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L267-L284" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L276-L293" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
     fill = C.boxRemainRGB if kept else C.boxDeleteRGB
@@ -511,7 +520,7 @@ def parseMarks(mark, allMarks, bands, error):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L287-L325" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L296-L334" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addSeq(
     img,
@@ -562,7 +571,7 @@ def parseMarks(mark, allMarks, bands, error):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L129-L151" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L138-L160" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cluster(points, result):
     def d(p1, p2):
@@ -597,7 +606,7 @@ def parseMarks(mark, allMarks, bands, error):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L165-L251" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L174-L260" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
@@ -710,7 +719,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L348-L378" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L357-L387" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getLargest(hist, width, threshold):
     &#34;&#34;&#34;Get biggest chunk of nonzero values
@@ -753,7 +762,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L72-L84" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L81-L93" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileList(imDir):
     if not os.path.exists(imDir):
@@ -778,7 +787,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L87-L96" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L96-L105" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileListSub(imDir):
     if not os.path.exists(imDir):
@@ -796,13 +805,16 @@ everything outside that chunk.</p>
 <span>def <span class="ident">img</span></span>(<span>data)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Produce an image with its data packaged into a HTML <img> element.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L44-L45" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L47-L51" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def img(data):
+    &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
+    &#34;&#34;&#34;
+
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;</code></pre>
 </details>
 </dd>
@@ -814,7 +826,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L339-L345" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L348-L354" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadCleanInfo(self, data):
     cInfo = {}
@@ -833,7 +845,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L154-L156" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L163-L165" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def measure(borderInside, borderOutside, threshold):
     connections = borderInside * borderOutside
@@ -848,7 +860,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L99-L101" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L108-L110" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pagesRep(source):
     pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
@@ -863,7 +875,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L400-L414" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L409-L423" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
@@ -890,7 +902,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L417-L437" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L426-L446" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseMarks(mark, allMarks, bands, error):
     markIndex = {}
@@ -923,7 +935,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L381-L397" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L390-L406" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
     doStages = (
@@ -952,7 +964,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L254-L264" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L263-L273" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
     (imH, imW) = img.shape[0:2]
@@ -975,7 +987,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L104-L126" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L113-L135" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def select(source, selection):
     if selection is None:
@@ -1006,13 +1018,16 @@ everything outside that chunk.</p>
 <span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Show one or more images.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L48-L62" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L54-L71" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
+    &#34;&#34;&#34;Show one or more images.
+    &#34;&#34;&#34;
+
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
@@ -1037,7 +1052,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L159-L162" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L168-L171" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showit(label, texto, texti, val):
     print(f&#34;{label}: = {val}&#34;)
@@ -1053,7 +1068,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L65-L69" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L74-L78" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
@@ -1070,7 +1085,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L328-L336" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L337-L345" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def storeCleanInfo(source):
     data = []
@@ -1087,13 +1102,16 @@ everything outside that chunk.</p>
 <span>def <span class="ident">tempFile</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Get a temporary file.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L40-L41" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L40-L44" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tempFile():
+    &#34;&#34;&#34;Get a temporary file.
+    &#34;&#34;&#34;
+
     return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)</code></pre>
 </details>
 </dd>
@@ -1148,6 +1166,7 @@ data-gaCategoryParameter="pipeline.lib">
 </nav>
 </main>
 <footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
 <p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
