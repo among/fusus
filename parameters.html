@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L0-L349" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L0-L349" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -73,7 +73,7 @@ STAGES = dict(
     histogram=(&#34;image&#34;, None),
     demargined=(&#34;image&#34;, None),
     demarginedC=(&#34;image&#34;, None),
-    markData=(&#34;data&#34;, &#34;yaml&#34;),
+    markData=(&#34;data&#34;, &#34;tsv&#34;),
     boxed=(&#34;image&#34;, None),
     cleanh=(&#34;image&#34;, None),
     clean=(&#34;image&#34;, None),
@@ -574,7 +574,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L239-L350" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L239-L350" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -710,7 +710,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L283-L325" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L283-L325" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -772,7 +772,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/parameters.py#L327-L350" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L327-L350" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.

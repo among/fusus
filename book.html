@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L0-L375" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L0-L375" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book pipeline
 &#34;&#34;&#34;
@@ -333,7 +333,7 @@ class Book:
         pagesDesc = pagesRep(imageFiles)
         info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
-        info(f&#34;Start batch processing images&#34;)
+        info(&#34;Start batch processing images&#34;)
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
@@ -359,7 +359,7 @@ class Book:
 
         if doOcr and batch:
             indent(level=1, reset=True)
-            info(f&#34;Start batch OCR of all clean images&#34;)
+            info(&#34;Start batch OCR of all clean images&#34;)
 
             with tempFile() as tmp:
                 for pg in imageFiles:
@@ -426,7 +426,7 @@ of pages as in <code><a title="pipeline.book.Book.process" href="#pipeline.book.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L355-L372" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L355-L372" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -471,7 +471,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L25-L352" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L25-L352" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, **params):
@@ -754,7 +754,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
         pagesDesc = pagesRep(imageFiles)
         info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
-        info(f&#34;Start batch processing images&#34;)
+        info(&#34;Start batch processing images&#34;)
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
@@ -780,7 +780,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 
         if doOcr and batch:
             indent(level=1, reset=True)
-            info(f&#34;Start batch OCR of all clean images&#34;)
+            info(&#34;Start batch OCR of all clean images&#34;)
 
             with tempFile() as tmp:
                 for pg in imageFiles:
@@ -812,7 +812,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L127-L139" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L127-L139" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.
@@ -837,7 +837,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L141-L162" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L141-L162" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self):
     &#34;&#34;&#34;Display the characteristics of all defined *marks*.
@@ -871,7 +871,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L164-L174" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L164-L174" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.
@@ -895,7 +895,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L102-L109" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L102-L109" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -946,7 +946,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L248-L352" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L248-L352" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
@@ -1006,7 +1006,7 @@ in boxes.</dd>
     pagesDesc = pagesRep(imageFiles)
     info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
-    info(f&#34;Start batch processing images&#34;)
+    info(&#34;Start batch processing images&#34;)
     for (i, imFile) in enumerate(sorted(imageFiles)):
         indent(level=1, reset=True)
         msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
@@ -1032,7 +1032,7 @@ in boxes.</dd>
 
     if doOcr and batch:
         indent(level=1, reset=True)
-        info(f&#34;Start batch OCR of all clean images&#34;)
+        info(&#34;Start batch OCR of all clean images&#34;)
 
         with tempFile() as tmp:
             for pg in imageFiles:
@@ -1074,7 +1074,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/book.py#L111-L125" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L111-L125" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.

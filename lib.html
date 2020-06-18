@@ -25,11 +25,10 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L0-L413" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L0-L436" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import io
-import yaml
 from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
@@ -38,7 +37,6 @@ import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
 
-from tf.advanced.helpers import showDict
 from tf.core.helpers import rangesFromList, specFromRanges
 
 EXTENSIONS = set(
@@ -50,6 +48,20 @@ EXTENSIONS = set(
     tiff
 &#34;&#34;&#34;.strip().split()
 )
+
+MARK_HEADERS = &#34;&#34;&#34;
+    band
+    seq
+    mark
+    kept
+    value
+    connectdegree
+    connectborder
+    top
+    bottom
+    left
+    right
+&#34;&#34;&#34;.strip().split()
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -281,10 +293,32 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
+def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
+    fill = C.boxRemainRGB if kept else C.boxDeleteRGB
+    fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
+    border = C.boxBorder
+
+    cv2.rectangle(im, (left, top), (right, bottom), fill, border)
+    addSeq(
+        im,
+        top,
+        bottom,
+        left,
+        right,
+        border,
+        fillN,
+        band,
+        seq,
+        connDegree,
+    )
+
+
 def addSeq(
     img,
-    topLeft,
-    bottomRight,
+    top,
+    bottom,
+    left,
+    right,
     frameWidth,
     frameColor,
     band,
@@ -294,8 +328,8 @@ def addSeq(
     weight=1,
 ):
     colorDeg = (100, 100, 255)
-    ptSeq = (topLeft[0], topLeft[1] - frameWidth - 2)
-    ptDeg = (topLeft[0], bottomRight[1] + frameWidth + 8)
+    ptSeq = (left, top - frameWidth - 2)
+    ptDeg = (left, bottom + frameWidth + 8)
     cv2.putText(
         img,
         f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
@@ -318,6 +352,26 @@ def addSeq(
             weight,
             cv2.LINE_AA,
         )
+
+
+def storeCleanInfo(source):
+    data = []
+    data.append(MARK_HEADERS)
+
+    for (band, markInfo) in sorted(source.items()):
+        for ((seq, mark), entries) in sorted(markInfo.items()):
+            for entry in sorted(entries):
+                data.append((band, seq, mark, *entry))
+    return data
+
+
+def loadCleanInfo(self, data):
+    cInfo = {}
+
+    for (band, seq, mark, *entry) in data:
+        cInfo.setdefault(band, {}).setdefault((seq, mark), []).append(entry)
+
+    return cInfo
 
 
 def getLargest(hist, width, threshold):
@@ -385,62 +439,31 @@ def parseBands(band, allBands, error):
     if illegalBands:
         error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
 
-    doBands = doBands - illegalBands
+    doBands -= illegalBands
     return tuple(b for b in sortedBands if b in doBands)
 
 
-def serial(data, extension, handle=None):
-    &#34;&#34;&#34;serializes data in accordance with file type.
+def parseMarks(mark, allMarks, bands, error):
+    markIndex = {}
+    for (band, bandMarks) in allMarks.items():
+        for m in bandMarks:
+            markIndex.setdefault(m, set()).add(band)
 
-    Parameters
-    ----------
-    data:
-        The data to serialize. The type of data must be compatible with
-        the *extension*.
-    extension: string
-        The file type according to which the data must be serialized.
-    handle: string, optional `None`
-        If `None`, output is prepared for display in a Jupter notebook,
-        else it is a file handle and the data is serialized
-        in the canonical way and written to that file.
+    doMarks = (
+        set()
+        if mark is None
+        else set(chain.from_iterable(allMarks.get(band, ()) for band in bands))
+        if mark == &#34;&#34;
+        else set(mark.split(&#34;,&#34;))
+        if type(mark) is str
+        else set(mark)
+    )
+    illegalMarks = doMarks - set(markIndex)
+    if illegalMarks:
+        error(f&#34;Will skip illegal marks: {&#39;, &#39;.join(sorted(illegalMarks))}&#34;)
 
-    Returns
-    -------
-    string
-        The serialized data.
-        If the extension does not match a recognized file type,
-        the Python `repr` of the data is returned.
-
-    Notes
-    -----
-    The following data type/extension combinations are supported:
-
-    extension | data type
-    --- | ---
-    tsv | tuple/list of tuple/list
-    yaml | dict
-    &#34;&#34;&#34;
-
-    if handle:
-        handle.write(
-            yaml.dump(data, allow_unicode=True, sort_keys=False)
-            if extension == &#34;yaml&#34;
-            else
-            &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
-            if extension == &#34;tsv&#34;
-            else
-            repr(data)
-        )
-    else:
-        showDict(data)
-
-
-def markRep(hit, wipe, connDegree):
-    return [
-        [int(hit[0][1]), int(hit[1][1]), int(hit[0][0]), int(hit[1][0])],
-        wipe,
-        connDegree,
-    ]</code></pre>
+    doMarks -= illegalMarks
+    return doMarks</code></pre>
 </details>
 </section>
 <section>
@@ -450,20 +473,52 @@ def markRep(hit, wipe, connDegree):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pipeline.lib.addSeq"><code class="name flex">
-<span>def <span class="ident">addSeq</span></span>(<span>img, topLeft, bottomRight, frameWidth, frameColor, band, markSeq, connectionDegree, size=0.5, weight=1)</span>
+<dt id="pipeline.lib.addBox"><code class="name flex">
+<span>def <span class="ident">addBox</span></span>(<span>C, im, top, bottom, left, right, kept, band, seq, connDegree)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L255-L291" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L267-L284" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
+    fill = C.boxRemainRGB if kept else C.boxDeleteRGB
+    fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
+    border = C.boxBorder
+
+    cv2.rectangle(im, (left, top), (right, bottom), fill, border)
+    addSeq(
+        im,
+        top,
+        bottom,
+        left,
+        right,
+        border,
+        fillN,
+        band,
+        seq,
+        connDegree,
+    )</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.addSeq"><code class="name flex">
+<span>def <span class="ident">addSeq</span></span>(<span>img, top, bottom, left, right, frameWidth, frameColor, band, markSeq, connectionDegree, size=0.5, weight=1)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L287-L325" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addSeq(
     img,
-    topLeft,
-    bottomRight,
+    top,
+    bottom,
+    left,
+    right,
     frameWidth,
     frameColor,
     band,
@@ -473,8 +528,8 @@ def markRep(hit, wipe, connDegree):
     weight=1,
 ):
     colorDeg = (100, 100, 255)
-    ptSeq = (topLeft[0], topLeft[1] - frameWidth - 2)
-    ptDeg = (topLeft[0], bottomRight[1] + frameWidth + 8)
+    ptSeq = (left, top - frameWidth - 2)
+    ptDeg = (left, bottom + frameWidth + 8)
     cv2.putText(
         img,
         f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
@@ -507,7 +562,7 @@ def markRep(hit, wipe, connDegree):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L117-L139" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L129-L151" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cluster(points, result):
     def d(p1, p2):
@@ -542,7 +597,7 @@ def markRep(hit, wipe, connDegree):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L153-L239" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L165-L251" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def connected(markH, markW, bw, threshold, gray, hitPoint):
     (textH, textW) = gray.shape
@@ -655,7 +710,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L294-L324" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L348-L378" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getLargest(hist, width, threshold):
     &#34;&#34;&#34;Get biggest chunk of nonzero values
@@ -698,7 +753,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L60-L72" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L72-L84" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileList(imDir):
     if not os.path.exists(imDir):
@@ -723,7 +778,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L75-L84" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L87-L96" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileListSub(imDir):
     if not os.path.exists(imDir):
@@ -745,28 +800,29 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L32-L33" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L44-L45" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def img(data):
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.markRep"><code class="name flex">
-<span>def <span class="ident">markRep</span></span>(<span>hit, wipe, connDegree)</span>
+<dt id="pipeline.lib.loadCleanInfo"><code class="name flex">
+<span>def <span class="ident">loadCleanInfo</span></span>(<span>self, data)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L409-L414" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L339-L345" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def markRep(hit, wipe, connDegree):
-    return [
-        [int(hit[0][1]), int(hit[1][1]), int(hit[0][0]), int(hit[1][0])],
-        wipe,
-        connDegree,
-    ]</code></pre>
+<pre><code class="python">def loadCleanInfo(self, data):
+    cInfo = {}
+
+    for (band, seq, mark, *entry) in data:
+        cInfo.setdefault(band, {}).setdefault((seq, mark), []).append(entry)
+
+    return cInfo</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.measure"><code class="name flex">
@@ -777,7 +833,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L142-L144" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L154-L156" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def measure(borderInside, borderOutside, threshold):
     connections = borderInside * borderOutside
@@ -792,7 +848,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L87-L89" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L99-L101" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pagesRep(source):
     pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
@@ -807,7 +863,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L346-L360" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L400-L414" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
     sortedBands = sorted(allBands)
@@ -822,8 +878,41 @@ everything outside that chunk.</p>
     if illegalBands:
         error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
 
-    doBands = doBands - illegalBands
+    doBands -= illegalBands
     return tuple(b for b in sortedBands if b in doBands)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.parseMarks"><code class="name flex">
+<span>def <span class="ident">parseMarks</span></span>(<span>mark, allMarks, bands, error)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L417-L437" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseMarks(mark, allMarks, bands, error):
+    markIndex = {}
+    for (band, bandMarks) in allMarks.items():
+        for m in bandMarks:
+            markIndex.setdefault(m, set()).add(band)
+
+    doMarks = (
+        set()
+        if mark is None
+        else set(chain.from_iterable(allMarks.get(band, ()) for band in bands))
+        if mark == &#34;&#34;
+        else set(mark.split(&#34;,&#34;))
+        if type(mark) is str
+        else set(mark)
+    )
+    illegalMarks = doMarks - set(markIndex)
+    if illegalMarks:
+        error(f&#34;Will skip illegal marks: {&#39;, &#39;.join(sorted(illegalMarks))}&#34;)
+
+    doMarks -= illegalMarks
+    return doMarks</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.parseStages"><code class="name flex">
@@ -834,7 +923,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L327-L343" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L381-L397" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
     doStages = (
@@ -863,7 +952,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L242-L252" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L254-L264" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
     (imH, imW) = img.shape[0:2]
@@ -886,7 +975,7 @@ everything outside that chunk.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L92-L114" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L104-L126" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def select(source, selection):
     if selection is None:
@@ -913,101 +1002,6 @@ everything outside that chunk.</p>
     return sorted(index[n] for n in selected)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.serial"><code class="name flex">
-<span>def <span class="ident">serial</span></span>(<span>data, extension, handle=None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>serializes data in accordance with file type.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt>data:</dt>
-<dt>The data to serialize. The type of data must be compatible with</dt>
-<dt>the <em>extension</em>.</dt>
-<dt><strong><code>extension</code></strong> :&ensp;<code>string</code></dt>
-<dd>The file type according to which the data must be serialized.</dd>
-<dt><strong><code>handle</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
-<dd>If <code>None</code>, output is prepared for display in a Jupter notebook,
-else it is a file handle and the data is serialized
-in the canonical way and written to that file.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>string</code></dt>
-<dd>The serialized data.
-If the extension does not match a recognized file type,
-the Python <code>repr</code> of the data is returned.</dd>
-</dl>
-<h2 id="notes">Notes</h2>
-<p>The following data type/extension combinations are supported:</p>
-<table>
-<thead>
-<tr>
-<th>extension</th>
-<th>data type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>tsv</td>
-<td>tuple/list of tuple/list</td>
-</tr>
-<tr>
-<td>yaml</td>
-<td>dict</td>
-</tr>
-</tbody>
-</table></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L363-L406" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def serial(data, extension, handle=None):
-    &#34;&#34;&#34;serializes data in accordance with file type.
-
-    Parameters
-    ----------
-    data:
-        The data to serialize. The type of data must be compatible with
-        the *extension*.
-    extension: string
-        The file type according to which the data must be serialized.
-    handle: string, optional `None`
-        If `None`, output is prepared for display in a Jupter notebook,
-        else it is a file handle and the data is serialized
-        in the canonical way and written to that file.
-
-    Returns
-    -------
-    string
-        The serialized data.
-        If the extension does not match a recognized file type,
-        the Python `repr` of the data is returned.
-
-    Notes
-    -----
-    The following data type/extension combinations are supported:
-
-    extension | data type
-    --- | ---
-    tsv | tuple/list of tuple/list
-    yaml | dict
-    &#34;&#34;&#34;
-
-    if handle:
-        handle.write(
-            yaml.dump(data, allow_unicode=True, sort_keys=False)
-            if extension == &#34;yaml&#34;
-            else
-            &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
-            if extension == &#34;tsv&#34;
-            else
-            repr(data)
-        )
-    else:
-        showDict(data)</code></pre>
-</details>
-</dd>
 <dt id="pipeline.lib.showImage"><code class="name flex">
 <span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
 </code></dt>
@@ -1016,7 +1010,7 @@ the Python <code>repr</code> of the data is returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L36-L50" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L48-L62" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     if type(a) in {list, tuple}:
@@ -1043,7 +1037,7 @@ the Python <code>repr</code> of the data is returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L147-L150" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L159-L162" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showit(label, texto, texti, val):
     print(f&#34;{label}: = {val}&#34;)
@@ -1059,13 +1053,34 @@ the Python <code>repr</code> of the data is returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L53-L57" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L65-L69" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
     if ext and not withDot:
         ext = ext[1:]
     return (bare, ext)</code></pre>
+</details>
+</dd>
+<dt id="pipeline.lib.storeCleanInfo"><code class="name flex">
+<span>def <span class="ident">storeCleanInfo</span></span>(<span>source)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L328-L336" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def storeCleanInfo(source):
+    data = []
+    data.append(MARK_HEADERS)
+
+    for (band, markInfo) in sorted(source.items()):
+        for ((seq, mark), entries) in sorted(markInfo.items()):
+            for entry in sorted(entries):
+                data.append((band, seq, mark, *entry))
+    return data</code></pre>
 </details>
 </dd>
 <dt id="pipeline.lib.tempFile"><code class="name flex">
@@ -1076,7 +1091,7 @@ the Python <code>repr</code> of the data is returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/190a380fa2c5889b9540f63bfd09e453e11bfcc6/pipeline/lib.py#L28-L29" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/lib.py#L40-L41" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tempFile():
     return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)</code></pre>
@@ -1106,6 +1121,7 @@ data-gaCategoryParameter="pipeline.lib">
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
+<li><code><a title="pipeline.lib.addBox" href="#pipeline.lib.addBox">addBox</a></code></li>
 <li><code><a title="pipeline.lib.addSeq" href="#pipeline.lib.addSeq">addSeq</a></code></li>
 <li><code><a title="pipeline.lib.cluster" href="#pipeline.lib.cluster">cluster</a></code></li>
 <li><code><a title="pipeline.lib.connected" href="#pipeline.lib.connected">connected</a></code></li>
@@ -1113,17 +1129,18 @@ data-gaCategoryParameter="pipeline.lib">
 <li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
 <li><code><a title="pipeline.lib.imageFileListSub" href="#pipeline.lib.imageFileListSub">imageFileListSub</a></code></li>
 <li><code><a title="pipeline.lib.img" href="#pipeline.lib.img">img</a></code></li>
-<li><code><a title="pipeline.lib.markRep" href="#pipeline.lib.markRep">markRep</a></code></li>
+<li><code><a title="pipeline.lib.loadCleanInfo" href="#pipeline.lib.loadCleanInfo">loadCleanInfo</a></code></li>
 <li><code><a title="pipeline.lib.measure" href="#pipeline.lib.measure">measure</a></code></li>
 <li><code><a title="pipeline.lib.pagesRep" href="#pipeline.lib.pagesRep">pagesRep</a></code></li>
 <li><code><a title="pipeline.lib.parseBands" href="#pipeline.lib.parseBands">parseBands</a></code></li>
+<li><code><a title="pipeline.lib.parseMarks" href="#pipeline.lib.parseMarks">parseMarks</a></code></li>
 <li><code><a title="pipeline.lib.parseStages" href="#pipeline.lib.parseStages">parseStages</a></code></li>
 <li><code><a title="pipeline.lib.removeSkewStripes" href="#pipeline.lib.removeSkewStripes">removeSkewStripes</a></code></li>
 <li><code><a title="pipeline.lib.select" href="#pipeline.lib.select">select</a></code></li>
-<li><code><a title="pipeline.lib.serial" href="#pipeline.lib.serial">serial</a></code></li>
 <li><code><a title="pipeline.lib.showImage" href="#pipeline.lib.showImage">showImage</a></code></li>
 <li><code><a title="pipeline.lib.showit" href="#pipeline.lib.showit">showit</a></code></li>
 <li><code><a title="pipeline.lib.splitext" href="#pipeline.lib.splitext">splitext</a></code></li>
+<li><code><a title="pipeline.lib.storeCleanInfo" href="#pipeline.lib.storeCleanInfo">storeCleanInfo</a></code></li>
 <li><code><a title="pipeline.lib.tempFile" href="#pipeline.lib.tempFile">tempFile</a></code></li>
 </ul>
 </li>
