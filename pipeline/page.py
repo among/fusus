@@ -90,10 +90,19 @@ class Page:
             If given as a string, it may be a comma-separated list of mark names.
             Otherwise it is an iterable of mark names.
             This information will be taken from the result of the `markData` stage.
-            If the stage does not have marks, no marks will be shown.
         display: dict, optional
             A set of display parameters, such as `width`, `height`
             (anything accepted by `IPython.display.Image`).
+
+        Notes
+        -----
+        The mark option works for the "boxed" stage:
+        All marks not specified in the mark parameter will not be shown.
+
+        But this option also works for all other image stages: the marks
+        will be displayed on a fresh copy of that stage.
+
+        When used for a grayscale stage, the color of the mark boxes is lost.
         """
 
         engine = self.engine
@@ -121,13 +130,13 @@ class Page:
 
             (stageType, stageExt) = C.stages[s]
             if stageType == "data":
-                self.serial(s, stageData, stageExt)
+                self._serial(s, stageData, stageExt)
             else:
                 img = stageData
-                if doBands or marks is not None:
+                if doBands or mark is not None:
                     img = (
                         stages["demarginedC"]
-                        if s == "boxed" and marks is not None
+                        if s == "boxed" and mark is not None
                         else stageData
                     ).copy()
                     imW = img.shape[1]
@@ -144,51 +153,56 @@ class Page:
                             cv2.rectangle(
                                 img, (imW - 10, upper), (imW, lower), bColor, -1
                             )
-                markData = stages["markData"]
-                markLegend = {}
-                for (band, bandMarks) in markData.items():
-                    if doBands and band not in doBandSet:
-                        continue
-                    for ((seq, mark), hits) in bandMarks.items():
-                        if mark not in doMarks:
+                    markData = stages["markData"]
+                    markLegend = {}
+                    for (band, bandMarks) in markData.items():
+                        if doBands and band not in doBandSet:
                             continue
-                        markKey = f"{'' if band == 'main' else band[0]}{seq}"
-                        markValue = (band, mark, len(hits))
-                        markLegend[markKey] = markValue
-                        for (
-                            kept,
-                            value,
-                            connDegree,
-                            connectBorder,
-                            top,
-                            bottom,
-                            left,
-                            right,
-                        ) in hits:
-                            addBox(
-                                C,
-                                img,
+                        for ((seq, mark), hits) in bandMarks.items():
+                            if mark not in doMarks:
+                                continue
+                            markKey = f"{'' if band == 'main' else band[0]}{seq}"
+                            markValue = (band, mark, len(hits))
+                            markLegend[markKey] = markValue
+                            for (
+                                kept,
+                                value,
+                                connDegree,
+                                connectBorder,
                                 top,
                                 bottom,
                                 left,
                                 right,
-                                kept,
-                                band,
-                                seq,
-                                connDegree,
-                            )
+                            ) in hits:
+                                addBox(
+                                    C,
+                                    img,
+                                    top,
+                                    bottom,
+                                    left,
+                                    right,
+                                    kept,
+                                    band,
+                                    seq,
+                                    connDegree,
+                                )
 
-                html = []
-                html.append("<details open><summary>Mark legend</summary><table>")
-                html.append(
-                    "<tr><th>acro</th><th>band</th><th>mark</th><th>hits</th></tr>"
-                )
-                for (k, (b, m, n)) in sorted(markLegend.items()):
-                    html.append(
-                        f"<tr><td>{k}</td><td>{b}</td><td>{m}</td><td>{n}</td></tr>"
-                    )
-                html.append("</table></details>")
-                display(HTML("".join(html)))
+                    if markLegend:
+                        html = []
+                        html.append(
+                            "<details open><summary>Mark legend</summary><table>"
+                        )
+                        html.append(
+                            "<tr><th>acro</th><th>band</th>"
+                            "<th>mark</th><th>hits</th></tr>"
+                        )
+                        for (k, (b, m, n)) in sorted(markLegend.items()):
+                            html.append(
+                                f"<tr><td>{k}</td><td>{b}</td>"
+                                f"<td>{m}</td><td>{n}</td></tr>"
+                            )
+                        html.append("</table></details>")
+                        display(HTML("".join(html)))
                 showImage(img, **displayParams)
 
     def write(self, stage=None):
@@ -204,6 +218,7 @@ class Page:
 
         Returns
         -------
+        None
             The stages are written into the `inter` subdirectory,
             with the name of the stage appended to the file name.
         """
@@ -226,11 +241,11 @@ class Page:
             path = f"{interDir}/{bare}-{s}.{stageExt or ext}"
             if stageType == "data":
                 with open(path, "w") as f:
-                    self.serial(s, stageData, stageExt, f)
+                    self._serial(s, stageData, stageExt, f)
             else:
                 cv2.imwrite(path, stageData)
 
-    def serial(self, stage, data, extension, handle=None):
+    def _serial(self, stage, data, extension, handle=None):
         """serializes data in accordance with file type.
 
         Parameters
@@ -275,11 +290,11 @@ class Page:
             )
         else:
             if stage == "markData":
-                self.showCleanInfo()
+                self._showCleanInfo()
             else:
                 info(repr(data), tm=False)
 
-    def normalize(self):
+    def _normalize(self):
         """Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
@@ -332,7 +347,7 @@ class Page:
         stages["rotated"] = rotated
         stages["normalized"] = normalized
 
-    def histogram(self):
+    def _histogram(self):
         """Add histograms to a page.
 
         A new stage of the page, *histogram*, is added.
@@ -366,7 +381,7 @@ class Page:
                         cv2.line(histogram, index, value, color, 1)
                 stages["histogram"] = histogram
 
-    def margins(self):
+    def _margins(self):
         """Chop off margins of an page.
 
         A new stage of the page, *demargined*, is added.
@@ -500,7 +515,7 @@ class Page:
         if not batch or boxed:
             self.stages["demarginedC"] = demarginedC
 
-    def clean(self, mark=None, line=None):
+    def _clean(self, mark=None, line=None):
         """Remove marks from the page.
 
         The page is cleaned of marks.
@@ -739,17 +754,20 @@ class Page:
         indent(level=1)
         info("cleaning done")
 
-    def showCleanInfo(self):
+    def _showCleanInfo(self):
+        """Pretty-prints the result of the cleaning stage.
+        """
+
         engine = self.engine
         tm = engine.tm
         info = tm.info
         indent = tm.indent
         stages = self.stages
-        cInfo = stages.get("markData", {})
+        markData = stages.get("markData", {})
         total = 0
 
         total = 0
-        for (band, markInfo) in sorted(cInfo.items()):
+        for (band, markInfo) in sorted(markData.items()):
             indent(level=0)
             info(band, tm=False)
             for ((seq, mark), entries) in sorted(markInfo.items()):
@@ -776,7 +794,10 @@ class Page:
                         tm=False,
                     )
 
-    def ocr(self):
+    def _ocr(self):
+        """Calls the OCR engine for a page.
+        """
+
         stages = self.stages
 
         reader = OCR(self.engine, page=self)

@@ -6,9 +6,9 @@ A pipeline from Arabic page images to textual data.
 
 ## Straight to ...
 
-* Install (`tf.about.install`)
-* Use (`tf.about.use`)
-* API (`tf.cheatsheet`)
+* Install (`pipeline.about.install`)
+* Use (`pipeline.about.use`)
+* API (`pipeline.cheatsheet`)
 
 ## Author
 

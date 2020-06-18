@@ -226,20 +226,20 @@ class Book:
             if not batch:
                 indent(level=subLevel, reset=True)
                 info("normalizing")
-            page.normalize()
+            page._normalize()
             if not batch:
                 info("histogram")
-            page.histogram()
+            page._histogram()
             if not batch:
                 info("margins")
-            page.margins()
+            page._margins()
             if not batch:
                 info("cleaning")
-            page.clean()
+            page._clean()
             if not batch:
                 if doOcr:
                     info("ocr")
-                    page.ocr()
+                    page._ocr()
 
         tm.silentOff()
 

@@ -10,6 +10,9 @@ MODES = dict(
 
 class OCR:
     def __init__(self, engine, page=None, pageFile=None):
+        """Sets up OCR with Tesseract.
+        """
+
         tm = engine.tm
         error = tm.error
 
@@ -27,6 +30,9 @@ class OCR:
         self.engine = engine
 
     def read(self, mode=None):
+        """Perfroms OCR with Tesseract.
+        """
+
         engine = self.engine
         tm = engine.tm
         error = tm.error

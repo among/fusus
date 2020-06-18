@@ -38,14 +38,23 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 
 def tempFile():
+    """Get a temporary file.
+    """
+
     return NamedTemporaryFile(mode="w", dir=".")
 
 
 def img(data):
+    """Produce an image with its data packaged into a HTML <img> element.
+    """
+
     return f"""<img src="data:image/jpeg;base64,{data}">"""
 
 
 def showImage(a, fmt="jpeg", **kwargs):
+    """Show one or more images.
+    """
+
     if type(a) in {list, tuple}:
         ads = []
         for ae in a:
