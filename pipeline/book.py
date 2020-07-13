@@ -52,8 +52,10 @@ class Book:
 
         self.marks = {}
         marks = self.marks
-        self.dividers = {}
-        dividers = self.dividers
+        self.div_hor = {}
+        div_hor = self.div_hor
+        self.div_ver = {}
+        div_ver = self.div_ver
         offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
         self.offsetBand = offsetBand
 
@@ -86,9 +88,12 @@ class Book:
                 image = cv2.imread(full)
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-                if band == "divider":
-                    dividers[bare] = dict(gray=gray)
-                    dest = dividers[bare]
+                if band == "div_hor":
+                    div_hor[bare] = dict(gray=gray)
+                    dest = div_hor[bare]
+                elif band == "div_ver":
+                    div_ver[bare] = dict(gray=gray)
+                    dest = div_ver[bare]
                 else:
                     seq += 1
                     marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
@@ -193,7 +198,7 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `False`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stripe separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
 
@@ -271,7 +276,7 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `True`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stripe separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
 
@@ -304,6 +309,8 @@ class Book:
         info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
 
         info("Start batch processing images")
+        page = None
+
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f"{i + 1:>5} {imFile:<40}"
@@ -317,13 +324,17 @@ class Book:
                 page.write(stage="ocrData")
             if boxed:
                 page.write(stage="boxed")
-            div = page.dividers.get("footnote", None)
-            amount = div[2] if div else 100
-            info(f"{msg} {amount:>3}%")
+            (headerStripe, footerStripe) = page.div_hor
+            headerPerc = 0 if headerStripe is None else headerStripe[-1]
+            footerPerc = 100 if footerStripe is None else footerStripe[-1]
+            info(f"{msg} {headerPerc:>3}% - {footerPerc:>3}%")
             if not quiet:
-                divIm = div[1]
-                if divIm is not None:
-                    showImage(divIm)
+                if headerStripe:
+                    info(f"header `{headerStripe[0]}`")
+                    showImage(headerStripe[1])
+                if footerStripe:
+                    info(f"footer `{footerStripe[0]}`")
+                    showImage(footerStripe[1])
         indent(level=0)
         info("all done")
 

@@ -2,9 +2,12 @@
 """
 
 import os
+from itertools import chain
 import cv2
 import numpy as np
 from IPython.display import HTML, display
+
+from tf.core.helpers import rangesFromSet
 
 from .lib import (
     showImage,
@@ -347,6 +350,62 @@ class Page:
         stages["rotated"] = rotated
         stages["normalized"] = normalized
 
+    def _layout(self):
+        """Divide the page into columns.
+        """
+
+        stages = self.stages
+        gray = stages["gray"]
+        target = stages["normalizedC"].copy()
+        # xblurred = cv2.GaussianBlur(gray, (5, 5), 0, 0)
+        (th, xthreshed) = cv2.threshold(
+            gray, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        )
+        # showImage(xthreshed)
+        # edges = cv2.Canny(xthreshed, 100, 200)
+        # showImage(edges)
+        lines = cv2.HoughLinesP(xthreshed, 1, np.pi / 2, 10, 20, 40)
+        if lines is not None:
+            vlines = [(x[0], x[1], x[3]) for x in chain.from_iterable(lines) if x[0] == x[2]]
+            dots = {}
+            for (x, y1, y2) in vlines:
+                dots.setdefault(x, set())
+                if y1 > y2:
+                    y1, y2 = y2, y1
+                dots[x] |= set(range(y1, y2 + 1))
+
+            binsx = []
+            for x in sorted(dots):
+                found = False
+                for (i, (b, e)) in enumerate(binsx):
+                    if b - 3 <= x <= e + 3:
+                        if x < b:
+                            binsx[i][0] = x
+                        if x > e:
+                            binsx[i][1] = x
+                        found = True
+                        break
+                if not found:
+                    binsx.append([x, x])
+            print(binsx)
+
+            stretches = {}
+            for (b, e) in binsx:
+                m = (b + e) // 2
+                for x in range(b, e + 1):
+                    if x in dots:
+                        stretches.setdefault(m, set())
+                        stretches[m] |= dots[x]
+
+            for (x, ys) in stretches.items():
+                stretches[x] = list(rangesFromSet(ys))
+                for (y1, y2) in list(rangesFromSet(ys)):
+                    print(f"vertical line at x = {x}: from {y1} to {y2}")
+                    cv2.line(target, (x, y1), (x, y2), (0, 255, 0), 4)
+        showImage(target)
+
+        pass
+
     def _histogram(self):
         """Add histograms to a page.
 
@@ -398,7 +457,7 @@ class Page:
 
         batch = self.batch
         boxed = self.boxed
-        dividers = engine.dividers
+        div_hor = engine.div_hor
 
         thresholdX = C.marginThresholdX
         thresholdY = C.marginThresholdY
@@ -453,36 +512,59 @@ class Page:
 
         # look for dividers
 
-        footnoteMark = dividers.get("footnote", {}).get("gray", None)
-        footnoteFound = (False, None, 100)
+        stripes = {k: v["gray"] for (k, v) in div_hor.items() if "gray" in v}
+        stripesFound = []
 
-        if footnoteMark is not None:
-            (divh, divw) = footnoteMark.shape[:2]
+        if stripes is not None:
             for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
                 roi = normalized[upper - 10 : lower + 10, 10 : normW - 10]
                 (roih, roiw) = roi.shape[:2]
-                if roih < divh or roiw < divw:
-                    # divider template exceeds roi image
-                    continue
-                result = cv2.matchTemplate(roi, footnoteMark, cv2.TM_CCOEFF_NORMED)
-                loc = np.where(result >= 0.5)
-                if loc[0].size:
-                    footnoteFound = (True, roi, int(round(100 * uppers[i] / normH)))
-                    cv2.rectangle(
-                        demargined, (0, uppers[i]), (normW, normH), mWhite, -1
-                    )
-                    if not batch or boxed:
-                        cv2.rectangle(
-                            demarginedC, (0, uppers[i]), (normW, normH), mColor, -1
+                for (mark, stripe) in stripes.items():
+                    (divh, divw) = stripe.shape[:2]
+                    if roih < divh or roiw < divw:
+                        # divider template exceeds roi image
+                        continue
+                    result = cv2.matchTemplate(roi, stripe, cv2.TM_CCOEFF_NORMED)
+                    loc = np.where(result >= 0.5)
+                    if loc[0].size:
+                        stripesFound.append(
+                            (i, mark, roi, int(round(100 * uppers[i] / normH)))
                         )
-                    break
+        headerStripe = None
+        footerStripe = None
+        firstLine = 0
+        lastLine = len(uppers)
+
+        if stripesFound:
+            if len(stripesFound) >= 2:
+                headerStripe = stripesFound[0]
+                footerStripe = stripesFound[-1]
+            elif len(stripesFound) == 1:
+                theStripe = stripesFound[0]
+                perc = theStripe[-1]
+                if perc > 20:
+                    footerStripe = theStripe
                 else:
-                    continue
-            # lastLine = i if footnoteFound[0] else i + 1
+                    headerStripe = theStripe
+
+        if headerStripe:
+            (i, mark, roi, perc) = headerStripe
+            cv2.rectangle(demargined, (0, 0), (normW, uppers[i]), mWhite, -1)
+            if not batch or boxed:
+                cv2.rectangle(demarginedC, (0, 0), (normW, uppers[i]), mColor, -1)
+            firstLine = i + 1
+        if footerStripe:
+            (i, mark, roi, perc) = footerStripe
+            cv2.rectangle(demargined, (0, uppers[i]), (normW, normH), mWhite, -1)
+            if not batch or boxed:
+                cv2.rectangle(demarginedC, (0, uppers[i]), (normW, normH), mColor, -1)
             lastLine = i + 1
-            uppers = uppers[0:lastLine]
-            lowers = lowers[0:lastLine]
-        self.dividers = dict(footnote=footnoteFound)
+        uppers = uppers[firstLine:lastLine]
+        lowers = lowers[firstLine:lastLine]
+        self.div_hor = (
+            headerStripe[1:] if headerStripe else None,
+            footerStripe[1:] if footerStripe else None,
+        )
 
         offsetBand = C.offsetBand
         colorBand = C.colorBand
@@ -566,12 +648,12 @@ class Page:
             searchMarks = {
                 subdir: markItems
                 for (subdir, markItems) in marks.items()
-                if subdir != "divider"
+                if subdir not in {"div_hor", "div_ver"}
             }
         else:
             for item in mark:
                 (band, name) = item[0:2]
-                if band == "divider":
+                if band in {"div_hor", "div_ver"}:
                     error("No dividers allowed for cleaning")
                     continue
                 if band not in marks or name not in marks[band]:
