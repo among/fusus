@@ -52,10 +52,8 @@ class Book:
 
         self.marks = {}
         marks = self.marks
-        self.div_hor = {}
-        div_hor = self.div_hor
-        self.div_ver = {}
-        div_ver = self.div_ver
+        self.dividers = {}
+        dividers = self.dividers
         offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
         self.offsetBand = offsetBand
 
@@ -88,12 +86,9 @@ class Book:
                 image = cv2.imread(full)
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-                if band == "div_hor":
-                    div_hor[bare] = dict(gray=gray)
-                    dest = div_hor[bare]
-                elif band == "div_ver":
-                    div_ver[bare] = dict(gray=gray)
-                    dest = div_ver[bare]
+                if band == "dividers":
+                    dividers[bare] = dict(gray=gray)
+                    dest = dividers[bare]
                 else:
                     seq += 1
                     marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
@@ -103,6 +98,7 @@ class Book:
 
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
+        self.allPagesList = pagesRep(self.allPages, asList=True)
 
     def configure(self, reset=False, **params):
         """Updates current settings based on new values.
@@ -179,7 +175,7 @@ class Book:
         info(f"{len(allPages)} pages: {pagesDesc}")
 
     def _doPage(
-        self, f, batch=False, boxed=True, quiet=False, doOcr=True,
+        self, f, batch=False, boxed=True, quiet=False, doOcr=True, uptoLayout=False
     ):
         """Process a single page.
 
@@ -198,9 +194,11 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `False`
-            Whether to suppress warnings and the display of stripe separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -233,25 +231,35 @@ class Book:
                 info("normalizing")
             page._normalize()
             if not batch:
-                info("histogram")
-            page._histogram()
-            if not batch:
-                info("margins")
-            page._margins()
-            if not batch:
-                info("cleaning")
-            page._clean()
-            if not batch:
-                if doOcr:
-                    info("ocr")
-                    page._ocr()
+                info("layout")
+            page._layout()
+            if not uptoLayout:
+                if not batch:
+                    info("histogram")
+                page._histogram()
+                if not batch:
+                    info("margins")
+                page._margins()
+                if not batch:
+                    info("cleaning")
+                page._clean()
+                if not batch:
+                    if doOcr:
+                        info("ocr")
+                        page._ocr()
 
         tm.silentOff()
 
         return page
 
     def process(
-        self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
+        self,
+        pages=None,
+        batch=True,
+        quiet=True,
+        boxed=False,
+        doOcr=True,
+        uptoLayout=False,
     ):
         """Process directory of images.
 
@@ -276,9 +284,11 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `True`
-            Whether to suppress warnings and the display of stripe separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -316,25 +326,33 @@ class Book:
             msg = f"{i + 1:>5} {imFile:<40}"
             info(f"{msg}\r", nl=False)
             page = self._doPage(
-                imFile, batch=batch, boxed=boxed, quiet=quiet, doOcr=doOcr
+                imFile,
+                batch=batch,
+                boxed=boxed,
+                quiet=quiet,
+                doOcr=doOcr,
+                uptoLayout=uptoLayout,
             )
             page.write(stage="clean")
-            if not batch:
-                page.write(stage="markData")
-                page.write(stage="ocrData")
-            if boxed:
-                page.write(stage="boxed")
-            (headerStripe, footerStripe) = page.div_hor
-            headerPerc = 0 if headerStripe is None else headerStripe[-1]
-            footerPerc = 100 if footerStripe is None else footerStripe[-1]
-            info(f"{msg} {headerPerc:>3}% - {footerPerc:>3}%")
-            if not quiet:
-                if headerStripe:
-                    info(f"header `{headerStripe[0]}`")
-                    showImage(headerStripe[1])
-                if footerStripe:
-                    info(f"footer `{footerStripe[0]}`")
-                    showImage(footerStripe[1])
+            if uptoLayout:
+                info(f"{msg}")
+            else:
+                if not batch:
+                    page.write(stage="markData")
+                    page.write(stage="ocrData")
+                if boxed:
+                    page.write(stage="boxed")
+                (headerStroke, footerStroke) = page.dividers
+                headerPerc = 0 if headerStroke is None else headerStroke[-1]
+                footerPerc = 100 if footerStroke is None else footerStroke[-1]
+                info(f"{msg} {headerPerc:>3}% - {footerPerc:>3}%")
+                if not quiet:
+                    if headerStroke:
+                        info(f"header `{headerStroke[0]}`")
+                        showImage(headerStroke[1])
+                    if footerStroke:
+                        info(f"footer `{footerStroke[0]}`")
+                        showImage(footerStroke[1])
         indent(level=0)
         info("all done")
 
@@ -351,7 +369,9 @@ class Book:
                 name = tmp.name
                 reader = OCR(self, pageFile=name)
                 ocrData = reader.read()
-                ocrDataFile = f"{outDir}/ocrData{'' if pages is None else pagesDesc}.tsv"
+                ocrDataFile = (
+                    f"{outDir}/ocrData{'' if pages is None else pagesDesc}.tsv"
+                )
                 if ocrData is not None:
                     with open(ocrDataFile, "w") as df:
                         df.write(ocrData)

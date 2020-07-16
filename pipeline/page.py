@@ -2,12 +2,9 @@
 """
 
 import os
-from itertools import chain
 import cv2
 import numpy as np
 from IPython.display import HTML, display
-
-from tf.core.helpers import rangesFromSet
 
 from .lib import (
     showImage,
@@ -19,7 +16,9 @@ from .lib import (
     parseBands,
     parseMarks,
     addBox,
+    addStripe,
     getLargest,
+    getStretches,
     storeCleanInfo,
 )
 from .ocr import OCR
@@ -345,66 +344,103 @@ class Page:
         if not batch or boxed:
             normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
             removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-            stages["normalizedC"] = normalizedC
 
         stages["rotated"] = rotated
         stages["normalized"] = normalized
+        stages["normalizedC"] = normalizedC
 
     def _layout(self):
-        """Divide the page into columns.
+        """Divide the page into stripes and the stripes into columns.
+
+        We detect vertical strokes as columns separators.
+
+        A page may or may not be partially divided into columns.
+        Where there is a vertical stroke, we define a stripe: the
+        horizontal band that contains the vertical stroke tightly and extends to
+        the full with of the page.
+
+        Between the stripes corresponding to column separators we have stripes that
+        are not split into columns.
+
+        The stripes will be numbered from top to bottom, starting at 1.
+
+        If a stripe is not split, it defines a roi (region of interest) with
+        label `(i, '')`.
+
+        If it is split, it defines rois with labels `(i, 'r')` and `(i, 'l')`.
+
+        All further operations will take place on these rois (and not on the
+        page as a whole).
+
+        The result of this stage is, besides the rois, an image of the page
+        with the rois marked and labelled.
         """
 
+        engine = self.engine
+        C = engine.C
+        tm = engine.tm
+        indent = tm.indent
+        info = tm.info
+
+        blockColor = C.blockRGB
+        letterColor = C.letterRGB
         stages = self.stages
-        gray = stages["gray"]
-        target = stages["normalizedC"].copy()
-        # xblurred = cv2.GaussianBlur(gray, (5, 5), 0, 0)
-        (th, xthreshed) = cv2.threshold(
-            gray, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
-        )
-        # showImage(xthreshed)
-        # edges = cv2.Canny(xthreshed, 100, 200)
-        # showImage(edges)
-        lines = cv2.HoughLinesP(xthreshed, 1, np.pi / 2, 10, 20, 40)
-        if lines is not None:
-            vlines = [(x[0], x[1], x[3]) for x in chain.from_iterable(lines) if x[0] == x[2]]
-            dots = {}
-            for (x, y1, y2) in vlines:
-                dots.setdefault(x, set())
-                if y1 > y2:
-                    y1, y2 = y2, y1
-                dots[x] |= set(range(y1, y2 + 1))
+        layout = stages["normalizedC"].copy()
+        stages["layout"] = layout
 
-            binsx = []
-            for x in sorted(dots):
-                found = False
-                for (i, (b, e)) in enumerate(binsx):
-                    if b - 3 <= x <= e + 3:
-                        if x < b:
-                            binsx[i][0] = x
-                        if x > e:
-                            binsx[i][1] = x
-                        found = True
-                        break
-                if not found:
-                    binsx.append([x, x])
-            print(binsx)
+        indent(level=3)
+        stretchesH = getStretches(C, info, stages, True, debug=0)
+        stretchesV = getStretches(C, info, stages, False, debug=0)
 
-            stretches = {}
-            for (b, e) in binsx:
-                m = (b + e) // 2
-                for x in range(b, e + 1):
-                    if x in dots:
-                        stretches.setdefault(m, set())
-                        stretches[m] |= dots[x]
+        layout = stages["layout"]
 
-            for (x, ys) in stretches.items():
-                stretches[x] = list(rangesFromSet(ys))
-                for (y1, y2) in list(rangesFromSet(ys)):
-                    print(f"vertical line at x = {x}: from {y1} to {y2}")
-                    cv2.line(target, (x, y1), (x, y2), (0, 255, 0), 4)
-        showImage(target)
+        (maxH, maxW) = layout.shape[0:2]
+        curHeight = 0
+        stripes = []
+        for (x, ys) in stretchesV.items():
+            for (y1, y2, size) in ys:
+                if y1 > curHeight:
+                    stripes.append((None, curHeight, y1))
+                stripes.append((x, y1, y2))
+                curHeight = y2
+        if curHeight < maxH:
+            stripes.append((None, curHeight, maxH))
 
-        pass
+        # draw the the stripe division
+
+        marginY = 0
+        marginX = 16
+
+        for (i, (x, yMin, yMax)) in enumerate(stripes):
+            if x is None:
+                cv2.rectangle(
+                    layout,
+                    (marginX, yMin + marginY),
+                    (maxW - marginX, yMax - marginY),
+                    blockColor,
+                    4,
+                )
+                addStripe(layout, yMin, 0, maxW, marginX, marginY, letterColor, i, "")
+            else:
+                cv2.rectangle(
+                    layout,
+                    (marginX, yMin + marginY),
+                    (x - marginX, yMax - marginY),
+                    blockColor,
+                    4,
+                )
+                addStripe(layout, yMin, 0, x, marginX, marginY, letterColor, i, "l")
+                cv2.rectangle(
+                    layout,
+                    (x + marginX, yMin + marginY),
+                    (maxW - marginX, yMax - marginY),
+                    blockColor,
+                    4,
+                )
+                addStripe(layout, yMin, x, maxW, marginX, marginY, letterColor, i, "r")
+
+        if stretchesH:
+            pass
 
     def _histogram(self):
         """Add histograms to a page.
@@ -457,7 +493,7 @@ class Page:
 
         batch = self.batch
         boxed = self.boxed
-        div_hor = engine.div_hor
+        dividers = engine.dividers
 
         thresholdX = C.marginThresholdX
         thresholdY = C.marginThresholdY
@@ -512,22 +548,22 @@ class Page:
 
         # look for dividers
 
-        stripes = {k: v["gray"] for (k, v) in div_hor.items() if "gray" in v}
-        stripesFound = []
+        strokes = {k: v["gray"] for (k, v) in dividers.items() if "gray" in v}
+        strokesFound = []
 
-        if stripes is not None:
+        if strokes is not None:
             for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
                 roi = normalized[upper - 10 : lower + 10, 10 : normW - 10]
                 (roih, roiw) = roi.shape[:2]
-                for (mark, stripe) in stripes.items():
-                    (divh, divw) = stripe.shape[:2]
+                for (mark, stroke) in strokes.items():
+                    (divh, divw) = stroke.shape[:2]
                     if roih < divh or roiw < divw:
                         # divider template exceeds roi image
                         continue
-                    result = cv2.matchTemplate(roi, stripe, cv2.TM_CCOEFF_NORMED)
+                    result = cv2.matchTemplate(roi, stroke, cv2.TM_CCOEFF_NORMED)
                     loc = np.where(result >= 0.5)
                     if loc[0].size:
-                        stripesFound.append(
+                        strokesFound.append(
                             (i, mark, roi, int(round(100 * uppers[i] / normH)))
                         )
         headerStripe = None
@@ -535,12 +571,12 @@ class Page:
         firstLine = 0
         lastLine = len(uppers)
 
-        if stripesFound:
-            if len(stripesFound) >= 2:
-                headerStripe = stripesFound[0]
-                footerStripe = stripesFound[-1]
-            elif len(stripesFound) == 1:
-                theStripe = stripesFound[0]
+        if strokesFound:
+            if len(strokesFound) >= 2:
+                headerStripe = strokesFound[0]
+                footerStripe = strokesFound[-1]
+            elif len(strokesFound) == 1:
+                theStripe = strokesFound[0]
                 perc = theStripe[-1]
                 if perc > 20:
                     footerStripe = theStripe
@@ -561,7 +597,7 @@ class Page:
             lastLine = i + 1
         uppers = uppers[firstLine:lastLine]
         lowers = lowers[firstLine:lastLine]
-        self.div_hor = (
+        self.dividers = (
             headerStripe[1:] if headerStripe else None,
             footerStripe[1:] if footerStripe else None,
         )
@@ -648,12 +684,12 @@ class Page:
             searchMarks = {
                 subdir: markItems
                 for (subdir, markItems) in marks.items()
-                if subdir not in {"div_hor", "div_ver"}
+                if subdir != "dividers"
             }
         else:
             for item in mark:
                 (band, name) = item[0:2]
-                if band in {"div_hor", "div_ver"}:
+                if band == "dividers":
                     error("No dividers allowed for cleaning")
                     continue
                 if band not in marks or name not in marks[band]:
