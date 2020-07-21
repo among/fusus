@@ -52,8 +52,6 @@ class Book:
 
         self.marks = {}
         marks = self.marks
-        self.dividers = {}
-        dividers = self.dividers
         offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
         self.offsetBand = offsetBand
 
@@ -86,13 +84,9 @@ class Book:
                 image = cv2.imread(full)
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-                if band == "dividers":
-                    dividers[bare] = dict(gray=gray)
-                    dest = dividers[bare]
-                else:
-                    seq += 1
-                    marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
-                    dest = marks[band][bare]
+                seq += 1
+                marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
+                dest = marks[band][bare]
                 for (k, kLong) in markParams.items():
                     dest[kLong] = tweakDict.get(k, getattr(C, kLong))
 
@@ -342,17 +336,7 @@ class Book:
                     page.write(stage="ocrData")
                 if boxed:
                     page.write(stage="boxed")
-                (headerStroke, footerStroke) = page.dividers
-                headerPerc = 0 if headerStroke is None else headerStroke[-1]
-                footerPerc = 100 if footerStroke is None else footerStroke[-1]
-                info(f"{msg} {headerPerc:>3}% - {footerPerc:>3}%")
-                if not quiet:
-                    if headerStroke:
-                        info(f"header `{headerStroke[0]}`")
-                        showImage(headerStroke[1])
-                    if footerStroke:
-                        info(f"footer `{footerStroke[0]}`")
-                        showImage(footerStroke[1])
+                info(f"{msg}")
         indent(level=0)
         info("all done")
 

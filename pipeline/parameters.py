@@ -11,10 +11,12 @@ COLORS = dict(
     whiteRGB=(255, 255, 255),
     blockRGB=(0, 255, 255),
     letterRGB=(0, 200, 200),
+    upperRGB=(0, 200, 0),
+    lowerRGB=(200, 0, 0),
     horizontalStrokeRGB=(0, 128, 255),
     verticalStrokeRGB=(255, 128, 0),
     marginGRS=255,
-    marginRGB=(250, 250, 250),
+    marginRGB=(200, 200, 200),
     cleanRGB=(255, 255, 255),
     cleanhRGB=(220, 220, 220),
     boxDeleteRGB=(240, 170, 20),
@@ -64,6 +66,7 @@ The `...Data` stages are tab separated files with unicode data.
 """
 
 SETTINGS = dict(
+    debug=0,
     inDir="in",
     outDir="out",
     interDir="inter",
@@ -73,6 +76,7 @@ SETTINGS = dict(
     blurY=41,
     marginThresholdX=1,
     marginThresholdY=5,
+    marginThreshold2Y=10,
     accuracy=0.8,
     connectBorder=4,
     connectThreshold=200 * 200,
@@ -93,6 +97,11 @@ by calling the `Config` constructor and the
 `Config.configure` method.
 
 The default values can be inspected by expanding the source code.
+
+debug
+:   Whether to show (intermediate) results.
+    If `0`: shows nothing, if `1`: shows end result, if `2`: shows intermediate
+    results.
 
 inDir
 :   name of the subdirectory with page scans

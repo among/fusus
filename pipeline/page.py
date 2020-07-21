@@ -17,9 +17,14 @@ from .lib import (
     parseMarks,
     addBox,
     addStripe,
-    getLargest,
+    addHStroke,
+    getMargins,
     getStretches,
+    getBandsFromHist,
+    applyBandOffset,
     storeCleanInfo,
+    adjustVertical,
+    overlay,
 )
 from .ocr import OCR
 
@@ -352,7 +357,8 @@ class Page:
     def _layout(self):
         """Divide the page into stripes and the stripes into columns.
 
-        We detect vertical strokes as columns separators.
+        We detect vertical strokes as columns separators and horizontal strokes
+        as separators to split off top and bottom material.
 
         A page may or may not be partially divided into columns.
         Where there is a vertical stroke, we define a stripe: the
@@ -367,15 +373,25 @@ class Page:
         If a stripe is not split, it defines a roi (region of interest) with
         label `(i, '')`.
 
-        If it is split, it defines rois with labels `(i, 'r')` and `(i, 'l')`.
+        If it is split, it defines blocks with labels `(i, 'r')` and `(i, 'l')`.
 
-        All further operations will take place on these rois (and not on the
+        Every horizontal stripe will be examined. W e have to determine whether
+        it is a top separator or a bottom separator.
+        As a rule of thumb: horizontal stripes in the top stripe are top-separators,
+        all other horizontal stripes are bottom separators.
+
+        If there are multiple horizontal strokes in a roi, the most aggressive
+        one will be taken, i.e. the one that causes the most matarial to be discarded.
+
+        All further operations will take place on these blocks (and not on the
         page as a whole).
 
-        The result of this stage is, besides the rois, an image of the page
-        with the rois marked and labelled.
+        The result of this stage is, besides the blocks, an image of the page
+        with the blocks marked and labelled.
         """
 
+        batch = self.batch
+        boxed = self.boxed
         engine = self.engine
         C = engine.C
         tm = engine.tm
@@ -384,21 +400,33 @@ class Page:
 
         blockColor = C.blockRGB
         letterColor = C.letterRGB
+        upperColor = C.upperRGB
+        lowerColor = C.lowerRGB
+        thresholdX = C.marginThresholdX
+        mColor = C.marginRGB
+        mWhite = C.marginGRS
+        white = C.whiteRGB
+        colorBand = C.colorBand
+
         stages = self.stages
         layout = stages["normalizedC"].copy()
+        rotated = stages["rotated"]
+
         stages["layout"] = layout
 
         indent(level=3)
-        stretchesH = getStretches(C, info, stages, True, debug=0)
-        stretchesV = getStretches(C, info, stages, False, debug=0)
+        stretchesH = getStretches(C, info, stages, True)
+        stretchesV = getStretches(C, info, stages, False)
 
         layout = stages["layout"]
+
+        # determine the relevant vertical strokes that divide the page into stripes
 
         (maxH, maxW) = layout.shape[0:2]
         curHeight = 0
         stripes = []
         for (x, ys) in stretchesV.items():
-            for (y1, y2, size) in ys:
+            for (y1, y2, thickness) in ys:
                 if y1 > curHeight:
                     stripes.append((None, curHeight, y1))
                 stripes.append((x, y1, y2))
@@ -406,232 +434,295 @@ class Page:
         if curHeight < maxH:
             stripes.append((None, curHeight, maxH))
 
-        # draw the the stripe division
+        # NB: the vertical strokes give a rough estimate:
+        # it is possible that they start and end in the middle of the lines beside them.
+        # We will need histograms for the fine tuning.
 
-        marginY = 0
-        marginX = 16
+        # collect the blocks and draw the the stripe division
 
-        for (i, (x, yMin, yMax)) in enumerate(stripes):
+        blocks = {}
+        self.blocks = blocks
+
+        marginX = 12
+
+        lineHeight = maxW // 30
+
+        for (stripe, (x, yMin, yMax)) in enumerate(stripes):
+
+            # we enlarge the boxes vertically by roughly a line height
+            # we call adjustVertical to get precise vertical demarcations
+            # The idea is:
+            #
+            # if there is a vertical bar, we slightly extend the boxes left and right
+            # so that the top and bottom lines are not cut off in the middle
+            #
+            # of there is no vertical bar, we shrink the boxes left and right
+            # so that partial top and bottom lines are delegated to the boxes above
+            # and below
+
+            yMinLee = max((0, yMin - lineHeight))
+            yMaxLee = min((maxH, yMax + lineHeight))
+
             if x is None:
-                cv2.rectangle(
-                    layout,
-                    (marginX, yMin + marginY),
-                    (maxW - marginX, yMax - marginY),
-                    blockColor,
-                    4,
+                (theYMin, theYMax) = adjustVertical(
+                    C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
                 )
-                addStripe(layout, yMin, 0, maxW, marginX, marginY, letterColor, i, "")
+                blocks[(stripe, "")] = dict(
+                    box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
+                )
+                if not batch:
+                    cv2.rectangle(
+                        layout,
+                        (marginX, theYMin),
+                        (maxW - marginX, theYMax),
+                        blockColor,
+                        4,
+                    )
+                    addStripe(
+                        layout, theYMin, 0, maxW, marginX, letterColor, stripe, ""
+                    )
             else:
-                cv2.rectangle(
-                    layout,
-                    (marginX, yMin + marginY),
-                    (x - marginX, yMax - marginY),
-                    blockColor,
-                    4,
+                (theYMinL, theYMaxL) = adjustVertical(
+                    C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
                 )
-                addStripe(layout, yMin, 0, x, marginX, marginY, letterColor, i, "l")
-                cv2.rectangle(
-                    layout,
-                    (x + marginX, yMin + marginY),
-                    (maxW - marginX, yMax - marginY),
-                    blockColor,
-                    4,
+                (theYMinR, theYMaxR) = adjustVertical(
+                    C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
                 )
-                addStripe(layout, yMin, x, maxW, marginX, marginY, letterColor, i, "r")
+                blocks[(stripe, "l")] = dict(
+                    box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
+                )
+                blocks[(stripe, "r")] = dict(
+                    box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
+                )
+                if not batch:
+                    cv2.rectangle(
+                        layout,
+                        (marginX, theYMinL),
+                        (x - marginX, theYMaxL),
+                        blockColor,
+                        4,
+                    )
+                    addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, "l")
+                    cv2.rectangle(
+                        layout,
+                        (x + marginX, theYMinR),
+                        (maxW - marginX, theYMaxR),
+                        blockColor,
+                        4,
+                    )
+                    addStripe(
+                        layout, theYMinR, x, maxW, marginX, letterColor, stripe, "r"
+                    )
 
-        if stretchesH:
-            pass
+        # inspect the horizontal strokes and specifiy which ones are
+        # top separators and which ones are bottom separators.
 
-    def _histogram(self):
-        """Add histograms to a page.
+        # first we map each horizontal stretch to a stripe.
+        # If a stretch occurs between stripes, we map it to the stripe above.
 
-        A new stage of the page, *histogram*, is added.
+        # A horizontal stroke is a top separator if
+        # it is mapped to the first stripe
+        #      AND
+        # it is situated in the top fragment of the page
 
-        The histograms contain an indication of the amount of ink in
-        horizontal and in vertical rows.
+        # define the regions by removing top and bottom material from the blocks
 
-        The histogram values are preserved as well.
-        """
+        topCriterion = maxH / 6
+        topXCriterion = maxH / 4
 
-        if self.empty:
-            return
+        normalized = stages["normalized"]
 
-        batch = self.batch
-        boxed = self.boxed
-        stages = self.stages
-        rotated = self.stages["rotated"]
-        self.histX = cv2.reduce(rotated, 0, cv2.REDUCE_AVG).reshape(-1)
-        self.histY = cv2.reduce(rotated, 1, cv2.REDUCE_AVG).reshape(-1)
+        if not batch:
+            histogram = layout.copy()
+            stages["histogram"] = histogram
+            demargined = normalized.copy()
 
-        if not batch or boxed:
-            normalizedC = stages["normalizedC"]
+        emptyBlocks = []
+
+        for ((stripe, column), data) in sorted(blocks.items()):
+            (bL, bT, bR, bB) = data["box"]
+            x = data["sep"]
+            top = None
+            bottom = None
+
+            for (y, xs) in sorted(stretchesH.items()):
+                if y < bT:
+                    continue
+                if bB < y:
+                    break
+                for (x1, x2, thickness) in xs:
+                    if x is not None:
+                        if column == "l" and x1 >= x:
+                            continue
+                        if column == "r" and x2 <= x:
+                            continue
+                    isTop = stripe == 0 and (
+                        len(stripes) == 1
+                        and y < topCriterion
+                        or len(stripes) > 1
+                        and y < topXCriterion
+                    )
+                    if isTop:
+                        top = y + 2 * thickness + 2
+                    else:
+                        if bottom is None:
+                            bottom = y - 2 * thickness - 2
+                    addHStroke(
+                        layout,
+                        isTop,
+                        stripe,
+                        column,
+                        thickness,
+                        y,
+                        x1,
+                        x2,
+                        letterColor,
+                    )
+
+            top = bT if top is None else top
+            bottom = bB if bottom is None else bottom
+            left = bL + 2
+            right = bR - 2
+            data["inner"] = (left, top, right, bottom)
+
+            if top != bT:
+                overlay(layout, left, bT + 2, right, top, white, mColor)
+            if bottom != bB:
+                overlay(layout, left, bottom, right, bB - 2, white, mColor)
+
+            # add horizontal and vertical histograms
+
+            hasRegion = bottom > top and right > left
+
+            if not hasRegion:
+                emptyBlocks.append((stripe, column))
+                continue
+
+            roiIn = rotated[top:bottom, left:right]
+            histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+            histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
+
             if not batch:
-                histogram = normalizedC.copy()
+                roiOut = histogram[top:bottom, left:right]
 
-                for (hist, vert) in ((self.histY, True), (self.histX, False)):
+                for (hist, vert) in ((histY, True), (histX, False)):
                     for (i, val) in enumerate(hist):
                         color = (int(val), int(2 * val), int(val))
                         index = (0, i) if vert else (i, 0)
                         value = (val, i) if vert else (i, val)
-                        cv2.line(histogram, index, value, color, 1)
-                stages["histogram"] = histogram
+                        cv2.line(roiOut, index, value, color, 1)
 
-    def _margins(self):
-        """Chop off margins of an page.
+            # chop off the left and right margins of a region
 
-        A new stage of the page, *demargined*, is added.
+            (normH, normW) = (bottom - top, right - left)
+            roiOut = demargined[top:bottom, left:right]
+            roiOutC = layout[top:bottom, left:right]
+            margins = getMargins(histX, normW, thresholdX)
 
-        !!! caution "it is assumed that the page has a histogram"
-            This method uses the histogram info of the page.
-        """
+            for (x1, x2) in margins:
+                cv2.rectangle(roiOut, (x1, 0), (x2, normH), mWhite, -1)
+                if not batch or boxed:
+                    overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
 
-        if self.empty:
-            return
+            # define bands
 
-        engine = self.engine
-        C = engine.C
+            (uppers, lowers) = getBandsFromHist(C, normH, histY)
 
-        batch = self.batch
-        boxed = self.boxed
-        dividers = engine.dividers
+            bands = {}
+            data["bands"] = bands
 
-        thresholdX = C.marginThresholdX
-        thresholdY = C.marginThresholdY
-        mColor = C.marginRGB
-        mWhite = C.marginGRS
+            bands["main"] = dict(uppers=uppers, lowers=lowers)
+            for (band, bandColor) in colorBand.items():
+                inter = band in {"inter", "low", "high"}
+                (theUppers, theLowers) = applyBandOffset(
+                    C, normH, band, uppers, lowers, inter=inter
+                )
+                bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
 
-        stages = self.stages
-        normalized = stages["normalized"]
-        demargined = normalized.copy()
-        if not batch or boxed:
-            normalizedC = stages["normalizedC"]
-            demarginedC = normalizedC.copy()
+            bandInfo = bands["broad"]
+            uppers = bandInfo["uppers"]
+            lowers = bandInfo["lowers"]
 
-        histX = self.histX
-        histY = self.histY
+            if normW > 10:
+                for (upper, lower) in zip(uppers, lowers):
+                    overlay(
+                        roiOutC, 10, upper, normW - 10, upper + 3, white, upperColor
+                    )
+                    overlay(
+                        roiOutC, 10, lower - 3, normW - 10, lower, white, lowerColor
+                    )
+                for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
+                    overlay(roiOutC, 10, lower, normW - 10, upper + 1, white, mColor)
 
-        (normH, normW) = normalized.shape[:2]
-        body = getLargest(histX, normW, thresholdX)
+            # remove top white space
 
-        for posX in body:
-            cv2.line(demargined, (posX, 0), (posX, normH), mWhite, 1)
+            topWhite = uppers[0] if uppers else normH
+            cv2.rectangle(roiOut, (0, 0), (normW, topWhite), mWhite, -1)
             if not batch or boxed:
-                cv2.line(demarginedC, (posX, 0), (posX, normH), mColor, 1)
+                overlay(roiOutC, 0, 0, normW, topWhite, white, mColor)
 
-        uppers = []
-        lowers = []
+            # remove bottom white space
 
-        inline = False
-        detectedUpper = False
-        detectedLower = False
+            bottomWhite = lowers[-1] if lowers else 0
+            cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), mWhite, -1)
+            if not batch or boxed:
+                overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
 
-        for y in range(normH - 1):
-            if inline:
-                if detectedLower:
-                    if histY[y] >= thresholdY:
-                        lowers[-1] = y
-                    elif histY[y] <= 1:
-                        inline = False
-                elif histY[y] > thresholdY and histY[y + 1] <= thresholdY:
-                    lowers.append(y)
-                    detectedLower = True
-                    detectedUpper = False
-                    if histY[y] <= 1:
-                        inline = False
-            else:
-                if histY[y] <= thresholdY and histY[y + 1] > thresholdY:
-                    if not detectedUpper:
-                        inline = True
-                        uppers.append(y)
-                        detectedUpper = True
-                        detectedLower = False
+            if not uppers:
+                emptyBlocks.append((stripe, column))
 
-        # look for dividers
+        prevBB = [0, 0]
+        prevX = None
+        maxStripe = max(x[0] for x in blocks)
 
-        strokes = {k: v["gray"] for (k, v) in dividers.items() if "gray" in v}
-        strokesFound = []
-
-        if strokes is not None:
-            for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
-                roi = normalized[upper - 10 : lower + 10, 10 : normW - 10]
-                (roih, roiw) = roi.shape[:2]
-                for (mark, stroke) in strokes.items():
-                    (divh, divw) = stroke.shape[:2]
-                    if roih < divh or roiw < divw:
-                        # divider template exceeds roi image
-                        continue
-                    result = cv2.matchTemplate(roi, stroke, cv2.TM_CCOEFF_NORMED)
-                    loc = np.where(result >= 0.5)
-                    if loc[0].size:
-                        strokesFound.append(
-                            (i, mark, roi, int(round(100 * uppers[i] / normH)))
-                        )
-        headerStripe = None
-        footerStripe = None
-        firstLine = 0
-        lastLine = len(uppers)
-
-        if strokesFound:
-            if len(strokesFound) >= 2:
-                headerStripe = strokesFound[0]
-                footerStripe = strokesFound[-1]
-            elif len(strokesFound) == 1:
-                theStripe = strokesFound[0]
-                perc = theStripe[-1]
-                if perc > 20:
-                    footerStripe = theStripe
+        for ((stripe, column), data) in sorted(blocks.items()):
+            bT = data["box"][1]
+            bB = data["box"][3]
+            x = data["sep"]
+            if column == "":
+                if prevX is None:
+                    pB = prevBB[0]
+                    overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
                 else:
-                    headerStripe = theStripe
+                    for (i, pB) in enumerate(prevBB):
+                        if pB < bT:
+                            (lf, rt) = (
+                                (marginX, prevX - marginX)
+                                if i == 0
+                                else (prevX + marginX, maxW - marginX)
+                            )
+                            overlay(layout, lf, pB, rt, bT, white, mColor)
+                prevBB = [bB, bB]
+                prevX = None
+            elif column == "l":
+                pB = prevBB[0]
+                if pB < bT:
+                    overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
+                prevBB[0] = bB
+                prevX = x
+            elif column == "r":
+                pB = prevBB[1]
+                if pB < bT:
+                    overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
+                prevBB[1] = bB
+                prevX = x
+            if stripe == maxStripe:
+                if column == "":
+                    if bB < maxH:
+                        overlay(
+                            layout, marginX, bB, maxW - marginX, maxH, white, mColor
+                        )
+                elif column == "l":
+                    if bB < maxH:
+                        overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
+                elif column == "r":
+                    if bB < maxH:
+                        overlay(
+                            layout, x + marginX, bB, maxW - marginX, maxH, white, mColor
+                        )
 
-        if headerStripe:
-            (i, mark, roi, perc) = headerStripe
-            cv2.rectangle(demargined, (0, 0), (normW, uppers[i]), mWhite, -1)
-            if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, 0), (normW, uppers[i]), mColor, -1)
-            firstLine = i + 1
-        if footerStripe:
-            (i, mark, roi, perc) = footerStripe
-            cv2.rectangle(demargined, (0, uppers[i]), (normW, normH), mWhite, -1)
-            if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, uppers[i]), (normW, normH), mColor, -1)
-            lastLine = i + 1
-        uppers = uppers[firstLine:lastLine]
-        lowers = lowers[firstLine:lastLine]
-        self.dividers = (
-            headerStripe[1:] if headerStripe else None,
-            footerStripe[1:] if footerStripe else None,
-        )
-
-        offsetBand = C.offsetBand
-        colorBand = C.colorBand
-
-        bands = {}
-        self.bands = bands
-
-        bands["main"] = dict(uppers=uppers, lowers=lowers)
-        for (band, bandColor) in colorBand.items():
-            (top, bottom) = offsetBand[band]
-            isInter = band in {"inter", "low", "high"}
-            theUppers = tuple(x + top for x in (lowers[:-1] if isInter else uppers))
-            theLowers = tuple(x + bottom for x in (uppers[1:] if isInter else lowers))
-            if band not in {"inter", "low"}:
-                theUppers = theUppers[0:-1]
-                theLowers = theLowers[0:-1]
-            bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
-
-        # remove top white space
-
-        broadBand = bands["broad"]
-        broadUppers = broadBand["uppers"]
-        if broadUppers:
-            top = broadUppers[0]
-            cv2.rectangle(demargined, (0, 0), (normW, top), mWhite, -1)
-            if not batch or boxed:
-                cv2.rectangle(demarginedC, (0, 0), (normW, top), mColor, -1)
-
-        self.stages["demargined"] = demargined
-        if not batch or boxed:
-            self.stages["demarginedC"] = demarginedC
+        for b in emptyBlocks:
+            del blocks[b]
 
     def _clean(self, mark=None, line=None):
         """Remove marks from the page.

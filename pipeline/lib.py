@@ -72,6 +72,12 @@ def showImage(a, fmt="jpeg", **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
+def overlay(img, left, top, right, bottom, srcColor, dstColor):
+    if right > left and bottom > top:
+        roi = img[top:bottom, left:right]
+        roi[np.where((roi == list(srcColor)).all(axis=2))] = dstColor
+
+
 def splitext(f, withDot=True):
     (bare, ext) = os.path.splitext(f)
     if ext and not withDot:
@@ -348,30 +354,13 @@ def addSeq(
         )
 
 
-def addStripe(
-    img,
-    top,
-    left,
-    right,
-    marginX,
-    marginY,
-    letterColor,
-    stripe,
-    kind,
-    size=1.0,
-    weight=2,
-):
+def addStripe(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
+    weight = 3
     offsetX = 80 + marginX
     halfOffsetX = offsetX // 2
-    offsetY = 60 + marginY
+    offsetY = 60
 
-    x = (
-        halfOffsetX
-        if kind == "l"
-        else (right - offsetX)
-        if kind == "r"
-        else (((right - left) // 2) - halfOffsetX)
-    )
+    x = halfOffsetX if kind == "l" or kind == "" else (right - offsetX)
     y = top + offsetY
     sep = "" if not kind else "-"
     cv2.putText(
@@ -383,6 +372,22 @@ def addStripe(
         letterColor,
         weight,
         cv2.LINE_AA,
+    )
+
+
+def addHStroke(
+    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+):
+    weight = 3
+    colRep = f"-{column}" if column else ""
+    text = f"{'T' if isTop else 'B'}{i}{colRep}"
+    offsetX = 60
+    offsetY = 30 if isTop else -30 - 2 * thickness
+    x = left + (right - left - offsetX) // 2
+    y = top - offsetY
+
+    cv2.putText(
+        img, text, (x, y), FONT, size, letterColor, weight, cv2.LINE_AA,
     )
 
 
@@ -406,15 +411,15 @@ def loadCleanInfo(self, data):
     return cInfo
 
 
-def getLargest(hist, width, threshold):
-    """Get biggest chunk of nonzero values
+def getMargins(hist, width, threshold):
+    """Get margins from a histogram.
 
-    Chunks are consecutive indices of a source array whose values count as nonzero.
-    After chunking a source array, we compute the chunk with width greater than half
-    of the source array, if such a chunk exists. And then we deliver
-    everything outside that chunk.
+    The margins of a histogram are the coordinates where the histogram reaches a
+    threshold for the first time and for the last time.
 
-    Otherwise we deliver all values from the source array that count as zero.
+    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
+    above the threshold, and (0, maxW) otherwise.
+
 
     Parameters
     ----------
@@ -425,18 +430,13 @@ def getLargest(hist, width, threshold):
     threshold: int
         Value below which pixels count as zero
     """
-    result = None
-    for chunk in (
+    chunks = [
         [i for (i, value) in it]
         for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] >= threshold)
         if key >= threshold
-    ):
-        if len(chunk) > width / 2:
-            result = list(chain(range(chunk[0]), range(chunk[-1] + 1, width)))
-            break
-    if result is None:
-        result = [i for (i, value) in enumerate(hist) if value < threshold]
-    return result
+    ]
+    w = len(hist)
+    return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)
 
 
 def parseStages(stage, allStages, sortedStages, error):
@@ -531,7 +531,7 @@ def findRuns(x):
         return run_values, run_starts, run_lengths
 
 
-def getStretches(C, info, stages, horizontal, debug=0):
+def getStretches(C, info, stages, horizontal):
     """Gets significant horizontal or vertical strokes.
 
     Significant strokes are those that are not part of letters,
@@ -562,10 +562,6 @@ def getStretches(C, info, stages, horizontal, debug=0):
         Intermediate cv2 images, keyed by stage name
     horizontal: boolean
         Whether we do horizontal of vertical lines.
-    debug: boolean, optional `False`
-        Whether to show (intermediate) results.
-        If `0`: shows nothing, if `1`: shows end result, if `2`: shows intermediate
-        results.
 
     Returns
     -------
@@ -575,10 +571,11 @@ def getStretches(C, info, stages, horizontal, debug=0):
         the cluster it is in.
     """
 
+    debug = C.debug
     strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
 
-    normalized = stages['normalized']
-    layout = stages['layout']
+    normalized = stages["normalized"]
+    layout = stages["layout"]
     img = normalized if horizontal else normalized.T
     out = layout if horizontal else cv2.transpose(layout)
     label = "HOR" if horizontal else "VER"
@@ -604,7 +601,7 @@ def getStretches(C, info, stages, horizontal, debug=0):
         for (val, start, length) in zip(*findRuns(row)):
             if val == 255:
                 if length < minLength:
-                    row[start:start + length] = 0
+                    row[start : start + length] = 0
 
     if debug > 1:
         showImage(sliced if horizontal else sliced.T)
@@ -662,7 +659,7 @@ def getStretches(C, info, stages, horizontal, debug=0):
                 theseStretches |= lines[n]
         segments = []
         for (m1, m2) in rangesFromSet(theseStretches):
-            segments.append((m1, m2, thickness))
+            segments.append((m1, m2 + 1, thickness))
         stretches[middle] = segments
 
     for (n, segments) in sorted(stretches.items()):
@@ -675,3 +672,122 @@ def getStretches(C, info, stages, horizontal, debug=0):
     if debug > 0:
         showImage(stages["layout"])
     return stretches
+
+
+def getBandsFromHist(C, height, histY):
+    # invariant:
+    # not inline => not dip
+    # #uppers == #lowers      if (inline and dip) or (not inline)
+    # #uppers == #lowers + 1  if (inline and not dip)
+
+    threshold = C.marginThresholdY
+    threshold2 = C.marginThreshold2Y
+
+    dip = False
+    inline = False
+    uppers = []
+    lowers = []
+
+    for y in range(height):
+        hist = histY[y]
+        if inline:
+            if hist >= threshold2:
+                if dip:
+                    lowers[-1] = y
+            elif hist <= threshold:
+                if not dip:
+                    lowers.append(y)
+                inline = False
+                dip = False
+            else:
+                if dip:
+                    lowers[-1] = y
+                else:
+                    lowers.append(y)
+                    dip = True
+        else:
+            if hist >= threshold2:
+                uppers.append(y)
+                inline = True
+                dip = False
+
+    # guarantee that len(uppers) == len(lowers) in case they are different
+    # by invariant: that only happens if inline and not dip
+
+    if inline and not dip:
+        lowers.append(y)
+
+    return (uppers, lowers)
+
+
+def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
+    offsetBand = C.offsetBand
+
+    (top, bottom) = offsetBand[kind]
+
+    def offset(x, off):
+        x += off
+        return 0 if x < 0 else height if x > height else x
+
+    return (
+        tuple(offset(x, top) for x in (lowers[:-1] if inter else uppers)),
+        tuple(offset(x, bottom) for x in (uppers[1:] if inter else lowers)),
+    )
+
+
+def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend):
+    roiIn = rotated[yMinLee:yMaxLee, left:right]
+    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+    theYMin = None
+    theYMax = None
+
+    if yMin == yMinLee:
+        theYMin = yMin
+    if yMax == yMaxLee:
+        theYMax = yMax
+    if theYMin is not None and theYMax is not None:
+        return (theYMin, theYMax)
+
+    normH = yMax - yMin
+    normHLee = yMaxLee - yMinLee
+
+    (uppers, lowers) = applyBandOffset(
+        C, normHLee, "broad", *getBandsFromHist(C, normHLee, histY)
+    )
+
+    topLee = yMin - yMinLee
+    botLee = topLee + normH
+
+    if theYMin is None:
+        if preferExtend:
+            # look for the first lower boundary in the top of the strict region
+            # then take the corresponding upper boundary
+            for (i, lower) in enumerate(lowers):
+                if lower >= topLee:
+                    theYMin = uppers[i]
+                    break
+        else:
+            # look for the first upper boundary in the top of the strict region
+            for upper in uppers:
+                if upper > topLee:
+                    theYMin = upper
+                    break
+        theYMin = yMin if theYMin is None else yMinLee + theYMin
+
+    if theYMax is None:
+        if preferExtend:
+            # look for the last upper boundary in the bottom of the strict region
+            # then take the corresponding lower boundary
+            for (i, upper) in enumerate(reversed(uppers)):
+                if upper <= botLee:
+                    theYMax = lowers[-i - 1]
+                    break
+        else:
+            # look for the last lower boundary in the bottom of the strict region
+            for lower in reversed(lowers):
+                if lower < botLee:
+                    theYMax = lower
+                    break
+        theYMax = yMax if theYMax is None else yMinLee + theYMax
+
+    return (theYMin, theYMax)
