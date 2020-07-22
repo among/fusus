@@ -31,12 +31,6 @@ A book directory should have subdirectories:
     Contains subdirectories with little rectangles copied from the scans
     and saved in individual files at the same resolution.
 
-    Marks can be *dividers* or normal marks.
-
-### Dividers
-
-Dividers are used to skip portions of the page.
-
 ### Marks
 
 Marks are spots that will be wiped clean wherever they are found.
@@ -51,7 +45,6 @@ The `marks` directory may contain the following bands:
 
 name | kind | items | remarks
 --- | --- | --- | ---
-`divider` | dividers | `footnote.`*ext* | *not a band*
 `high` | marks | arbitrary images | in the upper band of a line
 `low` | marks | arbitrary images | in the lower band of a line
 `mid` | marks | arbitrary images | in the central, narrow band of a line, with lots of ink

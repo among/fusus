@@ -45,10 +45,9 @@ class Book:
         """
 
         C = self.C
+        markParams = C.markParams
         tm = self.tm
         error = tm.error
-
-        markParams = dict(acc="accuracy", cb="connectBorder")
 
         self.marks = {}
         marks = self.marks
@@ -228,12 +227,6 @@ class Book:
                 info("layout")
             page._layout()
             if not uptoLayout:
-                if not batch:
-                    info("histogram")
-                page._histogram()
-                if not batch:
-                    info("margins")
-                page._margins()
                 if not batch:
                     info("cleaning")
                 page._clean()

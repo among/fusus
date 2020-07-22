@@ -77,6 +77,7 @@ SETTINGS = dict(
     marginThresholdX=1,
     marginThresholdY=5,
     marginThreshold2Y=10,
+    blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
     connectThreshold=200 * 200,
@@ -113,7 +114,7 @@ interDir
 :   name of the subdirectory with the intermediate results of the pipeline
 
 marksDir
-:   name of the subdirectory with the marks and dividers
+:   name of the subdirectory with the marks
 
 skewBorder
 :   the  width of the page  margins that will be whitened in order to
@@ -250,6 +251,9 @@ bandLow
 """
 
 
+MARK_PARAMS = dict(acc="accuracy", cb="connectBorder", r="connectRatio")
+
+
 class Config:
     def __init__(self, tm, **params):
         """Settings manager.
@@ -287,6 +291,9 @@ class Config:
         # stages
         setattr(self, "stageOrder", tuple(STAGES))
         setattr(self, "stages", STAGES)
+
+        # marks
+        setattr(self, "markParams", MARK_PARAMS)
 
         # settings
         self.settings = deepcopy(SETTINGS)

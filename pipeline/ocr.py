@@ -30,7 +30,7 @@ class OCR:
         self.engine = engine
 
     def read(self, mode=None):
-        """Perfroms OCR with Tesseract.
+        """Perfoms OCR with Tesseract.
         """
 
         engine = self.engine
@@ -52,10 +52,21 @@ class OCR:
         if batch:
             ocrData = method(self.pageFile, lang="ara")
         else:
-            scan = self.page.stages.get("clean", None)
+            page = self.page
+            scan = page.stages.get("clean", None)
             if scan is None:
                 return None
-
-            ocrData = method(scan, lang="ara")
+            blocks = page.blocks
+            ocrData = []
+            for ((stripe, column), data) in blocks.items():
+                (left, top, right, bottom) = data["inner"]
+                scanPart = scan[top:bottom, left:right]
+                ocrDataPart = method(scanPart, lang="ara")
+                ocrData.append(
+                    f"BLOCK START {stripe}{column}\n"
+                    f"{ocrDataPart}\n"
+                    f"BLOCK END {stripe}{column}\n"
+                )
+            ocrData = "".join(ocrData)
 
         return ocrData

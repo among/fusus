@@ -72,7 +72,26 @@ def showImage(a, fmt="jpeg", **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
-def overlay(img, left, top, right, bottom, srcColor, dstColor):
+def overlay(img, top, bottom, left, right, srcColor, dstColor):
+    """Colors a region of an image with care.
+
+    A selected region of an image can be given a uniform color,
+    where only pixels are changed that have an exact given color.
+
+    In this way you can replace all the white with gray, for example,
+    without wiping out existing non-white pixels.
+
+    Parameters
+    ----------
+    img: np array
+        The image to be overlain with a new color
+    (left, top, right, bottom): (int, int, int, int)
+        The region in the image to be colored
+    srcColor: RGB color
+        The color of the pixels that may be replaced.
+    dstColor:
+        The new color of the replaced pixels.
+    """
     if right > left and bottom > top:
         roi = img[top:bottom, left:right]
         roi[np.where((roi == list(srcColor)).all(axis=2))] = dstColor
@@ -672,6 +691,521 @@ def getStretches(C, info, stages, horizontal):
     if debug > 0:
         showImage(stages["layout"])
     return stretches
+
+
+def getStripes(stages, stretchesV):
+    """Infer horizontal stripes from a set of vertical bars.
+
+    A vertical bar defines a stripe on the page, i.e. a horizontal band that
+    contains that bar.
+
+    Between the vertical bars there are also stripes, they are undivided stripes.
+
+    We assume the vertical bars split the page in two portions, and not more,
+    and that they occur more or less in the middle of the page.
+
+    If many vertical bars have been detected, we sort them by y1 ascending and then
+    y2 descending and then by x.
+
+    We filter the bars: if the last bar reached to y = height, we only consider
+    bars that start lower than height.
+
+    !!! note "Fine tuning needed later on"
+        The vertical strokes give a rough estimate:
+        it is possible that they start and end in the middle of the lines beside them.
+        We will need histograms for the fine tuning.
+
+    Parameters
+    ----------
+    stages: dict
+        We need access to the layout stage to get the page size.
+    stretchesV: dict
+        Vertical line segments per x-coordinate, as delivered by `getStretches`.
+
+    Returns
+    -------
+    list
+        A list of stripes, specified as (x, y1, y2) values,
+        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
+        and x is the x coordinate of the dividing vertical stroke if there is one
+        and `None` otherwise.
+    """
+
+    layout = stages["layout"]
+    (maxH, maxW) = layout.shape[0:2]
+    lastHeight = 0
+    segments = []
+    for (x, ys) in stretchesV.items():
+        for (y1, y2, thickness) in ys:
+            segments.append((y1, y2, x, thickness))
+    stripes = []
+    for (y1, y2, x, thickness) in sorted(
+        segments, key=lambda z: (z[0], -z[1], -z[3], -z[2] or -1)
+    ):
+        if y1 > lastHeight:
+            stripes.append((None, lastHeight, y1))
+            stripes.append((x, y1, y2))
+            lastHeight = y2
+    if lastHeight < maxH:
+        stripes.append((None, lastHeight, maxH))
+    return stripes
+
+
+def getBlocks(C, stages, stripes, batch):
+    """Fine-tune stripes into blocks.
+
+    We enlarge the stripes vertically by roughly a line height
+    and call `adjustVertical` to get precise vertical demarcations
+    for the blocks at both sides of the stripe if there is one or else
+    for the undivided stripe.
+
+    The idea is:
+
+    If a stripe has a vertical bar, we slightly extend the boxes left and right
+    so that the top and bottom lines next to the bar are completely included.
+
+    If a stripe has no vertical bar, we shrink the boxes left and right
+    so that partial top and bottom lines are delegated to the boxes above
+    and below.
+
+    We write the box layout unto the `layout` layer.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    batch: boolean
+        Whether we run in batch mode.
+
+    Returns
+    -------
+    dict
+        Blocks keyed by stripe number and column specification
+        (one of `""`, `"l"`, `"r"`).
+        The values form dicts themselves, with in particular the bounding box
+        information under key `box` specified as four numbers:
+        left, top, right, bottom.
+
+        The dict is ordered.
+    """
+
+    marginX = C.blockMarginX
+    blockColor = C.blockRGB
+    letterColor = C.letterRGB
+    rotated = stages["rotated"]
+    layout = stages["layout"]
+
+    (maxH, maxW) = layout.shape[0:2]
+
+    lineHeight = maxW // 30
+
+    blocks = {}
+
+    for (stripe, (x, yMin, yMax)) in enumerate(stripes):
+
+        yMinLee = max((0, yMin - lineHeight))
+        yMaxLee = min((maxH, yMax + lineHeight))
+
+        if x is None:
+            (theYMin, theYMax) = adjustVertical(
+                C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+            )
+            blocks[(stripe, "")] = dict(
+                box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMin),
+                    (maxW - marginX, theYMax),
+                    blockColor,
+                    4,
+                )
+                addStripe(
+                    layout, theYMin, 0, maxW, marginX, letterColor, stripe, ""
+                )
+        else:
+            (theYMinL, theYMaxL) = adjustVertical(
+                C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
+            )
+            (theYMinR, theYMaxR) = adjustVertical(
+                C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
+            )
+            blocks[(stripe, "l")] = dict(
+                box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
+            )
+            blocks[(stripe, "r")] = dict(
+                box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMinL),
+                    (x - marginX, theYMaxL),
+                    blockColor,
+                    4,
+                )
+                addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, "l")
+                cv2.rectangle(
+                    layout,
+                    (x + marginX, theYMinR),
+                    (maxW - marginX, theYMaxR),
+                    blockColor,
+                    4,
+                )
+                addStripe(
+                    layout, theYMinR, x, maxW, marginX, letterColor, stripe, "r"
+                )
+    return collections.OrderedDict(sorted(blocks.items()))
+
+
+def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
+    """Trims regions above horizontal top lines and below bottom lines.
+
+    Inspect the horizontal strokes and specifiy which ones are
+    top separators and which ones are bottom separators.
+
+    First we map each horizontal stretch to one of the page stripes.
+    If a stretch occurs between stripes, we map it to the stripe above.
+
+    A horizontal stroke is a top separator if
+    *   it is mapped to the first stripe **and**
+    *   it is situated in the top fragment of the page.
+
+    We mark the discarded material on the layout page by overlaying
+    it with gray.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    stretchesH: dict
+        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+    boxed: boolean
+        Whether we run in boxed mode (generate boxes around wiped marks).
+
+    Returns
+    -------
+    None
+        The blocks dict will be updated: each block value gets a new key `inner`
+        with the bounding box info after stripping the top and bottom material.
+    """
+
+    mColor = C.marginRGB
+    whit = C.whiteGRS
+    white = C.whiteRGB
+    letterColor = C.letterRGB
+    layout = stages["layout"]
+    normalized = stages["normalized"]
+    demargined = normalized.copy()
+    stages["demargined"] = demargined
+    if not batch or boxed:
+        normalizedC = stages["normalizedC"]
+        demarginedC = normalizedC.copy()
+        stages["demarginedC"] = demarginedC
+
+    (maxH, maxW) = layout.shape[0:2]
+
+    topCriterion = maxH / 6
+    topXCriterion = maxH / 4
+
+    for ((stripe, column), data) in blocks.items():
+        (bL, bT, bR, bB) = data["box"]
+        x = data["sep"]
+        top = None
+        bottom = None
+
+        for (y, xs) in sorted(stretchesH.items()):
+            if y < bT:
+                continue
+            if bB < y:
+                break
+            for (x1, x2, thickness) in xs:
+                if x is not None:
+                    if column == "l" and x1 >= x:
+                        continue
+                    if column == "r" and x2 <= x:
+                        continue
+                isTop = stripe == 0 and (
+                    len(stripes) == 1
+                    and y < topCriterion
+                    or len(stripes) > 1
+                    and y < topXCriterion
+                )
+                if isTop:
+                    top = y + 2 * thickness + 2
+                else:
+                    if bottom is None:
+                        bottom = y - 2 * thickness - 2
+                addHStroke(
+                    layout,
+                    isTop,
+                    stripe,
+                    column,
+                    thickness,
+                    y,
+                    x1,
+                    x2,
+                    letterColor,
+                )
+
+        top = bT if top is None else top
+        bottom = bB if bottom is None else bottom
+        left = bL + 2
+        right = bR - 2
+        data["inner"] = (left, top, right, bottom)
+
+        if top != bT:
+            overlay(layout, bT + 2, top, left, right, white, mColor)
+            cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, bT + 2, top, left, right, white, mColor)
+        if bottom != bB:
+            overlay(layout, bottom, bB - 2, left, right, white, mColor)
+            cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, bottom, bB - 2, left, right, white, mColor)
+
+
+def getHistograms(C, stages, blocks, batch, boxed):
+    """Add line band data to all blocks based on histograms.
+
+    By means of histograms we can discern where the lines are.
+    We define several bands with respect to lines, such as broad, narrow,
+    high, low.
+    We also define a band for the space between lines.
+
+    We mark the broad bands on the `layout layer` by a starting green line
+    and an ending red line and the space between them will be overlaid with gray.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+        The blocks dict will be updated: each block value gets a new key `bands`
+        with the band data.
+    batch: boolean
+        Whether we run in batch mode.
+    boxed: boolean
+        Whether we run in boxed mode (generate boxes around wiped marks).
+
+    Returns
+    -------
+    list
+        A list of keys in the blocks dict that correspond to blocks
+        that turn out to be devoid of written material.
+    """
+
+    mColor = C.marginRGB
+    whit = C.marginGRS
+    white = C.whiteRGB
+    upperColor = C.upperRGB
+    lowerColor = C.lowerRGB
+    thresholdX = C.marginThresholdX
+    colorBand = C.colorBand
+    layout = stages["layout"]
+
+    if not batch:
+        histogram = layout.copy()
+        stages["histogram"] = histogram
+
+    rotated = stages["rotated"]
+    demargined = stages["demargined"]
+
+    emptyBlocks = []
+
+    for ((stripe, column), data) in blocks.items():
+        (left, top, right, bottom) = data["inner"]
+
+        hasRegion = bottom > top and right > left
+
+        if not hasRegion:
+            emptyBlocks.append((stripe, column))
+            continue
+
+        roiIn = rotated[top:bottom, left:right]
+        histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+        histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
+
+        if not batch:
+            roiOut = histogram[top:bottom, left:right]
+
+            for (hist, vert) in ((histY, True), (histX, False)):
+                for (i, val) in enumerate(hist):
+                    color = (int(val), int(2 * val), int(val))
+                    index = (0, i) if vert else (i, 0)
+                    value = (val, i) if vert else (i, val)
+                    cv2.line(roiOut, index, value, color, 1)
+
+        # chop off the left and right margins of a region
+
+        (normH, normW) = (bottom - top, right - left)
+        roiOut = demargined[top:bottom, left:right]
+        roiOutC = layout[top:bottom, left:right]
+        margins = getMargins(histX, normW, thresholdX)
+
+        for (x1, x2) in margins:
+            cv2.rectangle(roiOut, (x1, 0), (x2, normH), whit, -1)
+            if not batch or boxed:
+                overlay(roiOutC, 2, normH - 2, x1 + 2, x2 - 2, white, mColor)
+
+        if len(margins) != 2:
+            emptyBlocks.append((stripe, column))
+            continue
+
+        data["inner"] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
+
+        # define bands
+
+        (uppers, lowers) = getBandsFromHist(C, normH, histY)
+
+        bands = {}
+        data["bands"] = bands
+
+        bands["main"] = dict(uppers=uppers, lowers=lowers)
+        for (band, bandColor) in colorBand.items():
+            inter = band in {"inter", "low", "high"}
+            (theUppers, theLowers) = applyBandOffset(
+                C, normH, band, uppers, lowers, inter=inter
+            )
+            bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
+
+        bandInfo = bands["broad"]
+        uppers = bandInfo["uppers"]
+        lowers = bandInfo["lowers"]
+
+        if normW > 10:
+            for (upper, lower) in zip(uppers, lowers):
+                overlay(
+                    roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor
+                )
+                overlay(
+                    roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor
+                )
+            for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
+                overlay(roiOutC, lower, upper + 1, 10, normW - 10, white, mColor)
+
+        # remove top white space
+
+        topWhite = uppers[0] if uppers else normH
+        cv2.rectangle(roiOut, (0, 0), (normW, topWhite), whit, -1)
+        if not batch or boxed:
+            overlay(roiOutC, 0, topWhite, 0, normW, white, mColor)
+
+        # remove bottom white space
+
+        bottomWhite = lowers[-1] if lowers else 0
+        cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), whit, -1)
+        if not batch or boxed:
+            overlay(roiOutC, bottomWhite, normH, 0, normW, white, mColor)
+
+        if not uppers:
+            emptyBlocks.append((stripe, column))
+
+    return emptyBlocks
+
+
+def grayInterBlocks(C, stages, blocks, emptyBlocks):
+    """Overlay the space between blocks with gray.
+
+    Remove also the empty blocks from the block list.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+        The blocks dict will be updated: empty blocks will be deleted from it.
+        with the band data.
+    emptyBlocks: list
+        The keys of blocks that do not have written content
+        that must be processed further.
+
+    Returns
+    -------
+    None.
+    """
+
+    mColor = C.marginRGB
+    white = C.whiteRGB
+
+    layout = stages["layout"]
+    (maxH, maxW) = layout.shape[0:2]
+
+    prevBB = [0, 0]
+    prevX = None
+    maxStripe = max(x[0] for x in blocks)
+    marginX = C.blockMarginX
+
+    # overlay the space between blocks
+
+    for ((stripe, column), data) in sorted(blocks.items()):
+        bT = data["box"][1]
+        bB = data["box"][3]
+        x = data["sep"]
+        if column == "":
+            if prevX is None:
+                pB = prevBB[0]
+                overlay(layout, pB, bT, marginX, maxW - marginX, white, mColor)
+            else:
+                for (i, pB) in enumerate(prevBB):
+                    if pB < bT:
+                        (lf, rt) = (
+                            (marginX, prevX - marginX)
+                            if i == 0
+                            else (prevX + marginX, maxW - marginX)
+                        )
+                        overlay(layout, pB, bT, lf, rt, white, mColor)
+            prevBB = [bB, bB]
+            prevX = None
+        elif column == "l":
+            pB = prevBB[0]
+            if pB < bT:
+                overlay(layout, pB, bT, marginX, x - marginX, white, mColor)
+            prevBB[0] = bB
+            prevX = x
+        elif column == "r":
+            pB = prevBB[1]
+            if pB < bT:
+                overlay(layout, pB, bT, x + marginX, maxW - marginX, white, mColor)
+            prevBB[1] = bB
+            prevX = x
+        if stripe == maxStripe:
+            if column == "":
+                if bB < maxH:
+                    overlay(
+                        layout, bB, maxH, marginX, maxW - marginX, white, mColor
+                    )
+            elif column == "l":
+                if bB < maxH:
+                    overlay(layout, bB, maxH, marginX, x - marginX, white, mColor)
+            elif column == "r":
+                if bB < maxH:
+                    overlay(
+                        layout, bB, maxH, x + marginX, maxW - marginX, white, mColor
+                    )
+
+    for b in emptyBlocks:
+        del blocks[b]
 
 
 def getBandsFromHist(C, height, histY):

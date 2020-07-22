@@ -7,24 +7,22 @@ import numpy as np
 from IPython.display import HTML, display
 
 from .lib import (
-    showImage,
+    addBox,
+    applyHRules,
     cluster,
     connected,
-    removeSkewStripes,
-    splitext,
-    parseStages,
+    getBlocks,
+    getHistograms,
+    getStretches,
+    getStripes,
+    grayInterBlocks,
     parseBands,
     parseMarks,
-    addBox,
-    addStripe,
-    addHStroke,
-    getMargins,
-    getStretches,
-    getBandsFromHist,
-    applyBandOffset,
+    parseStages,
+    removeSkewStripes,
+    showImage,
+    splitext,
     storeCleanInfo,
-    adjustVertical,
-    overlay,
 )
 from .ocr import OCR
 
@@ -299,7 +297,7 @@ class Page:
             if stage == "markData":
                 self._showCleanInfo()
             else:
-                info(repr(data), tm=False)
+                info(data, tm=False)
 
     def _normalize(self):
         """Normalizes a page.
@@ -398,336 +396,24 @@ class Page:
         indent = tm.indent
         info = tm.info
 
-        blockColor = C.blockRGB
-        letterColor = C.letterRGB
-        upperColor = C.upperRGB
-        lowerColor = C.lowerRGB
-        thresholdX = C.marginThresholdX
-        mColor = C.marginRGB
-        mWhite = C.marginGRS
-        white = C.whiteRGB
-        colorBand = C.colorBand
-
         stages = self.stages
         layout = stages["normalizedC"].copy()
-        rotated = stages["rotated"]
-
         stages["layout"] = layout
 
         indent(level=3)
         stretchesH = getStretches(C, info, stages, True)
         stretchesV = getStretches(C, info, stages, False)
-
-        layout = stages["layout"]
-
-        # determine the relevant vertical strokes that divide the page into stripes
-
-        (maxH, maxW) = layout.shape[0:2]
-        curHeight = 0
-        stripes = []
-        for (x, ys) in stretchesV.items():
-            for (y1, y2, thickness) in ys:
-                if y1 > curHeight:
-                    stripes.append((None, curHeight, y1))
-                stripes.append((x, y1, y2))
-                curHeight = y2
-        if curHeight < maxH:
-            stripes.append((None, curHeight, maxH))
-
-        # NB: the vertical strokes give a rough estimate:
-        # it is possible that they start and end in the middle of the lines beside them.
-        # We will need histograms for the fine tuning.
-
-        # collect the blocks and draw the the stripe division
-
-        blocks = {}
+        stripes = getStripes(stages, stretchesV)
+        blocks = getBlocks(C, stages, stripes, batch)
         self.blocks = blocks
+        applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed)
+        emptyBlocks = getHistograms(C, stages, blocks, batch, boxed)
+        grayInterBlocks(C, stages, blocks, emptyBlocks)
 
-        marginX = 12
-
-        lineHeight = maxW // 30
-
-        for (stripe, (x, yMin, yMax)) in enumerate(stripes):
-
-            # we enlarge the boxes vertically by roughly a line height
-            # we call adjustVertical to get precise vertical demarcations
-            # The idea is:
-            #
-            # if there is a vertical bar, we slightly extend the boxes left and right
-            # so that the top and bottom lines are not cut off in the middle
-            #
-            # of there is no vertical bar, we shrink the boxes left and right
-            # so that partial top and bottom lines are delegated to the boxes above
-            # and below
-
-            yMinLee = max((0, yMin - lineHeight))
-            yMaxLee = min((maxH, yMax + lineHeight))
-
-            if x is None:
-                (theYMin, theYMax) = adjustVertical(
-                    C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
-                )
-                blocks[(stripe, "")] = dict(
-                    box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
-                )
-                if not batch:
-                    cv2.rectangle(
-                        layout,
-                        (marginX, theYMin),
-                        (maxW - marginX, theYMax),
-                        blockColor,
-                        4,
-                    )
-                    addStripe(
-                        layout, theYMin, 0, maxW, marginX, letterColor, stripe, ""
-                    )
-            else:
-                (theYMinL, theYMaxL) = adjustVertical(
-                    C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
-                )
-                (theYMinR, theYMaxR) = adjustVertical(
-                    C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
-                )
-                blocks[(stripe, "l")] = dict(
-                    box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
-                )
-                blocks[(stripe, "r")] = dict(
-                    box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
-                )
-                if not batch:
-                    cv2.rectangle(
-                        layout,
-                        (marginX, theYMinL),
-                        (x - marginX, theYMaxL),
-                        blockColor,
-                        4,
-                    )
-                    addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, "l")
-                    cv2.rectangle(
-                        layout,
-                        (x + marginX, theYMinR),
-                        (maxW - marginX, theYMaxR),
-                        blockColor,
-                        4,
-                    )
-                    addStripe(
-                        layout, theYMinR, x, maxW, marginX, letterColor, stripe, "r"
-                    )
-
-        # inspect the horizontal strokes and specifiy which ones are
-        # top separators and which ones are bottom separators.
-
-        # first we map each horizontal stretch to a stripe.
-        # If a stretch occurs between stripes, we map it to the stripe above.
-
-        # A horizontal stroke is a top separator if
-        # it is mapped to the first stripe
-        #      AND
-        # it is situated in the top fragment of the page
-
-        # define the regions by removing top and bottom material from the blocks
-
-        topCriterion = maxH / 6
-        topXCriterion = maxH / 4
-
-        normalized = stages["normalized"]
-
-        if not batch:
-            histogram = layout.copy()
-            stages["histogram"] = histogram
-            demargined = normalized.copy()
-
-        emptyBlocks = []
-
-        for ((stripe, column), data) in sorted(blocks.items()):
-            (bL, bT, bR, bB) = data["box"]
-            x = data["sep"]
-            top = None
-            bottom = None
-
-            for (y, xs) in sorted(stretchesH.items()):
-                if y < bT:
-                    continue
-                if bB < y:
-                    break
-                for (x1, x2, thickness) in xs:
-                    if x is not None:
-                        if column == "l" and x1 >= x:
-                            continue
-                        if column == "r" and x2 <= x:
-                            continue
-                    isTop = stripe == 0 and (
-                        len(stripes) == 1
-                        and y < topCriterion
-                        or len(stripes) > 1
-                        and y < topXCriterion
-                    )
-                    if isTop:
-                        top = y + 2 * thickness + 2
-                    else:
-                        if bottom is None:
-                            bottom = y - 2 * thickness - 2
-                    addHStroke(
-                        layout,
-                        isTop,
-                        stripe,
-                        column,
-                        thickness,
-                        y,
-                        x1,
-                        x2,
-                        letterColor,
-                    )
-
-            top = bT if top is None else top
-            bottom = bB if bottom is None else bottom
-            left = bL + 2
-            right = bR - 2
-            data["inner"] = (left, top, right, bottom)
-
-            if top != bT:
-                overlay(layout, left, bT + 2, right, top, white, mColor)
-            if bottom != bB:
-                overlay(layout, left, bottom, right, bB - 2, white, mColor)
-
-            # add horizontal and vertical histograms
-
-            hasRegion = bottom > top and right > left
-
-            if not hasRegion:
-                emptyBlocks.append((stripe, column))
-                continue
-
-            roiIn = rotated[top:bottom, left:right]
-            histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-            histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
-
-            if not batch:
-                roiOut = histogram[top:bottom, left:right]
-
-                for (hist, vert) in ((histY, True), (histX, False)):
-                    for (i, val) in enumerate(hist):
-                        color = (int(val), int(2 * val), int(val))
-                        index = (0, i) if vert else (i, 0)
-                        value = (val, i) if vert else (i, val)
-                        cv2.line(roiOut, index, value, color, 1)
-
-            # chop off the left and right margins of a region
-
-            (normH, normW) = (bottom - top, right - left)
-            roiOut = demargined[top:bottom, left:right]
-            roiOutC = layout[top:bottom, left:right]
-            margins = getMargins(histX, normW, thresholdX)
-
-            for (x1, x2) in margins:
-                cv2.rectangle(roiOut, (x1, 0), (x2, normH), mWhite, -1)
-                if not batch or boxed:
-                    overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
-
-            # define bands
-
-            (uppers, lowers) = getBandsFromHist(C, normH, histY)
-
-            bands = {}
-            data["bands"] = bands
-
-            bands["main"] = dict(uppers=uppers, lowers=lowers)
-            for (band, bandColor) in colorBand.items():
-                inter = band in {"inter", "low", "high"}
-                (theUppers, theLowers) = applyBandOffset(
-                    C, normH, band, uppers, lowers, inter=inter
-                )
-                bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
-
-            bandInfo = bands["broad"]
-            uppers = bandInfo["uppers"]
-            lowers = bandInfo["lowers"]
-
-            if normW > 10:
-                for (upper, lower) in zip(uppers, lowers):
-                    overlay(
-                        roiOutC, 10, upper, normW - 10, upper + 3, white, upperColor
-                    )
-                    overlay(
-                        roiOutC, 10, lower - 3, normW - 10, lower, white, lowerColor
-                    )
-                for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
-                    overlay(roiOutC, 10, lower, normW - 10, upper + 1, white, mColor)
-
-            # remove top white space
-
-            topWhite = uppers[0] if uppers else normH
-            cv2.rectangle(roiOut, (0, 0), (normW, topWhite), mWhite, -1)
-            if not batch or boxed:
-                overlay(roiOutC, 0, 0, normW, topWhite, white, mColor)
-
-            # remove bottom white space
-
-            bottomWhite = lowers[-1] if lowers else 0
-            cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), mWhite, -1)
-            if not batch or boxed:
-                overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
-
-            if not uppers:
-                emptyBlocks.append((stripe, column))
-
-        prevBB = [0, 0]
-        prevX = None
-        maxStripe = max(x[0] for x in blocks)
-
-        for ((stripe, column), data) in sorted(blocks.items()):
-            bT = data["box"][1]
-            bB = data["box"][3]
-            x = data["sep"]
-            if column == "":
-                if prevX is None:
-                    pB = prevBB[0]
-                    overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
-                else:
-                    for (i, pB) in enumerate(prevBB):
-                        if pB < bT:
-                            (lf, rt) = (
-                                (marginX, prevX - marginX)
-                                if i == 0
-                                else (prevX + marginX, maxW - marginX)
-                            )
-                            overlay(layout, lf, pB, rt, bT, white, mColor)
-                prevBB = [bB, bB]
-                prevX = None
-            elif column == "l":
-                pB = prevBB[0]
-                if pB < bT:
-                    overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
-                prevBB[0] = bB
-                prevX = x
-            elif column == "r":
-                pB = prevBB[1]
-                if pB < bT:
-                    overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
-                prevBB[1] = bB
-                prevX = x
-            if stripe == maxStripe:
-                if column == "":
-                    if bB < maxH:
-                        overlay(
-                            layout, marginX, bB, maxW - marginX, maxH, white, mColor
-                        )
-                elif column == "l":
-                    if bB < maxH:
-                        overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
-                elif column == "r":
-                    if bB < maxH:
-                        overlay(
-                            layout, x + marginX, bB, maxW - marginX, maxH, white, mColor
-                        )
-
-        for b in emptyBlocks:
-            del blocks[b]
-
-    def _clean(self, mark=None, line=None):
+    def _clean(self, mark=None, block=None, line=None, showKept=False):
         """Remove marks from the page.
 
-        The page is cleaned of marks.
+        The blocks of the page are cleaned of marks.
 
         New stages of the page are added:
 
@@ -739,13 +425,22 @@ class Page:
         Parameters
         ----------
         mark: iterable of tuples (band, mark, [params]), optional `None`
-            If `None`, all non-divider marks that are presented in the book
+            If `None`, all marks that are presented in the book
             directory are used.
             Otherwise, a series of marks is specified together with the band
             where this mark is searched in. Optionally you can also
             put parameters in the tuple: the accuracy and the connectBorder.
+        block: (integer, string), optional `None`
+            Block identifier. If specified, only this block will be cleaned.
+            If absent, cleans all blocks.
         line: integer, optional `None`
-            Line number specifying the line to clean. If absent, cleans all  lines.
+            Line number specifying the line numbers to clean.
+            In all specified blocks, only the line with this number will be cleaned.
+            If absent, cleans all lines in the specified blocks.
+        showKept: boolean, optional `False`
+            Whether to show the mark candidates that are kept.
+            If False, kept marks do not show up as green boxes,
+            and they do not contribute to the markData layer.
         """
 
         if self.empty:
@@ -763,36 +458,36 @@ class Page:
         batch = self.batch
         boxed = self.boxed
 
+        markParams = C.markParams
+        markParamSet = set(markParams.values())
         boxBorder = C.boxBorder
 
         connectBorder = C.connectBorder
         threshold = C.connectThreshold
-        ratio = C.connectRatio
         maxHits = C.maxHits
         color = dict(clean=C.cleanRGB, cleanh=C.cleanhRGB,)
 
         if mark is None:
-            searchMarks = {
-                subdir: markItems
-                for (subdir, markItems) in marks.items()
-                if subdir != "dividers"
-            }
+            searchMarks = {subdir: markItems for (subdir, markItems) in marks.items()}
         else:
+            searchMarks = {}
             for item in mark:
                 (band, name) = item[0:2]
-                if band == "dividers":
-                    error("No dividers allowed for cleaning")
-                    continue
                 if band not in marks or name not in marks[band]:
                     error(f"No such mark: {band}/{mark}")
                     continue
-                markParams = item[2] if len(mark) > 2 else {}
-                configuredMark = marks[band][mark]
-                searchMarks.setdefault(band, {})[mark] = dict(
+                params = item[2] if len(item) > 2 else {}
+                for (k, v) in params.items():
+                    if k not in markParamSet:
+                        error(f"Unknown parameter `{k}` = `{v}`")
+                configuredMark = marks[band][name]
+                seq = configuredMark['seq']
+                searchMarks.setdefault(band, {})[name] = dict(
+                    seq=seq,
                     gray=configuredMark["gray"]
                 )
-                for k in ("accuracy", "connectBorder"):
-                    searchMarks[band][mark][k] = markParams.get(k, configuredMark[k])
+                for k in markParams.values():
+                    searchMarks[band][name][k] = params.get(k, configuredMark[k])
 
         stages = self.stages
         demargined = stages.get("demargined", stages["gray"])
@@ -818,136 +513,153 @@ class Page:
 
         foundHits = {}
         cleanClr = color["clean"]
-        bands = self.bands
+        blocks = self.blocks
         markResults = {}
 
-        for (band, markData) in searchMarks.items():
-            for (markName, markInfo) in markData.items():
-                foundHits.setdefault(band, {})[markName] = 0
-                seq = markInfo["seq"]
-                mark = markInfo["gray"]
-                connectBorder = markInfo["connectBorder"]
-                accuracy = markInfo["accuracy"]
-                (markH, markW) = mark.shape[:2]
-                bandData = bands[band]
+        for ((stripe, column), data) in blocks.items():
+            if block is not None and block != (stripe, column):
+                continue
+            (leftB, topB, rightB, bottomB) = data["inner"]
+            thisDemargined = demargined[topB:bottomB, leftB:rightB]
+
+            for (band, markData) in searchMarks.items():
+                bandData = data["bands"][band]
                 uppers = bandData["uppers"]
                 lowers = bandData["lowers"]
-                nPts = 0
-                clusters = []
-                for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
-                    if line is not None:
-                        if i < line - 1:
+
+                for (markName, markInfo) in markData.items():
+                    foundHits.setdefault(band, {})[markName] = 0
+                    seq = markInfo["seq"]
+                    mark = markInfo["gray"]
+                    connectBorder = markInfo["connectBorder"]
+                    accuracy = markInfo["accuracy"]
+                    ratio = markInfo["connectRatio"]
+                    (markH, markW) = mark.shape[:2]
+
+                    nPts = 0
+                    clusters = []
+                    for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
+                        if line is not None:
+                            if i < line - 1:
+                                continue
+                            elif i > line - 1:
+                                break
+                        roi = thisDemargined[
+                            upper : lower + 1,
+                        ]
+                        (roih, roiw) = roi.shape[:2]
+                        if roih < markH or roiw < markW:
+                            # search template exceeds roi image
                             continue
-                        elif i > line - 1:
-                            break
-                    roi = demargined[
-                        upper : lower + 1,
-                    ]
-                    (roih, roiw) = roi.shape[:2]
-                    if roih < markH or roiw < markW:
-                        # search template exceeds roi image
-                        continue
-                    if line is not None:
-                        showImage(roi)
-                    result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
-                    loc = np.where(result >= accuracy)
-                    pts = list(zip(*loc))
-                    if len(pts) > maxHits:
-                        error(
-                            f"mark '{band}:{markName}':"
-                            f" too many hits: {len(pts)} > {maxHits}"
-                        )
-                        warning("Increase accuracy for this template")
-                        continue
-                    if not pts:
-                        continue
+                        if line is not None:
+                            showImage(roi)
+                        result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
+                        loc = np.where(result >= accuracy)
+                        pts = list(zip(*loc))
+                        if len(pts) > maxHits:
+                            error(
+                                f"mark '{band}:{markName}':"
+                                f" too many hits: {len(pts)} > {maxHits}"
+                            )
+                            warning("Increase accuracy for this template")
+                            continue
+                        if not pts:
+                            continue
 
-                    nPts += len(pts)
-                    clusters = cluster(pts, result)
+                        nPts += len(pts)
+                        clusters = cluster(pts, result)
 
-                    for (pt, value) in clusters:
-                        connDegree = connected(
-                            markH, markW, connectBorder, threshold, roi, pt
-                        )
-                        pt = (pt[0] + upper, pt[1])
-                        (top, bottom, left, right) = (
-                            pt[0],
-                            pt[0] + markH,
-                            pt[1],
-                            pt[1] + markW,
-                        )
-                        if connDegree > ratio:
-                            if not batch or boxed:
-                                im = stages["boxed"]
-                                addBox(
-                                    C,
-                                    im,
-                                    top,
-                                    bottom,
-                                    left,
-                                    right,
-                                    True,
-                                    band,
-                                    seq,
-                                    connDegree,
-                                )
-                                markResults.setdefault(band, {}).setdefault(
-                                    (seq, markName), []
-                                ).append(
-                                    (
-                                        True,
-                                        value,
-                                        connDegree,
-                                        connectBorder,
+                        for (pt, value) in clusters:
+                            connDegree = connected(
+                                markH, markW, connectBorder, threshold, roi, pt
+                            )
+                            pt = (pt[0] + upper + topB, pt[1] + leftB)
+                            (top, bottom, left, right) = (
+                                pt[0],
+                                pt[0] + markH,
+                                pt[1],
+                                pt[1] + markW,
+                            )
+                            if connDegree > ratio:
+                                if showKept and (not batch or boxed):
+                                    im = stages["boxed"]
+                                    addBox(
+                                        C,
+                                        im,
                                         top,
                                         bottom,
                                         left,
                                         right,
+                                        True,
+                                        band,
+                                        seq,
+                                        connDegree,
                                     )
-                                )
-                        else:
-                            if batch and not boxed:
-                                cv2.rectangle(
-                                    stages["clean"],
-                                    (left, top),
-                                    (right, bottom),
-                                    cleanClr,
-                                    -1,
-                                )
-                            else:
-                                for (stage, im, clr, brd) in tasks:
-                                    isBoxed = stage == "boxed"
-                                    if isBoxed:
-                                        addBox(
-                                            C,
-                                            im,
+                                    markResults.setdefault(band, {}).setdefault(
+                                        (seq, markName), []
+                                    ).append(
+                                        (
+                                            True,
+                                            value,
+                                            connDegree,
+                                            connectBorder,
+                                            stripe,
+                                            column,
                                             top,
                                             bottom,
                                             left,
                                             right,
-                                            False,
-                                            band,
-                                            seq,
-                                            connDegree,
                                         )
-                                        markResults.setdefault(band, {}).setdefault(
-                                            (seq, markName), []
-                                        ).append(
-                                            (
-                                                False,
-                                                value,
-                                                connDegree,
-                                                connectBorder,
+                                    )
+                            else:
+                                if batch and not boxed:
+                                    cv2.rectangle(
+                                        stages["clean"],
+                                        (left, top),
+                                        (right, bottom),
+                                        cleanClr,
+                                        -1,
+                                    )
+                                else:
+                                    for (stage, im, clr, brd) in tasks:
+                                        isBoxed = stage == "boxed"
+                                        if isBoxed:
+                                            addBox(
+                                                C,
+                                                im,
                                                 top,
                                                 bottom,
                                                 left,
                                                 right,
+                                                False,
+                                                band,
+                                                seq,
+                                                connDegree,
                                             )
-                                        )
-                                    else:
-                                        cv2.rectangle(
-                                            im, (left, top), (right, bottom), clr, -1
-                                        )
+                                            markResults.setdefault(band, {}).setdefault(
+                                                (seq, markName), []
+                                            ).append(
+                                                (
+                                                    False,
+                                                    value,
+                                                    connDegree,
+                                                    connectBorder,
+                                                    stripe,
+                                                    column,
+                                                    top,
+                                                    bottom,
+                                                    left,
+                                                    right,
+                                                )
+                                            )
+                                        else:
+                                            cv2.rectangle(
+                                                im,
+                                                (left, top),
+                                                (right, bottom),
+                                                clr,
+                                                -1,
+                                            )
 
         stages["markData"] = markResults
         for (band, bandMarks) in sorted(markResults.items()):
@@ -992,13 +704,24 @@ class Page:
                 info(
                     f"{'':24} kept  {notWiped:>4} x", tm=False,
                 )
-                for (k, value, conn, border, top, bottom, left, right) in sorted(
-                    entries
-                ):
+                for (
+                    k,
+                    value,
+                    conn,
+                    border,
+                    stripe,
+                    column,
+                    top,
+                    bottom,
+                    left,
+                    right,
+                ) in sorted(entries):
                     indent(level=2)
                     wRep = "kept" if k else "wiped"
+                    block = f"{stripe}{column}"
                     info(
-                        f"{wRep:<5} tblr={top:>4} {bottom:>4} {left:>4} {right:>4},"
+                        f"{wRep:<5} [{block:>3}]"
+                        f" tblr={top:>4} {bottom:>4} {left:>4} {right:>4},"
                         f" value={value:5.2f} conn={conn:5.3f} border={border:>2}",
                         tm=False,
                     )
