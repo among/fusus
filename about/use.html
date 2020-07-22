@@ -41,15 +41,10 @@ and control the processing of pages.</p>
 <ul>
 <li><code>in</code>
 Contains mage files (scans at 1800 x2700 pixels approximately)</li>
-<li>
-<p><code>marks</code>
+<li><code>marks</code>
 Contains subdirectories with little rectangles copied from the scans
-and saved in individual files at the same resolution.</p>
-<p>Marks can be <em>dividers</em> or normal marks.</p>
-</li>
+and saved in individual files at the same resolution.</li>
 </ul>
-<h3 id="dividers">Dividers</h3>
-<p>Dividers are used to skip portions of the page.</p>
 <h3 id="marks">Marks</h3>
 <p>Marks are spots that will be wiped clean wherever they are found.</p>
 <p>They are organized in <em>bands</em> which are sets of horizontal strokes on the page,
@@ -67,12 +62,6 @@ avoid false positives.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>divider</code></td>
-<td>dividers</td>
-<td><code>footnote.</code><em>ext</em></td>
-<td><em>not a band</em></td>
-</tr>
 <tr>
 <td><code>high</code></td>
 <td>marks</td>
@@ -114,7 +103,7 @@ avoid false positives.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/about/use.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/about/use.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../../docs/about/use.md
@@ -144,7 +133,6 @@ data-gaCategoryParameter="pipeline.about.use">
 <li><a href="#the-express-way">The express way</a></li>
 <li><a href="#with-more-control-and-feedback">With more control and feedback</a></li>
 <li><a href="#book-directory">Book directory</a><ul>
-<li><a href="#dividers">Dividers</a></li>
 <li><a href="#marks">Marks</a></li>
 </ul>
 </li>

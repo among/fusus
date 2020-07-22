@@ -25,7 +25,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/ocr.py#L0-L60" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/ocr.py#L0-L71" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">from pytesseract import image_to_data, image_to_string, image_to_boxes
 
@@ -59,7 +59,7 @@ class OCR:
         self.engine = engine
 
     def read(self, mode=None):
-        &#34;&#34;&#34;Perfroms OCR with Tesseract.
+        &#34;&#34;&#34;Perfoms OCR with Tesseract.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -81,11 +81,22 @@ class OCR:
         if batch:
             ocrData = method(self.pageFile, lang=&#34;ara&#34;)
         else:
-            scan = self.page.stages.get(&#34;clean&#34;, None)
+            page = self.page
+            scan = page.stages.get(&#34;clean&#34;, None)
             if scan is None:
                 return None
-
-            ocrData = method(scan, lang=&#34;ara&#34;)
+            blocks = page.blocks
+            ocrData = []
+            for ((stripe, column), data) in blocks.items():
+                (left, top, right, bottom) = data[&#34;inner&#34;]
+                scanPart = scan[top:bottom, left:right]
+                ocrDataPart = method(scanPart, lang=&#34;ara&#34;)
+                ocrData.append(
+                    f&#34;BLOCK START {stripe}{column}\n&#34;
+                    f&#34;{ocrDataPart}\n&#34;
+                    f&#34;BLOCK END {stripe}{column}\n&#34;
+                )
+            ocrData = &#34;&#34;.join(ocrData)
 
         return ocrData</code></pre>
 </details>
@@ -108,7 +119,7 @@ class OCR:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/ocr.py#L11-L61" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/ocr.py#L11-L72" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class OCR:
     def __init__(self, engine, page=None, pageFile=None):
@@ -132,7 +143,7 @@ class OCR:
         self.engine = engine
 
     def read(self, mode=None):
-        &#34;&#34;&#34;Perfroms OCR with Tesseract.
+        &#34;&#34;&#34;Perfoms OCR with Tesseract.
         &#34;&#34;&#34;
 
         engine = self.engine
@@ -154,11 +165,22 @@ class OCR:
         if batch:
             ocrData = method(self.pageFile, lang=&#34;ara&#34;)
         else:
-            scan = self.page.stages.get(&#34;clean&#34;, None)
+            page = self.page
+            scan = page.stages.get(&#34;clean&#34;, None)
             if scan is None:
                 return None
-
-            ocrData = method(scan, lang=&#34;ara&#34;)
+            blocks = page.blocks
+            ocrData = []
+            for ((stripe, column), data) in blocks.items():
+                (left, top, right, bottom) = data[&#34;inner&#34;]
+                scanPart = scan[top:bottom, left:right]
+                ocrDataPart = method(scanPart, lang=&#34;ara&#34;)
+                ocrData.append(
+                    f&#34;BLOCK START {stripe}{column}\n&#34;
+                    f&#34;{ocrDataPart}\n&#34;
+                    f&#34;BLOCK END {stripe}{column}\n&#34;
+                )
+            ocrData = &#34;&#34;.join(ocrData)
 
         return ocrData</code></pre>
 </details>
@@ -168,14 +190,14 @@ class OCR:
 <span>def <span class="ident">read</span></span>(<span>self, mode=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Perfroms OCR with Tesseract.</p></div>
+<div class="desc"><p>Perfoms OCR with Tesseract.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/ocr.py#L32-L61" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/ocr.py#L32-L72" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, mode=None):
-    &#34;&#34;&#34;Perfroms OCR with Tesseract.
+    &#34;&#34;&#34;Perfoms OCR with Tesseract.
     &#34;&#34;&#34;
 
     engine = self.engine
@@ -197,11 +219,22 @@ class OCR:
     if batch:
         ocrData = method(self.pageFile, lang=&#34;ara&#34;)
     else:
-        scan = self.page.stages.get(&#34;clean&#34;, None)
+        page = self.page
+        scan = page.stages.get(&#34;clean&#34;, None)
         if scan is None:
             return None
-
-        ocrData = method(scan, lang=&#34;ara&#34;)
+        blocks = page.blocks
+        ocrData = []
+        for ((stripe, column), data) in blocks.items():
+            (left, top, right, bottom) = data[&#34;inner&#34;]
+            scanPart = scan[top:bottom, left:right]
+            ocrDataPart = method(scanPart, lang=&#34;ara&#34;)
+            ocrData.append(
+                f&#34;BLOCK START {stripe}{column}\n&#34;
+                f&#34;{ocrDataPart}\n&#34;
+                f&#34;BLOCK END {stripe}{column}\n&#34;
+            )
+        ocrData = &#34;&#34;.join(ocrData)
 
     return ocrData</code></pre>
 </details>

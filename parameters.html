@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L0-L349" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L0-L370" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -39,8 +39,14 @@ COLORS = dict(
     blackRGB=(0, 0, 0),
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
+    blockRGB=(0, 255, 255),
+    letterRGB=(0, 200, 200),
+    upperRGB=(0, 200, 0),
+    lowerRGB=(200, 0, 0),
+    horizontalStrokeRGB=(0, 128, 255),
+    verticalStrokeRGB=(255, 128, 0),
     marginGRS=255,
-    marginRGB=(250, 250, 250),
+    marginRGB=(200, 200, 200),
     cleanRGB=(255, 255, 255),
     cleanhRGB=(220, 220, 220),
     boxDeleteRGB=(240, 170, 20),
@@ -70,6 +76,7 @@ STAGES = dict(
     rotated=(&#34;image&#34;, None),
     normalized=(&#34;image&#34;, None),
     normalizedC=(&#34;image&#34;, None),
+    layout=(&#34;image&#34;, None),
     histogram=(&#34;image&#34;, None),
     demargined=(&#34;image&#34;, None),
     demarginedC=(&#34;image&#34;, None),
@@ -89,15 +96,18 @@ The `...Data` stages are tab separated files with unicode data.
 &#34;&#34;&#34;
 
 SETTINGS = dict(
+    debug=0,
     inDir=&#34;in&#34;,
     outDir=&#34;out&#34;,
     interDir=&#34;inter&#34;,
     marksDir=&#34;marks&#34;,
     skewBorder=30,
-    blurX=31,
-    blurY=11,
+    blurX=41,
+    blurY=41,
     marginThresholdX=1,
     marginThresholdY=5,
+    marginThreshold2Y=10,
+    blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
     connectThreshold=200 * 200,
@@ -119,6 +129,11 @@ by calling the `Config` constructor and the
 
 The default values can be inspected by expanding the source code.
 
+debug
+:   Whether to show (intermediate) results.
+    If `0`: shows nothing, if `1`: shows end result, if `2`: shows intermediate
+    results.
+
 inDir
 :   name of the subdirectory with page scans
 
@@ -129,7 +144,7 @@ interDir
 :   name of the subdirectory with the intermediate results of the pipeline
 
 marksDir
-:   name of the subdirectory with the marks and dividers
+:   name of the subdirectory with the marks
 
 skewBorder
 :   the  width of the page  margins that will be whitened in order to
@@ -266,6 +281,9 @@ bandLow
 &#34;&#34;&#34;
 
 
+MARK_PARAMS = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;, r=&#34;connectRatio&#34;)
+
+
 class Config:
     def __init__(self, tm, **params):
         &#34;&#34;&#34;Settings manager.
@@ -303,6 +321,9 @@ class Config:
         # stages
         setattr(self, &#34;stageOrder&#34;, tuple(STAGES))
         setattr(self, &#34;stages&#34;, STAGES)
+
+        # marks
+        setattr(self, &#34;markParams&#34;, MARK_PARAMS)
 
         # settings
         self.settings = deepcopy(SETTINGS)
@@ -402,6 +423,10 @@ by calling the <code><a title="pipeline.parameters.Config" href="#pipeline.param
 <code><a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure">Config.configure()</a></code> method.</p>
 <p>The default values can be inspected by expanding the source code.</p>
 <dl>
+<dt>debug</dt>
+<dd>Whether to show (intermediate) results.
+If <code>0</code>: shows nothing, if <code>1</code>: shows end result, if <code>2</code>: shows intermediate
+results.</dd>
 <dt>inDir</dt>
 <dd>name of the subdirectory with page scans</dd>
 <dt>outDir</dt>
@@ -409,7 +434,7 @@ by calling the <code><a title="pipeline.parameters.Config" href="#pipeline.param
 <dt>interDir</dt>
 <dd>name of the subdirectory with the intermediate results of the pipeline</dd>
 <dt>marksDir</dt>
-<dd>name of the subdirectory with the marks and dividers</dd>
+<dd>name of the subdirectory with the marks</dd>
 <dt>skewBorder</dt>
 <dd>the
 width of the page
@@ -574,7 +599,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L239-L350" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L257-L371" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -613,6 +638,9 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
         # stages
         setattr(self, &#34;stageOrder&#34;, tuple(STAGES))
         setattr(self, &#34;stages&#34;, STAGES)
+
+        # marks
+        setattr(self, &#34;markParams&#34;, MARK_PARAMS)
 
         # settings
         self.settings = deepcopy(SETTINGS)
@@ -710,7 +738,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L283-L325" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L304-L346" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -772,7 +800,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/parameters.py#L327-L350" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L348-L371" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.

@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L0-L375" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L0-L383" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book pipeline
 &#34;&#34;&#34;
@@ -75,15 +75,12 @@ class Book:
         &#34;&#34;&#34;
 
         C = self.C
+        markParams = C.markParams
         tm = self.tm
         error = tm.error
 
-        markParams = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;)
-
         self.marks = {}
         marks = self.marks
-        self.dividers = {}
-        dividers = self.dividers
         offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
         self.offsetBand = offsetBand
 
@@ -116,18 +113,15 @@ class Book:
                 image = cv2.imread(full)
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-                if band == &#34;divider&#34;:
-                    dividers[bare] = dict(gray=gray)
-                    dest = dividers[bare]
-                else:
-                    seq += 1
-                    marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
-                    dest = marks[band][bare]
+                seq += 1
+                marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
+                dest = marks[band][bare]
                 for (k, kLong) in markParams.items():
                     dest[kLong] = tweakDict.get(k, getattr(C, kLong))
 
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
+        self.allPagesList = pagesRep(self.allPages, asList=True)
 
     def configure(self, reset=False, **params):
         &#34;&#34;&#34;Updates current settings based on new values.
@@ -204,7 +198,7 @@ class Book:
         info(f&#34;{len(allPages)} pages: {pagesDesc}&#34;)
 
     def _doPage(
-        self, f, batch=False, boxed=True, quiet=False, doOcr=True,
+        self, f, batch=False, boxed=True, quiet=False, doOcr=True, uptoLayout=False
     ):
         &#34;&#34;&#34;Process a single page.
 
@@ -223,9 +217,11 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `False`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -258,25 +254,29 @@ class Book:
                 info(&#34;normalizing&#34;)
             page._normalize()
             if not batch:
-                info(&#34;histogram&#34;)
-            page._histogram()
-            if not batch:
-                info(&#34;margins&#34;)
-            page._margins()
-            if not batch:
-                info(&#34;cleaning&#34;)
-            page._clean()
-            if not batch:
-                if doOcr:
-                    info(&#34;ocr&#34;)
-                    page._ocr()
+                info(&#34;layout&#34;)
+            page._layout()
+            if not uptoLayout:
+                if not batch:
+                    info(&#34;cleaning&#34;)
+                page._clean()
+                if not batch:
+                    if doOcr:
+                        info(&#34;ocr&#34;)
+                        page._ocr()
 
         tm.silentOff()
 
         return page
 
     def process(
-        self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
+        self,
+        pages=None,
+        batch=True,
+        quiet=True,
+        boxed=False,
+        doOcr=True,
+        uptoLayout=False,
     ):
         &#34;&#34;&#34;Process directory of images.
 
@@ -301,9 +301,11 @@ class Book:
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `True`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -334,26 +336,30 @@ class Book:
         info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
         info(&#34;Start batch processing images&#34;)
+        page = None
+
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
             info(f&#34;{msg}\r&#34;, nl=False)
             page = self._doPage(
-                imFile, batch=batch, boxed=boxed, quiet=quiet, doOcr=doOcr
+                imFile,
+                batch=batch,
+                boxed=boxed,
+                quiet=quiet,
+                doOcr=doOcr,
+                uptoLayout=uptoLayout,
             )
             page.write(stage=&#34;clean&#34;)
-            if not batch:
-                page.write(stage=&#34;markData&#34;)
-                page.write(stage=&#34;ocrData&#34;)
-            if boxed:
-                page.write(stage=&#34;boxed&#34;)
-            div = page.dividers.get(&#34;footnote&#34;, None)
-            amount = div[2] if div else 100
-            info(f&#34;{msg} {amount:&gt;3}%&#34;)
-            if not quiet:
-                divIm = div[1]
-                if divIm is not None:
-                    showImage(divIm)
+            if uptoLayout:
+                info(f&#34;{msg}&#34;)
+            else:
+                if not batch:
+                    page.write(stage=&#34;markData&#34;)
+                    page.write(stage=&#34;ocrData&#34;)
+                if boxed:
+                    page.write(stage=&#34;boxed&#34;)
+                info(f&#34;{msg}&#34;)
         indent(level=0)
         info(&#34;all done&#34;)
 
@@ -370,7 +376,9 @@ class Book:
                 name = tmp.name
                 reader = OCR(self, pageFile=name)
                 ocrData = reader.read()
-                ocrDataFile = f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+                ocrDataFile = (
+                    f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+                )
                 if ocrData is not None:
                     with open(ocrDataFile, &#34;w&#34;) as df:
                         df.write(ocrData)
@@ -426,7 +434,7 @@ of pages as in <code><a title="pipeline.book.Book.process" href="#pipeline.book.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L355-L372" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L363-L380" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -471,7 +479,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L25-L352" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L25-L360" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, **params):
@@ -496,15 +504,12 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
         &#34;&#34;&#34;
 
         C = self.C
+        markParams = C.markParams
         tm = self.tm
         error = tm.error
 
-        markParams = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;)
-
         self.marks = {}
         marks = self.marks
-        self.dividers = {}
-        dividers = self.dividers
         offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
         self.offsetBand = offsetBand
 
@@ -537,18 +542,15 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
                 image = cv2.imread(full)
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-                if band == &#34;divider&#34;:
-                    dividers[bare] = dict(gray=gray)
-                    dest = dividers[bare]
-                else:
-                    seq += 1
-                    marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
-                    dest = marks[band][bare]
+                seq += 1
+                marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
+                dest = marks[band][bare]
                 for (k, kLong) in markParams.items():
                     dest[kLong] = tweakDict.get(k, getattr(C, kLong))
 
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
+        self.allPagesList = pagesRep(self.allPages, asList=True)
 
     def configure(self, reset=False, **params):
         &#34;&#34;&#34;Updates current settings based on new values.
@@ -625,7 +627,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
         info(f&#34;{len(allPages)} pages: {pagesDesc}&#34;)
 
     def _doPage(
-        self, f, batch=False, boxed=True, quiet=False, doOcr=True,
+        self, f, batch=False, boxed=True, quiet=False, doOcr=True, uptoLayout=False
     ):
         &#34;&#34;&#34;Process a single page.
 
@@ -644,9 +646,11 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `False`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -679,25 +683,29 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
                 info(&#34;normalizing&#34;)
             page._normalize()
             if not batch:
-                info(&#34;histogram&#34;)
-            page._histogram()
-            if not batch:
-                info(&#34;margins&#34;)
-            page._margins()
-            if not batch:
-                info(&#34;cleaning&#34;)
-            page._clean()
-            if not batch:
-                if doOcr:
-                    info(&#34;ocr&#34;)
-                    page._ocr()
+                info(&#34;layout&#34;)
+            page._layout()
+            if not uptoLayout:
+                if not batch:
+                    info(&#34;cleaning&#34;)
+                page._clean()
+                if not batch:
+                    if doOcr:
+                        info(&#34;ocr&#34;)
+                        page._ocr()
 
         tm.silentOff()
 
         return page
 
     def process(
-        self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
+        self,
+        pages=None,
+        batch=True,
+        quiet=True,
+        boxed=False,
+        doOcr=True,
+        uptoLayout=False,
     ):
         &#34;&#34;&#34;Process directory of images.
 
@@ -722,9 +730,11 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
             If in batch mode, produce also images that display the cleaned marks
             in boxes.
         quiet: boolean, optional `True`
-            Whether to suppress warnings and the display of footnote separators.
+            Whether to suppress warnings and the display of stroke separators.
         doOcr: boolean, optional `True`
             Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
 
         Returns
         -------
@@ -755,26 +765,30 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
         info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
         info(&#34;Start batch processing images&#34;)
+        page = None
+
         for (i, imFile) in enumerate(sorted(imageFiles)):
             indent(level=1, reset=True)
             msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
             info(f&#34;{msg}\r&#34;, nl=False)
             page = self._doPage(
-                imFile, batch=batch, boxed=boxed, quiet=quiet, doOcr=doOcr
+                imFile,
+                batch=batch,
+                boxed=boxed,
+                quiet=quiet,
+                doOcr=doOcr,
+                uptoLayout=uptoLayout,
             )
             page.write(stage=&#34;clean&#34;)
-            if not batch:
-                page.write(stage=&#34;markData&#34;)
-                page.write(stage=&#34;ocrData&#34;)
-            if boxed:
-                page.write(stage=&#34;boxed&#34;)
-            div = page.dividers.get(&#34;footnote&#34;, None)
-            amount = div[2] if div else 100
-            info(f&#34;{msg} {amount:&gt;3}%&#34;)
-            if not quiet:
-                divIm = div[1]
-                if divIm is not None:
-                    showImage(divIm)
+            if uptoLayout:
+                info(f&#34;{msg}&#34;)
+            else:
+                if not batch:
+                    page.write(stage=&#34;markData&#34;)
+                    page.write(stage=&#34;ocrData&#34;)
+                if boxed:
+                    page.write(stage=&#34;boxed&#34;)
+                info(f&#34;{msg}&#34;)
         indent(level=0)
         info(&#34;all done&#34;)
 
@@ -791,7 +805,9 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
                 name = tmp.name
                 reader = OCR(self, pageFile=name)
                 ocrData = reader.read()
-                ocrDataFile = f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+                ocrDataFile = (
+                    f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+                )
                 if ocrData is not None:
                     with open(ocrDataFile, &#34;w&#34;) as df:
                         df.write(ocrData)
@@ -812,7 +828,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L127-L139" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L121-L133" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.
@@ -837,7 +853,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L141-L162" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L135-L156" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self):
     &#34;&#34;&#34;Display the characteristics of all defined *marks*.
@@ -871,7 +887,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L164-L174" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L158-L168" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.
@@ -895,7 +911,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L102-L109" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L96-L103" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -908,7 +924,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 </details>
 </dd>
 <dt id="pipeline.book.Book.process"><code class="name flex">
-<span>def <span class="ident">process</span></span>(<span>self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True)</span>
+<span>def <span class="ident">process</span></span>(<span>self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True, uptoLayout=False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Process directory of images.</p>
@@ -932,9 +948,11 @@ Less feedback happens on the console.</dd>
 <dd>If in batch mode, produce also images that display the cleaned marks
 in boxes.</dd>
 <dt><strong><code>quiet</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
-<dd>Whether to suppress warnings and the display of footnote separators.</dd>
+<dd>Whether to suppress warnings and the display of stroke separators.</dd>
 <dt><strong><code>doOcr</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
 <dd>Whether to perform OCR processing</dd>
+<dt><strong><code>uptoLayout</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to stop after doing layout</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -946,10 +964,16 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L248-L352" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L242-L360" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
-    self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True,
+    self,
+    pages=None,
+    batch=True,
+    quiet=True,
+    boxed=False,
+    doOcr=True,
+    uptoLayout=False,
 ):
     &#34;&#34;&#34;Process directory of images.
 
@@ -974,9 +998,11 @@ in boxes.</dd>
         If in batch mode, produce also images that display the cleaned marks
         in boxes.
     quiet: boolean, optional `True`
-        Whether to suppress warnings and the display of footnote separators.
+        Whether to suppress warnings and the display of stroke separators.
     doOcr: boolean, optional `True`
         Whether to perform OCR processing
+    uptoLayout: boolean, optional `False`
+        Whether to stop after doing layout
 
     Returns
     -------
@@ -1007,26 +1033,30 @@ in boxes.</dd>
     info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
 
     info(&#34;Start batch processing images&#34;)
+    page = None
+
     for (i, imFile) in enumerate(sorted(imageFiles)):
         indent(level=1, reset=True)
         msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
         info(f&#34;{msg}\r&#34;, nl=False)
         page = self._doPage(
-            imFile, batch=batch, boxed=boxed, quiet=quiet, doOcr=doOcr
+            imFile,
+            batch=batch,
+            boxed=boxed,
+            quiet=quiet,
+            doOcr=doOcr,
+            uptoLayout=uptoLayout,
         )
         page.write(stage=&#34;clean&#34;)
-        if not batch:
-            page.write(stage=&#34;markData&#34;)
-            page.write(stage=&#34;ocrData&#34;)
-        if boxed:
-            page.write(stage=&#34;boxed&#34;)
-        div = page.dividers.get(&#34;footnote&#34;, None)
-        amount = div[2] if div else 100
-        info(f&#34;{msg} {amount:&gt;3}%&#34;)
-        if not quiet:
-            divIm = div[1]
-            if divIm is not None:
-                showImage(divIm)
+        if uptoLayout:
+            info(f&#34;{msg}&#34;)
+        else:
+            if not batch:
+                page.write(stage=&#34;markData&#34;)
+                page.write(stage=&#34;ocrData&#34;)
+            if boxed:
+                page.write(stage=&#34;boxed&#34;)
+            info(f&#34;{msg}&#34;)
     indent(level=0)
     info(&#34;all done&#34;)
 
@@ -1043,7 +1073,9 @@ in boxes.</dd>
             name = tmp.name
             reader = OCR(self, pageFile=name)
             ocrData = reader.read()
-            ocrDataFile = f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+            ocrDataFile = (
+                f&#34;{outDir}/ocrData{&#39;&#39; if pages is None else pagesDesc}.tsv&#34;
+            )
             if ocrData is not None:
                 with open(ocrDataFile, &#34;w&#34;) as df:
                     df.write(ocrData)
@@ -1074,7 +1106,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/5979f626f535f0783c7504d27da4fd42fc763103/pipeline/book.py#L111-L125" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L105-L119" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
