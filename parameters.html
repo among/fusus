@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L0-L370" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L0-L371" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -35,6 +35,7 @@ from copy import deepcopy
 
 
 COLORS = dict(
+    greyGRS=200,
     blackGRS=0,
     blackRGB=(0, 0, 0),
     whiteGRS=255,
@@ -105,8 +106,8 @@ SETTINGS = dict(
     blurX=41,
     blurY=41,
     marginThresholdX=1,
-    marginThresholdY=5,
-    marginThreshold2Y=10,
+    marginThresholdY=8,
+    marginThreshold2Y=15,
     blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
@@ -281,7 +282,7 @@ bandLow
 &#34;&#34;&#34;
 
 
-MARK_PARAMS = dict(acc=&#34;accuracy&#34;, cb=&#34;connectBorder&#34;, r=&#34;connectRatio&#34;)
+MARK_PARAMS = dict(acc=&#34;accuracy&#34;, bw=&#34;connectBorder&#34;, r=&#34;connectRatio&#34;)
 
 
 class Config:
@@ -599,7 +600,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L257-L371" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L258-L372" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -738,7 +739,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L304-L346" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L305-L347" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -800,7 +801,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/parameters.py#L348-L371" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L349-L372" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.

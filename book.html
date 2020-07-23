@@ -26,7 +26,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L0-L383" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L0-L401" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book pipeline
 &#34;&#34;&#34;
@@ -40,12 +40,13 @@ from tf.core.timestamp import Timestamp
 
 from .parameters import Config
 from .lib import (
-    showImage,
     imageFileList,
     imageFileListSub,
-    select,
-    splitext,
     pagesRep,
+    reborder,
+    select,
+    showImage,
+    splitext,
     tempFile,
 )
 from .page import Page
@@ -75,6 +76,7 @@ class Book:
         &#34;&#34;&#34;
 
         C = self.C
+        whit = C.whiteGRS
         markParams = C.markParams
         tm = self.tm
         error = tm.error
@@ -105,13 +107,15 @@ class Book:
                             error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
                             continue
                         try:
-                            tweakDict[k] = int(v) if k == &#34;cb&#34; else float(v)
+                            tweakDict[k] = int(v) if k == &#34;bw&#34; else float(v)
                         except Exception:
                             error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
 
                 full = f&#34;{C.marksDir}/{band}/{f}&#34;
                 image = cv2.imread(full)
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                gray = reborder(
+                    cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 4, whit, crop=True
+                )
 
                 seq += 1
                 marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
@@ -162,28 +166,42 @@ class Book:
                 f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False
             )
 
-    def availableMarks(self):
-        &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+    def availableMarks(self, band=None, mark=None):
+        &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+        Parameters
+        ----------
+        band: string, optional `None`
+            Show only marks in this band. If `None`, show marks in all bands.
+        mark: string, optional `None`
+            Show only marks in with this name. If `None`, show marks with any name.
         &#34;&#34;&#34;
 
+        C = self.C
+        grey = C.greyGRS
         tm = self.tm
         info = tm.info
         marks = self.marks
 
         info(&#34;Marks and their settings&#34;, tm=False)
-        for (band, markItems) in sorted(marks.items()):
-            bandRep = f&#34;[{band}]&#34;
+        for (bnd, markItems) in sorted(marks.items()):
+            if band is not None and band != bnd:
+                continue
+            bandRep = f&#34;[{bnd}]&#34;
             info(f&#34;\tband {bandRep}&#34;, tm=False)
-            for (mark, markInfo) in sorted(markItems.items()):
-                markRep = f&#34;«{mark}»&#34;
+            for (mrk, markInfo) in sorted(markItems.items()):
+                if mark is not None and mark != mrk:
+                    continue
+                markRep = f&#34;«{mrk}»&#34;
                 seq = markInfo[&#34;seq&#34;]
                 acc = markInfo[&#34;accuracy&#34;]
-                cb = markInfo[&#34;connectBorder&#34;]
+                bw = markInfo[&#34;connectBorder&#34;]
+                r = markInfo[&#34;connectRatio&#34;]
                 info(
-                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
-                    tm=False,
+                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;, tm=False,
                 )
-                showImage(markInfo[&#34;gray&#34;])
+                markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+                showImage(markImage)
 
     def availablePages(self):
         &#34;&#34;&#34;Display the amount and page numbers of all pages.
@@ -259,7 +277,7 @@ class Book:
             if not uptoLayout:
                 if not batch:
                     info(&#34;cleaning&#34;)
-                page._clean()
+                page._clean(showKept=not batch or boxed)
                 if not batch:
                     if doOcr:
                         info(&#34;ocr&#34;)
@@ -434,7 +452,7 @@ of pages as in <code><a title="pipeline.book.Book.process" href="#pipeline.book.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L363-L380" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L381-L398" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -479,7 +497,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L25-L360" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L26-L378" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, **params):
@@ -504,6 +522,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
         &#34;&#34;&#34;
 
         C = self.C
+        whit = C.whiteGRS
         markParams = C.markParams
         tm = self.tm
         error = tm.error
@@ -534,13 +553,15 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
                             error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
                             continue
                         try:
-                            tweakDict[k] = int(v) if k == &#34;cb&#34; else float(v)
+                            tweakDict[k] = int(v) if k == &#34;bw&#34; else float(v)
                         except Exception:
                             error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
 
                 full = f&#34;{C.marksDir}/{band}/{f}&#34;
                 image = cv2.imread(full)
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                gray = reborder(
+                    cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 4, whit, crop=True
+                )
 
                 seq += 1
                 marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
@@ -591,28 +612,42 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
                 f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False
             )
 
-    def availableMarks(self):
-        &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+    def availableMarks(self, band=None, mark=None):
+        &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+        Parameters
+        ----------
+        band: string, optional `None`
+            Show only marks in this band. If `None`, show marks in all bands.
+        mark: string, optional `None`
+            Show only marks in with this name. If `None`, show marks with any name.
         &#34;&#34;&#34;
 
+        C = self.C
+        grey = C.greyGRS
         tm = self.tm
         info = tm.info
         marks = self.marks
 
         info(&#34;Marks and their settings&#34;, tm=False)
-        for (band, markItems) in sorted(marks.items()):
-            bandRep = f&#34;[{band}]&#34;
+        for (bnd, markItems) in sorted(marks.items()):
+            if band is not None and band != bnd:
+                continue
+            bandRep = f&#34;[{bnd}]&#34;
             info(f&#34;\tband {bandRep}&#34;, tm=False)
-            for (mark, markInfo) in sorted(markItems.items()):
-                markRep = f&#34;«{mark}»&#34;
+            for (mrk, markInfo) in sorted(markItems.items()):
+                if mark is not None and mark != mrk:
+                    continue
+                markRep = f&#34;«{mrk}»&#34;
                 seq = markInfo[&#34;seq&#34;]
                 acc = markInfo[&#34;accuracy&#34;]
-                cb = markInfo[&#34;connectBorder&#34;]
+                bw = markInfo[&#34;connectBorder&#34;]
+                r = markInfo[&#34;connectRatio&#34;]
                 info(
-                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
-                    tm=False,
+                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;, tm=False,
                 )
-                showImage(markInfo[&#34;gray&#34;])
+                markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+                showImage(markImage)
 
     def availablePages(self):
         &#34;&#34;&#34;Display the amount and page numbers of all pages.
@@ -688,7 +723,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
             if not uptoLayout:
                 if not batch:
                     info(&#34;cleaning&#34;)
-                page._clean()
+                page._clean(showKept=not batch or boxed)
                 if not batch:
                     if doOcr:
                         info(&#34;ocr&#34;)
@@ -828,7 +863,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L121-L133" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L125-L137" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.
@@ -846,37 +881,58 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 </details>
 </dd>
 <dt id="pipeline.book.Book.availableMarks"><code class="name flex">
-<span>def <span class="ident">availableMarks</span></span>(<span>self)</span>
+<span>def <span class="ident">availableMarks</span></span>(<span>self, band=None, mark=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Display the characteristics of all defined <em>marks</em>.</p></div>
+<div class="desc"><p>Display the characteristics of defined <em>marks</em>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>band</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>Show only marks in this band. If <code>None</code>, show marks in all bands.</dd>
+<dt><strong><code>mark</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>Show only marks in with this name. If <code>None</code>, show marks with any name.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L135-L156" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L139-L174" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def availableMarks(self):
-    &#34;&#34;&#34;Display the characteristics of all defined *marks*.
+<pre><code class="python">def availableMarks(self, band=None, mark=None):
+    &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+    Parameters
+    ----------
+    band: string, optional `None`
+        Show only marks in this band. If `None`, show marks in all bands.
+    mark: string, optional `None`
+        Show only marks in with this name. If `None`, show marks with any name.
     &#34;&#34;&#34;
 
+    C = self.C
+    grey = C.greyGRS
     tm = self.tm
     info = tm.info
     marks = self.marks
 
     info(&#34;Marks and their settings&#34;, tm=False)
-    for (band, markItems) in sorted(marks.items()):
-        bandRep = f&#34;[{band}]&#34;
+    for (bnd, markItems) in sorted(marks.items()):
+        if band is not None and band != bnd:
+            continue
+        bandRep = f&#34;[{bnd}]&#34;
         info(f&#34;\tband {bandRep}&#34;, tm=False)
-        for (mark, markInfo) in sorted(markItems.items()):
-            markRep = f&#34;«{mark}»&#34;
+        for (mrk, markInfo) in sorted(markItems.items()):
+            if mark is not None and mark != mrk:
+                continue
+            markRep = f&#34;«{mrk}»&#34;
             seq = markInfo[&#34;seq&#34;]
             acc = markInfo[&#34;accuracy&#34;]
-            cb = markInfo[&#34;connectBorder&#34;]
+            bw = markInfo[&#34;connectBorder&#34;]
+            r = markInfo[&#34;connectRatio&#34;]
             info(
-                f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} accuracy={acc}, connectBorder={cb}&#34;,
-                tm=False,
+                f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;, tm=False,
             )
-            showImage(markInfo[&#34;gray&#34;])</code></pre>
+            markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+            showImage(markImage)</code></pre>
 </details>
 </dd>
 <dt id="pipeline.book.Book.availablePages"><code class="name flex">
@@ -887,7 +943,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L158-L168" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L176-L186" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.
@@ -911,7 +967,7 @@ a <code><a title="pipeline.book.Book.configure" href="#pipeline.book.Book.config
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L96-L103" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L100-L107" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -964,7 +1020,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L242-L360" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L260-L378" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self,
@@ -1106,7 +1162,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/119c46241be722d1d2ddf32f0594680e24b3b620/pipeline/book.py#L105-L119" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/book.py#L109-L123" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
