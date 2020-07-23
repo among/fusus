@@ -5,6 +5,7 @@ from copy import deepcopy
 
 
 COLORS = dict(
+    greyGRS=200,
     blackGRS=0,
     blackRGB=(0, 0, 0),
     whiteGRS=255,
@@ -75,8 +76,8 @@ SETTINGS = dict(
     blurX=41,
     blurY=41,
     marginThresholdX=1,
-    marginThresholdY=5,
-    marginThreshold2Y=10,
+    marginThresholdY=8,
+    marginThreshold2Y=15,
     blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
@@ -251,7 +252,7 @@ bandLow
 """
 
 
-MARK_PARAMS = dict(acc="accuracy", cb="connectBorder", r="connectRatio")
+MARK_PARAMS = dict(acc="accuracy", bw="connectBorder", r="connectRatio")
 
 
 class Config:

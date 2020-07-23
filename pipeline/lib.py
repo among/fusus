@@ -550,7 +550,7 @@ def findRuns(x):
         return run_values, run_starts, run_lengths
 
 
-def getStretches(C, info, stages, horizontal):
+def getStretches(C, info, stages, horizontal, batch):
     """Gets significant horizontal or vertical strokes.
 
     Significant strokes are those that are not part of letters,
@@ -581,6 +581,8 @@ def getStretches(C, info, stages, horizontal):
         Intermediate cv2 images, keyed by stage name
     horizontal: boolean
         Whether we do horizontal of vertical lines.
+    batch: boolean
+        Whether we run in batch mode.
 
     Returns
     -------
@@ -594,10 +596,12 @@ def getStretches(C, info, stages, horizontal):
     strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
 
     normalized = stages["normalized"]
-    layout = stages["layout"]
     img = normalized if horizontal else normalized.T
-    out = layout if horizontal else cv2.transpose(layout)
     label = "HOR" if horizontal else "VER"
+
+    if not batch:
+        layout = stages["layout"]
+        out = layout if horizontal else cv2.transpose(layout)
 
     (maxH, maxW) = img.shape[0:2]
 
@@ -684,11 +688,13 @@ def getStretches(C, info, stages, horizontal):
     for (n, segments) in sorted(stretches.items()):
         for (f, t, half) in segments:
             info(f"{label} @ {n:>4} thick={half:>2} from {f:>4} to {t:>4}", tm=False)
-            cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
+            if not batch:
+                cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
 
-    stages["layout"] = out if horizontal else cv2.transpose(out)
+    if not batch:
+        stages["layout"] = out if horizontal else cv2.transpose(out)
 
-    if debug > 0:
+    if not batch and debug > 0:
         showImage(stages["layout"])
     return stretches
 
@@ -718,7 +724,7 @@ def getStripes(stages, stretchesV):
     Parameters
     ----------
     stages: dict
-        We need access to the layout stage to get the page size.
+        We need access to the normalized stage to get the page size.
     stretchesV: dict
         Vertical line segments per x-coordinate, as delivered by `getStretches`.
 
@@ -731,8 +737,8 @@ def getStripes(stages, stretchesV):
         and `None` otherwise.
     """
 
-    layout = stages["layout"]
-    (maxH, maxW) = layout.shape[0:2]
+    normalized = stages["normalized"]
+    (maxH, maxW) = normalized.shape[0:2]
     lastHeight = 0
     segments = []
     for (x, ys) in stretchesV.items():
@@ -798,13 +804,16 @@ def getBlocks(C, stages, stripes, batch):
     blockColor = C.blockRGB
     letterColor = C.letterRGB
     rotated = stages["rotated"]
-    layout = stages["layout"]
+    normalized = stages["normalized"]
 
-    (maxH, maxW) = layout.shape[0:2]
+    (maxH, maxW) = normalized.shape[0:2]
 
     lineHeight = maxW // 30
 
     blocks = {}
+
+    if not batch:
+        layout = stages["layout"]
 
     for (stripe, (x, yMin, yMax)) in enumerate(stripes):
 
@@ -826,9 +835,7 @@ def getBlocks(C, stages, stripes, batch):
                     blockColor,
                     4,
                 )
-                addStripe(
-                    layout, theYMin, 0, maxW, marginX, letterColor, stripe, ""
-                )
+                addStripe(layout, theYMin, 0, maxW, marginX, letterColor, stripe, "")
         else:
             (theYMinL, theYMaxL) = adjustVertical(
                 C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
@@ -844,11 +851,7 @@ def getBlocks(C, stages, stripes, batch):
             )
             if not batch:
                 cv2.rectangle(
-                    layout,
-                    (marginX, theYMinL),
-                    (x - marginX, theYMaxL),
-                    blockColor,
-                    4,
+                    layout, (marginX, theYMinL), (x - marginX, theYMaxL), blockColor, 4,
                 )
                 addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, "l")
                 cv2.rectangle(
@@ -858,9 +861,7 @@ def getBlocks(C, stages, stripes, batch):
                     blockColor,
                     4,
                 )
-                addStripe(
-                    layout, theYMinR, x, maxW, marginX, letterColor, stripe, "r"
-                )
+                addStripe(layout, theYMinR, x, maxW, marginX, letterColor, stripe, "r")
     return collections.OrderedDict(sorted(blocks.items()))
 
 
@@ -907,16 +908,17 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     whit = C.whiteGRS
     white = C.whiteRGB
     letterColor = C.letterRGB
-    layout = stages["layout"]
     normalized = stages["normalized"]
     demargined = normalized.copy()
     stages["demargined"] = demargined
+    if not batch:
+        layout = stages["layout"]
     if not batch or boxed:
         normalizedC = stages["normalizedC"]
         demarginedC = normalizedC.copy()
         stages["demarginedC"] = demarginedC
 
-    (maxH, maxW) = layout.shape[0:2]
+    (maxH, maxW) = normalized.shape[0:2]
 
     topCriterion = maxH / 6
     topXCriterion = maxH / 4
@@ -949,17 +951,18 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                 else:
                     if bottom is None:
                         bottom = y - 2 * thickness - 2
-                addHStroke(
-                    layout,
-                    isTop,
-                    stripe,
-                    column,
-                    thickness,
-                    y,
-                    x1,
-                    x2,
-                    letterColor,
-                )
+                if not batch:
+                    addHStroke(
+                        layout,
+                        isTop,
+                        stripe,
+                        column,
+                        thickness,
+                        y,
+                        x1,
+                        x2,
+                        letterColor,
+                    )
 
         top = bT if top is None else top
         bottom = bB if bottom is None else bottom
@@ -968,12 +971,14 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
         data["inner"] = (left, top, right, bottom)
 
         if top != bT:
-            overlay(layout, bT + 2, top, left, right, white, mColor)
+            if not batch:
+                overlay(layout, bT + 2, top, left, right, white, mColor)
             cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
             if not batch or boxed:
                 overlay(demarginedC, bT + 2, top, left, right, white, mColor)
         if bottom != bB:
-            overlay(layout, bottom, bB - 2, left, right, white, mColor)
+            if not batch:
+                overlay(layout, bottom, bB - 2, left, right, white, mColor)
             cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
             if not batch or boxed:
                 overlay(demarginedC, bottom, bB - 2, left, right, white, mColor)
@@ -1019,9 +1024,8 @@ def getHistograms(C, stages, blocks, batch, boxed):
     lowerColor = C.lowerRGB
     thresholdX = C.marginThresholdX
     colorBand = C.colorBand
-    layout = stages["layout"]
-
     if not batch:
+        layout = stages["layout"]
         histogram = layout.copy()
         stages["histogram"] = histogram
 
@@ -1057,12 +1061,13 @@ def getHistograms(C, stages, blocks, batch, boxed):
 
         (normH, normW) = (bottom - top, right - left)
         roiOut = demargined[top:bottom, left:right]
-        roiOutC = layout[top:bottom, left:right]
+        if not batch:
+            roiOutC = layout[top:bottom, left:right]
         margins = getMargins(histX, normW, thresholdX)
 
         for (x1, x2) in margins:
             cv2.rectangle(roiOut, (x1, 0), (x2, normH), whit, -1)
-            if not batch or boxed:
+            if not batch:
                 overlay(roiOutC, 2, normH - 2, x1 + 2, x2 - 2, white, mColor)
 
         if len(margins) != 2:
@@ -1073,7 +1078,7 @@ def getHistograms(C, stages, blocks, batch, boxed):
 
         # define bands
 
-        (uppers, lowers) = getBandsFromHist(C, normH, histY)
+        (uppers, lowers) = getBandsFromHist(C, normH, histY, tweak=True)
 
         bands = {}
         data["bands"] = bands
@@ -1090,14 +1095,10 @@ def getHistograms(C, stages, blocks, batch, boxed):
         uppers = bandInfo["uppers"]
         lowers = bandInfo["lowers"]
 
-        if normW > 10:
+        if not batch and normW > 10:
             for (upper, lower) in zip(uppers, lowers):
-                overlay(
-                    roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor
-                )
-                overlay(
-                    roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor
-                )
+                overlay(roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor)
+                overlay(roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor)
             for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
                 overlay(roiOutC, lower, upper + 1, 10, normW - 10, white, mColor)
 
@@ -1105,14 +1106,14 @@ def getHistograms(C, stages, blocks, batch, boxed):
 
         topWhite = uppers[0] if uppers else normH
         cv2.rectangle(roiOut, (0, 0), (normW, topWhite), whit, -1)
-        if not batch or boxed:
+        if not batch:
             overlay(roiOutC, 0, topWhite, 0, normW, white, mColor)
 
         # remove bottom white space
 
         bottomWhite = lowers[-1] if lowers else 0
         cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), whit, -1)
-        if not batch or boxed:
+        if not batch:
             overlay(roiOutC, bottomWhite, normH, 0, normW, white, mColor)
 
         if not uppers:
@@ -1192,9 +1193,7 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
         if stripe == maxStripe:
             if column == "":
                 if bB < maxH:
-                    overlay(
-                        layout, bB, maxH, marginX, maxW - marginX, white, mColor
-                    )
+                    overlay(layout, bB, maxH, marginX, maxW - marginX, white, mColor)
             elif column == "l":
                 if bB < maxH:
                     overlay(layout, bB, maxH, marginX, x - marginX, white, mColor)
@@ -1208,7 +1207,7 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
         del blocks[b]
 
 
-def getBandsFromHist(C, height, histY):
+def getBandsFromHist(C, height, histY, tweak=False):
     # invariant:
     # not inline => not dip
     # #uppers == #lowers      if (inline and dip) or (not inline)
@@ -1221,22 +1220,32 @@ def getBandsFromHist(C, height, histY):
     inline = False
     uppers = []
     lowers = []
+    peaks = []
+
+    peak = 0
 
     for y in range(height):
         hist = histY[y]
         if inline:
+            if hist > peak:
+                peak = hist
             if hist >= threshold2:
                 if dip:
+                    peaks[-1] = peak
                     lowers[-1] = y
             elif hist <= threshold:
                 if not dip:
+                    peaks.append(peak)
                     lowers.append(y)
                 inline = False
                 dip = False
+                peak = 0
             else:
                 if dip:
+                    peaks[-1] = peak
                     lowers[-1] = y
                 else:
+                    peaks.append(peak)
                     lowers.append(y)
                     dip = True
         else:
@@ -1249,9 +1258,39 @@ def getBandsFromHist(C, height, histY):
     # by invariant: that only happens if inline and not dip
 
     if inline and not dip:
+        peaks.append(peak)
         lowers.append(y)
 
-    return (uppers, lowers)
+    if not tweak:
+        return (uppers, lowers)
+
+    # apply corrections for lines with deviating widths
+
+    (newUppers, newLowers) = (uppers, lowers)
+
+    if peaks:
+        peakAv = int(round(sum(peaks) / len(peaks)))
+
+        peakCorr = peakAv / 2
+
+        (newUppers, newLowers) = ([], [])
+        for (up, lo, pk) in zip(uppers, lowers, peaks):
+            if pk > peakCorr:
+                (up2, lo2) = (up, lo)
+            else:
+                damp = 1.4 + 0.8 * (pk / peakAv)
+                foundW = (lo - up) / 2
+                corrW = (
+                    (damp * peakAv / ((damp - 1) * peakAv + pk)) * foundW
+                    if pk
+                    else foundW
+                )
+                up2 = int(round(up + foundW - corrW))
+                lo2 = int(round(lo - foundW + corrW))
+            newLowers.append(lo2)
+            newUppers.append(up2)
+    # return (uppers, lowers)
+    return (newUppers, newLowers)
 
 
 def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
@@ -1286,7 +1325,7 @@ def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, prefer
     normHLee = yMaxLee - yMinLee
 
     (uppers, lowers) = applyBandOffset(
-        C, normHLee, "broad", *getBandsFromHist(C, normHLee, histY)
+        C, normHLee, "broad", *getBandsFromHist(C, normHLee, histY, tweak=False)
     )
 
     topLee = yMin - yMinLee
@@ -1325,3 +1364,35 @@ def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, prefer
         theYMax = yMax if theYMax is None else yMinLee + theYMax
 
     return (theYMin, theYMax)
+
+
+def reborder(gray, bw, color, crop=False):
+    """Add a border around a grayscale image, optionally remove white margins first.
+
+    The border will add to the size of the image.
+
+    Parameters
+    ----------
+    gray: np array
+        A grayscale image.
+    bw: int
+        Width of the new border.
+    color: int
+        Color of the new border (grayscale).
+    crop: boolean, optional `False`
+        If `True`, the image will be cropped first such as to remove all surrounding
+        white margins.
+    """
+
+    if crop:
+        inv = 255 * (gray < 128).astype(np.uint8)
+        coords = cv2.findNonZero(inv)
+        x, y, w, h = cv2.boundingRect(coords)
+        cropped = gray[y : y + h, x : x + w]
+    else:
+        cropped = gray
+    bordered = cv2.copyMakeBorder(
+        cropped, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=color
+    )
+    return bordered
+    # Crop the image - note we do this on the original image

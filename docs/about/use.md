@@ -51,3 +51,8 @@ name | kind | items | remarks
 `main` | marks | arbitrary images | in the band where nearly all the letter material is
 `broad` | marks | arbitrary images | as `main`, but a bit broader
 `inter` | marks | arbitrary images | between the lines
+
+When the pipeline reads the marks, it will crop all white borders from it and 
+surround the result with a fixed small white border.
+
+So you do not have to be very precise in trimming the mark templates.

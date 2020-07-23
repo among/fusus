@@ -10,12 +10,13 @@ from tf.core.timestamp import Timestamp
 
 from .parameters import Config
 from .lib import (
-    showImage,
     imageFileList,
     imageFileListSub,
-    select,
-    splitext,
     pagesRep,
+    reborder,
+    select,
+    showImage,
+    splitext,
     tempFile,
 )
 from .page import Page
@@ -45,6 +46,7 @@ class Book:
         """
 
         C = self.C
+        whit = C.whiteGRS
         markParams = C.markParams
         tm = self.tm
         error = tm.error
@@ -75,13 +77,15 @@ class Book:
                             error(f"Unknown image parameter for {bare}: {k} in {k}={v}")
                             continue
                         try:
-                            tweakDict[k] = int(v) if k == "cb" else float(v)
+                            tweakDict[k] = int(v) if k == "bw" else float(v)
                         except Exception:
                             error(f"Unknown image parameter for {bare}: {v} in {k}={v}")
 
                 full = f"{C.marksDir}/{band}/{f}"
                 image = cv2.imread(full)
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                gray = reborder(
+                    cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 4, whit, crop=True
+                )
 
                 seq += 1
                 marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
@@ -132,28 +136,42 @@ class Book:
                 f"\t{bandRep:<10}: top={offset[0]:>4}, bottom={offset[1]:>4}", tm=False
             )
 
-    def availableMarks(self):
-        """Display the characteristics of all defined *marks*.
+    def availableMarks(self, band=None, mark=None):
+        """Display the characteristics of defined *marks*.
+
+        Parameters
+        ----------
+        band: string, optional `None`
+            Show only marks in this band. If `None`, show marks in all bands.
+        mark: string, optional `None`
+            Show only marks in with this name. If `None`, show marks with any name.
         """
 
+        C = self.C
+        grey = C.greyGRS
         tm = self.tm
         info = tm.info
         marks = self.marks
 
         info("Marks and their settings", tm=False)
-        for (band, markItems) in sorted(marks.items()):
-            bandRep = f"[{band}]"
+        for (bnd, markItems) in sorted(marks.items()):
+            if band is not None and band != bnd:
+                continue
+            bandRep = f"[{bnd}]"
             info(f"\tband {bandRep}", tm=False)
-            for (mark, markInfo) in sorted(markItems.items()):
-                markRep = f"«{mark}»"
+            for (mrk, markInfo) in sorted(markItems.items()):
+                if mark is not None and mark != mrk:
+                    continue
+                markRep = f"«{mrk}»"
                 seq = markInfo["seq"]
                 acc = markInfo["accuracy"]
-                cb = markInfo["connectBorder"]
+                bw = markInfo["connectBorder"]
+                r = markInfo["connectRatio"]
                 info(
-                    f"\t\t{seq:>3}: {markRep:<20} accuracy={acc}, connectBorder={cb}",
-                    tm=False,
+                    f"\t\t{seq:>3}: {markRep:<20} acc={acc}, bw={bw}, r={r}", tm=False,
                 )
-                showImage(markInfo["gray"])
+                markImage = reborder(markInfo["gray"], 2, grey)
+                showImage(markImage)
 
     def availablePages(self):
         """Display the amount and page numbers of all pages.
@@ -229,7 +247,7 @@ class Book:
             if not uptoLayout:
                 if not batch:
                     info("cleaning")
-                page._clean()
+                page._clean(showKept=not batch or boxed)
                 if not batch:
                     if doOcr:
                         info("ocr")

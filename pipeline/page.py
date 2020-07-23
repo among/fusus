@@ -19,6 +19,7 @@ from .lib import (
     parseBands,
     parseMarks,
     parseStages,
+    reborder,
     removeSkewStripes,
     showImage,
     splitext,
@@ -57,7 +58,6 @@ class Page:
         self.batch = batch
         self.boxed = boxed
         self.stages = {}
-        self.bands = {}
 
         inDir = C.inDir
         path = f"{inDir}/{f}"
@@ -116,64 +116,98 @@ class Page:
         C = engine.C
 
         stages = self.stages
-        bands = self.bands
         marks = engine.marks
-
-        doBands = () if band is None else parseBands(band, set(bands), error)
-        doBandSet = set(doBands)
-        bandRep = f" with bands {', '.join(doBands)}" if doBands else ""
-
-        doMarks = (
-            set() if mark is None else parseMarks(mark, marks, set(doBands), error)
-        )
-        markRep = f" with marks {', '.join(sorted(doMarks))}" if doMarks else ""
+        blocks = self.blocks
 
         for s in parseStages(stage, set(stages), C.stageOrder, error):
             stageData = stages[s]
-
-            display(HTML(f"<div>{s}{bandRep}{markRep}</div>"))
 
             (stageType, stageExt) = C.stages[s]
             if stageType == "data":
                 self._serial(s, stageData, stageExt)
             else:
                 img = stageData
-                if doBands or mark is not None:
+
+                headingInfo = []
+
+                if band is not None or mark is not None:
                     img = (
                         stages["demarginedC"]
                         if s == "boxed" and mark is not None
                         else stageData
                     ).copy()
-                    imW = img.shape[1]
-                    for band in doBands:
-                        bandInfo = bands[band]
-                        uppers = bandInfo["uppers"]
-                        lowers = bandInfo["lowers"]
-                        bColor = bandInfo["color"]
-                        for (upper, lower) in zip(uppers, lowers):
-                            cv2.rectangle(
-                                img, (10, upper), (imW - 10, lower), bColor, 2
-                            )
-                            cv2.rectangle(img, (0, upper), (10, lower), bColor, -1)
-                            cv2.rectangle(
-                                img, (imW - 10, upper), (imW, lower), bColor, -1
-                            )
-                    markData = stages["markData"]
+                    for ((stripe, column), data) in blocks.items():
+
+                        bands = data["bands"]
+                        doBands = (
+                            () if band is None else parseBands(band, set(bands), error)
+                        )
+                        doBandSet = set(doBands)
+                        bandRep = f" with bands {', '.join(doBands)}" if doBands else ""
+                        doMarks = (
+                            set()
+                            if mark is None
+                            else parseMarks(mark, marks, set(doBands), error)
+                        )
+                        markRep = (
+                            f" with marks {', '.join(sorted(doMarks))}"
+                            if doMarks
+                            else ""
+                        )
+                        headingInfo.append(f"<b>{stripe}{column}</b> {bandRep}{markRep}")
+
+                        (leftB, topB, rightB, bottomB) = data["inner"]
+                        imBW = rightB - leftB
+                        for band in doBands:
+                            bandInfo = bands[band]
+                            uppers = bandInfo["uppers"]
+                            lowers = bandInfo["lowers"]
+                            bColor = bandInfo["color"]
+                            for (upper, lower) in zip(uppers, lowers):
+                                theUpper = topB + upper
+                                theLower = topB + lower
+                                theLeft = leftB + 10
+                                theRight = leftB + imBW - 10
+                                cv2.rectangle(
+                                    img,
+                                    (theLeft, theUpper),
+                                    (theRight, theLower),
+                                    bColor,
+                                    2,
+                                )
+                                cv2.rectangle(
+                                    img,
+                                    (leftB, theUpper),
+                                    (theLeft, theLower),
+                                    bColor,
+                                    -1,
+                                )
+                                cv2.rectangle(
+                                    img,
+                                    (theRight, theUpper),
+                                    (leftB + imBW, theLower),
+                                    bColor,
+                                    -1,
+                                )
+                    markData = stages.get("markData", {})
                     markLegend = {}
+
                     for (band, bandMarks) in markData.items():
                         if doBands and band not in doBandSet:
                             continue
-                        for ((seq, mark), hits) in bandMarks.items():
-                            if mark not in doMarks:
+                        for ((seq, mrk), hits) in bandMarks.items():
+                            if mrk not in doMarks:
                                 continue
                             markKey = f"{'' if band == 'main' else band[0]}{seq}"
-                            markValue = (band, mark, len(hits))
+                            markValue = (band, mrk, len(hits))
                             markLegend[markKey] = markValue
                             for (
                                 kept,
                                 value,
                                 connDegree,
                                 connectBorder,
+                                stripe,
+                                column,
                                 top,
                                 bottom,
                                 left,
@@ -208,6 +242,9 @@ class Page:
                             )
                         html.append("</table></details>")
                         display(HTML("".join(html)))
+                display(
+                    HTML(f"<div>{s} {';'.join(headingInfo)}</div>")
+                )
                 showImage(img, **displayParams)
 
     def write(self, stage=None):
@@ -314,6 +351,7 @@ class Page:
 
         engine = self.engine
         C = engine.C
+        whit = C.whiteGRS
 
         batch = self.batch
         boxed = self.boxed
@@ -342,7 +380,7 @@ class Page:
         rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
         removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
         normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-        removeSkewStripes(normalized, C.skewBorder, C.whiteGRS)
+        removeSkewStripes(normalized, C.skewBorder, whit)
 
         if not batch or boxed:
             normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
@@ -350,7 +388,8 @@ class Page:
 
         stages["rotated"] = rotated
         stages["normalized"] = normalized
-        stages["normalizedC"] = normalizedC
+        if not batch or boxed:
+            stages["normalizedC"] = normalizedC
 
     def _layout(self):
         """Divide the page into stripes and the stripes into columns.
@@ -397,18 +436,20 @@ class Page:
         info = tm.info
 
         stages = self.stages
-        layout = stages["normalizedC"].copy()
-        stages["layout"] = layout
+        if not batch or boxed:
+            layout = stages["normalizedC"].copy()
+            stages["layout"] = layout
 
         indent(level=3)
-        stretchesH = getStretches(C, info, stages, True)
-        stretchesV = getStretches(C, info, stages, False)
+        stretchesH = getStretches(C, info, stages, True, batch)
+        stretchesV = getStretches(C, info, stages, False, batch)
         stripes = getStripes(stages, stretchesV)
         blocks = getBlocks(C, stages, stripes, batch)
         self.blocks = blocks
         applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed)
         emptyBlocks = getHistograms(C, stages, blocks, batch, boxed)
-        grayInterBlocks(C, stages, blocks, emptyBlocks)
+        if not batch:
+            grayInterBlocks(C, stages, blocks, emptyBlocks)
 
     def _clean(self, mark=None, block=None, line=None, showKept=False):
         """Remove marks from the page.
@@ -429,7 +470,7 @@ class Page:
             directory are used.
             Otherwise, a series of marks is specified together with the band
             where this mark is searched in. Optionally you can also
-            put parameters in the tuple: the accuracy and the connectBorder.
+            put parameters in the tuple: the accuracy, connectBorder and connectRatio.
         block: (integer, string), optional `None`
             Block identifier. If specified, only this block will be cleaned.
             If absent, cleans all blocks.
@@ -459,7 +500,6 @@ class Page:
         boxed = self.boxed
 
         markParams = C.markParams
-        markParamSet = set(markParams.values())
         boxBorder = C.boxBorder
 
         connectBorder = C.connectBorder
@@ -477,17 +517,18 @@ class Page:
                     error(f"No such mark: {band}/{mark}")
                     continue
                 params = item[2] if len(item) > 2 else {}
-                for (k, v) in params.items():
-                    if k not in markParamSet:
-                        error(f"Unknown parameter `{k}` = `{v}`")
+                for (acro, v) in params.items():
+                    if acro not in markParams:
+                        error(f"Unknown parameter `{acro}` = `{v}`")
                 configuredMark = marks[band][name]
-                seq = configuredMark['seq']
+                seq = configuredMark["seq"]
                 searchMarks.setdefault(band, {})[name] = dict(
-                    seq=seq,
-                    gray=configuredMark["gray"]
+                    seq=seq, gray=configuredMark["gray"]
                 )
-                for k in markParams.values():
-                    searchMarks[band][name][k] = params.get(k, configuredMark[k])
+                for (acro, full) in markParams.items():
+                    searchMarks[band][name][full] = params.get(
+                        acro, configuredMark[full]
+                    )
 
         stages = self.stages
         demargined = stages.get("demargined", stages["gray"])
@@ -521,8 +562,16 @@ class Page:
                 continue
             (leftB, topB, rightB, bottomB) = data["inner"]
             thisDemargined = demargined[topB:bottomB, leftB:rightB]
+            if not batch or boxed:
+                thisBoxed = stages["boxed"][topB:bottomB, leftB:rightB]
+                theUpper = None
+                theLower = None
+                maxH = bottomB - topB
 
             for (band, markData) in searchMarks.items():
+                if "bands" not in data:
+                    # error(f"No bands in {stripe}{column}")
+                    continue
                 bandData = data["bands"][band]
                 uppers = bandData["uppers"]
                 lowers = bandData["lowers"]
@@ -544,6 +593,12 @@ class Page:
                                 continue
                             elif i > line - 1:
                                 break
+                        if line is not None and i == line - 1:
+                            if theUpper is None or theUpper > upper:
+                                theUpper = upper
+                            if theLower is None or theLower < lower:
+                                theLower = lower
+
                         roi = thisDemargined[
                             upper : lower + 1,
                         ]
@@ -551,8 +606,6 @@ class Page:
                         if roih < markH or roiw < markW:
                             # search template exceeds roi image
                             continue
-                        if line is not None:
-                            showImage(roi)
                         result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                         loc = np.where(result >= accuracy)
                         pts = list(zip(*loc))
@@ -661,17 +714,33 @@ class Page:
                                                 -1,
                                             )
 
+            if not batch or boxed:
+                if line is not None and theUpper is not None and theLower is not None:
+                    grace = 20
+                    thisTop = max(0, theUpper - grace)
+                    thisBottom = min(maxH, theLower + grace)
+                    info(
+                        f"block {stripe}{column} line {line} BEFORE/AFTER cleaning\n",
+                        tm=False,
+                    )
+                    roi = thisDemargined[thisTop:thisBottom]
+                    showImage(roi)
+                    roiBoxed = thisBoxed[thisTop:thisBottom]
+                    showImage(roiBoxed)
         stages["markData"] = markResults
-        for (band, bandMarks) in sorted(markResults.items()):
-            for ((seq, mark), entries) in sorted(bandMarks.items()):
-                indent(level=2)
-                kept = sum(1 for e in entries if e[0])
-                wiped = len(entries) - kept
-                warning(
-                    f"{seq:>2} - {band:<10}: {mark:<20}"
-                    f" wiped {wiped:>4} x, kept {kept:>4} x",
-                    tm=False,
-                )
+        if line is None:
+            for (band, bandMarks) in sorted(markResults.items()):
+                for ((seq, mark), entries) in sorted(bandMarks.items()):
+                    indent(level=2)
+                    kept = sum(1 for e in entries if e[0])
+                    wiped = len(entries) - kept
+                    warning(
+                        f"{seq:>2} - {band:<10}: {mark:<20}"
+                        f" wiped {wiped:>4} x, kept {kept:>4} x",
+                        tm=False,
+                    )
+        else:
+            self.show(stage="markData")
         indent(level=1)
         info("cleaning done")
 
@@ -680,6 +749,8 @@ class Page:
         """
 
         engine = self.engine
+        C = engine.C
+        grey = C.greyGRS
         tm = engine.tm
         info = tm.info
         indent = tm.indent
@@ -696,7 +767,8 @@ class Page:
                 wiped = sum(1 for e in entries if not e[0])
                 total += wiped
                 notWiped = len(entries) - wiped
-                showImage(engine.marks[band][mark]["gray"])
+                markImage = reborder(engine.marks[band][mark]["gray"], 2, grey)
+                showImage(markImage)
                 info(
                     f"{seq:>2}: {mark:<20} wiped {wiped:>4} x, kept {notWiped:>4} x",
                     tm=False,
