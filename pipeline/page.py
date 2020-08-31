@@ -16,6 +16,7 @@ from .lib import (
     getStretches,
     getStripes,
     grayInterBlocks,
+    overlay,
     parseBands,
     parseMarks,
     parseStages,
@@ -58,6 +59,7 @@ class Page:
         self.batch = batch
         self.boxed = boxed
         self.stages = {}
+        self.blocks = {}
 
         inDir = C.inDir
         path = f"{inDir}/{f}"
@@ -122,7 +124,8 @@ class Page:
         for s in parseStages(stage, set(stages), C.stageOrder, error):
             stageData = stages[s]
 
-            (stageType, stageExt) = C.stages[s]
+            (stageType, stageColor, stageExt) = C.stages[s]
+            white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == "data":
                 self._serial(s, stageData, stageExt)
             else:
@@ -154,18 +157,19 @@ class Page:
                             if doMarks
                             else ""
                         )
-                        headingInfo.append(f"<b>{stripe}{column}</b> {bandRep}{markRep}")
+                        headingInfo.append(
+                            f"<b>{stripe}{column}</b> {bandRep}{markRep}"
+                        )
 
                         (leftB, topB, rightB, bottomB) = data["inner"]
                         imBW = rightB - leftB
                         for band in doBands:
                             bandInfo = bands[band]
-                            uppers = bandInfo["uppers"]
-                            lowers = bandInfo["lowers"]
+                            lines = bandInfo["lines"]
                             bColor = bandInfo["color"]
-                            for (upper, lower) in zip(uppers, lowers):
-                                theUpper = topB + upper
-                                theLower = topB + lower
+                            for (up, lo) in lines:
+                                theUpper = topB + up
+                                theLower = topB + lo
                                 theLeft = leftB + 10
                                 theRight = leftB + imBW - 10
                                 cv2.rectangle(
@@ -175,19 +179,17 @@ class Page:
                                     bColor,
                                     2,
                                 )
-                                cv2.rectangle(
-                                    img,
-                                    (leftB, theUpper),
-                                    (theLeft, theLower),
-                                    bColor,
-                                    -1,
+                                overlay(
+                                    img, leftB, theUpper, theLeft, theLower, white, bColor,
                                 )
-                                cv2.rectangle(
+                                overlay(
                                     img,
-                                    (theRight, theUpper),
-                                    (leftB + imBW, theLower),
+                                    theRight,
+                                    theUpper,
+                                    leftB + imBW,
+                                    theLower,
+                                    white,
                                     bColor,
-                                    -1,
                                 )
                     markData = stages.get("markData", {})
                     markLegend = {}
@@ -208,18 +210,18 @@ class Page:
                                 connectBorder,
                                 stripe,
                                 column,
-                                top,
-                                bottom,
                                 left,
+                                top,
                                 right,
+                                bottom,
                             ) in hits:
                                 addBox(
                                     C,
                                     img,
-                                    top,
-                                    bottom,
                                     left,
+                                    top,
                                     right,
+                                    bottom,
                                     kept,
                                     band,
                                     seq,
@@ -242,12 +244,10 @@ class Page:
                             )
                         html.append("</table></details>")
                         display(HTML("".join(html)))
-                display(
-                    HTML(f"<div>{s} {';'.join(headingInfo)}</div>")
-                )
+                display(HTML(f"<div>{s} {';'.join(headingInfo)}</div>"))
                 showImage(img, **displayParams)
 
-    def write(self, stage=None):
+    def write(self, stage=None, clean=False, perBlock=False):
         """Writes processing stages of an page to disk.
 
         Parameters
@@ -257,12 +257,20 @@ class Page:
             Otherwise, the indicated stages are shown.
             If a string, it may be a comma-separated list of stage names.
             Otherwise it is an iterable of stage names.
+        perBlock: boolean, optional `False`
+            If True, the stage output will be split into blocks and written
+            to disk separately. The stripe and column of a block are appended
+            to the file name.
+        clean: boolean, optional `False`
+            If True, the result files will be created in the `clean` directory
+            instead of the `inter` directory.
 
         Returns
         -------
         None
-            The stages are written into the `inter` subdirectory,
+            The stages are written into the `inter` or `clean` subdirectory,
             with the name of the stage appended to the file name.
+            If `clean`, the name of the stage is omitted.
         """
 
         engine = self.engine
@@ -270,22 +278,36 @@ class Page:
         error = tm.error
         C = engine.C
         interDir = C.interDir
+        cleanDir = C.cleanDir
 
         bare = self.bare
         ext = self.ext
         stages = self.stages
+        blocks = self.blocks
 
         for s in parseStages(stage, set(C.stages), C.stageOrder, error):
             if s not in stages:
                 continue
             stageData = stages[s]
-            (stageType, stageExt) = C.stages[s]
-            path = f"{interDir}/{bare}-{s}.{stageExt or ext}"
-            if stageType == "data":
-                with open(path, "w") as f:
-                    self._serial(s, stageData, stageExt, f)
+            (stageType, stageColor, stageExt) = C.stages[s]
+            isClean = clean and s == "clean"
+            stagePart = "" if isClean else f"-{s}"
+            dest = cleanDir if isClean else interDir
+            base = f"{dest}/{bare}{stagePart}"
+            if perBlock and stageType != "data":
+                for ((stripe, column), data) in blocks.items():
+                    blockSpec = f"{stripe:02d}{column}"
+                    (leftB, topB, rightB, bottomB) = data["inner"]
+                    roi = stageData[topB:bottomB, leftB:rightB]
+                    path = f"{base}-{blockSpec}.{stageExt or ext}"
+                    cv2.imwrite(path, roi)
             else:
-                cv2.imwrite(path, stageData)
+                path = f"{base}.{stageExt or ext}"
+                if stageType == "data":
+                    with open(path, "w") as f:
+                        self._serial(s, stageData, stageExt, f)
+                else:
+                    cv2.imwrite(path, stageData)
 
     def _serial(self, stage, data, extension, handle=None):
         """serializes data in accordance with file type.
@@ -371,11 +393,15 @@ class Page:
         ret = cv2.minAreaRect(pts)
 
         (cx, cy), (rw, rh), ang = ret
-        if rw > rh:
-            rw, rh = rh, rw
-            ang += 90
+        # correct unnecessary 90 degree rotations
+        for i in range(4):
+            newAng = (ang + i * 90) % 360
+            if newAng > 180:
+                newAng -= 360
+            if abs(newAng) < 40:
+                break
 
-        M = cv2.getRotationMatrix2D((cx, cy), ang, 1.0)
+        M = cv2.getRotationMatrix2D((cx, cy), newAng, 1.0)
 
         rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
         removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
@@ -412,7 +438,7 @@ class Page:
 
         If it is split, it defines blocks with labels `(i, 'r')` and `(i, 'l')`.
 
-        Every horizontal stripe will be examined. W e have to determine whether
+        Every horizontal stripe will be examined. We have to determine whether
         it is a top separator or a bottom separator.
         As a rule of thumb: horizontal stripes in the top stripe are top-separators,
         all other horizontal stripes are bottom separators.
@@ -431,20 +457,22 @@ class Page:
         boxed = self.boxed
         engine = self.engine
         C = engine.C
+        debug = C.debug
         tm = engine.tm
         indent = tm.indent
         info = tm.info
 
         stages = self.stages
         if not batch or boxed:
-            layout = stages["normalizedC"].copy()
-            stages["layout"] = layout
+            stages["layout"] = stages["normalizedC"].copy()
 
         indent(level=3)
         stretchesH = getStretches(C, info, stages, True, batch)
         stretchesV = getStretches(C, info, stages, False, batch)
         stripes = getStripes(stages, stretchesV)
         blocks = getBlocks(C, stages, stripes, batch)
+        if debug:
+            showImage(stages["layout"])
         self.blocks = blocks
         applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed)
         emptyBlocks = getHistograms(C, stages, blocks, batch, boxed)
@@ -573,8 +601,7 @@ class Page:
                     # error(f"No bands in {stripe}{column}")
                     continue
                 bandData = data["bands"][band]
-                uppers = bandData["uppers"]
-                lowers = bandData["lowers"]
+                lines = bandData["lines"]
 
                 for (markName, markInfo) in markData.items():
                     foundHits.setdefault(band, {})[markName] = 0
@@ -587,20 +614,20 @@ class Page:
 
                     nPts = 0
                     clusters = []
-                    for (i, (upper, lower)) in enumerate(zip(uppers, lowers)):
+                    for (i, (up, lo)) in enumerate(lines):
                         if line is not None:
                             if i < line - 1:
                                 continue
                             elif i > line - 1:
                                 break
                         if line is not None and i == line - 1:
-                            if theUpper is None or theUpper > upper:
-                                theUpper = upper
-                            if theLower is None or theLower < lower:
-                                theLower = lower
+                            if theUpper is None or theUpper > up:
+                                theUpper = up
+                            if theLower is None or theLower < lo:
+                                theLower = lo
 
                         roi = thisDemargined[
-                            upper : lower + 1,
+                            up : lo + 1,
                         ]
                         (roih, roiw) = roi.shape[:2]
                         if roih < markH or roiw < markW:
@@ -626,12 +653,12 @@ class Page:
                             connDegree = connected(
                                 markH, markW, connectBorder, threshold, roi, pt
                             )
-                            pt = (pt[0] + upper + topB, pt[1] + leftB)
-                            (top, bottom, left, right) = (
-                                pt[0],
-                                pt[0] + markH,
+                            pt = (pt[0] + up + topB, pt[1] + leftB)
+                            (left, top, right, bottom) = (
                                 pt[1],
+                                pt[0],
                                 pt[1] + markW,
+                                pt[0] + markH,
                             )
                             if connDegree > ratio:
                                 if showKept and (not batch or boxed):
@@ -639,10 +666,10 @@ class Page:
                                     addBox(
                                         C,
                                         im,
-                                        top,
-                                        bottom,
                                         left,
+                                        top,
                                         right,
+                                        bottom,
                                         True,
                                         band,
                                         seq,
@@ -658,10 +685,10 @@ class Page:
                                             connectBorder,
                                             stripe,
                                             column,
-                                            top,
-                                            bottom,
                                             left,
+                                            top,
                                             right,
+                                            bottom,
                                         )
                                     )
                             else:
@@ -680,10 +707,10 @@ class Page:
                                             addBox(
                                                 C,
                                                 im,
-                                                top,
-                                                bottom,
                                                 left,
+                                                top,
                                                 right,
+                                                bottom,
                                                 False,
                                                 band,
                                                 seq,
@@ -699,10 +726,10 @@ class Page:
                                                     connectBorder,
                                                     stripe,
                                                     column,
-                                                    top,
-                                                    bottom,
                                                     left,
+                                                    top,
                                                     right,
+                                                    bottom,
                                                 )
                                             )
                                         else:

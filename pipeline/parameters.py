@@ -10,6 +10,7 @@ COLORS = dict(
     blackRGB=(0, 0, 0),
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
+    greenRGB=(0, 255, 0),
     blockRGB=(0, 255, 255),
     letterRGB=(0, 200, 200),
     upperRGB=(0, 200, 0),
@@ -42,20 +43,20 @@ Each band will be displayed in its own color.
 """
 
 STAGES = dict(
-    orig=("image", None),
-    gray=("image", None),
-    rotated=("image", None),
-    normalized=("image", None),
-    normalizedC=("image", None),
-    layout=("image", None),
-    histogram=("image", None),
-    demargined=("image", None),
-    demarginedC=("image", None),
-    markData=("data", "tsv"),
-    boxed=("image", None),
-    cleanh=("image", None),
-    clean=("image", None),
-    ocrData=("data", "tsv"),
+    orig=("image", True, None),
+    gray=("image", False, None),
+    rotated=("image", False, None),
+    normalized=("image", False, None),
+    normalizedC=("image", True, None),
+    layout=("image", True, None),
+    histogram=("image", True, None),
+    demargined=("image", False, None),
+    demarginedC=("image", True, None),
+    markData=("data", None, "tsv"),
+    boxed=("image", True, None),
+    cleanh=("image", False, None),
+    clean=("image", False, None),
+    ocrData=("data", None, "tsv"),
 )
 """Stages in page processing.
 
@@ -63,7 +64,11 @@ When we process a scanned page,
 we produce named intermediate stages,
 in this order.
 
-The `...Data` stages are tab separated files with unicode data.
+The stage data consists of the following bits of information:
+
+* kind: image or data (i.e. tab separated files with unicode data).
+* colored: True if colored, False if grayscale, None if not an image
+* extension: None if an image file, otherwise the extension of a data file, e.g. `tsv`
 """
 
 SETTINGS = dict(
@@ -71,13 +76,14 @@ SETTINGS = dict(
     inDir="in",
     outDir="out",
     interDir="inter",
+    cleanDir="clean",
     marksDir="marks",
     skewBorder=30,
     blurX=41,
     blurY=41,
     marginThresholdX=1,
-    marginThresholdY=8,
-    marginThreshold2Y=15,
+    peakProminenceY=5,
+    valleyProminenceY=5,
     blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
@@ -85,7 +91,7 @@ SETTINGS = dict(
     connectRatio=0.1,
     boxBorder=3,
     maxHits=5000,
-    bandMain=(0, 0),
+    bandMain=(5, -5),
     bandInter=(5, 5),
     bandBroad=(-15, 10),
     bandMid=(10, -5),
@@ -114,6 +120,9 @@ outDir
 interDir
 :   name of the subdirectory with the intermediate results of the pipeline
 
+cleanDir
+:   name of the subdirectory with the cleaned, blockwise images of the pipeline
+
 marksDir
 :   name of the subdirectory with the marks
 
@@ -136,35 +145,17 @@ blurY
         Too little vertical blurring will result in ragged histograms,
         from which it is difficult to get vertical line boundaries.
 
-marginThresholdX, marginThresholdY
-:   used when interpreting histograms.
-
-    **Vertical lines**:
-
-    The histogram for vertical lines will be chunked into groups,
-    and only the biggest group will be retained.
-
-    More precisely, values in the histogram for vertical lines that are below
-    marginThresholdX will be considered 0. After that, the histogram points
-    will be grouped into consecutive chunks with nonzero values.
-    The biggest such group will have the vertical lines that contain the page material.
-    All other vertical lines will be whitened.
-
-    **Horizontal lines**:
+marginThresholdX
+:   used when interpreting horizontal histograms.
 
     When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
 
-    !!! hint "Ragged histograms"
-        Histograms may be a bit ragged.
+peakProminenceY, valleyProminenceY
+:   used when interpreting vertical histograms
 
-        When a histogram dives below the threshold, but jumps above it
-        later, without having become zero in the meantime, the last such point
-        will be taken as a lower boundary.
-
-        When a histogram jumps above the threshold, but dives below it
-        later, without touching zero, and then jumps above the threshold
-        again, the latter point will *not* become the upper boundary.
+    We detect peaks and valleys in the histogram by means of a SciPy algorithm,
+    to which we pass a prominence parameter.
 
 accuracy
 :   When marks are searched for in the page, we get the result in the form
@@ -220,6 +211,9 @@ bandMain
 
     You can adjust these values: higher values move the boundaries down,
     lower values move them up.
+
+    In practice, the adjustments are zero for the main band, while
+    all other bands are derived from the main band by applying adjustments.
 
 bandInter
 :   Offsets for the `inter` band.

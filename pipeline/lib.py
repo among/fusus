@@ -5,6 +5,8 @@ from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
 import numpy as np
+from scipy.signal import find_peaks
+
 import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
@@ -72,7 +74,7 @@ def showImage(a, fmt="jpeg", **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
-def overlay(img, top, bottom, left, right, srcColor, dstColor):
+def overlay(img, left, top, right, bottom, srcColor, dstColor):
     """Colors a region of an image with care.
 
     A selected region of an image can be given a uniform color,
@@ -321,23 +323,23 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
+def addBox(C, im, left, top, right, bottom, kept, band, seq, connDegree):
     fill = C.boxRemainRGB if kept else C.boxDeleteRGB
     fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
     border = C.boxBorder
 
     cv2.rectangle(im, (left, top), (right, bottom), fill, border)
     addSeq(
-        im, top, bottom, left, right, border, fillN, band, seq, connDegree,
+        im, left, top, right, bottom, border, fillN, band, seq, connDegree,
     )
 
 
 def addSeq(
     img,
-    top,
-    bottom,
     left,
+    top,
     right,
+    bottom,
     frameWidth,
     frameColor,
     band,
@@ -694,7 +696,7 @@ def getStretches(C, info, stages, horizontal, batch):
     if not batch:
         stages["layout"] = out if horizontal else cv2.transpose(out)
 
-    if not batch and debug > 0:
+    if not batch and debug > 1:
         showImage(stages["layout"])
     return stretches
 
@@ -770,9 +772,10 @@ def getBlocks(C, stages, stripes, batch):
     If a stripe has a vertical bar, we slightly extend the boxes left and right
     so that the top and bottom lines next to the bar are completely included.
 
-    If a stripe has no vertical bar, we shrink the boxes left and right
+    If a stripe has no vertical bar, we shrink the box
     so that partial top and bottom lines are delegated to the boxes above
     and below.
+    We only shrink if the box is close to the boxes above or below.
 
     We write the box layout unto the `layout` layer.
 
@@ -800,6 +803,7 @@ def getBlocks(C, stages, stripes, batch):
         The dict is ordered.
     """
 
+    debug = C.debug
     marginX = C.blockMarginX
     blockColor = C.blockRGB
     letterColor = C.letterRGB
@@ -814,6 +818,7 @@ def getBlocks(C, stages, stripes, batch):
 
     if not batch:
         layout = stages["layout"]
+        imgOut = layout if debug > 1 else None
 
     for (stripe, (x, yMin, yMax)) in enumerate(stripes):
 
@@ -822,7 +827,7 @@ def getBlocks(C, stages, stripes, batch):
 
         if x is None:
             (theYMin, theYMax) = adjustVertical(
-                C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+                C, rotated, imgOut, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
             )
             blocks[(stripe, "")] = dict(
                 box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
@@ -838,10 +843,10 @@ def getBlocks(C, stages, stripes, batch):
                 addStripe(layout, theYMin, 0, maxW, marginX, letterColor, stripe, "")
         else:
             (theYMinL, theYMaxL) = adjustVertical(
-                C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
+                C, rotated, imgOut, 0, x, yMin, yMinLee, yMax, yMaxLee, True
             )
             (theYMinR, theYMaxR) = adjustVertical(
-                C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
+                C, rotated, imgOut, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
             )
             blocks[(stripe, "l")] = dict(
                 box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
@@ -972,27 +977,168 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
 
         if top != bT:
             if not batch:
-                overlay(layout, bT + 2, top, left, right, white, mColor)
+                overlay(layout, left, bT + 2, right, top, white, mColor)
             cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
             if not batch or boxed:
-                overlay(demarginedC, bT + 2, top, left, right, white, mColor)
+                overlay(demarginedC, left, bT + 2, right, top, white, mColor)
         if bottom != bB:
             if not batch:
-                overlay(layout, bottom, bB - 2, left, right, white, mColor)
+                overlay(layout, left, bottom, right, bB - 2, white, mColor)
             cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
             if not batch or boxed:
-                overlay(demarginedC, bottom, bB - 2, left, right, white, mColor)
+                overlay(demarginedC, left, bottom, right, bB - 2, white, mColor)
+
+
+def makeHistX(imgIn, left, top, right, bottom, imgOut=None):
+    """Make a horizontal histogram of an input region of interest.
+
+    Optionally draw the histograms on the corresponding roi of an output image.
+
+    Parameters
+    ----------
+    imgIn: np array
+        Input image.
+    top, bottom, left, right: int
+        Region of interest on input and output image.
+    imgOut: np array, optional `None`
+        Output image.
+
+    Returns
+    -------
+    histX: list
+        The X histogram
+    """
+
+    roiIn = imgIn[top:bottom, left:right]
+    histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
+    if imgOut is not None:
+        roiOut = imgOut[top:bottom, left:right]
+        for (i, val) in enumerate(histX):
+            color = (int(val), int(2 * val), int(val))
+            index = (i, 0)
+            value = (i, val)
+            cv2.line(roiOut, index, value, color, 1)
+
+    return histX
+
+
+def makeHistY(C, imgIn, left, top, right, bottom, imgOut=None, show=False):
+    """Find the peaks in a vertical histogram.
+
+    Optionally draw the histogram and the peaks
+    on the corresponding roi of an output image.
+
+    Parameters
+    ----------
+    imgIn: np array
+        Input image.
+    top, bottom, left, right: int
+        Region of interest on input and output image.
+    imgOut: np array, optional `None`
+        Output image.
+
+    Returns
+    -------
+    lines: list
+        The detected lines, given as a tupple of upper and lower y coordinates
+    """
+
+    white = C.whiteRGB
+    black = C.blackRGB
+    green = C.greenRGB
+    mColor = C.marginRGB
+    upperColor = C.upperRGB
+    lowerColor = C.lowerRGB
+    peakProminence = C.peakProminenceY
+    valleyProminence = C.valleyProminenceY
+
+    sqHWidth = 10
+    sqWidth = 2 * sqHWidth
+    sqDWidth = 4 * sqHWidth
+
+    (normH, normW) = (bottom - top, right - left)
+
+    roiIn = imgIn[top:bottom, left:right]
+    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+    (peaks, peakData) = find_peaks(histY, prominence=peakProminence)
+    (protoValleys, valleyData) = find_peaks(
+        255 - histY,
+        prominence=valleyProminence,
+        plateau_size=0,
+        height=0,
+        width=0,
+        rel_height=0.9,
+    )
+    if show:
+        print("\nLines:")
+    valleys = []
+    for (v, plateauSize, width, height) in zip(
+        protoValleys,
+        valleyData["plateau_sizes"],
+        valleyData["width_heights"],
+        valleyData["peak_heights"],
+    ):
+        rem = plateauSize + height < 240 or (
+            plateauSize < 15 and width > 220 and height < 200
+        )
+        if not rem:
+            valleys.append(v)
+        if show:
+            remRep = "xxx" if rem else f"{len(valleys):>3}"
+            print(
+                f"valley {remRep} @ {v:>4}"
+                f" ps={plateauSize:>3} w={width:>3} h={height:>3}"
+            )
+
+    lines = []
+    lastV = 0
+    lastLine = None
+    for peak in peaks:
+        while lastV < len(valleys) and valleys[lastV] <= peak:
+            lastV += 1
+        thisLine = (
+            valleys[lastV - 1] if lastV > 0 else 0,
+            valleys[lastV] if lastV < len(valleys) else normH,
+        )
+        if thisLine != lastLine:
+            lines.append(thisLine)
+            lastLine = thisLine
+
+    if imgOut is not None:
+        roiOut = imgOut[top:bottom, left:right]
+        for (i, val) in enumerate(histY):
+            color = (int(val), int(2 * val), int(val))
+            index = (sqDWidth + 10, i)
+            value = (sqDWidth + 10 + val, i)
+            cv2.line(roiOut, index, value, color, 1)
+        for e in valleys:
+            index = (0, max((e - sqHWidth, 0)))
+            value = (sqWidth, min((e + sqHWidth, len(histY) - 1)))
+            cv2.rectangle(roiOut, index, value, black, -1)
+        for e in peaks:
+            index = (sqWidth, max((e - sqHWidth, 0)))
+            value = (sqDWidth, min((e + sqHWidth, len(histY) - 1)))
+            cv2.rectangle(roiOut, index, value, green, -1)
+        for (up, lo) in lines:
+            overlay(roiOut, 14, up, normW - 14, up + 3, white, upperColor)
+            overlay(roiOut, 14, lo - 3, normW - 14, lo, white, lowerColor)
+        for (lo, up) in zip(
+            (0, *(x[1] for x in lines)), (*(x[0] for x in lines), normH)
+        ):
+            overlay(roiOut, 14, lo, normW - 14, up + 1, white, mColor)
+
+    return lines
 
 
 def getHistograms(C, stages, blocks, batch, boxed):
     """Add line band data to all blocks based on histograms.
 
     By means of histograms we can discern where the lines are.
-    We define several bands with respect to lines, such as broad, narrow,
-    high, low.
+    We define several bands with respect to lines, such as main, inter, broad,
+    high, mid, low.
     We also define a band for the space between lines.
 
-    We mark the broad bands on the `layout layer` by a starting green line
+    We mark the main bands on the `layout layer` by a starting green line
     and an ending red line and the space between them will be overlaid with gray.
 
     Parameters
@@ -1020,8 +1166,6 @@ def getHistograms(C, stages, blocks, batch, boxed):
     mColor = C.marginRGB
     whit = C.marginGRS
     white = C.whiteRGB
-    upperColor = C.upperRGB
-    lowerColor = C.lowerRGB
     thresholdX = C.marginThresholdX
     colorBand = C.colorBand
     if not batch:
@@ -1043,19 +1187,11 @@ def getHistograms(C, stages, blocks, batch, boxed):
             emptyBlocks.append((stripe, column))
             continue
 
-        roiIn = rotated[top:bottom, left:right]
-        histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-        histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
-
-        if not batch:
-            roiOut = histogram[top:bottom, left:right]
-
-            for (hist, vert) in ((histY, True), (histX, False)):
-                for (i, val) in enumerate(hist):
-                    color = (int(val), int(2 * val), int(val))
-                    index = (0, i) if vert else (i, 0)
-                    value = (val, i) if vert else (i, val)
-                    cv2.line(roiOut, index, value, color, 1)
+        imgOut = histogram if not batch else None
+        histX = makeHistX(rotated, left, top, right, bottom, imgOut=imgOut)
+        lines = makeHistY(
+            C, rotated, left, top, right, bottom, imgOut=imgOut, show=True
+        )
 
         # chop off the left and right margins of a region
 
@@ -1068,7 +1204,7 @@ def getHistograms(C, stages, blocks, batch, boxed):
         for (x1, x2) in margins:
             cv2.rectangle(roiOut, (x1, 0), (x2, normH), whit, -1)
             if not batch:
-                overlay(roiOutC, 2, normH - 2, x1 + 2, x2 - 2, white, mColor)
+                overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
 
         if len(margins) != 2:
             emptyBlocks.append((stripe, column))
@@ -1078,45 +1214,32 @@ def getHistograms(C, stages, blocks, batch, boxed):
 
         # define bands
 
-        (uppers, lowers) = getBandsFromHist(C, normH, histY, tweak=True)
-
         bands = {}
         data["bands"] = bands
 
-        bands["main"] = dict(uppers=uppers, lowers=lowers)
         for (band, bandColor) in colorBand.items():
             inter = band in {"inter", "low", "high"}
-            (theUppers, theLowers) = applyBandOffset(
-                C, normH, band, uppers, lowers, inter=inter
-            )
-            bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
+            theLines = applyBandOffset(C, normH, band, lines, inter=inter)
+            bands[band] = dict(lines=theLines, color=bandColor)
 
-        bandInfo = bands["broad"]
-        uppers = bandInfo["uppers"]
-        lowers = bandInfo["lowers"]
-
-        if not batch and normW > 10:
-            for (upper, lower) in zip(uppers, lowers):
-                overlay(roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor)
-                overlay(roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor)
-            for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
-                overlay(roiOutC, lower, upper + 1, 10, normW - 10, white, mColor)
+        bandInfo = bands["main"]
+        lines = bandInfo["lines"]
 
         # remove top white space
 
-        topWhite = uppers[0] if uppers else normH
+        topWhite = lines[0][0] if lines else normH
         cv2.rectangle(roiOut, (0, 0), (normW, topWhite), whit, -1)
         if not batch:
-            overlay(roiOutC, 0, topWhite, 0, normW, white, mColor)
+            overlay(roiOutC, 0, 0, normW, topWhite, white, mColor)
 
         # remove bottom white space
 
-        bottomWhite = lowers[-1] if lowers else 0
+        bottomWhite = lines[-1][1] if lines else 0
         cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), whit, -1)
         if not batch:
-            overlay(roiOutC, bottomWhite, normH, 0, normW, white, mColor)
+            overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
 
-        if not uppers:
+        if not lines:
             emptyBlocks.append((stripe, column))
 
     return emptyBlocks
@@ -1166,7 +1289,7 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
         if column == "":
             if prevX is None:
                 pB = prevBB[0]
-                overlay(layout, pB, bT, marginX, maxW - marginX, white, mColor)
+                overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
             else:
                 for (i, pB) in enumerate(prevBB):
                     if pB < bT:
@@ -1175,125 +1298,39 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
                             if i == 0
                             else (prevX + marginX, maxW - marginX)
                         )
-                        overlay(layout, pB, bT, lf, rt, white, mColor)
+                        overlay(layout, lf, pB, rt, bT, white, mColor)
             prevBB = [bB, bB]
             prevX = None
         elif column == "l":
             pB = prevBB[0]
             if pB < bT:
-                overlay(layout, pB, bT, marginX, x - marginX, white, mColor)
+                overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
             prevBB[0] = bB
             prevX = x
         elif column == "r":
             pB = prevBB[1]
             if pB < bT:
-                overlay(layout, pB, bT, x + marginX, maxW - marginX, white, mColor)
+                overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
             prevBB[1] = bB
             prevX = x
         if stripe == maxStripe:
             if column == "":
                 if bB < maxH:
-                    overlay(layout, bB, maxH, marginX, maxW - marginX, white, mColor)
+                    overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
             elif column == "l":
                 if bB < maxH:
-                    overlay(layout, bB, maxH, marginX, x - marginX, white, mColor)
+                    overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
             elif column == "r":
                 if bB < maxH:
                     overlay(
-                        layout, bB, maxH, x + marginX, maxW - marginX, white, mColor
+                        layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
                     )
 
     for b in emptyBlocks:
         del blocks[b]
 
 
-def getBandsFromHist(C, height, histY, tweak=False):
-    # invariant:
-    # not inline => not dip
-    # #uppers == #lowers      if (inline and dip) or (not inline)
-    # #uppers == #lowers + 1  if (inline and not dip)
-
-    threshold = C.marginThresholdY
-    threshold2 = C.marginThreshold2Y
-
-    dip = False
-    inline = False
-    uppers = []
-    lowers = []
-    peaks = []
-
-    peak = 0
-
-    for y in range(height):
-        hist = histY[y]
-        if inline:
-            if hist > peak:
-                peak = hist
-            if hist >= threshold2:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-            elif hist <= threshold:
-                if not dip:
-                    peaks.append(peak)
-                    lowers.append(y)
-                inline = False
-                dip = False
-                peak = 0
-            else:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-                else:
-                    peaks.append(peak)
-                    lowers.append(y)
-                    dip = True
-        else:
-            if hist >= threshold2:
-                uppers.append(y)
-                inline = True
-                dip = False
-
-    # guarantee that len(uppers) == len(lowers) in case they are different
-    # by invariant: that only happens if inline and not dip
-
-    if inline and not dip:
-        peaks.append(peak)
-        lowers.append(y)
-
-    if not tweak:
-        return (uppers, lowers)
-
-    # apply corrections for lines with deviating widths
-
-    (newUppers, newLowers) = (uppers, lowers)
-
-    if peaks:
-        peakAv = int(round(sum(peaks) / len(peaks)))
-
-        peakCorr = peakAv / 2
-
-        (newUppers, newLowers) = ([], [])
-        for (up, lo, pk) in zip(uppers, lowers, peaks):
-            if pk > peakCorr:
-                (up2, lo2) = (up, lo)
-            else:
-                damp = 1.4 + 0.8 * (pk / peakAv)
-                foundW = (lo - up) / 2
-                corrW = (
-                    (damp * peakAv / ((damp - 1) * peakAv + pk)) * foundW
-                    if pk
-                    else foundW
-                )
-                up2 = int(round(up + foundW - corrW))
-                lo2 = int(round(lo - foundW + corrW))
-            newLowers.append(lo2)
-            newUppers.append(up2)
-    # return (uppers, lowers)
-    return (newUppers, newLowers)
-
-
-def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
+def applyBandOffset(C, height, kind, lines, inter=False):
     offsetBand = C.offsetBand
 
     (top, bottom) = offsetBand[kind]
@@ -1302,15 +1339,18 @@ def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
         x += off
         return 0 if x < 0 else height if x > height else x
 
-    return (
-        tuple(offset(x, top) for x in (lowers[:-1] if inter else uppers)),
-        tuple(offset(x, bottom) for x in (uppers[1:] if inter else lowers)),
+    return tuple(
+        (offset(up, top), offset(lo, bottom))
+        for (up, lo) in (
+            zip((x[1] for x in lines), (x[0] for x in lines[1:])) if inter else lines
+        )
     )
 
 
-def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend):
-    roiIn = rotated[yMinLee:yMaxLee, left:right]
-    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+def adjustVertical(
+    C, rotated, layout, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+):
+    lines = makeHistY(C, rotated, left, yMinLee, right, yMaxLee, imgOut=None)
     theYMin = None
     theYMax = None
 
@@ -1323,27 +1363,24 @@ def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, prefer
 
     normH = yMax - yMin
     normHLee = yMaxLee - yMinLee
-
-    (uppers, lowers) = applyBandOffset(
-        C, normHLee, "broad", *getBandsFromHist(C, normHLee, histY, tweak=False)
-    )
-
     topLee = yMin - yMinLee
     botLee = topLee + normH
+
+    broadLines = applyBandOffset(C, normHLee, "broad", lines)
 
     if theYMin is None:
         if preferExtend:
             # look for the first lower boundary in the top of the strict region
             # then take the corresponding upper boundary
-            for (i, lower) in enumerate(lowers):
-                if lower >= topLee:
-                    theYMin = uppers[i]
+            for (i, (up, lo)) in enumerate(broadLines):
+                if lo >= topLee:
+                    theYMin = up
                     break
         else:
             # look for the first upper boundary in the top of the strict region
-            for upper in uppers:
-                if upper > topLee:
-                    theYMin = upper
+            for (up, lo) in broadLines:
+                if up > topLee:
+                    theYMin = up
                     break
         theYMin = yMin if theYMin is None else yMinLee + theYMin
 
@@ -1351,15 +1388,15 @@ def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, prefer
         if preferExtend:
             # look for the last upper boundary in the bottom of the strict region
             # then take the corresponding lower boundary
-            for (i, upper) in enumerate(reversed(uppers)):
-                if upper <= botLee:
-                    theYMax = lowers[-i - 1]
+            for (i, (up, lo)) in enumerate(reversed(broadLines)):
+                if up <= botLee:
+                    theYMax = lo
                     break
         else:
             # look for the last lower boundary in the bottom of the strict region
-            for lower in reversed(lowers):
-                if lower < botLee:
-                    theYMax = lower
+            for (up, lo) in reversed(broadLines):
+                if lo < botLee:
+                    theYMax = lo
                     break
         theYMax = yMax if theYMax is None else yMinLee + theYMax
 

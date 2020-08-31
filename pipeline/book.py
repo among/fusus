@@ -186,7 +186,13 @@ class Book:
         info(f"{len(allPages)} pages: {pagesDesc}")
 
     def _doPage(
-        self, f, batch=False, boxed=True, quiet=False, doOcr=True, uptoLayout=False
+        self,
+        f,
+        batch=False,
+        boxed=True,
+        quiet=False,
+        doOcr=True,
+        uptoLayout=False
     ):
         """Process a single page.
 
@@ -264,7 +270,7 @@ class Book:
         quiet=True,
         boxed=False,
         doOcr=True,
-        uptoLayout=False,
+        uptoLayout=False
     ):
         """Process directory of images.
 
@@ -315,7 +321,8 @@ class Book:
         C = self.C
         interDir = C.interDir
         outDir = C.outDir
-        for d in (interDir, outDir):
+        cleanDir = C.cleanDir
+        for d in (interDir, outDir, cleanDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
 
@@ -336,9 +343,9 @@ class Book:
                 boxed=boxed,
                 quiet=quiet,
                 doOcr=doOcr,
-                uptoLayout=uptoLayout,
+                uptoLayout=uptoLayout
             )
-            page.write(stage="clean")
+            page.write(stage="clean", clean=True, perBlock=True)
             if uptoLayout:
                 info(f"{msg}")
             else:
