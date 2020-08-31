@@ -812,7 +812,7 @@ def getBlocks(C, stages, stripes, batch):
 
     (maxH, maxW) = normalized.shape[0:2]
 
-    lineHeight = maxW // 30
+    lineHeight = maxH // 10
 
     blocks = {}
 
@@ -1043,6 +1043,10 @@ def makeHistY(C, imgIn, left, top, right, bottom, imgOut=None, show=False):
         The detected lines, given as a tupple of upper and lower y coordinates
     """
 
+    debug = C.debug
+
+    if not debug:
+        show = False
     white = C.whiteRGB
     black = C.blackRGB
     green = C.greenRGB
@@ -1055,39 +1059,77 @@ def makeHistY(C, imgIn, left, top, right, bottom, imgOut=None, show=False):
     sqHWidth = 10
     sqWidth = 2 * sqHWidth
     sqDWidth = 4 * sqHWidth
+    sqTWidth = 6 * sqHWidth
 
     (normH, normW) = (bottom - top, right - left)
 
     roiIn = imgIn[top:bottom, left:right]
     histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-    (peaks, peakData) = find_peaks(histY, prominence=peakProminence)
+    (peaks, peakData) = find_peaks(histY, prominence=peakProminence, distance=20)
+    maxPeak = max(histY[peak] for peak in peaks)
+    peakThreshold = 0.3 * maxPeak
+    sigPeaks = [peak for peak in peaks if histY[peak] > peakThreshold]
+    diffPeaks = [sigPeaks[i] - sigPeaks[i - 1] for i in range(1, len(sigPeaks))]
+    if show:
+        print("\nPeaks:")
+        print(
+            f"maxPeak={maxPeak}; {len(peaks)} peaks of which {len(sigPeaks)} > {peakThreshold}"
+        )
+        print(f"peaks={[f'{histY[peak]} @ {peak}' for peak in peaks]}")
+        print(f"sigPeaks={sigPeaks}")
+        print(f"diffPeaks={diffPeaks}")
+    thisLineHeight = pureAverage(np.array(diffPeaks), C.lineHeight)
+    C.lineHeight = thisLineHeight
+    distance = int(round(0.5 * thisLineHeight))
+    (peaks, peakData) = find_peaks(histY, prominence=2, distance=distance)
+
+    histV = 255 - histY
+    histV[0] = 0
+    histV[-1] = 0
     (protoValleys, valleyData) = find_peaks(
-        255 - histY,
+        histV,
         prominence=valleyProminence,
         plateau_size=0,
         height=0,
         width=0,
-        rel_height=0.9,
+        distance=distance,
     )
     if show:
         print("\nLines:")
     valleys = []
-    for (v, plateauSize, width, height) in zip(
-        protoValleys,
-        valleyData["plateau_sizes"],
-        valleyData["width_heights"],
-        valleyData["peak_heights"],
+    for (
+        i,
+        (v, prominence, leftBase, rightBase, plateauSize, width, height),
+    ) in enumerate(
+        zip(
+            protoValleys,
+            valleyData["prominences"],
+            valleyData["left_bases"],
+            valleyData["right_bases"],
+            valleyData["plateau_sizes"],
+            valleyData["width_heights"],
+            valleyData["peak_heights"],
+        )
     ):
         rem = plateauSize + height < 240 or (
             plateauSize < 15 and width > 220 and height < 200
         )
+        rem = prominence < 20 and plateauSize + height < 250
         if not rem:
-            valleys.append(v)
+            valleys.append(
+                v + plateauSize // 3
+                if i == 0
+                else v - plateauSize // 3
+                if i == len(protoValleys) - 1
+                else v
+            )
         if show:
             remRep = "xxx" if rem else f"{len(valleys):>3}"
             print(
                 f"valley {remRep} @ {v:>4}"
-                f" ps={plateauSize:>3} w={width:>3} h={height:>3}"
+                f" prom={int(round(prominence)):>3} l={leftBase:>4} r={rightBase:>4}"
+                f" ps={plateauSize:>3}"
+                f" w={int(round(width)):>3} h={int(round(height)):>3}"
             )
 
     lines = []
@@ -1108,8 +1150,8 @@ def makeHistY(C, imgIn, left, top, right, bottom, imgOut=None, show=False):
         roiOut = imgOut[top:bottom, left:right]
         for (i, val) in enumerate(histY):
             color = (int(val), int(2 * val), int(val))
-            index = (sqDWidth + 10, i)
-            value = (sqDWidth + 10 + val, i)
+            index = (sqTWidth + 10, i)
+            value = (sqTWidth + 10 + val, i)
             cv2.line(roiOut, index, value, color, 1)
         for e in valleys:
             index = (0, max((e - sqHWidth, 0)))
@@ -1119,6 +1161,10 @@ def makeHistY(C, imgIn, left, top, right, bottom, imgOut=None, show=False):
             index = (sqWidth, max((e - sqHWidth, 0)))
             value = (sqDWidth, min((e + sqHWidth, len(histY) - 1)))
             cv2.rectangle(roiOut, index, value, green, -1)
+        # for e in sigPeaks:
+        #    index = (sqDWidth, max((e - sqHWidth, 0)))
+        #    value = (sqTWidth, min((e + sqHWidth, len(histY) - 1)))
+        #    cv2.rectangle(roiOut, index, value, (0, 0, 255), -1)
         for (up, lo) in lines:
             overlay(roiOut, 14, up, normW - 14, up + 3, white, upperColor)
             overlay(roiOut, 14, lo - 3, normW - 14, lo, white, lowerColor)
@@ -1433,3 +1479,35 @@ def reborder(gray, bw, color, crop=False):
     )
     return bordered
     # Crop the image - note we do this on the original image
+
+
+def pureAverage(data, supplied):
+    """Get the average of a list of values after removing the outliers.
+
+    It is used for calcaluting lineheights from a sequence of distances between
+    histogram peaks.
+    In practice, some peaks are missing due to short line lengths, and that
+    causes some abnormal peak distances which we want to remove.
+
+    Parameters
+    ----------
+    data: np array
+        The list of values whose average we compute.
+    """
+
+    if data.size == 0:
+        return supplied
+    elif data.size == 1:
+        return int(round(data[0]))
+
+    # remove outliers
+    m = 2.0
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    pure = data[s < m]
+    if len(pure) == 0:
+        return supplied
+    elif pure.size == 1:
+        return int(round(pure[0]))
+    return int(round(np.average(pure)))

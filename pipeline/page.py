@@ -60,6 +60,7 @@ class Page:
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
+        self.lineHeight = None
 
         inDir = C.inDir
         path = f"{inDir}/{f}"

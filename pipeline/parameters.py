@@ -97,6 +97,7 @@ SETTINGS = dict(
     bandMid=(10, -5),
     bandHigh=(10, 30),
     bandLow=(-10, -10),
+    lineHeight=200,
 )
 """Customizable settings.
 
