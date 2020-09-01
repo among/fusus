@@ -13,12 +13,12 @@ from .lib import (
     imageFileList,
     imageFileListSub,
     pagesRep,
-    reborder,
     select,
     showImage,
     splitext,
     tempFile,
 )
+from .clean import reborder
 from .page import Page
 from .ocr import OCR
 
@@ -186,13 +186,7 @@ class Book:
         info(f"{len(allPages)} pages: {pagesDesc}")
 
     def _doPage(
-        self,
-        f,
-        batch=False,
-        boxed=True,
-        quiet=False,
-        doOcr=True,
-        uptoLayout=False
+        self, f, batch=False, boxed=True, quiet=False, doOcr=True, uptoLayout=False
     ):
         """Process a single page.
 
@@ -246,14 +240,14 @@ class Book:
             if not batch:
                 indent(level=subLevel, reset=True)
                 info("normalizing")
-            page._normalize()
+            page.doNormalize()
             if not batch:
                 info("layout")
-            page._layout()
+            page.doLayout()
             if not uptoLayout:
                 if not batch:
                     info("cleaning")
-                page._clean(showKept=not batch or boxed)
+                page.doClean(showKept=not batch or boxed)
                 if not batch:
                     if doOcr:
                         info("ocr")
@@ -270,7 +264,7 @@ class Book:
         quiet=True,
         boxed=False,
         doOcr=True,
-        uptoLayout=False
+        uptoLayout=False,
     ):
         """Process directory of images.
 
@@ -343,7 +337,7 @@ class Book:
                 boxed=boxed,
                 quiet=quiet,
                 doOcr=doOcr,
-                uptoLayout=uptoLayout
+                uptoLayout=uptoLayout,
             )
             page.write(stage="clean", clean=True, perBlock=True)
             if uptoLayout:

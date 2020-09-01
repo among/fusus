@@ -83,7 +83,10 @@ SETTINGS = dict(
     blurY=41,
     marginThresholdX=1,
     peakProminenceY=5,
+    peakSignificant=0.3,
+    peakTargetWidthFraction=0.5,
     valleyProminenceY=5,
+    outerValleyShiftFraction=0.3,
     blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
@@ -152,11 +155,44 @@ marginThresholdX
     When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
 
+peakSignificant
+:   used when interpreting histograms for line detection
+
+    When we look for significant peaks in a histogram, we determine the max peak height.
+    Significant peaks are those that have a height greater than a specific fraction
+    of the max peak height. This parameter states that fraction.
+
+peakTargetWidthFraction
+:   used when interpreting histograms for line detection
+    When we have studied the significant peaks and found the regular distance between
+    successive peaks, we use that to pass as the `distance` parameter to the SciPy
+    [find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks)
+    algorithm. We get the best results if we do not pass the line height itself, but a
+    fraction of it. This parameter is that fraction.
+
 peakProminenceY, valleyProminenceY
-:   used when interpreting vertical histograms
+:   used when interpreting histograms for line detection
 
     We detect peaks and valleys in the histogram by means of a SciPy algorithm,
     to which we pass a prominence parameter.
+    This will leave out minor peaks and valleys.
+
+outerValleyShiftFraction
+:   used when interpreting histograms for line detection
+
+    The valleys at the outer ends of the histogram tend to be very broad and hence
+    the valleys will be located too far from the actual ink.
+    We correct for that by shifting those valleys a fraction of their plateau sizes
+    towards the ink. This parameter is that fraction.
+
+lineHeight
+:   used for line detection
+
+    After line detection, a value for the line height is found and stored in this
+    parameter. The parameter is read when there is only one line on a page, in
+    which case the line detection algorithm has too little information.
+    If this occurs at the very first calculation of line heights, a fixed
+    default value is used.
 
 accuracy
 :   When marks are searched for in the page, we get the result in the form

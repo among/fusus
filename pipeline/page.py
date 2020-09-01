@@ -7,26 +7,39 @@ import numpy as np
 from IPython.display import HTML, display
 
 from .lib import (
-    addBox,
+    parseStages,
+    parseBands,
+    parseMarks,
+    removeSkewStripes,
+    showImage,
+    splitext,
+)
+from .clean import addBox, cluster, connected, reborder
+from .lines import getInkDistribution
+from .layout import (
     applyHRules,
-    cluster,
-    connected,
     getBlocks,
-    getHistograms,
     getStretches,
     getStripes,
     grayInterBlocks,
     overlay,
-    parseBands,
-    parseMarks,
-    parseStages,
-    reborder,
-    removeSkewStripes,
-    showImage,
-    splitext,
-    storeCleanInfo,
 )
 from .ocr import OCR
+
+
+MARK_HEADERS = """
+    band
+    seq
+    mark
+    kept
+    value
+    connectdegree
+    connectborder
+    top
+    bottom
+    left
+    right
+""".strip().split()
 
 
 class Page:
@@ -181,7 +194,13 @@ class Page:
                                     2,
                                 )
                                 overlay(
-                                    img, leftB, theUpper, theLeft, theLower, white, bColor,
+                                    img,
+                                    leftB,
+                                    theUpper,
+                                    theLeft,
+                                    theLower,
+                                    white,
+                                    bColor,
                                 )
                                 overlay(
                                     img,
@@ -347,7 +366,15 @@ class Page:
 
         if handle:
             if stage == "markData":
-                data = storeCleanInfo(data)
+                source = data
+                data = []
+                data.append(MARK_HEADERS)
+
+                for (band, markInfo) in sorted(source.items()):
+                    for ((seq, mark), entries) in sorted(markInfo.items()):
+                        for entry in sorted(entries):
+                            data.append((band, seq, mark, *entry))
+
             handle.write(
                 "".join("\t".join(str(column) for column in row) + "\n" for row in data)
                 if extension == "tsv"
@@ -359,7 +386,7 @@ class Page:
             else:
                 info(data, tm=False)
 
-    def _normalize(self):
+    def doNormalize(self):
         """Normalizes a page.
 
         It produces a stage that is unskewed: *rotated* and blurred.
@@ -418,7 +445,7 @@ class Page:
         if not batch or boxed:
             stages["normalizedC"] = normalizedC
 
-    def _layout(self):
+    def doLayout(self):
         """Divide the page into stripes and the stripes into columns.
 
         We detect vertical strokes as columns separators and horizontal strokes
@@ -471,16 +498,16 @@ class Page:
         stretchesH = getStretches(C, info, stages, True, batch)
         stretchesV = getStretches(C, info, stages, False, batch)
         stripes = getStripes(stages, stretchesV)
-        blocks = getBlocks(C, stages, stripes, batch)
+        blocks = getBlocks(C, info, stages, stripes, batch)
         if debug:
             showImage(stages["layout"])
         self.blocks = blocks
         applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed)
-        emptyBlocks = getHistograms(C, stages, blocks, batch, boxed)
+        emptyBlocks = getInkDistribution(C, info, stages, blocks, batch, boxed)
         if not batch:
             grayInterBlocks(C, stages, blocks, emptyBlocks)
 
-    def _clean(self, mark=None, block=None, line=None, showKept=False):
+    def doClean(self, mark=None, block=None, line=None, showKept=False):
         """Remove marks from the page.
 
         The blocks of the page are cleaned of marks.
