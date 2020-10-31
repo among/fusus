@@ -1,10 +1,10 @@
 # Fusus
 
-This is a pipeline that transforms scanned pages into readable text.
+This is a workflow that transforms scanned pages into readable text.
 
 The pages come from several printed Arabic books from the past few centuries.
 
-The pipeline takes care of cleaning, OCR and postprocessing.
+The workflow takes care of cleaning, OCR and postprocessing.
 
 This is work done by Cornelis van Lit and Dirk Roorda.
 

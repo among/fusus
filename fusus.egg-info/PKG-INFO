@@ -1,0 +1,39 @@
+Metadata-Version: 1.2
+Name: fusus
+Version: 0.0.2
+Summary: Workflow for converting Arabic scanned pages into readable text
+Home-page: https://github.com/among/fusus
+Author: Cornelis van Lit, Dirk Roorda
+Author-email: dirk.roorda@dans.knaw.nl
+License: UNKNOWN
+Description: Workflow from scanned pages of Arabic Medieval books to readable text.
+        With cleaning before OCR, OCR itself, and postprocessing.
+        Tools to read text corpora with (linguistic) annotations
+        and process them efficiently.
+        With a built in web-interface for querying a corpus.
+        More info on https://among.github.io/fusus/
+        
+Keywords: text,image processing,arabic,OCR,medieval,islam
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Other Environment
+Classifier: Framework :: Jupyter
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Religion
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Arabic
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Religion
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Sociology :: History
+Classifier: Topic :: Text Processing
+Classifier: Topic :: Text Processing :: Fonts
+Classifier: Topic :: Text Processing :: Markup
+Requires-Python: >=3.7.0

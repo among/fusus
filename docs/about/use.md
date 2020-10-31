@@ -8,7 +8,7 @@ following a number of processing steps.
 In the terminal, `cd` to a book directory (see below) and run
 
 ```
-python3 -m pipeline.book
+python3 -m fusus.book
 ```
 
 This will process all scanned pages with default settings.
@@ -52,7 +52,7 @@ name | kind | items | remarks
 `broad` | marks | arbitrary images | as `main`, but a bit broader
 `inter` | marks | arbitrary images | between the lines
 
-When the pipeline reads the marks, it will crop all white borders from it and 
+When fusus reads the marks, it will crop all white borders from it and 
 surround the result with a fixed small white border.
 
 So you do not have to be very precise in trimming the mark templates.

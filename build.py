@@ -23,7 +23,7 @@ ship msg : push repo and publish docs on GitHub
 
 ORG = "among"
 REPO = "fusus"
-PKG = "pipeline"
+PKG = "fusus"
 
 
 def readArgs():

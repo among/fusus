@@ -35,18 +35,18 @@ git reset --hard origin/master
 
 # Install the software
 
-You are going to install the Python package `pipeline` that is contained in the repo.
+You are going to install the Python package `fusus` that is contained in the repo.
 
-During install, all the packages that `pipeline` is dependent on, will be installed
+During install, all the packages that `fusus` is dependent on, will be installed
 into your current Python3 installation.
 
-The package `pipeline` itself will be added to your Python3 installation in such a way
+The package `fusus` itself will be added to your Python3 installation in such a way
 that it can be used from anywhere, while the package inside the repo is being accessed.
 This is achieved by the fact that the installer will create a link to the repo.
 
 ``` sh
 cd ~/github/among/fusus
-pip3 install pipeline -e .
+python3 setup.py develop
 ```
 
 ??? caution "Mind the dot"
@@ -54,5 +54,5 @@ pip3 install pipeline -e .
 
 ??? hint "No nead to repeat this step"
     When you update the repo later, it will not be necessary to redo the
-    `pip3 install` step, because the soft link to the pipeline package in the repo
+    `pip3 install` step, because the soft link to the fusus package in the repo
     will still be valid.

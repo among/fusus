@@ -2,13 +2,13 @@
 
 # Fusus Pipeline
 
-A pipeline from Arabic page images to textual data.
+A workflow from Arabic page images to textual data.
 
 ## Straight to ...
 
-* Install (`pipeline.about.install`)
-* Use (`pipeline.about.use`)
-* API (`pipeline.cheatsheet`)
+* Install (`fusus.about.install`)
+* Use (`fusus.about.use`)
+* API (`fusus.cheatsheet`)
 
 ## Author
 

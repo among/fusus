@@ -1,26 +1,26 @@
 from setuptools import setup
 
 setup(
-    name="pipeline",
+    name="fusus",
     packages=[
-        "pipeline",
+        "fusus",
     ],
     install_requires=[
         "ipython",
         "numpy",
         "pillow",
         "opencv-contrib-python",
+        "kraken",
         "text-fabric",
-        "pytesseract",
     ],
     python_requires=">=3.7.0",
     include_package_data=True,
-    exclude_package_data={"": ["pipeline.egg-info", "__pycache__", ".DS_Store"]},
+    exclude_package_data={"": ["fusus.egg-info", "__pycache__", ".DS_Store"]},
     zip_safe=False,
     version='0.0.2',
-    description="""Pipeline for converting Arabic scanned pages into readable text""",
+    description="""Workflow for converting Arabic scanned pages into readable text""",
     author="Cornelis van Lit, Dirk Roorda",
-    author_email="info@annotation.nl",
+    author_email="dirk.roorda@dans.knaw.nl",
     url="https://github.com/among/fusus",
     keywords=[
         "text",
@@ -54,7 +54,7 @@ setup(
         "Topic :: Text Processing :: Markup",
     ],
     long_description="""\
-Pipeline from scanned pages of Arabic Medieval books to readable text.
+Workflow from scanned pages of Arabic Medieval books to readable text.
 With cleaning before OCR, OCR itself, and postprocessing.
 Tools to read text corpora with (linguistic) annotations
 and process them efficiently.

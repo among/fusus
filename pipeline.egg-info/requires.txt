@@ -1,7 +1,0 @@
-pyyaml>=5.3
-ipython
-numpy
-pillow
-opencv-contrib-python
-text-fabric
-pytesseract

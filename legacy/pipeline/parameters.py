@@ -1,6 +1,6 @@
 """Configuration
 
-All choosable aspects of the pipeline can be tuned here.
+All choosable aspects of the workflow can be tuned here.
 """
 
 import sys
