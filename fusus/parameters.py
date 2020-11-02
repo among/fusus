@@ -67,7 +67,9 @@ STAGES = dict(
     cleanh=("image", False, None),
     clean=("image", False, None),
     binary=("image", False, None),
-    ocr=("data", None, "other"),
+    ocrw=("data", None, "tsv"),
+    ocr=("data", None, "tsv"),
+    proof=("image", True, None),
 )
 """Stages in page processing.
 

@@ -79,6 +79,7 @@ class Page:
         self.stages = {}
         self.blocks = {}
         self.lineHeight = None
+        self.dataHeaders = {}
 
         inDir = C.inDir
         path = f"{inDir}/{f}"
@@ -369,9 +370,8 @@ class Page:
         json | json
         """
 
-        engine = self.engine
-        tm = engine.tm
-        info = tm.info
+        headers = self.dataHeaders.get(stage, None)
+        header = "\t".join(str(column) for column in headers) if headers else None
 
         if handle:
             if stage == "markData":
@@ -384,6 +384,8 @@ class Page:
                         for entry in sorted(entries):
                             data.append((band, seq, mark, *entry))
 
+            if header:
+                handle.write(f"{header}\n")
             handle.write(
                 "".join("\t".join(str(column) for column in row) + "\n" for row in data)
                 if extension == "tsv"
@@ -392,12 +394,15 @@ class Page:
                 else repr(data)
             )
         else:
+            if header:
+                print(header)
             if stage == "markData":
                 self._showCleanInfo()
-            elif stage == "ocr":
-                pprint.pp(data)
+            elif extension == "tsv":
+                for row in data:
+                    print("\t".join(str(col) for col in row))
             else:
-                info(data, tm=False)
+                pprint.pp(data)
 
     def doNormalize(self):
         """Normalizes a page.
@@ -523,7 +528,7 @@ class Page:
         if not batch:
             grayInterBlocks(C, stages, blocks, emptyBlocks)
 
-    def doClean(self, mark=None, block=None, line=None, showKept=False):
+    def cleaning(self, mark=None, block=None, line=None, showKept=False):
         """Remove marks from the page.
 
         The blocks of the page are cleaned of marks.
@@ -870,9 +875,13 @@ class Page:
                         tm=False,
                     )
 
-    def _ocr(self):
+    def ocring(self):
         """Calls the OCR engine for a page."""
 
+        batch = self.batch
         engine = self.engine
         OCR = engine.OCR
+
         OCR.read(self)
+        if not batch:
+            OCR.proofing(self)

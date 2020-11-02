@@ -2,4 +2,5 @@ ipython
 numpy
 pillow
 opencv-contrib-python
+kraken
 text-fabric

@@ -46,7 +46,7 @@ This is achieved by the fact that the installer will create a link to the repo.
 
 ``` sh
 cd ~/github/among/fusus
-python3 setup.py develop
+pip3 install -e .
 ```
 
 ??? caution "Mind the dot"

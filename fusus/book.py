@@ -252,11 +252,11 @@ class Book:
             if not uptoLayout:
                 if not batch:
                     info("cleaning")
-                page.doClean(showKept=not batch or boxed)
+                page.cleaning(showKept=not batch or boxed)
                 if doOcr:
                     if not batch:
                         info("ocr")
-                    page._ocr()
+                    page.ocring()
 
         tm.silentOff()
 
