@@ -885,3 +885,10 @@ class Page:
         OCR.read(self)
         if not batch:
             OCR.proofing(self)
+
+    def proofing(self):
+        """Produces proofing images"""
+
+        engine = self.engine
+        OCR = engine.OCR
+        OCR.proofing(self)

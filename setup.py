@@ -12,6 +12,8 @@ setup(
         "opencv-contrib-python",
         "kraken",
         "text-fabric",
+        "python-bidi",
+        "arabic-reshaper",
     ],
     python_requires=">=3.7.0",
     include_package_data=True,

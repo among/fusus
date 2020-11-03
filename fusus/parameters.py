@@ -9,6 +9,7 @@ BASE = f"{HOME}/github"
 ORG = "among"
 REPO = "fusus"
 REPO_DIR = f"{BASE}/{ORG}/{REPO}"
+PROGRAM_DIR = f"{REPO_DIR}/{REPO}"
 
 KRAKEN = dict(
     modelPath=f"{REPO_DIR}/model/arabic_generalized.mlmodel"
@@ -67,9 +68,10 @@ STAGES = dict(
     cleanh=("image", False, None),
     clean=("image", False, None),
     binary=("image", False, None),
-    ocrw=("data", None, "tsv"),
     ocr=("data", None, "tsv"),
+    ocrw=("data", None, "tsv"),
     proof=("image", True, None),
+    proofw=("image", True, None),
 )
 """Stages in page processing.
 
