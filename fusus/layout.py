@@ -601,7 +601,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                 overlay(demarginedC, left, bottom, right, bB - 2, white, mColor)
 
 
-def grayInterBlocks(C, stages, blocks, emptyBlocks):
+def grayInterBlocks(C, stages, blocks):
     """Overlay the space between blocks with gray.
 
     Remove also the empty blocks from the block list.
@@ -616,9 +616,6 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
         The blocks as delivered by `getBlocks`.
         The blocks dict will be updated: empty blocks will be deleted from it.
         with the band data.
-    emptyBlocks: list
-        The keys of blocks that do not have written content
-        that must be processed further.
 
     Returns
     -------
@@ -681,9 +678,6 @@ def grayInterBlocks(C, stages, blocks, emptyBlocks):
                     overlay(
                         layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
                     )
-
-    for b in emptyBlocks:
-        del blocks[b]
 
 
 def adjustVertical(

@@ -6,7 +6,7 @@ import json
 import pprint
 import cv2
 import numpy as np
-from IPython.display import HTML, display
+from IPython.display import HTML, IFrame, display
 
 from .lib import (
     parseStages,
@@ -147,10 +147,20 @@ class Page:
         for s in parseStages(stage, set(stages), C.stageOrder, error):
             stageData = stages[s]
 
-            (stageType, stageColor, stageExt) = C.stages[s]
+            (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
             white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == "data":
                 self._serial(s, stageData, stageExt)
+            elif stageType == "link":
+                path = self.stagePath(stage)
+                display(HTML(f'<a href="{path}">{stageData}</a>'))
+                display(
+                    IFrame(
+                        src=path,
+                        width=f"{self.proofW + 10}px",
+                        height=f"{self.proofH + 10}px",
+                    )
+                )
             else:
                 img = stageData
 
@@ -276,7 +286,23 @@ class Page:
                 display(HTML(f"<div>{s} {';'.join(headingInfo)}</div>"))
                 showImage(img, **displayParams)
 
-    def write(self, stage=None, clean=False, perBlock=False):
+    def stagePath(self, stage, inter=None):
+        engine = self.engine
+        C = engine.C
+
+        bare = self.bare
+        ext = self.ext
+
+        (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[stage]
+        dest = getattr(C, stageDir or "interDir")
+        inter = "" if inter is None else f"-{inter}"
+        trail = stage if stagePart is None else "" if not stagePart else stagePart
+        trail = "" if not trail else f"-{trail}"
+        ext = stageExt or ext
+        base = f"{dest}/{bare}{inter}{trail}"
+        return f"{base}.{ext}"
+
+    def write(self, stage=None, perBlock=False):
         """Writes processing stages of an page to disk.
 
         Parameters
@@ -290,9 +316,6 @@ class Page:
             If True, the stage output will be split into blocks and written
             to disk separately. The stripe and column of a block are appended
             to the file name.
-        clean: boolean, optional `False`
-            If True, the result files will be created in the `clean` directory
-            instead of the `inter` directory.
 
         Returns
         -------
@@ -306,11 +329,7 @@ class Page:
         tm = engine.tm
         error = tm.error
         C = engine.C
-        interDir = C.interDir
-        cleanDir = C.cleanDir
 
-        bare = self.bare
-        ext = self.ext
         stages = self.stages
         blocks = self.blocks
 
@@ -318,25 +337,25 @@ class Page:
             if s not in stages:
                 continue
             stageData = stages[s]
-            (stageType, stageColor, stageExt) = C.stages[s]
-            isClean = clean and s == "clean"
-            stagePart = "" if isClean else f"-{s}"
-            dest = cleanDir if isClean else interDir
-            base = f"{dest}/{bare}{stagePart}"
-            if perBlock and stageType != "data":
-                for ((stripe, column), data) in blocks.items():
-                    blockSpec = f"{stripe:02d}{column}"
-                    (leftB, topB, rightB, bottomB) = data["inner"]
-                    roi = stageData[topB:bottomB, leftB:rightB]
-                    path = f"{base}-{blockSpec}.{stageExt or ext}"
-                    cv2.imwrite(path, roi)
-            else:
-                path = f"{base}.{stageExt or ext}"
-                if stageType == "data":
-                    with open(path, "w") as f:
-                        self._serial(s, stageData, stageExt, f)
+            (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
+
+            if stageType == "image":
+                if perBlock:
+                    for ((stripe, column), data) in blocks.items():
+                        blockSpec = f"{stripe:02d}{column}"
+                        (leftB, topB, rightB, bottomB) = data["inner"]
+                        roi = stageData[topB:bottomB, leftB:rightB]
+                        thisPath = self.stagePath(stage, inter=blockSpec)
+                        cv2.imwrite(thisPath, roi)
                 else:
-                    cv2.imwrite(path, stageData)
+                    cv2.imwrite(self.stagePath(s), stageData)
+            elif stageType == "data":
+                with open(self.stagePath(s), "w") as f:
+                    self._serial(s, stageData, stageExt, handle=f)
+            elif stageType == "link":
+                # stages of type link will be written to disk upon creation
+                # and not stored
+                pass
 
     def _serial(self, stage, data, extension, handle=None):
         """serializes data in accordance with file type.
@@ -366,6 +385,7 @@ class Page:
 
         extension | data type
         --- | ---
+        html | html text
         tsv | tuple/list of tuple/list
         json | json
         """
@@ -391,6 +411,8 @@ class Page:
                 if extension == "tsv"
                 else json.dumps(data)
                 if extension == "json"
+                else data
+                if extension == "html"
                 else repr(data)
             )
         else:
@@ -525,8 +547,12 @@ class Page:
         self.blocks = blocks
         applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed)
         emptyBlocks = getInkDistribution(C, info, stages, pageH, blocks, batch, boxed)
+
         if not batch:
-            grayInterBlocks(C, stages, blocks, emptyBlocks)
+            grayInterBlocks(C, stages, blocks)
+
+        for b in emptyBlocks:
+            del blocks[b]
 
     def cleaning(self, mark=None, block=None, line=None, showKept=False):
         """Remove marks from the page.
@@ -878,13 +904,11 @@ class Page:
     def ocring(self):
         """Calls the OCR engine for a page."""
 
-        batch = self.batch
         engine = self.engine
         OCR = engine.OCR
 
         OCR.read(self)
-        if not batch:
-            OCR.proofing(self)
+        OCR.proofing(self)
 
     def proofing(self):
         """Produces proofing images"""

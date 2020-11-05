@@ -322,7 +322,9 @@ class Book:
         interDir = C.interDir
         outDir = C.outDir
         cleanDir = C.cleanDir
-        for d in (interDir, outDir, cleanDir):
+        proofDir = C.proofDir
+
+        for d in (interDir, outDir, cleanDir, proofDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
 
@@ -346,13 +348,12 @@ class Book:
                 uptoLayout=uptoLayout,
                 **kwargs,
             )
-            page.write(stage="clean", clean=True, perBlock=False)
+            page.write(stage="normalized,clean", perBlock=False)
             if uptoLayout:
                 info(f"{msg}")
             else:
                 if not batch:
                     page.write(stage="markData")
-                    page.write(stage="ocr")
                 if boxed:
                     page.write(stage="boxed")
                 info(f"{msg}")

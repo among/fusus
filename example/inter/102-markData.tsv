@@ -1,2 +1,2 @@
 band	seq	mark	kept	value	connectdegree	connectborder	top	bottom	left	right
-high	1	a	True	0.8249462	0.27083333333333337	4	1	l	1722	1738	225	249
+high	1	a	False	0.8249462	0.0625	4	1	l	225	1722	249	1738

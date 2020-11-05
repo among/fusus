@@ -18,19 +18,12 @@ use Kraken for OCR only.
 import warnings
 from itertools import chain
 
-import numpy as np
-import cv2
-from PIL import ImageFont, ImageDraw, Image
-
 from kraken.lib.util import array2pil, pil2array
 from kraken.lib.models import load_any
 from kraken.binarization import nlbin
 from kraken.rpred import rpred
 
 from tf.core.helpers import unexpanduser
-
-import arabic_reshaper
-from bidi.algorithm import get_display
 
 
 RL = "horizontal-rl"
@@ -48,26 +41,132 @@ HEADERS = tuple(
 """.strip().split()
 )
 
-PROOF_COLORS = {
-    100: (0, 200, 0),
-    90: (20, 180, 0),
-    80: (40, 160, 0),
-    70: (60, 140, 0),
-    60: (80, 120, 0),
-    50: (100, 100, 0),
-    40: (120, 80, 0),
-    30: (140, 60, 0),
-    20: (160, 40, 0),
-    10: (180, 20, 0),
-    0: (200, 0, 0),
-    None: (150, 150, 255),
-    "": (150, 0, 150),
+TEMPLATE = dict(
+    line="""\
+<div
+    class="l"
+    style="
+        left: «left»px;
+        top: «top»px;
+        width: «width»px;
+        height: «height»px;
+    "
+>
+    <span class="n">«text»</span>
+</div>
+""",
+    word="""\
+<div
+    class="w"
+    style="
+        left: «left»px;
+        top: «top»px;
+        width: «width»px;
+        height: «height»px;
+        background-color: «background»;
+    "
+>
+    <span class="a">«text»</span>
+</div>
+""",
+    char="""\
+<div
+    class="c"
+    style="
+        left: «left»px;
+        top: «top»px;
+        width: «width»px;
+        height: «height»px;
+        background-color: «background»;
+    "
+>
+    <span class="b">«text»</span>
+</div>
+""",
+    doc="""\
+<html>
+  <head>
+<style>
+body {
+  position: absolute;
+  width: «width»px;
+  height: «height»px;
 }
+div.page {
+  position: absolute;
+  width: «width»px;
+  height: «height»px;
+}
+.img {
+  position: absolute;
+  width: «width»px;
+}
+.l {
+  position: absolute;
+  border-color: hsla(180, 100%, 50%, 0.3);
+  border-width: 4px;
+  border-style: solid;
+  text-align: left;
+}
+.w {
+  position: absolute;
+  border-color: hsla(180, 100%, 50%, 0.5);
+  border-width: 2px;
+  border-style: solid;
+  border-top-style: none;
+}
+.c {
+  position: absolute;
+  border-color: hsla(180, 100%, 50%, 0.7);
+  border-width: 1px;
+  border-style: solid;
+  border-top-style: none;
+  text-align: right;
+}
+.n {
+  position: absolute;
+  right: -1em;
+  font-family: sans-serif;
+  font-size: medium;
+  color: #4400bb;
+  vertical-align: top;
+}
+.a {
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  font-family: Arial;
+  font-size: x-large;
+  color: #4400bb;
+  vertical-align: top;
+}
+.b {
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  font-family: Arial;
+  font-size: large;
+  color: #4400bb;
+  vertical-align: top;
+}
+</style>
+  </head>
+<body>
+  <div class="page">
+    <img class="img" style="left: 0; top: 0;" src="«source»">
+    «lines»
+    «boxes»
+  </div>
+</body>
+</html>
+""",
+)
 
 
 def getProofColor(conf):
-    confStep = conf if type(conf) is not int else int(conf // 10) * 10
-    return PROOF_COLORS[confStep]
+    confHue = int(round(conf * 1.5))
+    confOpacity = f"{0.1 + 0.5 * conf /100:.1f}"
+    return f"hsla({confHue}, 100%, 70%, {confOpacity})"
 
 
 class OCR:
@@ -87,14 +186,12 @@ class OCR:
         info("model loaded")
 
         self.model = model
-        self.proofFont = ImageFont.truetype("Arial", 48)
-        self.proofFontSmall = ImageFont.truetype("Arial", 32)
 
     def read(self, page):
         """Perfoms OCR with Kraken."""
 
-        page.dataHeaders["ocr"] = HEADERS
-        page.dataHeaders["ocrw"] = HEADERS
+        page.dataHeaders["char"] = HEADERS
+        page.dataHeaders["word"] = HEADERS
         stages = page.stages
         scan = stages.get("clean", None)
         if scan is None:
@@ -105,8 +202,8 @@ class OCR:
         blocks = page.blocks
         ocrChars = []
         ocrWords = []
-        stages["ocr"] = ocrChars
-        stages["ocrw"] = ocrWords
+        stages["char"] = ocrChars
+        stages["word"] = ocrWords
         binary = pil2array(nlbin(array2pil(scan)))
         proofLines = []
         self.proofLines = proofLines
@@ -118,7 +215,6 @@ class OCR:
             for (ln, (up, lo)) in enumerate(lines):
                 roi = thisBinary[up : lo + 1]
                 (b, e, roi) = removeMargins(roi, keep=16)
-                # print(f"{stripe}{column}:{ln} {left} <-> {right} ~{b} - {e}~ {left + b} <-> {left + e}")
                 proofLines.append((ln, left + b, top + up, left + e, top + lo))
                 (roiH, roiW) = roi.shape[0:2]
                 roi = array2pil(roi)
@@ -165,51 +261,70 @@ class OCR:
                 if curWord:
                     ocrWords.append((stripe, column, ln, *addWord(curWord)))
 
+        page.write(stage="word,char")
+
     def proofing(self, page):
         """Produces an OCR proof page"""
 
-        proofFont = self.proofFont
-        proofFontSmall = self.proofFontSmall
         stages = page.stages
 
         proofLines = self.proofLines
+        normalized = stages["normalized"]
+        (h, w) = normalized.shape[:2]
 
-        for kind in ("", "w"):
-            stage = stages[f"ocr{kind}"]
-            img = stages["demarginedC"].copy()
-            img[np.where((img < [180, 180, 180]).all(axis=2))] = [180, 180, 180]
+        scale = 1 if w == 0 else 1000 / w
 
-            # line boxes
-            for (ln, left, top, right, bottom) in proofLines:
-                color = getProofColor(None)
-                boxIt(img, left - 5, top - 2, right + 5, bottom + 2, color, 1)
+        def g(m, asStr=True):
+            scaledM = m if scale == 1 else int(round(m * scale))
+            return str(scaledM) if asStr else scaledM
 
-            # word/char boxes
-            width = 3 if kind == "w" else 1
-            for (stripe, column, ln, left, top, right, bottom, conf, item) in stage:
-                color = getProofColor(conf)
-                boxIt(img, left, top, right, bottom - 5, color, width)
-                if kind == "":
-                    boxIt(img, left, bottom - 5, right, bottom + 5, color, -1)
+        page.proofW = g(w, asStr=False)
+        page.proofH = g(h, asStr=False)
 
-            img = Image.fromarray(img)
-            draw = ImageDraw.Draw(img)
+        linesHtml = "".join(
+            TEMPLATE["line"]
+            .replace("«left»", g(left))
+            .replace("«top»", g(top))
+            .replace("«width»", g(right - left))
+            .replace("«height»", g(bottom - top))
+            .replace("«text»", f"{ln:>01}")
+            for (ln, left, top, right, bottom) in proofLines
+        )
 
-            # line numbers
-            for (ln, left, top, right, bottom) in proofLines:
-                color = getProofColor(None)
-                putText(draw, proofFont, color, (right + 10, top), "la", f"{ln:>02}")
-
-            # word/char ocr values
-            font = proofFont if kind == "w" else proofFontSmall
-            for (stripe, column, ln, left, top, right, bottom, conf, item) in stage:
-                color = getProofColor("")
-                if kind == "w":
-                    item = arabic_reshaper.reshape(item)
-                    item = get_display(item)
-                putText(draw, font, color, (right - 5, top - 10), "ra", item)
-
-            stages[f"proof{kind}"] = np.array(img)
+        for stage in ("char", "word"):
+            stageData = stages.get(stage, [])
+            boxesHtml = "".join(
+                TEMPLATE[stage]
+                .replace("«left»", g(left))
+                .replace("«top»", g(top))
+                .replace("«width»", g(right - left))
+                .replace("«height»", g(bottom - top))
+                .replace("«background»", getProofColor(conf))
+                .replace("«text»", text)
+                for (
+                    stripe,
+                    column,
+                    ln,
+                    left,
+                    top,
+                    right,
+                    bottom,
+                    conf,
+                    text,
+                ) in stageData
+            )
+            proofData = (
+                TEMPLATE["doc"]
+                .replace("«width»", g(w))
+                .replace("«height»", g(h))
+                .replace("«source»", page.file)
+                .replace("«lines»", linesHtml)
+                .replace("«boxes»", boxesHtml)
+            )
+            proofStage = f"proof{stage}"
+            with open(page.stagePath(proofStage), "w") as f:
+                f.write(proofData)
+            stages[proofStage] = f"see proof at {stage} level"
 
 
 def removeMargins(img, keep=0):
@@ -230,19 +345,3 @@ def addWord(curChars):
     bot = max(x[1][3] for x in curChars)
 
     return (left, top, right, bot, conf, word)
-
-
-def boxIt(img, left, top, right, bottom, color, width):
-    cv2.rectangle(img, (left, top), (right, bottom), color, width)
-
-
-def putText(draw, font, color, pos, anchor, item):
-    colorDarkened = tuple(max(0, c - 40) for c in color) + (127,)
-    draw.text(
-        pos,
-        item,
-        font=font,
-        fill=colorDarkened,
-        align="right",
-        anchor=anchor,
-    )
