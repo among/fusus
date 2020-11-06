@@ -42,9 +42,38 @@ MARK_HEADERS = """
     right
 """.strip().split()
 
+HEADERS = tuple(
+    """
+    stripe
+    column
+    line
+    left
+    top
+    right
+    bottom
+    confidence
+    text
+""".strip().split()
+)
+DATA_TYPES = tuple(
+    """
+    int
+    str
+    int
+    int
+    int
+    int
+    int
+    int
+    str
+""".strip().split()
+)
+
 
 class Page:
-    def __init__(self, engine, f, sizeW=1, sizeH=1, batch=False, boxed=True):
+    def __init__(
+        self, engine, f, minimal=False, sizeW=1, sizeH=1, batch=False, boxed=True
+    ):
         """All processing steps for a single page.
 
         Parameters
@@ -57,6 +86,8 @@ class Page:
             If the image is a fraction of a page, this is the fraction of the width
         sizeH: float, default 1
             If the image is a fraction of a page, this is the fraction of the size
+        minimal: boolean, optional `False`
+            If true, do not read image files, just initialize data structures
         batch: boolean, optional `False`
             Whether to run in batch mode.
             In batch mode everything is geared to the final output.
@@ -79,21 +110,25 @@ class Page:
         self.stages = {}
         self.blocks = {}
         self.lineHeight = None
-        self.dataHeaders = {}
+        self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
+        self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
 
-        inDir = C.inDir
-        path = f"{inDir}/{f}"
-        if not batch and not os.path.exists(path):
-            error(f"Page file not found: {path}")
-            return
+        if minimal:
+            self.stages = {}
+        else:
+            inDir = C.inDir
+            path = f"{inDir}/{f}"
+            if not batch and not os.path.exists(path):
+                error(f"Page file not found: {path}")
+                return
 
-        self.empty = False
-        orig = cv2.imread(path)
-        (maxH, maxW) = orig.shape[0:2]
-        self.pageH = maxH if not sizeH or sizeH == 1 else int(round(maxH / sizeH))
-        self.pageW = maxW if not sizeW or sizeW == 1 else int(round(maxW / sizeW))
+            self.empty = False
+            orig = cv2.imread(path)
+            (maxH, maxW) = orig.shape[0:2]
+            self.pageH = maxH if not sizeH or sizeH == 1 else int(round(maxH / sizeH))
+            self.pageW = maxW if not sizeW or sizeW == 1 else int(round(maxW / sizeW))
 
-        self.stages = {"orig": orig}
+            self.stages = {"orig": orig}
 
     def show(self, stage=None, band=None, mark=None, **displayParams):
         """Displays processing stages of an page.
@@ -302,6 +337,41 @@ class Page:
         base = f"{dest}/{bare}{inter}{trail}"
         return f"{base}.{ext}"
 
+    def read(self, stage=None):
+        """Reads processing data for selected stages from disk
+
+        Parameters
+        ----------
+        stage: string | iterable, optional `None`
+            If no stage is passed, all stages will be read, if corresponding files
+            are present.
+            Otherwise, the indicated stages are read.
+        """
+
+        engine = self.engine
+        tm = engine.tm
+        error = tm.error
+        C = engine.C
+
+        stages = self.stages
+
+        for s in parseStages(stage, set(C.stages), C.stageOrder, error):
+            (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
+
+            if stageType == "image":
+                stages[s] = cv2.imread(self.stagePath(s))
+            elif stageType == "data":
+                sPath = self.stagePath(s)
+                if os.path.exists(sPath):
+                    with open(self.stagePath(s)) as f:
+                        stages[s] = self._ingest(s, stageType, stageExt, f)
+                else:
+                    stages[s] = None
+            elif stageType == "link":
+                # stages of type link will be written to disk upon creation
+                # and not stored and need not be retrieved
+                pass
+
     def write(self, stage=None, perBlock=False):
         """Writes processing stages of an page to disk.
 
@@ -362,7 +432,9 @@ class Page:
 
         Parameters
         ----------
-        data:
+        stage: string
+            The processing stage to which the data belongs
+        data: any
             The data to serialize. The type of data must be compatible with
             the *extension*.
         extension: string
@@ -425,6 +497,57 @@ class Page:
                     print("\t".join(str(col) for col in row))
             else:
                 pprint.pp(data)
+
+    def _ingest(self, stage, tp, extension, f):
+        """ingests stage data in accordance with file type.
+
+        Parameters
+        ----------
+        stage: string
+            The processing stage to which the data belongs
+        tp: string
+            The type of processing stage
+        extension: string
+            The file type according to which the data must be serialized.
+        f: string
+            A file handle of the file that contains the data to be ingested.
+
+        Returns
+        -------
+        data:
+            The data read from disk.
+            The data will be structured according to the type of stage and file.
+
+        Notes
+        -----
+        The following data type/extension combinations are supported:
+
+        extension | data type
+        --- | ---
+        html | html text
+        tsv | tuple/list of tuple/list
+        json | json
+        """
+
+        if extension == "tsv":
+            dataTypes = self.dataTypes[stage]
+            data = []
+            next(f)  # header line
+            for line in f:
+                fields = line.rstrip("\n").split("\t")
+                fields = tuple(
+                    int(x) if dataTypes[i] == "int" else x
+                    for (i, x) in enumerate(fields)
+                )
+                data.append(fields)
+        elif extension == "tsv":
+            data = json.load(f)
+        elif extension == "html":
+            pass
+        else:
+            data = f.read()
+
+        return data
 
     def doNormalize(self):
         """Normalizes a page.

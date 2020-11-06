@@ -3,6 +3,7 @@
 
 import sys
 import os
+import collections
 
 import cv2
 
@@ -19,7 +20,7 @@ from .lib import (
 )
 from .clean import reborder
 from .page import Page
-from .ocr import OCR
+from .ocr import OCR, showConf, getProofColor
 
 
 class Book:
@@ -361,6 +362,128 @@ class Book:
         info("all done")
 
         return page  # the last page processed
+
+    def stageDir(self, stage):
+        C = self.C
+        (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[stage]
+        trail = stage if stagePart is None else "" if not stagePart else stagePart
+        trail = "" if not trail else f"-{trail}"
+        return (getattr(C, stageDir or "interDir"), trail, stageExt)
+
+    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
+        """Measure the reported quality of the ocr processing.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        showStats: boolean, optional `True`
+            Compute and show quality statistics
+
+        updateProofs: boolean, optional `False`
+            If true, regenerate all proofing pages.
+            This is desriable if you have tweaked the coloring of OCR results
+            depending on the confidence.
+            The OCR itself does not have to be performed again for this.
+        """
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
+
+        info("Start measuring ocr quality of these images")
+        if updateProofs:
+            info("  end regenrating proof files")
+
+        page = None
+
+        results = dict(char=[], word=[])
+        resultsChar = collections.defaultdict(list)
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f"{i + 1:>5} {imFile:<40}"
+            info(f"{msg}\r", nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=("normalized,line" if updateProofs else "") + ",word,char")
+            stages = page.stages
+            pg = page.bare
+            pageRep = f"p{pg}"
+
+            for stage in ("word", "char"):
+                proofStage = f"proof{stage}"
+                thisPageRep = f"""<a href="{page.stagePath(proofStage)}">p{pg}</a>"""
+                isCharStage = stage == "char"
+
+                n = 0
+                totC = 0
+                (minC, maxC) = (100, 0)
+
+                for fields in stages[stage]:
+                    conf = int(fields[-2])
+                    totC += conf
+                    if conf < minC:
+                        minC = conf
+                    if conf > maxC:
+                        maxC = conf
+                    n += 1
+                    if isCharStage:
+                        c = fields[-1]
+                        resultsChar[c].append((pageRep, conf))
+                if n > 0:
+                    results[stage].append((thisPageRep, n, minC, maxC, totC, ""))
+
+            if updateProofs:
+                page.proofing()
+
+        for stage in ("word", "char"):
+            stageResults = results[stage]
+            grandN = sum(r[1] for r in stageResults)
+            grandMin = min(r[2] for r in stageResults)
+            grandMax = max(r[3] for r in stageResults)
+            grandTot = sum(r[4] for r in stageResults)
+
+            toShow = [
+                ("overall", grandN, grandMin, grandMax, grandTot, "")
+            ] + stageResults
+
+            info(f"{stage}-confidences of OCR results for {len(stageResults)} pages")
+            showConf(stage, toShow)
+
+        info(f"by-char-confidences of OCR results for {len(resultsChar)} characters")
+        resultsCollected = []
+        (sDir, sTrail, sExt) = self.stageDir("proofchar")
+        for c in sorted(resultsChar):
+            occs = sorted(resultsChar[c], key=lambda x: x[1])
+            worstExamples = " ".join(
+                f"""\
+<a
+    style="background-color: {getProofColor(x[1])};"
+    href="{sDir}/{x[0][1:]}{sTrail}.{sExt}"
+>{x[0]}</a>\
+"""
+                for x in occs[0:20]
+            )
+            nOccs = len(occs)
+            minC = min(r[1] for r in occs)
+            maxC = max(r[1] for r in occs)
+            totC = sum(r[1] for r in occs)
+            resultsCollected.append((f"⌊{c}⌋", nOccs, minC, maxC, totC, worstExamples))
+        showConf(stage, resultsCollected, label="worst results")
+
+        indent(level=0)
+        info("all done")
 
 
 def main():

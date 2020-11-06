@@ -70,6 +70,7 @@ STAGES = dict(
     binary=("image", False, None, None, None),
     char=("data", None, "tsv", "proofDir", None),
     word=("data", None, "tsv", "outDir", ""),
+    line=("data", None, "tsv", "proofDir", "line"),
     proofchar=("link", True, "html", "proofDir", "char"),
     proofword=("link", True, "html", "proofDir", ""),
 )
