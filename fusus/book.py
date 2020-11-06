@@ -416,7 +416,14 @@ class Book:
             msg = f"{i + 1:>5} {imFile:<40}"
             info(f"{msg}\r", nl=False)
             page = Page(self, imFile, minimal=True)
-            page.read(stage=("normalized,line" if updateProofs else "") + ",word,char")
+            page.read(stage=("normalized,line," if updateProofs else "") + "word,char")
+
+            if updateProofs:
+                page.proofing()
+
+            if not showStats:
+                continue
+
             stages = page.stages
             pg = page.bare
             pageRep = f"p{pg}"
@@ -444,8 +451,10 @@ class Book:
                 if n > 0:
                     results[stage].append((thisPageRep, n, minC, maxC, totC, ""))
 
-            if updateProofs:
-                page.proofing()
+        if not showStats:
+            indent(level=0)
+            info("all done")
+            return
 
         for stage in ("word", "char"):
             stageResults = results[stage]
