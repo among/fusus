@@ -247,6 +247,9 @@ class Book:
                 indent(level=subLevel, reset=True)
                 info("normalizing")
             page.doNormalize()
+            if page.empty:
+                return page
+
             if not batch:
                 info("layout")
             page.doLayout()
@@ -254,7 +257,7 @@ class Book:
                 if not batch:
                     info("cleaning")
                 page.cleaning(showKept=not batch or boxed)
-                if doOcr:
+                if not page.empty and doOcr:
                     if not batch:
                         info("ocr")
                     page.ocring()
@@ -324,8 +327,9 @@ class Book:
         outDir = C.outDir
         cleanDir = C.cleanDir
         proofDir = C.proofDir
+        textDir = C.textDir
 
-        for d in (interDir, outDir, cleanDir, proofDir):
+        for d in (interDir, outDir, cleanDir, proofDir, textDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
 
@@ -349,15 +353,16 @@ class Book:
                 uptoLayout=uptoLayout,
                 **kwargs,
             )
-            page.write(stage="normalized,clean", perBlock=False)
-            if uptoLayout:
-                info(f"{msg}")
-            else:
-                if not batch:
-                    page.write(stage="markData")
-                if boxed:
-                    page.write(stage="boxed")
-                info(f"{msg}")
+            if not page.empty:
+                page.write(stage="normalized,clean", perBlock=False)
+                if uptoLayout:
+                    info(f"{msg}")
+                else:
+                    if not batch:
+                        page.write(stage="markData")
+                    if boxed:
+                        page.write(stage="boxed")
+                    info(f"{msg}")
         indent(level=0)
         info("all done")
 
@@ -417,6 +422,8 @@ class Book:
             info(f"{msg}\r", nl=False)
             page = Page(self, imFile, minimal=True)
             page.read(stage=("normalized,line," if updateProofs else "") + "word,char")
+            if page.empty:
+                continue
 
             if updateProofs:
                 page.proofing()
@@ -458,6 +465,8 @@ class Book:
 
         for stage in ("word", "char"):
             stageResults = results[stage]
+            if not len(stageResults):
+                continue
             grandN = sum(r[1] for r in stageResults)
             grandMin = min(r[2] for r in stageResults)
             grandMax = max(r[3] for r in stageResults)
@@ -493,6 +502,146 @@ class Book:
 
         indent(level=0)
         info("all done")
+
+    def plainText(self, pages=None):
+        """Get the plain text from the ocr output in one file
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the `text` subdirectory.
+        """
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        C = self.C
+        textDir = C.textDir
+        if not os.path.exists(textDir):
+            os.makedirs(textDir, exist_ok=True)
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
+
+        info("Start producing plain text of these pages")
+
+        page = None
+
+        path = f"{textDir}/{pagesDesc}.html"
+
+        doc = """\
+<html>
+  <head>
+  <meta charset="utf-8"/>
+<style>
+body {
+  font-size: x-large;
+  text-align: right;
+  direction: rtl;
+}
+div.page {
+  text-align: right;
+}
+div.stripe {
+  display: flex;
+  flex-flow: row nowrap;
+}
+div.c, div.cl, div.cr {
+  text-align: right;
+}
+h3 {
+  text-align: right;
+}
+span.ln {
+  font-style: italic;
+  font-size: small;
+  vertical-align: super;
+  text-align: right;
+}
+</style>
+  </head>
+«body»
+</body>
+</html>
+"""
+        body = []
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            pageMaterial = []
+            indent(level=1, reset=True)
+            msg = f"{i + 1:>5} {imFile:<40}"
+            info(f"{msg}\r", nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage="word")
+            pg = page.bare.lstrip("0")
+            if pg == "":
+                pg = "0"
+            pg = int(pg)
+            pageRep = f"p{pg:>03}"
+            pageMaterial.append(f"""<div page="{pageRep}"><h3>{pg}</h3>""")
+
+            if page.empty:
+                pageMaterial.append("""</div>""")
+                body.append("\n".join(pageMaterial))
+                continue
+
+            stages = page.stages
+            stage = "word"
+
+            (prevStripe, prevColumn, prevLine) = (None, None, None)
+            stripeMaterial = []
+            columnMaterial = []
+            lineMaterial = []
+
+            for fields in stages[stage]:
+                (stripe, column, line) = fields[0:3]
+                if stripe != prevStripe:
+                    if prevStripe is not None:
+                        stripeMaterial.append("</div>")
+                        pageMaterial.append("\n".join(stripeMaterial))
+                        stripeMaterial = []
+                    stripeMaterial.append(f"""<div class="stripe" stripe="{stripe}">""")
+                    prevColumn = None
+                if column != prevColumn:
+                    if prevColumn is not None:
+                        columnMaterial.append("</div>")
+                        stripeMaterial.append("\n".join(columnMaterial))
+                        columnMaterial = []
+                    columnMaterial.append(f"""<div class="c{column}">""")
+                    prevLine = None
+                if line != prevLine:
+                    if prevLine is not None:
+                        lineMaterial.append("</div>")
+                        columnMaterial.append(" ".join(lineMaterial))
+                        lineMaterial = []
+                    lineMaterial.append(
+                        f"""<div line="{line}"><span class="ln">{line}</span>"""
+                    )
+                (prevStripe, prevColumn, prevLine) = (stripe, column, line)
+
+                word = fields[-1]
+                lineMaterial.append(word)
+
+            columnMaterial.append(" ".join(lineMaterial))
+            stripeMaterial.append("\n".join(columnMaterial))
+            pageMaterial.append("\n".join(stripeMaterial))
+            pageMaterial.append("</div>")
+            body.append("\n".join(pageMaterial))
+
+        indent(level=0)
+        with open(path, "w") as f:
+            f.write(doc.replace("«body»", "\n".join(body)))
+        info(f"written to {path}")
 
 
 def main():

@@ -1,6 +1,7 @@
 ipython
 numpy
 pillow
+PyMuPDF
 opencv-contrib-python
 kraken
 text-fabric

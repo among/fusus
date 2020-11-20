@@ -94,6 +94,7 @@ SETTINGS = dict(
     interDir="inter",
     cleanDir="clean",
     proofDir="proof",
+    textDir="text",
     marksDir="marks",
     skewBorder=30,
     blurX=41,

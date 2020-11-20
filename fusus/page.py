@@ -104,7 +104,7 @@ class Page:
         error = tm.error
         self.file = f
         (self.bare, self.ext) = splitext(f, withDot=False)
-        self.empty = True
+        self.empty = False
         self.batch = batch
         self.boxed = boxed
         self.stages = {}
@@ -122,7 +122,6 @@ class Page:
                 error(f"Page file not found: {path}")
                 return
 
-            self.empty = False
             orig = cv2.imread(path)
             (maxH, maxW) = orig.shape[0:2]
             self.pageH = maxH if not sizeH or sizeH == 1 else int(round(maxH / sizeH))
@@ -187,7 +186,7 @@ class Page:
             if stageType == "data":
                 self._serial(s, stageData, stageExt)
             elif stageType == "link":
-                path = self.stagePath(stage)
+                path = self.stagePath(s)
                 display(HTML(f'<a href="{path}">{stageData}</a>'))
                 display(
                     IFrame(
@@ -358,19 +357,22 @@ class Page:
         for s in parseStages(stage, set(C.stages), C.stageOrder, error):
             (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
 
-            if stageType == "image":
-                stages[s] = cv2.imread(self.stagePath(s))
-            elif stageType == "data":
-                sPath = self.stagePath(s)
-                if os.path.exists(sPath):
-                    with open(self.stagePath(s)) as f:
-                        stages[s] = self._ingest(s, stageType, stageExt, f)
-                else:
-                    stages[s] = None
-            elif stageType == "link":
+            if stageType == "link":
                 # stages of type link will be written to disk upon creation
                 # and not stored and need not be retrieved
                 pass
+            else:
+                sPath = self.stagePath(s)
+                if not os.path.exists(sPath):
+                    stages[s] = None
+                    if s in {"normalized", "char", "word"}:
+                        self.empty = True
+                    continue
+                if stageType == "image":
+                    stages[s] = cv2.imread(sPath)
+                elif stageType == "data":
+                    with open(sPath) as f:
+                        stages[s] = self._ingest(s, stageType, stageExt, f)
 
     def write(self, stage=None, perBlock=False):
         """Writes processing stages of an page to disk.
@@ -563,6 +565,8 @@ class Page:
             return
 
         engine = self.engine
+        tm = engine.tm
+        info = tm.info
         C = engine.C
         whit = C.whiteGRS
 
@@ -581,6 +585,14 @@ class Page:
             blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
         )
         pts = cv2.findNonZero(threshed)
+        if pts is None:
+            self.empty = True
+            if not batch:
+                info("empty page")
+            return
+
+        self.empty = False
+
         ret = cv2.minAreaRect(pts)
 
         (cx, cy), (rw, rh), ang = ret
@@ -968,6 +980,17 @@ class Page:
         else:
             self.show(stage="markData")
         indent(level=1)
+        clean = stages["clean"]
+        (th, threshed) = cv2.threshold(
+            clean, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        )
+        pts = cv2.findNonZero(threshed)
+        if pts is None:
+            self.empty = True
+            if not batch:
+                info("empty page")
+            return
+
         info("cleaning done")
 
     def _showCleanInfo(self):
