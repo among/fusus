@@ -13,6 +13,9 @@ See [docs](https://pymupdf.readthedocs.io/en/latest/index.html)
 
 
 def pdf2png(inPdf, outDir, silent=True):
+    """Extract all images in a PDF to an output directory.
+    """
+
     doc = fitz.open(inPdf)
     if not os.path.exists(outDir):
         os.makedirs(outDir, exist_ok=True)
