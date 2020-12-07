@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.1" />
-<title>pipeline.parameters API documentation</title>
+<meta name="generator" content="pdoc 0.9.1" />
+<title>fusus.parameters API documentation</title>
 <meta name="description" content="Settings and configuration" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -12,27 +12,36 @@
 <style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src="https://cse.google.com/cse.js?cx=017837193012385208679:pey8ky8gdqw"></script>
-<style>.gsc-control-cse {padding:0 !important;margin-top:1em}</style>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pipeline.parameters</code></h1>
+<h1 class="title">Module <code>fusus.parameters</code></h1>
 </header>
 <section id="section-intro">
 <p>Settings and configuration</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L0-L371" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L0-L424" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
 
+import os
 from copy import deepcopy
 
+HOME = os.path.expanduser(&#39;~&#39;)
+BASE = f&#34;{HOME}/github&#34;
+ORG = &#34;among&#34;
+REPO = &#34;fusus&#34;
+REPO_DIR = f&#34;{BASE}/{ORG}/{REPO}&#34;
+PROGRAM_DIR = f&#34;{REPO_DIR}/{REPO}&#34;
+
+KRAKEN = dict(
+    modelPath=f&#34;{REPO_DIR}/model/arabic_generalized.mlmodel&#34;
+)
 
 COLORS = dict(
     greyGRS=200,
@@ -40,6 +49,7 @@ COLORS = dict(
     blackRGB=(0, 0, 0),
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
+    greenRGB=(0, 255, 0),
     blockRGB=(0, 255, 255),
     letterRGB=(0, 200, 200),
     upperRGB=(0, 200, 0),
@@ -72,20 +82,25 @@ Each band will be displayed in its own color.
 &#34;&#34;&#34;
 
 STAGES = dict(
-    orig=(&#34;image&#34;, None),
-    gray=(&#34;image&#34;, None),
-    rotated=(&#34;image&#34;, None),
-    normalized=(&#34;image&#34;, None),
-    normalizedC=(&#34;image&#34;, None),
-    layout=(&#34;image&#34;, None),
-    histogram=(&#34;image&#34;, None),
-    demargined=(&#34;image&#34;, None),
-    demarginedC=(&#34;image&#34;, None),
-    markData=(&#34;data&#34;, &#34;tsv&#34;),
-    boxed=(&#34;image&#34;, None),
-    cleanh=(&#34;image&#34;, None),
-    clean=(&#34;image&#34;, None),
-    ocrData=(&#34;data&#34;, &#34;tsv&#34;),
+    orig=(&#34;image&#34;, True, None, None, None),
+    gray=(&#34;image&#34;, False, None, None, None),
+    rotated=(&#34;image&#34;, False, None, None, None),
+    normalized=(&#34;image&#34;, False, None, &#34;proofDir&#34;, &#34;&#34;),
+    normalizedC=(&#34;image&#34;, True, None, None, None),
+    layout=(&#34;image&#34;, True, None, None, None),
+    histogram=(&#34;image&#34;, True, None, None, None),
+    demargined=(&#34;image&#34;, False, None, None, None),
+    demarginedC=(&#34;image&#34;, True, None, None, None),
+    markData=(&#34;data&#34;, None, &#34;tsv&#34;, None, None),
+    boxed=(&#34;image&#34;, True, None, None, None),
+    cleanh=(&#34;image&#34;, False, None, None, None),
+    clean=(&#34;image&#34;, False, None, &#34;cleanDir&#34;, &#34;&#34;),
+    binary=(&#34;image&#34;, False, None, None, None),
+    char=(&#34;data&#34;, None, &#34;tsv&#34;, &#34;proofDir&#34;, None),
+    word=(&#34;data&#34;, None, &#34;tsv&#34;, &#34;outDir&#34;, &#34;&#34;),
+    line=(&#34;data&#34;, None, &#34;tsv&#34;, &#34;proofDir&#34;, &#34;line&#34;),
+    proofchar=(&#34;link&#34;, True, &#34;html&#34;, &#34;proofDir&#34;, &#34;char&#34;),
+    proofword=(&#34;link&#34;, True, &#34;html&#34;, &#34;proofDir&#34;, &#34;&#34;),
 )
 &#34;&#34;&#34;Stages in page processing.
 
@@ -93,7 +108,11 @@ When we process a scanned page,
 we produce named intermediate stages,
 in this order.
 
-The `...Data` stages are tab separated files with unicode data.
+The stage data consists of the following bits of information:
+
+* kind: image or data (i.e. tab separated files with unicode data).
+* colored: True if colored, False if grayscale, None if not an image
+* extension: None if an image file, otherwise the extension of a data file, e.g. `tsv`
 &#34;&#34;&#34;
 
 SETTINGS = dict(
@@ -101,13 +120,19 @@ SETTINGS = dict(
     inDir=&#34;in&#34;,
     outDir=&#34;out&#34;,
     interDir=&#34;inter&#34;,
+    cleanDir=&#34;clean&#34;,
+    proofDir=&#34;proof&#34;,
+    textDir=&#34;text&#34;,
     marksDir=&#34;marks&#34;,
     skewBorder=30,
     blurX=41,
     blurY=41,
     marginThresholdX=1,
-    marginThresholdY=8,
-    marginThreshold2Y=15,
+    peakProminenceY=5,
+    peakSignificant=0.1,
+    peakTargetWidthFraction=0.5,
+    valleyProminenceY=5,
+    outerValleyShiftFraction=0.3,
     blockMarginX=12,
     accuracy=0.8,
     connectBorder=4,
@@ -115,12 +140,13 @@ SETTINGS = dict(
     connectRatio=0.1,
     boxBorder=3,
     maxHits=5000,
-    bandMain=(0, 0),
+    bandMain=(5, -5),
     bandInter=(5, 5),
     bandBroad=(-15, 10),
     bandMid=(10, -5),
     bandHigh=(10, 30),
     bandLow=(-10, -10),
+    lineHeight=200,
 )
 &#34;&#34;&#34;Customizable settings.
 
@@ -139,10 +165,13 @@ inDir
 :   name of the subdirectory with page scans
 
 outDir
-:   name of the subdirectory with the final results of the pipeline
+:   name of the subdirectory with the final results of the workflow
 
 interDir
-:   name of the subdirectory with the intermediate results of the pipeline
+:   name of the subdirectory with the intermediate results of the workflow
+
+cleanDir
+:   name of the subdirectory with the cleaned, blockwise images of the workflow
 
 marksDir
 :   name of the subdirectory with the marks
@@ -166,35 +195,50 @@ blurY
         Too little vertical blurring will result in ragged histograms,
         from which it is difficult to get vertical line boundaries.
 
-marginThresholdX, marginThresholdY
-:   used when interpreting histograms.
-
-    **Vertical lines**:
-
-    The histogram for vertical lines will be chunked into groups,
-    and only the biggest group will be retained.
-
-    More precisely, values in the histogram for vertical lines that are below
-    marginThresholdX will be considered 0. After that, the histogram points
-    will be grouped into consecutive chunks with nonzero values.
-    The biggest such group will have the vertical lines that contain the page material.
-    All other vertical lines will be whitened.
-
-    **Horizontal lines**:
+marginThresholdX
+:   used when interpreting horizontal histograms.
 
     When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
 
-    !!! hint &#34;Ragged histograms&#34;
-        Histograms may be a bit ragged.
+peakSignificant
+:   used when interpreting histograms for line detection
 
-        When a histogram dives below the threshold, but jumps above it
-        later, without having become zero in the meantime, the last such point
-        will be taken as a lower boundary.
+    When we look for significant peaks in a histogram, we determine the max peak height.
+    Significant peaks are those that have a height greater than a specific fraction
+    of the max peak height. This parameter states that fraction.
 
-        When a histogram jumps above the threshold, but dives below it
-        later, without touching zero, and then jumps above the threshold
-        again, the latter point will *not* become the upper boundary.
+peakTargetWidthFraction
+:   used when interpreting histograms for line detection
+    When we have studied the significant peaks and found the regular distance between
+    successive peaks, we use that to pass as the `distance` parameter to the SciPy
+    [find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks)
+    algorithm. We get the best results if we do not pass the line height itself, but a
+    fraction of it. This parameter is that fraction.
+
+peakProminenceY, valleyProminenceY
+:   used when interpreting histograms for line detection
+
+    We detect peaks and valleys in the histogram by means of a SciPy algorithm,
+    to which we pass a prominence parameter.
+    This will leave out minor peaks and valleys.
+
+outerValleyShiftFraction
+:   used when interpreting histograms for line detection
+
+    The valleys at the outer ends of the histogram tend to be very broad and hence
+    the valleys will be located too far from the actual ink.
+    We correct for that by shifting those valleys a fraction of their plateau sizes
+    towards the ink. This parameter is that fraction.
+
+lineHeight
+:   used for line detection
+
+    After line detection, a value for the line height is found and stored in this
+    parameter. The parameter is read when there is only one line on a page, in
+    which case the line detection algorithm has too little information.
+    If this occurs at the very first calculation of line heights, a fixed
+    default value is used.
 
 accuracy
 :   When marks are searched for in the page, we get the result in the form
@@ -250,6 +294,9 @@ bandMain
 
     You can adjust these values: higher values move the boundaries down,
     lower values move them up.
+
+    In practice, the adjustments are zero for the main band, while
+    all other bands are derived from the main band by applying adjustments.
 
 bandInter
 :   Offsets for the `inter` band.
@@ -311,6 +358,10 @@ class Config:
         &#34;&#34;&#34;
 
         self.tm = tm
+
+        # ocr settings
+        for (k, v) in KRAKEN.items():
+            setattr(self, k, v)
 
         # colors are fixed
         for (k, v) in COLORS.items():
@@ -407,21 +458,21 @@ class Config:
 <section>
 <h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
-<dt id="pipeline.parameters.BAND_COLORS"><code class="name">var <span class="ident">BAND_COLORS</span></code></dt>
+<dt id="fusus.parameters.BAND_COLORS"><code class="name">var <span class="ident">BAND_COLORS</span></code></dt>
 <dd>
 <div class="desc"><p>Band colors.</p>
 <p>Each band will be displayed in its own color.</p></div>
 </dd>
-<dt id="pipeline.parameters.COLORS"><code class="name">var <span class="ident">COLORS</span></code></dt>
+<dt id="fusus.parameters.COLORS"><code class="name">var <span class="ident">COLORS</span></code></dt>
 <dd>
 <div class="desc"><p>Named colors.</p></div>
 </dd>
-<dt id="pipeline.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
+<dt id="fusus.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
 <dd>
 <div class="desc"><p>Customizable settings.</p>
 <p>These are the settings that can be customized
-by calling the <code><a title="pipeline.parameters.Config" href="#pipeline.parameters.Config">Config</a></code> constructor and the
-<code><a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure">Config.configure()</a></code> method.</p>
+by calling the <code><a title="fusus.parameters.Config" href="#fusus.parameters.Config">Config</a></code> constructor and the
+<code><a title="fusus.parameters.Config.configure" href="#fusus.parameters.Config.configure">Config.configure()</a></code> method.</p>
 <p>The default values can be inspected by expanding the source code.</p>
 <dl>
 <dt>debug</dt>
@@ -431,9 +482,11 @@ results.</dd>
 <dt>inDir</dt>
 <dd>name of the subdirectory with page scans</dd>
 <dt>outDir</dt>
-<dd>name of the subdirectory with the final results of the pipeline</dd>
+<dd>name of the subdirectory with the final results of the workflow</dd>
 <dt>interDir</dt>
-<dd>name of the subdirectory with the intermediate results of the pipeline</dd>
+<dd>name of the subdirectory with the intermediate results of the workflow</dd>
+<dt>cleanDir</dt>
+<dd>name of the subdirectory with the cleaned, blockwise images of the workflow</dd>
 <dt>marksDir</dt>
 <dd>name of the subdirectory with the marks</dd>
 <dt>skewBorder</dt>
@@ -457,31 +510,50 @@ bars will go undetected.</p>
 from which it is difficult to get vertical line boundaries.</p>
 </div>
 </dd>
-<dt>marginThresholdX, marginThresholdY</dt>
+<dt>marginThresholdX</dt>
 <dd>
-<p>used when interpreting histograms.</p>
-<p><strong>Vertical lines</strong>:</p>
-<p>The histogram for vertical lines will be chunked into groups,
-and only the biggest group will be retained.</p>
-<p>More precisely, values in the histogram for vertical lines that are below
-marginThresholdX will be considered 0. After that, the histogram points
-will be grouped into consecutive chunks with nonzero values.
-The biggest such group will have the vertical lines that contain the page material.
-All other vertical lines will be whitened.</p>
-<p><strong>Horizontal lines</strong>:</p>
+<p>used when interpreting horizontal histograms.</p>
 <p>When histograms for horizontal lines cross marginThresholdY,
 it will taken as an
 indication that a line boundary (upper or lower) has been reached.</p>
-<div class="admonition hint">
-<p class="admonition-title">Ragged histograms</p>
-<p>Histograms may be a bit ragged.</p>
-<p>When a histogram dives below the threshold, but jumps above it
-later, without having become zero in the meantime, the last such point
-will be taken as a lower boundary.</p>
-<p>When a histogram jumps above the threshold, but dives below it
-later, without touching zero, and then jumps above the threshold
-again, the latter point will <em>not</em> become the upper boundary.</p>
-</div>
+</dd>
+<dt>peakSignificant</dt>
+<dd>
+<p>used when interpreting histograms for line detection</p>
+<p>When we look for significant peaks in a histogram, we determine the max peak height.
+Significant peaks are those that have a height greater than a specific fraction
+of the max peak height. This parameter states that fraction.</p>
+</dd>
+<dt>peakTargetWidthFraction</dt>
+<dd>used when interpreting histograms for line detection
+When we have studied the significant peaks and found the regular distance between
+successive peaks, we use that to pass as the <code>distance</code> parameter to the SciPy
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks">find_peaks</a>
+algorithm. We get the best results if we do not pass the line height itself, but a
+fraction of it. This parameter is that fraction.</dd>
+<dt>peakProminenceY, valleyProminenceY</dt>
+<dd>
+<p>used when interpreting histograms for line detection</p>
+<p>We detect peaks and valleys in the histogram by means of a SciPy algorithm,
+to which we pass a prominence parameter.
+This will leave out minor peaks and valleys.</p>
+</dd>
+<dt>outerValleyShiftFraction</dt>
+<dd>
+<p>used when interpreting histograms for line detection</p>
+<p>The valleys at the outer ends of the histogram tend to be very broad and hence
+the valleys will be located too far from the actual ink.
+We correct for that by shifting those valleys a fraction of their plateau sizes
+towards the ink. This parameter is that fraction.</p>
+</dd>
+<dt>lineHeight</dt>
+<dd>
+<p>used for line detection</p>
+<p>After line detection, a value for the line height is found and stored in this
+parameter. The parameter is read when there is only one line on a page, in
+which case the line detection algorithm has too little information.
+If this occurs at the very first calculation of line heights, a fixed
+default value is used.</p>
 </dd>
 <dt>accuracy</dt>
 <dd>When marks are searched for in the page, we get the result in the form
@@ -529,6 +601,8 @@ height of the top and bottom boundaries are adjusted relative to the
 values obtained by the histogram algorithm.</p>
 <p>You can adjust these values: higher values move the boundaries down,
 lower values move them up.</p>
+<p>In practice, the adjustments are zero for the main band, while
+all other bands are derived from the main band by applying adjustments.</p>
 </dd>
 <dt>bandInter</dt>
 <dd>
@@ -560,13 +634,18 @@ space below it.</p>
 </dd>
 </dl></div>
 </dd>
-<dt id="pipeline.parameters.STAGES"><code class="name">var <span class="ident">STAGES</span></code></dt>
+<dt id="fusus.parameters.STAGES"><code class="name">var <span class="ident">STAGES</span></code></dt>
 <dd>
 <div class="desc"><p>Stages in page processing.</p>
 <p>When we process a scanned page,
 we produce named intermediate stages,
 in this order.</p>
-<p>The <code>&hellip;Data</code> stages are tab separated files with unicode data.</p></div>
+<p>The stage data consists of the following bits of information:</p>
+<ul>
+<li>kind: image or data (i.e. tab separated files with unicode data).</li>
+<li>colored: True if colored, False if grayscale, None if not an image</li>
+<li>extension: None if an image file, otherwise the extension of a data file, e.g. <code>tsv</code></li>
+</ul></div>
 </dd>
 </dl>
 </section>
@@ -575,7 +654,7 @@ in this order.</p>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pipeline.parameters.Config"><code class="flex name class">
+<dt id="fusus.parameters.Config"><code class="flex name class">
 <span>class <span class="ident">Config</span></span>
 <span>(</span><span>tm, **params)</span>
 </code></dt>
@@ -600,7 +679,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L258-L372" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L307-L425" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -628,6 +707,10 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
         &#34;&#34;&#34;
 
         self.tm = tm
+
+        # ocr settings
+        for (k, v) in KRAKEN.items():
+            setattr(self, k, v)
 
         # colors are fixed
         for (k, v) in COLORS.items():
@@ -720,7 +803,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pipeline.parameters.Config.configure"><code class="name flex">
+<dt id="fusus.parameters.Config.configure"><code class="name flex">
 <span>def <span class="ident">configure</span></span>(<span>self, reset=False, **params)</span>
 </code></dt>
 <dd>
@@ -739,7 +822,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L305-L347" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L358-L400" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -786,7 +869,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
             setattr(self, k, v)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.parameters.Config.show"><code class="name flex">
+<dt id="fusus.parameters.Config.show"><code class="name flex">
 <span>def <span class="ident">show</span></span>(<span>self, params=None)</span>
 </code></dt>
 <dd>
@@ -801,7 +884,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/parameters.py#L349-L372" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L402-L425" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
@@ -837,10 +920,6 @@ parameter names whose values are to be displayed.</dd>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
 <p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
-<div class="gcse-search" style="height: 70px"
-data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
-data-gaCategoryParameter="pipeline.parameters">
-</div>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -848,24 +927,24 @@ data-gaCategoryParameter="pipeline.parameters">
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pipeline" href="index.html">pipeline</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
-<li><code><a title="pipeline.parameters.BAND_COLORS" href="#pipeline.parameters.BAND_COLORS">BAND_COLORS</a></code></li>
-<li><code><a title="pipeline.parameters.COLORS" href="#pipeline.parameters.COLORS">COLORS</a></code></li>
-<li><code><a title="pipeline.parameters.SETTINGS" href="#pipeline.parameters.SETTINGS">SETTINGS</a></code></li>
-<li><code><a title="pipeline.parameters.STAGES" href="#pipeline.parameters.STAGES">STAGES</a></code></li>
+<li><code><a title="fusus.parameters.BAND_COLORS" href="#fusus.parameters.BAND_COLORS">BAND_COLORS</a></code></li>
+<li><code><a title="fusus.parameters.COLORS" href="#fusus.parameters.COLORS">COLORS</a></code></li>
+<li><code><a title="fusus.parameters.SETTINGS" href="#fusus.parameters.SETTINGS">SETTINGS</a></code></li>
+<li><code><a title="fusus.parameters.STAGES" href="#fusus.parameters.STAGES">STAGES</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pipeline.parameters.Config" href="#pipeline.parameters.Config">Config</a></code></h4>
+<h4><code><a title="fusus.parameters.Config" href="#fusus.parameters.Config">Config</a></code></h4>
 <ul class="">
-<li><code><a title="pipeline.parameters.Config.configure" href="#pipeline.parameters.Config.configure">configure</a></code></li>
-<li><code><a title="pipeline.parameters.Config.show" href="#pipeline.parameters.Config.show">show</a></code></li>
+<li><code><a title="fusus.parameters.Config.configure" href="#fusus.parameters.Config.configure">configure</a></code></li>
+<li><code><a title="fusus.parameters.Config.show" href="#fusus.parameters.Config.show">show</a></code></li>
 </ul>
 </li>
 </ul>
@@ -877,7 +956,7 @@ data-gaCategoryParameter="pipeline.parameters">
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

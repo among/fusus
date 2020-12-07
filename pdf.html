@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>fusus.about API documentation</title>
+<title>fusus.pdf API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,43 +17,88 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about</code></h1>
+<h1 class="title">Module <code>fusus.pdf</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/about/__init__.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/pdf.py#L0-L32" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: ../../docs/about/top.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">import os
+import fitz
+
+
+&#34;&#34;&#34;Installation
+
+```
+pip3 install PyMuPDF
+```
+
+See [docs](https://pymupdf.readthedocs.io/en/latest/index.html)
+&#34;&#34;&#34;
+
+
+def pdf2png(inPdf, outDir, silent=True):
+    &#34;&#34;&#34;Extract all images in a PDF to an output directory.
+    &#34;&#34;&#34;
+
+    doc = fitz.open(inPdf)
+    if not os.path.exists(outDir):
+        os.makedirs(outDir, exist_ok=True)
+
+    p = 0
+    for i in range(len(doc)):
+        imgList = doc.getPageImageList(i)
+        for entry in imgList:
+            p += 1
+            xref = entry[0]
+            pix = fitz.Pixmap(doc, xref)
+            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.png&#34;)
+    if not silent:
+        plural = &#34;&#34; if p == 1 else &#34;s&#34;
+        print(f&#34;Written {p} image{plural}&#34;)</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="fusus.about.install" href="install.html">fusus.about.install</a></code></dt>
+<dt id="fusus.pdf.pdf2png"><code class="name flex">
+<span>def <span class="ident">pdf2png</span></span>(<span>inPdf, outDir, silent=True)</span>
+</code></dt>
 <dd>
-<div class="desc"><p>Convention …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.methods" href="methods.html">fusus.about.methods</a></code></dt>
-<dd>
-<div class="desc"><p>Cleaning …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.model" href="model.html">fusus.about.model</a></code></dt>
-<dd>
-<div class="desc"><p>OCR Models for Kraken …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.use" href="use.html">fusus.about.use</a></code></dt>
-<dd>
-<div class="desc"><p>Book processing …</p></div>
+<div class="desc"><p>Extract all images in a PDF to an output directory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/pdf.py#L15-L33" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def pdf2png(inPdf, outDir, silent=True):
+    &#34;&#34;&#34;Extract all images in a PDF to an output directory.
+    &#34;&#34;&#34;
+
+    doc = fitz.open(inPdf)
+    if not os.path.exists(outDir):
+        os.makedirs(outDir, exist_ok=True)
+
+    p = 0
+    for i in range(len(doc)):
+        imgList = doc.getPageImageList(i)
+        for entry in imgList:
+            p += 1
+            xref = entry[0]
+            pix = fitz.Pixmap(doc, xref)
+            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.png&#34;)
+    if not silent:
+        plural = &#34;&#34; if p == 1 else &#34;s&#34;
+        print(f&#34;Written {p} image{plural}&#34;)</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -68,15 +113,12 @@
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus" href="../index.html">fusus</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="fusus.about.install" href="install.html">fusus.about.install</a></code></li>
-<li><code><a title="fusus.about.methods" href="methods.html">fusus.about.methods</a></code></li>
-<li><code><a title="fusus.about.model" href="model.html">fusus.about.model</a></code></li>
-<li><code><a title="fusus.about.use" href="use.html">fusus.about.use</a></code></li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.pdf.pdf2png" href="#fusus.pdf.pdf2png">pdf2png</a></code></li>
 </ul>
 </li>
 </ul>

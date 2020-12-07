@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.1" />
-<title>pipeline.lib API documentation</title>
+<meta name="generator" content="pdoc 0.9.1" />
+<title>fusus.lib API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -12,33 +12,32 @@
 <style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src="https://cse.google.com/cse.js?cx=017837193012385208679:pey8ky8gdqw"></script>
-<style>.gsc-control-cse {padding:0 !important;margin-top:1em}</style>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pipeline.lib</code></h1>
+<h1 class="title">Module <code>fusus.lib</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L0-L1397" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L0-L540" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import io
-import collections
 from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
 
 import numpy as np
+
 import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
 
-from tf.core.helpers import rangesFromList, rangesFromSet, specFromRanges
+from tf.core.helpers import rangesFromList, specFromRanges
+
 
 EXTENSIONS = set(
     &#34;&#34;&#34;
@@ -49,20 +48,8 @@ EXTENSIONS = set(
     tiff
 &#34;&#34;&#34;.strip().split()
 )
-
-MARK_HEADERS = &#34;&#34;&#34;
-    band
-    seq
-    mark
-    kept
-    value
-    connectdegree
-    connectborder
-    top
-    bottom
-    left
-    right
-&#34;&#34;&#34;.strip().split()
+&#34;&#34;&#34;Supported image file extensions.
+&#34;&#34;&#34;
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -74,11 +61,19 @@ def tempFile():
     return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)
 
 
-def img(data):
+def imgElem(data):
     &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
     &#34;&#34;&#34;
 
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;
+
+
+def PILFromArray(a):
+    return PIL.Image.fromarray(a)
+
+
+def arrayFromPIL(img):
+    return np.asarray(img)
 
 
 def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
@@ -93,7 +88,7 @@ def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
             PIL.Image.fromarray(ae).save(f, fmt)
             ad = Image(data=f.getvalue(), **kwargs)._repr_jpeg_()
             ads.append(ad)
-        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(img(ad) for ad in ads)}&lt;/div&gt;&#34;))
+        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(imgElem(ad) for ad in ads)}&lt;/div&gt;&#34;))
     else:
         ai = np.uint8(np.clip(a, 0, 255))
         f = io.BytesIO()
@@ -101,7 +96,7 @@ def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
-def overlay(img, top, bottom, left, right, srcColor, dstColor):
+def overlay(img, left, top, right, bottom, srcColor, dstColor):
     &#34;&#34;&#34;Colors a region of an image with care.
 
     A selected region of an image can be given a uniform color,
@@ -127,6 +122,22 @@ def overlay(img, top, bottom, left, right, srcColor, dstColor):
 
 
 def splitext(f, withDot=True):
+    &#34;&#34;&#34;Splits a file name into its main part and its extension.
+
+    Parameters
+    ----------
+    f: string
+        The file name
+    withDot: boolean, optional `False`
+        If True, the `.` in the extension is considered part of the extension,
+        else the dot is stripped from it.
+
+    Returns
+    -------
+    tuple
+        The main part and the extension
+    &#34;&#34;&#34;
+
     (bare, ext) = os.path.splitext(f)
     if ext and not withDot:
         ext = ext[1:]
@@ -134,6 +145,22 @@ def splitext(f, withDot=True):
 
 
 def imageFileList(imDir):
+    &#34;&#34;&#34;Gets a sorted list of image files from a directory.
+
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    list
+        Alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
     if not os.path.exists(imDir):
         return []
 
@@ -149,6 +176,23 @@ def imageFileList(imDir):
 
 
 def imageFileListSub(imDir):
+    &#34;&#34;&#34;Gets sorted lisst of image files from the subdirectories of a directory.
+
+    Only files having an image extension (defined in `fusus.parameters.EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    dict
+        Keyed by subdirectory names, valued by
+        alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
     if not os.path.exists(imDir):
         return {}
     imageFiles = {}
@@ -161,11 +205,44 @@ def imageFileListSub(imDir):
 
 
 def pagesRep(source, asList=False):
+    &#34;&#34;&#34;Represents a set of pages as a string in a compact way or as a list.
+
+    Parameters
+    ----------
+    source: list
+        A list of file names, without directory, with extension
+    asList: boolean, optional `False`
+        Whether to return the result as a list of integers or as a compact string.
+
+    Returns
+    -------
+    list or string
+        Depending on `asList` a list of page numbers (integers) or a string
+        mentioning the page numbers, using intervals where possible.
+    &#34;&#34;&#34;
     pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
     return pages if asList else specFromRanges(rangesFromList(pages))
 
 
 def select(source, selection):
+    &#34;&#34;&#34;Choose items from a bunch of integers.
+
+    Parameters
+    ----------
+    source: iterable of int
+        The items to choose from
+    selection: iterable of int or string or `None`
+        If None, selects all items, otherwise specifies what numbers to select.
+        If a number is in the selection, but not in the source, it will not be selected.
+        The selection can be an integer or a compact string that specifies integers,
+        using ranges and commas.
+
+    Returns
+    -------
+    list
+        Sorted list of selected items
+    &#34;&#34;&#34;
+
     if selection is None:
         return sorted(source)
 
@@ -190,154 +267,28 @@ def select(source, selection):
     return sorted(index[n] for n in selected)
 
 
-def cluster(points, result):
-    def d(p1, p2):
-        if p1 == p2:
-            return 0
-        (x1, y1) = p1
-        (x2, y2) = p2
-        return abs(x1 - x2) + abs(y1 - y2)
+def removeSkewStripes(img, skewBorder, skewColor):
+    &#34;&#34;&#34;Remove black triangles resulting from unskewing images.
 
-    clusters = []
-    for (i, p) in enumerate(points):
-        stored = False
-        rp = result[p]
-        for c in clusters:
-            (q, rq) = c
-            if d(p, q) &lt;= 8:
-                if rp &gt; rq:
-                    c[0] = p
-                    c[1] = rp
-                stored = True
-                break
-        if not stored:
-            clusters.append([p, rp])
-    return clusters
-
-
-def measure(borderInside, borderOutside, threshold):
-    connections = borderInside * borderOutside
-    return np.where(connections &gt; threshold)[0].size / borderOutside.size
-
-
-def showit(label, texto, texti, val):
-    print(f&#34;{label}: = {val}&#34;)
-    print(&#34;Outer&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texto))
-    print(&#34;Inner&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texti))
-
-
-def connected(markH, markW, bw, threshold, img, hitPoint, sides=None):
-    &#34;&#34;&#34;Determine how much ink borders on a given rectangle.
+    When an image is unskewed, it is rotated slightly and that introduces
+    stroke like triangles in the corners.
+    This function removes them by coloring all image borders with white.
 
     Parameters
     ----------
-    markH: integer
-        height of the rectangle
-    markW: integer
-        width of the rectangle
-    bw: integer
-        width of the border around the rectangle that will be used to detect connections
-    threshold:
-        the value above which a connection is detected
-    img: np array
-        the source image
-    hitPoint: (int, int)
-        Y and X coordinate of top left corner of the rectangle in the image
-    sides: string, optional `None`
-        If `None`, computes connections on all sides.
-        Otherwise it should be a string consisting of at most these characters:
-        `l` (left), `r` (right), `t` (top), `b` (bottom).
-        Only these sides will be computed.
+    img: image as np array
+        the image to operate on
+    skewBorder: int
+        the width of the border that is whitened
+    skewColor: color
+        the exact white color with which we color the borders.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
     &#34;&#34;&#34;
 
-    (textH, textW) = img.shape
-    (hitY, hitX) = hitPoint
-
-    connDegree = 0
-    nparts = 0
-
-    realBw = min((bw, markW, markH))
-
-    # left boundary
-
-    fo = max((0, hitX - realBw)) if hitX &gt; 0 else None
-    if fo is not None and (sides is None or &#34;l&#34; in sides):
-        to = hitX
-        texto = np.array(
-            (255 - img[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
-        )
-        fi = hitX
-        ti = hitX + realBw
-        texti = np.array(
-            (255 - img[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # right boundary
-
-    to = (
-        min((textW, hitX + markW + realBw + 1))
-        if hitX + markW + realBw &lt; textW
-        else None
-    )
-    if to is not None and (sides is None or &#34;r&#34; in sides):
-        fo = hitX + markW
-        texto = np.array(
-            (255 - img[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
-        )
-        fi = hitX + markW - realBw
-        ti = hitX + markW
-        texti = np.array(
-            (255 - img[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # top boundary
-
-    f = max((0, hitY - realBw)) if hitY &gt; 0 else None
-    if f is not None and (sides is None or &#34;t&#34; in sides):
-        t = hitY
-        texto = np.array(
-            (255 - img[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        fi = hitY
-        ti = hitY + realBw + 1
-        texti = np.array(
-            (255 - img[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # bottom boundary
-
-    t = (
-        min((textH - 1, hitY + markH + realBw + 1))
-        if hitY + markH + realBw &lt; textH
-        else None
-    )
-    if t is not None and (sides is None or &#34;b&#34; in sides):
-        f = hitY + markH
-        texto = np.array(
-            (255 - img[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        ti = hitY + markH
-        fi = hitY + markH - realBw
-        texti = np.array(
-            (255 - img[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    return connDegree
-
-
-def removeSkewStripes(img, skewBorder, skewColor):
     (imH, imW) = img.shape[0:2]
     if min((imH, imW)) &lt; skewBorder * 10:
         return
@@ -350,144 +301,31 @@ def removeSkewStripes(img, skewBorder, skewColor):
         cv2.rectangle(img, *rect, skewColor, -1)
 
 
-def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
-    fill = C.boxRemainRGB if kept else C.boxDeleteRGB
-    fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
-    border = C.boxBorder
+def parseStages(stage, allStages, sortedStages, error):
+    &#34;&#34;&#34;Parses a string that specifies stages.
 
-    cv2.rectangle(im, (left, top), (right, bottom), fill, border)
-    addSeq(
-        im, top, bottom, left, right, border, fillN, band, seq, connDegree,
-    )
-
-
-def addSeq(
-    img,
-    top,
-    bottom,
-    left,
-    right,
-    frameWidth,
-    frameColor,
-    band,
-    markSeq,
-    connectionDegree,
-    size=0.5,
-    weight=1,
-):
-    colorDeg = (100, 100, 255)
-    ptSeq = (left, top - frameWidth - 2)
-    ptDeg = (left, bottom + frameWidth + 8)
-    cv2.putText(
-        img,
-        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
-        ptSeq,
-        FONT,
-        size,
-        frameColor,
-        weight,
-        cv2.LINE_AA,
-    )
-    connectionDegree = int(round(connectionDegree * 100))
-    if connectionDegree:
-        cv2.putText(
-            img,
-            str(connectionDegree),
-            ptDeg,
-            FONT,
-            size,
-            colorDeg,
-            weight,
-            cv2.LINE_AA,
-        )
-
-
-def addStripe(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
-    weight = 3
-    offsetX = 80 + marginX
-    halfOffsetX = offsetX // 2
-    offsetY = 60
-
-    x = halfOffsetX if kind == &#34;l&#34; or kind == &#34;&#34; else (right - offsetX)
-    y = top + offsetY
-    sep = &#34;&#34; if not kind else &#34;-&#34;
-    cv2.putText(
-        img,
-        f&#34;{stripe}{sep}{kind}&#34;,
-        (x, y),
-        FONT,
-        size,
-        letterColor,
-        weight,
-        cv2.LINE_AA,
-    )
-
-
-def addHStroke(
-    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
-):
-    weight = 3
-    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
-    text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
-    offsetX = 60
-    offsetY = 30 if isTop else -30 - 2 * thickness
-    x = left + (right - left - offsetX) // 2
-    y = top - offsetY
-
-    cv2.putText(
-        img, text, (x, y), FONT, size, letterColor, weight, cv2.LINE_AA,
-    )
-
-
-def storeCleanInfo(source):
-    data = []
-    data.append(MARK_HEADERS)
-
-    for (band, markInfo) in sorted(source.items()):
-        for ((seq, mark), entries) in sorted(markInfo.items()):
-            for entry in sorted(entries):
-                data.append((band, seq, mark, *entry))
-    return data
-
-
-def loadCleanInfo(self, data):
-    cInfo = {}
-
-    for (band, seq, mark, *entry) in data:
-        cInfo.setdefault(band, {}).setdefault((seq, mark), []).append(entry)
-
-    return cInfo
-
-
-def getMargins(hist, width, threshold):
-    &#34;&#34;&#34;Get margins from a histogram.
-
-    The margins of a histogram are the coordinates where the histogram reaches a
-    threshold for the first time and for the last time.
-
-    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
-    above the threshold, and (0, maxW) otherwise.
-
+    Stages are steps in the image processing.
+    Each stage has an intermediate processing result.
 
     Parameters
     ----------
-    hist: [int]
-        Source array of pixel values
-    width: int
-        Maximum index of the source array
-    threshold: int
-        Value below which pixels count as zero
+    stage: string or None or iterable
+        If None: it means all stages.
+        If a string: the name of a stage.
+        If an iterable: the items must be names of stages.
+    allStages: tuple
+        Names of all stages.
+    sortedStages:
+        Sorted list of all stages.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The stages as parsed.
     &#34;&#34;&#34;
-    chunks = [
-        [i for (i, value) in it]
-        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
-        if key &gt;= threshold
-    ]
-    w = len(hist)
-    return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)
 
-
-def parseStages(stage, allStages, sortedStages, error):
     doStages = (
         allStages
         if stage is None
@@ -507,6 +345,29 @@ def parseStages(stage, allStages, sortedStages, error):
 
 
 def parseBands(band, allBands, error):
+    &#34;&#34;&#34;Parses a string that specifies bands.
+
+    Bands are horizontal rectangles defined with respect to lines.
+    They correspond with regions of interest where we try to find specific
+    marks, such as commas and accents.
+
+    Parameters
+    ----------
+    band: string or None or iterable
+        If None: it means all bands.
+        If a string: the name of a band.
+        If an iterable: the items must be names of bands.
+    allBands: tuple
+        Names of all bands.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The bands as parsed.
+    &#34;&#34;&#34;
+
     sortedBands = sorted(allBands)
     doBands = (
         allBands
@@ -524,6 +385,29 @@ def parseBands(band, allBands, error):
 
 
 def parseMarks(mark, allMarks, bands, error):
+    &#34;&#34;&#34;Parses a string that specifies Marks.
+
+    Marks are strokes that we need to find on the page in order to remove them.
+    They are organized in bands: the regions of interest with respect to the lines
+    where we expect them to occur.
+
+    Parameters
+    ----------
+    mark: string or None or iterable
+        If None: it means all marks.
+        If a string: the name of a mark.
+        If an iterable: the items must be names of marks.
+    allMarks: tuple
+        Names of all marks.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The marks as parsed.
+    &#34;&#34;&#34;
+
     markIndex = {}
     for (band, bandMarks) in allMarks.items():
         for m in bandMarks:
@@ -579,1422 +463,232 @@ def findRuns(x):
         return run_values, run_starts, run_lengths
 
 
-def getStretches(C, info, stages, horizontal, batch):
-    &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
+def applyBandOffset(C, height, bandName, lines, inter=False):
+    &#34;&#34;&#34;Produce bands from a list of lines.
 
-    Significant strokes are those that are not part of letters,
-    but ones that are used as separators, e.g. of footnotes and columns.
+    Bands are defined relative to lines by means of offsets of the top
+    and bottom heights of the lines.
 
-    We single out 1-pixel wide lines longer than a small threshold
-    in the appropriate direction, and blacken the rest.
-    Then we blur in the perpendicular direction.
-    Now we single out longer 1-pixel wide lines and cluster in the perpendicular
-    direction.
-
-    Clusters are line segments with nearly the same constant coordinate.
-    If we do horizontal lines, clusters are pairs of x coordinates
-    for one y coordinate.
-    If we do vertical lines, clusters are pairs of y coordinates
-    for one x coordinate.
-    We return the clusters, i.e. a dict keyed by the fixed coordinate and
-    valued by the pair of segment coordinates.
-
-
-    Parameters
-    ----------
-    C: object
-        The configuration object of the book engine.
-    info: function
-        To print messages to the console
-    stages: dict
-        Intermediate cv2 images, keyed by stage name
-    horizontal: boolean
-        Whether we do horizontal of vertical lines.
-    batch: boolean
-        Whether we run in batch mode.
-
-    Returns
-    -------
-    dict
-        Per fixed coordinate the list of line segments on that coordinate.
-        A line segment is specified by its begin and end values and the thickness of
-        the cluster it is in.
-    &#34;&#34;&#34;
-
-    debug = C.debug
-    strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
-
-    normalized = stages[&#34;normalized&#34;]
-    img = normalized if horizontal else normalized.T
-    label = &#34;HOR&#34; if horizontal else &#34;VER&#34;
-
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-        out = layout if horizontal else cv2.transpose(layout)
-
-    (maxH, maxW) = img.shape[0:2]
-
-    minLength = maxW // 30 if horizontal else maxH // 50
-    afterLength = maxW // 10 if horizontal else maxH // 17
-
-    # initial blur
-
-    initBlur = (13, 7) if horizontal else (7, 13)
-
-    blurred = cv2.GaussianBlur(img, initBlur, 0, 0)
-    (th, threshed) = cv2.threshold(
-        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
-    )
-
-    # collect lines of a minimal length
-
-    sliced = threshed.copy()
-    for (n, row) in enumerate(sliced):
-        for (val, start, length) in zip(*findRuns(row)):
-            if val == 255:
-                if length &lt; minLength:
-                    row[start : start + length] = 0
-
-    if debug &gt; 1:
-        showImage(sliced if horizontal else sliced.T)
-
-    # second blur, now stronger
-
-    strongBlur = (21, 11) if horizontal else (11, 21)
-
-    blurred = cv2.GaussianBlur(sliced, strongBlur, 0, 0)
-    (th, threshed) = cv2.threshold(
-        blurred, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU
-    )
-
-    if debug &gt; 1:
-        showImage(threshed if horizontal else threshed.T)
-
-    # collect lines of a certain length, longer than before
-
-    lines = collections.defaultdict(set)
-    for (n, row) in enumerate(threshed):
-        for (val, start, length) in zip(*findRuns(row)):
-            if val == 255:
-                if length &gt;= afterLength:
-                    lines[n] |= set(range(start, start + length))
-
-    # cluster lines in bins corresponding to their constant coordinates:
-    # horizontal lines are clustered in bins on their y coordinate.
-    # vertical lines are clustered in bins on their x coordinate.
-
-    bins = []
-    for n in sorted(lines):
-        found = False
-        for (i, (b, e)) in enumerate(bins):
-            if b - 3 &lt;= n &lt;= e + 3:
-                if n &lt; b:
-                    bins[i][0] = n
-                if n &gt; e:
-                    bins[i][1] = n
-                found = True
-                break
-        if not found:
-            bins.append([n, n])
-
-    # combine the segments of all lines that are in the same bin
-
-    stretches = {}
-    for (b, e) in bins:
-        middle = (b + e) // 2
-        thickness = (abs(e - b) + 1) // 2
-        if thickness &lt;= 1:
-            continue
-        theseStretches = set()
-        for n in range(b, e):
-            if n in lines:
-                theseStretches |= lines[n]
-        segments = []
-        for (m1, m2) in rangesFromSet(theseStretches):
-            segments.append((m1, m2 + 1, thickness))
-        stretches[middle] = segments
-
-    for (n, segments) in sorted(stretches.items()):
-        for (f, t, half) in segments:
-            info(f&#34;{label} @ {n:&gt;4} thick={half:&gt;2} from {f:&gt;4} to {t:&gt;4}&#34;, tm=False)
-            if not batch:
-                cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
-
-    if not batch:
-        stages[&#34;layout&#34;] = out if horizontal else cv2.transpose(out)
-
-    if not batch and debug &gt; 0:
-        showImage(stages[&#34;layout&#34;])
-    return stretches
-
-
-def getStripes(stages, stretchesV):
-    &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
-
-    A vertical bar defines a stripe on the page, i.e. a horizontal band that
-    contains that bar.
-
-    Between the vertical bars there are also stripes, they are undivided stripes.
-
-    We assume the vertical bars split the page in two portions, and not more,
-    and that they occur more or less in the middle of the page.
-
-    If many vertical bars have been detected, we sort them by y1 ascending and then
-    y2 descending and then by x.
-
-    We filter the bars: if the last bar reached to y = height, we only consider
-    bars that start lower than height.
-
-    !!! note &#34;Fine tuning needed later on&#34;
-        The vertical strokes give a rough estimate:
-        it is possible that they start and end in the middle of the lines beside them.
-        We will need histograms for the fine tuning.
-
-    Parameters
-    ----------
-    stages: dict
-        We need access to the normalized stage to get the page size.
-    stretchesV: dict
-        Vertical line segments per x-coordinate, as delivered by `getStretches`.
-
-    Returns
-    -------
-    list
-        A list of stripes, specified as (x, y1, y2) values,
-        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
-        and x is the x coordinate of the dividing vertical stroke if there is one
-        and `None` otherwise.
-    &#34;&#34;&#34;
-
-    normalized = stages[&#34;normalized&#34;]
-    (maxH, maxW) = normalized.shape[0:2]
-    lastHeight = 0
-    segments = []
-    for (x, ys) in stretchesV.items():
-        for (y1, y2, thickness) in ys:
-            segments.append((y1, y2, x, thickness))
-    stripes = []
-    for (y1, y2, x, thickness) in sorted(
-        segments, key=lambda z: (z[0], -z[1], -z[3], -z[2] or -1)
-    ):
-        if y1 &gt; lastHeight:
-            stripes.append((None, lastHeight, y1))
-            stripes.append((x, y1, y2))
-            lastHeight = y2
-    if lastHeight &lt; maxH:
-        stripes.append((None, lastHeight, maxH))
-    return stripes
-
-
-def getBlocks(C, stages, stripes, batch):
-    &#34;&#34;&#34;Fine-tune stripes into blocks.
-
-    We enlarge the stripes vertically by roughly a line height
-    and call `adjustVertical` to get precise vertical demarcations
-    for the blocks at both sides of the stripe if there is one or else
-    for the undivided stripe.
-
-    The idea is:
-
-    If a stripe has a vertical bar, we slightly extend the boxes left and right
-    so that the top and bottom lines next to the bar are completely included.
-
-    If a stripe has no vertical bar, we shrink the boxes left and right
-    so that partial top and bottom lines are delegated to the boxes above
-    and below.
-
-    We write the box layout unto the `layout` layer.
+    Bands may also be interlinear: defined between the bottom of one line and the top
+    of the next line.
 
     Parameters
     ----------
     C: object
         Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    stripes: list
-        The preliminary stripe division of the page, as delivered by
-        `getStripes`.
-    batch: boolean
-        Whether we run in batch mode.
+    height:
+        The height of the page or block
+    bandName: string
+        The name of the bands
+    lines: tuple
+        The lines relative to which the bands have to be determined.
+        Lines are given as a tuple of tuples of top and bottom heights.
+    inter: boolean, optional `False`
+        Whether the bands are relative the lines, or relative the interlinear spaces.
 
     Returns
     -------
-    dict
-        Blocks keyed by stripe number and column specification
-        (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
-        The values form dicts themselves, with in particular the bounding box
-        information under key `box` specified as four numbers:
-        left, top, right, bottom.
-
-        The dict is ordered.
+    tuple
+        For each line the band named bandName specified by top and bottom heights.
     &#34;&#34;&#34;
 
-    marginX = C.blockMarginX
-    blockColor = C.blockRGB
-    letterColor = C.letterRGB
-    rotated = stages[&#34;rotated&#34;]
-    normalized = stages[&#34;normalized&#34;]
-
-    (maxH, maxW) = normalized.shape[0:2]
-
-    lineHeight = maxW // 30
-
-    blocks = {}
-
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-
-    for (stripe, (x, yMin, yMax)) in enumerate(stripes):
-
-        yMinLee = max((0, yMin - lineHeight))
-        yMaxLee = min((maxH, yMax + lineHeight))
-
-        if x is None:
-            (theYMin, theYMax) = adjustVertical(
-                C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
-            )
-            blocks[(stripe, &#34;&#34;)] = dict(
-                box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
-            )
-            if not batch:
-                cv2.rectangle(
-                    layout,
-                    (marginX, theYMin),
-                    (maxW - marginX, theYMax),
-                    blockColor,
-                    4,
-                )
-                addStripe(layout, theYMin, 0, maxW, marginX, letterColor, stripe, &#34;&#34;)
-        else:
-            (theYMinL, theYMaxL) = adjustVertical(
-                C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
-            )
-            (theYMinR, theYMaxR) = adjustVertical(
-                C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
-            )
-            blocks[(stripe, &#34;l&#34;)] = dict(
-                box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
-            )
-            blocks[(stripe, &#34;r&#34;)] = dict(
-                box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
-            )
-            if not batch:
-                cv2.rectangle(
-                    layout, (marginX, theYMinL), (x - marginX, theYMaxL), blockColor, 4,
-                )
-                addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, &#34;l&#34;)
-                cv2.rectangle(
-                    layout,
-                    (x + marginX, theYMinR),
-                    (maxW - marginX, theYMaxR),
-                    blockColor,
-                    4,
-                )
-                addStripe(layout, theYMinR, x, maxW, marginX, letterColor, stripe, &#34;r&#34;)
-    return collections.OrderedDict(sorted(blocks.items()))
-
-
-def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
-    &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
-
-    Inspect the horizontal strokes and specifiy which ones are
-    top separators and which ones are bottom separators.
-
-    First we map each horizontal stretch to one of the page stripes.
-    If a stretch occurs between stripes, we map it to the stripe above.
-
-    A horizontal stroke is a top separator if
-    *   it is mapped to the first stripe **and**
-    *   it is situated in the top fragment of the page.
-
-    We mark the discarded material on the layout page by overlaying
-    it with gray.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    stretchesH: dict
-        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
-    stripes: list
-        The preliminary stripe division of the page, as delivered by
-        `getStripes`.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-    boxed: boolean
-        Whether we run in boxed mode (generate boxes around wiped marks).
-
-    Returns
-    -------
-    None
-        The blocks dict will be updated: each block value gets a new key `inner`
-        with the bounding box info after stripping the top and bottom material.
-    &#34;&#34;&#34;
-
-    mColor = C.marginRGB
-    whit = C.whiteGRS
-    white = C.whiteRGB
-    letterColor = C.letterRGB
-    normalized = stages[&#34;normalized&#34;]
-    demargined = normalized.copy()
-    stages[&#34;demargined&#34;] = demargined
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-    if not batch or boxed:
-        normalizedC = stages[&#34;normalizedC&#34;]
-        demarginedC = normalizedC.copy()
-        stages[&#34;demarginedC&#34;] = demarginedC
-
-    (maxH, maxW) = normalized.shape[0:2]
-
-    topCriterion = maxH / 6
-    topXCriterion = maxH / 4
-
-    for ((stripe, column), data) in blocks.items():
-        (bL, bT, bR, bB) = data[&#34;box&#34;]
-        x = data[&#34;sep&#34;]
-        top = None
-        bottom = None
-
-        for (y, xs) in sorted(stretchesH.items()):
-            if y &lt; bT:
-                continue
-            if bB &lt; y:
-                break
-            for (x1, x2, thickness) in xs:
-                if x is not None:
-                    if column == &#34;l&#34; and x1 &gt;= x:
-                        continue
-                    if column == &#34;r&#34; and x2 &lt;= x:
-                        continue
-                isTop = stripe == 0 and (
-                    len(stripes) == 1
-                    and y &lt; topCriterion
-                    or len(stripes) &gt; 1
-                    and y &lt; topXCriterion
-                )
-                if isTop:
-                    top = y + 2 * thickness + 2
-                else:
-                    if bottom is None:
-                        bottom = y - 2 * thickness - 2
-                if not batch:
-                    addHStroke(
-                        layout,
-                        isTop,
-                        stripe,
-                        column,
-                        thickness,
-                        y,
-                        x1,
-                        x2,
-                        letterColor,
-                    )
-
-        top = bT if top is None else top
-        bottom = bB if bottom is None else bottom
-        left = bL + 2
-        right = bR - 2
-        data[&#34;inner&#34;] = (left, top, right, bottom)
-
-        if top != bT:
-            if not batch:
-                overlay(layout, bT + 2, top, left, right, white, mColor)
-            cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
-            if not batch or boxed:
-                overlay(demarginedC, bT + 2, top, left, right, white, mColor)
-        if bottom != bB:
-            if not batch:
-                overlay(layout, bottom, bB - 2, left, right, white, mColor)
-            cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
-            if not batch or boxed:
-                overlay(demarginedC, bottom, bB - 2, left, right, white, mColor)
-
-
-def getHistograms(C, stages, blocks, batch, boxed):
-    &#34;&#34;&#34;Add line band data to all blocks based on histograms.
-
-    By means of histograms we can discern where the lines are.
-    We define several bands with respect to lines, such as broad, narrow,
-    high, low.
-    We also define a band for the space between lines.
-
-    We mark the broad bands on the `layout layer` by a starting green line
-    and an ending red line and the space between them will be overlaid with gray.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-        The blocks dict will be updated: each block value gets a new key `bands`
-        with the band data.
-    batch: boolean
-        Whether we run in batch mode.
-    boxed: boolean
-        Whether we run in boxed mode (generate boxes around wiped marks).
-
-    Returns
-    -------
-    list
-        A list of keys in the blocks dict that correspond to blocks
-        that turn out to be devoid of written material.
-    &#34;&#34;&#34;
-
-    mColor = C.marginRGB
-    whit = C.marginGRS
-    white = C.whiteRGB
-    upperColor = C.upperRGB
-    lowerColor = C.lowerRGB
-    thresholdX = C.marginThresholdX
-    colorBand = C.colorBand
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-        histogram = layout.copy()
-        stages[&#34;histogram&#34;] = histogram
-
-    rotated = stages[&#34;rotated&#34;]
-    demargined = stages[&#34;demargined&#34;]
-
-    emptyBlocks = []
-
-    for ((stripe, column), data) in blocks.items():
-        (left, top, right, bottom) = data[&#34;inner&#34;]
-
-        hasRegion = bottom &gt; top and right &gt; left
-
-        if not hasRegion:
-            emptyBlocks.append((stripe, column))
-            continue
-
-        roiIn = rotated[top:bottom, left:right]
-        histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-        histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
-
-        if not batch:
-            roiOut = histogram[top:bottom, left:right]
-
-            for (hist, vert) in ((histY, True), (histX, False)):
-                for (i, val) in enumerate(hist):
-                    color = (int(val), int(2 * val), int(val))
-                    index = (0, i) if vert else (i, 0)
-                    value = (val, i) if vert else (i, val)
-                    cv2.line(roiOut, index, value, color, 1)
-
-        # chop off the left and right margins of a region
-
-        (normH, normW) = (bottom - top, right - left)
-        roiOut = demargined[top:bottom, left:right]
-        if not batch:
-            roiOutC = layout[top:bottom, left:right]
-        margins = getMargins(histX, normW, thresholdX)
-
-        for (x1, x2) in margins:
-            cv2.rectangle(roiOut, (x1, 0), (x2, normH), whit, -1)
-            if not batch:
-                overlay(roiOutC, 2, normH - 2, x1 + 2, x2 - 2, white, mColor)
-
-        if len(margins) != 2:
-            emptyBlocks.append((stripe, column))
-            continue
-
-        data[&#34;inner&#34;] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
-
-        # define bands
-
-        (uppers, lowers) = getBandsFromHist(C, normH, histY, tweak=True)
-
-        bands = {}
-        data[&#34;bands&#34;] = bands
-
-        bands[&#34;main&#34;] = dict(uppers=uppers, lowers=lowers)
-        for (band, bandColor) in colorBand.items():
-            inter = band in {&#34;inter&#34;, &#34;low&#34;, &#34;high&#34;}
-            (theUppers, theLowers) = applyBandOffset(
-                C, normH, band, uppers, lowers, inter=inter
-            )
-            bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
-
-        bandInfo = bands[&#34;broad&#34;]
-        uppers = bandInfo[&#34;uppers&#34;]
-        lowers = bandInfo[&#34;lowers&#34;]
-
-        if not batch and normW &gt; 10:
-            for (upper, lower) in zip(uppers, lowers):
-                overlay(roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor)
-                overlay(roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor)
-            for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
-                overlay(roiOutC, lower, upper + 1, 10, normW - 10, white, mColor)
-
-        # remove top white space
-
-        topWhite = uppers[0] if uppers else normH
-        cv2.rectangle(roiOut, (0, 0), (normW, topWhite), whit, -1)
-        if not batch:
-            overlay(roiOutC, 0, topWhite, 0, normW, white, mColor)
-
-        # remove bottom white space
-
-        bottomWhite = lowers[-1] if lowers else 0
-        cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), whit, -1)
-        if not batch:
-            overlay(roiOutC, bottomWhite, normH, 0, normW, white, mColor)
-
-        if not uppers:
-            emptyBlocks.append((stripe, column))
-
-    return emptyBlocks
-
-
-def grayInterBlocks(C, stages, blocks, emptyBlocks):
-    &#34;&#34;&#34;Overlay the space between blocks with gray.
-
-    Remove also the empty blocks from the block list.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-        The blocks dict will be updated: empty blocks will be deleted from it.
-        with the band data.
-    emptyBlocks: list
-        The keys of blocks that do not have written content
-        that must be processed further.
-
-    Returns
-    -------
-    None.
-    &#34;&#34;&#34;
-
-    mColor = C.marginRGB
-    white = C.whiteRGB
-
-    layout = stages[&#34;layout&#34;]
-    (maxH, maxW) = layout.shape[0:2]
-
-    prevBB = [0, 0]
-    prevX = None
-    maxStripe = max(x[0] for x in blocks)
-    marginX = C.blockMarginX
-
-    # overlay the space between blocks
-
-    for ((stripe, column), data) in sorted(blocks.items()):
-        bT = data[&#34;box&#34;][1]
-        bB = data[&#34;box&#34;][3]
-        x = data[&#34;sep&#34;]
-        if column == &#34;&#34;:
-            if prevX is None:
-                pB = prevBB[0]
-                overlay(layout, pB, bT, marginX, maxW - marginX, white, mColor)
-            else:
-                for (i, pB) in enumerate(prevBB):
-                    if pB &lt; bT:
-                        (lf, rt) = (
-                            (marginX, prevX - marginX)
-                            if i == 0
-                            else (prevX + marginX, maxW - marginX)
-                        )
-                        overlay(layout, pB, bT, lf, rt, white, mColor)
-            prevBB = [bB, bB]
-            prevX = None
-        elif column == &#34;l&#34;:
-            pB = prevBB[0]
-            if pB &lt; bT:
-                overlay(layout, pB, bT, marginX, x - marginX, white, mColor)
-            prevBB[0] = bB
-            prevX = x
-        elif column == &#34;r&#34;:
-            pB = prevBB[1]
-            if pB &lt; bT:
-                overlay(layout, pB, bT, x + marginX, maxW - marginX, white, mColor)
-            prevBB[1] = bB
-            prevX = x
-        if stripe == maxStripe:
-            if column == &#34;&#34;:
-                if bB &lt; maxH:
-                    overlay(layout, bB, maxH, marginX, maxW - marginX, white, mColor)
-            elif column == &#34;l&#34;:
-                if bB &lt; maxH:
-                    overlay(layout, bB, maxH, marginX, x - marginX, white, mColor)
-            elif column == &#34;r&#34;:
-                if bB &lt; maxH:
-                    overlay(
-                        layout, bB, maxH, x + marginX, maxW - marginX, white, mColor
-                    )
-
-    for b in emptyBlocks:
-        del blocks[b]
-
-
-def getBandsFromHist(C, height, histY, tweak=False):
-    # invariant:
-    # not inline =&gt; not dip
-    # #uppers == #lowers      if (inline and dip) or (not inline)
-    # #uppers == #lowers + 1  if (inline and not dip)
-
-    threshold = C.marginThresholdY
-    threshold2 = C.marginThreshold2Y
-
-    dip = False
-    inline = False
-    uppers = []
-    lowers = []
-    peaks = []
-
-    peak = 0
-
-    for y in range(height):
-        hist = histY[y]
-        if inline:
-            if hist &gt; peak:
-                peak = hist
-            if hist &gt;= threshold2:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-            elif hist &lt;= threshold:
-                if not dip:
-                    peaks.append(peak)
-                    lowers.append(y)
-                inline = False
-                dip = False
-                peak = 0
-            else:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-                else:
-                    peaks.append(peak)
-                    lowers.append(y)
-                    dip = True
-        else:
-            if hist &gt;= threshold2:
-                uppers.append(y)
-                inline = True
-                dip = False
-
-    # guarantee that len(uppers) == len(lowers) in case they are different
-    # by invariant: that only happens if inline and not dip
-
-    if inline and not dip:
-        peaks.append(peak)
-        lowers.append(y)
-
-    if not tweak:
-        return (uppers, lowers)
-
-    # apply corrections for lines with deviating widths
-
-    (newUppers, newLowers) = (uppers, lowers)
-
-    if peaks:
-        peakAv = int(round(sum(peaks) / len(peaks)))
-
-        peakCorr = peakAv / 2
-
-        (newUppers, newLowers) = ([], [])
-        for (up, lo, pk) in zip(uppers, lowers, peaks):
-            if pk &gt; peakCorr:
-                (up2, lo2) = (up, lo)
-            else:
-                damp = 1.4 + 0.8 * (pk / peakAv)
-                foundW = (lo - up) / 2
-                corrW = (
-                    (damp * peakAv / ((damp - 1) * peakAv + pk)) * foundW
-                    if pk
-                    else foundW
-                )
-                up2 = int(round(up + foundW - corrW))
-                lo2 = int(round(lo - foundW + corrW))
-            newLowers.append(lo2)
-            newUppers.append(up2)
-    # return (uppers, lowers)
-    return (newUppers, newLowers)
-
-
-def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
     offsetBand = C.offsetBand
 
-    (top, bottom) = offsetBand[kind]
+    (top, bottom) = offsetBand[bandName]
 
     def offset(x, off):
         x += off
         return 0 if x &lt; 0 else height if x &gt; height else x
 
-    return (
-        tuple(offset(x, top) for x in (lowers[:-1] if inter else uppers)),
-        tuple(offset(x, bottom) for x in (uppers[1:] if inter else lowers)),
+    return tuple(
+        (offset(up, top), offset(lo, bottom))
+        for (up, lo) in (
+            zip((x[1] for x in lines), (x[0] for x in lines[1:])) if inter else lines
+        )
     )
 
 
-def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend):
-    roiIn = rotated[yMinLee:yMaxLee, left:right]
-    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-    theYMin = None
-    theYMax = None
+def getMargins(hist, width, threshold):
+    &#34;&#34;&#34;Get margins from a histogram.
 
-    if yMin == yMinLee:
-        theYMin = yMin
-    if yMax == yMaxLee:
-        theYMax = yMax
-    if theYMin is not None and theYMax is not None:
-        return (theYMin, theYMax)
+    The margins of a histogram are the coordinates where the histogram reaches a
+    threshold for the first time and for the last time.
 
-    normH = yMax - yMin
-    normHLee = yMaxLee - yMinLee
+    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
+    above the threshold, and (0, maxW) otherwise.
 
-    (uppers, lowers) = applyBandOffset(
-        C, normHLee, &#34;broad&#34;, *getBandsFromHist(C, normHLee, histY, tweak=False)
-    )
-
-    topLee = yMin - yMinLee
-    botLee = topLee + normH
-
-    if theYMin is None:
-        if preferExtend:
-            # look for the first lower boundary in the top of the strict region
-            # then take the corresponding upper boundary
-            for (i, lower) in enumerate(lowers):
-                if lower &gt;= topLee:
-                    theYMin = uppers[i]
-                    break
-        else:
-            # look for the first upper boundary in the top of the strict region
-            for upper in uppers:
-                if upper &gt; topLee:
-                    theYMin = upper
-                    break
-        theYMin = yMin if theYMin is None else yMinLee + theYMin
-
-    if theYMax is None:
-        if preferExtend:
-            # look for the last upper boundary in the bottom of the strict region
-            # then take the corresponding lower boundary
-            for (i, upper) in enumerate(reversed(uppers)):
-                if upper &lt;= botLee:
-                    theYMax = lowers[-i - 1]
-                    break
-        else:
-            # look for the last lower boundary in the bottom of the strict region
-            for lower in reversed(lowers):
-                if lower &lt; botLee:
-                    theYMax = lower
-                    break
-        theYMax = yMax if theYMax is None else yMinLee + theYMax
-
-    return (theYMin, theYMax)
-
-
-def reborder(gray, bw, color, crop=False):
-    &#34;&#34;&#34;Add a border around a grayscale image, optionally remove white margins first.
-
-    The border will add to the size of the image.
 
     Parameters
     ----------
-    gray: np array
-        A grayscale image.
-    bw: int
-        Width of the new border.
-    color: int
-        Color of the new border (grayscale).
-    crop: boolean, optional `False`
-        If `True`, the image will be cropped first such as to remove all surrounding
-        white margins.
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    &#34;&#34;&#34;
+    chunks = [
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
+        if key &gt;= threshold
+    ]
+    w = len(hist)
+    return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)
+
+
+def pureAverage(data, supplied):
+    &#34;&#34;&#34;Get the average of a list of values after removing the outliers.
+
+    It is used for calcaluting lineheights from a sequence of distances between
+    histogram peaks.
+    In practice, some peaks are missing due to short line lengths, and that
+    causes some abnormal peak distances which we want to remove.
+
+    Parameters
+    ----------
+    data: np array
+        The list of values whose average we compute.
     &#34;&#34;&#34;
 
-    if crop:
-        inv = 255 * (gray &lt; 128).astype(np.uint8)
-        coords = cv2.findNonZero(inv)
-        x, y, w, h = cv2.boundingRect(coords)
-        cropped = gray[y : y + h, x : x + w]
-    else:
-        cropped = gray
-    bordered = cv2.copyMakeBorder(
-        cropped, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=color
-    )
-    return bordered
-    # Crop the image - note we do this on the original image</code></pre>
+    if data.size == 0:
+        return supplied
+    elif data.size == 1:
+        return int(round(data[0]))
+
+    # remove outliers
+    m = 2.0
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    pure = data[s &lt; m]
+    if len(pure) == 0:
+        return supplied
+    elif pure.size == 1:
+        return int(round(pure[0]))
+    return int(round(np.average(pure)))</code></pre>
 </details>
 </section>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="fusus.lib.EXTENSIONS"><code class="name">var <span class="ident">EXTENSIONS</span></code></dt>
+<dd>
+<div class="desc"><p>Supported image file extensions.</p></div>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pipeline.lib.addBox"><code class="name flex">
-<span>def <span class="ident">addBox</span></span>(<span>C, im, top, bottom, left, right, kept, band, seq, connDegree)</span>
+<dt id="fusus.lib.PILFromArray"><code class="name flex">
+<span>def <span class="ident">PILFromArray</span></span>(<span>a)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L324-L332" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L44-L45" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def addBox(C, im, top, bottom, left, right, kept, band, seq, connDegree):
-    fill = C.boxRemainRGB if kept else C.boxDeleteRGB
-    fillN = C.boxRemainNRGB if kept else C.boxDeleteNRGB
-    border = C.boxBorder
-
-    cv2.rectangle(im, (left, top), (right, bottom), fill, border)
-    addSeq(
-        im, top, bottom, left, right, border, fillN, band, seq, connDegree,
-    )</code></pre>
+<pre><code class="python">def PILFromArray(a):
+    return PIL.Image.fromarray(a)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.addHStroke"><code class="name flex">
-<span>def <span class="ident">addHStroke</span></span>(<span>img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0)</span>
+<dt id="fusus.lib.applyBandOffset"><code class="name flex">
+<span>def <span class="ident">applyBandOffset</span></span>(<span>C, height, bandName, lines, inter=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L397-L410" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def addHStroke(
-    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
-):
-    weight = 3
-    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
-    text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
-    offsetX = 60
-    offsetY = 30 if isTop else -30 - 2 * thickness
-    x = left + (right - left - offsetX) // 2
-    y = top - offsetY
-
-    cv2.putText(
-        img, text, (x, y), FONT, size, letterColor, weight, cv2.LINE_AA,
-    )</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.addSeq"><code class="name flex">
-<span>def <span class="ident">addSeq</span></span>(<span>img, top, bottom, left, right, frameWidth, frameColor, band, markSeq, connectionDegree, size=0.5, weight=1)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L335-L373" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def addSeq(
-    img,
-    top,
-    bottom,
-    left,
-    right,
-    frameWidth,
-    frameColor,
-    band,
-    markSeq,
-    connectionDegree,
-    size=0.5,
-    weight=1,
-):
-    colorDeg = (100, 100, 255)
-    ptSeq = (left, top - frameWidth - 2)
-    ptDeg = (left, bottom + frameWidth + 8)
-    cv2.putText(
-        img,
-        f&#34;{&#39;&#39; if band == &#39;main&#39; else band[0]}{markSeq}&#34;,
-        ptSeq,
-        FONT,
-        size,
-        frameColor,
-        weight,
-        cv2.LINE_AA,
-    )
-    connectionDegree = int(round(connectionDegree * 100))
-    if connectionDegree:
-        cv2.putText(
-            img,
-            str(connectionDegree),
-            ptDeg,
-            FONT,
-            size,
-            colorDeg,
-            weight,
-            cv2.LINE_AA,
-        )</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.addStripe"><code class="name flex">
-<span>def <span class="ident">addStripe</span></span>(<span>img, top, left, right, marginX, letterColor, stripe, kind, size=1.0)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L376-L394" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def addStripe(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
-    weight = 3
-    offsetX = 80 + marginX
-    halfOffsetX = offsetX // 2
-    offsetY = 60
-
-    x = halfOffsetX if kind == &#34;l&#34; or kind == &#34;&#34; else (right - offsetX)
-    y = top + offsetY
-    sep = &#34;&#34; if not kind else &#34;-&#34;
-    cv2.putText(
-        img,
-        f&#34;{stripe}{sep}{kind}&#34;,
-        (x, y),
-        FONT,
-        size,
-        letterColor,
-        weight,
-        cv2.LINE_AA,
-    )</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.adjustVertical"><code class="name flex">
-<span>def <span class="ident">adjustVertical</span></span>(<span>C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L1311-L1366" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def adjustVertical(C, rotated, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend):
-    roiIn = rotated[yMinLee:yMaxLee, left:right]
-    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-    theYMin = None
-    theYMax = None
-
-    if yMin == yMinLee:
-        theYMin = yMin
-    if yMax == yMaxLee:
-        theYMax = yMax
-    if theYMin is not None and theYMax is not None:
-        return (theYMin, theYMax)
-
-    normH = yMax - yMin
-    normHLee = yMaxLee - yMinLee
-
-    (uppers, lowers) = applyBandOffset(
-        C, normHLee, &#34;broad&#34;, *getBandsFromHist(C, normHLee, histY, tweak=False)
-    )
-
-    topLee = yMin - yMinLee
-    botLee = topLee + normH
-
-    if theYMin is None:
-        if preferExtend:
-            # look for the first lower boundary in the top of the strict region
-            # then take the corresponding upper boundary
-            for (i, lower) in enumerate(lowers):
-                if lower &gt;= topLee:
-                    theYMin = uppers[i]
-                    break
-        else:
-            # look for the first upper boundary in the top of the strict region
-            for upper in uppers:
-                if upper &gt; topLee:
-                    theYMin = upper
-                    break
-        theYMin = yMin if theYMin is None else yMinLee + theYMin
-
-    if theYMax is None:
-        if preferExtend:
-            # look for the last upper boundary in the bottom of the strict region
-            # then take the corresponding lower boundary
-            for (i, upper) in enumerate(reversed(uppers)):
-                if upper &lt;= botLee:
-                    theYMax = lowers[-i - 1]
-                    break
-        else:
-            # look for the last lower boundary in the bottom of the strict region
-            for lower in reversed(lowers):
-                if lower &lt; botLee:
-                    theYMax = lower
-                    break
-        theYMax = yMax if theYMax is None else yMinLee + theYMax
-
-    return (theYMin, theYMax)</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.applyBandOffset"><code class="name flex">
-<span>def <span class="ident">applyBandOffset</span></span>(<span>C, height, kind, uppers, lowers, inter=False)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L1296-L1308" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def applyBandOffset(C, height, kind, uppers, lowers, inter=False):
-    offsetBand = C.offsetBand
-
-    (top, bottom) = offsetBand[kind]
-
-    def offset(x, off):
-        x += off
-        return 0 if x &lt; 0 else height if x &gt; height else x
-
-    return (
-        tuple(offset(x, top) for x in (lowers[:-1] if inter else uppers)),
-        tuple(offset(x, bottom) for x in (uppers[1:] if inter else lowers)),
-    )</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.applyHRules"><code class="name flex">
-<span>def <span class="ident">applyHRules</span></span>(<span>C, stages, stretchesH, stripes, blocks, batch, boxed)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Trims regions above horizontal top lines and below bottom lines.</p>
-<p>Inspect the horizontal strokes and specifiy which ones are
-top separators and which ones are bottom separators.</p>
-<p>First we map each horizontal stretch to one of the page stripes.
-If a stretch occurs between stripes, we map it to the stripe above.</p>
-<p>A horizontal stroke is a top separator if
-*
-it is mapped to the first stripe <strong>and</strong>
-*
-it is situated in the top fragment of the page.</p>
-<p>We mark the discarded material on the layout page by overlaying
-it with gray.</p>
+<div class="desc"><p>Produce bands from a list of lines.</p>
+<p>Bands are defined relative to lines by means of offsets of the top
+and bottom heights of the lines.</p>
+<p>Bands may also be interlinear: defined between the bottom of one line and the top
+of the next line.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
 <dd>Configuration settings</dd>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>We need access to several intermediate results.</dd>
-<dt><strong><code>stretchesH</code></strong> :&ensp;<code>dict</code></dt>
-<dd>Horizontal line segments per y-coordinate, as delivered by <code><a title="pipeline.lib.getStretches" href="#pipeline.lib.getStretches">getStretches()</a></code>.</dd>
-<dt><strong><code>stripes</code></strong> :&ensp;<code>list</code></dt>
-<dd>The preliminary stripe division of the page, as delivered by
-<code><a title="pipeline.lib.getStripes" href="#pipeline.lib.getStripes">getStripes()</a></code>.</dd>
-<dt><strong><code>blocks</code></strong> :&ensp;<code>dict</code></dt>
-<dd>The blocks as delivered by <code><a title="pipeline.lib.getBlocks" href="#pipeline.lib.getBlocks">getBlocks()</a></code>.</dd>
-<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we run in boxed mode (generate boxes around wiped marks).</dd>
+<dt>height:</dt>
+<dt>The height of the page or block</dt>
+<dt><strong><code>bandName</code></strong> :&ensp;<code>string</code></dt>
+<dd>The name of the bands</dd>
+<dt><strong><code>lines</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The lines relative to which the bands have to be determined.
+Lines are given as a tuple of tuples of top and bottom heights.</dd>
+<dt><strong><code>inter</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether the bands are relative the lines, or relative the interlinear spaces.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>None</code></dt>
-<dd>The blocks dict will be updated: each block value gets a new key <code>inner</code>
-with the bounding box info after stripping the top and bottom material.</dd>
+<dt><code>tuple</code></dt>
+<dd>For each line the band named bandName specified by top and bottom heights.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L868-L984" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L439-L481" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
-    &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
+<pre><code class="python">def applyBandOffset(C, height, bandName, lines, inter=False):
+    &#34;&#34;&#34;Produce bands from a list of lines.
 
-    Inspect the horizontal strokes and specifiy which ones are
-    top separators and which ones are bottom separators.
+    Bands are defined relative to lines by means of offsets of the top
+    and bottom heights of the lines.
 
-    First we map each horizontal stretch to one of the page stripes.
-    If a stretch occurs between stripes, we map it to the stripe above.
-
-    A horizontal stroke is a top separator if
-    *   it is mapped to the first stripe **and**
-    *   it is situated in the top fragment of the page.
-
-    We mark the discarded material on the layout page by overlaying
-    it with gray.
+    Bands may also be interlinear: defined between the bottom of one line and the top
+    of the next line.
 
     Parameters
     ----------
     C: object
         Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    stretchesH: dict
-        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
-    stripes: list
-        The preliminary stripe division of the page, as delivered by
-        `getStripes`.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-    boxed: boolean
-        Whether we run in boxed mode (generate boxes around wiped marks).
+    height:
+        The height of the page or block
+    bandName: string
+        The name of the bands
+    lines: tuple
+        The lines relative to which the bands have to be determined.
+        Lines are given as a tuple of tuples of top and bottom heights.
+    inter: boolean, optional `False`
+        Whether the bands are relative the lines, or relative the interlinear spaces.
 
     Returns
     -------
-    None
-        The blocks dict will be updated: each block value gets a new key `inner`
-        with the bounding box info after stripping the top and bottom material.
+    tuple
+        For each line the band named bandName specified by top and bottom heights.
     &#34;&#34;&#34;
 
-    mColor = C.marginRGB
-    whit = C.whiteGRS
-    white = C.whiteRGB
-    letterColor = C.letterRGB
-    normalized = stages[&#34;normalized&#34;]
-    demargined = normalized.copy()
-    stages[&#34;demargined&#34;] = demargined
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-    if not batch or boxed:
-        normalizedC = stages[&#34;normalizedC&#34;]
-        demarginedC = normalizedC.copy()
-        stages[&#34;demarginedC&#34;] = demarginedC
+    offsetBand = C.offsetBand
 
-    (maxH, maxW) = normalized.shape[0:2]
+    (top, bottom) = offsetBand[bandName]
 
-    topCriterion = maxH / 6
-    topXCriterion = maxH / 4
+    def offset(x, off):
+        x += off
+        return 0 if x &lt; 0 else height if x &gt; height else x
 
-    for ((stripe, column), data) in blocks.items():
-        (bL, bT, bR, bB) = data[&#34;box&#34;]
-        x = data[&#34;sep&#34;]
-        top = None
-        bottom = None
-
-        for (y, xs) in sorted(stretchesH.items()):
-            if y &lt; bT:
-                continue
-            if bB &lt; y:
-                break
-            for (x1, x2, thickness) in xs:
-                if x is not None:
-                    if column == &#34;l&#34; and x1 &gt;= x:
-                        continue
-                    if column == &#34;r&#34; and x2 &lt;= x:
-                        continue
-                isTop = stripe == 0 and (
-                    len(stripes) == 1
-                    and y &lt; topCriterion
-                    or len(stripes) &gt; 1
-                    and y &lt; topXCriterion
-                )
-                if isTop:
-                    top = y + 2 * thickness + 2
-                else:
-                    if bottom is None:
-                        bottom = y - 2 * thickness - 2
-                if not batch:
-                    addHStroke(
-                        layout,
-                        isTop,
-                        stripe,
-                        column,
-                        thickness,
-                        y,
-                        x1,
-                        x2,
-                        letterColor,
-                    )
-
-        top = bT if top is None else top
-        bottom = bB if bottom is None else bottom
-        left = bL + 2
-        right = bR - 2
-        data[&#34;inner&#34;] = (left, top, right, bottom)
-
-        if top != bT:
-            if not batch:
-                overlay(layout, bT + 2, top, left, right, white, mColor)
-            cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
-            if not batch or boxed:
-                overlay(demarginedC, bT + 2, top, left, right, white, mColor)
-        if bottom != bB:
-            if not batch:
-                overlay(layout, bottom, bB - 2, left, right, white, mColor)
-            cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
-            if not batch or boxed:
-                overlay(demarginedC, bottom, bB - 2, left, right, white, mColor)</code></pre>
+    return tuple(
+        (offset(up, top), offset(lo, bottom))
+        for (up, lo) in (
+            zip((x[1] for x in lines), (x[0] for x in lines[1:])) if inter else lines
+        )
+    )</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.cluster"><code class="name flex">
-<span>def <span class="ident">cluster</span></span>(<span>points, result)</span>
+<dt id="fusus.lib.arrayFromPIL"><code class="name flex">
+<span>def <span class="ident">arrayFromPIL</span></span>(<span>img)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L164-L186" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L48-L49" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def cluster(points, result):
-    def d(p1, p2):
-        if p1 == p2:
-            return 0
-        (x1, y1) = p1
-        (x2, y2) = p2
-        return abs(x1 - x2) + abs(y1 - y2)
-
-    clusters = []
-    for (i, p) in enumerate(points):
-        stored = False
-        rp = result[p]
-        for c in clusters:
-            (q, rq) = c
-            if d(p, q) &lt;= 8:
-                if rp &gt; rq:
-                    c[0] = p
-                    c[1] = rp
-                stored = True
-                break
-        if not stored:
-            clusters.append([p, rp])
-    return clusters</code></pre>
+<pre><code class="python">def arrayFromPIL(img):
+    return np.asarray(img)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.connected"><code class="name flex">
-<span>def <span class="ident">connected</span></span>(<span>markH, markW, bw, threshold, img, hitPoint, sides=None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Determine how much ink borders on a given rectangle.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>markH</code></strong> :&ensp;<code>integer</code></dt>
-<dd>height of the rectangle</dd>
-<dt><strong><code>markW</code></strong> :&ensp;<code>integer</code></dt>
-<dd>width of the rectangle</dd>
-<dt><strong><code>bw</code></strong> :&ensp;<code>integer</code></dt>
-<dd>width of the border around the rectangle that will be used to detect connections</dd>
-<dt>threshold:</dt>
-<dt>the value above which a connection is detected</dt>
-<dt><strong><code>img</code></strong> :&ensp;<code>np array</code></dt>
-<dd>the source image</dd>
-<dt><strong><code>hitPoint</code></strong> :&ensp;<code>(int, int)</code></dt>
-<dd>Y and X coordinate of top left corner of the rectangle in the image</dd>
-<dt><strong><code>sides</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
-<dd>If <code>None</code>, computes connections on all sides.
-Otherwise it should be a string consisting of at most these characters:
-<code>l</code> (left), <code>r</code> (right), <code>t</code> (top), <code>b</code> (bottom).
-Only these sides will be computed.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L200-L308" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def connected(markH, markW, bw, threshold, img, hitPoint, sides=None):
-    &#34;&#34;&#34;Determine how much ink borders on a given rectangle.
-
-    Parameters
-    ----------
-    markH: integer
-        height of the rectangle
-    markW: integer
-        width of the rectangle
-    bw: integer
-        width of the border around the rectangle that will be used to detect connections
-    threshold:
-        the value above which a connection is detected
-    img: np array
-        the source image
-    hitPoint: (int, int)
-        Y and X coordinate of top left corner of the rectangle in the image
-    sides: string, optional `None`
-        If `None`, computes connections on all sides.
-        Otherwise it should be a string consisting of at most these characters:
-        `l` (left), `r` (right), `t` (top), `b` (bottom).
-        Only these sides will be computed.
-    &#34;&#34;&#34;
-
-    (textH, textW) = img.shape
-    (hitY, hitX) = hitPoint
-
-    connDegree = 0
-    nparts = 0
-
-    realBw = min((bw, markW, markH))
-
-    # left boundary
-
-    fo = max((0, hitX - realBw)) if hitX &gt; 0 else None
-    if fo is not None and (sides is None or &#34;l&#34; in sides):
-        to = hitX
-        texto = np.array(
-            (255 - img[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
-        )
-        fi = hitX
-        ti = hitX + realBw
-        texti = np.array(
-            (255 - img[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # right boundary
-
-    to = (
-        min((textW, hitX + markW + realBw + 1))
-        if hitX + markW + realBw &lt; textW
-        else None
-    )
-    if to is not None and (sides is None or &#34;r&#34; in sides):
-        fo = hitX + markW
-        texto = np.array(
-            (255 - img[hitY : hitY + markH, fo:to]).max(axis=1), dtype=np.uint16
-        )
-        fi = hitX + markW - realBw
-        ti = hitX + markW
-        texti = np.array(
-            (255 - img[hitY : hitY + markH, fi:ti]).max(axis=1), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # top boundary
-
-    f = max((0, hitY - realBw)) if hitY &gt; 0 else None
-    if f is not None and (sides is None or &#34;t&#34; in sides):
-        t = hitY
-        texto = np.array(
-            (255 - img[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        fi = hitY
-        ti = hitY + realBw + 1
-        texti = np.array(
-            (255 - img[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    # bottom boundary
-
-    t = (
-        min((textH - 1, hitY + markH + realBw + 1))
-        if hitY + markH + realBw &lt; textH
-        else None
-    )
-    if t is not None and (sides is None or &#34;b&#34; in sides):
-        f = hitY + markH
-        texto = np.array(
-            (255 - img[f:t, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        ti = hitY + markH
-        fi = hitY + markH - realBw
-        texti = np.array(
-            (255 - img[fi:ti, hitX : hitX + markW]).max(axis=0), dtype=np.uint16
-        )
-        val = measure(texto, texti, threshold)
-        connDegree += val
-        nparts += 1
-
-    return connDegree</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.findRuns"><code class="name flex">
+<dt id="fusus.lib.findRuns"><code class="name flex">
 <span>def <span class="ident">findRuns</span></span>(<span>x)</span>
 </code></dt>
 <dd>
@@ -2004,7 +698,7 @@ Only these sides will be computed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L520-L550" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L406-L436" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def findRuns(x):
     &#34;&#34;&#34;Find runs of consecutive items in an array.
@@ -2039,431 +733,7 @@ Only these sides will be computed.</dd>
         return run_values, run_starts, run_lengths</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.getBandsFromHist"><code class="name flex">
-<span>def <span class="ident">getBandsFromHist</span></span>(<span>C, height, histY, tweak=False)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L1210-L1293" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def getBandsFromHist(C, height, histY, tweak=False):
-    # invariant:
-    # not inline =&gt; not dip
-    # #uppers == #lowers      if (inline and dip) or (not inline)
-    # #uppers == #lowers + 1  if (inline and not dip)
-
-    threshold = C.marginThresholdY
-    threshold2 = C.marginThreshold2Y
-
-    dip = False
-    inline = False
-    uppers = []
-    lowers = []
-    peaks = []
-
-    peak = 0
-
-    for y in range(height):
-        hist = histY[y]
-        if inline:
-            if hist &gt; peak:
-                peak = hist
-            if hist &gt;= threshold2:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-            elif hist &lt;= threshold:
-                if not dip:
-                    peaks.append(peak)
-                    lowers.append(y)
-                inline = False
-                dip = False
-                peak = 0
-            else:
-                if dip:
-                    peaks[-1] = peak
-                    lowers[-1] = y
-                else:
-                    peaks.append(peak)
-                    lowers.append(y)
-                    dip = True
-        else:
-            if hist &gt;= threshold2:
-                uppers.append(y)
-                inline = True
-                dip = False
-
-    # guarantee that len(uppers) == len(lowers) in case they are different
-    # by invariant: that only happens if inline and not dip
-
-    if inline and not dip:
-        peaks.append(peak)
-        lowers.append(y)
-
-    if not tweak:
-        return (uppers, lowers)
-
-    # apply corrections for lines with deviating widths
-
-    (newUppers, newLowers) = (uppers, lowers)
-
-    if peaks:
-        peakAv = int(round(sum(peaks) / len(peaks)))
-
-        peakCorr = peakAv / 2
-
-        (newUppers, newLowers) = ([], [])
-        for (up, lo, pk) in zip(uppers, lowers, peaks):
-            if pk &gt; peakCorr:
-                (up2, lo2) = (up, lo)
-            else:
-                damp = 1.4 + 0.8 * (pk / peakAv)
-                foundW = (lo - up) / 2
-                corrW = (
-                    (damp * peakAv / ((damp - 1) * peakAv + pk)) * foundW
-                    if pk
-                    else foundW
-                )
-                up2 = int(round(up + foundW - corrW))
-                lo2 = int(round(lo - foundW + corrW))
-            newLowers.append(lo2)
-            newUppers.append(up2)
-    # return (uppers, lowers)
-    return (newUppers, newLowers)</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.getBlocks"><code class="name flex">
-<span>def <span class="ident">getBlocks</span></span>(<span>C, stages, stripes, batch)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Fine-tune stripes into blocks.</p>
-<p>We enlarge the stripes vertically by roughly a line height
-and call <code><a title="pipeline.lib.adjustVertical" href="#pipeline.lib.adjustVertical">adjustVertical()</a></code> to get precise vertical demarcations
-for the blocks at both sides of the stripe if there is one or else
-for the undivided stripe.</p>
-<p>The idea is:</p>
-<p>If a stripe has a vertical bar, we slightly extend the boxes left and right
-so that the top and bottom lines next to the bar are completely included.</p>
-<p>If a stripe has no vertical bar, we shrink the boxes left and right
-so that partial top and bottom lines are delegated to the boxes above
-and below.</p>
-<p>We write the box layout unto the <code>layout</code> layer.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
-<dd>Configuration settings</dd>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>We need access to several intermediate results.</dd>
-<dt><strong><code>stripes</code></strong> :&ensp;<code>list</code></dt>
-<dd>The preliminary stripe division of the page, as delivered by
-<code><a title="pipeline.lib.getStripes" href="#pipeline.lib.getStripes">getStripes()</a></code>.</dd>
-<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we run in batch mode.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>dict</code></dt>
-<dd>
-<p>Blocks keyed by stripe number and column specification
-(one of <code>""</code>, <code>"l"</code>, <code>"r"</code>).
-The values form dicts themselves, with in particular the bounding box
-information under key <code>box</code> specified as four numbers:
-left, top, right, bottom.</p>
-<p>The dict is ordered.</p>
-</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L760-L865" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def getBlocks(C, stages, stripes, batch):
-    &#34;&#34;&#34;Fine-tune stripes into blocks.
-
-    We enlarge the stripes vertically by roughly a line height
-    and call `adjustVertical` to get precise vertical demarcations
-    for the blocks at both sides of the stripe if there is one or else
-    for the undivided stripe.
-
-    The idea is:
-
-    If a stripe has a vertical bar, we slightly extend the boxes left and right
-    so that the top and bottom lines next to the bar are completely included.
-
-    If a stripe has no vertical bar, we shrink the boxes left and right
-    so that partial top and bottom lines are delegated to the boxes above
-    and below.
-
-    We write the box layout unto the `layout` layer.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    stripes: list
-        The preliminary stripe division of the page, as delivered by
-        `getStripes`.
-    batch: boolean
-        Whether we run in batch mode.
-
-    Returns
-    -------
-    dict
-        Blocks keyed by stripe number and column specification
-        (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
-        The values form dicts themselves, with in particular the bounding box
-        information under key `box` specified as four numbers:
-        left, top, right, bottom.
-
-        The dict is ordered.
-    &#34;&#34;&#34;
-
-    marginX = C.blockMarginX
-    blockColor = C.blockRGB
-    letterColor = C.letterRGB
-    rotated = stages[&#34;rotated&#34;]
-    normalized = stages[&#34;normalized&#34;]
-
-    (maxH, maxW) = normalized.shape[0:2]
-
-    lineHeight = maxW // 30
-
-    blocks = {}
-
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-
-    for (stripe, (x, yMin, yMax)) in enumerate(stripes):
-
-        yMinLee = max((0, yMin - lineHeight))
-        yMaxLee = min((maxH, yMax + lineHeight))
-
-        if x is None:
-            (theYMin, theYMax) = adjustVertical(
-                C, rotated, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
-            )
-            blocks[(stripe, &#34;&#34;)] = dict(
-                box=(marginX, theYMin, maxW - marginX, theYMax), sep=x,
-            )
-            if not batch:
-                cv2.rectangle(
-                    layout,
-                    (marginX, theYMin),
-                    (maxW - marginX, theYMax),
-                    blockColor,
-                    4,
-                )
-                addStripe(layout, theYMin, 0, maxW, marginX, letterColor, stripe, &#34;&#34;)
-        else:
-            (theYMinL, theYMaxL) = adjustVertical(
-                C, rotated, 0, x, yMin, yMinLee, yMax, yMaxLee, True
-            )
-            (theYMinR, theYMaxR) = adjustVertical(
-                C, rotated, x, maxW, yMin, yMinLee, yMax, yMaxLee, True
-            )
-            blocks[(stripe, &#34;l&#34;)] = dict(
-                box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
-            )
-            blocks[(stripe, &#34;r&#34;)] = dict(
-                box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
-            )
-            if not batch:
-                cv2.rectangle(
-                    layout, (marginX, theYMinL), (x - marginX, theYMaxL), blockColor, 4,
-                )
-                addStripe(layout, theYMinL, 0, x, marginX, letterColor, stripe, &#34;l&#34;)
-                cv2.rectangle(
-                    layout,
-                    (x + marginX, theYMinR),
-                    (maxW - marginX, theYMaxR),
-                    blockColor,
-                    4,
-                )
-                addStripe(layout, theYMinR, x, maxW, marginX, letterColor, stripe, &#34;r&#34;)
-    return collections.OrderedDict(sorted(blocks.items()))</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.getHistograms"><code class="name flex">
-<span>def <span class="ident">getHistograms</span></span>(<span>C, stages, blocks, batch, boxed)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Add line band data to all blocks based on histograms.</p>
-<p>By means of histograms we can discern where the lines are.
-We define several bands with respect to lines, such as broad, narrow,
-high, low.
-We also define a band for the space between lines.</p>
-<p>We mark the broad bands on the <code>layout layer</code> by a starting green line
-and an ending red line and the space between them will be overlaid with gray.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
-<dd>Configuration settings</dd>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>We need access to several intermediate results.</dd>
-<dt><strong><code>blocks</code></strong> :&ensp;<code>dict</code></dt>
-<dd>The blocks as delivered by <code><a title="pipeline.lib.getBlocks" href="#pipeline.lib.getBlocks">getBlocks()</a></code>.
-The blocks dict will be updated: each block value gets a new key <code>bands</code>
-with the band data.</dd>
-<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we run in batch mode.</dd>
-<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we run in boxed mode (generate boxes around wiped marks).</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>list</code></dt>
-<dd>A list of keys in the blocks dict that correspond to blocks
-that turn out to be devoid of written material.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L987-L1122" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def getHistograms(C, stages, blocks, batch, boxed):
-    &#34;&#34;&#34;Add line band data to all blocks based on histograms.
-
-    By means of histograms we can discern where the lines are.
-    We define several bands with respect to lines, such as broad, narrow,
-    high, low.
-    We also define a band for the space between lines.
-
-    We mark the broad bands on the `layout layer` by a starting green line
-    and an ending red line and the space between them will be overlaid with gray.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-        The blocks dict will be updated: each block value gets a new key `bands`
-        with the band data.
-    batch: boolean
-        Whether we run in batch mode.
-    boxed: boolean
-        Whether we run in boxed mode (generate boxes around wiped marks).
-
-    Returns
-    -------
-    list
-        A list of keys in the blocks dict that correspond to blocks
-        that turn out to be devoid of written material.
-    &#34;&#34;&#34;
-
-    mColor = C.marginRGB
-    whit = C.marginGRS
-    white = C.whiteRGB
-    upperColor = C.upperRGB
-    lowerColor = C.lowerRGB
-    thresholdX = C.marginThresholdX
-    colorBand = C.colorBand
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-        histogram = layout.copy()
-        stages[&#34;histogram&#34;] = histogram
-
-    rotated = stages[&#34;rotated&#34;]
-    demargined = stages[&#34;demargined&#34;]
-
-    emptyBlocks = []
-
-    for ((stripe, column), data) in blocks.items():
-        (left, top, right, bottom) = data[&#34;inner&#34;]
-
-        hasRegion = bottom &gt; top and right &gt; left
-
-        if not hasRegion:
-            emptyBlocks.append((stripe, column))
-            continue
-
-        roiIn = rotated[top:bottom, left:right]
-        histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
-        histX = cv2.reduce(roiIn, 0, cv2.REDUCE_AVG).reshape(-1)
-
-        if not batch:
-            roiOut = histogram[top:bottom, left:right]
-
-            for (hist, vert) in ((histY, True), (histX, False)):
-                for (i, val) in enumerate(hist):
-                    color = (int(val), int(2 * val), int(val))
-                    index = (0, i) if vert else (i, 0)
-                    value = (val, i) if vert else (i, val)
-                    cv2.line(roiOut, index, value, color, 1)
-
-        # chop off the left and right margins of a region
-
-        (normH, normW) = (bottom - top, right - left)
-        roiOut = demargined[top:bottom, left:right]
-        if not batch:
-            roiOutC = layout[top:bottom, left:right]
-        margins = getMargins(histX, normW, thresholdX)
-
-        for (x1, x2) in margins:
-            cv2.rectangle(roiOut, (x1, 0), (x2, normH), whit, -1)
-            if not batch:
-                overlay(roiOutC, 2, normH - 2, x1 + 2, x2 - 2, white, mColor)
-
-        if len(margins) != 2:
-            emptyBlocks.append((stripe, column))
-            continue
-
-        data[&#34;inner&#34;] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
-
-        # define bands
-
-        (uppers, lowers) = getBandsFromHist(C, normH, histY, tweak=True)
-
-        bands = {}
-        data[&#34;bands&#34;] = bands
-
-        bands[&#34;main&#34;] = dict(uppers=uppers, lowers=lowers)
-        for (band, bandColor) in colorBand.items():
-            inter = band in {&#34;inter&#34;, &#34;low&#34;, &#34;high&#34;}
-            (theUppers, theLowers) = applyBandOffset(
-                C, normH, band, uppers, lowers, inter=inter
-            )
-            bands[band] = dict(uppers=theUppers, lowers=theLowers, color=bandColor)
-
-        bandInfo = bands[&#34;broad&#34;]
-        uppers = bandInfo[&#34;uppers&#34;]
-        lowers = bandInfo[&#34;lowers&#34;]
-
-        if not batch and normW &gt; 10:
-            for (upper, lower) in zip(uppers, lowers):
-                overlay(roiOutC, upper, upper + 3, 10, normW - 10, white, upperColor)
-                overlay(roiOutC, lower - 3, lower, 10, normW - 10, white, lowerColor)
-            for (lower, upper) in zip((0, *lowers), (*uppers, normH)):
-                overlay(roiOutC, lower, upper + 1, 10, normW - 10, white, mColor)
-
-        # remove top white space
-
-        topWhite = uppers[0] if uppers else normH
-        cv2.rectangle(roiOut, (0, 0), (normW, topWhite), whit, -1)
-        if not batch:
-            overlay(roiOutC, 0, topWhite, 0, normW, white, mColor)
-
-        # remove bottom white space
-
-        bottomWhite = lowers[-1] if lowers else 0
-        cv2.rectangle(roiOut, (0, bottomWhite), (normW, normH), whit, -1)
-        if not batch:
-            overlay(roiOutC, bottomWhite, normH, 0, normW, white, mColor)
-
-        if not uppers:
-            emptyBlocks.append((stripe, column))
-
-    return emptyBlocks</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.getMargins"><code class="name flex">
+<dt id="fusus.lib.getMargins"><code class="name flex">
 <span>def <span class="ident">getMargins</span></span>(<span>hist, width, threshold)</span>
 </code></dt>
 <dd>
@@ -2484,7 +754,7 @@ above the threshold, and (0, maxW) otherwise.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L433-L458" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L484-L509" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMargins(hist, width, threshold):
     &#34;&#34;&#34;Get margins from a histogram.
@@ -2514,420 +784,45 @@ above the threshold, and (0, maxW) otherwise.</p>
     return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.getStretches"><code class="name flex">
-<span>def <span class="ident">getStretches</span></span>(<span>C, info, stages, horizontal, batch)</span>
+<dt id="fusus.lib.imageFileList"><code class="name flex">
+<span>def <span class="ident">imageFileList</span></span>(<span>imDir)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Gets significant horizontal or vertical strokes.</p>
-<p>Significant strokes are those that are not part of letters,
-but ones that are used as separators, e.g. of footnotes and columns.</p>
-<p>We single out 1-pixel wide lines longer than a small threshold
-in the appropriate direction, and blacken the rest.
-Then we blur in the perpendicular direction.
-Now we single out longer 1-pixel wide lines and cluster in the perpendicular
-direction.</p>
-<p>Clusters are line segments with nearly the same constant coordinate.
-If we do horizontal lines, clusters are pairs of x coordinates
-for one y coordinate.
-If we do vertical lines, clusters are pairs of y coordinates
-for one x coordinate.
-We return the clusters, i.e. a dict keyed by the fixed coordinate and
-valued by the pair of segment coordinates.</p>
+<div class="desc"><p>Gets a sorted list of image files from a directory.</p>
+<p>Only files having an image extension (defined in <code><a title="fusus.lib.EXTENSIONS" href="#fusus.lib.EXTENSIONS">EXTENSIONS</a></code>)
+are listed.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
-<dd>The configuration object of the book engine.</dd>
-<dt><strong><code>info</code></strong> :&ensp;<code>function</code></dt>
-<dd>To print messages to the console</dd>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>Intermediate cv2 images, keyed by stage name</dd>
-<dt><strong><code>horizontal</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we do horizontal of vertical lines.</dd>
-<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code></dt>
-<dd>Whether we run in batch mode.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>dict</code></dt>
-<dd>Per fixed coordinate the list of line segments on that coordinate.
-A line segment is specified by its begin and end values and the thickness of
-the cluster it is in.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L553-L699" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def getStretches(C, info, stages, horizontal, batch):
-    &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
-
-    Significant strokes are those that are not part of letters,
-    but ones that are used as separators, e.g. of footnotes and columns.
-
-    We single out 1-pixel wide lines longer than a small threshold
-    in the appropriate direction, and blacken the rest.
-    Then we blur in the perpendicular direction.
-    Now we single out longer 1-pixel wide lines and cluster in the perpendicular
-    direction.
-
-    Clusters are line segments with nearly the same constant coordinate.
-    If we do horizontal lines, clusters are pairs of x coordinates
-    for one y coordinate.
-    If we do vertical lines, clusters are pairs of y coordinates
-    for one x coordinate.
-    We return the clusters, i.e. a dict keyed by the fixed coordinate and
-    valued by the pair of segment coordinates.
-
-
-    Parameters
-    ----------
-    C: object
-        The configuration object of the book engine.
-    info: function
-        To print messages to the console
-    stages: dict
-        Intermediate cv2 images, keyed by stage name
-    horizontal: boolean
-        Whether we do horizontal of vertical lines.
-    batch: boolean
-        Whether we run in batch mode.
-
-    Returns
-    -------
-    dict
-        Per fixed coordinate the list of line segments on that coordinate.
-        A line segment is specified by its begin and end values and the thickness of
-        the cluster it is in.
-    &#34;&#34;&#34;
-
-    debug = C.debug
-    strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
-
-    normalized = stages[&#34;normalized&#34;]
-    img = normalized if horizontal else normalized.T
-    label = &#34;HOR&#34; if horizontal else &#34;VER&#34;
-
-    if not batch:
-        layout = stages[&#34;layout&#34;]
-        out = layout if horizontal else cv2.transpose(layout)
-
-    (maxH, maxW) = img.shape[0:2]
-
-    minLength = maxW // 30 if horizontal else maxH // 50
-    afterLength = maxW // 10 if horizontal else maxH // 17
-
-    # initial blur
-
-    initBlur = (13, 7) if horizontal else (7, 13)
-
-    blurred = cv2.GaussianBlur(img, initBlur, 0, 0)
-    (th, threshed) = cv2.threshold(
-        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
-    )
-
-    # collect lines of a minimal length
-
-    sliced = threshed.copy()
-    for (n, row) in enumerate(sliced):
-        for (val, start, length) in zip(*findRuns(row)):
-            if val == 255:
-                if length &lt; minLength:
-                    row[start : start + length] = 0
-
-    if debug &gt; 1:
-        showImage(sliced if horizontal else sliced.T)
-
-    # second blur, now stronger
-
-    strongBlur = (21, 11) if horizontal else (11, 21)
-
-    blurred = cv2.GaussianBlur(sliced, strongBlur, 0, 0)
-    (th, threshed) = cv2.threshold(
-        blurred, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU
-    )
-
-    if debug &gt; 1:
-        showImage(threshed if horizontal else threshed.T)
-
-    # collect lines of a certain length, longer than before
-
-    lines = collections.defaultdict(set)
-    for (n, row) in enumerate(threshed):
-        for (val, start, length) in zip(*findRuns(row)):
-            if val == 255:
-                if length &gt;= afterLength:
-                    lines[n] |= set(range(start, start + length))
-
-    # cluster lines in bins corresponding to their constant coordinates:
-    # horizontal lines are clustered in bins on their y coordinate.
-    # vertical lines are clustered in bins on their x coordinate.
-
-    bins = []
-    for n in sorted(lines):
-        found = False
-        for (i, (b, e)) in enumerate(bins):
-            if b - 3 &lt;= n &lt;= e + 3:
-                if n &lt; b:
-                    bins[i][0] = n
-                if n &gt; e:
-                    bins[i][1] = n
-                found = True
-                break
-        if not found:
-            bins.append([n, n])
-
-    # combine the segments of all lines that are in the same bin
-
-    stretches = {}
-    for (b, e) in bins:
-        middle = (b + e) // 2
-        thickness = (abs(e - b) + 1) // 2
-        if thickness &lt;= 1:
-            continue
-        theseStretches = set()
-        for n in range(b, e):
-            if n in lines:
-                theseStretches |= lines[n]
-        segments = []
-        for (m1, m2) in rangesFromSet(theseStretches):
-            segments.append((m1, m2 + 1, thickness))
-        stretches[middle] = segments
-
-    for (n, segments) in sorted(stretches.items()):
-        for (f, t, half) in segments:
-            info(f&#34;{label} @ {n:&gt;4} thick={half:&gt;2} from {f:&gt;4} to {t:&gt;4}&#34;, tm=False)
-            if not batch:
-                cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
-
-    if not batch:
-        stages[&#34;layout&#34;] = out if horizontal else cv2.transpose(out)
-
-    if not batch and debug &gt; 0:
-        showImage(stages[&#34;layout&#34;])
-    return stretches</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.getStripes"><code class="name flex">
-<span>def <span class="ident">getStripes</span></span>(<span>stages, stretchesV)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Infer horizontal stripes from a set of vertical bars.</p>
-<p>A vertical bar defines a stripe on the page, i.e. a horizontal band that
-contains that bar.</p>
-<p>Between the vertical bars there are also stripes, they are undivided stripes.</p>
-<p>We assume the vertical bars split the page in two portions, and not more,
-and that they occur more or less in the middle of the page.</p>
-<p>If many vertical bars have been detected, we sort them by y1 ascending and then
-y2 descending and then by x.</p>
-<p>We filter the bars: if the last bar reached to y = height, we only consider
-bars that start lower than height.</p>
-<div class="admonition note">
-<p class="admonition-title">Fine tuning needed later on</p>
-<p>The vertical strokes give a rough estimate:
-it is possible that they start and end in the middle of the lines beside them.
-We will need histograms for the fine tuning.</p>
-</div>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>We need access to the normalized stage to get the page size.</dd>
-<dt><strong><code>stretchesV</code></strong> :&ensp;<code>dict</code></dt>
-<dd>Vertical line segments per x-coordinate, as delivered by <code><a title="pipeline.lib.getStretches" href="#pipeline.lib.getStretches">getStretches()</a></code>.</dd>
+<dt><strong><code>imDir</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the image directory</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>list</code></dt>
-<dd>A list of stripes, specified as (x, y1, y2) values,
-where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
-and x is the x coordinate of the dividing vertical stroke if there is one
-and <code>None</code> otherwise.</dd>
+<dd>Alphabetically sorted list of file names (without directory, with extension)</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L702-L757" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L120-L148" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def getStripes(stages, stretchesV):
-    &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
+<pre><code class="python">def imageFileList(imDir):
+    &#34;&#34;&#34;Gets a sorted list of image files from a directory.
 
-    A vertical bar defines a stripe on the page, i.e. a horizontal band that
-    contains that bar.
-
-    Between the vertical bars there are also stripes, they are undivided stripes.
-
-    We assume the vertical bars split the page in two portions, and not more,
-    and that they occur more or less in the middle of the page.
-
-    If many vertical bars have been detected, we sort them by y1 ascending and then
-    y2 descending and then by x.
-
-    We filter the bars: if the last bar reached to y = height, we only consider
-    bars that start lower than height.
-
-    !!! note &#34;Fine tuning needed later on&#34;
-        The vertical strokes give a rough estimate:
-        it is possible that they start and end in the middle of the lines beside them.
-        We will need histograms for the fine tuning.
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
 
     Parameters
     ----------
-    stages: dict
-        We need access to the normalized stage to get the page size.
-    stretchesV: dict
-        Vertical line segments per x-coordinate, as delivered by `getStretches`.
+    imDir: string
+        Path to the image directory
 
     Returns
     -------
     list
-        A list of stripes, specified as (x, y1, y2) values,
-        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
-        and x is the x coordinate of the dividing vertical stroke if there is one
-        and `None` otherwise.
+        Alphabetically sorted list of file names (without directory, with extension)
     &#34;&#34;&#34;
 
-    normalized = stages[&#34;normalized&#34;]
-    (maxH, maxW) = normalized.shape[0:2]
-    lastHeight = 0
-    segments = []
-    for (x, ys) in stretchesV.items():
-        for (y1, y2, thickness) in ys:
-            segments.append((y1, y2, x, thickness))
-    stripes = []
-    for (y1, y2, x, thickness) in sorted(
-        segments, key=lambda z: (z[0], -z[1], -z[3], -z[2] or -1)
-    ):
-        if y1 &gt; lastHeight:
-            stripes.append((None, lastHeight, y1))
-            stripes.append((x, y1, y2))
-            lastHeight = y2
-    if lastHeight &lt; maxH:
-        stripes.append((None, lastHeight, maxH))
-    return stripes</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.grayInterBlocks"><code class="name flex">
-<span>def <span class="ident">grayInterBlocks</span></span>(<span>C, stages, blocks, emptyBlocks)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Overlay the space between blocks with gray.</p>
-<p>Remove also the empty blocks from the block list.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
-<dd>Configuration settings</dd>
-<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
-<dd>We need access to several intermediate results.</dd>
-<dt><strong><code>blocks</code></strong> :&ensp;<code>dict</code></dt>
-<dd>The blocks as delivered by <code><a title="pipeline.lib.getBlocks" href="#pipeline.lib.getBlocks">getBlocks()</a></code>.
-The blocks dict will be updated: empty blocks will be deleted from it.
-with the band data.</dd>
-<dt><strong><code>emptyBlocks</code></strong> :&ensp;<code>list</code></dt>
-<dd>The keys of blocks that do not have written content
-that must be processed further.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>None.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L1125-L1207" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def grayInterBlocks(C, stages, blocks, emptyBlocks):
-    &#34;&#34;&#34;Overlay the space between blocks with gray.
-
-    Remove also the empty blocks from the block list.
-
-    Parameters
-    ----------
-    C: object
-        Configuration settings
-    stages: dict
-        We need access to several intermediate results.
-    blocks: dict
-        The blocks as delivered by `getBlocks`.
-        The blocks dict will be updated: empty blocks will be deleted from it.
-        with the band data.
-    emptyBlocks: list
-        The keys of blocks that do not have written content
-        that must be processed further.
-
-    Returns
-    -------
-    None.
-    &#34;&#34;&#34;
-
-    mColor = C.marginRGB
-    white = C.whiteRGB
-
-    layout = stages[&#34;layout&#34;]
-    (maxH, maxW) = layout.shape[0:2]
-
-    prevBB = [0, 0]
-    prevX = None
-    maxStripe = max(x[0] for x in blocks)
-    marginX = C.blockMarginX
-
-    # overlay the space between blocks
-
-    for ((stripe, column), data) in sorted(blocks.items()):
-        bT = data[&#34;box&#34;][1]
-        bB = data[&#34;box&#34;][3]
-        x = data[&#34;sep&#34;]
-        if column == &#34;&#34;:
-            if prevX is None:
-                pB = prevBB[0]
-                overlay(layout, pB, bT, marginX, maxW - marginX, white, mColor)
-            else:
-                for (i, pB) in enumerate(prevBB):
-                    if pB &lt; bT:
-                        (lf, rt) = (
-                            (marginX, prevX - marginX)
-                            if i == 0
-                            else (prevX + marginX, maxW - marginX)
-                        )
-                        overlay(layout, pB, bT, lf, rt, white, mColor)
-            prevBB = [bB, bB]
-            prevX = None
-        elif column == &#34;l&#34;:
-            pB = prevBB[0]
-            if pB &lt; bT:
-                overlay(layout, pB, bT, marginX, x - marginX, white, mColor)
-            prevBB[0] = bB
-            prevX = x
-        elif column == &#34;r&#34;:
-            pB = prevBB[1]
-            if pB &lt; bT:
-                overlay(layout, pB, bT, x + marginX, maxW - marginX, white, mColor)
-            prevBB[1] = bB
-            prevX = x
-        if stripe == maxStripe:
-            if column == &#34;&#34;:
-                if bB &lt; maxH:
-                    overlay(layout, bB, maxH, marginX, maxW - marginX, white, mColor)
-            elif column == &#34;l&#34;:
-                if bB &lt; maxH:
-                    overlay(layout, bB, maxH, marginX, x - marginX, white, mColor)
-            elif column == &#34;r&#34;:
-                if bB &lt; maxH:
-                    overlay(
-                        layout, bB, maxH, x + marginX, maxW - marginX, white, mColor
-                    )
-
-    for b in emptyBlocks:
-        del blocks[b]</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.imageFileList"><code class="name flex">
-<span>def <span class="ident">imageFileList</span></span>(<span>imDir)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L107-L119" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def imageFileList(imDir):
     if not os.path.exists(imDir):
         return []
 
@@ -2942,17 +837,47 @@ that must be processed further.</dd>
     return sorted(imageFiles)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.imageFileListSub"><code class="name flex">
+<dt id="fusus.lib.imageFileListSub"><code class="name flex">
 <span>def <span class="ident">imageFileListSub</span></span>(<span>imDir)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Gets sorted lisst of image files from the subdirectories of a directory.</p>
+<p>Only files having an image extension (defined in <code>fusus.parameters.EXTENSIONS</code>)
+are listed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>imDir</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the image directory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Keyed by subdirectory names, valued by
+alphabetically sorted list of file names (without directory, with extension)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L122-L131" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L151-L177" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileListSub(imDir):
+    &#34;&#34;&#34;Gets sorted lisst of image files from the subdirectories of a directory.
+
+    Only files having an image extension (defined in `fusus.parameters.EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    dict
+        Keyed by subdirectory names, valued by
+        alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
     if not os.path.exists(imDir):
         return {}
     imageFiles = {}
@@ -2964,59 +889,25 @@ that must be processed further.</dd>
     return imageFiles</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.img"><code class="name flex">
-<span>def <span class="ident">img</span></span>(<span>data)</span>
+<dt id="fusus.lib.imgElem"><code class="name flex">
+<span>def <span class="ident">imgElem</span></span>(<span>data)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Produce an image with its data packaged into a HTML <img> element.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L48-L52" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L37-L41" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def img(data):
+<pre><code class="python">def imgElem(data):
     &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
     &#34;&#34;&#34;
 
     return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.loadCleanInfo"><code class="name flex">
-<span>def <span class="ident">loadCleanInfo</span></span>(<span>self, data)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L424-L430" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def loadCleanInfo(self, data):
-    cInfo = {}
-
-    for (band, seq, mark, *entry) in data:
-        cInfo.setdefault(band, {}).setdefault((seq, mark), []).append(entry)
-
-    return cInfo</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.measure"><code class="name flex">
-<span>def <span class="ident">measure</span></span>(<span>borderInside, borderOutside, threshold)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L189-L191" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def measure(borderInside, borderOutside, threshold):
-    connections = borderInside * borderOutside
-    return np.where(connections &gt; threshold)[0].size / borderOutside.size</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.overlay"><code class="name flex">
-<span>def <span class="ident">overlay</span></span>(<span>img, top, bottom, left, right, srcColor, dstColor)</span>
+<dt id="fusus.lib.overlay"><code class="name flex">
+<span>def <span class="ident">overlay</span></span>(<span>img, left, top, right, bottom, srcColor, dstColor)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Colors a region of an image with care.</p>
@@ -3038,9 +929,9 @@ The new color of the replaced pixels.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L75-L97" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L72-L94" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def overlay(img, top, bottom, left, right, srcColor, dstColor):
+<pre><code class="python">def overlay(img, left, top, right, bottom, srcColor, dstColor):
     &#34;&#34;&#34;Colors a region of an image with care.
 
     A selected region of an image can be given a uniform color,
@@ -3065,32 +956,102 @@ The new color of the replaced pixels.</p></div>
         roi[np.where((roi == list(srcColor)).all(axis=2))] = dstColor</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.pagesRep"><code class="name flex">
+<dt id="fusus.lib.pagesRep"><code class="name flex">
 <span>def <span class="ident">pagesRep</span></span>(<span>source, asList=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Represents a set of pages as a string in a compact way or as a list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of file names, without directory, with extension</dd>
+<dt><strong><code>asList</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to return the result as a list of integers or as a compact string.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> or <code>string</code></dt>
+<dd>Depending on <code>asList</code> a list of page numbers (integers) or a string
+mentioning the page numbers, using intervals where possible.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L134-L136" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L180-L197" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pagesRep(source, asList=False):
+    &#34;&#34;&#34;Represents a set of pages as a string in a compact way or as a list.
+
+    Parameters
+    ----------
+    source: list
+        A list of file names, without directory, with extension
+    asList: boolean, optional `False`
+        Whether to return the result as a list of integers or as a compact string.
+
+    Returns
+    -------
+    list or string
+        Depending on `asList` a list of page numbers (integers) or a string
+        mentioning the page numbers, using intervals where possible.
+    &#34;&#34;&#34;
     pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
     return pages if asList else specFromRanges(rangesFromList(pages))</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.parseBands"><code class="name flex">
+<dt id="fusus.lib.parseBands"><code class="name flex">
 <span>def <span class="ident">parseBands</span></span>(<span>band, allBands, error)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Parses a string that specifies bands.</p>
+<p>Bands are horizontal rectangles defined with respect to lines.
+They correspond with regions of interest where we try to find specific
+marks, such as commas and accents.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>band</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all bands.
+If a string: the name of a band.
+If an iterable: the items must be names of bands.</dd>
+<dt><strong><code>allBands</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all bands.</dd>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The bands as parsed.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L480-L494" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L320-L357" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
+    &#34;&#34;&#34;Parses a string that specifies bands.
+
+    Bands are horizontal rectangles defined with respect to lines.
+    They correspond with regions of interest where we try to find specific
+    marks, such as commas and accents.
+
+    Parameters
+    ----------
+    band: string or None or iterable
+        If None: it means all bands.
+        If a string: the name of a band.
+        If an iterable: the items must be names of bands.
+    allBands: tuple
+        Names of all bands.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The bands as parsed.
+    &#34;&#34;&#34;
+
     sortedBands = sorted(allBands)
     doBands = (
         allBands
@@ -3107,17 +1068,59 @@ The new color of the replaced pixels.</p></div>
     return tuple(b for b in sortedBands if b in doBands)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.parseMarks"><code class="name flex">
+<dt id="fusus.lib.parseMarks"><code class="name flex">
 <span>def <span class="ident">parseMarks</span></span>(<span>mark, allMarks, bands, error)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Parses a string that specifies Marks.</p>
+<p>Marks are strokes that we need to find on the page in order to remove them.
+They are organized in bands: the regions of interest with respect to the lines
+where we expect them to occur.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mark</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all marks.
+If a string: the name of a mark.
+If an iterable: the items must be names of marks.</dd>
+<dt><strong><code>allMarks</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all marks.</dd>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The marks as parsed.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L497-L517" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L360-L403" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseMarks(mark, allMarks, bands, error):
+    &#34;&#34;&#34;Parses a string that specifies Marks.
+
+    Marks are strokes that we need to find on the page in order to remove them.
+    They are organized in bands: the regions of interest with respect to the lines
+    where we expect them to occur.
+
+    Parameters
+    ----------
+    mark: string or None or iterable
+        If None: it means all marks.
+        If a string: the name of a mark.
+        If an iterable: the items must be names of marks.
+    allMarks: tuple
+        Names of all marks.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The marks as parsed.
+    &#34;&#34;&#34;
+
     markIndex = {}
     for (band, bandMarks) in allMarks.items():
         for m in bandMarks:
@@ -3140,17 +1143,61 @@ The new color of the replaced pixels.</p></div>
     return doMarks</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.parseStages"><code class="name flex">
+<dt id="fusus.lib.parseStages"><code class="name flex">
 <span>def <span class="ident">parseStages</span></span>(<span>stage, allStages, sortedStages, error)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Parses a string that specifies stages.</p>
+<p>Stages are steps in the image processing.
+Each stage has an intermediate processing result.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all stages.
+If a string: the name of a stage.
+If an iterable: the items must be names of stages.</dd>
+<dt><strong><code>allStages</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all stages.</dd>
+<dt>sortedStages:</dt>
+<dt>Sorted list of all stages.</dt>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The stages as parsed.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L461-L477" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L277-L317" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
+    &#34;&#34;&#34;Parses a string that specifies stages.
+
+    Stages are steps in the image processing.
+    Each stage has an intermediate processing result.
+
+    Parameters
+    ----------
+    stage: string or None or iterable
+        If None: it means all stages.
+        If a string: the name of a stage.
+        If an iterable: the items must be names of stages.
+    allStages: tuple
+        Names of all stages.
+    sortedStages:
+        Sorted list of all stages.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The stages as parsed.
+    &#34;&#34;&#34;
+
     doStages = (
         allStages
         if stage is None
@@ -3169,71 +1216,106 @@ The new color of the replaced pixels.</p></div>
     return tuple(s for s in sortedStages if s in doStages)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.reborder"><code class="name flex">
-<span>def <span class="ident">reborder</span></span>(<span>gray, bw, color, crop=False)</span>
+<dt id="fusus.lib.pureAverage"><code class="name flex">
+<span>def <span class="ident">pureAverage</span></span>(<span>data, supplied)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Add a border around a grayscale image, optionally remove white margins first.</p>
-<p>The border will add to the size of the image.</p>
+<div class="desc"><p>Get the average of a list of values after removing the outliers.</p>
+<p>It is used for calcaluting lineheights from a sequence of distances between
+histogram peaks.
+In practice, some peaks are missing due to short line lengths, and that
+causes some abnormal peak distances which we want to remove.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>gray</code></strong> :&ensp;<code>np array</code></dt>
-<dd>A grayscale image.</dd>
-<dt><strong><code>bw</code></strong> :&ensp;<code>int</code></dt>
-<dd>Width of the new border.</dd>
-<dt><strong><code>color</code></strong> :&ensp;<code>int</code></dt>
-<dd>Color of the new border (grayscale).</dd>
-<dt><strong><code>crop</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
-<dd>If <code>True</code>, the image will be cropped first such as to remove all surrounding
-white margins.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>np array</code></dt>
+<dd>The list of values whose average we compute.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L1369-L1397" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L512-L541" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def reborder(gray, bw, color, crop=False):
-    &#34;&#34;&#34;Add a border around a grayscale image, optionally remove white margins first.
+<pre><code class="python">def pureAverage(data, supplied):
+    &#34;&#34;&#34;Get the average of a list of values after removing the outliers.
 
-    The border will add to the size of the image.
+    It is used for calcaluting lineheights from a sequence of distances between
+    histogram peaks.
+    In practice, some peaks are missing due to short line lengths, and that
+    causes some abnormal peak distances which we want to remove.
 
     Parameters
     ----------
-    gray: np array
-        A grayscale image.
-    bw: int
-        Width of the new border.
-    color: int
-        Color of the new border (grayscale).
-    crop: boolean, optional `False`
-        If `True`, the image will be cropped first such as to remove all surrounding
-        white margins.
+    data: np array
+        The list of values whose average we compute.
     &#34;&#34;&#34;
 
-    if crop:
-        inv = 255 * (gray &lt; 128).astype(np.uint8)
-        coords = cv2.findNonZero(inv)
-        x, y, w, h = cv2.boundingRect(coords)
-        cropped = gray[y : y + h, x : x + w]
-    else:
-        cropped = gray
-    bordered = cv2.copyMakeBorder(
-        cropped, bw, bw, bw, bw, cv2.BORDER_CONSTANT, value=color
-    )
-    return bordered</code></pre>
+    if data.size == 0:
+        return supplied
+    elif data.size == 1:
+        return int(round(data[0]))
+
+    # remove outliers
+    m = 2.0
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    pure = data[s &lt; m]
+    if len(pure) == 0:
+        return supplied
+    elif pure.size == 1:
+        return int(round(pure[0]))
+    return int(round(np.average(pure)))</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.removeSkewStripes"><code class="name flex">
+<dt id="fusus.lib.removeSkewStripes"><code class="name flex">
 <span>def <span class="ident">removeSkewStripes</span></span>(<span>img, skewBorder, skewColor)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Remove black triangles resulting from unskewing images.</p>
+<p>When an image is unskewed, it is rotated slightly and that introduces
+stroke like triangles in the corners.
+This function removes them by coloring all image borders with white.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>the image to operate on</dd>
+<dt><strong><code>skewBorder</code></strong> :&ensp;<code>int</code></dt>
+<dd>the width of the border that is whitened</dd>
+<dt><strong><code>skewColor</code></strong> :&ensp;<code>color</code></dt>
+<dd>the exact white color with which we color the borders.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>The source image receives a modification.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L311-L321" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L243-L274" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeSkewStripes(img, skewBorder, skewColor):
+    &#34;&#34;&#34;Remove black triangles resulting from unskewing images.
+
+    When an image is unskewed, it is rotated slightly and that introduces
+    stroke like triangles in the corners.
+    This function removes them by coloring all image borders with white.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    skewBorder: int
+        the width of the border that is whitened
+    skewColor: color
+        the exact white color with which we color the borders.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
     (imH, imW) = img.shape[0:2]
     if min((imH, imW)) &lt; skewBorder * 10:
         return
@@ -3246,17 +1328,50 @@ white margins.</dd>
         cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.select"><code class="name flex">
+<dt id="fusus.lib.select"><code class="name flex">
 <span>def <span class="ident">select</span></span>(<span>source, selection)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Choose items from a bunch of integers.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>iterable</code> of <code>int</code></dt>
+<dd>The items to choose from</dd>
+<dt><strong><code>selection</code></strong> :&ensp;<code>iterable</code> of <code>int</code> or <code>string</code> or <code>None</code></dt>
+<dd>If None, selects all items, otherwise specifies what numbers to select.
+If a number is in the selection, but not in the source, it will not be selected.
+The selection can be an integer or a compact string that specifies integers,
+using ranges and commas.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Sorted list of selected items</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L139-L161" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L200-L240" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def select(source, selection):
+    &#34;&#34;&#34;Choose items from a bunch of integers.
+
+    Parameters
+    ----------
+    source: iterable of int
+        The items to choose from
+    selection: iterable of int or string or `None`
+        If None, selects all items, otherwise specifies what numbers to select.
+        If a number is in the selection, but not in the source, it will not be selected.
+        The selection can be an integer or a compact string that specifies integers,
+        using ranges and commas.
+
+    Returns
+    -------
+    list
+        Sorted list of selected items
+    &#34;&#34;&#34;
+
     if selection is None:
         return sorted(source)
 
@@ -3281,7 +1396,7 @@ white margins.</dd>
     return sorted(index[n] for n in selected)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.showImage"><code class="name flex">
+<dt id="fusus.lib.showImage"><code class="name flex">
 <span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
 </code></dt>
 <dd>
@@ -3289,7 +1404,7 @@ white margins.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L55-L72" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L52-L69" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     &#34;&#34;&#34;Show one or more images.
@@ -3303,7 +1418,7 @@ white margins.</dd>
             PIL.Image.fromarray(ae).save(f, fmt)
             ad = Image(data=f.getvalue(), **kwargs)._repr_jpeg_()
             ads.append(ad)
-        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(img(ad) for ad in ads)}&lt;/div&gt;&#34;))
+        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(imgElem(ad) for ad in ads)}&lt;/div&gt;&#34;))
     else:
         ai = np.uint8(np.clip(a, 0, 255))
         f = io.BytesIO()
@@ -3311,61 +1426,53 @@ white margins.</dd>
         display(Image(data=f.getvalue(), **kwargs))</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.showit"><code class="name flex">
-<span>def <span class="ident">showit</span></span>(<span>label, texto, texti, val)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L194-L197" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def showit(label, texto, texti, val):
-    print(f&#34;{label}: = {val}&#34;)
-    print(&#34;Outer&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texto))
-    print(&#34;Inner&#34;, &#34; &#34;.join(f&#34;{e:&gt;3}&#34; for e in texti))</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.splitext"><code class="name flex">
+<dt id="fusus.lib.splitext"><code class="name flex">
 <span>def <span class="ident">splitext</span></span>(<span>f, withDot=True)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Splits a file name into its main part and its extension.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>f</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file name</dd>
+<dt><strong><code>withDot</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, the <code>.</code> in the extension is considered part of the extension,
+else the dot is stripped from it.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The main part and the extension</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L100-L104" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L97-L117" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def splitext(f, withDot=True):
+    &#34;&#34;&#34;Splits a file name into its main part and its extension.
+
+    Parameters
+    ----------
+    f: string
+        The file name
+    withDot: boolean, optional `False`
+        If True, the `.` in the extension is considered part of the extension,
+        else the dot is stripped from it.
+
+    Returns
+    -------
+    tuple
+        The main part and the extension
+    &#34;&#34;&#34;
+
     (bare, ext) = os.path.splitext(f)
     if ext and not withDot:
         ext = ext[1:]
     return (bare, ext)</code></pre>
 </details>
 </dd>
-<dt id="pipeline.lib.storeCleanInfo"><code class="name flex">
-<span>def <span class="ident">storeCleanInfo</span></span>(<span>source)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L413-L421" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def storeCleanInfo(source):
-    data = []
-    data.append(MARK_HEADERS)
-
-    for (band, markInfo) in sorted(source.items()):
-        for ((seq, mark), entries) in sorted(markInfo.items()):
-            for entry in sorted(entries):
-                data.append((band, seq, mark, *entry))
-    return data</code></pre>
-</details>
-</dd>
-<dt id="pipeline.lib.tempFile"><code class="name flex">
+<dt id="fusus.lib.tempFile"><code class="name flex">
 <span>def <span class="ident">tempFile</span></span>(<span>)</span>
 </code></dt>
 <dd>
@@ -3373,7 +1480,7 @@ white margins.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/150ca46e478e369dd6ab4edeb7f2ad2e9f841f57/pipeline/lib.py#L41-L45" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/lib.py#L30-L34" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tempFile():
     &#34;&#34;&#34;Get a temporary file.
@@ -3390,10 +1497,6 @@ white margins.</dd>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
 <p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
-<div class="gcse-search" style="height: 70px"
-data-as_oq="inurl:github.com/annotation site:annotation.github.io site:www.annotation.nl"
-data-gaCategoryParameter="pipeline.lib">
-</div>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -3401,46 +1504,35 @@ data-gaCategoryParameter="pipeline.lib">
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pipeline" href="index.html">pipeline</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="fusus.lib.EXTENSIONS" href="#fusus.lib.EXTENSIONS">EXTENSIONS</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="pipeline.lib.addBox" href="#pipeline.lib.addBox">addBox</a></code></li>
-<li><code><a title="pipeline.lib.addHStroke" href="#pipeline.lib.addHStroke">addHStroke</a></code></li>
-<li><code><a title="pipeline.lib.addSeq" href="#pipeline.lib.addSeq">addSeq</a></code></li>
-<li><code><a title="pipeline.lib.addStripe" href="#pipeline.lib.addStripe">addStripe</a></code></li>
-<li><code><a title="pipeline.lib.adjustVertical" href="#pipeline.lib.adjustVertical">adjustVertical</a></code></li>
-<li><code><a title="pipeline.lib.applyBandOffset" href="#pipeline.lib.applyBandOffset">applyBandOffset</a></code></li>
-<li><code><a title="pipeline.lib.applyHRules" href="#pipeline.lib.applyHRules">applyHRules</a></code></li>
-<li><code><a title="pipeline.lib.cluster" href="#pipeline.lib.cluster">cluster</a></code></li>
-<li><code><a title="pipeline.lib.connected" href="#pipeline.lib.connected">connected</a></code></li>
-<li><code><a title="pipeline.lib.findRuns" href="#pipeline.lib.findRuns">findRuns</a></code></li>
-<li><code><a title="pipeline.lib.getBandsFromHist" href="#pipeline.lib.getBandsFromHist">getBandsFromHist</a></code></li>
-<li><code><a title="pipeline.lib.getBlocks" href="#pipeline.lib.getBlocks">getBlocks</a></code></li>
-<li><code><a title="pipeline.lib.getHistograms" href="#pipeline.lib.getHistograms">getHistograms</a></code></li>
-<li><code><a title="pipeline.lib.getMargins" href="#pipeline.lib.getMargins">getMargins</a></code></li>
-<li><code><a title="pipeline.lib.getStretches" href="#pipeline.lib.getStretches">getStretches</a></code></li>
-<li><code><a title="pipeline.lib.getStripes" href="#pipeline.lib.getStripes">getStripes</a></code></li>
-<li><code><a title="pipeline.lib.grayInterBlocks" href="#pipeline.lib.grayInterBlocks">grayInterBlocks</a></code></li>
-<li><code><a title="pipeline.lib.imageFileList" href="#pipeline.lib.imageFileList">imageFileList</a></code></li>
-<li><code><a title="pipeline.lib.imageFileListSub" href="#pipeline.lib.imageFileListSub">imageFileListSub</a></code></li>
-<li><code><a title="pipeline.lib.img" href="#pipeline.lib.img">img</a></code></li>
-<li><code><a title="pipeline.lib.loadCleanInfo" href="#pipeline.lib.loadCleanInfo">loadCleanInfo</a></code></li>
-<li><code><a title="pipeline.lib.measure" href="#pipeline.lib.measure">measure</a></code></li>
-<li><code><a title="pipeline.lib.overlay" href="#pipeline.lib.overlay">overlay</a></code></li>
-<li><code><a title="pipeline.lib.pagesRep" href="#pipeline.lib.pagesRep">pagesRep</a></code></li>
-<li><code><a title="pipeline.lib.parseBands" href="#pipeline.lib.parseBands">parseBands</a></code></li>
-<li><code><a title="pipeline.lib.parseMarks" href="#pipeline.lib.parseMarks">parseMarks</a></code></li>
-<li><code><a title="pipeline.lib.parseStages" href="#pipeline.lib.parseStages">parseStages</a></code></li>
-<li><code><a title="pipeline.lib.reborder" href="#pipeline.lib.reborder">reborder</a></code></li>
-<li><code><a title="pipeline.lib.removeSkewStripes" href="#pipeline.lib.removeSkewStripes">removeSkewStripes</a></code></li>
-<li><code><a title="pipeline.lib.select" href="#pipeline.lib.select">select</a></code></li>
-<li><code><a title="pipeline.lib.showImage" href="#pipeline.lib.showImage">showImage</a></code></li>
-<li><code><a title="pipeline.lib.showit" href="#pipeline.lib.showit">showit</a></code></li>
-<li><code><a title="pipeline.lib.splitext" href="#pipeline.lib.splitext">splitext</a></code></li>
-<li><code><a title="pipeline.lib.storeCleanInfo" href="#pipeline.lib.storeCleanInfo">storeCleanInfo</a></code></li>
-<li><code><a title="pipeline.lib.tempFile" href="#pipeline.lib.tempFile">tempFile</a></code></li>
+<li><code><a title="fusus.lib.PILFromArray" href="#fusus.lib.PILFromArray">PILFromArray</a></code></li>
+<li><code><a title="fusus.lib.applyBandOffset" href="#fusus.lib.applyBandOffset">applyBandOffset</a></code></li>
+<li><code><a title="fusus.lib.arrayFromPIL" href="#fusus.lib.arrayFromPIL">arrayFromPIL</a></code></li>
+<li><code><a title="fusus.lib.findRuns" href="#fusus.lib.findRuns">findRuns</a></code></li>
+<li><code><a title="fusus.lib.getMargins" href="#fusus.lib.getMargins">getMargins</a></code></li>
+<li><code><a title="fusus.lib.imageFileList" href="#fusus.lib.imageFileList">imageFileList</a></code></li>
+<li><code><a title="fusus.lib.imageFileListSub" href="#fusus.lib.imageFileListSub">imageFileListSub</a></code></li>
+<li><code><a title="fusus.lib.imgElem" href="#fusus.lib.imgElem">imgElem</a></code></li>
+<li><code><a title="fusus.lib.overlay" href="#fusus.lib.overlay">overlay</a></code></li>
+<li><code><a title="fusus.lib.pagesRep" href="#fusus.lib.pagesRep">pagesRep</a></code></li>
+<li><code><a title="fusus.lib.parseBands" href="#fusus.lib.parseBands">parseBands</a></code></li>
+<li><code><a title="fusus.lib.parseMarks" href="#fusus.lib.parseMarks">parseMarks</a></code></li>
+<li><code><a title="fusus.lib.parseStages" href="#fusus.lib.parseStages">parseStages</a></code></li>
+<li><code><a title="fusus.lib.pureAverage" href="#fusus.lib.pureAverage">pureAverage</a></code></li>
+<li><code><a title="fusus.lib.removeSkewStripes" href="#fusus.lib.removeSkewStripes">removeSkewStripes</a></code></li>
+<li><code><a title="fusus.lib.select" href="#fusus.lib.select">select</a></code></li>
+<li><code><a title="fusus.lib.showImage" href="#fusus.lib.showImage">showImage</a></code></li>
+<li><code><a title="fusus.lib.splitext" href="#fusus.lib.splitext">splitext</a></code></li>
+<li><code><a title="fusus.lib.tempFile" href="#fusus.lib.tempFile">tempFile</a></code></li>
 </ul>
 </li>
 </ul>
@@ -3450,7 +1542,7 @@ data-gaCategoryParameter="pipeline.lib">
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

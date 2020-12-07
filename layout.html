@@ -1,0 +1,1950 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>fusus.layout API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.layout</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L0-L779" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">import collections
+import cv2
+
+from tf.core.helpers import rangesFromSet
+
+from .lib import (
+    applyBandOffset,
+    FONT,
+    findRuns,
+    overlay,
+    showImage,
+)
+
+from .lines import getInkY
+
+
+def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
+    &#34;&#34;&#34;Adds the name of a block of the page near the block.
+
+    The function `fusus.page.doLayout` divides the page into blocks.
+    This function puts the name of each block on the image, positioned
+    suitably w.r.t. the block.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    top, left, right: integer
+        Where the top, left, right edges of the image are.
+    marginX: integer
+        Where we set the left margin
+    letterColor: color
+        The color of the letters
+    stripe: integer
+        The stripe number. Stripes are horizontal page-wide regions corresponding
+        to *vertical* column dividers.
+    kind: string
+        Whether the block spans the whole page width (`&#34;&#34;`), is in the left column
+        (&#34;l&#34;) or in the right column (&#34;r&#34;).
+    size: float
+        The font-size of the letters.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    weight = 3
+    offsetX = 80 + marginX
+    halfOffsetX = int(offsetX // 2)
+    offsetY = 60
+
+    x = halfOffsetX if kind == &#34;l&#34; or kind == &#34;&#34; else (right - offsetX)
+    y = top + offsetY
+    sep = &#34;&#34; if not kind else &#34;-&#34;
+    cv2.putText(
+        img,
+        f&#34;{stripe}{sep}{kind}&#34;,
+        (x, y),
+        FONT,
+        size,
+        letterColor,
+        weight,
+        cv2.LINE_AA,
+    )
+
+
+def addHStroke(
+    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+):
+    &#34;&#34;&#34;Marks a detected horizontal stroke on an image.
+
+    The layout algorithm detects horizontal strokes.
+    For feedback to the user, we draw a frame around the detected strokes and give
+    them a name.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    isTop: boolean
+        whether the stroke separates the top header from the rest of the page.
+    i: integer
+        The number of the stroke
+    column: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
+        The column in which the stroke is found
+    thickness: integer
+        The thickness of the stroke as found on the image.
+    top, left, right: integer
+        Where the top, left, right edges of the image are.
+    letterColor: color
+        The color of the letters
+    size: float
+        The font-size of the letters.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    weight = 3
+    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
+    text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
+    offsetX = 60
+    offsetY = 30 if isTop else -30 - 2 * thickness
+    x = int(left + (right - left - offsetX) // 2)
+    y = top - offsetY
+
+    cv2.putText(
+        img,
+        text,
+        (x, y),
+        FONT,
+        size,
+        letterColor,
+        weight,
+        cv2.LINE_AA,
+    )
+
+
+def getStretches(C, info, stages, pageSize, horizontal, batch):
+    &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
+
+    Significant strokes are those that are not part of letters,
+    but ones that are used as separators, e.g. of footnotes and columns.
+
+    We single out 1-pixel wide lines longer than a small threshold
+    in the appropriate direction, and blacken the rest.
+    Then we blur in the perpendicular direction.
+    Now we single out longer 1-pixel wide lines and cluster in the perpendicular
+    direction.
+
+    Clusters are line segments with nearly the same constant coordinate.
+    If we do horizontal lines, clusters are pairs of x coordinates
+    for one y coordinate.
+    If we do vertical lines, clusters are pairs of y coordinates
+    for one x coordinate.
+    We return the clusters, i.e. a dict keyed by the fixed coordinate and
+    valued by the pair of segment coordinates.
+
+
+    Parameters
+    ----------
+    C: object
+        The configuration object of the book engine.
+    info: function
+        To write messages to the console
+    stages: dict
+        Intermediate cv2 images, keyed by stage name
+    pageSize: int
+        The width or height in pixels of a complete page. Note that
+        the image we work with, might be a fraction of a page
+    horizontal: boolean
+        Whether we do horizontal of vertical lines.
+    batch: boolean
+        Whether we run in batch mode.
+
+    Returns
+    -------
+    dict
+        Per fixed coordinate the list of line segments on that coordinate.
+        A line segment is specified by its begin and end values and the thickness of
+        the cluster it is in.
+    &#34;&#34;&#34;
+
+    debug = C.debug
+    strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
+
+    normalized = stages[&#34;normalized&#34;]
+    img = normalized if horizontal else normalized.T
+    label = &#34;HOR&#34; if horizontal else &#34;VER&#34;
+
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+        out = layout if horizontal else cv2.transpose(layout)
+
+    minLength = int(pageSize // 30 if horizontal else pageSize // 50)
+    afterLength = int(pageSize // 10 if horizontal else pageSize // 17)
+
+    # initial blur
+
+    initBlur = (13, 7) if horizontal else (7, 13)
+
+    blurred = cv2.GaussianBlur(img, initBlur, 0, 0)
+    (th, threshed) = cv2.threshold(
+        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+    )
+
+    # collect lines of a minimal length
+
+    sliced = threshed.copy()
+    for (n, row) in enumerate(sliced):
+        for (val, start, length) in zip(*findRuns(row)):
+            if val == 255:
+                if length &lt; minLength:
+                    row[start : start + length] = 0
+
+    if debug &gt; 1:
+        showImage(sliced if horizontal else sliced.T)
+
+    # second blur, now stronger
+
+    strongBlur = (21, 11) if horizontal else (11, 21)
+
+    blurred = cv2.GaussianBlur(sliced, strongBlur, 0, 0)
+    (th, threshed) = cv2.threshold(
+        blurred, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU
+    )
+
+    if debug &gt; 1:
+        showImage(threshed if horizontal else threshed.T)
+
+    # collect lines of a certain length, longer than before
+
+    lines = collections.defaultdict(set)
+    for (n, row) in enumerate(threshed):
+        for (val, start, length) in zip(*findRuns(row)):
+            if val == 255:
+                if length &gt;= afterLength:
+                    lines[n] |= set(range(start, start + length))
+
+    # cluster lines in bins corresponding to their constant coordinates:
+    # horizontal lines are clustered in bins on their y coordinate.
+    # vertical lines are clustered in bins on their x coordinate.
+
+    bins = []
+    for n in sorted(lines):
+        found = False
+        for (i, (b, e)) in enumerate(bins):
+            if b - 3 &lt;= n &lt;= e + 3:
+                if n &lt; b:
+                    bins[i][0] = n
+                if n &gt; e:
+                    bins[i][1] = n
+                found = True
+                break
+        if not found:
+            bins.append([n, n])
+
+    # combine the segments of all lines that are in the same bin
+
+    stretches = {}
+    for (b, e) in bins:
+        middle = int((b + e) // 2)
+        thickness = int((abs(e - b) + 1) // 2)
+        if thickness &lt;= 1:
+            continue
+        theseStretches = set()
+        for n in range(b, e):
+            if n in lines:
+                theseStretches |= lines[n]
+        segments = []
+        for (m1, m2) in rangesFromSet(theseStretches):
+            segments.append((m1, m2 + 1, thickness))
+        stretches[middle] = segments
+
+    for (n, segments) in sorted(stretches.items()):
+        for (f, t, half) in segments:
+            info(f&#34;{label} @ {n:&gt;4} thick={half:&gt;2} from {f:&gt;4} to {t:&gt;4}&#34;, tm=False)
+            if not batch:
+                cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
+
+    if not batch:
+        stages[&#34;layout&#34;] = out if horizontal else cv2.transpose(out)
+
+    if not batch and debug &gt; 1:
+        showImage(stages[&#34;layout&#34;])
+    return stretches
+
+
+def getStripes(stages, stretchesV):
+    &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
+
+    A vertical bar defines a stripe on the page, i.e. a horizontal band that
+    contains that bar.
+
+    Between the vertical bars there are also stripes, they are undivided stripes.
+
+    We assume the vertical bars split the page in two portions, and not more,
+    and that they occur more or less in the middle of the page.
+
+    If many vertical bars have been detected, we sort them by y1 ascending and then
+    y2 descending and then by x.
+
+    We filter the bars: if the last bar reached to y = height, we only consider
+    bars that start lower than height.
+
+    !!! note &#34;Fine tuning needed later on&#34;
+        The vertical strokes give a rough estimate:
+        it is possible that they start and end in the middle of the lines beside them.
+        We will need histograms for the fine tuning.
+
+    Parameters
+    ----------
+    stages: dict
+        We need access to the normalized stage to get the page size.
+    stretchesV: dict
+        Vertical line segments per x-coordinate, as delivered by `getStretches`.
+
+    Returns
+    -------
+    list
+        A list of stripes, specified as (x, y1, y2) values,
+        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
+        and x is the x coordinate of the dividing vertical stroke if there is one
+        and `None` otherwise.
+    &#34;&#34;&#34;
+
+    normalized = stages[&#34;normalized&#34;]
+    (maxH, maxW) = normalized.shape[0:2]
+    lastHeight = 0
+    segments = []
+    for (x, ys) in stretchesV.items():
+        for (y1, y2, thickness) in ys:
+            segments.append((y1, y2, x, thickness))
+    stripes = []
+    for (y1, y2, x, thickness) in sorted(
+        segments, key=lambda z: (z[0], -z[1], -z[3], -z[2] or -1)
+    ):
+        if y1 &gt; lastHeight:
+            stripes.append((None, lastHeight, y1))
+            stripes.append((x, y1, y2))
+            lastHeight = y2
+    if lastHeight &lt; maxH:
+        stripes.append((None, lastHeight, maxH))
+    return stripes
+
+
+def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
+    &#34;&#34;&#34;Fine-tune stripes into blocks.
+
+    We enlarge the stripes vertically by roughly a line height
+    and call `adjustVertical` to get precise vertical demarcations
+    for the blocks at both sides of the stripe if there is one or else
+    for the undivided stripe.
+
+    The idea is:
+
+    If a stripe has a vertical bar, we slightly extend the boxes left and right
+    so that the top and bottom lines next to the bar are completely included.
+
+    If a stripe has no vertical bar, we shrink the box
+    so that partial top and bottom lines are delegated to the boxes above
+    and below.
+    We only shrink if the box is close to the boxes above or below.
+    We do not grow boxes across significant horizontal strokes.
+
+    We write the box layout unto the `layout` layer.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    pageH: int
+        The height of a full page in pixels (the image might be a fraction of a page)
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    stretchesH: list
+        The horizontal stretches across which we do not shrink of enlarge
+    batch: boolean
+        Whether we run in batch mode.
+
+    Returns
+    -------
+    dict
+        Blocks keyed by stripe number and column specification
+        (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
+        The values form dicts themselves, with in particular the bounding box
+        information under key `box` specified as four numbers:
+        left, top, right, bottom.
+
+        The dict is ordered.
+    &#34;&#34;&#34;
+
+    marginX = C.blockMarginX
+    blockColor = C.blockRGB
+    letterColor = C.letterRGB
+    rotated = stages[&#34;rotated&#34;]
+    normalized = stages[&#34;normalized&#34;]
+
+    (maxH, maxW) = normalized.shape[0:2]
+
+    leeHeight = int(pageH // 20)
+
+    blocks = {}
+
+    upperHStretch = min(stretchesH) if stretchesH else 0
+    lowerHStretch = max(stretchesH) if stretchesH else maxH
+
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+
+    for (stripe, (x, yMin, yMax)) in enumerate(stripes):
+
+        yMinLee = max((0, yMin - leeHeight))
+        yMaxLee = min((maxH, yMax + leeHeight))
+
+        if x is None:
+            (theYMin, theYMax) = adjustVertical(
+                C, info, rotated, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+            )
+            blocks[(stripe, &#34;&#34;)] = dict(
+                box=(marginX, theYMin, maxW - marginX, theYMax),
+                sep=x,
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMin),
+                    (maxW - marginX, theYMax),
+                    blockColor,
+                    4,
+                )
+                addBlockName(layout, theYMin, 0, maxW, marginX, letterColor, stripe, &#34;&#34;)
+        else:
+            yMinLeeBound = (
+                yMinLee
+                if upperHStretch == 0 or upperHStretch &gt; yMin
+                else max((yMinLee, max(y for y in stretchesH if y &lt;= yMin)))
+            )
+            yMaxLeeBound = (
+                yMaxLee
+                if lowerHStretch == maxH or lowerHStretch &lt; yMax
+                else min((yMaxLee, min(y for y in stretchesH if y &gt;= yMax)))
+            )
+            (theYMinL, theYMaxL) = adjustVertical(
+                C,
+                info,
+                rotated,
+                pageH,
+                0,
+                x,
+                yMin,
+                yMinLeeBound,
+                yMax,
+                yMaxLeeBound,
+                True,
+            )
+            (theYMinR, theYMaxR) = adjustVertical(
+                C,
+                info,
+                rotated,
+                pageH,
+                x,
+                maxW,
+                yMin,
+                yMinLeeBound,
+                yMax,
+                yMaxLeeBound,
+                True,
+            )
+            blocks[(stripe, &#34;l&#34;)] = dict(
+                box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
+            )
+            blocks[(stripe, &#34;r&#34;)] = dict(
+                box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMinL),
+                    (x - marginX, theYMaxL),
+                    blockColor,
+                    4,
+                )
+                addBlockName(layout, theYMinL, 0, x, marginX, letterColor, stripe, &#34;l&#34;)
+                cv2.rectangle(
+                    layout,
+                    (x + marginX, theYMinR),
+                    (maxW - marginX, theYMaxR),
+                    blockColor,
+                    4,
+                )
+                addBlockName(
+                    layout, theYMinR, x, maxW, marginX, letterColor, stripe, &#34;r&#34;
+                )
+    return collections.OrderedDict(sorted(blocks.items()))
+
+
+def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
+    &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
+
+    Inspect the horizontal strokes and specifiy which ones are
+    top separators and which ones are bottom separators.
+
+    First we map each horizontal stretch to one of the page stripes.
+    If a stretch occurs between stripes, we map it to the stripe above.
+
+    A horizontal stroke is a top separator if
+    *   it is mapped to the first stripe **and**
+    *   it is situated in the top fragment of the page.
+
+    We mark the discarded material on the layout page by overlaying
+    it with gray.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    stretchesH: dict
+        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+    boxed: boolean
+        Whether we run in boxed mode (generate boxes around wiped marks).
+
+    Returns
+    -------
+    None
+        The blocks dict will be updated: each block value gets a new key `inner`
+        with the bounding box info after stripping the top and bottom material.
+    &#34;&#34;&#34;
+
+    mColor = C.marginRGB
+    whit = C.whiteGRS
+    white = C.whiteRGB
+    letterColor = C.letterRGB
+    normalized = stages[&#34;normalized&#34;]
+    demargined = normalized.copy()
+    stages[&#34;demargined&#34;] = demargined
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+    if not batch or boxed:
+        normalizedC = stages[&#34;normalizedC&#34;]
+        demarginedC = normalizedC.copy()
+        stages[&#34;demarginedC&#34;] = demarginedC
+
+    (maxH, maxW) = normalized.shape[0:2]
+
+    topCriterion = maxH / 6
+    topXCriterion = maxH / 4
+
+    for ((stripe, column), data) in blocks.items():
+        (bL, bT, bR, bB) = data[&#34;box&#34;]
+        x = data[&#34;sep&#34;]
+        top = None
+        bottom = None
+
+        for (y, xs) in sorted(stretchesH.items()):
+            if y &lt; bT:
+                continue
+            if bB &lt; y:
+                break
+            for (x1, x2, thickness) in xs:
+                if x is not None:
+                    if column == &#34;l&#34; and x1 &gt;= x:
+                        continue
+                    if column == &#34;r&#34; and x2 &lt;= x:
+                        continue
+                isTop = stripe == 0 and (
+                    len(stripes) == 1
+                    and y &lt; topCriterion
+                    or len(stripes) &gt; 1
+                    and y &lt; topXCriterion
+                )
+                if isTop:
+                    top = y + 2 * thickness + 2
+                else:
+                    if bottom is None:
+                        bottom = y - 2 * thickness - 2
+                if not batch:
+                    addHStroke(
+                        layout,
+                        isTop,
+                        stripe,
+                        column,
+                        thickness,
+                        y,
+                        x1,
+                        x2,
+                        letterColor,
+                    )
+
+        top = bT if top is None else top
+        bottom = bB if bottom is None else bottom
+        left = bL + 2
+        right = bR - 2
+        data[&#34;inner&#34;] = (left, top, right, bottom)
+
+        if top != bT:
+            if not batch:
+                overlay(layout, left, bT + 2, right, top, white, mColor)
+            cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, left, bT + 2, right, top, white, mColor)
+        if bottom != bB:
+            if not batch:
+                overlay(layout, left, bottom, right, bB - 2, white, mColor)
+            cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, left, bottom, right, bB - 2, white, mColor)
+
+
+def grayInterBlocks(C, stages, blocks):
+    &#34;&#34;&#34;Overlay the space between blocks with gray.
+
+    Remove also the empty blocks from the block list.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+        The blocks dict will be updated: empty blocks will be deleted from it.
+        with the band data.
+
+    Returns
+    -------
+    None.
+    &#34;&#34;&#34;
+
+    mColor = C.marginRGB
+    white = C.whiteRGB
+
+    layout = stages[&#34;layout&#34;]
+    (maxH, maxW) = layout.shape[0:2]
+
+    prevBB = [0, 0]
+    prevX = None
+    maxStripe = max(x[0] for x in blocks)
+    marginX = C.blockMarginX
+
+    # overlay the space between blocks
+
+    for ((stripe, column), data) in sorted(blocks.items()):
+        bT = data[&#34;box&#34;][1]
+        bB = data[&#34;box&#34;][3]
+        x = data[&#34;sep&#34;]
+        if column == &#34;&#34;:
+            if prevX is None:
+                pB = prevBB[0]
+                overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
+            else:
+                for (i, pB) in enumerate(prevBB):
+                    if pB &lt; bT:
+                        (lf, rt) = (
+                            (marginX, prevX - marginX)
+                            if i == 0
+                            else (prevX + marginX, maxW - marginX)
+                        )
+                        overlay(layout, lf, pB, rt, bT, white, mColor)
+            prevBB = [bB, bB]
+            prevX = None
+        elif column == &#34;l&#34;:
+            pB = prevBB[0]
+            if pB &lt; bT:
+                overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
+            prevBB[0] = bB
+            prevX = x
+        elif column == &#34;r&#34;:
+            pB = prevBB[1]
+            if pB &lt; bT:
+                overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
+            prevBB[1] = bB
+            prevX = x
+        if stripe == maxStripe:
+            if column == &#34;&#34;:
+                if bB &lt; maxH:
+                    overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
+            elif column == &#34;l&#34;:
+                if bB &lt; maxH:
+                    overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
+            elif column == &#34;r&#34;:
+                if bB &lt; maxH:
+                    overlay(
+                        layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
+                    )
+
+
+def adjustVertical(
+    C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+):
+    &#34;&#34;&#34;Adjust the height of blocks.
+
+    When we determine the vertical sizes of blocks from the vertical column separators
+    on the page, we may find that these separators are too short.
+
+    We remedy this by finding the line divisision of the ink left and right from the
+    dividing line, and enlarging the blocks left and right so that they contain
+    complete lines.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    info: function
+        To write messages to the console
+    rotated: image as np array
+        The input image. It must be the `rotated` stage of the source image,
+        which is blurred, inverted and de-skewed.
+    pageH: int
+        size of a full page in pixels
+    left, right: int
+        The left and right edges of the block
+    yMin: integer
+        the initial top edge of the block
+    yMinLee: integer
+        the top edge of the block when the leeway is applied
+    yMax: integer
+        the initial bottom edge of the block
+    yMaxLee: integer
+        the bottom edge of the block when the leeway is applied
+    preferExtend: boolean
+        Whether we want to increase or rather decrease the vertical size of the block.
+        Blocks next to dividing lines are meant to be increased, blocks that
+        span the whole page width are meant to be decreased.
+
+    Returns
+    -------
+    tuple
+        The corrected top and bottom heights of the block.
+    &#34;&#34;&#34;
+
+    theYMin = None
+    theYMax = None
+
+    if yMin == yMinLee:
+        theYMin = yMin
+    if yMax == yMaxLee:
+        theYMax = yMax
+    if theYMin is not None and theYMax is not None:
+        return (theYMin, theYMax)
+
+    lines = getInkY(
+        C, info, rotated, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
+    )
+    normHLee = yMaxLee - yMinLee
+    topProper = yMin - yMinLee
+    botProper = yMax - yMinLee
+
+    normLines = applyBandOffset(C, normHLee, &#34;main&#34;, lines)
+
+    if theYMin is None:
+        if preferExtend:
+            # look for the first lower boundary in the top of the strict region
+            # then take the corresponding upper boundary
+            for (i, (up, lo)) in enumerate(normLines):
+                if up &lt;= topProper and lo &gt;= topProper:
+                    theYMin = up + yMinLee
+                    break
+        else:
+            # look for the first upper boundary in the top of the strict region
+            for (up, lo) in normLines:
+                if up &gt;= topProper and lo &lt;= botProper:
+                    theYMin = up + yMinLee
+                    break
+        if theYMin is None:
+            theYMin = yMin
+
+    if theYMax is None:
+        if preferExtend:
+            # look for the last upper boundary in the bottom of the strict region
+            # then take the corresponding lower boundary
+            for (i, (up, lo)) in enumerate(reversed(normLines)):
+                if up &lt;= botProper and lo &gt;= botProper:
+                    theYMax = lo + yMinLee
+                    break
+        else:
+            # look for the last lower boundary in the bottom of the strict region
+            for (up, lo) in reversed(normLines):
+                if lo &lt;= botProper and up &gt;= topProper:
+                    theYMax = lo + yMinLee
+                    break
+        if theYMax is None:
+            theYMax = yMax
+
+    return (theYMin, theYMax)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.layout.addBlockName"><code class="name flex">
+<span>def <span class="ident">addBlockName</span></span>(<span>img, top, left, right, marginX, letterColor, stripe, kind, size=1.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds the name of a block of the page near the block.</p>
+<p>The function <code>fusus.page.doLayout</code> divides the page into blocks.
+This function puts the name of each block on the image, positioned
+suitably w.r.t. the block.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>the image to operate on</dd>
+<dt><strong><code>top</code></strong>, <strong><code>left</code></strong>, <strong><code>right</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Where the top, left, right edges of the image are.</dd>
+<dt><strong><code>marginX</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Where we set the left margin</dd>
+<dt><strong><code>letterColor</code></strong> :&ensp;<code>color</code></dt>
+<dd>The color of the letters</dd>
+<dt><strong><code>stripe</code></strong> :&ensp;<code>integer</code></dt>
+<dd>The stripe number. Stripes are horizontal page-wide regions corresponding
+to <em>vertical</em> column dividers.</dd>
+<dt><strong><code>kind</code></strong> :&ensp;<code>string</code></dt>
+<dd>Whether the block spans the whole page width (<code>""</code>), is in the left column
+("l") or in the right column ("r").</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
+<dd>The font-size of the letters.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>The source image receives a modification.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L17-L66" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
+    &#34;&#34;&#34;Adds the name of a block of the page near the block.
+
+    The function `fusus.page.doLayout` divides the page into blocks.
+    This function puts the name of each block on the image, positioned
+    suitably w.r.t. the block.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    top, left, right: integer
+        Where the top, left, right edges of the image are.
+    marginX: integer
+        Where we set the left margin
+    letterColor: color
+        The color of the letters
+    stripe: integer
+        The stripe number. Stripes are horizontal page-wide regions corresponding
+        to *vertical* column dividers.
+    kind: string
+        Whether the block spans the whole page width (`&#34;&#34;`), is in the left column
+        (&#34;l&#34;) or in the right column (&#34;r&#34;).
+    size: float
+        The font-size of the letters.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    weight = 3
+    offsetX = 80 + marginX
+    halfOffsetX = int(offsetX // 2)
+    offsetY = 60
+
+    x = halfOffsetX if kind == &#34;l&#34; or kind == &#34;&#34; else (right - offsetX)
+    y = top + offsetY
+    sep = &#34;&#34; if not kind else &#34;-&#34;
+    cv2.putText(
+        img,
+        f&#34;{stripe}{sep}{kind}&#34;,
+        (x, y),
+        FONT,
+        size,
+        letterColor,
+        weight,
+        cv2.LINE_AA,
+    )</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.addHStroke"><code class="name flex">
+<span>def <span class="ident">addHStroke</span></span>(<span>img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Marks a detected horizontal stroke on an image.</p>
+<p>The layout algorithm detects horizontal strokes.
+For feedback to the user, we draw a frame around the detected strokes and give
+them a name.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>the image to operate on</dd>
+<dt><strong><code>isTop</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>whether the stroke separates the top header from the rest of the page.</dd>
+<dt><strong><code>i</code></strong> :&ensp;<code>integer</code></dt>
+<dd>The number of the stroke</dd>
+<dt><strong><code>column</code></strong> :&ensp;<code>string {"l", "r", ""}</code></dt>
+<dd>The column in which the stroke is found</dd>
+<dt><strong><code>thickness</code></strong> :&ensp;<code>integer</code></dt>
+<dd>The thickness of the stroke as found on the image.</dd>
+<dt><strong><code>top</code></strong>, <strong><code>left</code></strong>, <strong><code>right</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Where the top, left, right edges of the image are.</dd>
+<dt><strong><code>letterColor</code></strong> :&ensp;<code>color</code></dt>
+<dd>The color of the letters</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
+<dd>The font-size of the letters.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>The source image receives a modification.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L69-L120" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def addHStroke(
+    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+):
+    &#34;&#34;&#34;Marks a detected horizontal stroke on an image.
+
+    The layout algorithm detects horizontal strokes.
+    For feedback to the user, we draw a frame around the detected strokes and give
+    them a name.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    isTop: boolean
+        whether the stroke separates the top header from the rest of the page.
+    i: integer
+        The number of the stroke
+    column: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
+        The column in which the stroke is found
+    thickness: integer
+        The thickness of the stroke as found on the image.
+    top, left, right: integer
+        Where the top, left, right edges of the image are.
+    letterColor: color
+        The color of the letters
+    size: float
+        The font-size of the letters.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    weight = 3
+    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
+    text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
+    offsetX = 60
+    offsetY = 30 if isTop else -30 - 2 * thickness
+    x = int(left + (right - left - offsetX) // 2)
+    y = top - offsetY
+
+    cv2.putText(
+        img,
+        text,
+        (x, y),
+        FONT,
+        size,
+        letterColor,
+        weight,
+        cv2.LINE_AA,
+    )</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.adjustVertical"><code class="name flex">
+<span>def <span class="ident">adjustVertical</span></span>(<span>C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adjust the height of blocks.</p>
+<p>When we determine the vertical sizes of blocks from the vertical column separators
+on the page, we may find that these separators are too short.</p>
+<p>We remedy this by finding the line divisision of the ink left and right from the
+dividing line, and enlarging the blocks left and right so that they contain
+complete lines.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>Configuration settings</dd>
+<dt><strong><code>info</code></strong> :&ensp;<code>function</code></dt>
+<dd>To write messages to the console</dd>
+<dt><strong><code>rotated</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>The input image. It must be the <code>rotated</code> stage of the source image,
+which is blurred, inverted and de-skewed.</dd>
+<dt><strong><code>pageH</code></strong> :&ensp;<code>int</code></dt>
+<dd>size of a full page in pixels</dd>
+<dt><strong><code>left</code></strong>, <strong><code>right</code></strong> :&ensp;<code>int</code></dt>
+<dd>The left and right edges of the block</dd>
+<dt><strong><code>yMin</code></strong> :&ensp;<code>integer</code></dt>
+<dd>the initial top edge of the block</dd>
+<dt><strong><code>yMinLee</code></strong> :&ensp;<code>integer</code></dt>
+<dd>the top edge of the block when the leeway is applied</dd>
+<dt><strong><code>yMax</code></strong> :&ensp;<code>integer</code></dt>
+<dd>the initial bottom edge of the block</dd>
+<dt><strong><code>yMaxLee</code></strong> :&ensp;<code>integer</code></dt>
+<dd>the bottom edge of the block when the leeway is applied</dd>
+<dt><strong><code>preferExtend</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>Whether we want to increase or rather decrease the vertical size of the block.
+Blocks next to dividing lines are meant to be increased, blocks that
+span the whole page width are meant to be decreased.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The corrected top and bottom heights of the block.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L683-L780" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def adjustVertical(
+    C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+):
+    &#34;&#34;&#34;Adjust the height of blocks.
+
+    When we determine the vertical sizes of blocks from the vertical column separators
+    on the page, we may find that these separators are too short.
+
+    We remedy this by finding the line divisision of the ink left and right from the
+    dividing line, and enlarging the blocks left and right so that they contain
+    complete lines.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    info: function
+        To write messages to the console
+    rotated: image as np array
+        The input image. It must be the `rotated` stage of the source image,
+        which is blurred, inverted and de-skewed.
+    pageH: int
+        size of a full page in pixels
+    left, right: int
+        The left and right edges of the block
+    yMin: integer
+        the initial top edge of the block
+    yMinLee: integer
+        the top edge of the block when the leeway is applied
+    yMax: integer
+        the initial bottom edge of the block
+    yMaxLee: integer
+        the bottom edge of the block when the leeway is applied
+    preferExtend: boolean
+        Whether we want to increase or rather decrease the vertical size of the block.
+        Blocks next to dividing lines are meant to be increased, blocks that
+        span the whole page width are meant to be decreased.
+
+    Returns
+    -------
+    tuple
+        The corrected top and bottom heights of the block.
+    &#34;&#34;&#34;
+
+    theYMin = None
+    theYMax = None
+
+    if yMin == yMinLee:
+        theYMin = yMin
+    if yMax == yMaxLee:
+        theYMax = yMax
+    if theYMin is not None and theYMax is not None:
+        return (theYMin, theYMax)
+
+    lines = getInkY(
+        C, info, rotated, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
+    )
+    normHLee = yMaxLee - yMinLee
+    topProper = yMin - yMinLee
+    botProper = yMax - yMinLee
+
+    normLines = applyBandOffset(C, normHLee, &#34;main&#34;, lines)
+
+    if theYMin is None:
+        if preferExtend:
+            # look for the first lower boundary in the top of the strict region
+            # then take the corresponding upper boundary
+            for (i, (up, lo)) in enumerate(normLines):
+                if up &lt;= topProper and lo &gt;= topProper:
+                    theYMin = up + yMinLee
+                    break
+        else:
+            # look for the first upper boundary in the top of the strict region
+            for (up, lo) in normLines:
+                if up &gt;= topProper and lo &lt;= botProper:
+                    theYMin = up + yMinLee
+                    break
+        if theYMin is None:
+            theYMin = yMin
+
+    if theYMax is None:
+        if preferExtend:
+            # look for the last upper boundary in the bottom of the strict region
+            # then take the corresponding lower boundary
+            for (i, (up, lo)) in enumerate(reversed(normLines)):
+                if up &lt;= botProper and lo &gt;= botProper:
+                    theYMax = lo + yMinLee
+                    break
+        else:
+            # look for the last lower boundary in the bottom of the strict region
+            for (up, lo) in reversed(normLines):
+                if lo &lt;= botProper and up &gt;= topProper:
+                    theYMax = lo + yMinLee
+                    break
+        if theYMax is None:
+            theYMax = yMax
+
+    return (theYMin, theYMax)</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.applyHRules"><code class="name flex">
+<span>def <span class="ident">applyHRules</span></span>(<span>C, stages, stretchesH, stripes, blocks, batch, boxed)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Trims regions above horizontal top lines and below bottom lines.</p>
+<p>Inspect the horizontal strokes and specifiy which ones are
+top separators and which ones are bottom separators.</p>
+<p>First we map each horizontal stretch to one of the page stripes.
+If a stretch occurs between stripes, we map it to the stripe above.</p>
+<p>A horizontal stroke is a top separator if
+*
+it is mapped to the first stripe <strong>and</strong>
+*
+it is situated in the top fragment of the page.</p>
+<p>We mark the discarded material on the layout page by overlaying
+it with gray.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>Configuration settings</dd>
+<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>We need access to several intermediate results.</dd>
+<dt><strong><code>stretchesH</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Horizontal line segments per y-coordinate, as delivered by <code><a title="fusus.layout.getStretches" href="#fusus.layout.getStretches">getStretches()</a></code>.</dd>
+<dt><strong><code>stripes</code></strong> :&ensp;<code>list</code></dt>
+<dd>The preliminary stripe division of the page, as delivered by
+<code><a title="fusus.layout.getStripes" href="#fusus.layout.getStripes">getStripes()</a></code>.</dd>
+<dt><strong><code>blocks</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The blocks as delivered by <code><a title="fusus.layout.getBlocks" href="#fusus.layout.getBlocks">getBlocks()</a></code>.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>Whether we run in boxed mode (generate boxes around wiped marks).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>The blocks dict will be updated: each block value gets a new key <code>inner</code>
+with the bounding box info after stripping the top and bottom material.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L485-L601" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
+    &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
+
+    Inspect the horizontal strokes and specifiy which ones are
+    top separators and which ones are bottom separators.
+
+    First we map each horizontal stretch to one of the page stripes.
+    If a stretch occurs between stripes, we map it to the stripe above.
+
+    A horizontal stroke is a top separator if
+    *   it is mapped to the first stripe **and**
+    *   it is situated in the top fragment of the page.
+
+    We mark the discarded material on the layout page by overlaying
+    it with gray.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    stretchesH: dict
+        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+    boxed: boolean
+        Whether we run in boxed mode (generate boxes around wiped marks).
+
+    Returns
+    -------
+    None
+        The blocks dict will be updated: each block value gets a new key `inner`
+        with the bounding box info after stripping the top and bottom material.
+    &#34;&#34;&#34;
+
+    mColor = C.marginRGB
+    whit = C.whiteGRS
+    white = C.whiteRGB
+    letterColor = C.letterRGB
+    normalized = stages[&#34;normalized&#34;]
+    demargined = normalized.copy()
+    stages[&#34;demargined&#34;] = demargined
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+    if not batch or boxed:
+        normalizedC = stages[&#34;normalizedC&#34;]
+        demarginedC = normalizedC.copy()
+        stages[&#34;demarginedC&#34;] = demarginedC
+
+    (maxH, maxW) = normalized.shape[0:2]
+
+    topCriterion = maxH / 6
+    topXCriterion = maxH / 4
+
+    for ((stripe, column), data) in blocks.items():
+        (bL, bT, bR, bB) = data[&#34;box&#34;]
+        x = data[&#34;sep&#34;]
+        top = None
+        bottom = None
+
+        for (y, xs) in sorted(stretchesH.items()):
+            if y &lt; bT:
+                continue
+            if bB &lt; y:
+                break
+            for (x1, x2, thickness) in xs:
+                if x is not None:
+                    if column == &#34;l&#34; and x1 &gt;= x:
+                        continue
+                    if column == &#34;r&#34; and x2 &lt;= x:
+                        continue
+                isTop = stripe == 0 and (
+                    len(stripes) == 1
+                    and y &lt; topCriterion
+                    or len(stripes) &gt; 1
+                    and y &lt; topXCriterion
+                )
+                if isTop:
+                    top = y + 2 * thickness + 2
+                else:
+                    if bottom is None:
+                        bottom = y - 2 * thickness - 2
+                if not batch:
+                    addHStroke(
+                        layout,
+                        isTop,
+                        stripe,
+                        column,
+                        thickness,
+                        y,
+                        x1,
+                        x2,
+                        letterColor,
+                    )
+
+        top = bT if top is None else top
+        bottom = bB if bottom is None else bottom
+        left = bL + 2
+        right = bR - 2
+        data[&#34;inner&#34;] = (left, top, right, bottom)
+
+        if top != bT:
+            if not batch:
+                overlay(layout, left, bT + 2, right, top, white, mColor)
+            cv2.rectangle(demargined, (left, bT), (right, top), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, left, bT + 2, right, top, white, mColor)
+        if bottom != bB:
+            if not batch:
+                overlay(layout, left, bottom, right, bB - 2, white, mColor)
+            cv2.rectangle(demargined, (left, bottom), (right, bB), whit, -1)
+            if not batch or boxed:
+                overlay(demarginedC, left, bottom, right, bB - 2, white, mColor)</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.getBlocks"><code class="name flex">
+<span>def <span class="ident">getBlocks</span></span>(<span>C, info, stages, pageH, stripes, stretchesH, batch)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fine-tune stripes into blocks.</p>
+<p>We enlarge the stripes vertically by roughly a line height
+and call <code><a title="fusus.layout.adjustVertical" href="#fusus.layout.adjustVertical">adjustVertical()</a></code> to get precise vertical demarcations
+for the blocks at both sides of the stripe if there is one or else
+for the undivided stripe.</p>
+<p>The idea is:</p>
+<p>If a stripe has a vertical bar, we slightly extend the boxes left and right
+so that the top and bottom lines next to the bar are completely included.</p>
+<p>If a stripe has no vertical bar, we shrink the box
+so that partial top and bottom lines are delegated to the boxes above
+and below.
+We only shrink if the box is close to the boxes above or below.
+We do not grow boxes across significant horizontal strokes.</p>
+<p>We write the box layout unto the <code>layout</code> layer.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>Configuration settings</dd>
+<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>We need access to several intermediate results.</dd>
+<dt><strong><code>pageH</code></strong> :&ensp;<code>int</code></dt>
+<dd>The height of a full page in pixels (the image might be a fraction of a page)</dd>
+<dt><strong><code>stripes</code></strong> :&ensp;<code>list</code></dt>
+<dd>The preliminary stripe division of the page, as delivered by
+<code><a title="fusus.layout.getStripes" href="#fusus.layout.getStripes">getStripes()</a></code>.</dd>
+<dt><strong><code>stretchesH</code></strong> :&ensp;<code>list</code></dt>
+<dd>The horizontal stretches across which we do not shrink of enlarge</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>Whether we run in batch mode.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>
+<p>Blocks keyed by stripe number and column specification
+(one of <code>""</code>, <code>"l"</code>, <code>"r"</code>).
+The values form dicts themselves, with in particular the bounding box
+information under key <code>box</code> specified as four numbers:
+left, top, right, bottom.</p>
+<p>The dict is ordered.</p>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L331-L482" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
+    &#34;&#34;&#34;Fine-tune stripes into blocks.
+
+    We enlarge the stripes vertically by roughly a line height
+    and call `adjustVertical` to get precise vertical demarcations
+    for the blocks at both sides of the stripe if there is one or else
+    for the undivided stripe.
+
+    The idea is:
+
+    If a stripe has a vertical bar, we slightly extend the boxes left and right
+    so that the top and bottom lines next to the bar are completely included.
+
+    If a stripe has no vertical bar, we shrink the box
+    so that partial top and bottom lines are delegated to the boxes above
+    and below.
+    We only shrink if the box is close to the boxes above or below.
+    We do not grow boxes across significant horizontal strokes.
+
+    We write the box layout unto the `layout` layer.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    pageH: int
+        The height of a full page in pixels (the image might be a fraction of a page)
+    stripes: list
+        The preliminary stripe division of the page, as delivered by
+        `getStripes`.
+    stretchesH: list
+        The horizontal stretches across which we do not shrink of enlarge
+    batch: boolean
+        Whether we run in batch mode.
+
+    Returns
+    -------
+    dict
+        Blocks keyed by stripe number and column specification
+        (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
+        The values form dicts themselves, with in particular the bounding box
+        information under key `box` specified as four numbers:
+        left, top, right, bottom.
+
+        The dict is ordered.
+    &#34;&#34;&#34;
+
+    marginX = C.blockMarginX
+    blockColor = C.blockRGB
+    letterColor = C.letterRGB
+    rotated = stages[&#34;rotated&#34;]
+    normalized = stages[&#34;normalized&#34;]
+
+    (maxH, maxW) = normalized.shape[0:2]
+
+    leeHeight = int(pageH // 20)
+
+    blocks = {}
+
+    upperHStretch = min(stretchesH) if stretchesH else 0
+    lowerHStretch = max(stretchesH) if stretchesH else maxH
+
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+
+    for (stripe, (x, yMin, yMax)) in enumerate(stripes):
+
+        yMinLee = max((0, yMin - leeHeight))
+        yMaxLee = min((maxH, yMax + leeHeight))
+
+        if x is None:
+            (theYMin, theYMax) = adjustVertical(
+                C, info, rotated, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+            )
+            blocks[(stripe, &#34;&#34;)] = dict(
+                box=(marginX, theYMin, maxW - marginX, theYMax),
+                sep=x,
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMin),
+                    (maxW - marginX, theYMax),
+                    blockColor,
+                    4,
+                )
+                addBlockName(layout, theYMin, 0, maxW, marginX, letterColor, stripe, &#34;&#34;)
+        else:
+            yMinLeeBound = (
+                yMinLee
+                if upperHStretch == 0 or upperHStretch &gt; yMin
+                else max((yMinLee, max(y for y in stretchesH if y &lt;= yMin)))
+            )
+            yMaxLeeBound = (
+                yMaxLee
+                if lowerHStretch == maxH or lowerHStretch &lt; yMax
+                else min((yMaxLee, min(y for y in stretchesH if y &gt;= yMax)))
+            )
+            (theYMinL, theYMaxL) = adjustVertical(
+                C,
+                info,
+                rotated,
+                pageH,
+                0,
+                x,
+                yMin,
+                yMinLeeBound,
+                yMax,
+                yMaxLeeBound,
+                True,
+            )
+            (theYMinR, theYMaxR) = adjustVertical(
+                C,
+                info,
+                rotated,
+                pageH,
+                x,
+                maxW,
+                yMin,
+                yMinLeeBound,
+                yMax,
+                yMaxLeeBound,
+                True,
+            )
+            blocks[(stripe, &#34;l&#34;)] = dict(
+                box=(marginX, theYMinL, x - marginX, theYMaxL), sep=x
+            )
+            blocks[(stripe, &#34;r&#34;)] = dict(
+                box=(x + marginX, theYMinR, maxW - marginX, theYMaxR), sep=x
+            )
+            if not batch:
+                cv2.rectangle(
+                    layout,
+                    (marginX, theYMinL),
+                    (x - marginX, theYMaxL),
+                    blockColor,
+                    4,
+                )
+                addBlockName(layout, theYMinL, 0, x, marginX, letterColor, stripe, &#34;l&#34;)
+                cv2.rectangle(
+                    layout,
+                    (x + marginX, theYMinR),
+                    (maxW - marginX, theYMaxR),
+                    blockColor,
+                    4,
+                )
+                addBlockName(
+                    layout, theYMinR, x, maxW, marginX, letterColor, stripe, &#34;r&#34;
+                )
+    return collections.OrderedDict(sorted(blocks.items()))</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.getStretches"><code class="name flex">
+<span>def <span class="ident">getStretches</span></span>(<span>C, info, stages, pageSize, horizontal, batch)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets significant horizontal or vertical strokes.</p>
+<p>Significant strokes are those that are not part of letters,
+but ones that are used as separators, e.g. of footnotes and columns.</p>
+<p>We single out 1-pixel wide lines longer than a small threshold
+in the appropriate direction, and blacken the rest.
+Then we blur in the perpendicular direction.
+Now we single out longer 1-pixel wide lines and cluster in the perpendicular
+direction.</p>
+<p>Clusters are line segments with nearly the same constant coordinate.
+If we do horizontal lines, clusters are pairs of x coordinates
+for one y coordinate.
+If we do vertical lines, clusters are pairs of y coordinates
+for one x coordinate.
+We return the clusters, i.e. a dict keyed by the fixed coordinate and
+valued by the pair of segment coordinates.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>The configuration object of the book engine.</dd>
+<dt><strong><code>info</code></strong> :&ensp;<code>function</code></dt>
+<dd>To write messages to the console</dd>
+<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Intermediate cv2 images, keyed by stage name</dd>
+<dt><strong><code>pageSize</code></strong> :&ensp;<code>int</code></dt>
+<dd>The width or height in pixels of a complete page. Note that
+the image we work with, might be a fraction of a page</dd>
+<dt><strong><code>horizontal</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>Whether we do horizontal of vertical lines.</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>Whether we run in batch mode.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Per fixed coordinate the list of line segments on that coordinate.
+A line segment is specified by its begin and end values and the thickness of
+the cluster it is in.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L123-L270" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getStretches(C, info, stages, pageSize, horizontal, batch):
+    &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
+
+    Significant strokes are those that are not part of letters,
+    but ones that are used as separators, e.g. of footnotes and columns.
+
+    We single out 1-pixel wide lines longer than a small threshold
+    in the appropriate direction, and blacken the rest.
+    Then we blur in the perpendicular direction.
+    Now we single out longer 1-pixel wide lines and cluster in the perpendicular
+    direction.
+
+    Clusters are line segments with nearly the same constant coordinate.
+    If we do horizontal lines, clusters are pairs of x coordinates
+    for one y coordinate.
+    If we do vertical lines, clusters are pairs of y coordinates
+    for one x coordinate.
+    We return the clusters, i.e. a dict keyed by the fixed coordinate and
+    valued by the pair of segment coordinates.
+
+
+    Parameters
+    ----------
+    C: object
+        The configuration object of the book engine.
+    info: function
+        To write messages to the console
+    stages: dict
+        Intermediate cv2 images, keyed by stage name
+    pageSize: int
+        The width or height in pixels of a complete page. Note that
+        the image we work with, might be a fraction of a page
+    horizontal: boolean
+        Whether we do horizontal of vertical lines.
+    batch: boolean
+        Whether we run in batch mode.
+
+    Returns
+    -------
+    dict
+        Per fixed coordinate the list of line segments on that coordinate.
+        A line segment is specified by its begin and end values and the thickness of
+        the cluster it is in.
+    &#34;&#34;&#34;
+
+    debug = C.debug
+    strokeColor = C.horizontalStrokeRGB if horizontal else C.verticalStrokeRGB
+
+    normalized = stages[&#34;normalized&#34;]
+    img = normalized if horizontal else normalized.T
+    label = &#34;HOR&#34; if horizontal else &#34;VER&#34;
+
+    if not batch:
+        layout = stages[&#34;layout&#34;]
+        out = layout if horizontal else cv2.transpose(layout)
+
+    minLength = int(pageSize // 30 if horizontal else pageSize // 50)
+    afterLength = int(pageSize // 10 if horizontal else pageSize // 17)
+
+    # initial blur
+
+    initBlur = (13, 7) if horizontal else (7, 13)
+
+    blurred = cv2.GaussianBlur(img, initBlur, 0, 0)
+    (th, threshed) = cv2.threshold(
+        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+    )
+
+    # collect lines of a minimal length
+
+    sliced = threshed.copy()
+    for (n, row) in enumerate(sliced):
+        for (val, start, length) in zip(*findRuns(row)):
+            if val == 255:
+                if length &lt; minLength:
+                    row[start : start + length] = 0
+
+    if debug &gt; 1:
+        showImage(sliced if horizontal else sliced.T)
+
+    # second blur, now stronger
+
+    strongBlur = (21, 11) if horizontal else (11, 21)
+
+    blurred = cv2.GaussianBlur(sliced, strongBlur, 0, 0)
+    (th, threshed) = cv2.threshold(
+        blurred, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU
+    )
+
+    if debug &gt; 1:
+        showImage(threshed if horizontal else threshed.T)
+
+    # collect lines of a certain length, longer than before
+
+    lines = collections.defaultdict(set)
+    for (n, row) in enumerate(threshed):
+        for (val, start, length) in zip(*findRuns(row)):
+            if val == 255:
+                if length &gt;= afterLength:
+                    lines[n] |= set(range(start, start + length))
+
+    # cluster lines in bins corresponding to their constant coordinates:
+    # horizontal lines are clustered in bins on their y coordinate.
+    # vertical lines are clustered in bins on their x coordinate.
+
+    bins = []
+    for n in sorted(lines):
+        found = False
+        for (i, (b, e)) in enumerate(bins):
+            if b - 3 &lt;= n &lt;= e + 3:
+                if n &lt; b:
+                    bins[i][0] = n
+                if n &gt; e:
+                    bins[i][1] = n
+                found = True
+                break
+        if not found:
+            bins.append([n, n])
+
+    # combine the segments of all lines that are in the same bin
+
+    stretches = {}
+    for (b, e) in bins:
+        middle = int((b + e) // 2)
+        thickness = int((abs(e - b) + 1) // 2)
+        if thickness &lt;= 1:
+            continue
+        theseStretches = set()
+        for n in range(b, e):
+            if n in lines:
+                theseStretches |= lines[n]
+        segments = []
+        for (m1, m2) in rangesFromSet(theseStretches):
+            segments.append((m1, m2 + 1, thickness))
+        stretches[middle] = segments
+
+    for (n, segments) in sorted(stretches.items()):
+        for (f, t, half) in segments:
+            info(f&#34;{label} @ {n:&gt;4} thick={half:&gt;2} from {f:&gt;4} to {t:&gt;4}&#34;, tm=False)
+            if not batch:
+                cv2.rectangle(out, (f, n - half - 2), (t, n + half + 2), strokeColor, 3)
+
+    if not batch:
+        stages[&#34;layout&#34;] = out if horizontal else cv2.transpose(out)
+
+    if not batch and debug &gt; 1:
+        showImage(stages[&#34;layout&#34;])
+    return stretches</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.getStripes"><code class="name flex">
+<span>def <span class="ident">getStripes</span></span>(<span>stages, stretchesV)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Infer horizontal stripes from a set of vertical bars.</p>
+<p>A vertical bar defines a stripe on the page, i.e. a horizontal band that
+contains that bar.</p>
+<p>Between the vertical bars there are also stripes, they are undivided stripes.</p>
+<p>We assume the vertical bars split the page in two portions, and not more,
+and that they occur more or less in the middle of the page.</p>
+<p>If many vertical bars have been detected, we sort them by y1 ascending and then
+y2 descending and then by x.</p>
+<p>We filter the bars: if the last bar reached to y = height, we only consider
+bars that start lower than height.</p>
+<div class="admonition note">
+<p class="admonition-title">Fine tuning needed later on</p>
+<p>The vertical strokes give a rough estimate:
+it is possible that they start and end in the middle of the lines beside them.
+We will need histograms for the fine tuning.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>We need access to the normalized stage to get the page size.</dd>
+<dt><strong><code>stretchesV</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Vertical line segments per x-coordinate, as delivered by <code><a title="fusus.layout.getStretches" href="#fusus.layout.getStretches">getStretches()</a></code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>A list of stripes, specified as (x, y1, y2) values,
+where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
+and x is the x coordinate of the dividing vertical stroke if there is one
+and <code>None</code> otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L273-L328" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getStripes(stages, stretchesV):
+    &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
+
+    A vertical bar defines a stripe on the page, i.e. a horizontal band that
+    contains that bar.
+
+    Between the vertical bars there are also stripes, they are undivided stripes.
+
+    We assume the vertical bars split the page in two portions, and not more,
+    and that they occur more or less in the middle of the page.
+
+    If many vertical bars have been detected, we sort them by y1 ascending and then
+    y2 descending and then by x.
+
+    We filter the bars: if the last bar reached to y = height, we only consider
+    bars that start lower than height.
+
+    !!! note &#34;Fine tuning needed later on&#34;
+        The vertical strokes give a rough estimate:
+        it is possible that they start and end in the middle of the lines beside them.
+        We will need histograms for the fine tuning.
+
+    Parameters
+    ----------
+    stages: dict
+        We need access to the normalized stage to get the page size.
+    stretchesV: dict
+        Vertical line segments per x-coordinate, as delivered by `getStretches`.
+
+    Returns
+    -------
+    list
+        A list of stripes, specified as (x, y1, y2) values,
+        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
+        and x is the x coordinate of the dividing vertical stroke if there is one
+        and `None` otherwise.
+    &#34;&#34;&#34;
+
+    normalized = stages[&#34;normalized&#34;]
+    (maxH, maxW) = normalized.shape[0:2]
+    lastHeight = 0
+    segments = []
+    for (x, ys) in stretchesV.items():
+        for (y1, y2, thickness) in ys:
+            segments.append((y1, y2, x, thickness))
+    stripes = []
+    for (y1, y2, x, thickness) in sorted(
+        segments, key=lambda z: (z[0], -z[1], -z[3], -z[2] or -1)
+    ):
+        if y1 &gt; lastHeight:
+            stripes.append((None, lastHeight, y1))
+            stripes.append((x, y1, y2))
+            lastHeight = y2
+    if lastHeight &lt; maxH:
+        stripes.append((None, lastHeight, maxH))
+    return stripes</code></pre>
+</details>
+</dd>
+<dt id="fusus.layout.grayInterBlocks"><code class="name flex">
+<span>def <span class="ident">grayInterBlocks</span></span>(<span>C, stages, blocks)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Overlay the space between blocks with gray.</p>
+<p>Remove also the empty blocks from the block list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>Configuration settings</dd>
+<dt><strong><code>stages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>We need access to several intermediate results.</dd>
+<dt><strong><code>blocks</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The blocks as delivered by <code><a title="fusus.layout.getBlocks" href="#fusus.layout.getBlocks">getBlocks()</a></code>.
+The blocks dict will be updated: empty blocks will be deleted from it.
+with the band data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L604-L680" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def grayInterBlocks(C, stages, blocks):
+    &#34;&#34;&#34;Overlay the space between blocks with gray.
+
+    Remove also the empty blocks from the block list.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    stages: dict
+        We need access to several intermediate results.
+    blocks: dict
+        The blocks as delivered by `getBlocks`.
+        The blocks dict will be updated: empty blocks will be deleted from it.
+        with the band data.
+
+    Returns
+    -------
+    None.
+    &#34;&#34;&#34;
+
+    mColor = C.marginRGB
+    white = C.whiteRGB
+
+    layout = stages[&#34;layout&#34;]
+    (maxH, maxW) = layout.shape[0:2]
+
+    prevBB = [0, 0]
+    prevX = None
+    maxStripe = max(x[0] for x in blocks)
+    marginX = C.blockMarginX
+
+    # overlay the space between blocks
+
+    for ((stripe, column), data) in sorted(blocks.items()):
+        bT = data[&#34;box&#34;][1]
+        bB = data[&#34;box&#34;][3]
+        x = data[&#34;sep&#34;]
+        if column == &#34;&#34;:
+            if prevX is None:
+                pB = prevBB[0]
+                overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
+            else:
+                for (i, pB) in enumerate(prevBB):
+                    if pB &lt; bT:
+                        (lf, rt) = (
+                            (marginX, prevX - marginX)
+                            if i == 0
+                            else (prevX + marginX, maxW - marginX)
+                        )
+                        overlay(layout, lf, pB, rt, bT, white, mColor)
+            prevBB = [bB, bB]
+            prevX = None
+        elif column == &#34;l&#34;:
+            pB = prevBB[0]
+            if pB &lt; bT:
+                overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
+            prevBB[0] = bB
+            prevX = x
+        elif column == &#34;r&#34;:
+            pB = prevBB[1]
+            if pB &lt; bT:
+                overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
+            prevBB[1] = bB
+            prevX = x
+        if stripe == maxStripe:
+            if column == &#34;&#34;:
+                if bB &lt; maxH:
+                    overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
+            elif column == &#34;l&#34;:
+                if bB &lt; maxH:
+                    overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
+            elif column == &#34;r&#34;:
+                if bB &lt; maxH:
+                    overlay(
+                        layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
+                    )</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="fusus.layout.addBlockName" href="#fusus.layout.addBlockName">addBlockName</a></code></li>
+<li><code><a title="fusus.layout.addHStroke" href="#fusus.layout.addHStroke">addHStroke</a></code></li>
+<li><code><a title="fusus.layout.adjustVertical" href="#fusus.layout.adjustVertical">adjustVertical</a></code></li>
+<li><code><a title="fusus.layout.applyHRules" href="#fusus.layout.applyHRules">applyHRules</a></code></li>
+<li><code><a title="fusus.layout.getBlocks" href="#fusus.layout.getBlocks">getBlocks</a></code></li>
+<li><code><a title="fusus.layout.getStretches" href="#fusus.layout.getStretches">getStretches</a></code></li>
+<li><code><a title="fusus.layout.getStripes" href="#fusus.layout.getStripes">getStripes</a></code></li>
+<li><code><a title="fusus.layout.grayInterBlocks" href="#fusus.layout.grayInterBlocks">grayInterBlocks</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://www.annotation.nl">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
