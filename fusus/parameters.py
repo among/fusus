@@ -10,6 +10,8 @@ ORG = "among"
 REPO = "fusus"
 REPO_DIR = f"{BASE}/{ORG}/{REPO}"
 PROGRAM_DIR = f"{REPO_DIR}/{REPO}"
+LOCAL_DIR = f"{REPO_DIR}/_local"
+SOURCE_DIR = f"{LOCAL_DIR}/source"
 
 KRAKEN = dict(
     modelPath=f"{REPO_DIR}/model/arabic_generalized.mlmodel"
