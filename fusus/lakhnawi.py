@@ -54,7 +54,7 @@ p.r {
 }
 .l {
     font-family: normal, sans-serif;
-    font-size: medium;
+    font-size: xx-large;
     direction: ltr;
     unicode-bidi: isolate-override;
 }
@@ -78,6 +78,10 @@ td {
     text-align: left ! important;
 }
 div.cn {
+    text-align: center
+}
+div.ch.p {
+    background-color: #ffeedd;
     text-align: center
 }
 span.cni {
@@ -118,8 +122,6 @@ SEMITIC_RANGES = (
     ("fb1d", "fb4f"),
 )
 
-NO_SPACING_RANGES = (("064b", "0652"),)
-
 BRACKET_RANGES = (
     ("0028", "0029"),  # parentheses
     ("003c", "003c"),  # less than
@@ -152,25 +154,144 @@ NEUTRAL_DIRECTION_RANGES = (
     ("201e", "206f"),
 )
 
+NO_SPACING_RANGES = (
+    ("060c", "060c"),
+    ("064b", "065f"),
+    # ("fc5e", "fc63"),
+    ("fcf2", "fcf4"),
+    ("fe77", "fe77"),
+    ("fe79", "fe79"),
+    ("fe7b", "fe7b"),
+    ("fe7d", "fe7d"),
+    ("fe7f", "fe7f"),
+)
+
+DIACRITIC_RANGES = (
+    ("064b", "065f"),
+    ("064b", "065f"),
+    ("fc5e", "fc63"),
+    ("fcf2", "fcf4"),
+    ("fe77", "fe77"),
+    ("fe79", "fe79"),
+    ("fe7b", "fe7b"),
+    ("fe7d", "fe7d"),
+    ("fe7f", "fe7f"),
+)
+
+PRIVATE_SPACE = "\uea75"
+
+PRIVATE_LETTERS_DEF = """
+e800
+e806
+e807
+e808
+e809
+e80a
+e80e
+e898
+e8d4
+e8e9
+e915
+e917
+ea79
+"""
+
+PRIVATE_DIAS_DEF = """
+e812
+e814
+e815
+e816
+e817
+e818
+e81d
+e821
+e823
+e824
+e825
+e826
+e827
+e828
+e829
+e82b
+e82e
+e82f
+e830
+e831
+e832
+e833
+e834
+e835
+e837
+e838
+e839
+e83a
+e83f
+e840
+e845
+e846
+e849
+e84d
+e85b
+e85c
+e863
+e864
+e86d
+e87f
+e880
+e887
+e888
+e8de
+e8df
+e8e6
+e8e7
+e8e8
+e8e9
+e8ea
+e8eb
+e8ee
+e8f4
+e8f5
+e8f6
+e8f8
+e8fb
+e8fe
+"""
+
+
 REPLACE_DEF = """
-0627+0648+e815 => 0623+064e+0648 : ALIF+x+HAMZA|FATA => ALIF|HAMZA+FATA+x
-0627+e80a+e815 => 0623+064e+e80a : ALIF+x+HAMZA|FATA => ALIF|HAMZA+FATA+x
-0627+fe97+e816 => 0623+064f+fe97 : ALIF+x+HAMZA|DAMMA => ALIF|HAMZA+DAMMA+x
-0627+e815      => 0623+064e      : ALIF+HAMZA|FATA => ALIF|HAMZA+FATA
-0627+e816      => 0623+064f      : ALIF+HAMZA|DAMMA => ALIF|HAMZA+DAMMA
-e80a+e806      => fefb           : LAM/ALEF LIGATURE (isolated)
-e80e+e807      => fefc           : LAM/ALEF LIGATURE (final)
-e821+e82b      => 0670+0640      : TATWEEL+SUPERSCRIPT ALEF
-e821           => 0640           : TATWEEL (short)
+060c+e8e9      => 064f+060c      : COMMA+DAMMA => DAMMA+COMMA
+# 0627+0646+e815 => 0623+064e+0646 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
+# 0627+0648+e815 => 0623+064e+0648 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
+# 0627+e80a+e815 => 0623+064e+e80a : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
+# 0627+fe97+e816 => 0623+064f+fe97 : ALIF+x+HAMZA/DAMMA => ALIF/HAMZA+DAMMA+x
+0627+e815      => 0623+064e      : ALIF+HAMZA/FATA => ALIF/HAMZA+FATA
+0627+e816      => 0623+064f      : ALIF+HAMZA/DAMMA => ALIF/HAMZA+DAMMA
+e80a+e806      => fefb           : LAM/ALEF (isolated)
+e80a+d+e806    => fefb+d         : LAM/ALEF (isolated) with intervening diacritic
+e80e+e807      => fefc           : LAM/ALEF (final)
+e80e+d+e807    => fefc+d         : LAM/ALEF (final) with intervening diacritic
+e80e+e821+d+e807=> fefc+d        : LAM/ALEF (final) with intervening tatweel,diacritic
+# e821+e82b      => 0670+0640      : TATWEEL+ALEFsuper => ALEFsuper+TATWEEL
+# e821+064e      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
+# e821+e825      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
+# e821+064f      => 0650+064f      : TATWEEL+DAMMA => DAMMA+TATWEEL
+# e821+e8e9      => 0650+064f      : TATWEEL+DAMMA => DAMMA+TATWEEL
+# e821+0650      => 0650+0640      : TATWEEL+KASRA => KASRA+TATWEEL
+# e821+e864      => 0650+0640      : TATWEEL+KASRA => KASRA+TATWEEL
+# e821+0652      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
+# e821+e828      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
+# e821+fc60      => 064e+0651      : TATWEEL+SHADDA/FATHA => SHADDA+FATHA
+e821           =>                : TATWEEL (ignore short tatweel)
+# e821           => 0640           : TATWEEL (short)
 e823           => 064b           : FATHATAN (high)
 e825           => 064e           : FATHA (high)
 e826           => 064f           : DAMMA (high)
 e827           => 0651           : SHADDA (high)
 e828           => 0652           : SUKUN (high)
 e82b           => 0670           : SUPERSCRIPT ALEF
-e830           => fcf2           : FATHA|SHADDA medial
-e831           => fcf3           : DAMMA|SHADDA medial
-e832           => fcf4           : SHADDA|KASRA medial
+e830           => fcf2           : FATHA/SHADDA medial
+e831           => fcf3           : DAMMA/SHADDA medial
+e832           => fcf4           : SHADDA/KASRA medial
 e833           => 0651+0670      : SHADDA+SUPERSCRIPT ALEF
 e845           => 0655+0650      : HAMZA+KASRA (low)
 e864           => 0650           : KASRA (low)
@@ -182,7 +303,8 @@ e8e8           => 064e           : FATHA (mid)
 e8e9           => 064f           : DAMMA
 e8ea           => 0651           : SHADDA (mid)
 e8eb           => 0652           : SUKUN
-fc60           => 064e+0651      : SHADDA|FATHA LIG => SHADDA+FATHA
+fc60           => 064e+0651      : SHADDA/FATHA LIG => SHADDA+FATHA
+# fefb+062f+e85b => fef7+064e+062f : LAM/ALEF+x+HAMZA/FATHA => LAM/ALEF/HAMZA+FATHA+x
 """
 
 
@@ -197,16 +319,20 @@ def uName(c):
 def getSetFromRanges(rngs):
     result = set()
     for (b, e) in rngs:
-        for c in range(int(b, base=16), int(e, base=16) + 1):
-            result.add(c)
+        for uc in range(int(b, base=16), int(e, base=16) + 1):
+            result.add(chr(uc))
     return result
 
 
-def numericString(s):
-    return "".join(f"⌊{ord(c):>04x}⌋" for c in s)
+def ptRep(p):
+    return int(round(p * 10))
 
 
 REPLACE_RE = re.compile(r"""^([0-9a-z+]+)\s*=>\s*([0-9a-z+]*)\s*:\s*(.*)$""", re.I)
+
+
+def getSetFromDef(defs):
+    return {chr(int(item, base=16)) for item in defs.strip().split("\n")}
 
 
 def getDictFromDef(defs):
@@ -222,17 +348,33 @@ def getDictFromDef(defs):
         if not match:
             print(f"MALFORMED REPLACE DEF: {line}")
             continue
-        (vals, repls, comment) = match.group(1, 2, 3)
-        vals = tuple(chr(int(val, base=16)) for val in vals.split("+"))
-        repls = (
-            tuple(chr(int(repl, base=16)) for repl in repls.split("+")) if repls else ()
-        )
-        rules.append((vals, repls))
+        (valStr, replStr, comment) = match.group(1, 2, 3)
+
+        vals = []
+        d = None
+        for (i, val) in enumerate(valStr.split("+")):
+            if val == "d":
+                d = i
+                vals.append(1)
+            else:
+                vals.append(chr(int(val, base=16)))
+
+        repls = []
+        e = None
+        if replStr:
+            for (i, repl) in enumerate(replStr.split("+")):
+                if repl == "d":
+                    e = i
+                    repls.append(1)
+                else:
+                    repls.append(chr(int(repl, base=16)))
+
+        rules.append((tuple(vals), d, tuple(repls), e))
 
     result = {}
 
-    for (vals, repls) in sorted(rules, key=lambda x: (-len(x[0]), x[0])):
-        result.setdefault(vals[0], []).append((vals[1:], repls))
+    for (vals, d, repls, e) in sorted(rules, key=lambda x: (-len(x[0]), x[0])):
+        result.setdefault(vals[0], []).append((vals, d, repls, e))
 
     return result
 
@@ -268,7 +410,11 @@ class Lakhnawi:
         self.puas = getSetFromRanges(PUA_RANGES)
         self.semis = getSetFromRanges(SEMITIC_RANGES)
         self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES)
-        self.nospacings = getSetFromRanges(NO_SPACING_RANGES)
+        self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
+        self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
+        self.privateSpace = PRIVATE_SPACE
+        self.nospacings = getSetFromRanges(NO_SPACING_RANGES) | self.privateDias
+        self.diacritics = getSetFromRanges(DIACRITIC_RANGES) | self.privateDias
         self.replace = getDictFromDef(REPLACE_DEF)
         self.rls = self.puas | self.semis
         self.getCharInfo()
@@ -294,10 +440,11 @@ class Lakhnawi:
                     (main, rest) = match.group(1, 2)
                     main = main.lower()
                     nMain = int(main, base=16)
-                    if nMain in puas:
-                        privates.add(nMain)
+                    cMain = chr(nMain)
+                    if cMain in puas:
+                        privates.add(cMain)
                         continue
-                    if nMain == 0:
+                    if cMain == chr(0):
                         continue
                     second = None
                     rest = rest.replace(" ", "")
@@ -306,23 +453,28 @@ class Lakhnawi:
                             second = rest.lower()
                     if second:
                         nSecond = int(second, base=16)
+                        cSecond = chr(nSecond)
                         if nSecond > nMain:
-                            doubles[nMain] = nSecond
+                            doubles[cMain] = cSecond
                         else:
-                            doubles[nSecond] = nMain
+                            doubles[cSecond] = cMain
 
     def showChar(self, c):
+        if c == 1:
+            return """
+<div class="ch p">
+    <div class="cn">diacritic</div>
+</div>
+"""
+
         puas = self.puas
         rls = self.rls
 
-        xc = ord(c)
-        ccode = f"""<span class="{"p" if xc in puas else "c"}">{xc:>04x}</span>"""
+        ccode = f"""<span class="{"p" if c in puas else "c"}">{ord(c):>04x}</span>"""
         crep = (
-            "??"
-            if xc in puas
-            else f"""<span class="{"rc" if xc in rls else "lc"}">{c}"""
+            "??" if c in puas else f"""<span class="{"rc" if c in rls else "lc"}">{c}"""
         )
-        cname = "" if xc in puas else f"""<span class="c">{uName(c)}</span>"""
+        cname = "" if c in puas else f"""<span class="c">{uName(c)}</span>"""
 
         return f"""
 <div class="ch">
@@ -332,14 +484,24 @@ class Lakhnawi:
 </div>
 """
 
-    def showString(self, s):
+    def plainChar(self, c):
+        if c == "":
+            return "⌊⌋"
+        if c == 1:
+            return "d"
+        return f"⌊{ord(c):>04x}⌋"
+
+    def showString(self, s, asString=False):
         display(HTML(f"""<p><span class="r">{s}</span></p>"""))
-        display(
-            HTML(
-                """<div class="sr">"""
-                + ("".join(self.showChar(c) for c in s) + "</div>")
-            )
+        html = """<div class="sr">""" + (
+            "".join(self.showChar(c) for c in s) + "</div>"
         )
+        if asString:
+            return html
+        display(HTML(html))
+
+    def plainString(self, s):
+        return " ".join(self.plainChar(c) for c in s)
 
     def showReplacements(self):
         replace = self.replace
@@ -349,8 +511,8 @@ class Lakhnawi:
 
         for val in sorted(replace):
             rules = replace[val]
-            for (vals, repls) in rules:
-                valRep = "".join(self.showChar(c) for c in (val,) + vals)
+            for (vals, d, repls, e) in rules:
+                valRep = "".join(self.showChar(c) for c in vals)
                 replRep = "".join(self.showChar(c) for c in repls)
                 html.append(
                     f"""
@@ -387,7 +549,7 @@ class Lakhnawi:
             pix = page.getPixmap(matrix=fitz.Matrix(4, 4), alpha=False)
             display(Image(data=pix.getPNGData(), format="png"))
 
-    def getPages(self, pageNumSpec, refreshConfig=False, debug=False):
+    def getPages(self, pageNumSpec, refreshConfig=False):
         if refreshConfig:
             self.getCharConfig()
 
@@ -398,7 +560,7 @@ class Lakhnawi:
 
             textPage = page.getTextPage()
             data = textPage.extractRAWDICT()
-            self.collectPage(data, debug=debug)
+            self.collectPage(data)
 
     def plainPages(self, pageNumSpec):
         for pageNum in self.parsePageNums(pageNumSpec):
@@ -433,13 +595,14 @@ class Lakhnawi:
             """
 <tr>
     <th>seq</th>
+    <th>top</th>
     <th>bottom</th>
-    <th>height</th>
-    <th>width</th>
-    <th>shift</th>
-    <th>after</th>
+    <th>left</th>
+    <th>right</th>
+    <th>spacing</th>
     <th>font</th>
     <th>size</th>
+    <th>orig char</th>
     <th>char</th>
 </tr>
 """
@@ -464,26 +627,21 @@ class Lakhnawi:
 """
                 )
                 for (i, char) in enumerate(chars):
-                    (le, to, ri, bo, font, size, c) = char
+                    (le, to, ri, bo, font, size, spacing, oc, c) = char
                     if charNums is not None and i + 1 not in charNums:
                         continue
-                    after = "x" if i == nChars - 1 else le - chars[i + 1][2]
-                    shift = (
-                        "x"
-                        if i == nChars - 1
-                        else keyCharH(char) - keyCharH(chars[i + 1])
-                    )
                     html.append(
                         f"""
 <tr>
     <td><b>{i + 1}</b></td>
-    <td>{bo}</td>
-    <td>{bo - to}</td>
-    <td>{ri - le}</td>
-    <td>{shift}</td>
-    <td>{after}</td>
+    <td>{ptRep(to)}</td>
+    <td>{ptRep(bo)}</td>
+    <td>{ptRep(le)}</td>
+    <td>{ptRep(ri)}</td>
+    <td>{spacing}</td>
     <td>{font}</td>
     <td>{size}pt</td>
+    <td>{"".join(self.showChar(x) for x in oc)}</td>
     <td>{"".join(self.showChar(x) for x in c)}</td>
 </tr>
 """
@@ -492,11 +650,17 @@ class Lakhnawi:
         html.append("</table>")
         display(HTML("".join(html)))
 
-    def showUsedChars(self, pageNumSpec, onlyPuas=False, long=False):
+    def showUsedChars(self, pageNumSpec, onlyPuas=False, long=False, byOcc=False):
         pageNums = self.parsePageNums(pageNumSpec)
         text = self.text
 
         charsOut = collections.defaultdict(collections.Counter)
+
+        def keyByOcc(c):
+            pageNums = charsOut[c]
+            return -sum(pageNums.values())
+
+        sortKey = keyByOcc if byOcc else lambda x: x
 
         texts = {pageNum: text[pageNum] for pageNum in pageNums if pageNum in text}
 
@@ -529,16 +693,20 @@ on {totalPages} {pageRep}</b></p>
 <table>
 """
         )
-        for c in sorted(charsOut):
+
+        for c in sorted(charsOut, key=sortKey):
             pageNums = charsOut[c]
             nPageNums = len(pageNums)
             pageRep = "page" + ("" if nPageNums == 1 else "s")
             thistotal = sum(pageNums.values())
+            examplePageNum = sorted(pageNums, key=lambda p: -pageNums[p])[0]
+            nExamples = pageNums[examplePageNum]
             html.append(
                 f"""
 <tr>
     <td>{self.showChar(c)}</td>
     <td><b>{thistotal}</b> on <i>{nPageNums}</i> {pageRep}</td>
+    <td>e.g. page {examplePageNum} with <b>{nExamples}</b> occurrences</td>
 </tr>
 """
             )
@@ -556,7 +724,7 @@ on {totalPages} {pageRep}</b></p>
         html.append("</table>")
         display(HTML("".join(html)))
 
-    def collectPage(self, data, debug=False):
+    def collectPage(self, data):
         doubles = self.doubles
         pageNum = self.pageNum
 
@@ -566,13 +734,15 @@ on {totalPages} {pageRep}</b></p>
         prevSize = None
 
         def addChar():
-            box = tuple(int(round(x * 10)) for x in prevChar["bbox"])
+            box = prevChar["bbox"]
             c = prevChar["c"]
             chars.append(
                 (
                     *box,
                     prevFont,
                     prevSize,
+                    "",
+                    c,
                     c,
                 )
             )
@@ -593,17 +763,15 @@ on {totalPages} {pageRep}</b></p>
                     size = data["size"]
                 if "c" in data:
                     c = data["c"]
-                    uc = ord(c)
                     skip = False
                     if c == " ":
                         skip = True
 
                     if prevChar is not None:
                         pc = prevChar["c"]
-                        puc = ord(pc)
-                        if puc in doubles and doubles[puc] == uc:
+                        if pc in doubles and doubles[pc] == c:
                             skip = True
-                        if uc in doubles and doubles[uc] == puc:
+                        if c in doubles and doubles[c] == pc:
                             prevChar = data
                             skip = True
 
@@ -624,16 +792,16 @@ on {totalPages} {pageRep}</b></p>
 
         clusterKeyCharV = clusterVert(chars)
         lines = {}
-        for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), -keyCharH(c))):
+        for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), keyCharH(c))):
             k = clusterKeyCharV(char)
             lines.setdefault(k, []).append(list(char))
 
         self.lines[pageNum] = tuple(lines.values())
         self.text[pageNum] = tuple(
-            self.trimLine(line, debug=debug) for line in lines.values()
+            self.trimLine(ln + 1, line) for (ln, line) in enumerate(self.lines[pageNum])
         )
 
-    def trimLine(self, chars, debug=False):
+    def trimLine(self, ln, chars):
         replace = self.replace
         puas = self.puas
         nospacings = self.nospacings
@@ -643,48 +811,82 @@ on {totalPages} {pageRep}</b></p>
         nChars = len(chars)
 
         for (i, char) in enumerate(chars):
+            if char[-2] not in nospacings:
+                char[-3] = True
+
             c = char[-1]
+
             if c in replace:
                 rules = replace[c]
-                for (vals, repls) in rules:
-                    if debug:
-                        ruleRep = (
-                            f"""{numericString(c)}{numericString("".join(vals)):<20}"""
-                            """ ⇒ """
-                            f"""{numericString("".join(repls)):<20}"""
-                        )
+                for (vals, d, repls, e) in rules:
 
                     nVals = len(vals)
-                    if i + nVals >= nChars:
-                        if debug:
-                            print(f"{i:>4} * {ruleRep}")
+
+                    if i + nVals > nChars:
                         continue
-                    if not all(vals[j] == chars[i + j + 1][-1] for j in range(nVals)):
-                        if debug:
-                            print(f"{i:>4} x {ruleRep}")
-                        continue
-
-                    if len(repls) == 0:
-                        chars[i][-1] = ""
-                    else:
-                        chars[i][-1] = repls[0]
-                        repls = repls[1:]
-                        nRepls = len(repls)
-
-                        for (j, val) in enumerate(vals):
-                            chars[i + j + 1][-1] = repls[j] if j < nRepls else ""
-
-                    if nRepls > nVals:
-                        chars[i + nVals][-1] += "".join(repls[nVals:])
-                    if debug:
-                        resRep = "".join(
-                            f"{numericString(c[-1])}" for c in chars[i : i + nVals + 1]
+                    if not all(
+                        (
+                            d is not None
+                            and j == d
+                            and chars[i + j][-1] in self.diacritics
                         )
-                        print(f"{i:>4} V {ruleRep}: {resRep}")
+                        or chars[i + j][-1] == vals[j]
+                        for j in range(nVals)
+                    ):
+                        continue
+
+                    nRepls = len(repls)
+                    dEnd = nVals if d is None else d
+                    eEnd = nRepls if e is None else e
+
+                    for j in range(dEnd):
+                        chars[i + j][-1] = repls[j] if j < eEnd else ""
+                    if eEnd > dEnd:
+                        if dEnd == 0:
+                            cd = chars[i + dEnd][-1]
+                            r = "".join(repls[dEnd + 1 :])
+                            chars[i + dEnd][-1] = f"{r}{cd}"
+                        else:
+                            chars[i + dEnd - 1][-1] += "".join(repls[dEnd:])
+
+                    if d is not None:
+                        dStart = d + 1
+                        eStart = e + 1
+                        dn = nVals - dStart
+                        en = nRepls - eStart
+                        for j in range(dn):
+                            chars[i + dStart + j][-1] = (
+                                repls[eStart + j] if eStart + j < nRepls else ""
+                            )
+                        if en > dn:
+                            chars[i + nVals - 1][-1] += "".join(repls[eStart + dn :])
                     break
 
-        result = []
         prevLeft = None
+        prevLeftI = None
+
+        for (i, char) in enumerate(chars):
+            spacing = char[-3]
+
+            if spacing:
+                left = char[0]
+                right = char[2]
+
+                if prevLeft is not None:
+                    prevChar = chars[prevLeftI]
+                    after = prevLeft - right
+                    if after >= 2.5:
+                        chars[i - 1][-1] += " "
+                        prevChar[-3] = f"⌊{ptRep(after)}⌋"
+                    else:
+                        prevChar[-3] = f"«{ptRep(after)}»"
+                prevLeft = left
+                prevLeftI = i
+
+        if chars:
+            chars[-1][-3] = "end"
+
+        result = []
         prevDir = "r"
         outChars = []
 
@@ -694,36 +896,22 @@ on {totalPages} {pageRep}</b></p>
                 result.append((prevDir, charsRep))
 
         for char in chars:
-            left = int(round(char[0]))
-            right = int(round(char[2]))
-
-            if prevLeft is not None:
-                if prevLeft - right >= 25:
-                    outChars.append(" ")
-
             c = char[-1]
             if c == "":
-                prevLeft = left
                 continue
 
-            uc = ord(c[-1])
-
-            if uc not in nospacings:
-                prevLeft = left
-
-            thisDir = prevDir if uc in neutrals else "r" if uc in rls else "l"
-
-            if prevDir != thisDir:
-                addChars()
-                outChars = []
-                prevDir = thisDir
-
-            rep = c
             for d in c:
-                ud = ord(d)
-                if ud in puas:
-                    rep = f"""⌊{ud:>04x}⌋"""
-            outChars.append(rep)
+                thisDir = prevDir if d in neutrals else "r" if d in rls else "l"
+
+                if prevDir != thisDir:
+                    addChars()
+                    outChars = []
+                    prevDir = thisDir
+
+                rep = d
+                if d in puas:
+                    rep = f"""⌊{ord(d):>04x}⌋"""
+                outChars.append(rep)
 
         addChars()
 
@@ -743,11 +931,12 @@ on {totalPages} {pageRep}</b></p>
 
 
 def keyCharV(char):
-    return int(round((char[3] + char[1]) / 2))
+    return (char[3] + char[1]) / 2
 
 
 def keyCharH(char):
-    return char[2]
+    return (-int(round(char[2])), int(round(char[0])))
+    # return char[2]
     # return char[0] + (char[2] - char[0]) / 2
     # return char[0]
 
@@ -761,11 +950,11 @@ def clusterVert(data):
     peaks = sorted(keys)
     if len(peaks) > 1:
         nDistances = len(peaks) - 1
-        avPeakDist = int(
-            round(sum(peaks[i + 1] - peaks[i] for i in range(nDistances)) / nDistances)
+        avPeakDist = (
+            sum(peaks[i + 1] - peaks[i] for i in range(nDistances)) / nDistances
         )
 
-        peakThreshold = int(round(avPeakDist / 3))
+        peakThreshold = avPeakDist / 3
         clusteredPeaks = {}
         for (k, n) in sorted(keys.items(), key=lambda x: (-x[1], x[0])):
             added = False
