@@ -1,3 +1,4 @@
+import sys
 import collections
 import re
 import pprint as pp
@@ -110,16 +111,24 @@ div.sr {
 
 PUA_RANGES = (("e000", "f8ff"),)
 
-SEMITIC_RANGES = (
+ARABIC_RANGES = (
     ("0600", "06ff"),
     ("0750", "077f"),
     ("08a0", "08ff"),
-    ("206c", "206d"),
-    ("fb50", "fdfd"),
-    ("fe70", "fefc"),
-    ("0591", "05f4"),
     ("206a", "206f"),
-    ("fb1d", "fb4f"),
+    ("fb50", "fdc7"),
+    ("fdf0", "fdfd"),
+    ("fe70", "fefc"),
+)
+
+SYRIAC_RANGES = (
+    ("0700", "074f"),
+    ("2670", "2671"),
+)
+
+HEBREW_RANGES = (
+    ("0590", "05ff"),
+    ("0fb1d", "fb4f"),
 )
 
 BRACKET_RANGES = (
@@ -157,7 +166,7 @@ NEUTRAL_DIRECTION_RANGES = (
 NO_SPACING_RANGES = (
     ("060c", "060c"),
     ("064b", "065f"),
-    # ("fc5e", "fc63"),
+    ("fc5e", "fc63"),
     ("fcf2", "fcf4"),
     ("fe77", "fe77"),
     ("fe79", "fe79"),
@@ -259,19 +268,10 @@ e8fe
 
 
 REPLACE_DEF = """
-060c+e8e9      => 064f+060c      : COMMA+DAMMA => DAMMA+COMMA
 # 0627+0646+e815 => 0623+064e+0646 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
 # 0627+0648+e815 => 0623+064e+0648 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
 # 0627+e80a+e815 => 0623+064e+e80a : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
 # 0627+fe97+e816 => 0623+064f+fe97 : ALIF+x+HAMZA/DAMMA => ALIF/HAMZA+DAMMA+x
-0627+e815      => 0623+064e      : ALIF+HAMZA/FATA => ALIF/HAMZA+FATA
-0627+e816      => 0623+064f      : ALIF+HAMZA/DAMMA => ALIF/HAMZA+DAMMA
-e80a+e806      => fefb           : LAM/ALEF (isolated)
-e80a+d+e806    => fefb+d         : LAM/ALEF (isolated) with intervening diacritic
-e80e+e807      => fefc           : LAM/ALEF (final)
-e80e+d+e807    => fefc+d         : LAM/ALEF (final) with intervening diacritic
-e80e+e821+d+e807=> fefc+d        : LAM/ALEF (final) with intervening tatweel,diacritic
-# e821+e82b      => 0670+0640      : TATWEEL+ALEFsuper => ALEFsuper+TATWEEL
 # e821+064e      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
 # e821+e825      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
 # e821+064f      => 0650+064f      : TATWEEL+DAMMA => DAMMA+TATWEEL
@@ -281,30 +281,48 @@ e80e+e821+d+e807=> fefc+d        : LAM/ALEF (final) with intervening tatweel,dia
 # e821+0652      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
 # e821+e828      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
 # e821+fc60      => 064e+0651      : TATWEEL+SHADDA/FATHA => SHADDA+FATHA
-e821           =>                : TATWEEL (ignore short tatweel)
 # e821           => 0640           : TATWEEL (short)
-e823           => 064b           : FATHATAN (high)
-e825           => 064e           : FATHA (high)
-e826           => 064f           : DAMMA (high)
-e827           => 0651           : SHADDA (high)
-e828           => 0652           : SUKUN (high)
-e82b           => 0670           : SUPERSCRIPT ALEF
-e830           => fcf2           : FATHA/SHADDA medial
-e831           => fcf3           : DAMMA/SHADDA medial
-e832           => fcf4           : SHADDA/KASRA medial
-e833           => 0651+0670      : SHADDA+SUPERSCRIPT ALEF
-e845           => 0655+0650      : HAMZA+KASRA (low)
-e864           => 0650           : KASRA (low)
-e887           => 064d           : KASRATAN (low)
-e888           => 0650           : KASRA (low)
-e8d4           => fee0           : LAM (medial)
-e8df           => 0650           : KASRA (low)
-e8e8           => 064e           : FATHA (mid)
-e8e9           => 064f           : DAMMA
-e8ea           => 0651           : SHADDA (mid)
-e8eb           => 0652           : SUKUN
-fc60           => 064e+0651      : SHADDA/FATHA LIG => SHADDA+FATHA
 # fefb+062f+e85b => fef7+064e+062f : LAM/ALEF+x+HAMZA/FATHA => LAM/ALEF/HAMZA+FATHA+x
+
+0627+e815        => 0623+064e      : ALIF+HAMZA/FATA => ALIF/HAMZA+FATA
+0627+c+e815      => 0623+064e+c    : ALIF+letter+HAMZA/FATA => ALIF/HAMZA+FATA+letter
+0627+e816        => 0623+064f      : ALIF+HAMZA/DAMMA => ALIF/HAMZA+DAMMA
+0627+e846        => 0625+064d      : ALIF+HAMZAlow/KASHRATAN => ALIF/HAMZA+KASHRATAN
+e80a+e806        => fefb           : LAM/ALEF(isol)
+e80a+d+e806      => fefb+d         : LAM/ALEF(isol) with diacritic
+e80a+d+e806+e85b => fef7+d         : LAM/ALEF/HAMZA(isol) with diacritic
+e80a+e808        => 0644+0671      : LAM+ALEF(wasla) [1]
+e80e+e807        => fefc           : LAM/ALEF(final)
+e80e+d+e807      => fefc+d         : LAM/ALEF(final) with diacritic
+e80e+e821+d+e807 => fefc+d         : LAM/ALEF(final) with tatweel,diacritic
+e821             =>                : (ignore short tatweel)
+e823             => 064b           : FATHATAN
+e824             => 064c           : DAMMATAN
+e825             => 064e           : FATHA
+e826             => 064f           : DAMMA
+e827             => 0651           : SHADDA
+e828             => 0652           : SUKUN
+e82b             => 0670           : ALEF(super)
+e830             => fcf2           : FATHA/SHADDA(medial)
+e831             => fcf3           : DAMMA/SHADDA(medial)
+e832             => fcf4           : SHADDA/KASRA(medial)
+e833             => 0651+0670      : SHADDA+ALEF(super)
+e845             => 0655+0650      : HAMZAlow+KASRA
+fefb+e85b        => fef7+064e      : LAM/ALEF/HAMZA(isol)+FATHA
+e863             => 064d           : KASRATAN
+e864             => 0650           : KASRA
+e887             => 064d           : KASRATAN
+e888             => 0650           : KASRA
+e8d4             => fee0           : LAM(medial)
+e8df             => 0650           : KASRA
+e8e8             => 064e           : FATHA
+e8e9             => 064f           : DAMMA
+e8ea             => 0651           : SHADDA
+e8eb             => 0652           : SUKUN
+e8f4             => 064e+0651      : SHADDA/FATHA => SHADDA+FATHA
+fc60             => 064e+0651      : SHADDA/FATHA => SHADDA+FATHA
+
+# [1] it should be a LAM/ALEF ligature with wasla, but there is no such unicode char
 """
 
 
@@ -335,9 +353,23 @@ def getSetFromDef(defs):
     return {chr(int(item, base=16)) for item in defs.strip().split("\n")}
 
 
+LETTER_CODE_DEF = dict(
+    c=(2, "letter"),
+    d=(1, "diacritic"),
+)
+
+
+LETTER_CODE = {cd: info[0] for (cd, info) in LETTER_CODE_DEF.items()}
+CODE_LETTER = {info[0]: cd for (cd, info) in LETTER_CODE_DEF.items()}
+LETTER_KIND = {info[0]: info[1] for info in LETTER_CODE_DEF.values()}
+
+
 def getDictFromDef(defs):
     rules = []
-    for line in defs.strip().split("\n"):
+    rn = 0
+    good = True
+
+    for (i, line) in enumerate(defs.strip().split("\n")):
         parts = line.split("#", maxsplit=1)
         if len(parts) > 1:
             line = parts[0]
@@ -346,16 +378,22 @@ def getDictFromDef(defs):
             continue
         match = REPLACE_RE.match(line)
         if not match:
-            print(f"MALFORMED REPLACE DEF: {line}")
+            print(f"MALFORMED REPLACE DEF @{i}: {line}")
+            good = False
             continue
+
+        rn += 1
         (valStr, replStr, comment) = match.group(1, 2, 3)
 
         vals = []
         d = None
         for (i, val) in enumerate(valStr.split("+")):
-            if val == "d":
+            if val in {"c", "d"}:
+                if d is not None:
+                    print(f"MULTIPLE d in RULE @{i}: rule {rn}: {line}")
+                    good = False
                 d = i
-                vals.append(1)
+                vals.append(LETTER_CODE[val])
             else:
                 vals.append(chr(int(val, base=16)))
 
@@ -363,20 +401,32 @@ def getDictFromDef(defs):
         e = None
         if replStr:
             for (i, repl) in enumerate(replStr.split("+")):
-                if repl == "d":
+                if repl in {"c", "d"}:
+                    if e is not None:
+                        print(f"MULTIPLE d in RULE @{i}: rule {rn}: {line}")
+                        good = False
                     e = i
-                    repls.append(1)
+                    repls.append(LETTER_CODE[repl])
                 else:
                     repls.append(chr(int(repl, base=16)))
 
-        rules.append((tuple(vals), d, tuple(repls), e))
+        if d is None and e is not None:
+            print(f"d in REPLACEMENT but not in MATCH @[i]: rule {rn}: {line}")
+            good = False
+
+        rules.append((rn, tuple(vals), d, tuple(repls), e))
+
+    if not good:
+        return None
 
     result = {}
+    ruleIndex = {}
 
-    for (vals, d, repls, e) in sorted(rules, key=lambda x: (-len(x[0]), x[0])):
-        result.setdefault(vals[0], []).append((vals, d, repls, e))
+    for (rn, vals, d, repls, e) in sorted(rules, key=lambda x: (-len(x[1]), x[1])):
+        result.setdefault(vals[0], []).append((rn, vals, d, repls, e))
+        ruleIndex[rn] = (vals, d, repls, e)
 
-    return result
+    return (result, ruleIndex)
 
 
 def parseNums(numSpec):
@@ -402,20 +452,29 @@ class Lakhnawi:
         self.doc = fitz.open(SOURCE)
         self.text = {}
         self.lines = {}
+        self.good = True
+        self.rulesApplied = collections.defaultdict(collections.Counter)
 
     def setStyle(self):
         display(HTML(CSS))
 
     def getCharConfig(self):
         self.puas = getSetFromRanges(PUA_RANGES)
-        self.semis = getSetFromRanges(SEMITIC_RANGES)
+        self.arabic = getSetFromRanges(ARABIC_RANGES)
+        self.hebrew = getSetFromRanges(HEBREW_RANGES)
+        self.syriac = getSetFromRanges(SYRIAC_RANGES)
+        self.semis = self.arabic | self.hebrew | self.syriac
         self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES)
         self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
         self.nospacings = getSetFromRanges(NO_SPACING_RANGES) | self.privateDias
         self.diacritics = getSetFromRanges(DIACRITIC_RANGES) | self.privateDias
-        self.replace = getDictFromDef(REPLACE_DEF)
+        self.arabicLetters = self.arabic - self.diacritics
+        (self.replace, self.ruleIndex) = getDictFromDef(REPLACE_DEF)
+        if self.replace is None:
+            self.replace = {}
+            self.good = False
         self.rls = self.puas | self.semis
         self.getCharInfo()
 
@@ -460,10 +519,10 @@ class Lakhnawi:
                             doubles[cSecond] = cMain
 
     def showChar(self, c):
-        if c == 1:
-            return """
+        if c in {1, 2}:
+            return f"""
 <div class="ch p">
-    <div class="cn">diacritic</div>
+    <div class="cn">{LETTER_KIND[c]}</div>
 </div>
 """
 
@@ -487,8 +546,8 @@ class Lakhnawi:
     def plainChar(self, c):
         if c == "":
             return "⌊⌋"
-        if c == 1:
-            return "d"
+        if c in {1, 2}:
+            return CODE_LETTER[c]
         return f"⌊{ord(c):>04x}⌋"
 
     def showString(self, s, asString=False):
@@ -504,25 +563,39 @@ class Lakhnawi:
         return " ".join(self.plainChar(c) for c in s)
 
     def showReplacements(self):
-        replace = self.replace
+        ruleIndex = self.ruleIndex
+        rulesApplied = self.rulesApplied
 
         html = []
         html.append("<table>")
 
-        for val in sorted(replace):
-            rules = replace[val]
-            for (vals, d, repls, e) in rules:
-                valRep = "".join(self.showChar(c) for c in vals)
-                replRep = "".join(self.showChar(c) for c in repls)
-                html.append(
-                    f"""
+        for (rn, applied) in sorted(
+            rulesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            (vals, d, repls, e) = ruleIndex[rn]
+
+            valRep = "".join(self.showChar(c) for c in vals)
+            replRep = "".join(self.showChar(c) for c in repls)
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f"e.g. page {examplePageNum} with {nExamples} applicaitons"
+            else:
+                appliedEx = ""
+            appliedRep = f"<b>{total}</b> x applied on <i>{len(applied)}</i> pages"
+            html.append(
+                f"""
 <tr>
+    <th>rule {rn}</th>
+    <td>{appliedRep}</td>
+    <td>{appliedEx}</td>
     <td>{valRep}</td>
     <td><span class="lrg">⇒</span></td>
     <td>{replRep}</td>
 </tr>
 """
-                )
+            )
 
         html.append("<table>")
         display(HTML("".join(html)))
@@ -550,17 +623,35 @@ class Lakhnawi:
             display(Image(data=pix.getPNGData(), format="png"))
 
     def getPages(self, pageNumSpec, refreshConfig=False):
+        if not self.good:
+            print("SKIPPING because of config errors")
+            return
+
+        ruleIndex = self.ruleIndex
+        rulesApplied = self.rulesApplied
+
         if refreshConfig:
             self.getCharConfig()
 
-        for pageNum in self.parsePageNums(pageNumSpec):
+        for rn in ruleIndex:
+            rulesApplied[rn] = collections.Counter()
+
+        for (i, pageNum) in enumerate(self.parsePageNums(pageNumSpec)):
             self.pageNum = pageNum
+            rep = (
+                f"{i + 1:>4} (page {pageNum:>4})"
+                if pageNum != i + 1
+                else (f"{i + 1:>4}" + " " * 12)
+            )
+            sys.stdout.write(f"\r\t{rep}")
+            sys.stdout.flush()
             doc = self.doc
             page = doc[pageNum - 1]
 
             textPage = page.getTextPage()
             data = textPage.extractRAWDICT()
             self.collectPage(data)
+        print("")
 
     def plainPages(self, pageNumSpec):
         for pageNum in self.parsePageNums(pageNumSpec):
@@ -579,13 +670,10 @@ class Lakhnawi:
                 html.append(f"""<p class="r">{self.htmlLine(line)}</p>\n""")
             display(HTML("".join(html)))
 
-    def showLines(self, pageNumSpec, lineSpec, charSpec):
+    def showLines(self, pageNumSpec, line=None, start=None, end=None, search=None):
         lines = self.lines
         pageNums = self.parsePageNums(pageNumSpec)
-        lineNums = parseNums(lineSpec)
-        charNums = parseNums(charSpec)
-        if charNums is not None:
-            charNums = set(charNums)
+        lineNums = parseNums(line)
 
         myLines = {pageNum: lines[pageNum] for pageNum in pageNums if pageNum in lines}
 
@@ -608,6 +696,9 @@ class Lakhnawi:
 """
         )
 
+        shift = 5
+        found = False
+
         for (pageNum, pageLines) in myLines.items():
             myLineNums = (
                 range(1, len(pageLines) + 1)
@@ -626,10 +717,34 @@ class Lakhnawi:
 </tr>
 """
                 )
+                pos = None
+                if search is not None:
+                    pos = -1
+                    for (i, char) in enumerate(chars):
+                        if char[-2] == search:
+                            pos = i
+                            found = True
+                            break
+
+                if pos is None:
+                    occStart = 0
+                    occEnd = nChars
+                elif pos == -1:
+                    continue
+                else:
+                    occStart = max((pos - shift, 0))
+                    occEnd = min((pos + shift + 1, nChars))
                 for (i, char) in enumerate(chars):
-                    (le, to, ri, bo, font, size, spacing, oc, c) = char
-                    if charNums is not None and i + 1 not in charNums:
+                    if (
+                        start is not None
+                        and i + 1 < start
+                        or end is not None
+                        and i + 1 > end
+                    ):
                         continue
+                    if i < occStart or i >= occEnd:
+                        continue
+                    (le, to, ri, bo, font, size, spacing, oc, c) = char
                     html.append(
                         f"""
 <tr>
@@ -646,6 +761,8 @@ class Lakhnawi:
 </tr>
 """
                     )
+                if found:
+                    break
 
         html.append("</table>")
         display(HTML("".join(html)))
@@ -727,6 +844,7 @@ on {totalPages} {pageRep}</b></p>
     def collectPage(self, data):
         doubles = self.doubles
         pageNum = self.pageNum
+        nospacings = self.nospacings
 
         chars = []
         prevChar = None
@@ -741,7 +859,7 @@ on {totalPages} {pageRep}</b></p>
                     *box,
                     prevFont,
                     prevSize,
-                    "",
+                    "" if c in nospacings else True,
                     c,
                     c,
                 )
@@ -798,67 +916,217 @@ on {totalPages} {pageRep}</b></p>
 
         self.lines[pageNum] = tuple(lines.values())
         self.text[pageNum] = tuple(
-            self.trimLine(ln + 1, line) for (ln, line) in enumerate(self.lines[pageNum])
+            self.trimLine(pageNum, ln + 1, line)
+            for (ln, line) in enumerate(self.lines[pageNum])
         )
 
-    def trimLine(self, ln, chars):
+    def trimLine(self, pageNum, ln, chars):
+        """Map character sequences to other sequences.
+
+        Two tasks:
+
+        1. Map private use characters to well-known unicode characters
+        2. Insert space characters where the next character is separated from the
+           previous one.
+
+        Complications:
+
+        Diacritical characters are mostly contained in a very wide box that overlaps
+        with the boxes of the other characters. So the diacritical boxes must not be
+        taken into account.
+
+        Private use characters often com in sequences, so a sequence of characters
+        must be transformed to another sequence.
+
+        We do the tramsformation before the space insertion, because otherwise we
+        might insert the space at the wrong point.
+
+        When we transform characters we need to retain the box information,
+        because we still have to insert the space.
+
+        That's why we have as input a list of character records, where each record
+        is itself a list with box information, orginal character, modified characters
+        and space information.
+
+        When we transform characters, we modify character records in place.
+        We do not add or remove character records.
+
+        The last member of a character record is the modified sequence.
+        This can be zero, one, or multiple characters.
+        The second last member is the original character.
+        Initially, the the last and second last member of each record are equal.
+        We call these members the original character and the result string.
+
+        Space will be appended at the last member of the appropriate character records.
+
+        The transformations are given as a set of rules.
+        A rule consists of a sequence of characters to match and a sequence of
+        characters to replace the match with. We call them the match sequence and the
+        replacement sequence of the rule.
+
+        For each character in the input list we check which rules have a match sequence
+        that start with this character.
+        Of these rules, we start with the one with the longest match sequence.
+        We then check, by looking ahead, whether the whole match sequence matches the
+        input.
+        For the purposes of matching, we look into the result strings of the character,
+        not to the original characters. This will prevent some rules to be applied
+        after an earlier rule has been applied. This is intentional, and results
+        in a more simple rule set.
+
+        If there is a match, we walk through all the characters in the input for the
+        length of the match sequence of the rule.
+        For each input character record, we set its replacement string to the
+        corresponding member of the replacement sequence of the rule.
+        If the replacement sequence has run out, we replace with the empty string.
+        If after this process the replacement sequence has not been exhausted,
+        we join the remaining characters in the replacement string and append it
+        after the replacement string of the last input character that we have visited.
+
+        After succesful application of a rule, we do not apply other rules that would
+        have been applicable at this point. Instead, we move our starting point to the
+        next character record in the sequence and repeat the matching process.
+
+        It might be that a character is replaced multiple times, for example when
+        it is reached by a rule while looking ahead 3 places, and then later by a
+        different rule looking ahead two places.
+
+        However, once a character matches the first member of the match sequence of
+        a rule, and the rule matches and is applied, that character will not be
+        changed anymore by any other rule.
+
+        The match sequence may contain the character `d`, which is a placeholder
+        for a diacritic sign. It will match any diacritic.
+        The replacement sequence of such a rule may or may not contain a `d`.
+        It is an error if the replacement seqience of a rule contains a `d` while
+        its match sequence does not.
+        It is also an error of there are multiple `d`s in a match sequence
+        of a replacement sequence.
+        If so, the working of this rule is effectively two rules:
+
+        Suppose the rule is
+
+        x d y => r d s
+
+        where x, y, r, s are sequences of arbitrary length.
+        If the rule matches the input, then first the rule
+
+        x => r
+
+        will be applied at the current position.
+
+        Then we shift temporarily to the position right after where the d has matched,
+        and apply the rule
+
+        y => s
+
+        Then we shift back to the orginal position plus one, and continue applying
+        rules.
+        """
+
         replace = self.replace
         puas = self.puas
-        nospacings = self.nospacings
         neutrals = self.neutrals
         rls = self.rls
+        rulesApplied = self.rulesApplied
+        diacritics = self.diacritics
+        arabicLetters = self.arabicLetters
 
         nChars = len(chars)
 
-        for (i, char) in enumerate(chars):
-            if char[-2] not in nospacings:
-                char[-3] = True
+        # rule application stage
 
+        for (i, char) in enumerate(chars):
             c = char[-1]
 
             if c in replace:
                 rules = replace[c]
-                for (vals, d, repls, e) in rules:
+                for (rn, vals, d, repls, e) in rules:
 
                     nVals = len(vals)
 
                     if i + nVals > nChars:
+                        # not enough characters left to match this rule
                         continue
+
                     if not all(
                         (
                             d is not None
                             and j == d
-                            and chars[i + j][-1] in self.diacritics
+                            and chars[i + j][-1]
+                            in (diacritics if vals[d] == 1 else arabicLetters)
                         )
                         or chars[i + j][-1] == vals[j]
                         for j in range(nVals)
                     ):
+                        # the rule does not match after all
                         continue
+
+                    # the rule matches: we are going to fill in the replacements
+                    # if there is a diacritic in the match sequence or the
+                    # replacement sequence, we restrict ourselves to the parts
+                    # before the diacritics.
+
+                    rulesApplied[rn][pageNum] += 1
 
                     nRepls = len(repls)
                     dEnd = nVals if d is None else d
                     eEnd = nRepls if e is None else e
 
+                    # so, we are going to replace from here to dEnd (not including)
+
                     for j in range(dEnd):
+                        # put the appropriate replacement character in the
+                        # replacement part of the character record
+                        # After running out of replacement characters, put in ""
                         chars[i + j][-1] = repls[j] if j < eEnd else ""
+
                     if eEnd > dEnd:
+                        # if there are replacement characters left, put them
+                        # in after the last character that we have visited.
+
                         if dEnd == 0:
+                            # In case we have not visited any yet,
+                            # we put them in before the current character
                             cd = chars[i + dEnd][-1]
                             r = "".join(repls[dEnd + 1 :])
                             chars[i + dEnd][-1] = f"{r}{cd}"
                         else:
-                            chars[i + dEnd - 1][-1] += "".join(repls[dEnd:])
+                            # this is the normal case
+                            chars[i + dEnd - 1][-1] += "".join(repls[dEnd:eEnd])
+
+                    # if there is a diacritic in the match sequence
+                    # we are going to perform the rule for the part
+                    # after the diacritic
+
+                    # Note that the case where d is None and e is not None
+                    # does not occur
 
                     if d is not None:
+                        # we set the starting points: just after the diacritics
                         dStart = d + 1
-                        eStart = e + 1
+                        # if the replacement part does not have a diacritic,
+                        # we have already consumed it, and we start right after it
+                        eStart = nRepls if e is None else e + 1
+
+                        # we compute the number of characters that still need to be
+                        # matched and to be replaced
                         dn = nVals - dStart
                         en = nRepls - eStart
+
+                        # we perform the replacement analogously to what we did
+                        # for the first part
+
                         for j in range(dn):
+                            # put the appropriate replacement character in the
+                            # replacement part of the character record
+                            # After running out of replacement characters, put in ""
                             chars[i + dStart + j][-1] = (
                                 repls[eStart + j] if eStart + j < nRepls else ""
                             )
                         if en > dn:
+                            # if there are replacement characters left, put them
+                            # in after the last character that we have visited.
                             chars[i + nVals - 1][-1] += "".join(repls[eStart + dn :])
                     break
 
@@ -936,9 +1204,6 @@ def keyCharV(char):
 
 def keyCharH(char):
     return (-int(round(char[2])), int(round(char[0])))
-    # return char[2]
-    # return char[0] + (char[2] - char[0]) / 2
-    # return char[0]
 
 
 def clusterVert(data):
