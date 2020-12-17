@@ -268,61 +268,94 @@ e8fe
 
 
 REPLACE_DEF = """
-# 0627+0646+e815 => 0623+064e+0646 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
-# 0627+0648+e815 => 0623+064e+0648 : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
-# 0627+e80a+e815 => 0623+064e+e80a : ALIF+x+HAMZA/FATA => ALIF/HAMZA+FATA+x
-# 0627+fe97+e816 => 0623+064f+fe97 : ALIF+x+HAMZA/DAMMA => ALIF/HAMZA+DAMMA+x
-# e821+064e      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
-# e821+e825      => 064e+0640      : TATWEEL+FATHA => FATHA+TATWEEL
-# e821+064f      => 0650+064f      : TATWEEL+DAMMA => DAMMA+TATWEEL
-# e821+e8e9      => 0650+064f      : TATWEEL+DAMMA => DAMMA+TATWEEL
-# e821+0650      => 0650+0640      : TATWEEL+KASRA => KASRA+TATWEEL
-# e821+e864      => 0650+0640      : TATWEEL+KASRA => KASRA+TATWEEL
-# e821+0652      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
-# e821+e828      => 0652+0640      : TATWEEL+SUKUN => SUKUN+TATWEEL
-# e821+fc60      => 064e+0651      : TATWEEL+SHADDA/FATHA => SHADDA+FATHA
-# e821           => 0640           : TATWEEL (short)
-# fefb+062f+e85b => fef7+064e+062f : LAM/ALEF+x+HAMZA/FATHA => LAM/ALEF/HAMZA+FATHA+x
-
-0627+e815        => 0623+064e      : ALIF+HAMZA/FATA => ALIF/HAMZA+FATA
-0627+c+e815      => 0623+064e+c    : ALIF+letter+HAMZA/FATA => ALIF/HAMZA+FATA+letter
-0627+e816        => 0623+064f      : ALIF+HAMZA/DAMMA => ALIF/HAMZA+DAMMA
-0627+e846        => 0625+064d      : ALIF+HAMZAlow/KASHRATAN => ALIF/HAMZA+KASHRATAN
-e80a+e806        => fefb           : LAM/ALEF(isol)
-e80a+d+e806      => fefb+d         : LAM/ALEF(isol) with diacritic
-e80a+d+e806+e85b => fef7+d         : LAM/ALEF/HAMZA(isol) with diacritic
-e80a+e808        => 0644+0671      : LAM+ALEF(wasla) [1]
-e80e+e807        => fefc           : LAM/ALEF(final)
-e80e+d+e807      => fefc+d         : LAM/ALEF(final) with diacritic
-e80e+e821+d+e807 => fefc+d         : LAM/ALEF(final) with tatweel,diacritic
-e821             =>                : (ignore short tatweel)
-e823             => 064b           : FATHATAN
-e824             => 064c           : DAMMATAN
-e825             => 064e           : FATHA
-e826             => 064f           : DAMMA
-e827             => 0651           : SHADDA
-e828             => 0652           : SUKUN
-e82b             => 0670           : ALEF(super)
-e830             => fcf2           : FATHA/SHADDA(medial)
-e831             => fcf3           : DAMMA/SHADDA(medial)
-e832             => fcf4           : SHADDA/KASRA(medial)
-e833             => 0651+0670      : SHADDA+ALEF(super)
-e845             => 0655+0650      : HAMZAlow+KASRA
-fefb+e85b        => fef7+064e      : LAM/ALEF/HAMZA(isol)+FATHA
-e863             => 064d           : KASRATAN
-e864             => 0650           : KASRA
-e887             => 064d           : KASRATAN
-e888             => 0650           : KASRA
-e8d4             => fee0           : LAM(medial)
-e8df             => 0650           : KASRA
-e8e8             => 064e           : FATHA
-e8e9             => 064f           : DAMMA
-e8ea             => 0651           : SHADDA
-e8eb             => 0652           : SUKUN
-e8f4             => 064e+0651      : SHADDA/FATHA => SHADDA+FATHA
-fc60             => 064e+0651      : SHADDA/FATHA => SHADDA+FATHA
+# see https://www.compart.com/en/unicode/U+FE8E
+# see https://r12a.github.io/scripts/arabic/block
+0627+e815        => 0623+064e   : ALEF+HAMZA/FATA => ALEF/HAMZA+FATA
+0627+c+e815      => 0623+064e+c : ALEF+letter+HAMZA/FATA => ALEF/HAMZA+FATA+letter
+0627+e816        => 0623+064f   : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
+0627+e846        => 0625+064d   : ALEF+HAMZAlow/KASHRATAN => ALEF/HAMZA+KASHRATAN
+0648+e838        => 0624+064f   : WAW+HAMZA/DAMMA => WAW/HAMZA+DAMMA
+e80a+d+e806      => fefb+d      : LAM/ALEF(is) with diacritic
+e80a+d+e806+e85b => fef7+d+064e : LAM/ALEF/HAMZA(is)+FATHA with diacritic [5]
+e80a+d+e806+e85c => fef7+d+064f : LAM/ALEF/HAMZA(is)+DAMMA with diacritic [5]
+e80a+e808        => 0644+0671   : LAM+ALEF(wasla) [1]
+e80a+d+e808      => 0644+d+0671 : LAM+ALEF(wasla) [1] with diacritic
+e80a+d+e800      => fef5+d      : LAM+ALEF/MADDA => LAM/ALEF/MADDA(is) with diacritic
+e80e+d+e807      => fefc+d      : LAM/ALEF(fn) with diacritic
+e80e+d+e807+e87f => fef8+d+064e : LAM/ALEF/HAMZA(fn)+FATHA with diacritic
+e80e+e821+d+e807 => fefc+d      : LAM/ALEF(fn) with tatweel,diacritic
+e80e+d+e809      => 0644+d+0671 : LAM+ALEF(wasla) [1] with diacritic
+e812             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
+e818             => 0653+0670   : MADDA+ALEF(super) [4]
+e81d             => fcf4        : SHADDA/KASRA => SHADDA/KASRA(md) [6]
+e821             =>             : (ignore short tatweel)
+e823             => 064b        : FATHATAN
+e824             => 064c        : DAMMATAN
+e825             => 064e        : FATHA
+e826             => 064f        : DAMMA
+e827             => 0651        : SHADDA
+e828             => 0652        : SUKUN
+e829             => 0653        : MADDA
+e82b             => 0670        : ALEF(super)
+e82e             => 064c+0651   : SHADDA/DAMMATAN => SHADDA+DAMMATAN
+e82f             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
+e830             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
+e831             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
+e832             => 0650+0651   : SHADDA/KASRA => SHADDA+KASRA
+e833             => 0651+0670   : SHADDA+ALEF(super)
+e834             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
+e835             => 0654+064b   : HAMZA/FATHATAN => HAMZA(hi)+FATHATAN [3]
+e837             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
+e838             => 0654+064f   : HAMZA/DAMMA => HAMZA(hi)+DAMMA [3]
+e83a             => 0653+0670   : MADDA+ALEF(super) [4]
+e83f             => 064d        : KASRATAN
+e840             => 0650        : KASRA
+e845             => 0655+0650   : HAMZA(low)+KASRA
+e84d             => 0653        : MADDA
+fefb+e85b        => fef7+064e   : LAM/ALEF/HAMZA(is)+FATHA
+e863             => 064d        : KASRATAN
+e864             => 0650        : KASRA
+e887             => 064d        : KASRATAN
+e888             => 0650        : KASRA
+e8d4             => fee0        : LAM(medial)
+e8de             => 064d        : KASRATAN
+e8df             => 0650        : KASRA
+e8e6             => 064b        : FATHATAN
+e8e7             => 064c        : DAMMATAN
+e8e8             => 064e        : FATHA
+e8e9             => 064f        : DAMMA
+e8ea             => 0651        : SHADDA
+e8eb             => 0652        : SUKUN
+e8ee             => 0670        : ALEF(super)
+e8f4             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
+e8f5             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
+e8f6             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
+e8f8             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
+e8fb             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
+e8fe             => 0653+0670   : MADDA+ALEF(super) [4]
+# fc60             => fcf2        : SHADDA/FATHA(is) => SHADDA/FATHA(md)
+fc60             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
+fe8e+e815        => fe84+064e   : ALEF(fn)+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
+fe8e+e821+e815   => fe84+064e   : ALEF(fn)+TATW+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
+fe8e+e816        => fe84+064f   : ALEF(fn)+HAMZA/DAMMA => ALEF(fn)/HAMZA+DAMMA
+fe8e+e821+e816   => fe84+064f   : ALEF(fn)+HAMZA/DAMMA and TATW => ALEF(fn)/HAMZA+DAMMA
+fefb+e85c        => fef7+064f   : LAM/ALEF(is)+HAMZA/DAMMA => LAM/ALEF/HAMZA(is)+DAMMA
+fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
 
 # [1] it should be a LAM/ALEF ligature with wasla, but there is no such unicode char
+#     See https://savannah.gnu.org/bugs/?52454
+# [2] it looks like shadda+fathatan, but there is no shadda+fathatan.
+#     Instead, it is shadda+kashratan, where the kashratan is placed high.
+# [3] not a perfect solution. After fbe9 (alef maksura) the high hamza is not
+#     a recommended combination.
+# [4] the result combination of madda and alef superscript does not render nicely
+# [5] the hamza ends up on the left part of the ligature and combines
+#     there with the fatha/damma, the d should be positioned on the rightmost part
+#     of the ligature, but this does not happen
+# [6] The shadda/kasra should render low, but it does render high.
+#     On page 185 line 4 is a yeh that has both this one and the shadda/fatha,
+#     where in the original the one is rendered below, and the other above the letter.
+#     In Unicode they end up both in a high position.
 """
 
 
@@ -422,7 +455,7 @@ def getDictFromDef(defs):
     result = {}
     ruleIndex = {}
 
-    for (rn, vals, d, repls, e) in sorted(rules, key=lambda x: (-len(x[1]), x[1])):
+    for (rn, vals, d, repls, e) in sorted(rules, key=lambda x: (-len(x[1]), str(x[1]))):
         result.setdefault(vals[0], []).append((rn, vals, d, repls, e))
         ruleIndex[rn] = (vals, d, repls, e)
 
@@ -453,7 +486,6 @@ class Lakhnawi:
         self.text = {}
         self.lines = {}
         self.good = True
-        self.rulesApplied = collections.defaultdict(collections.Counter)
 
     def setStyle(self):
         display(HTML(CSS))
@@ -475,6 +507,10 @@ class Lakhnawi:
         if self.replace is None:
             self.replace = {}
             self.good = False
+        self.rulesApplied = collections.defaultdict(collections.Counter)
+        for rn in self.ruleIndex:
+            self.rulesApplied[rn] = collections.Counter()
+
         self.rls = self.puas | self.semis
         self.getCharInfo()
 
@@ -567,7 +603,19 @@ class Lakhnawi:
         rulesApplied = self.rulesApplied
 
         html = []
-        html.append("<table>")
+        totalRules = len(ruleIndex)
+        totalApplications = sum(sum(x.values()) for x in rulesApplied.values())
+        totalPages = len(set(chain.from_iterable(rulesApplied.values())))
+        ruleRep = "rule" + ("" if totalRules == 1 else "s")
+        appRep = "application" + ("" if totalApplications == 1 else "s")
+        pageRep = "page" + ("" if totalPages == 1 else "s")
+        html.append(
+            f"""
+<p><b>{totalRules} {ruleRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}</b></p>
+<table>
+"""
+        )
 
         for (rn, applied) in sorted(
             rulesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
@@ -580,7 +628,7 @@ class Lakhnawi:
             if applied:
                 examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
                 nExamples = applied[examplePageNum]
-                appliedEx = f"e.g. page {examplePageNum} with {nExamples} applicaitons"
+                appliedEx = f"e.g. page {examplePageNum} with {nExamples} applications"
             else:
                 appliedEx = ""
             appliedRep = f"<b>{total}</b> x applied on <i>{len(applied)}</i> pages"
@@ -620,6 +668,7 @@ class Lakhnawi:
             page = doc[pageNum - 1]
 
             pix = page.getPixmap(matrix=fitz.Matrix(4, 4), alpha=False)
+            display(HTML(f"""<p><b>page {pageNum}</b></p>"""))
             display(Image(data=pix.getPNGData(), format="png"))
 
     def getPages(self, pageNumSpec, refreshConfig=False):
@@ -670,7 +719,9 @@ class Lakhnawi:
                 html.append(f"""<p class="r">{self.htmlLine(line)}</p>\n""")
             display(HTML("".join(html)))
 
-    def showLines(self, pageNumSpec, line=None, start=None, end=None, search=None):
+    def showLines(
+        self, pageNumSpec, line=None, start=None, end=None, search=None, orig=False
+    ):
         lines = self.lines
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
@@ -721,7 +772,7 @@ class Lakhnawi:
                 if search is not None:
                     pos = -1
                     for (i, char) in enumerate(chars):
-                        if char[-2] == search:
+                        if search in char[-2 if orig else -1]:
                             pos = i
                             found = True
                             break
@@ -1199,11 +1250,53 @@ on {totalPages} {pageRep}</b></p>
 
 
 def keyCharV(char):
+    """The vertical position of the middle of a character.
+
+    Used to sort the characters of a page in the vertical direction.
+    """
+
     return (char[3] + char[1]) / 2
 
 
 def keyCharH(char):
-    return (-int(round(char[2])), int(round(char[0])))
+    """Sort key to sort the characters of a line horizontally.
+
+    Basically, characters whose right edge are closer to the right edge of the page
+    come before characters whose right edges are further left.
+
+    So we could sort on minus the x coordinate of the right edge.
+
+    However, there are complications. Sometimes characters have the same right edge.
+
+    Diacritics usually start right
+    after the letter they are on together with the next letter.
+
+    So they should come before that next letter.
+    In those cases we take the width into account.
+
+    Private use diacritics usually have a big width, they are wider than letters.
+    So if we sort wider characters before narrower characters, we get that right.
+
+    However, normal unicode diacritics have a typical width of zero, and also
+    these should come before the next letter.
+
+    We can solve that by sorting by a key defined as 1 divided by the widthss
+    if the width is nonzero, and 0 if the the width is zero.
+
+    Then zero width characters come first, then wide characters, then narrow characters.
+
+    One extra complication: the widths are not integers but fractions.
+
+    Sometimes a the diacritic and the next letter have an almost equal right edge,
+    but not quite equal, and the wrong one comes first.
+
+    We can solve that by rounding.
+    """
+
+    width = abs(int(round(char[2] - char[0])))
+    widthKey = (1 / width) if width else 0
+    rightKey = int(round(char[2]))
+    return (-rightKey, widthKey)
 
 
 def clusterVert(data):
@@ -1215,9 +1308,13 @@ def clusterVert(data):
     peaks = sorted(keys)
     if len(peaks) > 1:
         nDistances = len(peaks) - 1
-        avPeakDist = (
-            sum(peaks[i + 1] - peaks[i] for i in range(nDistances)) / nDistances
-        )
+        distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
+        # remove the biggest distances, to prevent outliers pulling the average too high
+        for _ in range(2):
+            if len(distances) > 1:
+                distances = distances[0:-1]
+        nDistances = len(distances)
+        avPeakDist = sum(distances) / nDistances
 
         peakThreshold = avPeakDist / 3
         clusteredPeaks = {}
