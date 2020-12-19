@@ -386,14 +386,15 @@ REPLACE_DEF = """
 0627+e85b        => 0623+064e     : ALEF+HAMZA/FATHA => ALEF/HAMZA+FATHA
 0627+e85c        => 0623+064f     : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
 0648+e838        => 0624+064f     : WAW+HAMZA/DAMMA => WAW/HAMZA+DAMMA
-e800             => 0622        : ALEF/MADDA (as lig part 2)
-e80a             => 0644        : LAM(as lig part 1)
-e80e             => 0644        : LAM(as lig part 1)
-e806             => 0627        : ALEF(as lig part 2)
+e800             => 0622          : ALEF/MADDA (as lig part 2)
+e80a             => 0644          : LAM(as lig part 1)
+e80e             => 0644          : LAM(as lig part 1)
+e806             => 0627          : ALEF(as lig part 2)
+e806+e85b        => 0623+064e     : ALEF+HAMZA/FATHA => ALEF/HAMZA+FATHA
+e806+e85c        => 0623+064f     : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
 e807             => 0627        : ALEF(as lig part 2)
 e808             => 0671        : ALEF(wasla)(as lig part 2) [1]
-e80e+e821+d+e807 => fefc+d      : LAM/ALEF(fn) with tatweel,diacritic
-e80e+d+e809      => 0644+d+0671 : LAM+ALEF(wasla) [1] with diacritic
+e809             => 0671        : ALEF(wasla)(as lig part 2) [1]
 e812             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
 e818             => 0653+0670   : MADDA+ALEF(super) [4]
 e81d             => fcf4        : SHADDA/KASRA => SHADDA/KASRA(md) [6]
@@ -423,7 +424,6 @@ e840             => 0650        : KASRA
 e845             => 0655+0650   : HAMZA(low)+KASRA
 e849             => 064e        : FATHA
 e84d             => 0653        : MADDA
-fefb+e85b        => fef7+064e   : LAM/ALEF/HAMZA(is)+FATHA
 e863             => 064d        : KASRATAN
 e864             => 0650        : KASRA
 e86d             => 064e        : FATHA
@@ -458,6 +458,7 @@ fe8e+e821+e816   => fe84+064f   : ALEF(fn)+HAMZA/DAMMA and TATW => ALEF(fn)/HAMZ
 fe92+0650+e915   => fc0a+0650   : BEH/YEH+KASRA [8]
 fec3+0652+e821+e80e+064e+e807 => 0637+0652+e821+e80e+064e+e807 : [9]
 fef4+e917        => fef4+fef0+0670   : YEH(fn)+ALEF(super)
+fefb+e85b        => 0644+623+064e : LAM+ALEF/HAMZA+FATHA
 fefb+e85c        => fef7+064f   : LAM/ALEF(is)+HAMZA/DAMMA => LAM/ALEF/HAMZA(is)+DAMMA
 fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
 
