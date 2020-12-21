@@ -187,6 +187,10 @@ DIACRITIC_RANGES = (
     ("fe7f", "fe7f"),
 )
 
+PRESENTATIONAL_RANGES = (
+    ("fb50", "feff"),
+)
+
 PRIVATE_SPACE = "\uea75"
 
 PRIVATE_LETTERS_DEF = """
@@ -377,90 +381,138 @@ fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
 
 
 REPLACE_DEF = """
+# see https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
 # see https://www.compart.com/en/unicode/U+FE8E
 # see https://r12a.github.io/scripts/arabic/block
-0627+e814        => 0623+064c     : ALEF+HAMZA/DAMMATAN => ALEF/HAMZA+DAMMATAN
-0627+e815        => 0623+064e     : ALEF+HAMZA/FATA => ALEF/HAMZA+FATA
-0627+e816        => 0623+064f     : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
-0627+e846        => 0625+064d     : ALEF+HAMZAlow/KASHRATAN => ALEF/HAMZA+KASHRATAN
-0627+e85b        => 0623+064e     : ALEF+HAMZA/FATHA => ALEF/HAMZA+FATHA
-0627+e85c        => 0623+064f     : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
-0648+e838        => 0624+064f     : WAW+HAMZA/DAMMA => WAW/HAMZA+DAMMA
-e800             => 0622          : ALEF/MADDA (as lig part 2)
-e80a             => 0644          : LAM(as lig part 1)
-e80e             => 0644          : LAM(as lig part 1)
-e806             => 0627          : ALEF(as lig part 2)
-e806+e85b        => 0623+064e     : ALEF+HAMZA/FATHA => ALEF/HAMZA+FATHA
-e806+e85c        => 0623+064f     : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
-e807             => 0627        : ALEF(as lig part 2)
-e808             => 0671        : ALEF(wasla)(as lig part 2) [1]
-e809             => 0671        : ALEF(wasla)(as lig part 2) [1]
-e812             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e818             => 0653+0670   : MADDA+ALEF(super) [4]
-e81d             => fcf4        : SHADDA/KASRA => SHADDA/KASRA(md) [6]
-e821             =>             : (ignore short tatweel)
-e823             => 064b        : FATHATAN
-e824             => 064c        : DAMMATAN
-e825             => 064e        : FATHA
-e826             => 064f        : DAMMA
-e827             => 0651        : SHADDA
-e828             => 0652        : SUKUN
-e829             => 0653        : MADDA
-e82b             => 0670        : ALEF(super)
-e82e             => 064c+0651   : SHADDA/DAMMATAN => SHADDA+DAMMATAN
-e82f             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e830             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e831             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
-e832             => 0650+0651   : SHADDA/KASRA => SHADDA+KASRA
-e833             => 0651+0670   : SHADDA+ALEF(super)
-e834             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e835             => 0654+064b   : HAMZA/FATHATAN => HAMZA(hi)+FATHATAN [3]
-e837             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
-e838             => 0654+064f   : HAMZA/DAMMA => HAMZA(hi)+DAMMA [3]
-e839             => 0654+0652   : HAMZA/SUKUN => HAMZA(hi)+SUKUN [3]
-e83a             => 0653+0670   : MADDA+ALEF(super) [4]
-e83f             => 064d        : KASRATAN
-e840             => 0650        : KASRA
-e845             => 0655+0650   : HAMZA(low)+KASRA
-e849             => 064e        : FATHA
-e84d             => 0653        : MADDA
-e863             => 064d        : KASRATAN
-e864             => 0650        : KASRA
-e86d             => 064e        : FATHA
-e87f             => 064e        : FATHA
-e880             => 0654+064f   : HAMZA/DAMMA => HAMZA(hi)+DAMMA [3]
-e887             => 064d        : KASRATAN
-e888             => 0650        : KASRA
-e898             => feea        : HEH(fn)
-e8d4             => fee0        : LAM(medial)
-e8de             => 064d        : KASRATAN
-e8df             => 0650        : KASRA
-e8e6             => 064b        : FATHATAN
-e8e7             => 064c        : DAMMATAN
-e8e8             => 064e        : FATHA
-e8e9             => 064f        : DAMMA
-e8ea             => 0651        : SHADDA
-e8eb             => 0652        : SUKUN
-e8ee             => 0670        : ALEF(super)
-e8f4             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e8f5             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
-e8f6             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e8f8             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e8fb             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
-e8fe             => 0653+0670   : MADDA+ALEF(super) [4]
-ea75+e828+ea79   => 062d+0652+0645: HAH+SUKUN+MEEM
-fe8e+e815        => fe84+064e   : ALEF(fn)+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
-fe8e+e821+e815   => fe84+064e   : ALEF(fn)+TATW+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
-fe8e+e821+e846   => 0625+064d   : ALEF(fn)+HAMZA/KASRATAN => ALEF/HAMZAlow+KASRATAN
-fe8e+e816        => fe84+064f   : ALEF(fn)+HAMZA/DAMMA => ALEF(fn)/HAMZA+DAMMA
-fe8e+e817        => fe84+0652   : ALEF(fn)+HAMZA/SUKUN => ALEF(fn)/HAMZA+SUKUN [7]
-fe8e+e821+e816   => fe84+064f   : ALEF(fn)+HAMZA/DAMMA and TATW => ALEF(fn)/HAMZA+DAMMA
-fe92+0650+e915   => fc0a+0650   : BEH/YEH+KASRA [8]
+
+e821                =>                : (ignore short tatweel)
+
+e825                => 064e           : FATHA
+e849                => 064e           : FATHA
+e86d                => 064e           : FATHA
+e87f                => 064e           : FATHA
+e8e8                => 064e           : FATHA
+e823                => 064b           : FATHATAN
+e8e6                => 064b           : FATHATAN
+e826                => 064f           : DAMMA
+e8e9                => 064f           : DAMMA
+e824                => 064c           : DAMMATAN
+e8e7                => 064c           : DAMMATAN
+e840                => 0650           : KASRA
+e864                => 0650           : KASRA
+e888                => 0650           : KASRA
+e8df                => 0650           : KASRA
+e83f                => 064d           : KASRATAN
+e863                => 064d           : KASRATAN
+e887                => 064d           : KASRATAN
+e8de                => 064d           : KASRATAN
+e827                => 0651           : SHADDA
+e8ea                => 0651           : SHADDA
+e828                => 0652           : SUKUN
+e8eb                => 0652           : SUKUN
+e829                => 0653           : MADDA
+e84d                => 0653           : MADDA
+e82b                => 0670           : ALEF(super)
+e8ee                => 0670           : ALEF(super)
+
+e830                => 064e+0651      : SHADDA+FATHA
+e8f4                => 064e+0651      : SHADDA+FATHA
+e8f6                => 064e+0651      : SHADDA+FATHA
+e831                => 064f+0651      : SHADDA+DAMMA
+e8f5                => 064f+0651      : SHADDA+DAMMA
+e82e                => 064c+0651      : SHADDA+DAMMATAN
+e832                => 0650+0651      : SHADDA+KASRA
+e82f                => 064d+0651      : SHADDA+KASRATAN [2]
+e834                => 064d+0651      : SHADDA+KASRATAN [2]
+e812                => 064d+0651      : SHADDA+KASRATAN [2]
+e8f8                => 064d+0651      : SHADDA+KASRATAN [2]
+
+fc60                => 064e+0651      : FATHA+SHADDA
+fc62                => 0650+0651      : KASRA+SHADDA
+
+e818                => 0653+0670      : MADDA+ALEF(super) [4]
+e83a                => 0653+0670      : MADDA+ALEF(super) [4]
+e8fe                => 0653+0670      : MADDA+ALEF(super) [4]
+e81d                => 0640+0650+0651 : TATWEEL+KASRA+SHADDA
+
+fecb                => 0639           : AIN
+fe91                => 0641           : BEH
+feaa                => 062f           : DAL
+fed3                => 0628           : FEH
+e898                => 0647           : HEH
+feea                => 0647           : HEH
+fee3                => 0645           : MEEM
+fee4                => 0645           : MEEM
+fee8                => 0646           : NOON
+feae                => 0631           : REH
+feb3                => 0633           : SEEN
+fef3                => 064a           : YEH
+fef4                => 064a           : YEH
+
+e806                => 0627           : ALEF
+e807                => 0627           : ALEF
+fe8e                => 0627           : ALEF
+
+fbe9                => 0649           : ALEF(maksura)
+e808                => 0671           : ALEF(wasla)
+e809                => 0671           : ALEF(wasla)
+e800                => 0622           : ALEF/MADDA
+
+0627+e815           => 0623+064e      : ALEF/HAMZA+FATHA
+0627+e85b           => 0623+064e      : ALEF/HAMZA+FATHA
+fe8e+e815           => 0623+064e      : ALEF/HAMZA+FATHA
+fe8e+e821+e815      => 0623+064e      : ALEF/HAMZA+FATHA
+e806+e85b           => 0623+064e      : ALEF/HAMZA+FATHA
+0627+e85c           => 0623+064f      : ALEF/HAMZA+DAMMA
+0627+e816           => 0623+064f      : ALEF/HAMZA+DAMMA
+e806+e85c           => 0623+064f      : ALEF/HAMZA+DAMMA
+fe8e+e816           => 0623+064f      : ALEF/HAMZA+DAMMA
+fe8e+e821+e816      => 0623+064f      : ALEF/HAMZA+DAMMA
+0627+e814           => 0623+064c      : ALEF/HAMZA+DAMMATAN
+0627+e846           => 0625+064d      : ALEF/HAMZA(low)+KASHRATAN
+fe8e+e821+e846      => 0625+064d      : ALEF/HAMZA(low)+KASRATAN
+fe8e+e817           => 0623+0652      : ALEF/HAMZA+SUKUN [7]
+
+e835                => 0654+064b      : HAMZA+FATHATAN [3]
+e837                => 0654+064e      : HAMZA+FATHA [3]
+e8fb                => 0654+064e      : HAMZA+FATHA [3]
+e838                => 0654+064f      : HAMZA+DAMMA [3]
+e880                => 0654+064f      : HAMZA+DAMMA [3]
+e839                => 0654+0652      : HAMZA+SUKUN [3]
+e845                => 0655+0650      : HAMZA(low)+KASRA
+
+feee                => 0648           : WAW
+0648+e838           => 0624+064f      : WAW/HAMZA+DAMMA
+
+e80a                => 0644           : LAM
+e80e                => 0644           : LAM
+fedf                => 0644           : LAM
+fee0                => 0644           : LAM
+
+e821+e8d4+e821+e830 => 0644           : LAM [10]
+e821+e8d4+e82b+e821 => 0644           : LAM [10]
+e8d4+e830           => 0644           : LAM [10]
+e8d4+e833           => 0644           : LAM [10]
+e8d4+e821           => 0644           : LAM [10]
+e8d4+e821+e827      => 0644           : LAM [10]
+e8d4+e821+e833      => 0644           : LAM [10]
+e8d4+e821+e821+e833 => 0644           : LAM [10]
+e8d4+fc63           => 0644           : LAM [10]
+e8d4+e827           => 0644           : LAM [10]
+e8d4                => 0644           : LAM [10]
+e8d4+064e+e82b      => 0644           : LAM [11]
+
+fefb+e85b           => 0644+623+064e  : LAM+ALEF/HAMZA+FATHA
+fefb+e85c           => 0644+0623+064f : LAM/ALEF/HAMZA+DAMMA
+fefc+e87f           => 0644+0623+064e : LAM/ALEF/HAMZA+FATHA
+
+fef4+e917           => 064a+0649+0670 : YEH+ALEF(super)
+
+ea75+e828+ea79      => 062d+0652+0645 : HAH+SUKUN+MEEM
+
+fe92+0650+e915      => 0628+0650+064a : BEH+KASRA+YEH
+
 fec3+0652+e821+e80e+064e+e807 => 0637+0652+e821+e80e+064e+e807 : [9]
-fef4+e917        => fef4+fef0+0670   : YEH(fn)+ALEF(super)
-fefb+e85b        => 0644+623+064e : LAM+ALEF/HAMZA+FATHA
-fefb+e85c        => fef7+064f   : LAM/ALEF(is)+HAMZA/DAMMA => LAM/ALEF/HAMZA(is)+DAMMA
-fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
 
 # [1] it should be a LAM/ALEF ligature with wasla, but there is no such unicode char
 #     See https://savannah.gnu.org/bugs/?52454
@@ -479,8 +531,11 @@ fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
 # [7] In the original, the sukun tops the alef and the hamza tops the sukun.
 #     In Unicode, it's the otherway round: the hamza tops the alif and the sukun is
 #     at the top.
-# [8] When rendered, the kasra is not positioned well on the ligature.
 # [9] Singular case on page 45 line 9 char 90 : a final tah inside a word
+# [10] as in Allah. The shadda and alef superscript are filled in by the unicode
+#      algorithm.
+# [11] as in Allah, but with fatha instead of shadda. Probaly a typo in a note,
+#      page 12 second last line.
 """
 
 
@@ -617,6 +672,7 @@ class Lakhnawi:
 
     def getCharConfig(self):
         self.puas = getSetFromRanges(PUA_RANGES)
+        self.presentational = getSetFromRanges(PRESENTATIONAL_RANGES)
         self.arabic = getSetFromRanges(ARABIC_RANGES)
         self.hebrew = getSetFromRanges(HEBREW_RANGES)
         self.syriac = getSetFromRanges(SYRIAC_RANGES)
@@ -855,7 +911,14 @@ class Lakhnawi:
             display(HTML("".join(html)))
 
     def showLines(
-        self, pageNumSpec, line=None, start=None, end=None, search=None, orig=False
+        self,
+        pageNumSpec,
+        line=None,
+        start=None,
+        end=None,
+        search=None,
+        orig=False,
+        every=False,
     ):
         lines = self.lines
         pageNums = self.parsePageNums(pageNumSpec)
@@ -883,7 +946,6 @@ class Lakhnawi:
         )
 
         shift = 5
-        found = False
 
         for (pageNum, pageLines) in myLines.items():
             myLineNums = (
@@ -903,36 +965,28 @@ class Lakhnawi:
 </tr>
 """
                 )
-                pos = None
-                if search is not None:
-                    pos = -1
+                if search is None:
+                    ranges = [(0, nChars)]
+                else:
+                    ranges = []
+
                     for (i, char) in enumerate(chars):
                         if search in char[-2 if orig else -1]:
-                            pos = i
-                            found = True
-                            break
+                            occStart = max((i - shift, 0))
+                            occEnd = min((i + shift + 1, nChars))
+                            if ranges and occStart <= ranges[-1][1]:
+                                ranges[-1][1] = occEnd
+                            else:
+                                ranges.append([occStart, occEnd])
+                            if not every:
+                                break
 
-                if pos is None:
-                    occStart = 0
-                    occEnd = nChars
-                elif pos == -1:
-                    continue
-                else:
-                    occStart = max((pos - shift, 0))
-                    occEnd = min((pos + shift + 1, nChars))
-                for (i, char) in enumerate(chars):
-                    if (
-                        start is not None
-                        and i + 1 < start
-                        or end is not None
-                        and i + 1 > end
-                    ):
-                        continue
-                    if i < occStart or i >= occEnd:
-                        continue
-                    (le, to, ri, bo, font, size, spacing, oc, c) = char
-                    html.append(
-                        f"""
+                for (occStart, occEnd) in ranges:
+                    for i in range(occStart, occEnd):
+                        char = chars[i]
+                        (le, to, ri, bo, font, size, spacing, oc, c) = char
+                        html.append(
+                            f"""
 <tr>
     <td><b>{i + 1}</b></td>
     <td>{ptRep(to)}</td>
@@ -946,14 +1000,22 @@ class Lakhnawi:
     <td>{"".join(self.showChar(x) for x in c)}</td>
 </tr>
 """
-                    )
-                if found:
+                        )
+                if search and ranges and not every:
                     break
 
         html.append("</table>")
         display(HTML("".join(html)))
 
-    def showUsedChars(self, pageNumSpec, onlyPuas=False, long=False, byOcc=False):
+    def showUsedChars(
+        self,
+        pageNumSpec,
+        onlyPuas=False,
+        onlyPresentational=False,
+        long=False,
+        byOcc=False,
+    ):
+        presentational = self.presentational
         pageNums = self.parsePageNums(pageNumSpec)
         text = self.text
 
@@ -976,7 +1038,8 @@ class Lakhnawi:
                     if not onlyPuas:
                         rest = PUA_RE.sub("", span[1])
                         for c in rest:
-                            charsOut[c][pageNum] += 1
+                            if not (onlyPresentational and c not in presentational):
+                                charsOut[c][pageNum] += 1
 
         totalChars = len(charsOut)
         totalPages = len(set(chain.from_iterable(charsOut.values())))
