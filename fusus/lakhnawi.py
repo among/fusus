@@ -4,7 +4,7 @@ import re
 import pprint as pp
 
 from itertools import chain
-from unicodedata import name as uname
+from unicodedata import name as uname, normalize, decomposition, category
 
 from IPython.display import display, HTML, Image
 
@@ -24,6 +24,9 @@ NAME = "Lakhnawi"
 SOURCE = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf"
 FONT = f"{SOURCE_DIR}/{NAME}/Font report {NAME}.pdf"
 DEST = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt"
+
+NFKC = "NFKC"
+NFKD = "NFKD"
 
 CSS = """
 <style>
@@ -75,6 +78,9 @@ p.r {
     font-size: xx-large;
     font-weight: bold;
 }
+span.sp {
+    background-color: #00ff00;
+}
 td {
     text-align: left ! important;
 }
@@ -111,6 +117,10 @@ div.sr {
 
 PUA_RANGES = (("e000", "f8ff"),)
 
+LATIN_PRESENTATIONAL_RANGES = (("00c0", "024f"), ("1e00", "1eff"), ("fb00", "fb06"))
+
+GREEK_PRESENTATIONAL_RANGES = (("1f00", "1fff"),)
+
 ARABIC_RANGES = (
     ("0600", "06ff"),
     ("0750", "077f"),
@@ -121,6 +131,8 @@ ARABIC_RANGES = (
     ("fe70", "fefc"),
 )
 
+ARABIC_PRESENTATIONAL_RANGES = (("fb50", "feff"),)
+
 SYRIAC_RANGES = (
     ("0700", "074f"),
     ("2670", "2671"),
@@ -130,6 +142,8 @@ HEBREW_RANGES = (
     ("0590", "05ff"),
     ("0fb1d", "fb4f"),
 )
+
+HEBREW_PRESENTATIONAL_RANGES = (("fb1d", "fb4f"),)
 
 BRACKET_RANGES = (
     ("0028", "0029"),  # parentheses
@@ -185,10 +199,6 @@ DIACRITIC_RANGES = (
     ("fe7b", "fe7b"),
     ("fe7d", "fe7d"),
     ("fe7f", "fe7f"),
-)
-
-PRESENTATIONAL_RANGES = (
-    ("fb50", "feff"),
 )
 
 PRIVATE_SPACE = "\uea75"
@@ -271,115 +281,6 @@ e8fe
 """
 
 
-PREVIOUSLY = """
-# see https://www.compart.com/en/unicode/U+FE8E
-# see https://r12a.github.io/scripts/arabic/block
-0627+e814        => 0623+064c   : ALEF+HAMZA/DAMMATAN => ALEF/HAMZA+DAMMATAN
-0627+e815        => 0623+064e   : ALEF+HAMZA/FATA => ALEF/HAMZA+FATA
-# 0627+c+e815      => 0623+064e+c : ALEF+letter+HAMZA/FATA => ALEF/HAMZA+FATA+letter
-0627+e816        => 0623+064f   : ALEF+HAMZA/DAMMA => ALEF/HAMZA+DAMMA
-0627+e846        => 0625+064d   : ALEF+HAMZAlow/KASHRATAN => ALEF/HAMZA+KASHRATAN
-0648+e838        => 0624+064f   : WAW+HAMZA/DAMMA => WAW/HAMZA+DAMMA
-ea75+e828+ea79   => 062d+0652+0645: HAH+SUKUN+MEEM
-e80a+d+e806      => 0644+d+0627  : LAM+ALEF with diacritic on first part
-e80a+d+e806+e85b => 0644+d+0623+064e : LAM+ALEF/HAMZA+FATHA with diacritic [5]
-e80a+d+e806+e85c => fef7+d+064f : LAM/ALEF/HAMZA(is)+DAMMA with diacritic [5]
-e80a+e808        => 0644+0671   : LAM+ALEF(wasla) [1]
-e80a+d+e808      => 0644+d+0671 : LAM+ALEF(wasla) [1] with diacritic
-e80a+d+e800      => fef5+d      : LAM+ALEF/MADDA => LAM/ALEF/MADDA(is) with diacritic
-# e80e+d+e807      => fefc+d      : LAM/ALEF(fn) with diacritic
-e80e             => 0644        : LAM(as lig part 1)
-e807             => 0627        : ALEF(as lig part 2)
-e80e+e821+d+e807 => fefc+d      : LAM/ALEF(fn) with tatweel,diacritic
-e80e+d+e809      => 0644+d+0671 : LAM+ALEF(wasla) [1] with diacritic
-e812             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e818             => 0653+0670   : MADDA+ALEF(super) [4]
-e81d             => fcf4        : SHADDA/KASRA => SHADDA/KASRA(md) [6]
-e821             =>             : (ignore short tatweel)
-e823             => 064b        : FATHATAN
-e824             => 064c        : DAMMATAN
-e825             => 064e        : FATHA
-e826             => 064f        : DAMMA
-e827             => 0651        : SHADDA
-e828             => 0652        : SUKUN
-e829             => 0653        : MADDA
-e82b             => 0670        : ALEF(super)
-e82e             => 064c+0651   : SHADDA/DAMMATAN => SHADDA+DAMMATAN
-e82f             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e830             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e831             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
-e832             => 0650+0651   : SHADDA/KASRA => SHADDA+KASRA
-e833             => 0651+0670   : SHADDA+ALEF(super)
-e834             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e835             => 0654+064b   : HAMZA/FATHATAN => HAMZA(hi)+FATHATAN [3]
-e837             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
-e838             => 0654+064f   : HAMZA/DAMMA => HAMZA(hi)+DAMMA [3]
-e839             => 0654+0652   : HAMZA/SUKUN => HAMZA(hi)+SUKUN [3]
-e83a             => 0653+0670   : MADDA+ALEF(super) [4]
-e83f             => 064d        : KASRATAN
-e840             => 0650        : KASRA
-e845             => 0655+0650   : HAMZA(low)+KASRA
-e849             => 064e        : FATHA
-e84d             => 0653        : MADDA
-fefb+e85b        => fef7+064e   : LAM/ALEF/HAMZA(is)+FATHA
-e863             => 064d        : KASRATAN
-e864             => 0650        : KASRA
-e86d             => 064e        : FATHA
-e87f             => 064e        : FATHA
-e880             => 0654+064f   : HAMZA/DAMMA => HAMZA(hi)+DAMMA [3]
-e887             => 064d        : KASRATAN
-e888             => 0650        : KASRA
-e898             => feea        : HEH(fn)
-e8d4             => fee0        : LAM(medial)
-e8de             => 064d        : KASRATAN
-e8df             => 0650        : KASRA
-e8e6             => 064b        : FATHATAN
-e8e7             => 064c        : DAMMATAN
-e8e8             => 064e        : FATHA
-e8e9             => 064f        : DAMMA
-e8ea             => 0651        : SHADDA
-e8eb             => 0652        : SUKUN
-e8ee             => 0670        : ALEF(super)
-e8f4             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e8f5             => 064f+0651   : SHADDA/DAMMA => SHADDA+DAMMA
-e8f6             => 064e+0651   : SHADDA/FATHA => SHADDA+FATHA
-e8f8             => 064d+0651   : SHADDA/KASRATAN => SHADDA+KASRATAN [2]
-e8fb             => 0654+064e   : HAMZA/FATHA => HAMZA(hi)+FATHA [3]
-e8fe             => 0653+0670   : MADDA+ALEF(super) [4]
-fe8e+e815        => fe84+064e   : ALEF(fn)+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
-fe8e+e821+e815   => fe84+064e   : ALEF(fn)+TATW+HAMZA/FATA => ALEF(fn)/HAMZA+FATA
-fe8e+e821+e846   => 0625+064d   : ALEF(fn)+HAMZA/KASRATAN => ALEF/HAMZAlow+KASRATAN
-fe8e+e816        => fe84+064f   : ALEF(fn)+HAMZA/DAMMA => ALEF(fn)/HAMZA+DAMMA
-fe8e+e817        => fe84+0652   : ALEF(fn)+HAMZA/SUKUN => ALEF(fn)/HAMZA+SUKUN [7]
-fe8e+e821+e816   => fe84+064f   : ALEF(fn)+HAMZA/DAMMA and TATW => ALEF(fn)/HAMZA+DAMMA
-fe92+0650+e915   => fc0a+0650   : BEH/YEH+KASRA [8]
-fec3+0652+e821+e80e+064e+e807 => 0637+0652+e821+e80e+064e+e807 : [9]
-fef4+e917        => fef4+fef0+0670   : YEH(fn)+ALEF(super)
-fefb+e85c        => fef7+064f   : LAM/ALEF(is)+HAMZA/DAMMA => LAM/ALEF/HAMZA(is)+DAMMA
-fefc+e87f        => fef8+064e   : LAM/ALEF/HAMZA(fn)+FATHA
-
-# [1] it should be a LAM/ALEF ligature with wasla, but there is no such unicode char
-#     See https://savannah.gnu.org/bugs/?52454
-# [2] it looks like shadda+fathatan, but there is no shadda+fathatan.
-#     Instead, it is shadda+kashratan, where the kashratan is placed high.
-# [3] not a perfect solution. After fbe9 (alef maksura) the high hamza is not
-#     a recommended combination.
-# [4] the result combination of madda and alef superscript does not render nicely
-# [5] the hamza ends up on the left part of the ligature and combines
-#     there with the fatha/damma, the d should be positioned on the rightmost part
-#     of the ligature, but this does not happen
-# [6] The shadda/kasra should render low, but it does render high.
-#     On page 185 line 4 is a yeh that has both this one and the shadda/fatha,
-#     where in the original the one is rendered below, and the other above the letter.
-#     In Unicode they end up both in a high position.
-# [7] In the original, the sukun tops the alef and the hamza tops the sukun.
-#     In Unicode, it's the otherway round: the hamza tops the alif and the sukun is
-#     at the top.
-# [8] When rendered, the kasra is not positioned well on the ligature.
-# [9] Singular case on page 45 line 9 char 90 : a final tah inside a word
-"""
-
-
 REPLACE_DEF = """
 # see https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
 # see https://www.compart.com/en/unicode/U+FE8E
@@ -427,33 +328,16 @@ e834                => 064d+0651      : SHADDA+KASRATAN [2]
 e812                => 064d+0651      : SHADDA+KASRATAN [2]
 e8f8                => 064d+0651      : SHADDA+KASRATAN [2]
 
-fc60                => 064e+0651      : FATHA+SHADDA
-fc62                => 0650+0651      : KASRA+SHADDA
-
 e818                => 0653+0670      : MADDA+ALEF(super) [4]
 e83a                => 0653+0670      : MADDA+ALEF(super) [4]
 e8fe                => 0653+0670      : MADDA+ALEF(super) [4]
 e81d                => 0640+0650+0651 : TATWEEL+KASRA+SHADDA
 
-fecb                => 0639           : AIN
-fe91                => 0641           : BEH
-feaa                => 062f           : DAL
-fed3                => 0628           : FEH
 e898                => 0647           : HEH
-feea                => 0647           : HEH
-fee3                => 0645           : MEEM
-fee4                => 0645           : MEEM
-fee8                => 0646           : NOON
-feae                => 0631           : REH
-feb3                => 0633           : SEEN
-fef3                => 064a           : YEH
-fef4                => 064a           : YEH
 
 e806                => 0627           : ALEF
 e807                => 0627           : ALEF
-fe8e                => 0627           : ALEF
 
-fbe9                => 0649           : ALEF(maksura)
 e808                => 0671           : ALEF(wasla)
 e809                => 0671           : ALEF(wasla)
 e800                => 0622           : ALEF/MADDA
@@ -481,13 +365,10 @@ e880                => 0654+064f      : HAMZA+DAMMA [3]
 e839                => 0654+0652      : HAMZA+SUKUN [3]
 e845                => 0655+0650      : HAMZA(low)+KASRA
 
-feee                => 0648           : WAW
 0648+e838           => 0624+064f      : WAW/HAMZA+DAMMA
 
 e80a                => 0644           : LAM
 e80e                => 0644           : LAM
-fedf                => 0644           : LAM
-fee0                => 0644           : LAM
 
 e821+e8d4+e821+e830 => 0644           : LAM [10]
 e821+e8d4+e82b+e821 => 0644           : LAM [10]
@@ -513,6 +394,8 @@ ea75+e828+ea79      => 062d+0652+0645 : HAH+SUKUN+MEEM
 fe92+0650+e915      => 0628+0650+064a : BEH+KASRA+YEH
 
 fec3+0652+e821+e80e+064e+e807 => 0637+0652+e821+e80e+064e+e807 : [9]
+
+fffd                =>                : replacement character
 
 # [1] it should be a LAM/ALEF ligature with wasla, but there is no such unicode char
 #     See https://savannah.gnu.org/bugs/?52454
@@ -553,6 +436,18 @@ def getSetFromRanges(rngs):
         for uc in range(int(b, base=16), int(e, base=16) + 1):
             result.add(chr(uc))
     return result
+
+
+ISOLATED = "<isolated>"
+INITIAL = "<initial>"
+LO = "Lo"
+ALEFS = {"\u0627", "\u0622", "\u0623", "\u0625", "\u0671"}
+WAWS = {"\u0648", "\u0624", "\u0676", ""}
+PROCLITICS = ALEFS | WAWS
+
+
+def tweakSpace(c, dc):
+    return c.strip() if ISOLATED in dc else (" " + c.strip()) if INITIAL in dc else c
 
 
 def ptRep(p):
@@ -658,6 +553,10 @@ U_LINE_RE = re.compile(r"""^U\+([0-9a-f]{4})([0-9a-f ]*)$""", re.I)
 HEX_RE = re.compile(r"""^[0-9a-f]{4}$""", re.I)
 PUA_RE = re.compile(r"""⌊([^⌋]*)⌋""")
 
+RECT = "rect"
+COLOR = "color"
+FNRULE_WIDTH = 60
+
 
 class Lakhnawi:
     def __init__(self):
@@ -672,10 +571,16 @@ class Lakhnawi:
 
     def getCharConfig(self):
         self.puas = getSetFromRanges(PUA_RANGES)
-        self.presentational = getSetFromRanges(PRESENTATIONAL_RANGES)
         self.arabic = getSetFromRanges(ARABIC_RANGES)
         self.hebrew = getSetFromRanges(HEBREW_RANGES)
         self.syriac = getSetFromRanges(SYRIAC_RANGES)
+        self.latinPresentational = getSetFromRanges(LATIN_PRESENTATIONAL_RANGES)
+        self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
+        self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
+        self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
+        self.presentationalC = self.arabicPresentational | self.hebrewPresentational
+        self.presentationalD = self.latinPresentational | self.greekPresentational
+        self.presentational = self.presentationalC | self.presentationalD
         self.semis = self.arabic | self.hebrew | self.syriac
         self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES)
         self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
@@ -862,10 +767,22 @@ class Lakhnawi:
             display(HTML(f"""<p><b>page {pageNum}</b></p>"""))
             display(Image(data=pix.getPNGData(), format="png"))
 
-    def getPages(self, pageNumSpec, refreshConfig=False):
+    def getPages(
+        self,
+        pageNumSpec,
+        refreshConfig=False,
+        doRules=True,
+        doFilter=True,
+        doSpacing=True,
+        onlyFnRules=False,
+    ):
         if not self.good:
             print("SKIPPING because of config errors")
             return
+
+        self.doRules = doRules
+        self.doFilter = doFilter
+        self.doSpacing = doSpacing
 
         ruleIndex = self.ruleIndex
         rulesApplied = self.rulesApplied
@@ -875,6 +792,9 @@ class Lakhnawi:
 
         for rn in ruleIndex:
             rulesApplied[rn] = collections.Counter()
+
+        fnRules = {}
+        self.fnRules = fnRules
 
         for (i, pageNum) in enumerate(self.parsePageNums(pageNumSpec)):
             self.pageNum = pageNum
@@ -888,10 +808,41 @@ class Lakhnawi:
             doc = self.doc
             page = doc[pageNum - 1]
 
+            theseFnRules = set()
+
+            for fnRule in page.getDrawings():
+                if RECT in fnRule and fnRule.get(COLOR, None):
+                    rect = fnRule[RECT]
+                    width = rect.x1 - rect.x0
+                    if width > FNRULE_WIDTH:
+                        theseFnRules.add(int(round(rect.y0)))
+
+            fnRules[pageNum] = tuple(sorted(theseFnRules))
+
+            if onlyFnRules:
+                continue
+
             textPage = page.getTextPage()
             data = textPage.extractRAWDICT()
             self.collectPage(data)
         print("")
+
+    def getPageRaw(self, pageNum):
+        self.pageNum = pageNum
+        rep = f"page {pageNum:>4}"
+        sys.stdout.write(f"{rep}")
+        sys.stdout.flush()
+        doc = self.doc
+        page = doc[pageNum - 1]
+
+        textPage = page.getTextPage()
+        data = textPage.extractRAWDICT()
+        pprint(data)
+
+    def getPageObj(self, pageNum):
+        self.pageNum = pageNum
+        doc = self.doc
+        return doc[pageNum - 1]
 
     def plainPages(self, pageNumSpec):
         for pageNum in self.parsePageNums(pageNumSpec):
@@ -900,7 +851,8 @@ class Lakhnawi:
             for (i, line) in enumerate(lines):
                 print(self.plainLine(line))
 
-    def htmlPages(self, pageNumSpec):
+    def htmlPages(self, pageNumSpec, showSpaces=False):
+        self.showSpaces = showSpaces
         for pageNum in self.parsePageNums(pageNumSpec):
             lines = self.text.get(pageNum, [])
 
@@ -966,7 +918,7 @@ class Lakhnawi:
 """
                 )
                 if search is None:
-                    ranges = [(0, nChars)]
+                    ranges = [(max((start or 0) - 1, 0), min(end or nChars, nChars))]
                 else:
                     ranges = []
 
@@ -1094,6 +1046,10 @@ on {totalPages} {pageRep}</b></p>
         doubles = self.doubles
         pageNum = self.pageNum
         nospacings = self.nospacings
+        fnRules = self.fnRules
+
+        fnRule = fnRules.get(pageNum, None)
+        fnRule = fnRule[0] if fnRule else None
 
         chars = []
         prevChar = None
@@ -1102,6 +1058,12 @@ on {totalPages} {pageRep}</b></p>
 
         def addChar():
             box = prevChar["bbox"]
+            yTop = box[1]
+
+            # skip chars below the footnote rule, if any
+            if fnRule is not None and yTop > fnRule:
+                return
+
             c = prevChar["c"]
             chars.append(
                 (
@@ -1280,128 +1242,177 @@ on {totalPages} {pageRep}</b></p>
         rulesApplied = self.rulesApplied
         diacritics = self.diacritics
         arabicLetters = self.arabicLetters
+        presentationalC = self.presentationalC
+        presentationalD = self.presentationalD
+        doRules = self.doRules
+        doFilter = self.doFilter
+        doSpacing = self.doSpacing
 
         nChars = len(chars)
 
         # rule application stage
 
-        for (i, char) in enumerate(chars):
-            c = char[-1]
+        if doRules:
+            for (i, char) in enumerate(chars):
+                c = char[-1]
 
-            if c in replace:
-                rules = replace[c]
-                for (rn, vals, d, repls, e) in rules:
+                if c in replace:
+                    rules = replace[c]
+                    for (rn, vals, d, repls, e) in rules:
 
-                    nVals = len(vals)
+                        nVals = len(vals)
 
-                    if i + nVals > nChars:
-                        # not enough characters left to match this rule
-                        continue
+                        if i + nVals > nChars:
+                            # not enough characters left to match this rule
+                            continue
 
-                    if not all(
-                        (
-                            d is not None
-                            and j == d
-                            and chars[i + j][-1]
-                            in (diacritics if vals[d] == 1 else arabicLetters)
-                        )
-                        or chars[i + j][-1] == vals[j]
-                        for j in range(nVals)
-                    ):
-                        # the rule does not match after all
-                        continue
+                        if not all(
+                            (
+                                d is not None
+                                and j == d
+                                and chars[i + j][-1]
+                                in (diacritics if vals[d] == 1 else arabicLetters)
+                            )
+                            or chars[i + j][-1] == vals[j]
+                            for j in range(nVals)
+                        ):
+                            # the rule does not match after all
+                            continue
 
-                    # the rule matches: we are going to fill in the replacements
-                    # if there is a diacritic in the match sequence or the
-                    # replacement sequence, we restrict ourselves to the parts
-                    # before the diacritics.
+                        # the rule matches: we are going to fill in the replacements
+                        # if there is a diacritic in the match sequence or the
+                        # replacement sequence, we restrict ourselves to the parts
+                        # before the diacritics.
 
-                    rulesApplied[rn][pageNum] += 1
+                        rulesApplied[rn][pageNum] += 1
 
-                    nRepls = len(repls)
-                    dEnd = nVals if d is None else d
-                    eEnd = nRepls if e is None else e
+                        nRepls = len(repls)
+                        dEnd = nVals if d is None else d
+                        eEnd = nRepls if e is None else e
 
-                    # so, we are going to replace from here to dEnd (not including)
+                        # so, we are going to replace from here to dEnd (not including)
 
-                    for j in range(dEnd):
-                        # put the appropriate replacement character in the
-                        # replacement part of the character record
-                        # After running out of replacement characters, put in ""
-                        chars[i + j][-1] = repls[j] if j < eEnd else ""
-
-                    if eEnd > dEnd:
-                        # if there are replacement characters left, put them
-                        # in after the last character that we have visited.
-
-                        if dEnd == 0:
-                            # In case we have not visited any yet,
-                            # we put them in before the current character
-                            cd = chars[i + dEnd][-1]
-                            r = "".join(repls[dEnd + 1 :])
-                            chars[i + dEnd][-1] = f"{r}{cd}"
-                        else:
-                            # this is the normal case
-                            chars[i + dEnd - 1][-1] += "".join(repls[dEnd:eEnd])
-
-                    # if there is a diacritic in the match sequence
-                    # we are going to perform the rule for the part
-                    # after the diacritic
-
-                    # Note that the case where d is None and e is not None
-                    # does not occur
-
-                    if d is not None:
-                        # we set the starting points: just after the diacritics
-                        dStart = d + 1
-                        # if the replacement part does not have a diacritic,
-                        # we have already consumed it, and we start right after it
-                        eStart = nRepls if e is None else e + 1
-
-                        # we compute the number of characters that still need to be
-                        # matched and to be replaced
-                        dn = nVals - dStart
-                        en = nRepls - eStart
-
-                        # we perform the replacement analogously to what we did
-                        # for the first part
-
-                        for j in range(dn):
+                        for j in range(dEnd):
                             # put the appropriate replacement character in the
                             # replacement part of the character record
                             # After running out of replacement characters, put in ""
-                            chars[i + dStart + j][-1] = (
-                                repls[eStart + j] if eStart + j < nRepls else ""
-                            )
-                        if en > dn:
+                            chars[i + j][-1] = repls[j] if j < eEnd else ""
+
+                        if eEnd > dEnd:
                             # if there are replacement characters left, put them
                             # in after the last character that we have visited.
-                            chars[i + nVals - 1][-1] += "".join(repls[eStart + dn :])
-                    break
 
-        prevLeft = None
-        prevLeftI = None
+                            if dEnd == 0:
+                                # In case we have not visited any yet,
+                                # we put them in before the current character
+                                cd = chars[i + dEnd][-1]
+                                r = "".join(repls[dEnd + 1 :])
+                                chars[i + dEnd][-1] = f"{r}{cd}"
+                            else:
+                                # this is the normal case
+                                chars[i + dEnd - 1][-1] += "".join(repls[dEnd:eEnd])
 
-        for (i, char) in enumerate(chars):
-            spacing = char[-3]
+                        # if there is a diacritic in the match sequence
+                        # we are going to perform the rule for the part
+                        # after the diacritic
 
-            if spacing:
-                left = char[0]
-                right = char[2]
+                        # Note that the case where d is None and e is not None
+                        # does not occur
 
-                if prevLeft is not None:
-                    prevChar = chars[prevLeftI]
-                    after = prevLeft - right
-                    if after >= 2.5:
-                        chars[i - 1][-1] += " "
-                        prevChar[-3] = f"⌊{ptRep(after)}⌋"
-                    else:
-                        prevChar[-3] = f"«{ptRep(after)}»"
-                prevLeft = left
-                prevLeftI = i
+                        if d is not None:
+                            # we set the starting points: just after the diacritics
+                            dStart = d + 1
+                            # if the replacement part does not have a diacritic,
+                            # we have already consumed it, and we start right after it
+                            eStart = nRepls if e is None else e + 1
 
-        if chars:
-            chars[-1][-3] = "end"
+                            # we compute the number of characters that still need to be
+                            # matched and to be replaced
+                            dn = nVals - dStart
+                            en = nRepls - eStart
+
+                            # we perform the replacement analogously to what we did
+                            # for the first part
+
+                            for j in range(dn):
+                                # put the appropriate replacement character in the
+                                # replacement part of the character record
+                                # After running out of replacement characters, put in ""
+                                chars[i + dStart + j][-1] = (
+                                    repls[eStart + j] if eStart + j < nRepls else ""
+                                )
+                            if en > dn:
+                                # if there are replacement characters left, put them
+                                # in after the last character that we have visited.
+                                chars[i + nVals - 1][-1] += "".join(
+                                    repls[eStart + dn :]
+                                )
+                        break
+
+        # sift out all presentational characters
+
+        if doFilter:
+            for (i, char) in enumerate(chars):
+                c = char[-1]
+                char[-1] = "".join(
+                    tweakSpace(normalize(NFKC, x), decomposition(x))
+                    if x in presentationalC
+                    else tweakSpace(normalize(NFKD, x), decomposition(x))
+                    if x in presentationalD
+                    else x
+                    for x in c
+                )
+
+        # add horizontal spacing
+
+        if doSpacing:
+            prevLeft = None
+            prevLeftI = None
+
+            for (i, char) in enumerate(chars):
+                spacing = char[-3]
+
+                if spacing:
+                    left = char[0]
+                    right = char[2]
+
+                    if prevLeft is not None:
+                        prevChar = chars[prevLeftI]
+                        after = prevLeft - right
+                        if after >= 2.5:
+                            lastChar = chars[i - 1]
+                            if not lastChar[-1].endswith(" "):
+                                lastChar[-1] += " "
+                            prevChar[-3] = f"⌊{ptRep(after)}⌋"
+                        else:
+                            prevChar[-3] = f"«{ptRep(after)}»"
+                    prevLeft = left
+                    prevLeftI = i
+
+            if chars:
+                chars[-1][-3] = "end"
+
+            # remove space between alef and initial follower,
+            # provided the alef is the single letter in its word.
+
+            curLen = 0
+            # prevC = None
+
+            for (i, char) in enumerate(chars):
+                c = char[-1]
+                r = ""
+                for x in c:
+                    skip = False
+                    if x == " ":
+                        if curLen == 1:  # and prevC in PROCLITICS:
+                            skip = True
+                        curLen = 0
+                    elif category(x) == LO:
+                        curLen += 1
+                        # prevC = x
+                    if not skip:
+                        r += x
+                char[-1] = r
 
         result = []
         prevDir = "r"
@@ -1438,10 +1449,14 @@ on {totalPages} {pageRep}</b></p>
         return "".join("".join(span[1]) for span in spans)
 
     def htmlLine(self, spans):
+        showSpaces = self.showSpaces
         result = []
 
         for (textDir, string) in spans:
+            string = normalize(NFKD, string)
             rep = string.replace("⌊", """<span class="p">""").replace("⌋", "</span>")
+            if showSpaces:
+                rep = rep.replace(" ", """<span class="sp"> </span>""")
             result.append(f"""<span class="{textDir}">{rep}</span>""")
 
         return "".join(result)
