@@ -1,4 +1,5 @@
 import sys
+import os
 import collections
 import re
 import pprint as pp
@@ -11,7 +12,8 @@ from IPython.display import display, HTML, Image
 import fitz
 
 from tf.core.helpers import setFromSpec
-from .parameters import SOURCE_DIR
+from .parameters import SOURCE_DIR, UR_DIR
+
 
 PP = pp.PrettyPrinter(indent=2)
 
@@ -30,10 +32,21 @@ NFKD = "NFKD"
 
 CSS = """
 <style>
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    width: 700pt;
+}
+
 .r {
     font-family: normal, sans-serif;
     font-size: xx-large;
     direction: rtl;
+    unicode-bidi: isolate-override;
 }
 .rc, .lc {
     font-family: normal, sans-serif;
@@ -43,6 +56,7 @@ CSS = """
 }
 .rc {
     direction: rtl;
+    unicode-bidi: isolate-override;
 }
 .lc {
     direction: ltr;
@@ -51,10 +65,12 @@ CSS = """
 p {
     text-align: left;
     direction: ltr;
+    unicode-bidi: isolate-override;
 }
 p.r {
     text-align: right;
     direction: rtl;
+    unicode-bidi: isolate-override;
 }
 .l {
     font-family: normal, sans-serif;
@@ -66,6 +82,7 @@ p.r {
     font-family: monospace;
     font-size: x-small;
     direction: ltr;
+    unicode-bidi: isolate-override;
 }
 .p {
     font-family: monospace;
@@ -73,6 +90,7 @@ p.r {
     font-weight: bold;
     background-color: yellow;
     direction: ltr;
+    unicode-bidi: isolate-override;
 }
 .lrg {
     font-size: xx-large;
@@ -81,7 +99,7 @@ p.r {
 span.sp {
     background-color: #00ff00;
 }
-td {
+td.al {
     text-align: left ! important;
 }
 div.cn {
@@ -100,17 +118,58 @@ span.cni {
     border: 2pt solid #66aaaa;
     display: inline-block;
 }
-div.ch {
+div.ch,div.cht,div.chs {
     border: 2pt solid #cccccc;
-    background-color: #ddffff;
     display: inline-flex;
     flex-flow: column nowrap;
     max-width: 10em;
+}
+div.ch {
+    background-color: #ddffff;
+}
+div.chs {
+    background-color: #ccffcc;
+}
+div.cht {
+    background-color: #44ff44;
 }
 div.sr {
     display: flex;
     flex-flow: row wrap;
     direction: rtl;
+    unicode-bidi: isolate-override;
+}
+table.linecols {
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
+    direction: rtl;
+    unicode-bidi: isolate-override;
+}
+td.cols {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-align: right;
+}
+td.cols2 {
+    max-width: 50%;
+    min-width: 50%;
+    width: 500%;
+}
+td.cols3 {
+    max-width: 33%;
+    min-width: 33%;
+    width: 33%;
+}
+td.cols4 {
+    max-width: 25%;
+    min-width: 25%;
+    width: 25%;
+}
+td.cols4 {
+    max-width: 20%;
+    min-width: 20%;
+    width: 20%;
 }
 </style>
 """
@@ -167,6 +226,7 @@ DIRECTION_RANGES = (
 )
 
 NEUTRAL_DIRECTION_RANGES = (
+    ("0009", "0009"),
     ("0020", "0020"),
     ("2000", "2017"),
     ("201e", "2029"),
@@ -200,6 +260,9 @@ DIACRITIC_RANGES = (
     ("fe7d", "fe7d"),
     ("fe7f", "fe7f"),
 )
+
+AR_DIGIT_RANGES = (("0660", "0669"),)
+EU_DIGIT_RANGES = (("0030", "0039"),)
 
 PRIVATE_SPACE = "\uea75"
 
@@ -444,6 +507,10 @@ LO = "Lo"
 ALEFS = {"\u0627", "\u0622", "\u0623", "\u0625", "\u0671"}
 WAWS = {"\u0648", "\u0624", "\u0676", ""}
 PROCLITICS = ALEFS | WAWS
+HYPHENS = {"\u2010", "\u2011", "\u2012", "\u2013", "\u2014", "\u002d", "\u00ad"}
+
+AR_DIGITS = getSetFromRanges(AR_DIGIT_RANGES)
+EU_DIGITS = getSetFromRanges(EU_DIGIT_RANGES)
 
 
 def tweakSpace(c, dc):
@@ -549,6 +616,24 @@ def parseNums(numSpec):
     )
 
 
+def preHtml(pageNum):
+    return f"""\
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Lakhnawi p. {pageNum}</title>
+{CSS}
+    </head>
+    <body>
+"""
+
+
+POST_HTML = """
+</body>
+</html>
+"""
+
+
 U_LINE_RE = re.compile(r"""^U\+([0-9a-f]{4})([0-9a-f ]*)$""", re.I)
 HEX_RE = re.compile(r"""^[0-9a-f]{4}$""", re.I)
 PUA_RE = re.compile(r"""⌊([^⌋]*)⌋""")
@@ -564,6 +649,10 @@ class Lakhnawi:
         self.doc = fitz.open(SOURCE)
         self.text = {}
         self.lines = {}
+        self.fnRules = {}
+        self.spaces = {}
+        self.columns = {}
+
         self.good = True
 
     def setStyle(self):
@@ -648,17 +737,28 @@ class Lakhnawi:
 </div>
 """
 
-        puas = self.puas
-        rls = self.rls
+        if c == "":
+            extra = ""
+            ccode = ""
+            crep = "\u00a0"
+            cname = "EMPTY"
+        else:
+            puas = self.puas
+            rls = self.rls
 
-        ccode = f"""<span class="{"p" if c in puas else "c"}">{ord(c):>04x}</span>"""
-        crep = (
-            "??" if c in puas else f"""<span class="{"rc" if c in rls else "lc"}">{c}"""
-        )
-        cname = "" if c in puas else f"""<span class="c">{uName(c)}</span>"""
+            ccode = (
+                f"""<span class="{"p" if c in puas else "c"}">{ord(c):>04x}</span>"""
+            )
+            crep = (
+                "??"
+                if c in puas
+                else f"""<span class="{"rc" if c in rls else "lc"}">{c}"""
+            )
+            cname = "" if c in puas else f"""<span class="c">{uName(c)}</span>"""
+            extra = "t" if c == "\t" else "s" if c == " " else ""
 
         return f"""
-<div class="ch">
+<div class="ch{extra}">
     <div class="cn">{ccode}</div>
     <div class="cn"><span class="cni">{crep}</span></div>
     <div class="cn">{cname}</div>
@@ -732,11 +832,11 @@ class Lakhnawi:
                 f"""
 <tr>
     <th>rule {rn}</th>
-    <td>{appliedRep}</td>
-    <td>{appliedEx}</td>
-    <td>{valRep}</td>
-    <td><span class="lrg">⇒</span></td>
-    <td>{replRep}</td>
+    <td class="al">{appliedRep}</td>
+    <td class="al">{appliedEx}</td>
+    <td class="al">{valRep}</td>
+    <td class="al"><span class="lrg">⇒</span></td>
+    <td class="al">{replRep}</td>
 </tr>
 """
             )
@@ -780,6 +880,10 @@ class Lakhnawi:
             print("SKIPPING because of config errors")
             return
 
+        fnRules = self.fnRules
+        spaces = self.spaces
+        columns = self.columns
+
         self.doRules = doRules
         self.doFilter = doFilter
         self.doSpacing = doSpacing
@@ -792,9 +896,6 @@ class Lakhnawi:
 
         for rn in ruleIndex:
             rulesApplied[rn] = collections.Counter()
-
-        fnRules = {}
-        self.fnRules = fnRules
 
         for (i, pageNum) in enumerate(self.parsePageNums(pageNumSpec)):
             self.pageNum = pageNum
@@ -818,6 +919,8 @@ class Lakhnawi:
                         theseFnRules.add(int(round(rect.y0)))
 
             fnRules[pageNum] = tuple(sorted(theseFnRules))
+            spaces[pageNum] = {}
+            columns[pageNum] = {}
 
             if onlyFnRules:
                 continue
@@ -851,16 +954,31 @@ class Lakhnawi:
             for (i, line) in enumerate(lines):
                 print(self.plainLine(line))
 
-    def htmlPages(self, pageNumSpec, showSpaces=False):
+    def htmlPages(self, pageNumSpec, showSpaces=False, export=False):
         self.showSpaces = showSpaces
+        destDir = f"{UR_DIR}/{NAME}/html"
+
+        if not os.path.exists(destDir):
+            os.makedirs(destDir, exist_ok=True)
+
         for pageNum in self.parsePageNums(pageNumSpec):
             lines = self.text.get(pageNum, [])
 
             html = []
 
+            prevMulti = False
+
             for (i, line) in enumerate(lines):
-                html.append(f"""<p class="r">{self.htmlLine(line)}</p>\n""")
-            display(HTML("".join(html)))
+                html.append(self.htmlLine(line, prevMulti))
+                prevMulti = len(line) > 1
+
+            if export:
+                html = preHtml(pageNum) + "".join(html) + POST_HTML
+                filePath = f"{destDir}/p{pageNum:>03}.html"
+                with open(filePath, "w") as fh:
+                    fh.write(html)
+            else:
+                display(HTML("".join(html)))
 
     def showLines(
         self,
@@ -948,8 +1066,8 @@ class Lakhnawi:
     <td>{spacing}</td>
     <td>{font}</td>
     <td>{size}pt</td>
-    <td>{"".join(self.showChar(x) for x in oc)}</td>
-    <td>{"".join(self.showChar(x) for x in c)}</td>
+    <td>{"".join(self.showChar(x) for x in reversed(oc))}</td>
+    <td>{"".join(self.showChar(x) for x in reversed(c))}</td>
 </tr>
 """
                         )
@@ -983,15 +1101,16 @@ class Lakhnawi:
 
         for (pageNum, pageText) in texts.items():
             for line in pageText:
-                for span in line:
-                    thesePuas = PUA_RE.findall(span[1])
-                    for pua in thesePuas:
-                        charsOut[chr(int(pua, base=16))][pageNum] += 1
-                    if not onlyPuas:
-                        rest = PUA_RE.sub("", span[1])
-                        for c in rest:
-                            if not (onlyPresentational and c not in presentational):
-                                charsOut[c][pageNum] += 1
+                for col in line:
+                    for span in col:
+                        thesePuas = PUA_RE.findall(span[1])
+                        for pua in thesePuas:
+                            charsOut[chr(int(pua, base=16))][pageNum] += 1
+                        if not onlyPuas:
+                            rest = PUA_RE.sub("", span[1])
+                            for c in rest:
+                                if not (onlyPresentational and c not in presentational):
+                                    charsOut[c][pageNum] += 1
 
         totalChars = len(charsOut)
         totalPages = len(set(chain.from_iterable(charsOut.values())))
@@ -1022,9 +1141,9 @@ on {totalPages} {pageRep}</b></p>
             html.append(
                 f"""
 <tr>
-    <td>{self.showChar(c)}</td>
-    <td><b>{thistotal}</b> on <i>{nPageNums}</i> {pageRep}</td>
-    <td>e.g. page {examplePageNum} with <b>{nExamples}</b> occurrences</td>
+    <td class="al">{self.showChar(c)}</td>
+    <td class="al"><b>{thistotal}</b> on <i>{nPageNums}</i> {pageRep}</td>
+    <td class="al">e.g. page {examplePageNum} with <b>{nExamples}</b> occurrences</td>
 </tr>
 """
             )
@@ -1035,12 +1154,34 @@ on {totalPages} {pageRep}</b></p>
                         f"""
 <tr>
     <td></td>
-    <td><i>page {pn:>3}</i>: <b>{occs:>3}</b></td>
+    <td class="al"><i>page {pn:>3}</i>: <b>{occs:>3}</b></td>
 </tr>
 """
                     )
         html.append("</table>")
         display(HTML("".join(html)))
+
+    def showColumns(self, pageNumSpec):
+        pageNums = self.parsePageNums(pageNumSpec)
+
+        columns = self.columns
+        for pageNum in pageNums:
+            if pageNum not in columns:
+                continue
+            lineInfo = columns[pageNum]
+            multiple = []
+            for lNum in sorted(lineInfo):
+                (threshold, tabs) = lineInfo[lNum]
+                nTabs = len(tabs)
+                if threshold is not None and nTabs > 0:
+                    multiple.append((lNum, threshold, tabs))
+            if not len(multiple):
+                print(f"page {pageNum:>3} -")
+            else:
+                print(f"page {pageNum:>3}:")
+                for (lNum, threshold, tabs) in multiple:
+                    nTabs = len(tabs)
+                    print(f"\t{lNum:>2}: {'- ' * (nTabs + 1)}")
 
     def collectPage(self, data):
         doubles = self.doubles
@@ -1065,6 +1206,9 @@ on {totalPages} {pageRep}</b></p>
                 return
 
             c = prevChar["c"]
+
+            cr = "" if c in EU_DIGITS else c
+
             chars.append(
                 (
                     *box,
@@ -1072,7 +1216,7 @@ on {totalPages} {pageRep}</b></p>
                     prevSize,
                     "" if c in nospacings else True,
                     c,
-                    c,
+                    cr,
                 )
             )
 
@@ -1125,11 +1269,50 @@ on {totalPages} {pageRep}</b></p>
             k = clusterKeyCharV(char)
             lines.setdefault(k, []).append(list(char))
 
-        self.lines[pageNum] = tuple(lines.values())
+        theseLines = list(lines.values())
+        if theseLines and self.isPageNum(theseLines[0]):
+            theseLines = theseLines[1:]
+
+        for chars in theseLines:
+            nChars = len(chars)
+            if not nChars:
+                continue
+
+            i = 0
+
+            while i < nChars:
+                char = chars[i]
+                c = char[-1]
+                nextI = i + 1
+                if c == ")":
+                    found = None
+                    for j in range(i + 1, nChars):
+                        theChar = chars[j][-1]
+                        if theChar == "(":
+                            found = j + 1
+                            nextI = found
+                            break
+                        if theChar in AR_DIGITS:
+                            continue
+                        nextI = j
+                        break
+                    if found is not None:
+                        for j in range(i, found):
+                            chars[j][-1] = ""
+                        i = found
+                i = nextI
+
+        self.lines[pageNum] = tuple(
+            chars for chars in theseLines if not all(c[-1] == "" for c in chars)
+        )
+
         self.text[pageNum] = tuple(
             self.trimLine(pageNum, ln + 1, line)
             for (ln, line) in enumerate(self.lines[pageNum])
         )
+
+    def isPageNum(self, chars):
+        return 1 <= len(chars) <= 3 and all(c[-1] in AR_DIGITS for c in chars)
 
     def trimLine(self, pageNum, ln, chars):
         """Map character sequences to other sequences.
@@ -1240,6 +1423,8 @@ on {totalPages} {pageRep}</b></p>
         neutrals = self.neutrals
         rls = self.rls
         rulesApplied = self.rulesApplied
+        spaces = self.spaces
+        columns = self.columns
         diacritics = self.diacritics
         arabicLetters = self.arabicLetters
         presentationalC = self.presentationalC
@@ -1365,6 +1550,13 @@ on {totalPages} {pageRep}</b></p>
 
         # add horizontal spacing
 
+        theseSpaces = []
+        spaces[pageNum][ln] = theseSpaces
+
+        threshold = None
+        theseColumns = [threshold, []]
+        columns[pageNum][ln] = theseColumns
+
         if doSpacing:
             prevLeft = None
             prevLeftI = None
@@ -1379,24 +1571,48 @@ on {totalPages} {pageRep}</b></p>
                     if prevLeft is not None:
                         prevChar = chars[prevLeftI]
                         after = prevLeft - right
+                        theAfter = ptRep(after)
+
                         if after >= 2.5:
+                            theseSpaces.append((i - 1, theAfter))
                             lastChar = chars[i - 1]
                             if not lastChar[-1].endswith(" "):
                                 lastChar[-1] += " "
-                            prevChar[-3] = f"⌊{ptRep(after)}⌋"
+                            prevChar[-3] = f"⌊{theAfter}⌋"
                         else:
-                            prevChar[-3] = f"«{ptRep(after)}»"
+                            prevChar[-3] = f"«{theAfter}»"
+
                     prevLeft = left
                     prevLeftI = i
 
             if chars:
                 chars[-1][-3] = "end"
 
+            # change big spaces to tabs
+
+            nSpaces = len(theseSpaces)
+
+            if nSpaces == 1:
+                threshold = 90
+            elif nSpaces > 1:
+                spacesGrowing = sorted(x[1] for x in theseSpaces)
+                maxSpace = spacesGrowing[-1]
+                medialSpace = spacesGrowing[nSpaces // 2]
+                if maxSpace > 4 * medialSpace:
+                    threshold = maxSpace - medialSpace
+
+            if threshold is not None:
+                theseColumns[0] = threshold
+                for (i, after) in theseSpaces:
+                    if after > threshold:
+                        theseColumns[1].append((i, after))
+                        char = chars[i]
+                        char[-1] = char[-1].rstrip(" ") + "\t"
+
             # remove space between alef and initial follower,
             # provided the alef is the single letter in its word.
 
             curLen = 0
-            # prevC = None
 
             for (i, char) in enumerate(chars):
                 c = char[-1]
@@ -1409,10 +1625,28 @@ on {totalPages} {pageRep}</b></p>
                         curLen = 0
                     elif category(x) == LO:
                         curLen += 1
-                        # prevC = x
                     if not skip:
                         r += x
                 char[-1] = r
+
+        # divide lines into columns
+
+        tabs = theseColumns[1]
+        tabPositions = {t[0] for t in tabs}
+
+        columnedChars = [[]]
+        dest = columnedChars[-1]
+
+        for (i, char) in enumerate(chars):
+            if i in tabPositions:
+                if char[-1]:
+                    dest.append(char)
+                columnedChars.append([])
+                dest = columnedChars[-1]
+            else:
+                dest.append(char)
+
+        # divide columns into ranges
 
         result = []
         prevDir = "r"
@@ -1421,43 +1655,75 @@ on {totalPages} {pageRep}</b></p>
         def addChars():
             if outChars:
                 charsRep = "".join(outChars if prevDir == "r" else reversed(outChars))
-                result.append((prevDir, charsRep))
+                result[-1].append((prevDir, charsRep))
 
-        for char in chars:
-            c = char[-1]
-            if c == "":
-                continue
+        for chars in columnedChars:
+            result.append([])
+            outChars = []
 
-            for d in c:
-                thisDir = prevDir if d in neutrals else "r" if d in rls else "l"
+            for char in chars:
+                c = char[-1]
+                if c == "":
+                    continue
 
-                if prevDir != thisDir:
-                    addChars()
-                    outChars = []
-                    prevDir = thisDir
+                for d in c:
+                    if d == "\t":
+                        continue
+                    thisDir = prevDir if d in neutrals else "r" if d in rls else "l"
 
-                rep = d
-                if d in puas:
-                    rep = f"""⌊{ord(d):>04x}⌋"""
-                outChars.append(rep)
+                    if prevDir != thisDir:
+                        addChars()
+                        outChars = []
+                        prevDir = thisDir
 
-        addChars()
+                    rep = d
+                    if d in puas:
+                        rep = f"""⌊{ord(d):>04x}⌋"""
+                    outChars.append(rep)
+
+            addChars()
 
         return result
 
-    def plainLine(self, spans):
-        return "".join("".join(span[1]) for span in spans)
+    def plainLine(self, columns):
+        return "\t".join(
+            "".join("".join(span[1]) for span in spans) for spans in columns
+        )
 
-    def htmlLine(self, spans):
+    def htmlLine(self, columns, prevMulti):
         showSpaces = self.showSpaces
         result = []
 
-        for (textDir, string) in spans:
-            string = normalize(NFKD, string)
-            rep = string.replace("⌊", """<span class="p">""").replace("⌋", "</span>")
-            if showSpaces:
-                rep = rep.replace(" ", """<span class="sp"> </span>""")
-            result.append(f"""<span class="{textDir}">{rep}</span>""")
+        nCols = len(columns)
+        multi = nCols > 1
+
+        if prevMulti and not multi:
+            result.append("</table>")
+        elif not prevMulti and multi:
+            result.append("""<table class="linecols">""")
+
+        if multi:
+            result.append("<tr>")
+
+        for spans in columns:
+            result.append(
+                f"""<td class="cols col{nCols}">""" if multi else """<p class="r">"""
+            )
+
+            for (textDir, string) in spans:
+                string = normalize(NFKD, string)
+                rep = string.replace("⌊", """<span class="p">""").replace(
+                    "⌋", "</span>"
+                )
+                if showSpaces:
+                    rep = rep.replace(" ", """<span class="sp"> </span>""")
+                result.append(f"""<span class="{textDir}">{rep}</span>""")
+
+            if multi:
+                result.append("</td>" if multi else "</p>")
+
+        if multi:
+            result.append("</tr>")
 
         return "".join(result)
 
@@ -1519,17 +1785,24 @@ def clusterVert(data):
         keys[k] += 1
 
     peaks = sorted(keys)
+
     if len(peaks) > 1:
         nDistances = len(peaks) - 1
         distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
-        # remove the biggest distances, to prevent outliers pulling the average too high
+
+        # remove the biggest distances if > 50,
+        # to prevent outliers pulling the average too high
         for _ in range(2):
             if len(distances) > 1:
-                distances = distances[0:-1]
+                if distances[-1] > 50:
+                    distances = distances[0:-1]
+        # remove distances < 15, which are much smaller than a line
+        distances = [d for d in distances if d > 15]
+
         nDistances = len(distances)
         avPeakDist = sum(distances) / nDistances
 
-        peakThreshold = avPeakDist / 3
+        peakThreshold = avPeakDist * 0.4
         clusteredPeaks = {}
         for (k, n) in sorted(keys.items(), key=lambda x: (-x[1], x[0])):
             added = False
