@@ -963,13 +963,14 @@ class Lakhnawi:
 
         for pageNum in self.parsePageNums(pageNumSpec):
             lines = self.text.get(pageNum, [])
+            nLines = len(lines)
 
             html = []
 
             prevMulti = False
 
             for (i, line) in enumerate(lines):
-                html.append(self.htmlLine(line, prevMulti))
+                html.append(self.htmlLine(line, prevMulti, i == nLines - 1))
                 prevMulti = len(line) > 1
 
             if export:
@@ -978,7 +979,7 @@ class Lakhnawi:
                 with open(filePath, "w") as fh:
                     fh.write(html)
             else:
-                display(HTML("".join(html)))
+                display(HTML("\n".join(html)))
 
     def showLines(
         self,
@@ -1690,7 +1691,7 @@ on {totalPages} {pageRep}</b></p>
             "".join("".join(span[1]) for span in spans) for spans in columns
         )
 
-    def htmlLine(self, columns, prevMulti):
+    def htmlLine(self, columns, prevMulti, isLast):
         showSpaces = self.showSpaces
         result = []
 
@@ -1698,16 +1699,16 @@ on {totalPages} {pageRep}</b></p>
         multi = nCols > 1
 
         if prevMulti and not multi:
-            result.append("</table>")
+            result.append("</table>\n")
         elif not prevMulti and multi:
-            result.append("""<table class="linecols">""")
+            result.append("""<table class="linecols">\n""")
 
         if multi:
-            result.append("<tr>")
+            result.append("<tr>\n")
 
         for spans in columns:
             result.append(
-                f"""<td class="cols col{nCols}">""" if multi else """<p class="r">"""
+                f"""\t<td class="cols col{nCols}">""" if multi else """<p class="r">"""
             )
 
             for (textDir, string) in spans:
@@ -1719,11 +1720,12 @@ on {totalPages} {pageRep}</b></p>
                     rep = rep.replace(" ", """<span class="sp"> </span>""")
                 result.append(f"""<span class="{textDir}">{rep}</span>""")
 
-            if multi:
-                result.append("</td>" if multi else "</p>")
+            result.append("</td>\n" if multi else "</p>\n")
 
         if multi:
-            result.append("</tr>")
+            result.append("</tr>\n")
+            if isLast:
+                result.append("</table>\n")
 
         return "".join(result)
 
