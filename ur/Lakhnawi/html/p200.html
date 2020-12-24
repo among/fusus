@@ -1,7 +1,8 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
-        <title>Lakhnawi p. 200</title>
+        <title>Lakhnawi 200</title>
 
 <style>
 *,
@@ -10,19 +11,67 @@
     box-sizing: border-box;
 }
 
-body {
-    width: 700pt;
+@page {
+  size: A4;
+  margin: 2cm;
 }
+
+div.window {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 1000pt;
+    height: 99vh;
+}
+div.sidebar {
+    flex: 1 1 300pt;
+    display: flex;
+    flex-flow: row nowrap;
+    border-right: 1pt solid var(--fog-rim);
+    padding-left: 8px;
+    padding-right: 12px;
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.toc {
+    flex: 1 1 50pt;
+}
+div.pages {
+    flex: 0 0 700pt;
+}
+div.pages.bypage {
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.page {
+    margin-right: 1cm;
+    padding-left: 0.5cm;
+    max-width: 600pt;
+    min-width: 600pt;
+    width: 600pt;
+}
+div.phead {
+    color: #777777;
+    font-size: small;
+    text-align: right;
+    width: 1cm;
+    margin-right: -1cm;
+    float: right;
+}
+
 
 .r {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: rtl;
     unicode-bidi: isolate-override;
 }
 .rc, .lc {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     background-color: white;
     border: 2pt solid #ffcccc;
 }
@@ -46,7 +95,7 @@ p.r {
 }
 .l {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: ltr;
     unicode-bidi: isolate-override;
 }
@@ -65,7 +114,7 @@ p.r {
     unicode-bidi: isolate-override;
 }
 .lrg {
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bold;
 }
 span.sp {
@@ -143,10 +192,16 @@ td.cols4 {
     min-width: 20%;
     width: 20%;
 }
+:root {
+    --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
+}
 </style>
 
     </head>
     <body>
+
+<div class="page">
+<div class="phead"><a name="p200">200</a></div>
 <p class="r"><span class="r"> فَكُلُّ  حَا كِمٍ  مَحْكُومٌ  عَلَيهِ  بِمَا  حَكَمَ  بِهِ وَفِيهِ</span><span class="l"> .</span><span class="r">كَانَ الحَا كِمُ  مَنْ كَانَ</span><span class="l">.</span></p>
 <p class="r"><span class="r"> فَتَحَقَّقْ  هٰذِهِ المَسْأَ لةَ  فَإِنَّ القَدَرَ  مَا جُهِلَ إِلَّا  لِشِدَّةِ  ظُهُورِهِ</span><span class="l">  .</span><span class="r">فَلَمْ  يُعْرَفْ</span><span class="l">.</span></p>
 <p class="r"><span class="r">وَكَـثُـرَ  فِيهِ الطَّلَبُ وَالإِ لحَاحُ</span><span class="l">.</span></p>
@@ -160,6 +215,6 @@ td.cols4 {
 <p class="r"><span class="r">وَالأَ حْكَامِ الإِ لٰهِيَّةِ  مُتَفَا ضِلُونَ  بِحَسَبِ ٱسْتِعْدَادَا تِهِمْ</span><span class="l"> .</span><span class="r">وَهُوُ  قَوْ لهُ </span><span class="l">]</span><span class="r">٨٣ وجه</span><span class="l">[</span></p>
 <p class="r"><span class="r">﴿وَلَقَدْ  فَضَّلْنَا  بَعضَْ ٱلنَّبِيِّـنَ  عَلَىٰ  بَعضٍْ﴾ </span><span class="l"> ]</span><span class="r">سورةالإ سراء</span><span class="l">:</span><span class="r">٥٥</span><span class="l">.[</span></p>
 <p class="r"><span class="r">وَقَالَ  تَعَا لَىٰ  فِي  حَقِّ الخَلْقِ</span><span class="l"> :</span><span class="r">﴿وَٱ للهُ  فَضَّلَ  بَعْضَكُمْ  عَلَىٰ  بَعْضٍ  فِي</span></p>
-
+</div>
 </body>
 </html>

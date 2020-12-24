@@ -38,19 +38,67 @@ CSS = """
     box-sizing: border-box;
 }
 
-body {
-    width: 700pt;
+@page {
+  size: A4;
+  margin: 2cm;
 }
+
+div.window {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 1000pt;
+    height: 99vh;
+}
+div.sidebar {
+    flex: 1 1 300pt;
+    display: flex;
+    flex-flow: row nowrap;
+    border-right: 1pt solid var(--fog-rim);
+    padding-left: 8px;
+    padding-right: 12px;
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.toc {
+    flex: 1 1 50pt;
+}
+div.pages {
+    flex: 0 0 700pt;
+}
+div.pages.bypage {
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.page {
+    margin-right: 1cm;
+    padding-left: 0.5cm;
+    max-width: 600pt;
+    min-width: 600pt;
+    width: 600pt;
+}
+div.phead {
+    color: #777777;
+    font-size: small;
+    text-align: right;
+    width: 1cm;
+    margin-right: -1cm;
+    float: right;
+}
+
 
 .r {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: rtl;
     unicode-bidi: isolate-override;
 }
 .rc, .lc {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     background-color: white;
     border: 2pt solid #ffcccc;
 }
@@ -74,7 +122,7 @@ p.r {
 }
 .l {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: ltr;
     unicode-bidi: isolate-override;
 }
@@ -93,7 +141,7 @@ p.r {
     unicode-bidi: isolate-override;
 }
 .lrg {
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bold;
 }
 span.sp {
@@ -171,8 +219,49 @@ td.cols4 {
     min-width: 20%;
     width: 20%;
 }
+:root {
+    --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
+}
 </style>
 """
+
+POST_HTML = """
+</body>
+</html>
+"""
+
+
+def preHtml(pageNum):
+    return f"""\
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <title>Lakhnawi {pageNum}</title>
+{CSS}
+    </head>
+    <body>
+"""
+
+
+def getToc(pageNums):
+    limit = 60
+
+    html = []
+    html.append("""<div class="toc">""")
+    j = 0
+
+    for (i, pageNum) in enumerate(pageNums):
+        if j == limit:
+            j = 0
+            html.append("""</div>\n<div class="toc">""")
+        html.append(f"""<a href="#p{pageNum:>03}">p {pageNum}</a><br>""")
+        j += 1
+
+    html.append("""</div>""")
+
+    return "\n".join(html)
+
 
 PUA_RANGES = (("e000", "f8ff"),)
 
@@ -616,24 +705,6 @@ def parseNums(numSpec):
     )
 
 
-def preHtml(pageNum):
-    return f"""\
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Lakhnawi p. {pageNum}</title>
-{CSS}
-    </head>
-    <body>
-"""
-
-
-POST_HTML = """
-</body>
-</html>
-"""
-
-
 U_LINE_RE = re.compile(r"""^U\+([0-9a-f]{4})([0-9a-f ]*)$""", re.I)
 HEX_RE = re.compile(r"""^[0-9a-f]{4}$""", re.I)
 PUA_RE = re.compile(r"""⌊([^⌋]*)⌋""")
@@ -954,18 +1025,51 @@ class Lakhnawi:
             for (i, line) in enumerate(lines):
                 print(self.plainLine(line))
 
-    def htmlPages(self, pageNumSpec, showSpaces=False, export=False):
+    def htmlPages(
+        self, pageNumSpec, showSpaces=False, export=False, singleFile=False, toc=False
+    ):
         self.showSpaces = showSpaces
-        destDir = f"{UR_DIR}/{NAME}/html"
+        destDir = f"{UR_DIR}/{NAME}" if singleFile else f"{UR_DIR}/{NAME}/html"
+        pageNums = self.parsePageNums(pageNumSpec)
 
-        if not os.path.exists(destDir):
-            os.makedirs(destDir, exist_ok=True)
+        if export:
+            if not os.path.exists(destDir):
+                os.makedirs(destDir, exist_ok=True)
+            if singleFile:
+                pageNumRep = "allpages" if pageNumSpec is None else str(pageNumSpec)
+                tocRep = "-with-toc" if toc else ""
+                filePath = f"{destDir}/{pageNumRep}{tocRep}.html"
+                fh = open(filePath, "w")
+                fh.write(preHtml(f"{pageNumRep}{tocRep}"))
+                if toc:
+                    toc = getToc(pageNums)
+                    fh.write(
+                        f"""
+<div class="window">
+<div class="sidebar">
+{toc}
+</div>
+<div class="pages bypage">
+"""
+                    )
+                else:
+                    fh.write(
+                        """
+<div class="pages">
+"""
+                    )
 
-        for pageNum in self.parsePageNums(pageNumSpec):
+        for pageNum in pageNums:
             lines = self.text.get(pageNum, [])
             nLines = len(lines)
 
             html = []
+            html.append(
+                f"""
+<div class="page">
+<div class="phead"><a name="p{pageNum:>03}">{pageNum}</a></div>
+"""
+            )
 
             prevMulti = False
 
@@ -973,13 +1077,35 @@ class Lakhnawi:
                 html.append(self.htmlLine(line, prevMulti, i == nLines - 1))
                 prevMulti = len(line) > 1
 
+            html.append("""</div>""")
+
             if export:
-                html = preHtml(pageNum) + "".join(html) + POST_HTML
-                filePath = f"{destDir}/p{pageNum:>03}.html"
-                with open(filePath, "w") as fh:
-                    fh.write(html)
+                htmlRep = "".join(html)
+
+                if singleFile:
+                    fh.write(htmlRep)
+                else:
+                    html = preHtml(pageNum) + htmlRep + POST_HTML
+                    filePath = f"{destDir}/p{pageNum:>03}.html"
+                    with open(filePath, "w") as fh:
+                        fh.write(html)
             else:
                 display(HTML("\n".join(html)))
+
+        if export and singleFile:
+            fh.write(
+                """
+</div>
+"""
+            )
+            if toc:
+                fh.write(
+                    """
+    </div>
+    """
+                )
+            fh.write(POST_HTML)
+            fh.close()
 
     def showLines(
         self,

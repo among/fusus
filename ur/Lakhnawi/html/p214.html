@@ -1,7 +1,8 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
-        <title>Lakhnawi p. 214</title>
+        <title>Lakhnawi 214</title>
 
 <style>
 *,
@@ -10,19 +11,67 @@
     box-sizing: border-box;
 }
 
-body {
-    width: 700pt;
+@page {
+  size: A4;
+  margin: 2cm;
 }
+
+div.window {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 1000pt;
+    height: 99vh;
+}
+div.sidebar {
+    flex: 1 1 300pt;
+    display: flex;
+    flex-flow: row nowrap;
+    border-right: 1pt solid var(--fog-rim);
+    padding-left: 8px;
+    padding-right: 12px;
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.toc {
+    flex: 1 1 50pt;
+}
+div.pages {
+    flex: 0 0 700pt;
+}
+div.pages.bypage {
+    height: 99vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+div.page {
+    margin-right: 1cm;
+    padding-left: 0.5cm;
+    max-width: 600pt;
+    min-width: 600pt;
+    width: 600pt;
+}
+div.phead {
+    color: #777777;
+    font-size: small;
+    text-align: right;
+    width: 1cm;
+    margin-right: -1cm;
+    float: right;
+}
+
 
 .r {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: rtl;
     unicode-bidi: isolate-override;
 }
 .rc, .lc {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     background-color: white;
     border: 2pt solid #ffcccc;
 }
@@ -46,7 +95,7 @@ p.r {
 }
 .l {
     font-family: normal, sans-serif;
-    font-size: xx-large;
+    font-size: x-large;
     direction: ltr;
     unicode-bidi: isolate-override;
 }
@@ -65,7 +114,7 @@ p.r {
     unicode-bidi: isolate-override;
 }
 .lrg {
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bold;
 }
 span.sp {
@@ -143,10 +192,16 @@ td.cols4 {
     min-width: 20%;
     width: 20%;
 }
+:root {
+    --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
+}
 </style>
 
     </head>
     <body>
+
+<div class="page">
+<div class="phead"><a name="p214">214</a></div>
 <p class="r"><span class="l">]</span><span class="r">٠٤  ظهر</span><span class="l"> [</span><span class="r">ٱعْلَمْ أَنَّ  مِنْ  خَصَا ئصِِ الأَرْوَاحِ أَنَّهَا لَا تَطَأَ  شَيْىًٔا إِلَّا  حَيِيَ ذٰلِكَ</span></p>
 <p class="r"><span class="r">الشَّيءُ وَسَـرَتِ الحَيَاةُ  فِيهِ، وَلِهٰذَا  قَبَضَ السَّا مِـرِيُّ  قَبَضَةً  مِنْ أَثَـرِ الرَّ سُولِ،</span></p>
 <p class="r"><span class="r">الَّذِي  هُوَ  جِبْرَ ئِيلُ، وَهُوَ الرُّوحُ</span><span class="l"> .</span><span class="r">وَكَانَ السَّا مِـرِيُّ  عَا لِمًا  بِهٰذَا الأَ مْـرِ،  فَلَمَّا</span></p>
@@ -158,6 +213,6 @@ td.cols4 {
 <p class="r"><span class="r">الكَلَامِ</span><span class="l">.</span></p>
 <p class="r"><span class="r"> فَذٰ لِكَ القَدْرُ  مِنَ الحَيَاةَِ السَّارِ يَةِ  فِي الأ شْيَاءِ  يُسَمَّىٰ</span><span class="l">» :</span><span class="r">لَا هُو تًا</span><span class="l">.«</span></p>
 <p class="r"><span class="r">وَ</span><span class="l">»</span><span class="r">ا لنَّا سُوْتُ</span><span class="l">  :«</span><span class="r">هُوَ الْمَحَلُّ القَا ئِمُ  بِهِ ذٰلِكَ الرُّوْحُ</span><span class="l">  .</span><span class="r">فَسُمِّيَا لنَّا سُوْتَ رُو حًا  بِمَا</span></p>
-
+</div>
 </body>
 </html>
