@@ -13,7 +13,7 @@
 @title=Fusus Al Hikram
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-07T15:59:20Z
+@dateWritten=2021-01-07T16:11:08Z
 
 1-62795	word
 62796-67960	column

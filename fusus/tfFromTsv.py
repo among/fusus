@@ -463,7 +463,8 @@ def loadTf(outDir):
     if api:
         print(f"max node = {api.F.otype.maxNode}")
         print("Frequencies of words")
-        print(api.F.text.freqList()[0:20])
+        for (word, n) in api.F.text.freqList()[0:20]:
+            print(f"{n:>6} x {word}")
 
 
 # MAIN
@@ -520,7 +521,7 @@ def main():
         return good is None
 
     doLoad = flags.get("load", False) or flags.get("loadonly", False)
-    doConvert = not flags.get("loadOnly", False)
+    doConvert = not flags.get("loadonly", False)
 
     print("TSV to TF converter for the Fusus project")
     print(f"TF  target version = {VERSION_TF}")
@@ -538,7 +539,9 @@ def main():
 
         if thisGood:
             if doLoad:
-                loadTf()
+                workInfo = WORKS[source]
+                dest = f"{BASE}/{workInfo['dest']}/{VERSION_TF}"
+                loadTf(dest)
 
         if not thisGood:
             good = False

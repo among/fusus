@@ -15,7 +15,7 @@
 @title=Fusus Al Hikram
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-07T15:59:20Z
+@dateWritten=2021-01-07T16:11:09Z
 
 73465	front
 عنوانكتابفصوصالحكموخصوصالكلم
