@@ -2,6 +2,7 @@ import os
 import io
 from itertools import chain, groupby
 from tempfile import NamedTemporaryFile
+import pprint as pp
 
 import numpy as np
 
@@ -10,6 +11,13 @@ from IPython.display import HTML, Image, display
 import cv2
 
 from tf.core.helpers import rangesFromList, specFromRanges
+
+
+PP = pp.PrettyPrinter(indent=2)
+
+
+def pprint(x):
+    PP.pprint(x)
 
 
 EXTENSIONS = set(
