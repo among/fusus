@@ -82,7 +82,7 @@ def generic(source):
 otext = {
     "fmt:text-orig-full": "{text}{punc}",
     # "fmt:text-orig-trans": "{trans}{punc}",
-    "sectionFeatures": "title,n,n",
+    "sectionFeatures": "n,n,n",
     "sectionTypes": "piece,page,line",
 }
 

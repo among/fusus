@@ -10,10 +10,10 @@
 @project=Fusus
 @published=pdf, personal communication
 @researcher=Cornelis van Lit
-@sectionFeatures=title,n,n
+@sectionFeatures=n,n,n
 @sectionTypes=piece,page,line
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikram
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-07T16:11:09Z
+@dateWritten=2021-01-08T07:38:32Z
 
