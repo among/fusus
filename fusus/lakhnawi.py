@@ -4,7 +4,7 @@ import collections
 import re
 
 from itertools import chain
-from unicodedata import name as uname, normalize, decomposition, category
+from unicodedata import name as uname, normalize
 
 from IPython.display import display, HTML, Image
 
@@ -85,13 +85,13 @@ div.phead {
 
 .r {
     font-family: normal, sans-serif;
-    font-size: x-large;
+    font-size: 22pt;
     direction: rtl;
     unicode-bidi: isolate-override;
 }
 .rc, .lc {
     font-family: normal, sans-serif;
-    font-size: x-large;
+    font-size: 22pt;
     background-color: white;
     border: 2pt solid #ffcccc;
 }
@@ -134,7 +134,7 @@ p.r {
     unicode-bidi: isolate-override;
 }
 .lrg {
-    font-size: x-large;
+    font-size: 22pt;
     font-weight: bold;
 }
 span.sp {
@@ -271,6 +271,27 @@ ARABIC_RANGES = (
     ("fdf0", "fdfd"),
     ("fe70", "fefc"),
 )
+ARABIC_SYMBOL_RANGES = (
+    ("060c", "060c"),
+    ("061b", "061f"),
+    ("fd3e", "fd3f"),
+)
+PUNCT_RANGES = (
+    ("0021", "0021"),
+    ("002c", "002c"),
+    ("002e", "002e"),
+    ("003a", "003b"),
+    ("003f", "003f"),
+    ("00a1", "00a1"),
+    ("00bf", "00bf"),
+    ("037e", "037e"),
+    ("0387", "0387"),
+    ("05c3", "05c3"),
+    ("060c", "060c"),
+    ("061b", "061b"),
+    ("061e", "061f"),
+    ("06d4", "06d4"),
+)
 
 ARABIC_PRESENTATIONAL_RANGES = (("fb50", "feff"),)
 
@@ -309,8 +330,8 @@ BRACKET_RANGES = (
     ("007d", "007d"),  # right brace
     ("00ab", "00ab"),  # left  guillemet double
     ("00bb", "00bb"),  # right guillemet double
-    ("2018", "2019"),  # qutation marks directed
-    ("201c", "201d"),  # qutation marks directed
+    ("2018", "2019"),  # quotation marks directed
+    ("201c", "201d"),  # quotation marks directed
     ("2039", "203a"),  # guillemets single
     ("2045", "2046"),  # sqare brackets with quill
     ("204c", "204d"),  # bullets directed
@@ -369,6 +390,7 @@ DIACRITIC_RANGES = (
     ("fe7d", "fe7d"),
     ("fe7f", "fe7f"),
 )
+PSEUDO_DIACRITIC_RANGES = (("0621", "0621"),)
 
 AR_DIGIT_RANGES = (("0660", "0669"),)
 EU_DIGIT_RANGES = (("0030", "0039"),)
@@ -610,8 +632,12 @@ def getSetFromRanges(rngs):
     return result
 
 
-ISOLATED = "<isolated>"
-INITIAL = "<initial>"
+ISOLATED = "ISOLATED"
+INITIAL = "INITIAL"
+FINAL = "FINAL"
+ALEF = "ALEF"
+ALEF_FINAL = "\ufe8e"
+WAW = "\u0648"
 LO = "Lo"
 ALEFS = {"\u0627", "\u0622", "\u0623", "\u0625", "\u0671"}
 WAWS = {"\u0648", "\u0624", "\u0676", ""}
@@ -621,9 +647,16 @@ HYPHENS = {"\u2010", "\u2011", "\u2012", "\u2013", "\u2014", "\u002d", "\u00ad"}
 AR_DIGITS = getSetFromRanges(AR_DIGIT_RANGES)
 EU_DIGITS = getSetFromRanges(EU_DIGIT_RANGES)
 
+MEEM = "MEEM"
+YEH = "YEH"
 
-def tweakSpace(c, dc):
-    return c.strip() if ISOLATED in dc else (" " + c.strip()) if INITIAL in dc else c
+
+def tweakSpace(c):
+    # return c.strip() if ISOLATED in dc else (" " + c.strip()) if INITIAL in dc else c
+    # return c
+    return c.strip()
+    # return c.strip() + (" " if FINAL in dc else "")
+    # return (c.strip(), " " if FINAL in dc else "")
 
 
 def ptRepD(p):
@@ -746,6 +779,7 @@ PUA_RE = re.compile(r"""⌊([^⌋]*)⌋""")
 RECT = "rect"
 COLOR = "color"
 FNRULE_WIDTH = 60
+SPACE_THRESHOLD = 25
 
 
 class Lakhnawi:
@@ -771,19 +805,24 @@ class Lakhnawi:
         self.latinPresentational = getSetFromRanges(LATIN_PRESENTATIONAL_RANGES)
         self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
         self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
+        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
+        self.punct = getSetFromRanges(PUNCT_RANGES)
         self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
         self.presentationalC = self.arabicPresentational | self.hebrewPresentational
         self.presentationalD = self.latinPresentational | self.greekPresentational
         self.presentational = self.presentationalC | self.presentationalD
         self.semis = self.arabic | self.hebrew | self.syriac
         brackets = getSetFromRanges(BRACKET_RANGES)
+        symbols = getSetFromRanges(SYMBOL_RANGES)
+        self.nonLetter = symbols | arabicSymbols | brackets
         self.bracketMap = getMapFromPairs(BRACKET_PAIRS)
-        self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets
+        self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets | symbols
         self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
         self.nospacings = getSetFromRanges(NO_SPACING_RANGES) | self.privateDias
         self.diacritics = getSetFromRanges(DIACRITIC_RANGES) | self.privateDias
+        self.diacriticLike = getSetFromRanges(PSEUDO_DIACRITIC_RANGES) | self.diacritics
         self.arabicLetters = self.arabic - self.diacritics
         (self.replace, self.ruleIndex) = getDictFromDef(REPLACE_DEF)
         if self.replace is None:
@@ -965,13 +1004,15 @@ class Lakhnawi:
         )
         return [i for i in sorted(pageNums) if 0 < i <= len(doc)]
 
-    def drawPages(self, pageNumSpec):
+    def drawPages(self, pageNumSpec, clip=None):
         doc = self.doc
 
         for pageNum in self.parsePageNums(pageNumSpec):
             page = doc[pageNum - 1]
+            if clip is not None:
+                clip = (0, clip[0], page.rect.width, clip[1])
 
-            pix = page.getPixmap(matrix=fitz.Matrix(4, 4), alpha=False)
+            pix = page.getPixmap(matrix=fitz.Matrix(4, 4), clip=clip, alpha=False)
             display(HTML(f"""<p><b>page {pageNum}</b></p>"""))
             display(Image(data=pix.getPNGData(), format="png"))
 
@@ -1085,13 +1126,21 @@ class Lakhnawi:
         fh.close()
 
     def htmlPages(
-        self, pageNumSpec, showSpaces=False, export=False, singleFile=False, toc=False
+        self,
+        pageNumSpec,
+        line=None,
+        showSpaces=False,
+        export=False,
+        singleFile=False,
+        toc=False,
     ):
         self.showSpaces = showSpaces
         text = self.text
 
         destDir = f"{UR_DIR}/{NAME}" if singleFile else f"{UR_DIR}/{NAME}/html"
         pageNums = self.parsePageNums(pageNumSpec)
+        lineNums = parseNums(line)
+        lineNums = None if lineNums is None else set(lineNums)
 
         if export:
             if not os.path.exists(destDir):
@@ -1135,6 +1184,9 @@ class Lakhnawi:
             prevMulti = False
 
             for (i, line) in enumerate(lines):
+                if lineNums is not None and i + 1 not in lineNums:
+                    continue
+
                 html.append(self.htmlLine(line, prevMulti, i == nLines - 1))
                 prevMulti = len(line) > 1
 
@@ -1325,6 +1377,7 @@ class Lakhnawi:
     def showUsedChars(
         self,
         pageNumSpec,
+        orig=False,
         onlyPuas=False,
         onlyPresentational=False,
         long=False,
@@ -1333,6 +1386,8 @@ class Lakhnawi:
         presentational = self.presentational
         pageNums = self.parsePageNums(pageNumSpec)
         text = self.text
+        lines = self.lines
+        puas = self.puas
 
         charsOut = collections.defaultdict(collections.Counter)
 
@@ -1342,24 +1397,39 @@ class Lakhnawi:
 
         sortKey = keyByOcc if byOcc else lambda x: x
 
-        texts = {pageNum: text[pageNum] for pageNum in pageNums if pageNum in text}
+        if orig:
+            lns = {pageNum: lines[pageNum] for pageNum in pageNums if pageNum in lines}
 
-        for (pageNum, pageText) in texts.items():
-            for line in pageText:
-                for col in line:
-                    for span in col:
-                        for word in span[1]:
-                            string = word[0]
-                            thesePuas = PUA_RE.findall(string)
-                            for pua in thesePuas:
-                                charsOut[chr(int(pua, base=16))][pageNum] += 1
-                            if not onlyPuas:
-                                rest = PUA_RE.sub("", string)
-                                for c in rest:
-                                    if not (
-                                        onlyPresentational and c not in presentational
-                                    ):
-                                        charsOut[c][pageNum] += 1
+            for (pageNum, pageLines) in lns.items():
+                for line in pageLines:
+                    for char in line:
+                        c = char[-2]
+                        if c in puas or (
+                            not onlyPuas
+                            and (c in presentational or not onlyPresentational)
+                        ):
+                            charsOut[c][pageNum] += 1
+
+        else:
+            texts = {pageNum: text[pageNum] for pageNum in pageNums if pageNum in text}
+
+            for (pageNum, pageText) in texts.items():
+                for line in pageText:
+                    for col in line:
+                        for span in col:
+                            for word in span[1]:
+                                string = word[0]
+                                thesePuas = PUA_RE.findall(string)
+                                for pua in thesePuas:
+                                    charsOut[chr(int(pua, base=16))][pageNum] += 1
+                                if not onlyPuas:
+                                    rest = PUA_RE.sub("", string)
+                                    for c in rest:
+                                        if not (
+                                            onlyPresentational
+                                            and c not in presentational
+                                        ):
+                                            charsOut[c][pageNum] += 1
 
         totalChars = len(charsOut)
         totalPages = len(set(chain.from_iterable(charsOut.values())))
@@ -1431,6 +1501,29 @@ on {totalPages} {pageRep}</b></p>
                 for (lNum, threshold, tabs) in multiple:
                     nTabs = len(tabs)
                     print(f"\t{lNum:>2}: {'- ' * (nTabs + 1)}")
+
+    def showSpacing(self, pageNumSpec, line=None):
+        pageNums = self.parsePageNums(pageNumSpec)
+        lineNums = parseNums(line)
+        lineNums = None if lineNums is None else set(lineNums)
+
+        spaces = self.spaces
+
+        for pageNum in pageNums:
+            if pageNum not in spaces:
+                continue
+
+            print(f"page {pageNum:>3}")
+            lineInfo = spaces[pageNum]
+
+            for (ln, spaces) in lineInfo.items():
+                if lineNums is not None and ln not in lineNums:
+                    continue
+
+                print(f"\tline {ln:>2}")
+
+                for (i, after, isSpace) in spaces:
+                    print(f"\t\t{i + 1:>3} {']  [' if isSpace else ']==['} {after}")
 
     def collectPage(self, data):
         doubles = self.doubles
@@ -1677,9 +1770,12 @@ on {totalPages} {pageRep}</b></p>
         spaces = self.spaces
         columns = self.columns
         diacritics = self.diacritics
+        punct = self.punct
+        # diacriticLike = self.diacriticLike
         arabicLetters = self.arabicLetters
         presentationalC = self.presentationalC
         presentationalD = self.presentationalD
+        # nonLetter = self.nonLetter
         doRules = self.doRules
         doFilter = self.doFilter
 
@@ -1787,16 +1883,52 @@ on {totalPages} {pageRep}</b></p>
         # sift out all presentational characters
 
         if doFilter:
+            """
+            trailSpace = False
+
             for (i, char) in enumerate(chars):
                 c = char[-1]
-                char[-1] = "".join(
-                    tweakSpace(normalize(NFKC, x), decomposition(x))
-                    if x in presentationalC
-                    else tweakSpace(normalize(NFKD, x), decomposition(x))
-                    if x in presentationalD
-                    else x
-                    for x in c
-                )
+                string = ""
+                for x in c:
+                    if trailSpace:
+                        if x not in diacriticLike:
+                            if x not in nonLetter:
+                                string += " "
+                            trailSpace = False
+                    (y, space) = (
+                        tweakSpace(normalize(NFKC, x), decomposition(x))
+                        if x in presentationalC
+                        else tweakSpace(normalize(NFKD, x), decomposition(x))
+                        if x in presentationalD
+                        else (x, "")
+                    )
+                    string += y
+                    if space:
+                        trailSpace = True
+                char[-1] = string
+
+            if trailSpace:
+                space += " "
+            """
+
+            # the words yeh+alef(final) and mem+alef(final)
+            # : insert a space behind the alef(final)
+
+            for (i, char) in enumerate(chars):
+                c = char[-1]
+                string = ""
+
+                for x in c:
+                    d = (
+                        tweakSpace(normalize(NFKC, x))
+                        if x in presentationalC
+                        else tweakSpace(normalize(NFKD, x))
+                        if x in presentationalD
+                        else x + (" " if x in punct else "")
+                    )
+                    string += d
+
+                char[-1] = string
 
         # add horizontal spacing
 
@@ -1822,14 +1954,14 @@ on {totalPages} {pageRep}</b></p>
                     after = prevLeft - right
                     theAfter = ptRepD(after)
 
-                    if after >= 2.5:
-                        theseSpaces.append((i - 1, theAfter))
+                    isSpace = theAfter >= SPACE_THRESHOLD
+                    if isSpace:
                         lastChar = chars[i - 1]
                         if not lastChar[-1].endswith(" "):
                             lastChar[-1] += " "
-                        prevChar[-3] = f"⌊{theAfter}⌋"
-                    else:
-                        prevChar[-3] = f"«{theAfter}»"
+
+                    prevChar[-3] = f"⌊{theAfter}⌋" if isSpace else f"«{theAfter}»"
+                    theseSpaces.append((i - 1, theAfter, isSpace))
 
                 prevLeft = left
                 prevLeftI = i
@@ -1839,12 +1971,12 @@ on {totalPages} {pageRep}</b></p>
 
         # change big spaces to tabs
 
-        nSpaces = len(theseSpaces)
+        nSpaces = sum(1 for x in theseSpaces if x[2])
 
         if nSpaces == 1:
             threshold = 90
         elif nSpaces > 1:
-            spacesGrowing = sorted(x[1] for x in theseSpaces)
+            spacesGrowing = sorted(x[1] for x in theseSpaces if x[2])
             maxSpace = spacesGrowing[-1]
             medialSpace = spacesGrowing[nSpaces // 2]
             if maxSpace > 4 * medialSpace:
@@ -1852,8 +1984,8 @@ on {totalPages} {pageRep}</b></p>
 
         if threshold is not None:
             theseColumns[0] = threshold
-            for (i, after) in theseSpaces:
-                if after > threshold:
+            for (i, after, isSpace) in theseSpaces:
+                if isSpace and after > threshold:
                     theseColumns[1].append((i, after))
                     char = chars[i]
                     char[-1] = char[-1].rstrip(" ") + "\t"
@@ -1861,19 +1993,44 @@ on {totalPages} {pageRep}</b></p>
         # remove space between alef and initial follower,
         # provided the alef is the single letter in its word.
 
+        # also for the words yeh+alef(final) and mem+alef(final) do:
+        # insert a space behind the alef(final)
+
         curLen = 0
+        prevCons = None
+        pprevCons = None
+
+        if ln == 5:
+            print("")
 
         for (i, char) in enumerate(chars):
             c = char[-1]
+            co = char[-2]
             r = ""
+
+            isAFinal = co == ALEF_FINAL
+
             for x in c:
                 skip = False
                 if x == " ":
                     if curLen == 1:  # and prevC in PROCLITICS:
                         skip = True
                     curLen = 0
-                elif category(x) == LO:
+                    prevCons = None
+                    pprevCons = None
+                elif x in arabicLetters:
                     curLen += 1
+                    if 2 <= curLen <= 3 and isAFinal:
+                        up = uname(prevCons)
+                        if (MEEM in up or YEH in up) and (
+                            curLen == 2 or pprevCons == WAW
+                        ):
+                            x += " "
+                            curLen = 0
+                            prevCons = None
+                            pprevCons = None
+                    pprevCons = prevCons
+                    prevCons = x
                 if not skip:
                     r += x
             char[-1] = r
