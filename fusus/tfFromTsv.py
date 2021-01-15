@@ -6,6 +6,8 @@ import re
 from tf.fabric import Fabric
 from tf.convert.walker import CV
 
+from char import UChar
+
 
 HELP = """
 
@@ -133,8 +135,12 @@ featureMeta = {
         "description": "name of a column in ocred output",
         "format": "string, either r or l",
     },
-    "punc": {
-        "description": "punctuation behind a word",
+    "pre": {
+        "description": "punctuation/space after a word",
+        "format": "string",
+    },
+    "post": {
+        "description": "punctuation/space after a word",
         "format": "string",
     },
     "text": {
@@ -292,6 +298,9 @@ def convert(source, page):
     global SRC_FILES
     global TYPE_MAP
     global HAS_TOC
+    global U
+
+    U = UChar()
 
     givenPage = page
 
