@@ -109,7 +109,6 @@ class Page:
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.lineHeight = None
         self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
         self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
 
@@ -554,11 +553,25 @@ class Page:
     def doNormalize(self):
         """Normalizes a page.
 
-        It produces a stage that is unskewed: *rotated* and blurred.
-        The same rotation will be applied to the original scan,
-        resulting in stage *normalized*.
+        Previously needed to unskew pages.
+        But now we assume pages are already skewed.
 
-        Unskewing is needed otherwise the footnote line will not be found.
+        Skewing turned out to be risky: when pages are filled in unusual
+        ways, we got unexpected and unwanted rotations.
+        So we don't do that anymore.
+
+        If the input page images have skew artefacts
+        (black sharp triangles in the corners)
+        as a result of previous skewing these will be removed.
+
+        Normalization produces the stages:
+
+        * *gray*: grayscale version of *orig*
+        * *blurred*: inverted, black-white, blurred without skew artefacts,
+          needed for histograms later on;
+        * *normalized*: *gray* without skew artefacts;
+        * *normalizedC*: *orig* without skew artefacts.
+
         """
 
         if self.empty:
@@ -568,23 +581,34 @@ class Page:
         tm = engine.tm
         info = tm.info
         C = engine.C
-        whit = C.whiteGRS
 
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
         orig = stages["orig"]
-
-        removeSkewStripes(orig, C.skewBorder, C.whiteRGB)
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages["gray"] = gray
 
-        blurred = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        normalized = gray.copy()
+        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        stages["normalized"] = normalized
 
-        (th, threshed) = cv2.threshold(
-            blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        if not batch or boxed:
+            normalizedC = orig.copy()
+            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            stages["normalizedC"] = normalizedC
+
+        blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
+
+        (th, blurred) = cv2.threshold(
+            blurred, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
         )
-        pts = cv2.findNonZero(threshed)
+
+        stages["blurred"] = blurred
+
+        # detect if the image is empty
+
+        pts = cv2.findNonZero(blurred)
         if pts is None:
             self.empty = True
             if not batch:
@@ -592,33 +616,6 @@ class Page:
             return
 
         self.empty = False
-
-        ret = cv2.minAreaRect(pts)
-
-        (cx, cy), (rw, rh), ang = ret
-        # correct unnecessary 90 degree rotations
-        for i in range(4):
-            newAng = (ang + i * 90) % 360
-            if newAng > 180:
-                newAng -= 360
-            if abs(newAng) < 40:
-                break
-
-        M = cv2.getRotationMatrix2D((cx, cy), newAng, 1.0)
-
-        rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-        removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
-        normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-        removeSkewStripes(normalized, C.skewBorder, whit)
-
-        if not batch or boxed:
-            normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-            removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-
-        stages["rotated"] = rotated
-        stages["normalized"] = normalized
-        if not batch or boxed:
-            stages["normalizedC"] = normalizedC
 
     def doLayout(self):
         """Divide the page into stripes and the stripes into columns.

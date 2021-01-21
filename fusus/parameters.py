@@ -13,6 +13,7 @@ PROGRAM_DIR = f"{REPO_DIR}/{REPO}"
 LOCAL_DIR = f"{REPO_DIR}/_local"
 SOURCE_DIR = f"{LOCAL_DIR}/source"
 UR_DIR = f"{REPO_DIR}/ur"
+ALL_PAGES = "allpages"
 
 KRAKEN = dict(
     modelPath=f"{REPO_DIR}/model/arabic_generalized.mlmodel"
@@ -25,6 +26,8 @@ COLORS = dict(
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
     greenRGB=(0, 255, 0),
+    orangeRGB=(255, 127, 0),
+    purpleRGB=(255, 0, 127),
     blockRGB=(0, 255, 255),
     letterRGB=(0, 200, 200),
     upperRGB=(0, 200, 0),
@@ -59,7 +62,7 @@ Each band will be displayed in its own color.
 STAGES = dict(
     orig=("image", True, None, None, None),
     gray=("image", False, None, None, None),
-    rotated=("image", False, None, None, None),
+    blurred=("image", False, None, None, None),
     normalized=("image", False, None, "proofDir", ""),
     normalizedC=("image", True, None, None, None),
     layout=("image", True, None, None, None),
@@ -99,10 +102,12 @@ SETTINGS = dict(
     proofDir="proof",
     textDir="text",
     marksDir="marks",
-    skewBorder=30,
-    blurX=41,
-    blurY=41,
+    skewBorderFraction=0.03,
+    blurX=21,
+    blurY=21,
     marginThresholdX=1,
+    contourFactor=0.3,
+    contourOffset=0.04,
     peakProminenceY=5,
     peakSignificant=0.1,
     peakTargetWidthFraction=0.5,
@@ -121,7 +126,7 @@ SETTINGS = dict(
     bandMid=(10, -5),
     bandHigh=(10, 30),
     bandLow=(-10, -10),
-    lineHeight=200,
+    defaultLineHeight=200,
 )
 """Customizable settings.
 
@@ -157,7 +162,9 @@ skewBorder
 
 blurX
 :   the amount of blur in the X-direction.
-    Blurring is needed to get betterskewing and histograms
+    Blurring is needed to get better histograms
+    To much blurring will hamper the binarization, see e.g. pag 102 in the
+    examples directory: if you blur with 41, 41 binarization fails.
 
 blurY
 :   the amount of blur in the X-direction.
@@ -175,6 +182,25 @@ marginThresholdX
 
     When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
+
+contourFactor
+:   used when computing left and right contour lines of a page.
+
+    Each horizontal line as a left most black pixel and a rightmost one.
+    Together they form the left contour and the right contour of the page.
+    The length of each line is the distance between the left contour and right contour
+    points on that line.
+
+    However, to be useful, the contour lines must be smoothed.
+    We look up and down from each contour point and replace it by the median value of
+    the contour points above and below that point.
+
+    How far do we have to look?
+    We want to neutralize the interline spaces, so we look up and down for a fraction
+    line line height.
+
+    That fraction is specified by this parameter.
+    A proxy for the line height is the peak distance.
 
 peakSignificant
 :   used when interpreting histograms for line detection
@@ -206,7 +232,7 @@ outerValleyShiftFraction
     We correct for that by shifting those valleys a fraction of their plateau sizes
     towards the ink. This parameter is that fraction.
 
-lineHeight
+defaultLineHeight
 :   used for line detection
 
     After line detection, a value for the line height is found and stored in this

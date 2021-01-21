@@ -4,4 +4,4 @@ pillow
 PyMuPDF
 opencv-contrib-python
 kraken
-text-fabric
+text-fabric>=8.4.7

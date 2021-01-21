@@ -248,12 +248,16 @@ def select(source, selection):
     return sorted(index[n] for n in selected)
 
 
-def removeSkewStripes(img, skewBorder, skewColor):
+def removeSkewStripes(img, skewBorderFraction, skewColor):
     """Remove black triangles resulting from unskewing images.
 
-    When an image is unskewed, it is rotated slightly and that introduces
-    stroke like triangles in the corners.
+    When an image has been unskewed, sharp triangle-shape strokes in the corners
+    may have been introduced.
     This function removes them by coloring all image borders with white.
+
+    The width of these borders is calculated as a fraction of the width and height
+    of the image. The fraction ultimately comes from the parameter
+    `skewBorderFraction` in `fusus.parameters.SETTINGS`.
 
     Parameters
     ----------
@@ -271,13 +275,14 @@ def removeSkewStripes(img, skewBorder, skewColor):
     """
 
     (imH, imW) = img.shape[0:2]
-    if min((imH, imW)) < skewBorder * 10:
-        return
+    skewBorderX = int(round(skewBorderFraction * imW))
+    skewBorderY = int(round(skewBorderFraction * imH))
+    # print(f"\n{skewBorderFraction=} {skewBorderX=} {skewBorderY=}")
     for rect in (
-        ((0, 0), (skewBorder, imH)),
-        ((0, 0), (imW, skewBorder)),
-        ((imW, imH), (imW - skewBorder, 0)),
-        ((imW, imH), (0, imH - skewBorder)),
+        ((0, 0), (skewBorderX, imH)),
+        ((0, 0), (imW, skewBorderY)),
+        ((imW - skewBorderX, 0), (imW, imH)),
+        ((0, imH - skewBorderY), (imW, imH)),
     ):
         cv2.rectangle(img, *rect, skewColor, -1)
 
@@ -529,6 +534,9 @@ def pureAverage(data, supplied):
     ----------
     data: np array
         The list of values whose average we compute.
+
+    supplied: integer
+        Value to return if there is no data.
     """
 
     if data.size == 0:

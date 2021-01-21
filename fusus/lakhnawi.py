@@ -11,7 +11,7 @@ import fitz
 
 from tf.core.helpers import setFromSpec
 
-from .parameters import SOURCE_DIR, UR_DIR
+from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES
 from .lib import pprint
 from .char import (
     UChar,
@@ -622,6 +622,9 @@ class Lakhnawi(UChar):
 
         self.good = True
 
+    def close(self):
+        self.doc.close()
+
     def setStyle(self):
         display(HTML(CSS))
 
@@ -889,7 +892,6 @@ class Lakhnawi(UChar):
             textPage = page.getTextPage()
             data = textPage.extractRAWDICT()
             self.collectPage(data)
-        print("")
 
     def getPageRaw(self, pageNum):
         self.pageNum = pageNum
@@ -926,7 +928,7 @@ class Lakhnawi(UChar):
         if not os.path.exists(destDir):
             os.makedirs(destDir, exist_ok=True)
 
-        pageNumRep = "allpages" if pageNumSpec is None else str(pageNumSpec)
+        pageNumRep = ALL_PAGES if pageNumSpec is None else str(pageNumSpec)
         filePath = f"{destDir}/{pageNumRep}.tsv"
         fh = open(filePath, "w")
         fh.write(self.tsvHeadLine())
@@ -960,7 +962,7 @@ class Lakhnawi(UChar):
             if not os.path.exists(destDir):
                 os.makedirs(destDir, exist_ok=True)
             if singleFile:
-                pageNumRep = "allpages" if pageNumSpec is None else str(pageNumSpec)
+                pageNumRep = ALL_PAGES if pageNumSpec is None else str(pageNumSpec)
                 tocRep = "-with-toc" if toc else ""
                 filePath = f"{destDir}/{pageNumRep}{tocRep}.html"
                 fh = open(filePath, "w")
@@ -1433,6 +1435,8 @@ on {totalPages} {pageRep}</b></p>
         if theseLines and self.isPageNum(theseLines[0]):
             theseLines = theseLines[1:]
 
+        # remove arabic numerals between brackets
+
         for chars in theseLines:
             nChars = len(chars)
             if not nChars:
@@ -1442,13 +1446,12 @@ on {totalPages} {pageRep}</b></p>
 
             while i < nChars:
                 char = chars[i]
-                c = char[-1]
                 nextI = i + 1
-                if c == ")":
+                if char[-1] == "(":
                     found = None
                     for j in range(i + 1, nChars):
                         theChar = chars[j][-1]
-                        if theChar == "(":
+                        if theChar == ")":
                             found = j + 1
                             nextI = found
                             break
@@ -1814,9 +1817,6 @@ on {totalPages} {pageRep}</b></p>
         curLen = 0
         prevCons = None
         pprevCons = None
-
-        if ln == 5:
-            print("")
 
         for (i, char) in enumerate(chars):
             c = char[-1]

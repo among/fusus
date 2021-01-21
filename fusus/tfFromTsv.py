@@ -5,6 +5,7 @@ import re
 
 from tf.fabric import Fabric
 from tf.convert.walker import CV
+from tf.writing.transcription import Transcription as Tr
 
 from char import UChar
 
@@ -25,7 +26,7 @@ page      : only process this page; default: all pages
 
 
 EXT = ".tsv"
-VERSION_TF = 0.1
+VERSION_TF = 0.2
 
 BASE = os.path.expanduser("~/github/among/fusus")
 
@@ -33,7 +34,7 @@ WORKS = dict(
     fususl=dict(
         meta=dict(
             name="fusus",
-            title="Fusus Al Hikram",
+            title="Fusus Al Hikam",
             author="Ibn Arabi",
             editor="Lakhnawi",
             published="pdf, personal communication",
@@ -45,20 +46,24 @@ WORKS = dict(
         ),
         dest="tf/fusus/Lakhnawi",
         toc=True,
+        ocred=False,
     ),
     fususa=dict(
         meta=dict(
             name="fusus",
-            title="Fusus Al Hikram",
+            title="Fusus Al Hikam",
             author="Ibn Arabi",
             editor="Affifi",
             published="pdf, personal communication",
             period="1165-1240",
         ),
         source=dict(
-            dir="ur/Affifi1/out",
+            dir="ur/Affifi",
+            file="allpages.tsv",
         ),
-        dest="tf/fusus/Lakhnawi",
+        dest="tf/fusus/Affifi",
+        toc=False,
+        ocred=True,
     ),
 )
 
@@ -82,8 +87,10 @@ def generic(source):
 
 
 otext = {
-    "fmt:text-orig-full": "{text}{punc}",
-    # "fmt:text-orig-trans": "{trans}{punc}",
+    "fmt:text-orig-full": "{pre}{text}{post}",
+    "fmt:text-orig-plain": "{prea}{plain}{posta}",
+    "fmt:text-orig-nice": "{prea}{nice}{posta}",
+    "fmt:text-orig-trans": "{prea}{trans}{posta}",
     "sectionFeatures": "n,n,n",
     "sectionTypes": "piece,page,line",
 }
@@ -127,21 +134,37 @@ featureMeta = {
         ),
         "format": "number",
     },
-    "np": {
-        "description": "sequence number of a proper content piece",
-        "format": "number",
-    },
     "name": {
         "description": "name of a column in ocred output",
         "format": "string, either r or l",
     },
-    "pre": {
-        "description": "punctuation/space after a word",
-        "format": "string",
+    "nice": {
+        "description": "text string of a word in latin transcription (beta code)",
+        "format": "string, latin with diacritics",
+    },
+    "np": {
+        "description": "sequence number of a proper content piece",
+        "format": "number",
+    },
+    "plain": {
+        "description": "text string of a word in ascii transcription (beta code)",
+        "format": "string, ascii",
     },
     "post": {
-        "description": "punctuation/space after a word",
+        "description": "punctuation and/or space immediately after a word",
         "format": "string",
+    },
+    "posta": {
+        "description": "punctuation and/or space immediately after a word",
+        "format": "string, ascii",
+    },
+    "pre": {
+        "description": "punctuation (but no whitespace) immediately before a word",
+        "format": "string",
+    },
+    "prea": {
+        "description": "punctuation (but no whitespace) immediately before a word",
+        "format": "string, ascii",
     },
     "text": {
         "description": "text string of a word without punctuation",
@@ -152,39 +175,21 @@ featureMeta = {
         "format": "string",
     },
     "trans": {
-        "description": "transliterated text string of a word without punctuation",
-        "format": "string",
+        "description": (
+            "text string of a word in romanized transcription"
+            " (Library of Congress)"
+        ),
+        "format": "string, latin with diacritics",
     },
 }
-
-
-# ERROR HANDLING
-
-
-def docSummary(occs):
-    nOccs = len(occs)
-    rep = "   0x" if not nOccs else f"   1x {occs[0]}" if nOccs == 1 else ""
-    if not rep:
-        examples = " ".join(occs[0:2])
-        rest = " ..." if nOccs > 2 else ""
-        rep = f"{nOccs:>4}x {examples}{rest}"
-    return f"{rep:<30}"
-
-
-def showDiags(diags, kind, batch=20):
-    if not diags:
-        print("No diags")
-    else:
-        for (diag, docs) in sorted(diags.items()):
-            docRep = docSummary(sorted(docs))
-            print(f"{kind} {diag} {len(docs):>4}x {docRep}")
 
 
 # DISTILL TABLE of CONTENTS
 
 TOC_PAGES = (4, 5)
 
-TOC_LINE_RE = re.compile(r"""
+TOC_LINE_RE = re.compile(
+    r"""
     ^
     ([٠-٩]+)
     ‐
@@ -192,16 +197,21 @@ TOC_LINE_RE = re.compile(r"""
     …+
     ([٠-٩]+)
     $
-""", re.X)
+""",
+    re.X,
+)
 
-PIECE_RE = re.compile(r"""
+PIECE_RE = re.compile(
+    r"""
     ^
     \[
     ([٠-٩]+)
     \]
     (.*)
     $
-""", re.X)
+""",
+    re.X,
+)
 
 
 def getToc(data):
@@ -255,7 +265,7 @@ def getToc(data):
 givenPage = None
 
 
-def getFiles(source):
+def getFile(source):
     workInfo = WORKS[source]
 
     sourceInfo = workInfo["source"]
@@ -264,27 +274,7 @@ def getFiles(source):
 
     srcDir = f"{BASE}/{directory}"
 
-    if fileName:
-        return [(None, f"{srcDir}/{fileName}")]
-
-    files = []
-    with os.scandir(srcDir) as dh:
-        for entry in dh:
-            if entry.is_file():
-                fileName = entry.name
-                if not fileName.endswith(EXT):
-                    continue
-                page = fileName.removesuffix(EXT).lstrip("0")
-                if not page.isdigit():
-                    print(f"skipping {fileName}")
-                    continue
-
-                page = int(page)
-                if givenPage is not None and page != givenPage:
-                    continue
-
-                files.append((page, f"{srcDir}/{fileName}"))
-    return sorted(files)
+    return f"{srcDir}/{fileName}"
 
 
 TYPE_MAPS = {
@@ -295,9 +285,10 @@ TYPE_MAPS = {
 
 def convert(source, page):
     global givenPage
-    global SRC_FILES
+    global SRC_FILE
     global TYPE_MAP
     global HAS_TOC
+    global OCRED
     global U
 
     U = UChar()
@@ -306,8 +297,9 @@ def convert(source, page):
 
     workInfo = WORKS[source]
     dest = f"{BASE}/{workInfo['dest']}/{VERSION_TF}"
-    SRC_FILES = getFiles(source)
+    SRC_FILE = getFile(source)
     HAS_TOC = workInfo.get("toc", False)
+    OCRED = workInfo.get("ocred", False)
     TYPE_MAP = TYPE_MAPS[HAS_TOC]
 
     cv = CV(Fabric(locations=dest))
@@ -324,10 +316,6 @@ def convert(source, page):
 
 
 # DIRECTOR
-
-
-warnings = collections.defaultdict(set)
-errors = collections.defaultdict(set)
 
 
 def director(cv):
@@ -361,57 +349,82 @@ def director(cv):
     the words.
     """
 
+    stops = U.stops
+    nonLetter = U.nonLetter
+    nonLetterRange = re.escape("".join(sorted(nonLetter)))
+
+    WORD_RE = re.compile(
+        fr"""
+        (
+            [^{nonLetterRange}]+
+        )
+        |
+        (
+            [{nonLetterRange}]+
+        )
+""",
+        re.X,
+    )
+    errors = collections.defaultdict(set)
+
     cur = [None, None, None, None]
     prev = [None, None, None, None]
     nSec = len(prev)
 
-    ocred = True
     data = []
 
-    for (page, path) in SRC_FILES:
-        if page is None:
-            ocred = False
-        with open(path) as fh:
-            next(fh)
-            for line in fh:
-                row = tuple(line.rstrip("\n").split("\t"))
-                if ocred:
-                    row = (page,) + (
-                        int(row[0]),
-                        row[1],
-                        int(row[2]),
-                        *(None if c == "?" else int(c) for c in row[3:7]),
-                        int(row[7]),
-                        row[8],
-                    )
-                    data.append(row)
-                else:
-                    page = int(row[0])
-                    if givenPage is not None and page != givenPage:
-                        continue
-                    row = (
-                        *(int(c) for c in row[0:4]),
-                        row[4],
-                        *(None if c == "?" else int(c) for c in row[5:9]),
-                        row[9],
-                    )
-                    data.append(row)
+    with open(SRC_FILE) as fh:
+        next(fh)
+        for line in fh:
+            row = tuple(line.rstrip("\n").split("\t"))
+            page = int(row[0])
+            if givenPage is not None and page != givenPage:
+                continue
 
-    boxL = nSec if ocred else nSec + 1
+            if OCRED:
+                row = (
+                    page,
+                    int(row[1]),
+                    row[2],
+                    int(row[3]),
+                    *(None if c == "?" else int(c) for c in row[4:8]),
+                    int(row[8]),
+                    row[9],
+                )
+            else:
+                row = (
+                    page,
+                    *(int(c) for c in row[1:4]),
+                    row[4],
+                    *(None if c == "?" else int(c) for c in row[5:9]),
+                    row[9],
+                )
+
+            data.append(row)
+
+    boxL = nSec if OCRED else nSec + 1
 
     if HAS_TOC:
         toc = getToc(data)
         curPiece = cv.node("piece")
         cv.feature(curPiece, n=1, title="front")
 
-    for fields in data:
+    curSentence = cv.node("sentence")
+    nSentence = 1
+    cv.feature(curSentence, n=nSentence)
+
+    for (r, fields) in enumerate(data):
         if HAS_TOC:
             page = fields[0]
             if page in toc and page != prev[0]:
                 for i in reversed(range(nSec)):
                     cv.terminate(cur[i])
 
+                cv.terminate(curSentence)
                 cv.terminate(curPiece)
+                nSentence = 1
+                curSentence = cv.node("sentence")
+                cv.feature(curSentence, n=nSentence)
 
                 (n, np, title) = toc[page]
                 curPiece = cv.node("piece")
@@ -426,28 +439,70 @@ def director(cv):
                 for j in range(i, nSec):
                     cn = cv.node(TYPE_MAP[j])
                     cur[j] = cn
-                    if ocred and j == 2:
+                    if OCRED and j == 2:
                         cv.feature(cn, name=fields[j])
                     else:
                         cv.feature(cn, n=fields[j])
-                    if not ocred and j == nSec - 1:
+                    if not OCRED and j == nSec - 1:
                         cv.feature(cn, dir=fields[nSec])
                 break
         for i in range(nSec):
             prev[i] = fields[i]
 
-        s = cv.slot()
-        cv.feature(
-            s,
-            boxl=fields[boxL],
-            boxt=fields[boxL + 1],
-            boxr=fields[boxL + 2],
-            boxb=fields[boxL + 3],
-            text=fields[-1],
-            punc=" ",
-        )
-        if ocred:
-            cv.feature(s, confidence=fields[-2])
+        string = fields[-1]
+        parts = []
+        first = True
+        firstNonLetters = False
+
+        for (letters, nonLetters) in WORD_RE.findall(string):
+            if first:
+                if nonLetters:
+                    parts.append([nonLetters, "", ""])
+                    firstNonLetters = True
+                else:
+                    parts.append(["", letters, ""])
+                first = False
+            elif firstNonLetters:
+                parts[-1][1] = letters
+                firstNonLetters = False
+            elif letters:
+                parts.append(["", letters, ""])
+            else:
+                parts[-1][-1] = nonLetters
+        if parts:
+            parts[-1][-1] += " "
+
+        for (pre, text, post) in parts:
+            textp = Tr.asciiFromArabic(text)
+            textn = Tr.latinFromArabic(text)
+            textt = Tr.standardFromArabic(text)
+            s = cv.slot()
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+                text=text,
+                plain=textp,
+                nice=textn,
+                trans=textt,
+            )
+            if pre:
+                prea = Tr.asciiFromArabic(pre)
+                cv.feature(s, pre=pre, prea=prea)
+            if post:
+                posta = Tr.asciiFromArabic(post)
+                cv.feature(s, post=post, posta=posta)
+                if any(c in stops for c in post):
+                    cv.terminate(curSentence)
+                    curSentence = cv.node("sentence")
+                    nSentence += 1
+                    cv.feature(curSentence, n=nSentence)
+            if OCRED:
+                cv.feature(s, confidence=fields[-2])
+
+    cv.terminate(curSentence)
 
     for i in reversed(range(nSec)):
         if cur[i]:
@@ -459,6 +514,14 @@ def director(cv):
     for feat in featureMeta:
         if not cv.occurs(feat):
             cv.meta(feat)
+
+    if errors:
+        for kind in sorted(errors):
+            instances = sorted(errors[kind])
+            nInstances = len(instances)
+            showInstances = instances[0:20]
+            print(f"ERROR {kind}: {nInstances} x")
+            print(", ".join(showInstances))
 
 
 # TF LOADING (to test the generated TF)

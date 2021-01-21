@@ -24,10 +24,14 @@ ARABIC_SYMBOL_RANGES = (
     ("061b", "061f"),
     ("fd3e", "fd3f"),
 )
+STOP_RANGES = (
+    ("002e", "002e"),
+    ("06d4", "06d4"),
+)
+
 PUNCT_RANGES = (
     ("0021", "0021"),
     ("002c", "002c"),
-    ("002e", "002e"),
     ("003a", "003b"),
     ("003f", "003f"),
     ("00a1", "00a1"),
@@ -38,7 +42,6 @@ PUNCT_RANGES = (
     ("060c", "060c"),
     ("061b", "061b"),
     ("061e", "061f"),
-    ("06d4", "06d4"),
 )
 
 ARABIC_PRESENTATIONAL_RANGES = (("fb50", "feff"),)
@@ -232,7 +235,8 @@ class UChar:
         self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
         self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
         arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
-        self.punct = getSetFromRanges(PUNCT_RANGES)
+        self.stops = getSetFromRanges(STOP_RANGES)
+        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
         self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
         self.presentationalC = self.arabicPresentational | self.hebrewPresentational
         self.presentationalD = self.latinPresentational | self.greekPresentational

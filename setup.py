@@ -12,7 +12,7 @@ setup(
         "PyMuPDF",
         "opencv-contrib-python",
         "kraken",
-        "text-fabric",
+        "text-fabric>=8.4.7",
     ],
     python_requires=">=3.7.0",
     include_package_data=True,

@@ -9,7 +9,7 @@ import cv2
 
 from tf.core.timestamp import Timestamp
 
-from .parameters import Config
+from .parameters import Config, ALL_PAGES
 from .lib import (
     imageFileList,
     imageFileListSub,
@@ -24,17 +24,23 @@ from .ocr import OCR, showConf, getProofColor
 
 
 class Book:
-    def __init__(self, **params):
+    def __init__(self, cd=None, **params):
         """Engine for book conversion.
 
         Parameters
         ----------
+        cd: string, optional
+            If passed, performs a change directory to the direcotry specified.
+            Else the whole book processing takes place in the current directory.
         params: dict, optional
             Any number of customizable settings from `fusus.parameters.SETTINGS`.
 
             They will be in effect when running the workflow, until
             a `Book.configure` action will modify them.
         """
+
+        if cd is not None:
+            os.chdir(cd)
 
         tm = Timestamp()
         self.tm = tm
@@ -502,6 +508,68 @@ class Book:
 
         indent(level=0)
         info("all done")
+
+    def exportTsv(self, pages=None):
+        """Combine the tsv data per page to one big tsv file.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the working directory.
+        """
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+        pagesDesc = pagesRep(imageFiles)
+        info(f"Batch of {len(imageFiles)} pages: {pagesDesc}")
+
+        info("Start producing single TSV file of these pages")
+
+        path = f"{pagesFile}.tsv"
+
+        first = True
+        f = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            page = Page(self, imFile, minimal=True)
+            stages = page.stages
+            stage = "word"
+
+            if first:
+                headers = page.dataHeaders.get(stage, None)
+                header = "\t".join(str(column) for column in headers)
+
+                f = open(path, "w")
+                f.write(f"{header}\n")
+
+                first = False
+
+            pageNum = int(page.bare.lstrip("0") or "0")
+            page.read(stage=stage)
+
+            data = stages[stage]
+            if not data:
+                continue
+
+            for fields in stages[stage]:
+                f.write(f"{pageNum}\t" + "\t".join(str(f) for f in fields) + "\n")
+
+        if f:
+            info(f"written to {path}")
+            f.close()
+        else:
+            info("Nothing written")
 
     def plainText(self, pages=None):
         """Get the plain text from the ocr output in one file

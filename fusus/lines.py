@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks, medfilt
 
 from .lib import (
     applyBandOffset,
@@ -55,7 +55,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
         histogram = layout.copy()
         stages["histogram"] = histogram
 
-    rotated = stages["rotated"]
+    blurred = stages["blurred"]
     demargined = stages["demargined"]
 
     emptyBlocks = []
@@ -70,9 +70,9 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
             continue
 
         imgOut = histogram if not batch else None
-        histX = getInkX(rotated, left, top, right, bottom, imgOut=imgOut)
+        histX = getInkX(blurred, left, top, right, bottom, imgOut=imgOut)
         lines = getInkY(
-            C, info, rotated, pageH, left, top, right, bottom, True, imgOut=imgOut
+            C, info, blurred, pageH, left, top, right, bottom, True, imgOut=imgOut
         )
 
         # chop off the left and right margins of a region
@@ -160,6 +160,54 @@ def getInkX(imgIn, left, top, right, bottom, imgOut=None):
     return histX
 
 
+def firstNonzero(arr, axis=None):
+    return (arr != 0).argmax(axis=axis or 0)
+
+
+def lastNonzero(arr, axis=None):
+    ax = axis or 0
+    mask = arr != 0
+    ln = arr.shape[ax]
+    val = ln - np.flip(mask, axis=ax or 0).argmax(axis=ax) - 1
+    return val if axis is None else np.where(mask.any(axis=ax), val, -1)
+
+
+def getHist(C, imgIn, lineHeight):
+    if lineHeight is None:
+        return cv2.reduce(imgIn, 1, cv2.REDUCE_AVG).reshape(-1)
+
+    contourFactor = C.contourFactor
+    contourOffset = C.contourOffset
+
+    (h, w) = imgIn.shape[0:2]
+    increase = int(round(w * contourOffset))
+
+    left = firstNonzero(imgIn, axis=1)
+    right = lastNonzero(imgIn, axis=1)
+
+    left[left > increase] -= increase
+    right[(0 < right) & (right < w - increase)] += increase
+
+    # smooth the left and right contours by taking the median value
+    # of a range around each value.
+    # the range stretches a fraction of the peak distance to each side
+    # we use a median filter from scipy for it
+
+    windowSize = int(round(lineHeight * contourFactor))
+    if not windowSize % 2:
+        windowSize += 1
+    if windowSize > 1:
+        left = np.rint(medfilt(left, windowSize)).astype(int)
+        right = np.rint(medfilt(right, windowSize)).astype(int)
+
+    lengths = np.transpose(right - left + 1)
+
+    histY = np.sum(imgIn, axis=1).astype(float)
+    histY[lengths > 0] = histY[lengths > 0] / lengths[lengths > 0]
+    histY[histY > 200] = 200
+    return (np.rint(histY).astype(np.uint8), left, right)
+
+
 def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None):
     """Determine the line distribution in a block of text.
 
@@ -171,9 +219,6 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 
     But if we have just one peak, we do not have distances.
     In those cases, we take the last line height that has been calculated.
-
-    Note that the parameter `fusus.parameters.lineHeight` will get updated
-    if the algorithm has returned a result.
 
     Parameters
     ----------
@@ -208,6 +253,8 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     white = C.whiteRGB
     black = C.blackRGB
     green = C.greenRGB
+    orange = C.orangeRGB
+    purple = C.purpleRGB
     mColor = C.marginRGB
     upperColor = C.upperRGB
     lowerColor = C.lowerRGB
@@ -216,6 +263,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     peakProminence = C.peakProminenceY
     valleyProminence = C.valleyProminenceY
     outerValleyShiftFraction = C.outerValleyShiftFraction
+    defaultLineHeight = C.defaultLineHeight
 
     peakDistance = int(round(pageH / 45))
 
@@ -229,48 +277,60 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     roiIn = imgIn[top:bottom, left:right]
 
     # the raw histogram
-    histY = cv2.reduce(roiIn, 1, cv2.REDUCE_AVG).reshape(-1)
+    histY = getHist(C, roiIn, None)
 
-    # rough collection of peaks (we'll find too many)
-    (peaks, peakData) = find_peaks(
-        histY, prominence=peakProminence, distance=peakDistance
-    )
+    # estimate the lineheight based on the raw histogram
 
-    # if there are no peaks: no lines
+    def getLineHeight(histY, show=False):
+        # rough collection of peaks (we'll find too many)
+        (peaks, peakData) = find_peaks(
+            histY, prominence=peakProminence, distance=peakDistance
+        )
 
-    if not len(peaks):
+        # if there are no peaks: no lines
+
+        if not len(peaks):
+            return None
+
+        # filter out the significant peaks
+        maxPeak = max(histY[peak] for peak in peaks)
+        peakThreshold = peakSignificant * maxPeak
+        sigPeaks = [peak for peak in peaks if histY[peak] > peakThreshold]
+
+        # get the distances between the significant peaks
+        diffPeaks = [sigPeaks[i] - sigPeaks[i - 1] for i in range(1, len(sigPeaks))]
+        if show:
+            info("\nPeaks:", tm=False)
+            info(
+                f"maxPeak={maxPeak};"
+                f" {len(peaks)} peaks of which {len(sigPeaks)} > {peakThreshold}",
+                tm=False,
+            )
+            info("Peaks:")
+            for peak in peaks:
+                info(f"{histY[peak]:>3} @ {peak:>4}", tm=False)
+            info(f"sigPeaks={sigPeaks}", tm=False)
+            info(f"diffPeaks={diffPeaks}", tm=False)
+
+        # remove the outliers from the distances and determine the average of the
+        # remaining distances: that is the line height
+        return pureAverage(np.array(diffPeaks), defaultLineHeight)
+
+    lineHeight = getLineHeight(histY, show=False)
+    if lineHeight is None:
+        # no lines
         return []
 
-    # filter out the significant peaks
-    maxPeak = max(histY[peak] for peak in peaks)
-    peakThreshold = peakSignificant * maxPeak
-    sigPeaks = [peak for peak in peaks if histY[peak] > peakThreshold]
-
-    # get the distances between the significant peaks
-    diffPeaks = [sigPeaks[i] - sigPeaks[i - 1] for i in range(1, len(sigPeaks))]
-    if show:
-        info("\nPeaks:", tm=False)
-        info(
-            f"maxPeak={maxPeak};"
-            f" {len(peaks)} peaks of which {len(sigPeaks)} > {peakThreshold}",
-            tm=False,
-        )
-        info("Peaks:")
-        for peak in peaks:
-            info(f"{histY[peak]:>3} @ {peak:>4}", tm=False)
-        info(f"sigPeaks={sigPeaks}", tm=False)
-        info(f"diffPeaks={diffPeaks}", tm=False)
-
-    # remove the outliers from the distances and determine the average of the
-    # remaining distances: that is the line height
-    thisLineHeight = pureAverage(np.array(diffPeaks), C.lineHeight)
-
-    # store the line height globally for cases where the next calculation
-    # has too little information
-    C.lineHeight = thisLineHeight
+    # compute a better histogram, based on smooth contour lines
+    # Crucial: the contour computation is based on the estimated line height
+    (histY, leftContour, rightContour) = getHist(C, roiIn, lineHeight)
+    lineHeight = getLineHeight(histY, show=show)
+    if lineHeight is None:
+        # no lines
+        return []
 
     # precise calculation of peaks, based on the calculated line height
-    distance = int(round(peakTargetWidthFraction * thisLineHeight))
+    distance = int(round(peakTargetWidthFraction * lineHeight))
     plateauThreshold = int(distance // 4)
     (peaks, peakData) = find_peaks(histY, prominence=2, distance=distance)
 
@@ -305,6 +365,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     # the ink, one higher, one lower than the plateau.
 
     valleys = []
+    remove = None
 
     def showValley(v):
         removeRep = "xxx" if remove else f"{len(valleys):>3}"
@@ -327,33 +388,38 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     ):
         # a valley with a smallish prominence and small plateau combined
         # with a lack of depth is not convincing
-        remove = prominence < 20 and plateauSize + height < 250
+
+        # the valleys at the start and at the end might be too far removed
+        # from the actual ink.
+        # We recognize that by means of the size of the plateau.
+        # Therefore we shift the valley towards the ink over a length
+        # proportional to the plateau size.
+
+        remove = prominence < 50 or (prominence < 100 and (plateauSize + height < 230))
         lastProtoValley = len(protoValleys) - 1
-        if not remove:
-            # the valleys at the start and at the end might be too far removed
-            # from the actual ink.
-            # We recognize that by means of the size of the plateau.
-            # Therefore we shift the valley towards the ink over a length
-            # proportional to the plateau size.
-            if i == 0 or i == lastProtoValley:
-                shiftCorrection = int(plateauSize * outerValleyShiftFraction)
-                vc = v + shiftCorrection if i == 0 else v - shiftCorrection
+        if i == 0 or i == lastProtoValley:
+            shiftCorrection = int(plateauSize * outerValleyShiftFraction)
+            vc = v + shiftCorrection if i == 0 else v - shiftCorrection
+            if not remove:
                 valleys.append(vc)
-                if show:
-                    showValley(vc)
-            else:
-                if plateauSize > 2 * plateauThreshold:
-                    thisShift = int(plateauSize // 2) - plateauThreshold
+            if show:
+                showValley(vc)
+        else:
+            if plateauSize > 2 * plateauThreshold:
+                thisShift = int(plateauSize // 2) - plateauThreshold
+                if not remove:
                     valleys.append(v - thisShift)
-                    if show:
-                        showValley(v - thisShift)
+                if show:
+                    showValley(v - thisShift)
+                if not remove:
                     valleys.append(v + thisShift)
-                    if show:
-                        showValley(v + thisShift)
-                else:
+                if show:
+                    showValley(v + thisShift)
+            else:
+                if not remove:
                     valleys.append(v)
-                    if show:
-                        showValley(v)
+                if show:
+                    showValley(v)
 
     # from the peaks and valleys found above, compute the lines
     # as a list of (top, bottom) coordinates.
@@ -387,6 +453,15 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 
     if imgOut is not None:
         roiOut = imgOut[top:bottom, left:right]
+        faze = 5
+        for (i, val) in enumerate(leftContour):
+            tl = (max((val - faze, 0)), max((i - faze, 0)))
+            br = (min((val + faze, right)), min((i + faze, bottom)))
+            cv2.rectangle(roiOut, tl, br, orange, -1)
+        for (i, val) in enumerate(rightContour):
+            tl = (max((val - faze, 0)), max((i - faze, 0)))
+            br = (min((val + faze, right)), min((i + faze, bottom)))
+            cv2.rectangle(roiOut, tl, br, purple, -1)
         for (i, val) in enumerate(histY):
             color = (int(val), int(2 * val), int(val))
             index = (sqDWidth + 10, i)

@@ -255,19 +255,25 @@ class OCR:
     def __init__(self, engine):
         """Sets up OCR with Kraken."""
 
-        tm = engine.tm
-        info = tm.info
-
         self.engine = engine
-        C = engine.C
-        modelPath = C.modelPath
-        info(f"Loading for Kraken: {unexpanduser(modelPath)}")
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore")
-            model = load_any(modelPath)
-        info("model loaded")
+        self.model = None
 
-        self.model = model
+    def ensureLoaded(self):
+        if self.model is None:
+            engine = self.engine
+            C = engine.C
+            tm = engine.tm
+            info = tm.info
+            modelPath = C.modelPath
+
+            info(f"Loading for Kraken: {unexpanduser(modelPath)}")
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore")
+                model = load_any(modelPath)
+            info("model loaded")
+
+            self.model = model
+        return model
 
     def read(self, page):
         """Perfoms OCR with Kraken."""
@@ -277,7 +283,7 @@ class OCR:
         if scan is None:
             return None
 
-        model = self.model
+        model = self.ensureLoaded()
 
         blocks = page.blocks
         ocrChars = []

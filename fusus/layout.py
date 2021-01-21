@@ -380,7 +380,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     marginX = C.blockMarginX
     blockColor = C.blockRGB
     letterColor = C.letterRGB
-    rotated = stages["rotated"]
+    blurred = stages["blurred"]
     normalized = stages["normalized"]
 
     (maxH, maxW) = normalized.shape[0:2]
@@ -402,7 +402,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
 
         if x is None:
             (theYMin, theYMax) = adjustVertical(
-                C, info, rotated, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+                C, info, blurred, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
             )
             blocks[(stripe, "")] = dict(
                 box=(marginX, theYMin, maxW - marginX, theYMax),
@@ -431,7 +431,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
             (theYMinL, theYMaxL) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 0,
                 x,
@@ -444,7 +444,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
             (theYMinR, theYMaxR) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 x,
                 maxW,
@@ -681,7 +681,7 @@ def grayInterBlocks(C, stages, blocks):
 
 
 def adjustVertical(
-    C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+    C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
 ):
     """Adjust the height of blocks.
 
@@ -698,9 +698,9 @@ def adjustVertical(
         Configuration settings
     info: function
         To write messages to the console
-    rotated: image as np array
-        The input image. It must be the `rotated` stage of the source image,
-        which is blurred, inverted and de-skewed.
+    blurred: image as np array
+        The input image. It must be the `blurred` stage of the source image,
+        which is blurred and inverted.
     pageH: int
         size of a full page in pixels
     left, right: int
@@ -735,7 +735,7 @@ def adjustVertical(
         return (theYMin, theYMax)
 
     lines = getInkY(
-        C, info, rotated, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
+        C, info, blurred, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
     )
     normHLee = yMaxLee - yMinLee
     topProper = yMin - yMinLee
