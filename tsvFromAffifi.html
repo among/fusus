@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about.install API documentation</title>
-<meta name="description" content="Convention …" />
+<title>fusus.tsvFromAffifi API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,102 +17,31 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.install</code></h1>
+<h1 class="title">Module <code>fusus.tsvFromAffifi</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="convention">Convention</h1>
-<p>A lot of configuration can be avoided by this simple convention:</p>
-<p>Put your cloned version of this repository in your <code>~/github</code> directory.
-If you do not have it, make it, and organize it exactly as GitHub is organized:
-by organization and then by repo.</p>
-<h1 id="get-the-software">Get the software</h1>
-<p>Clone the <code>among/fusus</code> repo from GitHub.</p>
-<p>Here are the instructions to get this repo and place it in the conventional place
-on your file system.</p>
-<pre><code class="language-sh">cd
-mkdir github
-cd github
-mkdir among
-git clone https://github.com/among/fusus
-cd fusus
-</code></pre>
-<p>If you want to update later, make sure that you do not have work of your own
-in this repo.
-If you have, copy it to a location outside of this repo.</p>
-<pre><code class="language-sh">cd ~/github/among/fusus
-git fetch origin
-git checkout master
-git reset --hard origin/master
-</code></pre>
-<h1 id="install-the-software">Install the software</h1>
-<p>You are going to install the Python package <code><a title="fusus" href="../index.html">fusus</a></code> that is contained in the repo.</p>
-<p>During install, all the packages that <code><a title="fusus" href="../index.html">fusus</a></code> is dependent on, will be installed
-into your current Python3 installation.</p>
-<p>The package <code><a title="fusus" href="../index.html">fusus</a></code> itself will be added to your Python3 installation in such a way
-that it can be used from anywhere, while the package inside the repo is being accessed.
-This is achieved by the fact that the installer will create a link to the repo.</p>
-<pre><code class="language-sh">cd ~/github/among/fusus
-pip3 install -e .
-</code></pre>
-<p>??? caution "Mind the dot"
-Do not forget the <code>.</code> at the end of the line in the above instruction.</p>
-<p>??? hint "No nead to repeat this step"
-When you update the repo later, it will not be necessary to redo the
-<code>pip3 install</code> step, because the soft link to the fusus package in the repo
-will still be valid.</p>
-<h1 id="build-steps">Build steps</h1>
-<p>The following steps are relevant if you modify the software and documentation.</p>
-<p>There is a script <code>build.py</code> in the top-level directory that performs these tasks.</p>
-<p>Go to the repo's top level directory and say</p>
-<pre><code class="language-sh">python3 build.py --help
-</code></pre>
-<p>to see what it can do.</p>
-<p>Tip: in your <code>.zshrc</code> define this function:</p>
-<pre><code class="language-sh">function fsb {
-    cd ~/github/among/fusus
-    python3 build.py &quot;$@&quot;
-}
-
-</code></pre>
-<p>Then you can invoke the build script from anywhere:</p>
-<pre><code class="language-sh">fsb --help
-</code></pre>
-<h2 id="documentation">Documentation</h2>
-<p>Documentation is collected from</p>
-<ul>
-<li>the docstrings in the Python files in the <em>fusus</em> directory;</li>
-<li>the markdown files in the <em>docs</em> directory.</li>
-</ul>
-<h2 id="view-documentation-locally">View documentation locally</h2>
-<p>To open a browser and view the dynamically generated documentation, say</p>
-<pre><code class="language-sh">fsb docs
-</code></pre>
-<h2 id="generate-documentation-locally">Generate documentation locally</h2>
-<p>To generate documentation, say</p>
-<pre><code class="language-sh">fsb pdocs
-</code></pre>
-<p>The documentation is now in the <em>site</em> directory.</p>
-<h2 id="publish-documentation-online">Publish documentation online</h2>
-<p>To generate and publish documentation online, say</p>
-<pre><code class="language-sh">fsb shipDocs
-</code></pre>
-<p>This will publish the documentation to the <em>gh-pages</em> branch
-in the online GitHub repository <em>among/fusus</em>, from where it can be
-accessed by <a href="https://among.github.io/fusus/">https://among.github.io/fusus/</a>.</p>
-<h2 id="push-everything">Push everything</h2>
-<p>To generate and publisj documentation and to push all changes to
-the <em>main</em> branch in the online GitHub directory, say</p>
-<pre><code class="language-sh">fsb ship &quot;commit message&quot;
-</code></pre>
-<p>You have to provide a commit message.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromAffifi.py#L0-L16" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: ../../docs/about/install.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">from .book import Book
+from .parameters import UR_DIR
+
+
+AFFIFI_PATH = f&#34;{UR_DIR}/affifi&#34;
+
+
+def main():
+    B = Book(cd=AFFIFI_PATH)
+    # print(&#34;Processing page images and OCRing them&#34;)
+    # B.process()
+    print(&#34;Exporting data as single TSV file&#34;)
+    B.exportTsv()
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
 </details>
 </section>
 <section>
@@ -120,6 +49,27 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.tsvFromAffifi.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromAffifi.py#L8-L13" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def main():
+    B = Book(cd=AFFIFI_PATH)
+    # print(&#34;Processing page images and OCRing them&#34;)
+    # B.process()
+    print(&#34;Exporting data as single TSV file&#34;)
+    B.exportTsv()</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -129,24 +79,17 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#convention">Convention</a></li>
-<li><a href="#get-the-software">Get the software</a></li>
-<li><a href="#install-the-software">Install the software</a></li>
-<li><a href="#build-steps">Build steps</a><ul>
-<li><a href="#documentation">Documentation</a></li>
-<li><a href="#view-documentation-locally">View documentation locally</a></li>
-<li><a href="#generate-documentation-locally">Generate documentation locally</a></li>
-<li><a href="#publish-documentation-online">Publish documentation online</a></li>
-<li><a href="#push-everything">Push everything</a></li>
-</ul>
-</li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.tsvFromAffifi.main" href="#fusus.tsvFromAffifi.main">main</a></code></li>
 </ul>
 </li>
 </ul>

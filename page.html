@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.page API documentation</title>
 <meta name="description" content="Single page processing." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L0-L1063" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L0-L1061" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -42,6 +42,7 @@ from .lib import (
     parseMarks,
     removeSkewStripes,
     showImage,
+    writeImage,
     splitext,
 )
 from .clean import addBox, cluster, connected, reborder
@@ -137,7 +138,6 @@ class Page:
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.lineHeight = None
         self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
         self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
 
@@ -446,9 +446,9 @@ class Page:
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
-                        cv2.imwrite(thisPath, roi)
+                        writeImage(roi, thisPath)
                 else:
-                    cv2.imwrite(self.stagePath(s), stageData)
+                    writeImage(stageData, self.stagePath(s))
             elif stageType == &#34;data&#34;:
                 with open(self.stagePath(s), &#34;w&#34;) as f:
                     self._serial(s, stageData, stageExt, handle=f)
@@ -582,11 +582,25 @@ class Page:
     def doNormalize(self):
         &#34;&#34;&#34;Normalizes a page.
 
-        It produces a stage that is unskewed: *rotated* and blurred.
-        The same rotation will be applied to the original scan,
-        resulting in stage *normalized*.
+        Previously needed to unskew pages.
+        But now we assume pages are already skewed.
 
-        Unskewing is needed otherwise the footnote line will not be found.
+        Skewing turned out to be risky: when pages are filled in unusual
+        ways, we got unexpected and unwanted rotations.
+        So we don&#39;t do that anymore.
+
+        If the input page images have skew artefacts
+        (black sharp triangles in the corners)
+        as a result of previous skewing these will be removed.
+
+        Normalization produces the stages:
+
+        * *gray*: grayscale version of *orig*
+        * *blurred*: inverted, black-white, blurred without skew artefacts,
+          needed for histograms later on;
+        * *normalized*: *gray* without skew artefacts;
+        * *normalizedC*: *orig* without skew artefacts.
+
         &#34;&#34;&#34;
 
         if self.empty:
@@ -596,23 +610,34 @@ class Page:
         tm = engine.tm
         info = tm.info
         C = engine.C
-        whit = C.whiteGRS
 
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
         orig = stages[&#34;orig&#34;]
-
-        removeSkewStripes(orig, C.skewBorder, C.whiteRGB)
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages[&#34;gray&#34;] = gray
 
-        blurred = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        normalized = gray.copy()
+        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        stages[&#34;normalized&#34;] = normalized
 
-        (th, threshed) = cv2.threshold(
-            blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        if not batch or boxed:
+            normalizedC = orig.copy()
+            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            stages[&#34;normalizedC&#34;] = normalizedC
+
+        blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
+
+        (th, blurred) = cv2.threshold(
+            blurred, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
         )
-        pts = cv2.findNonZero(threshed)
+
+        stages[&#34;blurred&#34;] = blurred
+
+        # detect if the image is empty
+
+        pts = cv2.findNonZero(blurred)
         if pts is None:
             self.empty = True
             if not batch:
@@ -620,33 +645,6 @@ class Page:
             return
 
         self.empty = False
-
-        ret = cv2.minAreaRect(pts)
-
-        (cx, cy), (rw, rh), ang = ret
-        # correct unnecessary 90 degree rotations
-        for i in range(4):
-            newAng = (ang + i * 90) % 360
-            if newAng &gt; 180:
-                newAng -= 360
-            if abs(newAng) &lt; 40:
-                break
-
-        M = cv2.getRotationMatrix2D((cx, cy), newAng, 1.0)
-
-        rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-        removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
-        normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-        removeSkewStripes(normalized, C.skewBorder, whit)
-
-        if not batch or boxed:
-            normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-            removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-
-        stages[&#34;rotated&#34;] = rotated
-        stages[&#34;normalized&#34;] = normalized
-        if not batch or boxed:
-            stages[&#34;normalizedC&#34;] = normalizedC
 
     def doLayout(self):
         &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -1131,7 +1129,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L73-L1064" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L74-L1062" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(
@@ -1172,7 +1170,6 @@ in boxes.</dd>
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.lineHeight = None
         self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
         self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
 
@@ -1481,9 +1478,9 @@ in boxes.</dd>
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
-                        cv2.imwrite(thisPath, roi)
+                        writeImage(roi, thisPath)
                 else:
-                    cv2.imwrite(self.stagePath(s), stageData)
+                    writeImage(stageData, self.stagePath(s))
             elif stageType == &#34;data&#34;:
                 with open(self.stagePath(s), &#34;w&#34;) as f:
                     self._serial(s, stageData, stageExt, handle=f)
@@ -1617,11 +1614,25 @@ in boxes.</dd>
     def doNormalize(self):
         &#34;&#34;&#34;Normalizes a page.
 
-        It produces a stage that is unskewed: *rotated* and blurred.
-        The same rotation will be applied to the original scan,
-        resulting in stage *normalized*.
+        Previously needed to unskew pages.
+        But now we assume pages are already skewed.
 
-        Unskewing is needed otherwise the footnote line will not be found.
+        Skewing turned out to be risky: when pages are filled in unusual
+        ways, we got unexpected and unwanted rotations.
+        So we don&#39;t do that anymore.
+
+        If the input page images have skew artefacts
+        (black sharp triangles in the corners)
+        as a result of previous skewing these will be removed.
+
+        Normalization produces the stages:
+
+        * *gray*: grayscale version of *orig*
+        * *blurred*: inverted, black-white, blurred without skew artefacts,
+          needed for histograms later on;
+        * *normalized*: *gray* without skew artefacts;
+        * *normalizedC*: *orig* without skew artefacts.
+
         &#34;&#34;&#34;
 
         if self.empty:
@@ -1631,23 +1642,34 @@ in boxes.</dd>
         tm = engine.tm
         info = tm.info
         C = engine.C
-        whit = C.whiteGRS
 
         batch = self.batch
         boxed = self.boxed
         stages = self.stages
         orig = stages[&#34;orig&#34;]
-
-        removeSkewStripes(orig, C.skewBorder, C.whiteRGB)
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages[&#34;gray&#34;] = gray
 
-        blurred = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        normalized = gray.copy()
+        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        stages[&#34;normalized&#34;] = normalized
 
-        (th, threshed) = cv2.threshold(
-            blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        if not batch or boxed:
+            normalizedC = orig.copy()
+            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            stages[&#34;normalizedC&#34;] = normalizedC
+
+        blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
+
+        (th, blurred) = cv2.threshold(
+            blurred, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
         )
-        pts = cv2.findNonZero(threshed)
+
+        stages[&#34;blurred&#34;] = blurred
+
+        # detect if the image is empty
+
+        pts = cv2.findNonZero(blurred)
         if pts is None:
             self.empty = True
             if not batch:
@@ -1655,33 +1677,6 @@ in boxes.</dd>
             return
 
         self.empty = False
-
-        ret = cv2.minAreaRect(pts)
-
-        (cx, cy), (rw, rh), ang = ret
-        # correct unnecessary 90 degree rotations
-        for i in range(4):
-            newAng = (ang + i * 90) % 360
-            if newAng &gt; 180:
-                newAng -= 360
-            if abs(newAng) &lt; 40:
-                break
-
-        M = cv2.getRotationMatrix2D((cx, cy), newAng, 1.0)
-
-        rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-        removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
-        normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-        removeSkewStripes(normalized, C.skewBorder, whit)
-
-        if not batch or boxed:
-            normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-            removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-
-        stages[&#34;rotated&#34;] = rotated
-        stages[&#34;normalized&#34;] = normalized
-        if not batch or boxed:
-            stages[&#34;normalizedC&#34;] = normalizedC
 
     def doLayout(self):
         &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -2164,7 +2159,7 @@ and they do not contribute to the markData layer.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L692-L994" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L690-L992" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cleaning(self, mark=None, block=None, line=None, showKept=False):
     &#34;&#34;&#34;Remove marks from the page.
@@ -2501,7 +2496,7 @@ with the blocks marked and labelled.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L623-L690" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L621-L688" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doLayout(self):
     &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -2578,23 +2573,49 @@ with the blocks marked and labelled.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Normalizes a page.</p>
-<p>It produces a stage that is unskewed: <em>rotated</em> and blurred.
-The same rotation will be applied to the original scan,
-resulting in stage <em>normalized</em>.</p>
-<p>Unskewing is needed otherwise the footnote line will not be found.</p></div>
+<p>Previously needed to unskew pages.
+But now we assume pages are already skewed.</p>
+<p>Skewing turned out to be risky: when pages are filled in unusual
+ways, we got unexpected and unwanted rotations.
+So we don't do that anymore.</p>
+<p>If the input page images have skew artefacts
+(black sharp triangles in the corners)
+as a result of previous skewing these will be removed.</p>
+<p>Normalization produces the stages:</p>
+<ul>
+<li><em>gray</em>: grayscale version of <em>orig</em></li>
+<li><em>blurred</em>: inverted, black-white, blurred without skew artefacts,
+needed for histograms later on;</li>
+<li><em>normalized</em>: <em>gray</em> without skew artefacts;</li>
+<li><em>normalizedC</em>: <em>orig</em> without skew artefacts.</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L554-L621" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L554-L619" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doNormalize(self):
     &#34;&#34;&#34;Normalizes a page.
 
-    It produces a stage that is unskewed: *rotated* and blurred.
-    The same rotation will be applied to the original scan,
-    resulting in stage *normalized*.
+    Previously needed to unskew pages.
+    But now we assume pages are already skewed.
 
-    Unskewing is needed otherwise the footnote line will not be found.
+    Skewing turned out to be risky: when pages are filled in unusual
+    ways, we got unexpected and unwanted rotations.
+    So we don&#39;t do that anymore.
+
+    If the input page images have skew artefacts
+    (black sharp triangles in the corners)
+    as a result of previous skewing these will be removed.
+
+    Normalization produces the stages:
+
+    * *gray*: grayscale version of *orig*
+    * *blurred*: inverted, black-white, blurred without skew artefacts,
+      needed for histograms later on;
+    * *normalized*: *gray* without skew artefacts;
+    * *normalizedC*: *orig* without skew artefacts.
+
     &#34;&#34;&#34;
 
     if self.empty:
@@ -2604,57 +2625,41 @@ resulting in stage <em>normalized</em>.</p>
     tm = engine.tm
     info = tm.info
     C = engine.C
-    whit = C.whiteGRS
 
     batch = self.batch
     boxed = self.boxed
     stages = self.stages
     orig = stages[&#34;orig&#34;]
-
-    removeSkewStripes(orig, C.skewBorder, C.whiteRGB)
     gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
     stages[&#34;gray&#34;] = gray
 
-    blurred = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+    normalized = gray.copy()
+    removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+    stages[&#34;normalized&#34;] = normalized
 
-    (th, threshed) = cv2.threshold(
-        blurred, 127, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+    if not batch or boxed:
+        normalizedC = orig.copy()
+        removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+        stages[&#34;normalizedC&#34;] = normalizedC
+
+    blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
+
+    (th, blurred) = cv2.threshold(
+        blurred, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
     )
-    pts = cv2.findNonZero(threshed)
+
+    stages[&#34;blurred&#34;] = blurred
+
+    # detect if the image is empty
+
+    pts = cv2.findNonZero(blurred)
     if pts is None:
         self.empty = True
         if not batch:
             info(&#34;empty page&#34;)
         return
 
-    self.empty = False
-
-    ret = cv2.minAreaRect(pts)
-
-    (cx, cy), (rw, rh), ang = ret
-    # correct unnecessary 90 degree rotations
-    for i in range(4):
-        newAng = (ang + i * 90) % 360
-        if newAng &gt; 180:
-            newAng -= 360
-        if abs(newAng) &lt; 40:
-            break
-
-    M = cv2.getRotationMatrix2D((cx, cy), newAng, 1.0)
-
-    rotated = cv2.warpAffine(threshed, M, (threshed.shape[1], threshed.shape[0]))
-    removeSkewStripes(rotated, C.skewBorder, C.blackRGB)
-    normalized = cv2.warpAffine(gray, M, (gray.shape[1], gray.shape[0]))
-    removeSkewStripes(normalized, C.skewBorder, whit)
-
-    if not batch or boxed:
-        normalizedC = cv2.warpAffine(orig, M, (orig.shape[1], orig.shape[0]))
-        removeSkewStripes(normalizedC, C.skewBorder, C.whiteRGB)
-
-    stages[&#34;rotated&#34;] = rotated
-    stages[&#34;normalized&#34;] = normalized
-    if not batch or boxed:
-        stages[&#34;normalizedC&#34;] = normalizedC</code></pre>
+    self.empty = False</code></pre>
 </details>
 </dd>
 <dt id="fusus.page.Page.ocring"><code class="name flex">
@@ -2665,7 +2670,7 @@ resulting in stage <em>normalized</em>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L1050-L1057" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L1048-L1055" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocring(self):
     &#34;&#34;&#34;Calls the OCR engine for a page.&#34;&#34;&#34;
@@ -2685,7 +2690,7 @@ resulting in stage <em>normalized</em>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L1059-L1064" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L1057-L1062" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self):
     &#34;&#34;&#34;Produces proofing images&#34;&#34;&#34;
@@ -2710,7 +2715,7 @@ Otherwise, the indicated stages are read.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L339-L375" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L339-L375" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, stage=None):
     &#34;&#34;&#34;Reads processing data for selected stages from disk
@@ -2790,7 +2795,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L132-L321" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L132-L321" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -2992,7 +2997,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L323-L337" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L323-L337" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stagePath(self, stage, inter=None):
     engine = self.engine
@@ -3038,7 +3043,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/page.py#L377-L430" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/page.py#L377-L430" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None, perBlock=False):
     &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -3084,9 +3089,9 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
                     (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                     roi = stageData[topB:bottomB, leftB:rightB]
                     thisPath = self.stagePath(stage, inter=blockSpec)
-                    cv2.imwrite(thisPath, roi)
+                    writeImage(roi, thisPath)
             else:
-                cv2.imwrite(self.stagePath(s), stageData)
+                writeImage(stageData, self.stagePath(s))
         elif stageType == &#34;data&#34;:
             with open(self.stagePath(s), &#34;w&#34;) as f:
                 self._serial(s, stageData, stageExt, handle=f)
@@ -3103,7 +3108,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -3139,7 +3144,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

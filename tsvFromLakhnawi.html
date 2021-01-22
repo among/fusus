@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
-<title>fusus.about.use API documentation</title>
-<meta name="description" content="Book processing …" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.tsvFromLakhnawi API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,98 +17,29 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.use</code></h1>
+<h1 class="title">Module <code>fusus.tsvFromLakhnawi</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="book-processing">Book processing</h1>
-<p>We will transform scanned pages of a book into Unicode text
-following a number of processing steps.</p>
-<h2 id="the-express-way">The express way</h2>
-<p>In the terminal, <code>cd</code> to a book directory (see below) and run</p>
-<pre><code>python3 -m fusus.book
-</code></pre>
-<p>This will process all scanned pages with default settings.</p>
-<h2 id="with-more-control-and-feedback">With more control and feedback</h2>
-<p>Copy the notebook <code>example/do.ipynb</code> into a book directory (see below).
-Run cells in the notebook, and see
-<a href="https://github.com/among/fusus/blob/master/example/doExample.ipynb">doExample</a>
-to learn by example how you can configure the processing parameters
-and control the processing of pages.</p>
-<h2 id="book-directory">Book directory</h2>
-<p>A book directory should have subdirectories:</p>
-<ul>
-<li><code>in</code>
-Contains mage files (scans at 1800 x2700 pixels approximately)</li>
-<li><code>marks</code>
-Contains subdirectories with little rectangles copied from the scans
-and saved in individual files at the same resolution.</li>
-</ul>
-<h3 id="marks">Marks</h3>
-<p>Marks are spots that will be wiped clean wherever they are found.</p>
-<p>They are organized in <em>bands</em> which are sets of horizontal strokes on the page,
-relative to the individual lines.</p>
-<p>Marks will only be searched for within the bands they belong to, in order to
-avoid false positives.</p>
-<p>The <code>marks</code> directory may contain the following bands:</p>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>kind</th>
-<th>items</th>
-<th>remarks</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>high</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>in the upper band of a line</td>
-</tr>
-<tr>
-<td><code>low</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>in the lower band of a line</td>
-</tr>
-<tr>
-<td><code>mid</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>in the central, narrow band of a line, with lots of ink</td>
-</tr>
-<tr>
-<td><code>main</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>in the band where nearly all the letter material is</td>
-</tr>
-<tr>
-<td><code>broad</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>as <code>main</code>, but a bit broader</td>
-</tr>
-<tr>
-<td><code>inter</code></td>
-<td>marks</td>
-<td>arbitrary images</td>
-<td>between the lines</td>
-</tr>
-</tbody>
-</table>
-<p>When fusus reads the marks, it will crop all white borders from it and
-surround the result with a fixed small white border.</p>
-<p>So you do not have to be very precise in trimming the mark templates.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/about/use.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromLakhnawi.py#L0-L14" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: ../../docs/about/use.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">from .lakhnawi import Lakhnawi
+
+
+def main():
+    Lw = Lakhnawi()
+    print(&#34;Reading PDF&#34;)
+    Lw.getPages(None)
+    print(&#34;\nExporting TSV&#34;)
+    Lw.tsvPages(None)
+    print(&#34;Closing&#34;)
+    Lw.close()
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
 </details>
 </section>
 <section>
@@ -116,31 +47,49 @@ surround the result with a fixed small white border.</p>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.tsvFromLakhnawi.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromLakhnawi.py#L4-L11" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def main():
+    Lw = Lakhnawi()
+    print(&#34;Reading PDF&#34;)
+    Lw.getPages(None)
+    print(&#34;\nExporting TSV&#34;)
+    Lw.tsvPages(None)
+    print(&#34;Closing&#34;)
+    Lw.close()</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#book-processing">Book processing</a><ul>
-<li><a href="#the-express-way">The express way</a></li>
-<li><a href="#with-more-control-and-feedback">With more control and feedback</a></li>
-<li><a href="#book-directory">Book directory</a><ul>
-<li><a href="#marks">Marks</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.tsvFromLakhnawi.main" href="#fusus.tsvFromLakhnawi.main">main</a></code></li>
 </ul>
 </li>
 </ul>
@@ -150,7 +99,7 @@ surround the result with a fixed small white border.</p>
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.layout API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -23,7 +23,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L0-L779" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L0-L779" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import collections
 import cv2
@@ -44,7 +44,7 @@ from .lines import getInkY
 def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
     &#34;&#34;&#34;Adds the name of a block of the page near the block.
 
-    The function `fusus.page.doLayout` divides the page into blocks.
+    The function `fusus.page.Page.doLayout` divides the page into blocks.
     This function puts the name of each block on the image, positioned
     suitably w.r.t. the block.
 
@@ -407,7 +407,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     marginX = C.blockMarginX
     blockColor = C.blockRGB
     letterColor = C.letterRGB
-    rotated = stages[&#34;rotated&#34;]
+    blurred = stages[&#34;blurred&#34;]
     normalized = stages[&#34;normalized&#34;]
 
     (maxH, maxW) = normalized.shape[0:2]
@@ -429,7 +429,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
 
         if x is None:
             (theYMin, theYMax) = adjustVertical(
-                C, info, rotated, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+                C, info, blurred, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
             )
             blocks[(stripe, &#34;&#34;)] = dict(
                 box=(marginX, theYMin, maxW - marginX, theYMax),
@@ -458,7 +458,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
             (theYMinL, theYMaxL) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 0,
                 x,
@@ -471,7 +471,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
             (theYMinR, theYMaxR) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 x,
                 maxW,
@@ -708,7 +708,7 @@ def grayInterBlocks(C, stages, blocks):
 
 
 def adjustVertical(
-    C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+    C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
 ):
     &#34;&#34;&#34;Adjust the height of blocks.
 
@@ -725,9 +725,9 @@ def adjustVertical(
         Configuration settings
     info: function
         To write messages to the console
-    rotated: image as np array
-        The input image. It must be the `rotated` stage of the source image,
-        which is blurred, inverted and de-skewed.
+    blurred: image as np array
+        The input image. It must be the `blurred` stage of the source image,
+        which is blurred and inverted.
     pageH: int
         size of a full page in pixels
     left, right: int
@@ -762,7 +762,7 @@ def adjustVertical(
         return (theYMin, theYMax)
 
     lines = getInkY(
-        C, info, rotated, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
+        C, info, blurred, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
     )
     normHLee = yMaxLee - yMinLee
     topProper = yMin - yMinLee
@@ -819,7 +819,7 @@ def adjustVertical(
 </code></dt>
 <dd>
 <div class="desc"><p>Adds the name of a block of the page near the block.</p>
-<p>The function <code>fusus.page.doLayout</code> divides the page into blocks.
+<p>The function <code><a title="fusus.page.Page.doLayout" href="page.html#fusus.page.Page.doLayout">Page.doLayout()</a></code> divides the page into blocks.
 This function puts the name of each block on the image, positioned
 suitably w.r.t. the block.</p>
 <h2 id="parameters">Parameters</h2>
@@ -849,12 +849,12 @@ to <em>vertical</em> column dividers.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L17-L66" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L17-L66" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
     &#34;&#34;&#34;Adds the name of a block of the page near the block.
 
-    The function `fusus.page.doLayout` divides the page into blocks.
+    The function `fusus.page.Page.doLayout` divides the page into blocks.
     This function puts the name of each block on the image, positioned
     suitably w.r.t. the block.
 
@@ -938,7 +938,7 @@ them a name.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L69-L120" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L69-L120" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addHStroke(
     img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
@@ -995,7 +995,7 @@ them a name.</p>
 </details>
 </dd>
 <dt id="fusus.layout.adjustVertical"><code class="name flex">
-<span>def <span class="ident">adjustVertical</span></span>(<span>C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend)</span>
+<span>def <span class="ident">adjustVertical</span></span>(<span>C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Adjust the height of blocks.</p>
@@ -1010,9 +1010,9 @@ complete lines.</p>
 <dd>Configuration settings</dd>
 <dt><strong><code>info</code></strong> :&ensp;<code>function</code></dt>
 <dd>To write messages to the console</dd>
-<dt><strong><code>rotated</code></strong> :&ensp;<code>image as np array</code></dt>
-<dd>The input image. It must be the <code>rotated</code> stage of the source image,
-which is blurred, inverted and de-skewed.</dd>
+<dt><strong><code>blurred</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>The input image. It must be the <code>blurred</code> stage of the source image,
+which is blurred and inverted.</dd>
 <dt><strong><code>pageH</code></strong> :&ensp;<code>int</code></dt>
 <dd>size of a full page in pixels</dd>
 <dt><strong><code>left</code></strong>, <strong><code>right</code></strong> :&ensp;<code>int</code></dt>
@@ -1038,10 +1038,10 @@ span the whole page width are meant to be decreased.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L683-L780" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L683-L780" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def adjustVertical(
-    C, info, rotated, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
+    C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
 ):
     &#34;&#34;&#34;Adjust the height of blocks.
 
@@ -1058,9 +1058,9 @@ span the whole page width are meant to be decreased.</dd>
         Configuration settings
     info: function
         To write messages to the console
-    rotated: image as np array
-        The input image. It must be the `rotated` stage of the source image,
-        which is blurred, inverted and de-skewed.
+    blurred: image as np array
+        The input image. It must be the `blurred` stage of the source image,
+        which is blurred and inverted.
     pageH: int
         size of a full page in pixels
     left, right: int
@@ -1095,7 +1095,7 @@ span the whole page width are meant to be decreased.</dd>
         return (theYMin, theYMax)
 
     lines = getInkY(
-        C, info, rotated, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
+        C, info, blurred, pageH, left, yMinLee, right, yMaxLee, False, imgOut=None
     )
     normHLee = yMaxLee - yMinLee
     topProper = yMin - yMinLee
@@ -1181,7 +1181,7 @@ with the bounding box info after stripping the top and bottom material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L485-L601" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L485-L601" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
@@ -1351,7 +1351,7 @@ left, top, right, bottom.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L331-L482" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L331-L482" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     &#34;&#34;&#34;Fine-tune stripes into blocks.
@@ -1405,7 +1405,7 @@ left, top, right, bottom.</p>
     marginX = C.blockMarginX
     blockColor = C.blockRGB
     letterColor = C.letterRGB
-    rotated = stages[&#34;rotated&#34;]
+    blurred = stages[&#34;blurred&#34;]
     normalized = stages[&#34;normalized&#34;]
 
     (maxH, maxW) = normalized.shape[0:2]
@@ -1427,7 +1427,7 @@ left, top, right, bottom.</p>
 
         if x is None:
             (theYMin, theYMax) = adjustVertical(
-                C, info, rotated, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
+                C, info, blurred, pageH, 0, maxW, yMin, yMinLee, yMax, yMaxLee, False
             )
             blocks[(stripe, &#34;&#34;)] = dict(
                 box=(marginX, theYMin, maxW - marginX, theYMax),
@@ -1456,7 +1456,7 @@ left, top, right, bottom.</p>
             (theYMinL, theYMaxL) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 0,
                 x,
@@ -1469,7 +1469,7 @@ left, top, right, bottom.</p>
             (theYMinR, theYMaxR) = adjustVertical(
                 C,
                 info,
-                rotated,
+                blurred,
                 pageH,
                 x,
                 maxW,
@@ -1552,7 +1552,7 @@ the cluster it is in.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L123-L270" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L123-L270" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStretches(C, info, stages, pageSize, horizontal, batch):
     &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
@@ -1742,7 +1742,7 @@ and <code>None</code> otherwise.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L273-L328" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L273-L328" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStripes(stages, stretchesV):
     &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
@@ -1824,7 +1824,7 @@ with the band data.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/layout.py#L604-L680" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/layout.py#L604-L680" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def grayInterBlocks(C, stages, blocks):
     &#34;&#34;&#34;Overlay the space between blocks with gray.
@@ -1912,7 +1912,7 @@ with the band data.</dd>
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -1942,7 +1942,7 @@ with the band data.</dd>
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

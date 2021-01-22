@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.parameters API documentation</title>
 <meta name="description" content="Settings and configuration" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -24,13 +24,14 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L0-L424" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/parameters.py#L0-L471" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
 
 import os
 from copy import deepcopy
+import yaml
 
 HOME = os.path.expanduser(&#39;~&#39;)
 BASE = f&#34;{HOME}/github&#34;
@@ -38,6 +39,10 @@ ORG = &#34;among&#34;
 REPO = &#34;fusus&#34;
 REPO_DIR = f&#34;{BASE}/{ORG}/{REPO}&#34;
 PROGRAM_DIR = f&#34;{REPO_DIR}/{REPO}&#34;
+LOCAL_DIR = f&#34;{REPO_DIR}/_local&#34;
+SOURCE_DIR = f&#34;{LOCAL_DIR}/source&#34;
+UR_DIR = f&#34;{REPO_DIR}/ur&#34;
+ALL_PAGES = &#34;allpages&#34;
 
 KRAKEN = dict(
     modelPath=f&#34;{REPO_DIR}/model/arabic_generalized.mlmodel&#34;
@@ -50,6 +55,8 @@ COLORS = dict(
     whiteGRS=255,
     whiteRGB=(255, 255, 255),
     greenRGB=(0, 255, 0),
+    orangeRGB=(255, 127, 0),
+    purpleRGB=(255, 0, 127),
     blockRGB=(0, 255, 255),
     letterRGB=(0, 200, 200),
     upperRGB=(0, 200, 0),
@@ -84,7 +91,7 @@ Each band will be displayed in its own color.
 STAGES = dict(
     orig=(&#34;image&#34;, True, None, None, None),
     gray=(&#34;image&#34;, False, None, None, None),
-    rotated=(&#34;image&#34;, False, None, None, None),
+    blurred=(&#34;image&#34;, False, None, None, None),
     normalized=(&#34;image&#34;, False, None, &#34;proofDir&#34;, &#34;&#34;),
     normalizedC=(&#34;image&#34;, True, None, None, None),
     layout=(&#34;image&#34;, True, None, None, None),
@@ -124,10 +131,12 @@ SETTINGS = dict(
     proofDir=&#34;proof&#34;,
     textDir=&#34;text&#34;,
     marksDir=&#34;marks&#34;,
-    skewBorder=30,
-    blurX=41,
-    blurY=41,
+    skewBorderFraction=0.03,
+    blurX=21,
+    blurY=21,
     marginThresholdX=1,
+    contourFactor=0.3,
+    contourOffset=0.04,
     peakProminenceY=5,
     peakSignificant=0.1,
     peakTargetWidthFraction=0.5,
@@ -146,12 +155,20 @@ SETTINGS = dict(
     bandMid=(10, -5),
     bandHigh=(10, 30),
     bandLow=(-10, -10),
-    lineHeight=200,
+    defaultLineHeight=200,
 )
 &#34;&#34;&#34;Customizable settings.
 
-These are the settings that can be customized
-by calling the `Config` constructor and the
+These are the settings that can be customized in several ways.
+
+The values here are the default values.
+
+When the pipeline is run in a book directory, it will look
+for a file `parameters.yaml` in the toplevel directory of the book
+where these settings can be overridden.
+
+In a program or notebook you can also make last-minute changes to these parameters by
+calling the `fusus.book.Book.configure` method which calls the
 `Config.configure` method.
 
 The default values can be inspected by expanding the source code.
@@ -182,7 +199,9 @@ skewBorder
 
 blurX
 :   the amount of blur in the X-direction.
-    Blurring is needed to get betterskewing and histograms
+    Blurring is needed to get better histograms
+    To much blurring will hamper the binarization, see e.g. pag 102 in the
+    examples directory: if you blur with 41, 41 binarization fails.
 
 blurY
 :   the amount of blur in the X-direction.
@@ -200,6 +219,25 @@ marginThresholdX
 
     When histograms for horizontal lines cross marginThresholdY,  it will taken as an
     indication that a line boundary (upper or lower) has been reached.
+
+contourFactor
+:   used when computing left and right contour lines of a page.
+
+    Each horizontal line as a left most black pixel and a rightmost one.
+    Together they form the left contour and the right contour of the page.
+    The length of each line is the distance between the left contour and right contour
+    points on that line.
+
+    However, to be useful, the contour lines must be smoothed.
+    We look up and down from each contour point and replace it by the median value of
+    the contour points above and below that point.
+
+    How far do we have to look?
+    We want to neutralize the interline spaces, so we look up and down for a fraction
+    line line height.
+
+    That fraction is specified by this parameter.
+    A proxy for the line height is the peak distance.
 
 peakSignificant
 :   used when interpreting histograms for line detection
@@ -231,7 +269,7 @@ outerValleyShiftFraction
     We correct for that by shifting those valleys a fraction of their plateau sizes
     towards the ink. This parameter is that fraction.
 
-lineHeight
+defaultLineHeight
 :   used for line detection
 
     After line detection, a value for the line height is found and stored in this
@@ -331,6 +369,8 @@ bandLow
 
 MARK_PARAMS = dict(acc=&#34;accuracy&#34;, bw=&#34;connectBorder&#34;, r=&#34;connectRatio&#34;)
 
+CONFIG_FILE = &#34;parameters.yaml&#34;
+
 
 class Config:
     def __init__(self, tm, **params):
@@ -379,6 +419,13 @@ class Config:
 
         # settings
         self.settings = deepcopy(SETTINGS)
+
+        if os.path.exists(CONFIG_FILE):
+            with open(CONFIG_FILE) as fh:
+                overrides = yaml.load(fh, Loader=yaml.FullLoader)
+
+                # python 3.9 feature
+                self.settings |= overrides
 
         # configure
         self.configure(reset=False, **params)
@@ -470,8 +517,13 @@ class Config:
 <dt id="fusus.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
 <dd>
 <div class="desc"><p>Customizable settings.</p>
-<p>These are the settings that can be customized
-by calling the <code><a title="fusus.parameters.Config" href="#fusus.parameters.Config">Config</a></code> constructor and the
+<p>These are the settings that can be customized in several ways.</p>
+<p>The values here are the default values.</p>
+<p>When the pipeline is run in a book directory, it will look
+for a file <code>parameters.yaml</code> in the toplevel directory of the book
+where these settings can be overridden.</p>
+<p>In a program or notebook you can also make last-minute changes to these parameters by
+calling the <code><a title="fusus.book.Book.configure" href="book.html#fusus.book.Book.configure">Book.configure()</a></code> method which calls the
 <code><a title="fusus.parameters.Config.configure" href="#fusus.parameters.Config.configure">Config.configure()</a></code> method.</p>
 <p>The default values can be inspected by expanding the source code.</p>
 <dl>
@@ -496,7 +548,9 @@ margins that will be whitened in order to
 suppress the sharp black triangles introduces by skewing the page</dd>
 <dt>blurX</dt>
 <dd>the amount of blur in the X-direction.
-Blurring is needed to get betterskewing and histograms</dd>
+Blurring is needed to get better histograms
+To much blurring will hamper the binarization, see e.g. pag 102 in the
+examples directory: if you blur with 41, 41 binarization fails.</dd>
 <dt>blurY</dt>
 <dd>
 <p>the amount of blur in the X-direction.
@@ -516,6 +570,22 @@ from which it is difficult to get vertical line boundaries.</p>
 <p>When histograms for horizontal lines cross marginThresholdY,
 it will taken as an
 indication that a line boundary (upper or lower) has been reached.</p>
+</dd>
+<dt>contourFactor</dt>
+<dd>
+<p>used when computing left and right contour lines of a page.</p>
+<p>Each horizontal line as a left most black pixel and a rightmost one.
+Together they form the left contour and the right contour of the page.
+The length of each line is the distance between the left contour and right contour
+points on that line.</p>
+<p>However, to be useful, the contour lines must be smoothed.
+We look up and down from each contour point and replace it by the median value of
+the contour points above and below that point.</p>
+<p>How far do we have to look?
+We want to neutralize the interline spaces, so we look up and down for a fraction
+line line height.</p>
+<p>That fraction is specified by this parameter.
+A proxy for the line height is the peak distance.</p>
 </dd>
 <dt>peakSignificant</dt>
 <dd>
@@ -546,7 +616,7 @@ the valleys will be located too far from the actual ink.
 We correct for that by shifting those valleys a fraction of their plateau sizes
 towards the ink. This parameter is that fraction.</p>
 </dd>
-<dt>lineHeight</dt>
+<dt>defaultLineHeight</dt>
 <dd>
 <p>used for line detection</p>
 <p>After line detection, a value for the line height is found and stored in this
@@ -679,7 +749,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L307-L425" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/parameters.py#L347-L472" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -728,6 +798,13 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 
         # settings
         self.settings = deepcopy(SETTINGS)
+
+        if os.path.exists(CONFIG_FILE):
+            with open(CONFIG_FILE) as fh:
+                overrides = yaml.load(fh, Loader=yaml.FullLoader)
+
+                # python 3.9 feature
+                self.settings |= overrides
 
         # configure
         self.configure(reset=False, **params)
@@ -822,7 +899,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L358-L400" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/parameters.py#L405-L447" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -884,7 +961,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/parameters.py#L402-L425" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/parameters.py#L449-L472" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
@@ -919,7 +996,7 @@ parameter names whose values are to be displayed.</dd>
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -956,7 +1033,7 @@ parameter names whose values are to be displayed.</dd>
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

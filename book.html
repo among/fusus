@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.book API documentation</title>
-<meta name="description" content="Book workflow" />
+<meta name="description" content="Book workflow …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,12 +21,149 @@
 </header>
 <section id="section-intro">
 <p>Book workflow</p>
+<p>We will transform scanned pages of a book into Unicode text
+following a number of processing steps.</p>
+<h2 id="the-express-way">The express way</h2>
+<p>In the terminal, <code>cd</code> to a book directory (see below) and run</p>
+<pre><code>python3 -m fusus.book
+</code></pre>
+<p>This will process all scanned pages with default settings.</p>
+<h2 id="with-more-control-and-feedback">With more control and feedback</h2>
+<p>Copy the notebook <code>example/do.ipynb</code> into a book directory (see below).
+Run cells in the notebook, and see
+<a href="https://github.com/among/fusus/blob/master/example/doExample.ipynb">doExample</a>
+to learn by example how you can configure the processing parameters
+and control the processing of pages.</p>
+<h2 id="book-directory">Book directory</h2>
+<p>A book directory should have subdirectories:</p>
+<ul>
+<li><code>in</code>
+Contains mage files (scans at 1800 x2700 pixels approximately)</li>
+<li><code>marks</code> (optional)
+Contains subdirectories with little rectangles copied from the scans
+and saved in individual files at the same resolution.</li>
+</ul>
+<h3 id="marks">Marks</h3>
+<p>Marks are spots that will be wiped clean wherever they are found.</p>
+<p>They are organized in <em>bands</em> which are sets of horizontal strokes on the page,
+relative to the individual lines.</p>
+<p>Marks will only be searched for within the bands they belong to, in order to
+avoid false positives.</p>
+<p>The <code>marks</code> directory may contain the following bands:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>kind</th>
+<th>items</th>
+<th>remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>high</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the upper band of a line</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the lower band of a line</td>
+</tr>
+<tr>
+<td><code>mid</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the central, narrow band of a line, with lots of ink</td>
+</tr>
+<tr>
+<td><code><a title="fusus.book.main" href="#fusus.book.main">main()</a></code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the band where nearly all the letter material is</td>
+</tr>
+<tr>
+<td><code>broad</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>as <code><a title="fusus.book.main" href="#fusus.book.main">main()</a></code>, but a bit broader</td>
+</tr>
+<tr>
+<td><code>inter</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>between the lines</td>
+</tr>
+</tbody>
+</table>
+<p>When fusus reads the marks, it will crop all white borders from it and
+surround the result with a fixed small white border.</p>
+<p>So you do not have to be very precise in trimming the mark templates.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L0-L667" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L0-L792" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book workflow
+
+We will transform scanned pages of a book into Unicode text
+following a number of processing steps.
+
+## The express way
+
+In the terminal, `cd` to a book directory (see below) and run
+
+```
+python3 -m fusus.book
+```
+
+This will process all scanned pages with default settings.
+
+## With more control and feedback
+
+Copy the notebook `example/do.ipynb` into a book directory (see below).
+Run cells in the notebook, and see
+[doExample](https://github.com/among/fusus/blob/master/example/doExample.ipynb)
+to learn by example how you can configure the processing parameters
+and control the processing of pages.
+
+## Book directory
+
+A book directory should have subdirectories:
+
+*   `in`
+    Contains mage files (scans at 1800 x2700 pixels approximately)
+*   `marks` (optional)
+    Contains subdirectories with little rectangles copied from the scans
+    and saved in individual files at the same resolution.
+
+### Marks
+
+Marks are spots that will be wiped clean wherever they are found.
+
+They are organized in *bands* which are sets of horizontal strokes on the page,
+relative to the individual lines.
+
+Marks will only be searched for within the bands they belong to, in order to
+avoid false positives.
+
+The `marks` directory may contain the following bands:
+
+name | kind | items | remarks
+--- | --- | --- | ---
+`high` | marks | arbitrary images | in the upper band of a line
+`low` | marks | arbitrary images | in the lower band of a line
+`mid` | marks | arbitrary images | in the central, narrow band of a line, with lots of ink
+`main` | marks | arbitrary images | in the band where nearly all the letter material is
+`broad` | marks | arbitrary images | as `main`, but a bit broader
+`inter` | marks | arbitrary images | between the lines
+
+When fusus reads the marks, it will crop all white borders from it and
+surround the result with a fixed small white border.
+
+So you do not have to be very precise in trimming the mark templates.
 &#34;&#34;&#34;
 
 import sys
@@ -37,7 +174,7 @@ import cv2
 
 from tf.core.timestamp import Timestamp
 
-from .parameters import Config
+from .parameters import Config, ALL_PAGES
 from .lib import (
     imageFileList,
     imageFileListSub,
@@ -52,17 +189,23 @@ from .ocr import OCR, showConf, getProofColor
 
 
 class Book:
-    def __init__(self, **params):
+    def __init__(self, cd=None, **params):
         &#34;&#34;&#34;Engine for book conversion.
 
         Parameters
         ----------
+        cd: string, optional
+            If passed, performs a change directory to the direcotry specified.
+            Else the whole book processing takes place in the current directory.
         params: dict, optional
             Any number of customizable settings from `fusus.parameters.SETTINGS`.
 
             They will be in effect when running the workflow, until
             a `Book.configure` action will modify them.
         &#34;&#34;&#34;
+
+        if cd is not None:
+            os.chdir(cd)
 
         tm = Timestamp()
         self.tm = tm
@@ -382,7 +525,7 @@ class Book:
                 **kwargs,
             )
             if not page.empty:
-                page.write(stage=&#34;normalized,clean&#34;, perBlock=False)
+                page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
                 if uptoLayout:
                     info(f&#34;{msg}&#34;)
                 else:
@@ -530,6 +673,68 @@ class Book:
 
         indent(level=0)
         info(&#34;all done&#34;)
+
+    def exportTsv(self, pages=None):
+        &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the working directory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing single TSV file of these pages&#34;)
+
+        path = f&#34;{pagesFile}.tsv&#34;
+
+        first = True
+        f = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            page = Page(self, imFile, minimal=True)
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            if first:
+                headers = page.dataHeaders.get(stage, None)
+                header = &#34;\t&#34;.join(str(column) for column in headers)
+
+                f = open(path, &#34;w&#34;)
+                f.write(f&#34;{header}\n&#34;)
+
+                first = False
+
+            pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+            page.read(stage=stage)
+
+            data = stages[stage]
+            if not data:
+                continue
+
+            for fields in stages[stage]:
+                f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+        if f:
+            info(f&#34;written to {path}&#34;)
+            f.close()
+        else:
+            info(&#34;Nothing written&#34;)
 
     def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -716,7 +921,7 @@ of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L647-L664" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L772-L789" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -745,12 +950,15 @@ of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.p
 <dl>
 <dt id="fusus.book.Book"><code class="flex name class">
 <span>class <span class="ident">Book</span></span>
-<span>(</span><span>**params)</span>
+<span>(</span><span>cd=None, **params)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Engine for book conversion.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
+<dt><strong><code>cd</code></strong> :&ensp;<code>string</code>, optional</dt>
+<dd>If passed, performs a change directory to the direcotry specified.
+Else the whole book processing takes place in the current directory.</dd>
 <dt><strong><code>params</code></strong> :&ensp;<code>dict</code>, optional</dt>
 <dd>
 <p>Any number of customizable settings from <code><a title="fusus.parameters.SETTINGS" href="parameters.html#fusus.parameters.SETTINGS">SETTINGS</a></code>.</p>
@@ -761,20 +969,26 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L26-L644" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L83-L769" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
-    def __init__(self, **params):
+    def __init__(self, cd=None, **params):
         &#34;&#34;&#34;Engine for book conversion.
 
         Parameters
         ----------
+        cd: string, optional
+            If passed, performs a change directory to the direcotry specified.
+            Else the whole book processing takes place in the current directory.
         params: dict, optional
             Any number of customizable settings from `fusus.parameters.SETTINGS`.
 
             They will be in effect when running the workflow, until
             a `Book.configure` action will modify them.
         &#34;&#34;&#34;
+
+        if cd is not None:
+            os.chdir(cd)
 
         tm = Timestamp()
         self.tm = tm
@@ -1094,7 +1308,7 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
                 **kwargs,
             )
             if not page.empty:
-                page.write(stage=&#34;normalized,clean&#34;, perBlock=False)
+                page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
                 if uptoLayout:
                     info(f&#34;{msg}&#34;)
                 else:
@@ -1242,6 +1456,68 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 
         indent(level=0)
         info(&#34;all done&#34;)
+
+    def exportTsv(self, pages=None):
+        &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the working directory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing single TSV file of these pages&#34;)
+
+        path = f&#34;{pagesFile}.tsv&#34;
+
+        first = True
+        f = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            page = Page(self, imFile, minimal=True)
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            if first:
+                headers = page.dataHeaders.get(stage, None)
+                header = &#34;\t&#34;.join(str(column) for column in headers)
+
+                f = open(path, &#34;w&#34;)
+                f.write(f&#34;{header}\n&#34;)
+
+                first = False
+
+            pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+            page.read(stage=stage)
+
+            data = stages[stage]
+            if not data:
+                continue
+
+            for fields in stages[stage]:
+                f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+        if f:
+            info(f&#34;written to {path}&#34;)
+            f.close()
+        else:
+            info(&#34;Nothing written&#34;)
 
     def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -1393,7 +1669,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L125-L136" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L188-L199" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
@@ -1424,7 +1700,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L138-L174" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L201-L237" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self, band=None, mark=None):
     &#34;&#34;&#34;Display the characteristics of defined *marks*.
@@ -1473,7 +1749,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L176-L185" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L239-L248" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
@@ -1496,7 +1772,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L100-L107" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L163-L170" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1506,6 +1782,88 @@ span.ln {
 
     self.C.configure(reset=reset, **params)
     self._applySettings()</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.exportTsv"><code class="name flex">
+<span>def <span class="ident">exportTsv</span></span>(<span>self, pages=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Combine the tsv data per page to one big tsv file.</p>
+<p>pages: string | int, optional <code>None</code>
+Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code> (from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</p>
+<p>The output is written to the working directory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L569-L629" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def exportTsv(self, pages=None):
+    &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+    pages: string | int, optional `None`
+        Specification of pages to do. If absent or `None`: all pages.
+        If an int, do only that page.
+        Otherwise it must be a comma separated string of (ranges of) page numbers.
+        Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+        and `10-` (from 10 till end).
+        E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+        No spaces allowed.
+
+    The output is written to the working directory.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    allPages = self.allPages
+
+    imageFiles = select(allPages, pages)
+    pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+    pagesDesc = pagesRep(imageFiles)
+    info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+    info(&#34;Start producing single TSV file of these pages&#34;)
+
+    path = f&#34;{pagesFile}.tsv&#34;
+
+    first = True
+    f = None
+
+    for (i, imFile) in enumerate(sorted(imageFiles)):
+        page = Page(self, imFile, minimal=True)
+        stages = page.stages
+        stage = &#34;word&#34;
+
+        if first:
+            headers = page.dataHeaders.get(stage, None)
+            header = &#34;\t&#34;.join(str(column) for column in headers)
+
+            f = open(path, &#34;w&#34;)
+            f.write(f&#34;{header}\n&#34;)
+
+            first = False
+
+        pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+        page.read(stage=stage)
+
+        data = stages[stage]
+        if not data:
+            continue
+
+        for fields in stages[stage]:
+            f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+    if f:
+        info(f&#34;written to {path}&#34;)
+        f.close()
+    else:
+        info(&#34;Nothing written&#34;)</code></pre>
 </details>
 </dd>
 <dt id="fusus.book.Book.measureQuality"><code class="name flex">
@@ -1531,7 +1889,7 @@ The OCR itself does not have to be performed again for this.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L378-L504" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L441-L567" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
         &#34;&#34;&#34;Measure the reported quality of the ocr processing.
@@ -1679,7 +2037,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L506-L644" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L631-L769" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -1863,7 +2221,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L269-L369" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L332-L432" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self,
@@ -1953,7 +2311,7 @@ in boxes.</dd>
             **kwargs,
         )
         if not page.empty:
-            page.write(stage=&#34;normalized,clean&#34;, perBlock=False)
+            page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
             if uptoLayout:
                 info(f&#34;{msg}&#34;)
             else:
@@ -1987,7 +2345,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L109-L123" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L172-L186" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
@@ -2014,7 +2372,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/book.py#L371-L376" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/book.py#L434-L439" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stageDir(self, stage):
     C = self.C
@@ -2031,10 +2389,17 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#the-express-way">The express way</a></li>
+<li><a href="#with-more-control-and-feedback">With more control and feedback</a></li>
+<li><a href="#book-directory">Book directory</a><ul>
+<li><a href="#marks">Marks</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
@@ -2056,6 +2421,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <li><code><a title="fusus.book.Book.availableMarks" href="#fusus.book.Book.availableMarks">availableMarks</a></code></li>
 <li><code><a title="fusus.book.Book.availablePages" href="#fusus.book.Book.availablePages">availablePages</a></code></li>
 <li><code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">configure</a></code></li>
+<li><code><a title="fusus.book.Book.exportTsv" href="#fusus.book.Book.exportTsv">exportTsv</a></code></li>
 <li><code><a title="fusus.book.Book.measureQuality" href="#fusus.book.Book.measureQuality">measureQuality</a></code></li>
 <li><code><a title="fusus.book.Book.plainText" href="#fusus.book.Book.plainText">plainText</a></code></li>
 <li><code><a title="fusus.book.Book.process" href="#fusus.book.Book.process">process</a></code></li>
@@ -2072,7 +2438,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>

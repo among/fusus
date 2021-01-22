@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>fusus API documentation</title>
 <meta name="description" content="![logo](images/fusus-small.png) …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -26,11 +26,10 @@
 <h2 id="straight-to">Straight to &hellip;</h2>
 <ul>
 <li>Install (<code><a title="fusus.about.install" href="about/install.html">fusus.about.install</a></code>)</li>
-<li>Use (<code><a title="fusus.about.use" href="about/use.html">fusus.about.use</a></code>)</li>
-<li>API (<code><a title="fusus.cheatsheet" href="cheatsheet.html">fusus.cheatsheet</a></code>)</li>
+<li>HowTo (<code><a title="fusus.about.howto" href="about/howto.html">fusus.about.howto</a></code>)</li>
+<li>Sources (<code><a title="fusus.about.sources" href="about/sources.html">fusus.about.sources</a></code>)</li>
 </ul>
-<h2 id="author">Author</h2>
-<p><strong>Authors</strong>:</p>
+<h2 id="authors">Authors</h2>
 <ul>
 <li><a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a></li>
 <li><a href="https://www.annotation.nl">Dirk Roorda</a></li>
@@ -38,7 +37,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/49df867cf615df55ee217cbbdc479ccffe8d5438/fusus/__init__.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/__init__.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/main/top.md
@@ -54,14 +53,17 @@
 </dd>
 <dt><code class="name"><a title="fusus.book" href="book.html">fusus.book</a></code></dt>
 <dd>
-<div class="desc"><p>Book workflow</p></div>
+<div class="desc"><p>Book workflow …</p></div>
 </dd>
-<dt><code class="name"><a title="fusus.cheatsheet" href="cheatsheet.html">fusus.cheatsheet</a></code></dt>
+<dt><code class="name"><a title="fusus.char" href="char.html">fusus.char</a></code></dt>
 <dd>
-<div class="desc"><p>All functions below are illustrated in the example
-<a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb">notebook</a> …</p></div>
+<div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="fusus.clean" href="clean.html">fusus.clean</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -93,6 +95,18 @@
 <dd>
 <div class="desc"></div>
 </dd>
+<dt><code class="name"><a title="fusus.tfFromTsv" href="tfFromTsv.html">fusus.tfFromTsv</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="fusus.tsvFromAffifi" href="tsvFromAffifi.html">fusus.tsvFromAffifi</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="fusus.tsvFromLakhnawi" href="tsvFromLakhnawi.html">fusus.tsvFromLakhnawi</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 </dl>
 </section>
 <section>
@@ -104,13 +118,13 @@
 </article>
 <nav id="sidebar">
 <p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/cheatsheet.html">cheat sheet</a></p>
+<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
 <ul>
 <li><a href="#fusus-pipeline">Fusus Pipeline</a><ul>
 <li><a href="#straight-to">Straight to &hellip;</a></li>
-<li><a href="#author">Author</a></li>
+<li><a href="#authors">Authors</a></li>
 </ul>
 </li>
 </ul>
@@ -120,8 +134,9 @@
 <ul>
 <li><code><a title="fusus.about" href="about/index.html">fusus.about</a></code></li>
 <li><code><a title="fusus.book" href="book.html">fusus.book</a></code></li>
-<li><code><a title="fusus.cheatsheet" href="cheatsheet.html">fusus.cheatsheet</a></code></li>
+<li><code><a title="fusus.char" href="char.html">fusus.char</a></code></li>
 <li><code><a title="fusus.clean" href="clean.html">fusus.clean</a></code></li>
+<li><code><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code></li>
 <li><code><a title="fusus.layout" href="layout.html">fusus.layout</a></code></li>
 <li><code><a title="fusus.lib" href="lib.html">fusus.lib</a></code></li>
 <li><code><a title="fusus.lines" href="lines.html">fusus.lines</a></code></li>
@@ -129,6 +144,9 @@
 <li><code><a title="fusus.page" href="page.html">fusus.page</a></code></li>
 <li><code><a title="fusus.parameters" href="parameters.html">fusus.parameters</a></code></li>
 <li><code><a title="fusus.pdf" href="pdf.html">fusus.pdf</a></code></li>
+<li><code><a title="fusus.tfFromTsv" href="tfFromTsv.html">fusus.tfFromTsv</a></code></li>
+<li><code><a title="fusus.tsvFromAffifi" href="tsvFromAffifi.html">fusus.tsvFromAffifi</a></code></li>
+<li><code><a title="fusus.tsvFromLakhnawi" href="tsvFromLakhnawi.html">fusus.tsvFromLakhnawi</a></code></li>
 </ul>
 </li>
 </ul>
@@ -138,7 +156,7 @@
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
 <a href="https://www.annotation.nl">Dirk Roorda</a>
 <a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
