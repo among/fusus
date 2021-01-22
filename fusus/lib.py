@@ -77,6 +77,15 @@ def showImage(a, fmt="jpeg", **kwargs):
         display(Image(data=f.getvalue(), **kwargs))
 
 
+def writeImage(a, path, **kwargs):
+    """Write an image to disk
+    """
+
+    ai = np.uint8(np.clip(a, 0, 255))
+    with open(path, "wb") as f:
+        PIL.Image.fromarray(ai).save(f)
+
+
 def overlay(img, left, top, right, bottom, srcColor, dstColor):
     """Colors a region of an image with care.
 
@@ -159,7 +168,7 @@ def imageFileList(imDir):
 def imageFileListSub(imDir):
     """Gets sorted lisst of image files from the subdirectories of a directory.
 
-    Only files having an image extension (defined in `fusus.parameters.EXTENSIONS`)
+    Only files having an image extension (defined in `EXTENSIONS`)
     are listed.
 
     Parameters

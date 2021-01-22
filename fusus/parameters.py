@@ -3,6 +3,7 @@
 
 import os
 from copy import deepcopy
+import yaml
 
 HOME = os.path.expanduser('~')
 BASE = f"{HOME}/github"
@@ -130,8 +131,16 @@ SETTINGS = dict(
 )
 """Customizable settings.
 
-These are the settings that can be customized
-by calling the `Config` constructor and the
+These are the settings that can be customized in several ways.
+
+The values here are the default values.
+
+When the pipeline is run in a book directory, it will look
+for a file `parameters.yaml` in the toplevel directory of the book
+where these settings can be overridden.
+
+In a program or notebook you can also make last-minute changes to these parameters by
+calling the `fusus.book.Book.configure` method which calls the
 `Config.configure` method.
 
 The default values can be inspected by expanding the source code.
@@ -332,6 +341,8 @@ bandLow
 
 MARK_PARAMS = dict(acc="accuracy", bw="connectBorder", r="connectRatio")
 
+CONFIG_FILE = "parameters.yaml"
+
 
 class Config:
     def __init__(self, tm, **params):
@@ -380,6 +391,13 @@ class Config:
 
         # settings
         self.settings = deepcopy(SETTINGS)
+
+        if os.path.exists(CONFIG_FILE):
+            with open(CONFIG_FILE) as fh:
+                overrides = yaml.load(fh, Loader=yaml.FullLoader)
+
+                # python 3.9 feature
+                self.settings |= overrides
 
         # configure
         self.configure(reset=False, **params)

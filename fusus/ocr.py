@@ -15,6 +15,7 @@ and one for ocr.
 Alternatively, we can do binarization and segmentation in our preprocessing, and
 use Kraken for OCR only.
 """
+
 import warnings
 from itertools import chain
 
@@ -273,7 +274,7 @@ class OCR:
             info("model loaded")
 
             self.model = model
-        return model
+        return self.model
 
     def read(self, page):
         """Perfoms OCR with Kraken."""

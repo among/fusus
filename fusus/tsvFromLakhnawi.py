@@ -1,9 +1,15 @@
-from fusus.lakhnawi import Lakhnawi
+from .lakhnawi import Lakhnawi
 
-Lw = Lakhnawi()
-print("Reading PDF")
-Lw.getPages(None)
-print("\nExporting TSV")
-Lw.tsvPages(None)
-print("Closing")
-Lw.close()
+
+def main():
+    Lw = Lakhnawi()
+    print("Reading PDF")
+    Lw.getPages(None)
+    print("\nExporting TSV")
+    Lw.tsvPages(None)
+    print("Closing")
+    Lw.close()
+
+
+if __name__ == "__main__":
+    main()

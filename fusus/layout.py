@@ -17,7 +17,7 @@ from .lines import getInkY
 def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
     """Adds the name of a block of the page near the block.
 
-    The function `fusus.page.doLayout` divides the page into blocks.
+    The function `fusus.page.Page.doLayout` divides the page into blocks.
     This function puts the name of each block on the image, positioned
     suitably w.r.t. the block.
 

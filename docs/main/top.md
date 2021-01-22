@@ -7,12 +7,10 @@ A workflow from Arabic page images to textual data.
 ## Straight to ...
 
 * Install (`fusus.about.install`)
-* Use (`fusus.about.use`)
-* API (`fusus.cheatsheet`)
+* HowTo (`fusus.about.howto`)
+* Sources (`fusus.about.sources`)
 
-## Author
-
-**Authors**:
+## Authors
 
 *   [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/)
 *   [Dirk Roorda](https://www.annotation.nl)

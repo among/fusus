@@ -6,6 +6,8 @@ setup(
         "fusus",
     ],
     install_requires=[
+        "pyyaml>=5.3",
+        "pdoc3",
         "ipython",
         "numpy",
         "pillow",
@@ -14,7 +16,7 @@ setup(
         "kraken",
         "text-fabric>=8.4.7",
     ],
-    python_requires=">=3.7.0",
+    python_requires=">=3.9.0",
     include_package_data=True,
     exclude_package_data={"": ["fusus.egg-info", "__pycache__", ".DS_Store"]},
     zip_safe=False,

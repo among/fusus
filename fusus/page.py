@@ -14,6 +14,7 @@ from .lib import (
     parseMarks,
     removeSkewStripes,
     showImage,
+    writeImage,
     splitext,
 )
 from .clean import addBox, cluster, connected, reborder
@@ -331,7 +332,7 @@ class Page:
         inter = "" if inter is None else f"-{inter}"
         trail = stage if stagePart is None else "" if not stagePart else stagePart
         trail = "" if not trail else f"-{trail}"
-        ext = stageExt or ext
+        ext = "png" if stageType == "image" else (stageExt or ext)
         base = f"{dest}/{bare}{inter}{trail}"
         return f"{base}.{ext}"
 
@@ -417,9 +418,9 @@ class Page:
                         (leftB, topB, rightB, bottomB) = data["inner"]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
-                        cv2.imwrite(thisPath, roi)
+                        writeImage(roi, thisPath)
                 else:
-                    cv2.imwrite(self.stagePath(s), stageData)
+                    writeImage(stageData, self.stagePath(s))
             elif stageType == "data":
                 with open(self.stagePath(s), "w") as f:
                     self._serial(s, stageData, stageExt, handle=f)

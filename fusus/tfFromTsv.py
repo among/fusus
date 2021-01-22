@@ -7,7 +7,7 @@ from tf.fabric import Fabric
 from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
-from char import UChar
+from .char import UChar
 
 
 HELP = """
@@ -621,4 +621,5 @@ def main():
     return good
 
 
-sys.exit(0 if main() else 1)
+if __name__ == "__main__":
+    sys.exit(0 if main() else 1)
