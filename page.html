@@ -360,7 +360,7 @@ class Page:
         inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
         trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
         trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-        ext = stageExt or ext
+        ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
         base = f&#34;{dest}/{bare}{inter}{trail}&#34;
         return f&#34;{base}.{ext}&#34;
 
@@ -1392,7 +1392,7 @@ in boxes.</dd>
         inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
         trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
         trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-        ext = stageExt or ext
+        ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
         base = f&#34;{dest}/{bare}{inter}{trail}&#34;
         return f&#34;{base}.{ext}&#34;
 
@@ -3011,7 +3011,7 @@ will be displayed on a fresh copy of that stage.</p>
     inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
     trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
     trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-    ext = stageExt or ext
+    ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
     base = f&#34;{dest}/{bare}{inter}{trail}&#34;
     return f&#34;{base}.{ext}&#34;</code></pre>
 </details>
