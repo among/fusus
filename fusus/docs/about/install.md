@@ -87,12 +87,13 @@ Then you can invoke the build script from anywhere:
 fsb --help
 ```
 
-## Documentation
+# Documentation
 
-Documentation is collected from
+The docs are here:
 
-* the docstrings in the Python files in the *fusus* directory;
-* the markdown files in the *docs* directory.
+* the README file of the repository;
+* the docstrings in the Python files in the *fusus* package;
+* the markdown files in the *docs* subdirectory of the *fusus* package.
 
 ## View documentation locally
 
@@ -102,6 +103,12 @@ To open a browser and view the dynamically generated documentation, say
 fsb docs
 ```
 
+!!! caution "Limited functionality"
+    The search function does not work here, and images will not display.
+
+This way of local browsing the docs has the advantage that changes in the docs
+are detected when you save them, so that you can see the effect immediately.
+
 ## Generate documentation locally
 
 To generate documentation, say
@@ -110,23 +117,25 @@ To generate documentation, say
 fsb pdocs
 ```
 
-The documentation is now in the *site* directory.
+The documentation is now in the *site* directory. Go to the `index.html` file there and open it
+in your browser. Images and search will work, but if you modify the documentation sources, 
+you have to issue this command again to see the changes.
 
 ## Publish documentation online
 
 To generate and publish documentation online, say
 
 ``` sh
-fsb shipDocs
+fsb sdocs
 ```
 
 This will publish the documentation to the *gh-pages* branch
 in the online GitHub repository *among/fusus*, from where it can be
 accessed by [https://among.github.io/fusus/](https://among.github.io/fusus/).
 
-## Push everything
+# Push everything
 
-To generate and publisj documentation and to push all changes to
+To generate and publish code and/or documentation and to push all changes to
 the *main* branch in the online GitHub directory, say
 
 ``` sh
@@ -134,4 +143,3 @@ fsb ship "commit message"
 ```
 
 You have to provide a commit message.
-
