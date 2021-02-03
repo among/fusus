@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.tsvFromLakhnawi API documentation</title>
-<meta name="description" content="" />
+<title>fusus.about.cheatsheet API documentation</title>
+<meta name="description" content="All functions below are illustrated in the example
+[notebook](https://nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb) …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,79 +18,102 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.tsvFromLakhnawi</code></h1>
+<h1 class="title">Module <code>fusus.about.cheatsheet</code></h1>
 </header>
 <section id="section-intro">
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromLakhnawi.py#L0-L14" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">from .lakhnawi import Lakhnawi
-
-
-def main():
-    Lw = Lakhnawi()
-    print(&#34;Reading PDF&#34;)
-    Lw.getPages(None)
-    print(&#34;\nExporting TSV&#34;)
-    Lw.tsvPages(None)
-    print(&#34;Closing&#34;)
-    Lw.close()
-
-
-if __name__ == &#34;__main__&#34;:
-    main()</code></pre>
-</details>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
+<p>All functions below are illustrated in the example
+<a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb">notebook</a></p>
+<h1 id="book">Book</h1>
+<pre><code class="language-python">from fusus.book import Book
+</code></pre>
 <dl>
-<dt id="fusus.tsvFromLakhnawi.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
+<dt><code>B = Book()</code></dt>
+<dd>start up</dd>
+<dd><code><a title="fusus.book.Book" href="../book.html#fusus.book.Book">Book</a></code></dd>
+<dt><code>B.showSettings(params)</code></dt>
+<dd>show settings</dd>
+<dd><code><a title="fusus.book.Book.showSettings" href="../book.html#fusus.book.Book.showSettings">Book.showSettings()</a></code></dd>
+<dd>See also <code><a title="fusus.parameters" href="../parameters.html">fusus.parameters</a></code></dd>
+<dt><code>B.availableBands()</code></dt>
+<dd>show the bands defined for this book</dd>
+<dd><code><a title="fusus.book.Book.availableBands" href="../book.html#fusus.book.Book.availableBands">Book.availableBands()</a></code></dd>
+<dt><code>B.availableMarks()</code></dt>
+<dd>show the marks defined for this book</dd>
+<dd><code><a title="fusus.book.Book.availableMarks" href="../book.html#fusus.book.Book.availableMarks">Book.availableMarks()</a></code></dd>
+<dt><code>B.availablePages()</code></dt>
+<dd>show the page ranges contained in this book</dd>
+<dd><code><a title="fusus.book.Book.availablePages" href="../book.html#fusus.book.Book.availablePages">Book.availablePages()</a></code></dd>
+<dt><code>B.configure(**kwargs)</code></dt>
+<dd>modify settings, bands, marks</dd>
+<dd><code><a title="fusus.book.Book.configure" href="../book.html#fusus.book.Book.configure">Book.configure()</a></code></dd>
+<dd>See also <code><a title="fusus.parameters" href="../parameters.html">fusus.parameters</a></code></dd>
+<dt><code>lastPage = B.process()</code></dt>
+<dd>Process all pages in a book and return a handle
+to the last processed page.</dd>
+<dd><code><a title="fusus.book.Book.process" href="../book.html#fusus.book.Book.process">Book.process()</a></code></dd>
+<dt><code>lastPage = B.process(pages="48-60,67", doOcr=False)</code></dt>
+<dd>Process all specified pages and return a handle
+to the last processed page. Skip OCR.</dd>
+<dd><code><a title="fusus.book.Book.process" href="../book.html#fusus.book.Book.process">Book.process()</a></code></dd>
+</dl>
+<h1 id="page">Page</h1>
+<dl>
+<dt><code>page = B.process(pages="48", doOcr=False, batch=False)</code></dt>
+<dd>Process all specified pages and return a handle
+to the last processed page. Skip OCR. Retain intermediate data for inspection.</dd>
+<dd><code><a title="fusus.book.Book.process" href="../book.html#fusus.book.Book.process">Book.process()</a></code></dd>
+<dt><code>page.show(**options)</code></dt>
+<dd>show the data/images of all intermediate stages that the page went through
+during processing.</dd>
+<dd><code><a title="fusus.page.Page.show" href="../page.html#fusus.page.Page.show">Page.show()</a></code></dd>
+<dt><code>page.show(stage='histogram,cleanh')</code></dt>
+<dd>show specific stages</dd>
+<dd><code><a title="fusus.page.Page.show" href="../page.html#fusus.page.Page.show">Page.show()</a></code></dd>
+<dd>See also <code><a title="fusus.parameters.STAGES" href="../parameters.html#fusus.parameters.STAGES">STAGES</a></code></dd>
+<dt><code>page.show(stage=stages, band='histogram,cleanh')</code></dt>
+<dd>show specific stages with specific bands marked/</dd>
+<dd><code><a title="fusus.page.Page.show" href="../page.html#fusus.page.Page.show">Page.show()</a></code></dd>
+<dd>See also <code><a title="fusus.parameters.BAND_COLORS" href="../parameters.html#fusus.parameters.BAND_COLORS">BAND_COLORS</a></code></dd>
+<dt><code>page.show(stage='boxed', band="high,mid", mark="comma,a")</code></dt>
+<dd>show specific marks only</dd>
+<dd><code><a title="fusus.page.Page.show" href="../page.html#fusus.page.Page.show">Page.show()</a></code></dd>
+<dt><code>page.write(stage='histogram')</code></dt>
+<dd>write some or all stages of the page to disk</dd>
+<dd><code><a title="fusus.page.Page.write" href="../page.html#fusus.page.Page.write">Page.write()</a></code></dd>
+</dl>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/tsvFromLakhnawi.py#L4-L11" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/about/cheatsheet.py#L0-L2" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def main():
-    Lw = Lakhnawi()
-    print(&#34;Reading PDF&#34;)
-    Lw.getPages(None)
-    print(&#34;\nExporting TSV&#34;)
-    Lw.tsvPages(None)
-    print(&#34;Closing&#34;)
-    Lw.close()</code></pre>
+<pre><code class="python">&#34;&#34;&#34;
+.. include:: ../docs/about/cheatsheet.md
+&#34;&#34;&#34;</code></pre>
 </details>
-</dd>
-</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
 </section>
 <section>
 </section>
 </article>
 <nav id="sidebar">
-<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../../fusus/images/fusus-small.png"></a></p>
+<p><a href="../../fusus/index.html">fusus home</a> - <a href="../..//fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#book">Book</a></li>
+<li><a href="#page">Page</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus" href="index.html">fusus</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="fusus.tsvFromLakhnawi.main" href="#fusus.tsvFromLakhnawi.main">main</a></code></li>
+<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
 </ul>
 </li>
 </ul>
@@ -97,8 +121,8 @@ if __name__ == &#34;__main__&#34;:
 </main>
 <footer id="footer">
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
-<a href="https://www.annotation.nl">Dirk Roorda</a>
-<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../../fusus/images/dans.png" width="200" alt="DANS"></a>
 <p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>

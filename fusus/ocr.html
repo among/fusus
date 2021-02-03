@@ -32,7 +32,7 @@ use Kraken for OCR only.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L0-L434" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L0-L434" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 Kraken Arabic model:
@@ -486,7 +486,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L427-L435" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L427-L435" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addWord(curChars):
     word = &#34;&#34;.join(x[0] for x in curChars)
@@ -507,7 +507,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L164-L197" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L164-L197" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getProofColor(conf, test=False):
     for (
@@ -553,7 +553,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L418-L424" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L418-L424" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeMargins(img, keep=0):
     mask = img &lt; 255
@@ -572,7 +572,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L200-L252" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L200-L252" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showConf(stage, results, label=&#34;notes&#34;):
     header = f&#34;&#34;&#34;
@@ -643,7 +643,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L255-L415" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L255-L415" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class OCR:
     def __init__(self, engine):
@@ -817,7 +817,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L262-L277" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L262-L277" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ensureLoaded(self):
     if self.model is None:
@@ -845,7 +845,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L354-L415" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L354-L415" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self, page):
     &#34;&#34;&#34;Produces an OCR proof page&#34;&#34;&#34;
@@ -919,7 +919,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/annotation/text-fabric/blob/ed30e2a3e0bf8dd935f14d1f5871b63eb658c8b9/fusus/ocr.py#L279-L352" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/ocr.py#L279-L352" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, page):
     &#34;&#34;&#34;Perfoms OCR with Kraken.&#34;&#34;&#34;
@@ -1003,8 +1003,8 @@ def addWord(curChars):
 </section>
 </article>
 <nav id="sidebar">
-<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="/fusus/images/fusus-small.png"></a></p>
-<p><a href="/fusus/index.html">fusus home</a> - <a href="/fusus/about/howto.html">HowTo</a></p>
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../fusus/images/fusus-small.png"></a></p>
+<p><a href="../fusus/index.html">fusus home</a> - <a href="..//fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
@@ -1040,8 +1040,8 @@ def addWord(curChars):
 </main>
 <footer id="footer">
 <a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
-<a href="https://www.annotation.nl">Dirk Roorda</a>
-<a href="https://www.dans.knaw.nl"><img alt="DANS" src="/text-fabric/images/DANS-logo.png" width=200></a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../fusus/images/dans.png" width="200" alt="DANS"></a>
 <p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
