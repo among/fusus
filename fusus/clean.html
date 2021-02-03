@@ -23,7 +23,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L0-L295" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L0-L295" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import numpy as np
 import cv2
@@ -364,7 +364,7 @@ near the box.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L229-L296" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L229-L296" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBox(C, img, left, top, right, bottom, kept, band, seq, connDegree):
     &#34;&#34;&#34;Add a box around a mark that is to be cleaned.
@@ -464,7 +464,7 @@ This point is the point in the cluster with the highest match value.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L7-L54" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L7-L54" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cluster(points, match):
     &#34;&#34;&#34;Cluster points that are in a source.
@@ -544,7 +544,7 @@ Only these sides will be computed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L87-L195" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L87-L195" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def connected(markH, markW, bw, threshold, img, hitPoint, sides=None):
     &#34;&#34;&#34;Determine how much ink borders on a given rectangle.
@@ -687,7 +687,7 @@ total size of the border.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L57-L84" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L57-L84" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def measure(borderInside, borderOutside, threshold):
     &#34;&#34;&#34;Measure the amount of ink that crosses the border of a certain region.
@@ -740,7 +740,7 @@ white margins.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/clean.py#L198-L226" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/clean.py#L198-L226" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def reborder(gray, bw, color, crop=False):
     &#34;&#34;&#34;Add a border around a grayscale image, optionally remove white margins first.

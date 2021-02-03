@@ -77,30 +77,39 @@ will still be valid.</p>
 <p>Then you can invoke the build script from anywhere:</p>
 <pre><code class="language-sh">fsb --help
 </code></pre>
-<h2 id="documentation">Documentation</h2>
-<p>Documentation is collected from</p>
+<h1 id="documentation">Documentation</h1>
+<p>The docs are here:</p>
 <ul>
-<li>the docstrings in the Python files in the <em>fusus</em> directory;</li>
-<li>the markdown files in the <em>docs</em> directory.</li>
+<li>the README file of the repository;</li>
+<li>the docstrings in the Python files in the <em>fusus</em> package;</li>
+<li>the markdown files in the <em>docs</em> subdirectory of the <em>fusus</em> package.</li>
 </ul>
 <h2 id="view-documentation-locally">View documentation locally</h2>
 <p>To open a browser and view the dynamically generated documentation, say</p>
 <pre><code class="language-sh">fsb docs
 </code></pre>
+<div class="admonition caution">
+<p class="admonition-title">Limited functionality</p>
+<p>The search function does not work here, and images will not display.</p>
+</div>
+<p>This way of local browsing the docs has the advantage that changes in the docs
+are detected when you save them, so that you can see the effect immediately.</p>
 <h2 id="generate-documentation-locally">Generate documentation locally</h2>
 <p>To generate documentation, say</p>
 <pre><code class="language-sh">fsb pdocs
 </code></pre>
-<p>The documentation is now in the <em>site</em> directory.</p>
+<p>The documentation is now in the <em>site</em> directory. Go to the <code>index.html</code> file there and open it
+in your browser. Images and search will work, but if you modify the documentation sources,
+you have to issue this command again to see the changes.</p>
 <h2 id="publish-documentation-online">Publish documentation online</h2>
 <p>To generate and publish documentation online, say</p>
-<pre><code class="language-sh">fsb shipDocs
+<pre><code class="language-sh">fsb sdocs
 </code></pre>
 <p>This will publish the documentation to the <em>gh-pages</em> branch
 in the online GitHub repository <em>among/fusus</em>, from where it can be
 accessed by <a href="https://among.github.io/fusus/">https://among.github.io/fusus/</a>.</p>
-<h2 id="push-everything">Push everything</h2>
-<p>To generate and publisj documentation and to push all changes to
+<h1 id="push-everything">Push everything</h1>
+<p>To generate and publish code and/or documentation and to push all changes to
 the <em>main</em> branch in the online GitHub directory, say</p>
 <pre><code class="language-sh">fsb ship &quot;commit message&quot;
 </code></pre>
@@ -108,7 +117,7 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/install.md
@@ -133,14 +142,14 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <li><a href="#convention">Convention</a></li>
 <li><a href="#get-the-software">Get the software</a></li>
 <li><a href="#install-the-software">Install the software</a></li>
-<li><a href="#build-steps">Build steps</a><ul>
-<li><a href="#documentation">Documentation</a></li>
+<li><a href="#build-steps">Build steps</a></li>
+<li><a href="#documentation">Documentation</a><ul>
 <li><a href="#view-documentation-locally">View documentation locally</a></li>
 <li><a href="#generate-documentation-locally">Generate documentation locally</a></li>
 <li><a href="#publish-documentation-online">Publish documentation online</a></li>
-<li><a href="#push-everything">Push everything</a></li>
 </ul>
 </li>
+<li><a href="#push-everything">Push everything</a></li>
 </ul>
 </div>
 <ul id="index">

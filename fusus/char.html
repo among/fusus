@@ -23,7 +23,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L0-L253" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L0-L253" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">from unicodedata import name as uname, normalize
 
@@ -296,7 +296,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L189-L196" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L189-L196" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMapFromPairs(pairs):
     result = {}
@@ -316,7 +316,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L185-L186" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L185-L186" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromDef(defs):
     return {chr(int(item, base=16)) for item in defs.strip().split(&#34;\n&#34;)}</code></pre>
@@ -330,7 +330,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L158-L163" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L158-L163" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromRanges(rngs):
     result = set()
@@ -348,7 +348,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L207-L208" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L207-L208" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isAlefFinal(x):
     return x == ALEF_FINAL</code></pre>
@@ -362,7 +362,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L220-L221" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L220-L221" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isArDigit(x):
     return x in AR_DIGITS</code></pre>
@@ -376,7 +376,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L224-L225" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L224-L225" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isEuDigit(x):
     return x in EU_DIGITS</code></pre>
@@ -390,7 +390,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L211-L213" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L211-L213" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isMeemOrYeh(x):
     nm = uname(x)
@@ -405,7 +405,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L216-L217" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L216-L217" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isWaw(x):
     return x == WAW</code></pre>
@@ -419,7 +419,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L199-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L199-L200" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeC(x):
     return normalize(NFKC, x)</code></pre>
@@ -433,7 +433,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L203-L204" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L203-L204" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeD(x):
     return normalize(NFKD, x)</code></pre>
@@ -447,7 +447,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L150-L155" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L150-L155" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def uName(c):
     try:
@@ -470,7 +470,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1be03bca6c5959480cf3c22ffc81fe0405f34be8/fusus/char.py#L228-L254" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/char.py#L228-L254" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class UChar:
     def __init__(self):
