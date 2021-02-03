@@ -1,3 +1,3 @@
 """
-.. include:: ../../docs/about/cheatsheet.md
+.. include:: ../docs/about/cheatsheet.md
 """

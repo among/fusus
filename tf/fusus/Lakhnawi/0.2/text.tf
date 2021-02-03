@@ -15,7 +15,7 @@
 @title=Fusus Al Hikam
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-19T11:21:47Z
+@dateWritten=2021-01-25T13:58:01Z
 
 فصوص
 الحكم

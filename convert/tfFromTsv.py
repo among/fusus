@@ -7,7 +7,7 @@ from tf.fabric import Fabric
 from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
-from .char import UChar
+from fusus.char import UChar
 
 
 HELP = """
@@ -86,23 +86,35 @@ def generic(source):
     return {**GENERIC, **WORKS[source]["meta"]}
 
 
-otext = {
+otext = {}
+otext[None] = {
     "fmt:text-orig-full": "{pre}{text}{post}",
     "fmt:text-orig-plain": "{prea}{plain}{posta}",
     "fmt:text-orig-nice": "{prea}{nice}{posta}",
     "fmt:text-orig-trans": "{prea}{trans}{posta}",
-    "sectionFeatures": "n,n,n",
+}
+otext[False] = {
+    "sectionFeatures": "n,n,ln",
     "sectionTypes": "piece,page,line",
 }
+otext[True] = {
+    "sectionFeatures": "n,b,ln",
+    "sectionTypes": "page,block,line",
+}
 
-intFeatures = set(
+intFeatures = {}
+intFeatures[None] = set(
     """
         n
-        np
+        ln
     """.strip().split()
 )
+intFeatures[False] = {"np"}
+intFeatures[True] = set()
 
-featureMeta = {
+featureMeta = {}
+
+featureMeta[None] = {
     "boxl": {
         "description": "left x-coordinate of word",
         "format": "number",
@@ -119,32 +131,9 @@ featureMeta = {
         "description": "bottom y-coordinate of word",
         "format": "number",
     },
-    "confidence": {
-        "description": "confidence of OCR recognition of the word",
-        "format": "number between 0 and 100 (including)",
-    },
-    "dir": {
-        "description": "writing direction of a span",
-        "format": "string, either r or l",
-    },
-    "n": {
-        "description": (
-            "sequence number of a piece, page, line within a page,"
-            " column within a line, or span within a column"
-        ),
-        "format": "number",
-    },
-    "name": {
-        "description": "name of a column in ocred output",
-        "format": "string, either r or l",
-    },
     "nice": {
         "description": "text string of a word in latin transcription (beta code)",
         "format": "string, latin with diacritics",
-    },
-    "np": {
-        "description": "sequence number of a proper content piece",
-        "format": "number",
     },
     "plain": {
         "description": "text string of a word in ascii transcription (beta code)",
@@ -170,19 +159,57 @@ featureMeta = {
         "description": "text string of a word without punctuation",
         "format": "string",
     },
-    "title": {
-        "description": "title of a piece",
-        "format": "string",
-    },
     "trans": {
         "description": (
-            "text string of a word in romanized transcription"
-            " (Library of Congress)"
+            "text string of a word in romanized transcription" " (Library of Congress)"
         ),
         "format": "string, latin with diacritics",
     },
 }
 
+featureMeta[False] = {
+    "dir": {
+        "description": "writing direction of a span",
+        "format": "string, either r or l",
+    },
+    "ln": {
+        "description": "sequence number of a line within a page",
+        "format": "number",
+    },
+    "n": {
+        "description": (
+            "sequence number of a piece, page, column within a line, or span"
+        ),
+        "format": "number",
+    },
+    "np": {
+        "description": "sequence number of a proper content piece",
+        "format": "number",
+    },
+    "title": {
+        "description": "title of a piece",
+        "format": "string",
+    },
+}
+
+featureMeta[True] = {
+    "b": {
+        "description": "name of a block inside a stripe",
+        "format": "string, either r or l",
+    },
+    "confidence": {
+        "description": "confidence of OCR recognition of the word",
+        "format": "number between 0 and 100 (including)",
+    },
+    "n": {
+        "description": "sequence number of a piece, page, or stripe",
+        "format": "number",
+    },
+    "ln": {
+        "description": "sequence number of a line within a block",
+        "format": "number",
+    },
+}
 
 # DISTILL TABLE of CONTENTS
 
@@ -278,8 +305,8 @@ def getFile(source):
 
 
 TYPE_MAPS = {
-    True: ["page", "line", "column", "span"],
-    False: ["page", "stripe", "column", "line"],
+    False: ["page", "line", "column", "span"],
+    True: ["page", "stripe", "block", "line"],
 }
 
 
@@ -300,17 +327,17 @@ def convert(source, page):
     SRC_FILE = getFile(source)
     HAS_TOC = workInfo.get("toc", False)
     OCRED = workInfo.get("ocred", False)
-    TYPE_MAP = TYPE_MAPS[HAS_TOC]
+    TYPE_MAP = TYPE_MAPS[OCRED]
 
     cv = CV(Fabric(locations=dest))
 
     return cv.walk(
         director,
         slotType,
-        otext=otext,
+        otext=otext[None] | otext[OCRED],
         generic=generic(source),
-        intFeatures=intFeatures,
-        featureMeta=featureMeta,
+        intFeatures=intFeatures[None] | intFeatures[OCRED],
+        featureMeta=featureMeta[None] | featureMeta[OCRED],
         generateTf=True,
     )
 
@@ -326,21 +353,22 @@ def director(cv):
     If a row comes from the result of OCR we have the fields:
 
     ```
-    stripe column$ line left top right bottom confidence text$
+    stripe block$ line left top right bottom confidence text$
     ```
 
     We prepend the page number in this case, yielding
 
     ```
-    page stripe column$ line left top right bottom confidence text$
+    page stripe block$ line left top right bottom confidence text$
     ```
 
     Otherwise we have:
 
     page line column span direction$ left top right bottom text$
 
-    The column in an OCRed file is either `r` or `l`, it corresponds
+    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
     to material to the left and right of a vertical stroke.
+    If there is no vertical stroke, there is just one block.
 
     The column in a non OCRed file is either `1` or `2` and comes
     from a line partitioned into two regions by means of white space.
@@ -440,7 +468,9 @@ def director(cv):
                     cn = cv.node(TYPE_MAP[j])
                     cur[j] = cn
                     if OCRED and j == 2:
-                        cv.feature(cn, name=fields[j])
+                        cv.feature(cn, b=fields[j])
+                    elif OCRED and j == 3 or not OCRED and j == 1:
+                        cv.feature(cn, ln=fields[j])
                     else:
                         cv.feature(cn, n=fields[j])
                     if not OCRED and j == nSec - 1:

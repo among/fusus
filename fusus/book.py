@@ -87,8 +87,9 @@ class Book:
         Parameters
         ----------
         cd: string, optional
-            If passed, performs a change directory to the direcotry specified.
+            If passed, performs a change directory to the directory specified.
             Else the whole book processing takes place in the current directory.
+            You can use `~` to denote your home directory.
         params: dict, optional
             Any number of customizable settings from `fusus.parameters.SETTINGS`.
 
@@ -97,7 +98,7 @@ class Book:
         """
 
         if cd is not None:
-            os.chdir(cd)
+            os.chdir(os.path.expanduser(cd))
 
         tm = Timestamp()
         self.tm = tm

@@ -1,4 +1,4 @@
-from .lakhnawi import Lakhnawi
+from fusus.lakhnawi import Lakhnawi
 
 
 def main():

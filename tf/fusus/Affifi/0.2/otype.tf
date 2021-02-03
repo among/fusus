@@ -1,7 +1,7 @@
 @node
 @author=Ibn Arabi
 @converters=Cornelis van Lit, Dirk Roorda (Text-Fabric)
-@editor=Lakhnawi
+@editor=Affifi
 @institute=Univ Utrecht NL/DANS
 @language=ara
 @name=fusus
@@ -13,12 +13,11 @@
 @title=Fusus Al Hikam
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-25T13:58:01Z
+@dateWritten=2021-01-25T13:48:50Z
 
-1-47360	word
-47361-52525	column
-52526-57591	line
-57592-58029	page
-58030-58064	piece
-58065-60752	sentence
-60753-65924	span
+1-46088	word
+46089-46280	block
+46281-49615	line
+49616-49795	page
+49796-50012	sentence
+50013-50204	stripe

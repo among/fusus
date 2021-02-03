@@ -13,10 +13,10 @@
 @project=Fusus
 @published=pdf, personal communication
 @researcher=Cornelis van Lit
-@sectionFeatures=n,n,n
+@sectionFeatures=n,n,ln
 @sectionTypes=piece,page,line
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikam
 @writtenBy=Text-Fabric
-@dateWritten=2021-01-19T11:21:47Z
+@dateWritten=2021-01-25T13:58:01Z
 

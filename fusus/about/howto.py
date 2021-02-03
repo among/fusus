@@ -1,3 +1,3 @@
 """
-.. include:: ../../docs/about/howto.md
+.. include:: ../docs/about/howto.md
 """

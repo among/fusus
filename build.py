@@ -2,7 +2,7 @@ import sys
 
 from subprocess import run
 
-from pdocs import console, pdoc3serve, pdoc3, shipDocs
+from tools.pdocs import console, pdoc3serve, pdoc3, shipDocs
 
 
 HELP = """

@@ -1,5 +1,5 @@
-from .book import Book
-from .parameters import UR_DIR
+from fusus.book import Book
+from fusus.parameters import UR_DIR
 
 
 AFFIFI_PATH = f"{UR_DIR}/affifi"

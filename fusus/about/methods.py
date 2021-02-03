@@ -1,3 +1,3 @@
 """
-.. include:: ../../docs/about/methods.md
+.. include:: ../docs/about/methods.md
 """
