@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.clean API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Wipe marks from images." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,12 +20,17 @@
 <h1 class="title">Module <code>fusus.clean</code></h1>
 </header>
 <section id="section-intro">
+<p>Wipe marks from images.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L0-L295" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L0-L301" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">import numpy as np
+<pre><code class="python">&#34;&#34;&#34;Wipe marks from images.
+
+&#34;&#34;&#34;
+
+import numpy as np
 import cv2
 
 from .lib import FONT
@@ -88,6 +93,8 @@ def measure(borderInside, borderOutside, threshold):
     contain strokes of ink. If a match is such that the stroke of ink connects
     with the ink in the environment, the match is not a true example of the stroke
     and will be rejected.
+
+    See ![bordering](../images/isolation.png)
 
     !!! note &#34;Where to look for ink&#34;
         We look for ink in the image itself,
@@ -364,7 +371,7 @@ near the box.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L229-L296" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L235-L302" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBox(C, img, left, top, right, bottom, kept, band, seq, connDegree):
     &#34;&#34;&#34;Add a box around a mark that is to be cleaned.
@@ -464,7 +471,7 @@ This point is the point in the cluster with the highest match value.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L7-L54" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L11-L58" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cluster(points, match):
     &#34;&#34;&#34;Cluster points that are in a source.
@@ -544,7 +551,7 @@ Only these sides will be computed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L87-L195" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L93-L201" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def connected(markH, markW, bw, threshold, img, hitPoint, sides=None):
     &#34;&#34;&#34;Determine how much ink borders on a given rectangle.
@@ -666,6 +673,7 @@ Only these sides will be computed.</dd>
 contain strokes of ink. If a match is such that the stroke of ink connects
 with the ink in the environment, the match is not a true example of the stroke
 and will be rejected.</p>
+<p>See <img alt="bordering" src="../images/isolation.png"></p>
 <div class="admonition note">
 <p class="admonition-title">Where to look for ink</p>
 <p>We look for ink in the image itself,
@@ -687,7 +695,7 @@ total size of the border.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L57-L84" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L61-L90" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def measure(borderInside, borderOutside, threshold):
     &#34;&#34;&#34;Measure the amount of ink that crosses the border of a certain region.
@@ -696,6 +704,8 @@ total size of the border.</dd>
     contain strokes of ink. If a match is such that the stroke of ink connects
     with the ink in the environment, the match is not a true example of the stroke
     and will be rejected.
+
+    See ![bordering](../images/isolation.png)
 
     !!! note &#34;Where to look for ink&#34;
         We look for ink in the image itself,
@@ -740,7 +750,7 @@ white margins.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L198-L226" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/clean.py#L204-L232" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def reborder(gray, bw, color, crop=False):
     &#34;&#34;&#34;Add a border around a grayscale image, optionally remove white margins first.

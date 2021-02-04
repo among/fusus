@@ -303,11 +303,11 @@ class OCR:
             info = tm.info
             modelPath = C.modelPath
 
-            info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;)
+            info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;, force=True)
             with warnings.catch_warnings():
                 warnings.filterwarnings(&#34;ignore&#34;)
                 model = load_any(modelPath)
-            info(&#34;model loaded&#34;)
+            info(&#34;model loaded&#34;, force=True)
 
             self.model = model
         return self.model
@@ -660,11 +660,11 @@ def addWord(curChars):
             info = tm.info
             modelPath = C.modelPath
 
-            info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;)
+            info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;, force=True)
             with warnings.catch_warnings():
                 warnings.filterwarnings(&#34;ignore&#34;)
                 model = load_any(modelPath)
-            info(&#34;model loaded&#34;)
+            info(&#34;model loaded&#34;, force=True)
 
             self.model = model
         return self.model
@@ -827,11 +827,11 @@ def addWord(curChars):
         info = tm.info
         modelPath = C.modelPath
 
-        info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;)
+        info(f&#34;Loading for Kraken: {unexpanduser(modelPath)}&#34;, force=True)
         with warnings.catch_warnings():
             warnings.filterwarnings(&#34;ignore&#34;)
             model = load_any(modelPath)
-        info(&#34;model loaded&#34;)
+        info(&#34;model loaded&#34;, force=True)
 
         self.model = model
     return self.model</code></pre>

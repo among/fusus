@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L0-L1061" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L0-L1077" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -34,7 +34,9 @@ import json
 import pprint
 import cv2
 import numpy as np
-from IPython.display import HTML, IFrame, display
+from IPython.display import HTML, display
+
+from tf.core.helpers import unexpanduser
 
 from .lib import (
     parseStages,
@@ -201,6 +203,9 @@ class Page:
         tm = engine.tm
         error = tm.error
         C = engine.C
+        cd = engine.cd
+        if cd:
+            cd = f&#34;{cd}/&#34;
 
         stages = self.stages
         marks = engine.marks
@@ -212,17 +217,28 @@ class Page:
             (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
             white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == &#34;data&#34;:
+                display(
+                    HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;data:&lt;/i&gt;&lt;/div&gt;&#34;)
+                )
                 self._serial(s, stageData, stageExt)
             elif stageType == &#34;link&#34;:
                 path = self.stagePath(s)
-                display(HTML(f&#39;&lt;a href=&#34;{path}&#34;&gt;{stageData}&lt;/a&gt;&#39;))
-                display(
-                    IFrame(
-                        src=path,
-                        width=f&#34;{self.proofW + 10}px&#34;,
-                        height=f&#34;{self.proofH + 10}px&#34;,
+                if os.path.exists(path):
+                    showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+                    display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {stageData} in {showPath}&lt;/div&gt;&#34;))
+                    &#34;&#34;&#34;
+                    display(
+                        IFrame(
+                            src=path,
+                            width=f&#34;{self.proofW + 10}px&#34;,
+                            height=f&#34;{self.proofH + 10}px&#34;,
+                        )
                     )
-                )
+                    &#34;&#34;&#34;
+                else:
+                    display(
+                        HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;{showPath} does not exist.&lt;/i&gt;&lt;/div&gt;&#34;)
+                    )
             else:
                 img = stageData
 
@@ -345,7 +361,7 @@ class Page:
                             )
                         html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
                         display(HTML(&#34;&#34;.join(html)))
-                display(HTML(f&#34;&lt;div&gt;{s} {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
+                display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt; {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
                 showImage(img, **displayParams)
 
     def stagePath(self, stage, inter=None):
@@ -1129,7 +1145,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L74-L1062" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L76-L1078" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(
@@ -1233,6 +1249,9 @@ in boxes.</dd>
         tm = engine.tm
         error = tm.error
         C = engine.C
+        cd = engine.cd
+        if cd:
+            cd = f&#34;{cd}/&#34;
 
         stages = self.stages
         marks = engine.marks
@@ -1244,17 +1263,28 @@ in boxes.</dd>
             (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
             white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == &#34;data&#34;:
+                display(
+                    HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;data:&lt;/i&gt;&lt;/div&gt;&#34;)
+                )
                 self._serial(s, stageData, stageExt)
             elif stageType == &#34;link&#34;:
                 path = self.stagePath(s)
-                display(HTML(f&#39;&lt;a href=&#34;{path}&#34;&gt;{stageData}&lt;/a&gt;&#39;))
-                display(
-                    IFrame(
-                        src=path,
-                        width=f&#34;{self.proofW + 10}px&#34;,
-                        height=f&#34;{self.proofH + 10}px&#34;,
+                if os.path.exists(path):
+                    showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+                    display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {stageData} in {showPath}&lt;/div&gt;&#34;))
+                    &#34;&#34;&#34;
+                    display(
+                        IFrame(
+                            src=path,
+                            width=f&#34;{self.proofW + 10}px&#34;,
+                            height=f&#34;{self.proofH + 10}px&#34;,
+                        )
                     )
-                )
+                    &#34;&#34;&#34;
+                else:
+                    display(
+                        HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;{showPath} does not exist.&lt;/i&gt;&lt;/div&gt;&#34;)
+                    )
             else:
                 img = stageData
 
@@ -1377,7 +1407,7 @@ in boxes.</dd>
                             )
                         html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
                         display(HTML(&#34;&#34;.join(html)))
-                display(HTML(f&#34;&lt;div&gt;{s} {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
+                display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt; {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
                 showImage(img, **displayParams)
 
     def stagePath(self, stage, inter=None):
@@ -2159,7 +2189,7 @@ and they do not contribute to the markData layer.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L690-L992" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L706-L1008" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cleaning(self, mark=None, block=None, line=None, showKept=False):
     &#34;&#34;&#34;Remove marks from the page.
@@ -2496,7 +2526,7 @@ with the blocks marked and labelled.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L621-L688" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L637-L704" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doLayout(self):
     &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -2592,7 +2622,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L554-L619" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L570-L635" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doNormalize(self):
     &#34;&#34;&#34;Normalizes a page.
@@ -2670,7 +2700,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1048-L1055" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1064-L1071" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocring(self):
     &#34;&#34;&#34;Calls the OCR engine for a page.&#34;&#34;&#34;
@@ -2690,7 +2720,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1057-L1062" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1073-L1078" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self):
     &#34;&#34;&#34;Produces proofing images&#34;&#34;&#34;
@@ -2715,7 +2745,7 @@ Otherwise, the indicated stages are read.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L339-L375" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L355-L391" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, stage=None):
     &#34;&#34;&#34;Reads processing data for selected stages from disk
@@ -2795,7 +2825,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L132-L321" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L134-L337" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -2841,6 +2871,9 @@ will be displayed on a fresh copy of that stage.</p>
     tm = engine.tm
     error = tm.error
     C = engine.C
+    cd = engine.cd
+    if cd:
+        cd = f&#34;{cd}/&#34;
 
     stages = self.stages
     marks = engine.marks
@@ -2852,17 +2885,28 @@ will be displayed on a fresh copy of that stage.</p>
         (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
         white = C.whiteRGB if stageColor else C.whiteGRS
         if stageType == &#34;data&#34;:
+            display(
+                HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;data:&lt;/i&gt;&lt;/div&gt;&#34;)
+            )
             self._serial(s, stageData, stageExt)
         elif stageType == &#34;link&#34;:
             path = self.stagePath(s)
-            display(HTML(f&#39;&lt;a href=&#34;{path}&#34;&gt;{stageData}&lt;/a&gt;&#39;))
-            display(
-                IFrame(
-                    src=path,
-                    width=f&#34;{self.proofW + 10}px&#34;,
-                    height=f&#34;{self.proofH + 10}px&#34;,
+            if os.path.exists(path):
+                showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+                display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {stageData} in {showPath}&lt;/div&gt;&#34;))
+                &#34;&#34;&#34;
+                display(
+                    IFrame(
+                        src=path,
+                        width=f&#34;{self.proofW + 10}px&#34;,
+                        height=f&#34;{self.proofH + 10}px&#34;,
+                    )
                 )
-            )
+                &#34;&#34;&#34;
+            else:
+                display(
+                    HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: &lt;i&gt;{showPath} does not exist.&lt;/i&gt;&lt;/div&gt;&#34;)
+                )
         else:
             img = stageData
 
@@ -2985,7 +3029,7 @@ will be displayed on a fresh copy of that stage.</p>
                         )
                     html.append(&#34;&lt;/table&gt;&lt;/details&gt;&#34;)
                     display(HTML(&#34;&#34;.join(html)))
-            display(HTML(f&#34;&lt;div&gt;{s} {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
+            display(HTML(f&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt; {&#39;;&#39;.join(headingInfo)}&lt;/div&gt;&#34;))
             showImage(img, **displayParams)</code></pre>
 </details>
 </dd>
@@ -2997,7 +3041,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L323-L337" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L339-L353" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stagePath(self, stage, inter=None):
     engine = self.engine
@@ -3043,7 +3087,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L377-L430" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L393-L446" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None, perBlock=False):
     &#34;&#34;&#34;Writes processing stages of an page to disk.

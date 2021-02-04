@@ -132,7 +132,7 @@ input. You have to start with layout detection.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L0-L822" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L0-L842" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book workflow
 
@@ -262,8 +262,13 @@ class Book:
             a `Book.configure` action will modify them.
         &#34;&#34;&#34;
 
-        if cd is not None:
-            os.chdir(os.path.expanduser(cd))
+        if cd is None:
+            cd = &#34;&#34;
+        else:
+            cd = os.path.expanduser(cd)
+            os.chdir(cd)
+
+        self.cd = cd
 
         tm = Timestamp()
         self.tm = tm
@@ -325,6 +330,21 @@ class Book:
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
         self.allPagesList = pagesRep(self.allPages, asList=True)
+
+    def info(self, msg):
+        tm = self.tm
+        info = tm.info
+        info(msg)
+
+    def warning(self, msg):
+        tm = self.tm
+        warning = tm.warning
+        warning(msg)
+
+    def error(self, msg):
+        tm = self.tm
+        error = tm.error
+        error(msg)
 
     def configure(self, reset=False, **params):
         &#34;&#34;&#34;Updates current settings based on new values.
@@ -979,7 +999,7 @@ of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L802-L819" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L822-L839" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -1028,7 +1048,7 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L112-L799" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L112-L819" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, cd=None, **params):
@@ -1047,8 +1067,13 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
             a `Book.configure` action will modify them.
         &#34;&#34;&#34;
 
-        if cd is not None:
-            os.chdir(os.path.expanduser(cd))
+        if cd is None:
+            cd = &#34;&#34;
+        else:
+            cd = os.path.expanduser(cd)
+            os.chdir(cd)
+
+        self.cd = cd
 
         tm = Timestamp()
         self.tm = tm
@@ -1110,6 +1135,21 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
         self.allPagesList = pagesRep(self.allPages, asList=True)
+
+    def info(self, msg):
+        tm = self.tm
+        info = tm.info
+        info(msg)
+
+    def warning(self, msg):
+        tm = self.tm
+        warning = tm.warning
+        warning(msg)
+
+    def error(self, msg):
+        tm = self.tm
+        error = tm.error
+        error(msg)
 
     def configure(self, reset=False, **params):
         &#34;&#34;&#34;Updates current settings based on new values.
@@ -1729,7 +1769,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L218-L229" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L238-L249" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
@@ -1760,7 +1800,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L231-L267" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L251-L287" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self, band=None, mark=None):
     &#34;&#34;&#34;Display the characteristics of defined *marks*.
@@ -1809,7 +1849,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L269-L278" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L289-L298" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
@@ -1832,7 +1872,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L193-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L213-L220" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1842,6 +1882,22 @@ span.ln {
 
     self.C.configure(reset=reset, **params)
     self._applySettings()</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.error"><code class="name flex">
+<span>def <span class="ident">error</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L208-L211" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def error(self, msg):
+    tm = self.tm
+    error = tm.error
+    error(msg)</code></pre>
 </details>
 </dd>
 <dt id="fusus.book.Book.exportTsv"><code class="name flex">
@@ -1861,7 +1917,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L599-L659" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L619-L679" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def exportTsv(self, pages=None):
     &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
@@ -1926,6 +1982,22 @@ No spaces allowed.</p>
         info(&#34;Nothing written&#34;)</code></pre>
 </details>
 </dd>
+<dt id="fusus.book.Book.info"><code class="name flex">
+<span>def <span class="ident">info</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L198-L201" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def info(self, msg):
+    tm = self.tm
+    info = tm.info
+    info(msg)</code></pre>
+</details>
+</dd>
 <dt id="fusus.book.Book.measureQuality"><code class="name flex">
 <span>def <span class="ident">measureQuality</span></span>(<span>self, pages=None, showStats=True, updateProofs=False)</span>
 </code></dt>
@@ -1949,7 +2021,7 @@ The OCR itself does not have to be performed again for this.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L471-L597" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L491-L617" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
         &#34;&#34;&#34;Measure the reported quality of the ocr processing.
@@ -2097,7 +2169,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L661-L799" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L681-L819" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -2281,7 +2353,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L362-L462" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L382-L482" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self,
@@ -2405,7 +2477,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L202-L216" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L222-L236" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
@@ -2432,7 +2504,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L464-L469" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L484-L489" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stageDir(self, stage):
     C = self.C
@@ -2440,6 +2512,22 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
     trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
     trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
     return (getattr(C, stageDir or &#34;interDir&#34;), trail, stageExt)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.warning"><code class="name flex">
+<span>def <span class="ident">warning</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L203-L206" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def warning(self, msg):
+    tm = self.tm
+    warning = tm.warning
+    warning(msg)</code></pre>
 </details>
 </dd>
 </dl>
@@ -2481,12 +2569,15 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <li><code><a title="fusus.book.Book.availableMarks" href="#fusus.book.Book.availableMarks">availableMarks</a></code></li>
 <li><code><a title="fusus.book.Book.availablePages" href="#fusus.book.Book.availablePages">availablePages</a></code></li>
 <li><code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">configure</a></code></li>
+<li><code><a title="fusus.book.Book.error" href="#fusus.book.Book.error">error</a></code></li>
 <li><code><a title="fusus.book.Book.exportTsv" href="#fusus.book.Book.exportTsv">exportTsv</a></code></li>
+<li><code><a title="fusus.book.Book.info" href="#fusus.book.Book.info">info</a></code></li>
 <li><code><a title="fusus.book.Book.measureQuality" href="#fusus.book.Book.measureQuality">measureQuality</a></code></li>
 <li><code><a title="fusus.book.Book.plainText" href="#fusus.book.Book.plainText">plainText</a></code></li>
 <li><code><a title="fusus.book.Book.process" href="#fusus.book.Book.process">process</a></code></li>
 <li><code><a title="fusus.book.Book.showSettings" href="#fusus.book.Book.showSettings">showSettings</a></code></li>
 <li><code><a title="fusus.book.Book.stageDir" href="#fusus.book.Book.stageDir">stageDir</a></code></li>
+<li><code><a title="fusus.book.Book.warning" href="#fusus.book.Book.warning">warning</a></code></li>
 </ul>
 </li>
 </ul>

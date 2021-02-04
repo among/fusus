@@ -39,7 +39,7 @@ INDEX=[
 {
 "ref":"fusus.clean",
 "url":1,
-"doc":""
+"doc":"Wipe marks from images."
 },
 {
 "ref":"fusus.clean.cluster",
@@ -50,7 +50,7 @@ INDEX=[
 {
 "ref":"fusus.clean.measure",
 "url":1,
-"doc":"Measure the amount of ink that crosses the border of a certain region. It is used to reject certain matches of image templates, where templates contain strokes of ink. If a match is such that the stroke of ink connects with the ink in the environment, the match is not a true example of the stroke and will be rejected.  ! note \"Where to look for ink\" We look for ink in the image itself, the ink in the search template is not relevant. Parameters      borderInside: image as np array The part of the image bordering inside an area where the search template matches borderOutside: image as np array The part of the image bordering outside an area where the search template matches Returns    - float The ratio between the size of the ink connections across the border and the total size of the border.",
+"doc":"Measure the amount of ink that crosses the border of a certain region. It is used to reject certain matches of image templates, where templates contain strokes of ink. If a match is such that the stroke of ink connects with the ink in the environment, the match is not a true example of the stroke and will be rejected. See ![bordering]( /images/isolation.png)  ! note \"Where to look for ink\" We look for ink in the image itself, the ink in the search template is not relevant. Parameters      borderInside: image as np array The part of the image bordering inside an area where the search template matches borderOutside: image as np array The part of the image bordering outside an area where the search template matches Returns    - float The ratio between the size of the ink connections across the border and the total size of the border.",
 "func":1
 },
 {
@@ -705,12 +705,12 @@ INDEX=[
 {
 "ref":"fusus.about.tweak",
 "url":15,
-"doc":""
+"doc":" Tweak There are a lot of parameters in the pipeline that can be tweaked.  ! caution \"Two-edged sword\" When you change a parameter to improve a particular effect on a particular page, it may wreak havoc with many other pages. When you tweak, take care that you do it locally, on a single book, or a single page.  Parameters The parameters are documented in  fusus.parameters .  Notebooks  [tweak](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/tweak.ipynb) Basic tweaking;  [piece](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/piece.ipynb) What to do if you have an image that is a small fragment of a page; Notebooks reside in the GitHub repo in the  notebooks directory, but can best be viewed through  nbviewer . Here are all notebooks: [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/)."
 },
 {
 "ref":"fusus.about.explore",
 "url":16,
-"doc":" Explore There are various ways in which you can observe and check the outcome of the pipeline process.  Intermediate results If not in  batch mode, a wide range of intermediate results will be produced that you can inspect.  Proofing After the OCR step, the results can be collected and overlayed on the original page image, where coloring is used to indicate the lavel of confidence of the OCR for that particular word or letter.  Notebooks You find example explorations in the notebooks. They can best be viewed through  nbviewer ."
+"doc":" Explore There are various ways in which you can observe and check the outcome of the pipeline process.  Intermediate results If not in  batch mode, a wide range of intermediate results will be produced that you can inspect.  Proofing After the OCR step, the results can be collected and overlayed on the original page image, where coloring is used to indicate the lavel of confidence of the OCR for that particular word or letter.  Notebooks  [do](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/do.ipynb) Notebooks reside in the GitHub repo in the  notebooks directory, but can best be viewed through  nbviewer . Here are all notebooks: [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/)."
 },
 {
 "ref":"fusus.about.install",
@@ -871,6 +871,24 @@ INDEX=[
 "ref":"fusus.book.Book",
 "url":23,
 "doc":"Engine for book conversion. Parameters      cd: string, optional If passed, performs a change directory to the directory specified. Else the whole book processing takes place in the current directory. You can use  ~ to denote your home directory. params: dict, optional Any number of customizable settings from  fusus.parameters.SETTINGS . They will be in effect when running the workflow, until a  Book.configure action will modify them."
+},
+{
+"ref":"fusus.book.Book.info",
+"url":23,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.book.Book.warning",
+"url":23,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.book.Book.error",
+"url":23,
+"doc":"",
+"func":1
 },
 {
 "ref":"fusus.book.Book.configure",
