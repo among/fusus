@@ -196,9 +196,11 @@ def getHist(C, imgIn, lineHeight):
     windowSize = int(round(lineHeight * contourFactor))
     if not windowSize % 2:
         windowSize += 1
+    if windowSize > h:
+        windowSize = h - (0 if h % 2 else 1)
     if windowSize > 1:
-        left = np.rint(medfilt(left, windowSize)).astype(int)
-        right = np.rint(medfilt(right, windowSize)).astype(int)
+        left = np.rint(medfilt(left, kernel_size=windowSize)).astype(int)
+        right = np.rint(medfilt(right, kernel_size=windowSize)).astype(int)
 
     lengths = np.transpose(right - left + 1)
 

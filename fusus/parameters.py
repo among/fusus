@@ -469,4 +469,4 @@ class Config:
                 continue
             if k not in SETTINGS:
                 error(f"No such setting: {k}", tm=False)
-            info(f"{k:<20} = {settings[k]}", tm=False)
+            info(f"{k:<30} = {settings[k]}", tm=False)

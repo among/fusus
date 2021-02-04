@@ -6,7 +6,9 @@ import json
 import pprint
 import cv2
 import numpy as np
-from IPython.display import HTML, IFrame, display
+from IPython.display import HTML, display
+
+from tf.core.helpers import unexpanduser
 
 from .lib import (
     parseStages,
@@ -173,6 +175,9 @@ class Page:
         tm = engine.tm
         error = tm.error
         C = engine.C
+        cd = engine.cd
+        if cd:
+            cd = f"{cd}/"
 
         stages = self.stages
         marks = engine.marks
@@ -184,17 +189,28 @@ class Page:
             (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
             white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == "data":
+                display(
+                    HTML(f"<hr>\n<div><b>{s}</b>: <i>data:</i></div>")
+                )
                 self._serial(s, stageData, stageExt)
             elif stageType == "link":
                 path = self.stagePath(s)
-                display(HTML(f'<a href="{path}">{stageData}</a>'))
-                display(
-                    IFrame(
-                        src=path,
-                        width=f"{self.proofW + 10}px",
-                        height=f"{self.proofH + 10}px",
+                if os.path.exists(path):
+                    showPath = unexpanduser(f"{cd}{path}")
+                    display(HTML(f"<hr>\n<div><b>{s}</b>: {stageData} in {showPath}</div>"))
+                    """
+                    display(
+                        IFrame(
+                            src=path,
+                            width=f"{self.proofW + 10}px",
+                            height=f"{self.proofH + 10}px",
+                        )
                     )
-                )
+                    """
+                else:
+                    display(
+                        HTML(f"<hr>\n<div><b>{s}</b>: <i>{showPath} does not exist.</i></div>")
+                    )
             else:
                 img = stageData
 
@@ -317,7 +333,7 @@ class Page:
                             )
                         html.append("</table></details>")
                         display(HTML("".join(html)))
-                display(HTML(f"<div>{s} {';'.join(headingInfo)}</div>"))
+                display(HTML(f"<hr>\n<div><b>{s}</b> {';'.join(headingInfo)}</div>"))
                 showImage(img, **displayParams)
 
     def stagePath(self, stage, inter=None):

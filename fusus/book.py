@@ -126,8 +126,13 @@ class Book:
             a `Book.configure` action will modify them.
         """
 
-        if cd is not None:
-            os.chdir(os.path.expanduser(cd))
+        if cd is None:
+            cd = ""
+        else:
+            cd = os.path.expanduser(cd)
+            os.chdir(cd)
+
+        self.cd = cd
 
         tm = Timestamp()
         self.tm = tm
@@ -189,6 +194,21 @@ class Book:
         self.allPages = imageFileList(C.inDir)
         self.allPagesDesc = pagesRep(self.allPages)
         self.allPagesList = pagesRep(self.allPages, asList=True)
+
+    def info(self, msg):
+        tm = self.tm
+        info = tm.info
+        info(msg)
+
+    def warning(self, msg):
+        tm = self.tm
+        warning = tm.warning
+        warning(msg)
+
+    def error(self, msg):
+        tm = self.tm
+        error = tm.error
+        error(msg)
 
     def configure(self, reset=False, **params):
         """Updates current settings based on new values.

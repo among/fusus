@@ -15,5 +15,10 @@ where coloring is used to indicate the lavel of confidence of the OCR for that p
 
 # Notebooks
 
-You find example explorations in the notebooks.
-They can best be viewed through *nbviewer*.
+* [do](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/do.ipynb)
+
+Notebooks reside in the GitHub repo in the *notebooks* directory,
+but can best be viewed through *nbviewer*.
+
+Here are all notebooks:
+[notebooks on nbviewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).

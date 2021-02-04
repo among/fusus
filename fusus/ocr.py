@@ -267,11 +267,11 @@ class OCR:
             info = tm.info
             modelPath = C.modelPath
 
-            info(f"Loading for Kraken: {unexpanduser(modelPath)}")
+            info(f"Loading for Kraken: {unexpanduser(modelPath)}", force=True)
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore")
                 model = load_any(modelPath)
-            info("model loaded")
+            info("model loaded", force=True)
 
             self.model = model
         return self.model

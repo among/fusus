@@ -1,3 +1,7 @@
+"""Wipe marks from images.
+
+"""
+
 import numpy as np
 import cv2
 
@@ -61,6 +65,8 @@ def measure(borderInside, borderOutside, threshold):
     contain strokes of ink. If a match is such that the stroke of ink connects
     with the ink in the environment, the match is not a true example of the stroke
     and will be rejected.
+
+    See ![bordering](../images/isolation.png)
 
     !!! note "Where to look for ink"
         We look for ink in the image itself,
