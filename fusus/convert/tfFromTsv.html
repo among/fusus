@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.convert.tfFromTsv API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.convert.tfFromTsv</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L0-L654" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">import os
+import sys
+import collections
+import re
+
+from tf.fabric import Fabric
+from tf.convert.walker import CV
+from tf.writing.transcription import Transcription as Tr
+
+from fusus.char import UChar
+
+
+HELP = &#34;&#34;&#34;
+
+Convert tsv data files to TF and optionally loads the TF.
+
+python3 tfFromTsv.py source+ [&#34;load&#34;] [&#34;loadonly&#34;] [page] [--help]
+
+--help: print this text and exit
+
+&#34;source+&#34; : one or more sources (given as keyword) to convert to TF
+&#34;load&#34;    : loads the generated TF; if missing this step is not performed
+&#34;loadOnly&#34;: does not generate TF; loads previously generated TF
+page      : only process this page; default: all pages
+&#34;&#34;&#34;
+
+
+EXT = &#34;.tsv&#34;
+VERSION_TF = 0.2
+
+BASE = os.path.expanduser(&#34;~/github/among/fusus&#34;)
+
+WORKS = dict(
+    fususl=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Lakhnawi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Lakhnawi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/fusus/Lakhnawi&#34;,
+        toc=True,
+        ocred=False,
+    ),
+    fususa=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Affifi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Affifi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/fusus/Affifi&#34;,
+        toc=False,
+        ocred=True,
+    ),
+)
+
+
+# TF CONFIGURATION
+
+slotType = &#34;word&#34;
+
+GENERIC = dict(
+    language=&#34;ara&#34;,
+    institute=&#34;Univ Utrecht NL/DANS&#34;,
+    project=&#34;Fusus&#34;,
+    researcher=&#34;Cornelis van Lit&#34;,
+    converters=&#34;Cornelis van Lit, Dirk Roorda (Text-Fabric)&#34;,
+    sourceFormat=&#34;CSV (tab-separated)&#34;,
+)
+
+
+def generic(source):
+    return {**GENERIC, **WORKS[source][&#34;meta&#34;]}
+
+
+otext = {}
+otext[None] = {
+    &#34;fmt:text-orig-full&#34;: &#34;{pre}{text}{post}&#34;,
+    &#34;fmt:text-orig-plain&#34;: &#34;{prea}{plain}{posta}&#34;,
+    &#34;fmt:text-orig-nice&#34;: &#34;{prea}{nice}{posta}&#34;,
+    &#34;fmt:text-orig-trans&#34;: &#34;{prea}{trans}{posta}&#34;,
+}
+otext[False] = {
+    &#34;sectionFeatures&#34;: &#34;n,n,ln&#34;,
+    &#34;sectionTypes&#34;: &#34;piece,page,line&#34;,
+}
+otext[True] = {
+    &#34;sectionFeatures&#34;: &#34;n,b,ln&#34;,
+    &#34;sectionTypes&#34;: &#34;page,block,line&#34;,
+}
+
+intFeatures = {}
+intFeatures[None] = set(
+    &#34;&#34;&#34;
+        n
+        ln
+    &#34;&#34;&#34;.strip().split()
+)
+intFeatures[False] = {&#34;np&#34;}
+intFeatures[True] = set()
+
+featureMeta = {}
+
+featureMeta[None] = {
+    &#34;boxl&#34;: {
+        &#34;description&#34;: &#34;left x-coordinate of word&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;boxt&#34;: {
+        &#34;description&#34;: &#34;top y-coordinate of word&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;boxr&#34;: {
+        &#34;description&#34;: &#34;right x-coordinate of word&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;boxb&#34;: {
+        &#34;description&#34;: &#34;bottom y-coordinate of word&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;nice&#34;: {
+        &#34;description&#34;: &#34;text string of a word in latin transcription (beta code)&#34;,
+        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+    &#34;plain&#34;: {
+        &#34;description&#34;: &#34;text string of a word in ascii transcription (beta code)&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;post&#34;: {
+        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;posta&#34;: {
+        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;pre&#34;: {
+        &#34;description&#34;: &#34;punctuation (but no whitespace) immediately before a word&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;prea&#34;: {
+        &#34;description&#34;: &#34;punctuation (but no whitespace) immediately before a word&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;text&#34;: {
+        &#34;description&#34;: &#34;text string of a word without punctuation&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;trans&#34;: {
+        &#34;description&#34;: (
+            &#34;text string of a word in romanized transcription&#34; &#34; (Library of Congress)&#34;
+        ),
+        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+}
+
+featureMeta[False] = {
+    &#34;dir&#34;: {
+        &#34;description&#34;: &#34;writing direction of a span&#34;,
+        &#34;format&#34;: &#34;string, either r or l&#34;,
+    },
+    &#34;ln&#34;: {
+        &#34;description&#34;: &#34;sequence number of a line within a page&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;n&#34;: {
+        &#34;description&#34;: (
+            &#34;sequence number of a piece, page, column within a line, or span&#34;
+        ),
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;np&#34;: {
+        &#34;description&#34;: &#34;sequence number of a proper content piece&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;title&#34;: {
+        &#34;description&#34;: &#34;title of a piece&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+}
+
+featureMeta[True] = {
+    &#34;b&#34;: {
+        &#34;description&#34;: &#34;name of a block inside a stripe&#34;,
+        &#34;format&#34;: &#34;string, either r or l&#34;,
+    },
+    &#34;confidence&#34;: {
+        &#34;description&#34;: &#34;confidence of OCR recognition of the word&#34;,
+        &#34;format&#34;: &#34;number between 0 and 100 (including)&#34;,
+    },
+    &#34;n&#34;: {
+        &#34;description&#34;: &#34;sequence number of a piece, page, or stripe&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;ln&#34;: {
+        &#34;description&#34;: &#34;sequence number of a line within a block&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+}
+
+# DISTILL TABLE of CONTENTS
+
+TOC_PAGES = (4, 5)
+
+TOC_LINE_RE = re.compile(
+    r&#34;&#34;&#34;
+    ^
+    ([٠-٩]+)
+    ‐
+    ([^…]+)
+    …+
+    ([٠-٩]+)
+    $
+&#34;&#34;&#34;,
+    re.X,
+)
+
+PIECE_RE = re.compile(
+    r&#34;&#34;&#34;
+    ^
+    \[
+    ([٠-٩]+)
+    \]
+    (.*)
+    $
+&#34;&#34;&#34;,
+    re.X,
+)
+
+
+def getToc(data):
+    (start, end) = TOC_PAGES
+
+    lines = []
+    curLine = []
+
+    prevLine = None
+
+    for fields in data:
+        page = fields[0]
+        if page &lt; start:
+            continue
+        if page &gt; end:
+            break
+
+        line = fields[1]
+        if prevLine is None or prevLine != line:
+            if curLine:
+                lines.append(&#34;&#34;.join(curLine))
+                curLine = []
+            space = &#34;&#34;
+
+        curLine.append(f&#34;{space}{fields[-1]}&#34;)
+        prevLine = line
+
+    if curLine:
+        lines.append(&#34;&#34;.join(curLine))
+
+    toc = {}
+
+    for line in lines:
+        match = TOC_LINE_RE.match(line)
+        if not match:
+            continue
+        (seq, title, pg) = match.group(1, 2, 3)
+        seq = int(seq[::-1])
+        pg = int(pg[::-1])
+        pSeq = None
+        matchP = PIECE_RE.match(title)
+        if matchP:
+            (pSeq, title) = matchP.group(1, 2)
+            pSeq = int(pSeq[::-1])
+        toc[pg] = (seq, pSeq, title)
+    return toc
+
+
+# SET UP CONVERSION
+
+givenPage = None
+
+
+def getFile(source):
+    workInfo = WORKS[source]
+
+    sourceInfo = workInfo[&#34;source&#34;]
+    directory = sourceInfo[&#34;dir&#34;]
+    fileName = sourceInfo.get(&#34;file&#34;, None)
+
+    srcDir = f&#34;{BASE}/{directory}&#34;
+
+    return f&#34;{srcDir}/{fileName}&#34;
+
+
+TYPE_MAPS = {
+    False: [&#34;page&#34;, &#34;line&#34;, &#34;column&#34;, &#34;span&#34;],
+    True: [&#34;page&#34;, &#34;stripe&#34;, &#34;block&#34;, &#34;line&#34;],
+}
+
+
+def convert(source, page):
+    global givenPage
+    global SRC_FILE
+    global TYPE_MAP
+    global HAS_TOC
+    global OCRED
+    global U
+
+    U = UChar()
+
+    givenPage = page
+
+    workInfo = WORKS[source]
+    dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+    SRC_FILE = getFile(source)
+    HAS_TOC = workInfo.get(&#34;toc&#34;, False)
+    OCRED = workInfo.get(&#34;ocred&#34;, False)
+    TYPE_MAP = TYPE_MAPS[OCRED]
+
+    cv = CV(Fabric(locations=dest))
+
+    return cv.walk(
+        director,
+        slotType,
+        otext=otext[None] | otext[OCRED],
+        generic=generic(source),
+        intFeatures=intFeatures[None] | intFeatures[OCRED],
+        featureMeta=featureMeta[None] | featureMeta[OCRED],
+        generateTf=True,
+    )
+
+
+# DIRECTOR
+
+
+def director(cv):
+    &#34;&#34;&#34;Read tsv data fields.
+
+    Fields are integer valued, except for fields with names ending in $.
+
+    If a row comes from the result of OCR we have the fields:
+
+    ```
+    stripe block$ line left top right bottom confidence text$
+    ```
+
+    We prepend the page number in this case, yielding
+
+    ```
+    page stripe block$ line left top right bottom confidence text$
+    ```
+
+    Otherwise we have:
+
+    page line column span direction$ left top right bottom text$
+
+    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
+    to material to the left and right of a vertical stroke.
+    If there is no vertical stroke, there is just one block.
+
+    The column in a non OCRed file is either `1` or `2` and comes
+    from a line partitioned into two regions by means of white space.
+
+    In both cases, the first 4 fields denote a sectional division in
+    the words.
+    &#34;&#34;&#34;
+
+    stops = U.stops
+    nonLetter = U.nonLetter
+    nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
+
+    WORD_RE = re.compile(
+        fr&#34;&#34;&#34;
+        (
+            [^{nonLetterRange}]+
+        )
+        |
+        (
+            [{nonLetterRange}]+
+        )
+&#34;&#34;&#34;,
+        re.X,
+    )
+    errors = collections.defaultdict(set)
+
+    cur = [None, None, None, None]
+    prev = [None, None, None, None]
+    nSec = len(prev)
+
+    data = []
+
+    with open(SRC_FILE) as fh:
+        next(fh)
+        for line in fh:
+            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+            page = int(row[0])
+            if givenPage is not None and page != givenPage:
+                continue
+
+            if OCRED:
+                row = (
+                    page,
+                    int(row[1]),
+                    row[2],
+                    int(row[3]),
+                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
+                    int(row[8]),
+                    row[9],
+                )
+            else:
+                row = (
+                    page,
+                    *(int(c) for c in row[1:4]),
+                    row[4],
+                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
+                    row[9],
+                )
+
+            data.append(row)
+
+    boxL = nSec if OCRED else nSec + 1
+
+    if HAS_TOC:
+        toc = getToc(data)
+        curPiece = cv.node(&#34;piece&#34;)
+        cv.feature(curPiece, n=1, title=&#34;front&#34;)
+
+    curSentence = cv.node(&#34;sentence&#34;)
+    nSentence = 1
+    cv.feature(curSentence, n=nSentence)
+
+    for (r, fields) in enumerate(data):
+        if HAS_TOC:
+            page = fields[0]
+            if page in toc and page != prev[0]:
+                for i in reversed(range(nSec)):
+                    cv.terminate(cur[i])
+
+                cv.terminate(curSentence)
+                cv.terminate(curPiece)
+                nSentence = 1
+                curSentence = cv.node(&#34;sentence&#34;)
+                cv.feature(curSentence, n=nSentence)
+
+                (n, np, title) = toc[page]
+                curPiece = cv.node(&#34;piece&#34;)
+                cv.feature(curPiece, n=n, title=title)
+                if np is not None:
+                    cv.feature(curPiece, np=np)
+
+        for i in range(nSec):
+            if fields[i] != prev[i]:
+                for j in reversed(range(i, nSec)):
+                    cv.terminate(cur[j])
+                for j in range(i, nSec):
+                    cn = cv.node(TYPE_MAP[j])
+                    cur[j] = cn
+                    if OCRED and j == 2:
+                        cv.feature(cn, b=fields[j])
+                    elif OCRED and j == 3 or not OCRED and j == 1:
+                        cv.feature(cn, ln=fields[j])
+                    else:
+                        cv.feature(cn, n=fields[j])
+                    if not OCRED and j == nSec - 1:
+                        cv.feature(cn, dir=fields[nSec])
+                break
+        for i in range(nSec):
+            prev[i] = fields[i]
+
+        string = fields[-1]
+        parts = []
+        first = True
+        firstNonLetters = False
+
+        for (letters, nonLetters) in WORD_RE.findall(string):
+            if first:
+                if nonLetters:
+                    parts.append([nonLetters, &#34;&#34;, &#34;&#34;])
+                    firstNonLetters = True
+                else:
+                    parts.append([&#34;&#34;, letters, &#34;&#34;])
+                first = False
+            elif firstNonLetters:
+                parts[-1][1] = letters
+                firstNonLetters = False
+            elif letters:
+                parts.append([&#34;&#34;, letters, &#34;&#34;])
+            else:
+                parts[-1][-1] = nonLetters
+        if parts:
+            parts[-1][-1] += &#34; &#34;
+
+        for (pre, text, post) in parts:
+            textp = Tr.asciiFromArabic(text)
+            textn = Tr.latinFromArabic(text)
+            textt = Tr.standardFromArabic(text)
+            s = cv.slot()
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+                text=text,
+                plain=textp,
+                nice=textn,
+                trans=textt,
+            )
+            if pre:
+                prea = Tr.asciiFromArabic(pre)
+                cv.feature(s, pre=pre, prea=prea)
+            if post:
+                posta = Tr.asciiFromArabic(post)
+                cv.feature(s, post=post, posta=posta)
+                if any(c in stops for c in post):
+                    cv.terminate(curSentence)
+                    curSentence = cv.node(&#34;sentence&#34;)
+                    nSentence += 1
+                    cv.feature(curSentence, n=nSentence)
+            if OCRED:
+                cv.feature(s, confidence=fields[-2])
+
+    cv.terminate(curSentence)
+
+    for i in reversed(range(nSec)):
+        if cur[i]:
+            cv.terminate(cur[i])
+
+    if HAS_TOC:
+        cv.terminate(curPiece)
+
+    for feat in featureMeta:
+        if not cv.occurs(feat):
+            cv.meta(feat)
+
+    if errors:
+        for kind in sorted(errors):
+            instances = sorted(errors[kind])
+            nInstances = len(instances)
+            showInstances = instances[0:20]
+            print(f&#34;ERROR {kind}: {nInstances} x&#34;)
+            print(&#34;, &#34;.join(showInstances))
+
+
+# TF LOADING (to test the generated TF)
+
+
+def loadTf(outDir):
+    TF = Fabric(locations=[outDir])
+    allFeatures = TF.explore(silent=True, show=True)
+    loadableFeatures = allFeatures[&#34;nodes&#34;] + allFeatures[&#34;edges&#34;]
+    api = TF.load(loadableFeatures, silent=False)
+    if api:
+        print(f&#34;max node = {api.F.otype.maxNode}&#34;)
+        print(&#34;Frequencies of words&#34;)
+        for (word, n) in api.F.text.freqList()[0:20]:
+            print(f&#34;{n:&gt;6} x {word}&#34;)
+
+
+# MAIN
+
+
+def parseArgs(args):
+    page = None
+    sources = []
+    good = True
+    flags = {}
+
+    for arg in args:
+        if arg in {&#34;load&#34;, &#34;loadonly&#34;}:
+            flags[arg] = True
+        elif arg == &#34;--help&#34;:
+            print(HELP)
+            good = None
+        elif arg.isdigit() or &#34;-&#34; in arg:
+            if &#34;-&#34; in arg:
+                (b, e) = arg.split(&#34;-&#34;, 1)
+                if b.isdigit() and e.isdigit():
+                    values = set(range(int(b), int(e) + 1))
+                else:
+                    print(f&#34;Unrecognized argument `{arg}`&#34;)
+                    good = False
+                    continue
+            else:
+                values = {int(arg)}
+            if page is None:
+                page = values
+            else:
+                print(f&#34;Repeated pages argument `{arg}`&#34;)
+                good = False
+                continue
+        else:
+            kv = arg.split(&#34;=&#34;, 1)
+            if len(kv) == 1:
+                sources.append(arg)
+            else:
+                (k, v) = kv
+                flags[k] = v
+
+    if len(sources) == 0:
+        print(&#34;No source specified&#34;)
+        good = False
+
+    return (good, sources, page, flags)
+
+
+def main():
+    args = () if len(sys.argv) == 1 else tuple(sys.argv[1:])
+    (good, sources, page, flags) = parseArgs(args)
+    if not good:
+        return good is None
+
+    doLoad = flags.get(&#34;load&#34;, False) or flags.get(&#34;loadonly&#34;, False)
+    doConvert = not flags.get(&#34;loadonly&#34;, False)
+
+    print(&#34;TSV to TF converter for the Fusus project&#34;)
+    print(f&#34;TF  target version = {VERSION_TF}&#34;)
+
+    good = True
+
+    for source in sources:
+        print(f&#34;===== SOURCE {source} =====&#34;)
+
+        thisGood = True
+
+        if doConvert:
+            if not convert(source, page):
+                thisGood = False
+
+        if thisGood:
+            if doLoad:
+                workInfo = WORKS[source]
+                dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+                loadTf(dest)
+
+        if not thisGood:
+            good = False
+
+    return good
+
+
+if __name__ == &#34;__main__&#34;:
+    sys.exit(0 if main() else 1)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.convert.tfFromTsv.convert"><code class="name flex">
+<span>def <span class="ident">convert</span></span>(<span>source, page)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L313-L342" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def convert(source, page):
+    global givenPage
+    global SRC_FILE
+    global TYPE_MAP
+    global HAS_TOC
+    global OCRED
+    global U
+
+    U = UChar()
+
+    givenPage = page
+
+    workInfo = WORKS[source]
+    dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+    SRC_FILE = getFile(source)
+    HAS_TOC = workInfo.get(&#34;toc&#34;, False)
+    OCRED = workInfo.get(&#34;ocred&#34;, False)
+    TYPE_MAP = TYPE_MAPS[OCRED]
+
+    cv = CV(Fabric(locations=dest))
+
+    return cv.walk(
+        director,
+        slotType,
+        otext=otext[None] | otext[OCRED],
+        generic=generic(source),
+        intFeatures=intFeatures[None] | intFeatures[OCRED],
+        featureMeta=featureMeta[None] | featureMeta[OCRED],
+        generateTf=True,
+    )</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.director"><code class="name flex">
+<span>def <span class="ident">director</span></span>(<span>cv)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read tsv data fields.</p>
+<p>Fields are integer valued, except for fields with names ending in $.</p>
+<p>If a row comes from the result of OCR we have the fields:</p>
+<pre><code>stripe block$ line left top right bottom confidence text$
+</code></pre>
+<p>We prepend the page number in this case, yielding</p>
+<pre><code>page stripe block$ line left top right bottom confidence text$
+</code></pre>
+<p>Otherwise we have:</p>
+<p>page line column span direction$ left top right bottom text$</p>
+<p>The block in an OCRed file is either <code>r</code> or <code>l</code> or nothing, it corresponds
+to material to the left and right of a vertical stroke.
+If there is no vertical stroke, there is just one block.</p>
+<p>The column in a non OCRed file is either <code>1</code> or <code>2</code> and comes
+from a line partitioned into two regions by means of white space.</p>
+<p>In both cases, the first 4 fields denote a sectional division in
+the words.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L348-L554" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def director(cv):
+    &#34;&#34;&#34;Read tsv data fields.
+
+    Fields are integer valued, except for fields with names ending in $.
+
+    If a row comes from the result of OCR we have the fields:
+
+    ```
+    stripe block$ line left top right bottom confidence text$
+    ```
+
+    We prepend the page number in this case, yielding
+
+    ```
+    page stripe block$ line left top right bottom confidence text$
+    ```
+
+    Otherwise we have:
+
+    page line column span direction$ left top right bottom text$
+
+    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
+    to material to the left and right of a vertical stroke.
+    If there is no vertical stroke, there is just one block.
+
+    The column in a non OCRed file is either `1` or `2` and comes
+    from a line partitioned into two regions by means of white space.
+
+    In both cases, the first 4 fields denote a sectional division in
+    the words.
+    &#34;&#34;&#34;
+
+    stops = U.stops
+    nonLetter = U.nonLetter
+    nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
+
+    WORD_RE = re.compile(
+        fr&#34;&#34;&#34;
+        (
+            [^{nonLetterRange}]+
+        )
+        |
+        (
+            [{nonLetterRange}]+
+        )
+&#34;&#34;&#34;,
+        re.X,
+    )
+    errors = collections.defaultdict(set)
+
+    cur = [None, None, None, None]
+    prev = [None, None, None, None]
+    nSec = len(prev)
+
+    data = []
+
+    with open(SRC_FILE) as fh:
+        next(fh)
+        for line in fh:
+            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+            page = int(row[0])
+            if givenPage is not None and page != givenPage:
+                continue
+
+            if OCRED:
+                row = (
+                    page,
+                    int(row[1]),
+                    row[2],
+                    int(row[3]),
+                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
+                    int(row[8]),
+                    row[9],
+                )
+            else:
+                row = (
+                    page,
+                    *(int(c) for c in row[1:4]),
+                    row[4],
+                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
+                    row[9],
+                )
+
+            data.append(row)
+
+    boxL = nSec if OCRED else nSec + 1
+
+    if HAS_TOC:
+        toc = getToc(data)
+        curPiece = cv.node(&#34;piece&#34;)
+        cv.feature(curPiece, n=1, title=&#34;front&#34;)
+
+    curSentence = cv.node(&#34;sentence&#34;)
+    nSentence = 1
+    cv.feature(curSentence, n=nSentence)
+
+    for (r, fields) in enumerate(data):
+        if HAS_TOC:
+            page = fields[0]
+            if page in toc and page != prev[0]:
+                for i in reversed(range(nSec)):
+                    cv.terminate(cur[i])
+
+                cv.terminate(curSentence)
+                cv.terminate(curPiece)
+                nSentence = 1
+                curSentence = cv.node(&#34;sentence&#34;)
+                cv.feature(curSentence, n=nSentence)
+
+                (n, np, title) = toc[page]
+                curPiece = cv.node(&#34;piece&#34;)
+                cv.feature(curPiece, n=n, title=title)
+                if np is not None:
+                    cv.feature(curPiece, np=np)
+
+        for i in range(nSec):
+            if fields[i] != prev[i]:
+                for j in reversed(range(i, nSec)):
+                    cv.terminate(cur[j])
+                for j in range(i, nSec):
+                    cn = cv.node(TYPE_MAP[j])
+                    cur[j] = cn
+                    if OCRED and j == 2:
+                        cv.feature(cn, b=fields[j])
+                    elif OCRED and j == 3 or not OCRED and j == 1:
+                        cv.feature(cn, ln=fields[j])
+                    else:
+                        cv.feature(cn, n=fields[j])
+                    if not OCRED and j == nSec - 1:
+                        cv.feature(cn, dir=fields[nSec])
+                break
+        for i in range(nSec):
+            prev[i] = fields[i]
+
+        string = fields[-1]
+        parts = []
+        first = True
+        firstNonLetters = False
+
+        for (letters, nonLetters) in WORD_RE.findall(string):
+            if first:
+                if nonLetters:
+                    parts.append([nonLetters, &#34;&#34;, &#34;&#34;])
+                    firstNonLetters = True
+                else:
+                    parts.append([&#34;&#34;, letters, &#34;&#34;])
+                first = False
+            elif firstNonLetters:
+                parts[-1][1] = letters
+                firstNonLetters = False
+            elif letters:
+                parts.append([&#34;&#34;, letters, &#34;&#34;])
+            else:
+                parts[-1][-1] = nonLetters
+        if parts:
+            parts[-1][-1] += &#34; &#34;
+
+        for (pre, text, post) in parts:
+            textp = Tr.asciiFromArabic(text)
+            textn = Tr.latinFromArabic(text)
+            textt = Tr.standardFromArabic(text)
+            s = cv.slot()
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+                text=text,
+                plain=textp,
+                nice=textn,
+                trans=textt,
+            )
+            if pre:
+                prea = Tr.asciiFromArabic(pre)
+                cv.feature(s, pre=pre, prea=prea)
+            if post:
+                posta = Tr.asciiFromArabic(post)
+                cv.feature(s, post=post, posta=posta)
+                if any(c in stops for c in post):
+                    cv.terminate(curSentence)
+                    curSentence = cv.node(&#34;sentence&#34;)
+                    nSentence += 1
+                    cv.feature(curSentence, n=nSentence)
+            if OCRED:
+                cv.feature(s, confidence=fields[-2])
+
+    cv.terminate(curSentence)
+
+    for i in reversed(range(nSec)):
+        if cur[i]:
+            cv.terminate(cur[i])
+
+    if HAS_TOC:
+        cv.terminate(curPiece)
+
+    for feat in featureMeta:
+        if not cv.occurs(feat):
+            cv.meta(feat)
+
+    if errors:
+        for kind in sorted(errors):
+            instances = sorted(errors[kind])
+            nInstances = len(instances)
+            showInstances = instances[0:20]
+            print(f&#34;ERROR {kind}: {nInstances} x&#34;)
+            print(&#34;, &#34;.join(showInstances))</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.generic"><code class="name flex">
+<span>def <span class="ident">generic</span></span>(<span>source)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L85-L86" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def generic(source):
+    return {**GENERIC, **WORKS[source][&#34;meta&#34;]}</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.getFile"><code class="name flex">
+<span>def <span class="ident">getFile</span></span>(<span>source)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L295-L304" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getFile(source):
+    workInfo = WORKS[source]
+
+    sourceInfo = workInfo[&#34;source&#34;]
+    directory = sourceInfo[&#34;dir&#34;]
+    fileName = sourceInfo.get(&#34;file&#34;, None)
+
+    srcDir = f&#34;{BASE}/{directory}&#34;
+
+    return f&#34;{srcDir}/{fileName}&#34;</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.getToc"><code class="name flex">
+<span>def <span class="ident">getToc</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L244-L287" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getToc(data):
+    (start, end) = TOC_PAGES
+
+    lines = []
+    curLine = []
+
+    prevLine = None
+
+    for fields in data:
+        page = fields[0]
+        if page &lt; start:
+            continue
+        if page &gt; end:
+            break
+
+        line = fields[1]
+        if prevLine is None or prevLine != line:
+            if curLine:
+                lines.append(&#34;&#34;.join(curLine))
+                curLine = []
+            space = &#34;&#34;
+
+        curLine.append(f&#34;{space}{fields[-1]}&#34;)
+        prevLine = line
+
+    if curLine:
+        lines.append(&#34;&#34;.join(curLine))
+
+    toc = {}
+
+    for line in lines:
+        match = TOC_LINE_RE.match(line)
+        if not match:
+            continue
+        (seq, title, pg) = match.group(1, 2, 3)
+        seq = int(seq[::-1])
+        pg = int(pg[::-1])
+        pSeq = None
+        matchP = PIECE_RE.match(title)
+        if matchP:
+            (pSeq, title) = matchP.group(1, 2)
+            pSeq = int(pSeq[::-1])
+        toc[pg] = (seq, pSeq, title)
+    return toc</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.loadTf"><code class="name flex">
+<span>def <span class="ident">loadTf</span></span>(<span>outDir)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L560-L569" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def loadTf(outDir):
+    TF = Fabric(locations=[outDir])
+    allFeatures = TF.explore(silent=True, show=True)
+    loadableFeatures = allFeatures[&#34;nodes&#34;] + allFeatures[&#34;edges&#34;]
+    api = TF.load(loadableFeatures, silent=False)
+    if api:
+        print(f&#34;max node = {api.F.otype.maxNode}&#34;)
+        print(&#34;Frequencies of words&#34;)
+        for (word, n) in api.F.text.freqList()[0:20]:
+            print(f&#34;{n:&gt;6} x {word}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L619-L651" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def main():
+    args = () if len(sys.argv) == 1 else tuple(sys.argv[1:])
+    (good, sources, page, flags) = parseArgs(args)
+    if not good:
+        return good is None
+
+    doLoad = flags.get(&#34;load&#34;, False) or flags.get(&#34;loadonly&#34;, False)
+    doConvert = not flags.get(&#34;loadonly&#34;, False)
+
+    print(&#34;TSV to TF converter for the Fusus project&#34;)
+    print(f&#34;TF  target version = {VERSION_TF}&#34;)
+
+    good = True
+
+    for source in sources:
+        print(f&#34;===== SOURCE {source} =====&#34;)
+
+        thisGood = True
+
+        if doConvert:
+            if not convert(source, page):
+                thisGood = False
+
+        if thisGood:
+            if doLoad:
+                workInfo = WORKS[source]
+                dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+                loadTf(dest)
+
+        if not thisGood:
+            good = False
+
+    return good</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.tfFromTsv.parseArgs"><code class="name flex">
+<span>def <span class="ident">parseArgs</span></span>(<span>args)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tfFromTsv.py#L575-L616" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseArgs(args):
+    page = None
+    sources = []
+    good = True
+    flags = {}
+
+    for arg in args:
+        if arg in {&#34;load&#34;, &#34;loadonly&#34;}:
+            flags[arg] = True
+        elif arg == &#34;--help&#34;:
+            print(HELP)
+            good = None
+        elif arg.isdigit() or &#34;-&#34; in arg:
+            if &#34;-&#34; in arg:
+                (b, e) = arg.split(&#34;-&#34;, 1)
+                if b.isdigit() and e.isdigit():
+                    values = set(range(int(b), int(e) + 1))
+                else:
+                    print(f&#34;Unrecognized argument `{arg}`&#34;)
+                    good = False
+                    continue
+            else:
+                values = {int(arg)}
+            if page is None:
+                page = values
+            else:
+                print(f&#34;Repeated pages argument `{arg}`&#34;)
+                good = False
+                continue
+        else:
+            kv = arg.split(&#34;=&#34;, 1)
+            if len(kv) == 1:
+                sources.append(arg)
+            else:
+                (k, v) = kv
+                flags[k] = v
+
+    if len(sources) == 0:
+        print(&#34;No source specified&#34;)
+        good = False
+
+    return (good, sources, page, flags)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../../fusus/images/fusus-small.png"></a></p>
+<p><a href="../../fusus/index.html">fusus home</a> - <a href="../../fusus/about/howto.html">HowTo</a></p>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus.convert" href="index.html">fusus.convert</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="fusus.convert.tfFromTsv.convert" href="#fusus.convert.tfFromTsv.convert">convert</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.director" href="#fusus.convert.tfFromTsv.director">director</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.generic" href="#fusus.convert.tfFromTsv.generic">generic</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.getFile" href="#fusus.convert.tfFromTsv.getFile">getFile</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.getToc" href="#fusus.convert.tfFromTsv.getToc">getToc</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.loadTf" href="#fusus.convert.tfFromTsv.loadTf">loadTf</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.main" href="#fusus.convert.tfFromTsv.main">main</a></code></li>
+<li><code><a title="fusus.convert.tfFromTsv.parseArgs" href="#fusus.convert.tfFromTsv.parseArgs">parseArgs</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../../fusus/images/dans.png" width="200" alt="DANS"></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

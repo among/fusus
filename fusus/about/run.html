@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.about.run API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Run …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,10 +20,41 @@
 <h1 class="title">Module <code>fusus.about.run</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="run">Run</h1>
+<p>The pipeline can read Arabic books in the form of page images,
+and returns structured data in the form of tab separated files.</p>
+<h1 id="books">Books</h1>
+<p>As far as the pipeline is concerned, the input of a book is a directory
+of page images. More precisely, it is a directory in which there is
+a subdirectory <code>in</code> having the page images.</p>
+<p>The books of the Fusus project are in the directory <code>ur</code> of this repo.</p>
+<p>There you find subdirectories corresponding to</p>
+<ul>
+<li><strong>Affifi</strong> The Fusus Al Hikam in the Affifi edition.</li>
+<li><strong>Lakhnawi</strong> The Fusus Al Hikam in the Lakhnawi edition.
+The source is a textual PDF, not in the online repo, from which
+structured data is derived by means of a specific workflow,
+not the <em>pipeline</em>.</li>
+<li><strong>commentary Xxx</strong> Commentary books</li>
+</ul>
+<p>When the pipeline runs, it produces additional directories containing intermediate results and
+output.</p>
+<p>For details, see <code><a title="fusus.book" href="../book.html">fusus.book</a></code>.</p>
+<h2 id="book-in-batch">Book in batch</h2>
+<p>You can run the pipeline on the known works inside the <em>ur</em> directory in this repo or
+on books that you provide yourself.
+See</p>
+<ul>
+<li><code><a title="fusus.convert.tsvFromLakhnawi" href="../convert/tsvFromLakhnawi.html">fusus.convert.tsvFromLakhnawi</a></code>
+(not the pipeline, but a reverse engineering effort, see <code><a title="fusus.lakhnawi" href="../lakhnawi.html">fusus.lakhnawi</a></code>)</li>
+<li><code><a title="fusus.convert.tsvFromAffifi" href="../convert/tsvFromAffifi.html">fusus.convert.tsvFromAffifi</a></code></li>
+<li><code><a title="fusus.convert.tsvFromCommentary" href="../convert/tsvFromCommentary.html">fusus.convert.tsvFromCommentary</a></code></li>
+<li><code><a title="fusus.convert.tsvFromBook" href="../convert/tsvFromBook.html">fusus.convert.tsvFromBook</a></code></li>
+</ul>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/about/run.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/about/run.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/run.md
@@ -44,7 +75,13 @@
 <p><a href="../../fusus/index.html">fusus home</a> - <a href="../../fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#run">Run</a></li>
+<li><a href="#books">Books</a><ul>
+<li><a href="#book-in-batch">Book in batch</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>

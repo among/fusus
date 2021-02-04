@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about.tweak API documentation</title>
-<meta name="description" content="" />
+<title>fusus.convert.tsvFromBook API documentation</title>
+<meta name="description" content="Run the pipeline on a book …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,17 +17,59 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.tweak</code></h1>
+<h1 class="title">Module <code>fusus.convert.tsvFromBook</code></h1>
 </header>
 <section id="section-intro">
+<p>Run the pipeline on a book</p>
+<pre><code>python3 -m fusus.convert.tsvFromBook path_to_book_directory
+</code></pre>
+<p>The path to the book directory is either absolute
+or relative to the current directory.</p>
+<p>Use this command to convert books of your own that are not already
+in this repo.</p>
+<p>This command can be run from any directory.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/about/tweak.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tsvFromBook.py#L0-L36" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: ../docs/about/tweak.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">&#34;&#34;&#34;Run the pipeline on a book
+
+```
+python3 -m fusus.convert.tsvFromBook path_to_book_directory
+```
+
+The path to the book directory is either absolute
+or relative to the current directory.
+
+Use this command to convert books of your own that are not already
+in this repo.
+
+This command can be run from any directory.
+&#34;&#34;&#34;
+
+import sys
+
+from ..book import Book
+
+
+def doBook(bookPath):
+
+    B = Book(cd=bookPath)
+
+    print(&#34;Processing page images and OCRing them&#34;)
+    B.process()
+
+    print(&#34;Exporting data as single TSV file&#34;)
+    B.exportTsv()
+
+
+if __name__ == &#34;__main__&#34;:
+    args = sys.argv[1:]
+    if args:
+        doBook(args[0])
+    else:
+        print(&#34;Provide the path to a book directory&#34;)</code></pre>
 </details>
 </section>
 <section>
@@ -35,6 +77,30 @@
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.convert.tsvFromBook.doBook"><code class="name flex">
+<span>def <span class="ident">doBook</span></span>(<span>bookPath)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tsvFromBook.py#L21-L29" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def doBook(bookPath):
+
+    B = Book(cd=bookPath)
+
+    print(&#34;Processing page images and OCRing them&#34;)
+    B.process()
+
+    print(&#34;Exporting data as single TSV file&#34;)
+    B.exportTsv()</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -49,7 +115,12 @@
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
+<li><code><a title="fusus.convert" href="index.html">fusus.convert</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.convert.tsvFromBook.doBook" href="#fusus.convert.tsvFromBook.doBook">doBook</a></code></li>
 </ul>
 </li>
 </ul>

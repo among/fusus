@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about.tweak API documentation</title>
-<meta name="description" content="" />
+<title>fusus.convert.tsvFromAffifi API documentation</title>
+<meta name="description" content="Run the pipeline on the Fusus Al Hikam (Affifi edition) …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,17 +17,36 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.tweak</code></h1>
+<h1 class="title">Module <code>fusus.convert.tsvFromAffifi</code></h1>
 </header>
 <section id="section-intro">
+<p>Run the pipeline on the Fusus Al Hikam (Affifi edition)</p>
+<pre><code>python3 -m fusus.convert.tsvFromAffifi
+</code></pre>
+<p>This command can be run from any directory.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/about/tweak.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/convert/tsvFromAffifi.py#L0-L17" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: ../docs/about/tweak.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">&#34;&#34;&#34;Run the pipeline on the Fusus Al Hikam (Affifi edition)
+
+```
+python3 -m fusus.convert.tsvFromAffifi
+```
+
+This command can be run from any directory.
+&#34;&#34;&#34;
+
+from ..parameters import UR_DIR
+
+from .tsvFromBook import doBook
+
+
+AFFIFI_PATH = f&#34;{UR_DIR}/affifi&#34;
+
+if __name__ == &#34;__main__&#34;:
+    doBook(AFFIFI_PATH)</code></pre>
 </details>
 </section>
 <section>
@@ -49,7 +68,7 @@
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
+<li><code><a title="fusus.convert" href="index.html">fusus.convert</a></code></li>
 </ul>
 </li>
 </ul>

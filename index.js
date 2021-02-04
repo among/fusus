@@ -22,7 +22,13 @@ URLS=[
 "fusus/lines.html",
 "fusus/ocr.html",
 "fusus/parameters.html",
-"fusus/book.html"
+"fusus/book.html",
+"fusus/convert/index.html",
+"fusus/convert/tfFromTsv.html",
+"fusus/convert/tsvFromCommentary.html",
+"fusus/convert/tsvFromAffifi.html",
+"fusus/convert/tsvFromLakhnawi.html",
+"fusus/convert/tsvFromBook.html"
 ];
 INDEX=[
 {
@@ -674,7 +680,7 @@ INDEX=[
 {
 "ref":"fusus.about.run",
 "url":10,
-"doc":""
+"doc":" Run The pipeline can read Arabic books in the form of page images, and returns structured data in the form of tab separated files.  Books As far as the pipeline is concerned, the input of a book is a directory of page images. More precisely, it is a directory in which there is a subdirectory  in having the page images. The books of the Fusus project are in the directory  ur of this repo. There you find subdirectories corresponding to   Affifi The Fusus Al Hikam in the Affifi edition.   Lakhnawi The Fusus Al Hikam in the Lakhnawi edition. The source is a textual PDF, not in the online repo, from which structured data is derived by means of a specific workflow, not the  pipeline .   commentary Xxx Commentary books When the pipeline runs, it produces additional directories containing intermediate results and output. For details, see  fusus.book .  Book in batch You can run the pipeline on the known works inside the  ur directory in this repo or on books that you provide yourself. See   fusus.convert.tsvFromLakhnawi (not the pipeline, but a reverse engineering effort, see  fusus.lakhnawi )   fusus.convert.tsvFromAffifi   fusus.convert.tsvFromCommentary   fusus.convert.tsvFromBook "
 },
 {
 "ref":"fusus.about.methods",
@@ -704,7 +710,7 @@ INDEX=[
 {
 "ref":"fusus.about.explore",
 "url":16,
-"doc":" Explore There are various ways in which you can observe and check the outcome of the pipeline process.  Intermediate results If not in  batch mode, a wide range of intermediate results will be produced that you can inspect.  Proofing After the OCR step, the results can be collected and overlayed on the original page image, where coloring is used to indicate the lavel of confidence of the OCR for that particular word or letter."
+"doc":" Explore There are various ways in which you can observe and check the outcome of the pipeline process.  Intermediate results If not in  batch mode, a wide range of intermediate results will be produced that you can inspect.  Proofing After the OCR step, the results can be collected and overlayed on the original page image, where coloring is used to indicate the lavel of confidence of the OCR for that particular word or letter.  Notebooks You find example explorations in the notebooks. They can best be viewed through  nbviewer ."
 },
 {
 "ref":"fusus.about.install",
@@ -719,7 +725,7 @@ INDEX=[
 {
 "ref":"fusus.about.howto",
 "url":19,
-"doc":" Install tasks  Get Fusus Clone the repo from GitHub and install  fusus , which is a Python package with  pip3 . Note that we install fusus  fusus from the clone, not from the global, online PyPI repository. [install - get](https: among.github.io/fusus /fusus/about/install.html get-the-software)  Update documentation Edit the sources of documentation in your local repo clone and use a set of build commands to display and publish the modified docs. [install - documentation](https: among.github.io/fusus /fusus/about/install.html documentation)  Update fusus If you have changed the code for  fusus and/or its documentation, use a build command. [install - push](https: among.github.io/fusus /fusus/about/install.html push-everything)"
+"doc":" Install  Get Fusus Clone the repo from GitHub and install  fusus , which is a Python package with  pip3 . Note that we install fusus  fusus from the clone, not from the global, online PyPI repository. [install - get](https: among.github.io/fusus/fusus/about/install.html get-the-software)  Update documentation Edit the sources of documentation in your local repo clone and use a set of build commands to display and publish the modified docs. [install - documentation](https: among.github.io/fusus/fusus/about/install.html documentation)  Update fusus If you have changed the code for  fusus and/or its documentation, use a build command. [install - push](https: among.github.io/fusus/fusus/about/install.html push-everything)  Run  Run a book in batch There are simple commands to run the pipeline on Arabic books. [run - book batch](https: among.github.io/fusus/fusus/about/run.html book-in-batch)  Explore To follow the pipeline and the Lakhnawi reverse engineering in its tracks, work within a Jupyter notebook, where you can process individual pages and inspect all intermediate results and perform proofing of final results. [explore - notebooks](https: among.github.io/fusus/fusus/about/explore.html notebooks)  Tweak  Engineer  Work"
 },
 {
 "ref":"fusus.lines",
@@ -859,7 +865,7 @@ INDEX=[
 {
 "ref":"fusus.book",
 "url":23,
-"doc":"Book workflow We will transform scanned pages of a book into Unicode text following a number of processing steps.  The express way In the terminal,  cd to a book directory (see below) and run   python3 -m fusus.book   This will process all scanned pages with default settings.  With more control and feedback Copy the notebook  example/do.ipynb into a book directory (see below). Run cells in the notebook, and see [doExample](https: github.com/among/fusus/blob/master/example/doExample.ipynb) to learn by example how you can configure the processing parameters and control the processing of pages.  Book directory A book directory should have subdirectories:   in Contains mage files (scans at 1800 x2700 pixels approximately)   marks (optional) Contains subdirectories with little rectangles copied from the scans and saved in individual files at the same resolution.  Marks Marks are spots that will be wiped clean wherever they are found. They are organized in  bands which are sets of horizontal strokes on the page, relative to the individual lines. Marks will only be searched for within the bands they belong to, in order to avoid false positives. The  marks directory may contain the following bands: name | kind | items | remarks  - |  - |  - |  -  high | marks | arbitrary images | in the upper band of a line  low | marks | arbitrary images | in the lower band of a line  mid | marks | arbitrary images | in the central, narrow band of a line, with lots of ink  main | marks | arbitrary images | in the band where nearly all the letter material is  broad | marks | arbitrary images | as  main , but a bit broader  inter | marks | arbitrary images | between the lines When fusus reads the marks, it will crop all white borders from it and surround the result with a fixed small white border. So you do not have to be very precise in trimming the mark templates."
+"doc":"Book workflow We will transform scanned pages of a book into Unicode text following a number of processing steps.  The express way In the terminal,  cd to a book directory (see below) and run   python3 -m fusus.book   This will process all scanned pages with default settings.  With more control and feedback Copy the notebook  example/do.ipynb into a book directory (see below). Run cells in the notebook, and see [doExample](https: github.com/among/fusus/blob/master/example/doExample.ipynb) to learn by example how you can configure the processing parameters and control the processing of pages.  Book directory A book directory should have subdirectories at the outset:   in Contains image files (scans at 1800 x2700 pixels approximately);   marks (optional) Contains subdirectories with little rectangles copied from the scans and saved in individual files at the same resolution.  Marks Marks are spots that will be wiped clean wherever they are found. They are organized in  bands which are sets of horizontal strokes on the page, relative to the individual lines. Marks will only be searched for within the bands they belong to, in order to avoid false positives. The  marks directory may contain the following bands: name | kind | items | remarks  - |  - |  - |  -  high | marks | arbitrary images | in the upper band of a line  low | marks | arbitrary images | in the lower band of a line  mid | marks | arbitrary images | in the central, narrow band of a line, with lots of ink  main | marks | arbitrary images | in the band where nearly all the letter material is  broad | marks | arbitrary images | as  main , but a bit broader  inter | marks | arbitrary images | between the lines When fusus reads the marks, it will crop all white borders from it and surround the result with a fixed small white border. So you do not have to be very precise in trimming the mark templates. After running the pipeline, the following subdirectories may have been produced:   inter Intermediate files, such as page images with histograms displayed in it, or data files with information on the marks that have been encountered and wiped;   clean Cleaned page block images, input for OCR processing.   out Output (= final results). Tab separated files with one row per word.   proof Aids to assess the quality of the output. Tab separated files with one row per character. Normalized input images. Overlay HTML files with OCR results, coloured by confidence, both on character basis and on word basis.   text Plain HTML rendering of the full, recognized text with page and line indicators. Used for reading the results by human eyes.  ! caution \"Block information\" If the layout algorithm has divided the page into blocks, the information of the blocks resides in the page object and is not currently stored on disk. This information is needed after OCR to shift the coordinates with respect to the blocks 9this is what comes out of the OCR) to coordinates with respect to the page. That means you cannot initialize the pipeline with the clean block images as sole input. You have to start with layout detection."
 },
 {
 "ref":"fusus.book.Book",
@@ -930,6 +936,96 @@ INDEX=[
 "ref":"fusus.book.main",
 "url":23,
 "doc":"Process a whole book with default settings. Go to the book directory and say   python3 -m fusus.book [pages]   where  pages is an optional string specifying ranges of pages as in  Book.process ",
+"func":1
+},
+{
+"ref":"fusus.convert",
+"url":24,
+"doc":"Convenience scripts to call conversions. These scripts support one-liners on the command line to execute the pipeline and various conversion processes."
+},
+{
+"ref":"fusus.convert.tfFromTsv",
+"url":25,
+"doc":""
+},
+{
+"ref":"fusus.convert.tfFromTsv.generic",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.getToc",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.getFile",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.convert",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.director",
+"url":25,
+"doc":"Read tsv data fields. Fields are integer valued, except for fields with names ending in $. If a row comes from the result of OCR we have the fields:   stripe block$ line left top right bottom confidence text$   We prepend the page number in this case, yielding   page stripe block$ line left top right bottom confidence text$   Otherwise we have: page line column span direction$ left top right bottom text$ The block in an OCRed file is either  r or  l or nothing, it corresponds to material to the left and right of a vertical stroke. If there is no vertical stroke, there is just one block. The column in a non OCRed file is either  1 or  2 and comes from a line partitioned into two regions by means of white space. In both cases, the first 4 fields denote a sectional division in the words.",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.loadTf",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.parseArgs",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tfFromTsv.main",
+"url":25,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tsvFromCommentary",
+"url":26,
+"doc":"Run the pipeline on a commentary   python3 -m fusus.convert.tsvFromCommentary commentary   The commentary will be looked up inside the  ur directory of the repo. This command can be run from any directory."
+},
+{
+"ref":"fusus.convert.tsvFromAffifi",
+"url":27,
+"doc":"Run the pipeline on the Fusus Al Hikam (Affifi edition)   python3 -m fusus.convert.tsvFromAffifi   This command can be run from any directory."
+},
+{
+"ref":"fusus.convert.tsvFromLakhnawi",
+"url":28,
+"doc":"Run the pipeline on the Fusus Al Hikam (Lakhnawi edition)   python3 -m fusus.convert.tsvFromLakhnawi   This command can be run from any directory."
+},
+{
+"ref":"fusus.convert.tsvFromLakhnawi.main",
+"url":28,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.convert.tsvFromBook",
+"url":29,
+"doc":"Run the pipeline on a book   python3 -m fusus.convert.tsvFromBook path_to_book_directory   The path to the book directory is either absolute or relative to the current directory. Use this command to convert books of your own that are not already in this repo. This command can be run from any directory."
+},
+{
+"ref":"fusus.convert.tsvFromBook.doBook",
+"url":29,
+"doc":"",
 "func":1
 }
 ]

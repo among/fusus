@@ -35,10 +35,10 @@ Run cells in the notebook, and see
 to learn by example how you can configure the processing parameters
 and control the processing of pages.</p>
 <h2 id="book-directory">Book directory</h2>
-<p>A book directory should have subdirectories:</p>
+<p>A book directory should have subdirectories at the outset:</p>
 <ul>
 <li><code>in</code>
-Contains mage files (scans at 1800 x2700 pixels approximately)</li>
+Contains image files (scans at 1800 x2700 pixels approximately);</li>
 <li><code>marks</code> (optional)
 Contains subdirectories with little rectangles copied from the scans
 and saved in individual files at the same resolution.</li>
@@ -101,10 +101,38 @@ avoid false positives.</p>
 <p>When fusus reads the marks, it will crop all white borders from it and
 surround the result with a fixed small white border.</p>
 <p>So you do not have to be very precise in trimming the mark templates.</p>
+<p>After running the pipeline, the following subdirectories may have been produced:</p>
+<ul>
+<li><code>inter</code>
+Intermediate files, such as page images with histograms displayed in it,
+or data files with information on the marks that have been encountered and wiped;</li>
+<li><code>clean</code>
+Cleaned page block images, input for OCR processing.</li>
+<li><code>out</code>
+Output (= final results). Tab separated files with one row per word.</li>
+<li><code>proof</code>
+Aids to assess the quality of the output.
+Tab separated files with one row per character.
+Normalized input images. Overlay HTML files with OCR results,
+coloured by confidence, both on character basis and on word basis.</li>
+<li><code>text</code>
+Plain HTML rendering of the full, recognized text with page and line
+indicators. Used for reading the results by human eyes.</li>
+</ul>
+<p>!!! caution "Block information" If the layout algorithm has
+divided the page into blocks, the information of the blocks resides in the
+page object and is not currently stored on disk.</p>
+<pre><code>This information is needed after OCR to shift the coordinates with respect to
+the blocks 9this is what comes out of the OCR) to coordinates with respect
+to the page.
+
+That means you cannot initialize the pipeline with the clean block images as sole
+input. You have to start with layout detection.
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L0-L793" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L0-L822" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book workflow
 
@@ -131,10 +159,10 @@ and control the processing of pages.
 
 ## Book directory
 
-A book directory should have subdirectories:
+A book directory should have subdirectories at the outset:
 
 *   `in`
-    Contains mage files (scans at 1800 x2700 pixels approximately)
+    Contains image files (scans at 1800 x2700 pixels approximately);
 *   `marks` (optional)
     Contains subdirectories with little rectangles copied from the scans
     and saved in individual files at the same resolution.
@@ -164,6 +192,35 @@ When fusus reads the marks, it will crop all white borders from it and
 surround the result with a fixed small white border.
 
 So you do not have to be very precise in trimming the mark templates.
+
+After running the pipeline, the following subdirectories may have been produced:
+
+*   `inter`
+    Intermediate files, such as page images with histograms displayed in it,
+    or data files with information on the marks that have been encountered and wiped;
+*   `clean`
+    Cleaned page block images, input for OCR processing.
+*   `out`
+    Output (= final results). Tab separated files with one row per word.
+*   `proof`
+    Aids to assess the quality of the output.
+    Tab separated files with one row per character.
+    Normalized input images. Overlay HTML files with OCR results,
+    coloured by confidence, both on character basis and on word basis.
+*   `text`
+    Plain HTML rendering of the full, recognized text with page and line
+    indicators. Used for reading the results by human eyes.
+
+!!! caution &#34;Block information&#34; If the layout algorithm has
+    divided the page into blocks, the information of the blocks resides in the
+    page object and is not currently stored on disk.
+
+    This information is needed after OCR to shift the coordinates with respect to
+    the blocks 9this is what comes out of the OCR) to coordinates with respect
+    to the page.
+
+    That means you cannot initialize the pipeline with the clean block images as sole
+    input. You have to start with layout detection.
 &#34;&#34;&#34;
 
 import sys
@@ -922,7 +979,7 @@ of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L773-L790" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L802-L819" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -971,7 +1028,7 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L83-L770" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L112-L799" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, cd=None, **params):
@@ -1672,7 +1729,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L189-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L218-L229" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
@@ -1703,7 +1760,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L202-L238" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L231-L267" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self, band=None, mark=None):
     &#34;&#34;&#34;Display the characteristics of defined *marks*.
@@ -1752,7 +1809,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L240-L249" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L269-L278" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
@@ -1775,7 +1832,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L164-L171" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L193-L200" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1804,7 +1861,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L570-L630" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L599-L659" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def exportTsv(self, pages=None):
     &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
@@ -1892,7 +1949,7 @@ The OCR itself does not have to be performed again for this.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L442-L568" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L471-L597" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
         &#34;&#34;&#34;Measure the reported quality of the ocr processing.
@@ -2040,7 +2097,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L632-L770" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L661-L799" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -2224,7 +2281,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L333-L433" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L362-L462" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self,
@@ -2348,7 +2405,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L173-L187" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L202-L216" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
@@ -2375,7 +2432,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/66b0e9367bc30b6f29d931087707174fc86eb0a0/fusus/book.py#L435-L440" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/book.py#L464-L469" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stageDir(self, stage):
     C = self.C
