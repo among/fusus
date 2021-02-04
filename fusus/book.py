@@ -23,10 +23,10 @@ and control the processing of pages.
 
 ## Book directory
 
-A book directory should have subdirectories:
+A book directory should have subdirectories at the outset:
 
 *   `in`
-    Contains mage files (scans at 1800 x2700 pixels approximately)
+    Contains image files (scans at 1800 x2700 pixels approximately);
 *   `marks` (optional)
     Contains subdirectories with little rectangles copied from the scans
     and saved in individual files at the same resolution.
@@ -56,6 +56,35 @@ When fusus reads the marks, it will crop all white borders from it and
 surround the result with a fixed small white border.
 
 So you do not have to be very precise in trimming the mark templates.
+
+After running the pipeline, the following subdirectories may have been produced:
+
+*   `inter`
+    Intermediate files, such as page images with histograms displayed in it,
+    or data files with information on the marks that have been encountered and wiped;
+*   `clean`
+    Cleaned page block images, input for OCR processing.
+*   `out`
+    Output (= final results). Tab separated files with one row per word.
+*   `proof`
+    Aids to assess the quality of the output.
+    Tab separated files with one row per character.
+    Normalized input images. Overlay HTML files with OCR results,
+    coloured by confidence, both on character basis and on word basis.
+*   `text`
+    Plain HTML rendering of the full, recognized text with page and line
+    indicators. Used for reading the results by human eyes.
+
+!!! caution "Block information" If the layout algorithm has
+    divided the page into blocks, the information of the blocks resides in the
+    page object and is not currently stored on disk.
+
+    This information is needed after OCR to shift the coordinates with respect to
+    the blocks 9this is what comes out of the OCR) to coordinates with respect
+    to the page.
+
+    That means you cannot initialize the pipeline with the clean block images as sole
+    input. You have to start with layout detection.
 """
 
 import sys

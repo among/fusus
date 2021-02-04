@@ -3,7 +3,6 @@ setup.py
 fusus/__init__.py
 fusus/book.py
 fusus/char.py
-fusus/cheatsheet.py
 fusus/clean.py
 fusus/lakhnawi.py
 fusus/layout.py
@@ -13,12 +12,14 @@ fusus/ocr.py
 fusus/page.py
 fusus/parameters.py
 fusus/pdf.py
-fusus/tfFromTsv.py
-fusus/tsvFromAffifi.py
-fusus/tsvFromLakhnawi.py
 fusus.egg-info/PKG-INFO
 fusus.egg-info/SOURCES.txt
 fusus.egg-info/dependency_links.txt
 fusus.egg-info/not-zip-safe
 fusus.egg-info/requires.txt
 fusus.egg-info/top_level.txt
+fusus/convert/__init__.py
+fusus/convert/tfFromTsv.py
+fusus/convert/tsvFromAffifi.py
+fusus/convert/tsvFromBook.py
+fusus/convert/tsvFromLakhnawi.py
