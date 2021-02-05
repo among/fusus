@@ -1,43 +1,54 @@
-# Install
+# Install and update
 
-## Get Fusus
+*code and documentation*
 
-Clone the repo from GitHub and install *fusus*, which is a Python package with `pip3`.
-Note that we install fusus *fusus* from the clone, not from the global, online PyPI repository.
-[install - get](https://among.github.io/fusus/fusus/about/install.html#get-the-software)
-
-## Update documentation
-
-Edit the sources of documentation in your local repo clone and use a set of build
-commands to display and publish the modified docs.
-[install - documentation](https://among.github.io/fusus/fusus/about/install.html#documentation)
-
-## Update fusus
-
-If you have changed the code for *fusus* and/or its documentation, use a build command. 
-[install - push](https://among.github.io/fusus/fusus/about/install.html#push-everything)
-
+* [install - get](https://among.github.io/fusus/fusus/about/install.html#get-the-software)
+* [update - documentation](https://among.github.io/fusus/fusus/about/install.html#build-steps)
+* [update - code](https://among.github.io/fusus/fusus/about/install.html#push-everything)
 
 # Run 
 
-## Run a book in batch
+*Straight from the command line*
 
-There are simple commands to run the pipeline on Arabic books.
-[run - book batch](https://among.github.io/fusus/fusus/about/run.html#book-in-batch)
+* [run - book](https://among.github.io/fusus/fusus/about/run.html#book-in-batch)
 
 
 # Explore
 
-To follow the pipeline and the Lakhnawi reverse engineering in its tracks,
-work within a Jupyter notebook, where you can process individual pages and inspect
-all intermediate results and perform proofing of final results.
-[explore - notebooks](https://among.github.io/fusus/fusus/about/explore.html#notebooks)
+*Page by page in a notebook*
+
+* [do](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb)
+  Run the pipeline in a notebook;
+* [inspect](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb)
+  Inspect intermediate results in a notebook.
+* [notebooks on nbviewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).
+  All notebooks.
 
 
 # Tweak
 
+*Sickness and cure by parameters*
+
+* [tweak](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb)
+  Basic parameter tweaking;
+* `fusus.parameters`
+  All parameters.
+* [comma](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/comma.ipynb)
+  A ministudy in cleaning: tweak mark templates and parameters to wipe commas.
+* [lines](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/lines.ipynb)
+  Follow the line detection algorithm in a wide variety of cases.
+* [piece](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/piece.ipynb)
+  What to do if you have an image that is a small fragment of a page.
+
 
 # Engineer
 
+*Change the flow*
+
+* `fusus.lakhnawi` 
+  PDF reverse engineering.
+
 
 # Work
+
+*Do data science with the results*

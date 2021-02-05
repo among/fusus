@@ -861,6 +861,9 @@ class Page:
                         result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                         loc = np.where(result >= accuracy)
                         pts = list(zip(*loc))
+
+                        # if too many hits: bad template or required accuracy too low
+
                         if len(pts) > maxHits:
                             error(
                                 f"mark '{band}:{markName}':"
@@ -871,8 +874,16 @@ class Page:
                         if not pts:
                             continue
 
+                        # fuzzy matching produces several hits in the neighbourhood
+                        # of marks. We have to reduce that to the best hit.
+                        # We cluster the hits into clusters of neighbouring hits.
+
                         nPts += len(pts)
                         clusters = cluster(pts, result)
+
+                        # We pick the representant hit from each cluster and
+                        # check the ink connectedness
+                        # Explanation in `fusus.clean`
 
                         for (pt, value) in clusters:
                             connDegree = connected(

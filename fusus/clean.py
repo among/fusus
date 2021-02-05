@@ -1,5 +1,18 @@
 """Wipe marks from images.
 
+Cleaning marks from images is based on
+[OpenCV's template matching](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html#template-matching)
+
+This is fuzzy matching, so we have to employ considerable sophistication to
+get the true results and to discard the fake results.
+
+One particular way to discard fake results is to mind the connectedness of the ink
+of a candidate mark with the surrounding ink.
+If there is such a connection, it is a strong indication that the candidate is not
+a mark to be removed, but part of a glyph.
+
+See ![bordering](images/isolation.png)
+
 """
 
 import numpy as np
@@ -65,8 +78,6 @@ def measure(borderInside, borderOutside, threshold):
     contain strokes of ink. If a match is such that the stroke of ink connects
     with the ink in the environment, the match is not a true example of the stroke
     and will be rejected.
-
-    See ![bordering](../images/isolation.png)
 
     !!! note "Where to look for ink"
         We look for ink in the image itself,

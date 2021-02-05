@@ -1,3 +1,21 @@
+"""Line detection
+
+We detect lines in page blocks based on ink distribution.
+
+Our proxy to ink distribution are histograms, but there is no easy correspondence
+between the peaks in the histograms and the lines on the page.
+
+We will need some signal processing tools from
+[SciPy](https://docs.scipy.org/doc/scipy/reference/),
+in particular
+[find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks)
+and
+[medfilt](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.medfilt.html#scipy.signal.medfilt),
+to filter the peaks into significant peaks.
+
+We also need to massage the ink histograms in order to correct for short lines.
+"""
+
 import cv2
 import numpy as np
 from scipy.signal import find_peaks, medfilt

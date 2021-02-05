@@ -1,3 +1,63 @@
+"""Lakhnawi pdf reverse engineering.
+
+This is an effort to make the Lakhnawi PDF readable.
+It is a text-based PDF, no images are used to represent text.
+
+Yet the text is not easily extracted, due to:
+
+* the use of private-use unicode characters that refer to heavily customised fonts;
+* some fonts have some glyphs with dual unicode points;
+* the drawing order of characters does not reflect the reading order;
+* horizontal whitespace is hard to detect due to oversized bounding boxes of many
+  private-use characters.
+
+We used the top-notch Python PDF library
+[PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as *fitz*.
+
+```
+pip3 install PyMuPDF
+```
+
+But even this library could not solve the above issues.
+Here is how we solved the issues
+
+# Private use characters
+
+We used font analysis software from PdfLib:
+[FontReporter](https://www.pdflib.com/download/free-software/fontreporter/)
+to generate a
+[report of character and font usage in the Lakhnawi PDF](https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf).
+
+Based on visual inspection of this font report and the occurrences of the private use tables
+we compiled a translation table mapping dirty strings (with private use characters) to
+clean strings (without private use characters).
+
+# Dual code points
+
+In case of dual code points, we ignore the highest code points.
+Often the two code points refer to a normal Arabic code point and to a ligature or special form
+of the character.
+The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms
+based on immediate context.
+
+# Reading order
+
+We ordered the characters ourselves, based on the coordinates.
+This required considerable subtlety, because we had to deal with diacritics above and below the lines.
+See `clusterVert`.
+
+# Horizontal whitespace
+
+This is the most tricky point, because the information we retain from the PDF is, strictly speaking,
+insufficient to determine word boundaries.
+Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic.
+The objective part is in the amount of whitespace between characters and the form of the characters
+(initial, final, isolated).
+But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic
+words.
+So we only reached an approximate solution for this problem.
+"""
+
 import sys
 import os
 import collections
@@ -29,7 +89,7 @@ from .char import (
 
 NAME = "Lakhnawi"
 SOURCE = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf"
-FONT = f"{SOURCE_DIR}/{NAME}/Font report {NAME}.pdf"
+FONT = f"{UR_DIR}/{NAME}/FontReport-{NAME}.pdf"
 DEST = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt"
 
 CSS = """
@@ -2071,6 +2131,18 @@ def keyCharH(char):
 
 
 def clusterVert(data):
+    """Cluster characters into lines based on their bounding boxes.
+
+    Most characters on a line have their middle line in approximately the same height.
+    But diacritics of characters in that line may occupy different heights.
+
+    Without intervanetion, these would be clustered on separate lines.
+    We take care to cluster them into the same lines as their main characters.
+
+    It involves getting an idea of the regular line height, and clustering boxes
+    that fall between the lines with the line above or below, whichever is closest.
+    """
+
     keys = collections.Counter()
     for char in data:
         k = keyCharV(char)
@@ -2105,6 +2177,7 @@ def clusterVert(data):
                     break
             if not added:
                 clusteredPeaks[k] = {k}
+
     toCluster = {}
     for (kc, ks) in clusteredPeaks.items():
         for k in ks:

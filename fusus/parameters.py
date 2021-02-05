@@ -145,6 +145,13 @@ calling the `fusus.book.Book.configure` method which calls the
 
 The default values can be inspected by expanding the source code.
 
+!!! caution "Two-edged sword"
+    When you change a parameter to improve a particular effect on a particular page,
+    it may wreak havoc with many other pages.
+
+    When you tweak, take care that you do it locally,
+    on a single book, or a single page.
+
 debug
 :   Whether to show (intermediate) results.
     If `0`: shows nothing, if `1`: shows end result, if `2`: shows intermediate

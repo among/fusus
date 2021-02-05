@@ -2,13 +2,17 @@
 
 # Fusus Pipeline
 
-A workflow from Arabic page images to textual data.
+A pipe line from Arabic printed books to structured textual data.
+With the results of this pipeline researchers can study the commentary
+tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).
+
 
 ## Straight to ...
 
 * Install (`fusus.about.install`)
 * HowTo (`fusus.about.howto`)
 * Sources (`fusus.about.sources`)
+* Rationale (`fusues.about.rationale`)
 
 ## Authors
 

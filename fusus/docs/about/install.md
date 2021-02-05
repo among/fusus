@@ -36,6 +36,7 @@ git reset --hard origin/master
 # Install the software
 
 You are going to install the Python package `fusus` that is contained in the repo.
+We install fusus *fusus* with `pip3` from the clone, not from the global, online PyPI repository.
 
 During install, all the packages that `fusus` is dependent on, will be installed
 into your current Python3 installation.
@@ -94,6 +95,9 @@ The docs are here:
 * the README file of the repository;
 * the docstrings in the Python files in the *fusus* package;
 * the markdown files in the *docs* subdirectory of the *fusus* package.
+
+Edit the sources of documentation in your local repo clone and use a set of build
+commands to display and publish the modified docs.
 
 ## View documentation locally
 
