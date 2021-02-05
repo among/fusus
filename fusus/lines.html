@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.lines API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Line detection …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,12 +20,42 @@
 <h1 class="title">Module <code>fusus.lines</code></h1>
 </header>
 <section id="section-intro">
+<p>Line detection</p>
+<p>We detect lines in page blocks based on ink distribution.</p>
+<p>Our proxy to ink distribution are histograms, but there is no easy correspondence
+between the peaks in the histograms and the lines on the page.</p>
+<p>We will need some signal processing tools from
+<a href="https://docs.scipy.org/doc/scipy/reference/">SciPy</a>,
+in particular
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks">find_peaks</a>
+and
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.medfilt.html#scipy.signal.medfilt">medfilt</a>,
+to filter the peaks into significant peaks.</p>
+<p>We also need to massage the ink histograms in order to correct for short lines.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L0-L487" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L0-L505" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">import cv2
+<pre><code class="python">&#34;&#34;&#34;Line detection
+
+We detect lines in page blocks based on ink distribution.
+
+Our proxy to ink distribution are histograms, but there is no easy correspondence
+between the peaks in the histograms and the lines on the page.
+
+We will need some signal processing tools from
+[SciPy](https://docs.scipy.org/doc/scipy/reference/),
+in particular
+[find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks)
+and
+[medfilt](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.medfilt.html#scipy.signal.medfilt),
+to filter the peaks into significant peaks.
+
+We also need to massage the ink histograms in order to correct for short lines.
+&#34;&#34;&#34;
+
+import cv2
 import numpy as np
 from scipy.signal import find_peaks, medfilt
 
@@ -530,7 +560,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L163-L164" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L181-L182" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def firstNonzero(arr, axis=None):
     return (arr != 0).argmax(axis=axis or 0)</code></pre>
@@ -544,7 +574,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L175-L210" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L193-L228" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getHist(C, imgIn, lineHeight):
     if lineHeight is None:
@@ -621,7 +651,7 @@ that turn out to be devoid of written material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L13-L127" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L31-L145" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
     &#34;&#34;&#34;Add line band data to all blocks based on histograms.
@@ -763,7 +793,7 @@ that turn out to be devoid of written material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L130-L160" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L148-L178" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkX(imgIn, left, top, right, bottom, imgOut=None):
     &#34;&#34;&#34;Make a horizontal histogram of an input region of interest.
@@ -838,7 +868,7 @@ generated by these calls.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L213-L488" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L231-L506" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None):
     &#34;&#34;&#34;Determine the line distribution in a block of text.
@@ -1126,7 +1156,7 @@ generated by these calls.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L167-L172" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lines.py#L185-L190" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def lastNonzero(arr, axis=None):
     ax = axis or 0

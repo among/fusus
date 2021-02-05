@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.lakhnawi API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Lakhnawi pdf reverse engineering …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,12 +20,116 @@
 <h1 class="title">Module <code>fusus.lakhnawi</code></h1>
 </header>
 <section id="section-intro">
+<p>Lakhnawi pdf reverse engineering.</p>
+<p>This is an effort to make the Lakhnawi PDF readable.
+It is a text-based PDF, no images are used to represent text.</p>
+<p>Yet the text is not easily extracted, due to:</p>
+<ul>
+<li>the use of private-use unicode characters that refer to heavily customised fonts;</li>
+<li>some fonts have some glyphs with dual unicode points;</li>
+<li>the drawing order of characters does not reflect the reading order;</li>
+<li>horizontal whitespace is hard to detect due to oversized bounding boxes of many
+private-use characters.</li>
+</ul>
+<p>We used the top-notch Python PDF library
+<a href="https://pymupdf.readthedocs.io/en/latest/index.html">PyMUPDF</a>, also know as <em>fitz</em>.</p>
+<pre><code>pip3 install PyMuPDF
+</code></pre>
+<p>But even this library could not solve the above issues.
+Here is how we solved the issues</p>
+<h1 id="private-use-characters">Private use characters</h1>
+<p>We used font analysis software from PdfLib:
+<a href="https://www.pdflib.com/download/free-software/fontreporter/">FontReporter</a>
+to generate a
+<a href="https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf">report of character and font usage in the Lakhnawi PDF</a>.</p>
+<p>Based on visual inspection of this font report and the occurrences of the private use tables
+we compiled a translation table mapping dirty strings (with private use characters) to
+clean strings (without private use characters).</p>
+<h1 id="dual-code-points">Dual code points</h1>
+<p>In case of dual code points, we ignore the highest code points.
+Often the two code points refer to a normal Arabic code point and to a ligature or special form
+of the character.
+The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms
+based on immediate context.</p>
+<h1 id="reading-order">Reading order</h1>
+<p>We ordered the characters ourselves, based on the coordinates.
+This required considerable subtlety, because we had to deal with diacritics above and below the lines.
+See <code><a title="fusus.lakhnawi.clusterVert" href="#fusus.lakhnawi.clusterVert">clusterVert()</a></code>.</p>
+<h1 id="horizontal-whitespace">Horizontal whitespace</h1>
+<p>This is the most tricky point, because the information we retain from the PDF is, strictly speaking,
+insufficient to determine word boundaries.
+Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic.
+The objective part is in the amount of whitespace between characters and the form of the characters
+(initial, final, isolated).
+But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic
+words.
+So we only reached an approximate solution for this problem.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L0-L2125" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L0-L2198" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">import sys
+<pre><code class="python">&#34;&#34;&#34;Lakhnawi pdf reverse engineering.
+
+This is an effort to make the Lakhnawi PDF readable.
+It is a text-based PDF, no images are used to represent text.
+
+Yet the text is not easily extracted, due to:
+
+* the use of private-use unicode characters that refer to heavily customised fonts;
+* some fonts have some glyphs with dual unicode points;
+* the drawing order of characters does not reflect the reading order;
+* horizontal whitespace is hard to detect due to oversized bounding boxes of many
+  private-use characters.
+
+We used the top-notch Python PDF library
+[PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as *fitz*.
+
+```
+pip3 install PyMuPDF
+```
+
+But even this library could not solve the above issues.
+Here is how we solved the issues
+
+# Private use characters
+
+We used font analysis software from PdfLib:
+[FontReporter](https://www.pdflib.com/download/free-software/fontreporter/)
+to generate a
+[report of character and font usage in the Lakhnawi PDF](https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf).
+
+Based on visual inspection of this font report and the occurrences of the private use tables
+we compiled a translation table mapping dirty strings (with private use characters) to
+clean strings (without private use characters).
+
+# Dual code points
+
+In case of dual code points, we ignore the highest code points.
+Often the two code points refer to a normal Arabic code point and to a ligature or special form
+of the character.
+The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms
+based on immediate context.
+
+# Reading order
+
+We ordered the characters ourselves, based on the coordinates.
+This required considerable subtlety, because we had to deal with diacritics above and below the lines.
+See `clusterVert`.
+
+# Horizontal whitespace
+
+This is the most tricky point, because the information we retain from the PDF is, strictly speaking,
+insufficient to determine word boundaries.
+Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic.
+The objective part is in the amount of whitespace between characters and the form of the characters
+(initial, final, isolated).
+But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic
+words.
+So we only reached an approximate solution for this problem.
+&#34;&#34;&#34;
+
+import sys
 import os
 import collections
 import re
@@ -56,7 +160,7 @@ from .char import (
 
 NAME = &#34;Lakhnawi&#34;
 SOURCE = f&#34;{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf&#34;
-FONT = f&#34;{SOURCE_DIR}/{NAME}/Font report {NAME}.pdf&#34;
+FONT = f&#34;{UR_DIR}/{NAME}/FontReport-{NAME}.pdf&#34;
 DEST = f&#34;{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt&#34;
 
 CSS = &#34;&#34;&#34;
@@ -2098,6 +2202,18 @@ def keyCharH(char):
 
 
 def clusterVert(data):
+    &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
+
+    Most characters on a line have their middle line in approximately the same height.
+    But diacritics of characters in that line may occupy different heights.
+
+    Without intervanetion, these would be clustered on separate lines.
+    We take care to cluster them into the same lines as their main characters.
+
+    It involves getting an idea of the regular line height, and clustering boxes
+    that fall between the lines with the line above or below, whichever is closest.
+    &#34;&#34;&#34;
+
     keys = collections.Counter()
     for char in data:
         k = keyCharV(char)
@@ -2132,6 +2248,7 @@ def clusterVert(data):
                     break
             if not added:
                 clusteredPeaks[k] = {k}
+
     toCluster = {}
     for (kc, ks) in clusteredPeaks.items():
         for k in ks:
@@ -2164,13 +2281,31 @@ def clusterVert(data):
 <span>def <span class="ident">clusterVert</span></span>(<span>data)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Cluster characters into lines based on their bounding boxes.</p>
+<p>Most characters on a line have their middle line in approximately the same height.
+But diacritics of characters in that line may occupy different heights.</p>
+<p>Without intervanetion, these would be clustered on separate lines.
+We take care to cluster them into the same lines as their main characters.</p>
+<p>It involves getting an idea of the regular line height, and clustering boxes
+that fall between the lines with the line above or below, whichever is closest.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2073-L2126" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2133-L2199" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def clusterVert(data):
+    &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
+
+    Most characters on a line have their middle line in approximately the same height.
+    But diacritics of characters in that line may occupy different heights.
+
+    Without intervanetion, these would be clustered on separate lines.
+    We take care to cluster them into the same lines as their main characters.
+
+    It involves getting an idea of the regular line height, and clustering boxes
+    that fall between the lines with the line above or below, whichever is closest.
+    &#34;&#34;&#34;
+
     keys = collections.Counter()
     for char in data:
         k = keyCharV(char)
@@ -2205,6 +2340,7 @@ def clusterVert(data):
                     break
             if not added:
                 clusteredPeaks[k] = {k}
+
     toCluster = {}
     for (kc, ks) in clusteredPeaks.items():
         for k in ks:
@@ -2234,7 +2370,7 @@ def clusterVert(data):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L525-L587" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L585-L647" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getDictFromDef(defs):
     rules = []
@@ -2309,7 +2445,7 @@ def clusterVert(data):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L255-L271" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L315-L331" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getToc(pageNums):
     limit = 60
@@ -2357,7 +2493,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2032-L2070" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2092-L2130" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharH(char):
     &#34;&#34;&#34;Sort key to sort the characters of a line horizontally.
@@ -2409,7 +2545,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2023-L2029" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2083-L2089" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharV(char):
     &#34;&#34;&#34;The vertical position of the middle of a character.
@@ -2428,7 +2564,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L590-L599" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L650-L659" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseNums(numSpec):
     return (
@@ -2450,7 +2586,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L242-L252" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L302-L312" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def preHtml(pageNum):
     return f&#34;&#34;&#34;\
@@ -2473,7 +2609,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L507-L508" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L567-L568" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRep(p):
     return &#34;?&#34; if p is None else int(round(p))</code></pre>
@@ -2487,7 +2623,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L503-L504" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L563-L564" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRepD(p):
     return &#34;?&#34; if p is None else int(round(p * 10))</code></pre>
@@ -2501,7 +2637,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L495-L498" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L555-L558" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tweakSpace(c):
     # return c.strip() if ISOLATED in dc else (&#34; &#34; + c.strip()) if INITIAL in dc else c
@@ -2522,7 +2658,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L612-L2020" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L672-L2080" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Lakhnawi(UChar):
     def __init__(self):
@@ -3948,7 +4084,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L625-L626" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L685-L686" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def close(self):
     self.doc.close()</code></pre>
@@ -3962,7 +4098,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1345-L1474" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1405-L1534" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def collectPage(self, data):
     doubles = self.doubles
@@ -4104,7 +4240,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L824-L834" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L884-L894" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def drawPages(self, pageNumSpec, clip=None):
     doc = self.doc
@@ -4127,7 +4263,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L631-L634" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L691-L694" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharConfig(self):
     self.privateInfo()
@@ -4143,7 +4279,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L655-L693" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L715-L753" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharInfo(self):
     self.doubles = {}
@@ -4194,7 +4330,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L908-L911" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L968-L971" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageObj(self, pageNum):
     self.pageNum = pageNum
@@ -4210,7 +4346,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L896-L906" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L956-L966" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageRaw(self, pageNum):
     self.pageNum = pageNum
@@ -4233,7 +4369,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L836-L894" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L896-L954" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPages(
     self,
@@ -4304,7 +4440,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1977-L2020" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2037-L2080" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def htmlLine(self, columns, prevMulti, isLast):
     showSpaces = self.showSpaces
@@ -4360,7 +4496,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L944-L1038" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1004-L1098" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def htmlPages(
         self,
@@ -4467,7 +4603,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1476-L1477" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1536-L1537" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isPageNum(self, chars):
     return 1 &lt;= len(chars) &lt;= 3 and all(isArDigit(c[-1]) for c in chars)</code></pre>
@@ -4481,7 +4617,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L811-L822" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L871-L882" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parsePageNums(self, pageNumSpec):
     doc = self.doc
@@ -4505,7 +4641,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L731-L736" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L791-L796" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainChar(self, c):
     if c == &#34;&#34;:
@@ -4523,7 +4659,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1941-L1945" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2001-L2005" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainLine(self, columns):
     return &#34;\t&#34;.join(
@@ -4540,7 +4676,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L913-L920" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L973-L980" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainPages(self, pageNumSpec):
     text = self.text
@@ -4560,7 +4696,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L748-L749" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L808-L809" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainString(self, s):
     return &#34; &#34;.join(self.plainChar(c) for c in s)</code></pre>
@@ -4574,7 +4710,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L636-L644" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L696-L704" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def privateInfo(self):
     self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
@@ -4595,7 +4731,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L628-L629" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L688-L689" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setStyle(self):
     display(HTML(CSS))</code></pre>
@@ -4609,7 +4745,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L646-L653" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L706-L713" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setupRules(self):
     (self.replace, self.ruleIndex) = getDictFromDef(REPLACE_DEF)
@@ -4629,7 +4765,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L695-L729" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L755-L789" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showChar(self, c):
         if c in {1, 2}:
@@ -4676,7 +4812,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1300-L1320" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1360-L1380" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showColumns(self, pageNumSpec):
     pageNums = self.parsePageNums(pageNumSpec)
@@ -4709,7 +4845,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1040-L1135" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1100-L1195" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showLines(
         self,
@@ -4817,7 +4953,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L751-L809" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L811-L869" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showReplacements(self, rule=None, isApplied=False):
         ruleIndex = self.ruleIndex
@@ -4888,7 +5024,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1322-L1343" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1382-L1403" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSpacing(self, pageNumSpec, line=None):
     pageNums = self.parsePageNums(pageNumSpec)
@@ -4922,7 +5058,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L738-L746" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L798-L806" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showString(self, s, asString=False):
     shtml = f&#34;&#34;&#34;&lt;span class=&#34;r&#34;&gt;{s}&lt;/span&gt;&#34;&#34;&#34;
@@ -4943,7 +5079,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1194-L1298" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1254-L1358" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showUsedChars(
         self,
@@ -5060,7 +5196,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1137-L1192" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1197-L1252" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showWords(self, pageNumSpec, line=None):
         text = self.text
@@ -5204,7 +5340,7 @@ rules.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1479-L1939" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1539-L1999" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def trimLine(self, pageNum, ln, chars):
     &#34;&#34;&#34;Map character sequences to other sequences.
@@ -5677,7 +5813,7 @@ rules.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1947-L1948" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2007-L2008" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvHeadLine(self):
     return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n&#34;</code></pre>
@@ -5691,7 +5827,7 @@ rules.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L1950-L1975" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L2010-L2035" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvLine(self, cols, pageNum, ln):
     material = []
@@ -5729,7 +5865,7 @@ rules.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L922-L942" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/lakhnawi.py#L982-L1002" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvPages(self, pageNumSpec):
     text = self.text
@@ -5764,7 +5900,12 @@ rules.</p></div>
 <p><a href="../fusus/index.html">fusus home</a> - <a href="../fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#private-use-characters">Private use characters</a></li>
+<li><a href="#dual-code-points">Dual code points</a></li>
+<li><a href="#reading-order">Reading order</a></li>
+<li><a href="#horizontal-whitespace">Horizontal whitespace</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
