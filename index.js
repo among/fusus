@@ -8,16 +8,11 @@ URLS=[
 "fusus/page.html",
 "fusus/pdf.html",
 "fusus/about/index.html",
-"fusus/about/engineer.html",
 "fusus/about/run.html",
 "fusus/about/methods.html",
 "fusus/about/model.html",
-"fusus/about/work.html",
 "fusus/about/sources.html",
-"fusus/about/tweak.html",
-"fusus/about/explore.html",
 "fusus/about/install.html",
-"fusus/about/cheatsheet.html",
 "fusus/about/howto.html",
 "fusus/lines.html",
 "fusus/ocr.html",
@@ -39,7 +34,7 @@ INDEX=[
 {
 "ref":"fusus.clean",
 "url":1,
-"doc":"Wipe marks from images."
+"doc":"Wipe marks from images. Cleaning marks from images is based on [OpenCV's template matching](https: opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html template-matching) This is fuzzy matching, so we have to employ considerable sophistication to get the true results and to discard the fake results. One particular way to discard fake results is to mind the connectedness of the ink of a candidate mark with the surrounding ink. If there is such a connection, it is a strong indication that the candidate is not a mark to be removed, but part of a glyph. See ![bordering](images/isolation.png)"
 },
 {
 "ref":"fusus.clean.cluster",
@@ -50,7 +45,7 @@ INDEX=[
 {
 "ref":"fusus.clean.measure",
 "url":1,
-"doc":"Measure the amount of ink that crosses the border of a certain region. It is used to reject certain matches of image templates, where templates contain strokes of ink. If a match is such that the stroke of ink connects with the ink in the environment, the match is not a true example of the stroke and will be rejected. See ![bordering]( /images/isolation.png)  ! note \"Where to look for ink\" We look for ink in the image itself, the ink in the search template is not relevant. Parameters      borderInside: image as np array The part of the image bordering inside an area where the search template matches borderOutside: image as np array The part of the image bordering outside an area where the search template matches Returns    - float The ratio between the size of the ink connections across the border and the total size of the border.",
+"doc":"Measure the amount of ink that crosses the border of a certain region. It is used to reject certain matches of image templates, where templates contain strokes of ink. If a match is such that the stroke of ink connects with the ink in the environment, the match is not a true example of the stroke and will be rejected.  ! note \"Where to look for ink\" We look for ink in the image itself, the ink in the search template is not relevant. Parameters      borderInside: image as np array The part of the image bordering inside an area where the search template matches borderOutside: image as np array The part of the image bordering outside an area where the search template matches Returns    - float The ratio between the size of the ink connections across the border and the total size of the border.",
 "func":1
 },
 {
@@ -673,376 +668,351 @@ INDEX=[
 "doc":" Documents Higher level documentation."
 },
 {
-"ref":"fusus.about.engineer",
-"url":9,
-"doc":""
-},
-{
 "ref":"fusus.about.run",
-"url":10,
+"url":9,
 "doc":" Run The pipeline can read Arabic books in the form of page images, and returns structured data in the form of tab separated files.  Books As far as the pipeline is concerned, the input of a book is a directory of page images. More precisely, it is a directory in which there is a subdirectory  in having the page images. The books of the Fusus project are in the directory  ur of this repo. There you find subdirectories corresponding to   Affifi The Fusus Al Hikam in the Affifi edition.   Lakhnawi The Fusus Al Hikam in the Lakhnawi edition. The source is a textual PDF, not in the online repo, from which structured data is derived by means of a specific workflow, not the  pipeline .   commentary Xxx Commentary books When the pipeline runs, it produces additional directories containing intermediate results and output. For details, see  fusus.book .  Book in batch You can run the pipeline on the known works inside the  ur directory in this repo or on books that you provide yourself. See   fusus.convert.tsvFromLakhnawi (not the pipeline, but a reverse engineering effort, see  fusus.lakhnawi )   fusus.convert.tsvFromAffifi   fusus.convert.tsvFromCommentary   fusus.convert.tsvFromBook "
 },
 {
 "ref":"fusus.about.methods",
-"url":11,
+"url":10,
 "doc":" Cleaning  Histogram We make a histogram of pixel densities in vertical and horizontal lines. These can be used to derive line boundaries.  Page division  Wiping marks"
 },
 {
 "ref":"fusus.about.model",
-"url":12,
+"url":11,
 "doc":" OCR Models for Kraken Here are the models we use for doing OCR with [Kraken](https: github.com/mittagessen/kraken):  Arabic Generaized Model from [OpenITI](https: github.com/OpenITI/OCR_GS_Data). The file we are using is this one exactly (the commit is specified): [OCR_GS_Data/ara/abhath/arabic_generalized.mlmodel](https: github.com/OpenITI/OCR_GS_Data/blob/1e41e57f1e3c36b40d439f87ad0685d2c2316099/ara/abhath/arabic_generalized.mlmodel)"
 },
 {
-"ref":"fusus.about.work",
-"url":13,
-"doc":""
-},
-{
 "ref":"fusus.about.sources",
-"url":14,
+"url":12,
 "doc":" Availability Some sources are not publicly available in this repository. They are in the directory _local_, which is excluded from git tracking. These files might be available upon request to [Cornelis van Lit](https: digitalorientalist.com/about-cornelis-van-lit/). All results obtained from these source materials are publicly available.  ! caution \"No editorial material\" We have taken care to strip all editorial material from the sources. We only process the original, historical portions of the texts.  ! hint \"Intermediate results are reproducible\" This repository may or may not contain intermediate results, such as proofing pages, cleaned images, pages with histograms. By running the pipeline again, these results can be reproduced, even without recourse to the original materials in the  _local directory.  Fusus Al Hikam The seminal work is the Fusus Al Hikam (Bezels of Wisdom) by [Ibn Arabi 1165-1240](https: en.wikipedia.org/wiki/Ibn_Arabi). We use two editions, by Lakhnawi and by Affifi.  Lakhnawi edition Cornelis obtained by private means a pdf with the typeset text in it. The text cannot be extracted by normal means due to a range of problems, among with the unusual encoding of Arabic characters to drive special purpose fonts. We have reversed engineered the pdf and produced versions in tsv files, plain text, html, Text-Fabric as well as raster images. The pdf that we worked from is not in the repository, but the results are in the  ur/Lakhnawi directory. The Text-Fabric result is in the  tf/fusus/Lakhnawi directory, where versioned releases of the tf data reside.  Affifi edition Cornelis obtained a pdf with the text as page images in it. We have used the fusus pipeline to extract the full text involving OCR. The pdf that we worked from is not in the repository, but the results are in the  ur/Affifi directory.  Commentaries Cornelis has prepared page images for several commentaries, which we have carried through the fusus pipeline. The results are in the  ur/xxx directories, where  xxx stands for the acronym of the commentary."
 },
 {
-"ref":"fusus.about.tweak",
-"url":15,
-"doc":" Tweak There are a lot of parameters in the pipeline that can be tweaked.  ! caution \"Two-edged sword\" When you change a parameter to improve a particular effect on a particular page, it may wreak havoc with many other pages. When you tweak, take care that you do it locally, on a single book, or a single page.  Parameters The parameters are documented in  fusus.parameters .  Notebooks  [tweak](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/tweak.ipynb) Basic tweaking;  [piece](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/piece.ipynb) What to do if you have an image that is a small fragment of a page; Notebooks reside in the GitHub repo in the  notebooks directory, but can best be viewed through  nbviewer . Here are all notebooks: [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/)."
-},
-{
-"ref":"fusus.about.explore",
-"url":16,
-"doc":" Explore There are various ways in which you can observe and check the outcome of the pipeline process.  Intermediate results If not in  batch mode, a wide range of intermediate results will be produced that you can inspect.  Proofing After the OCR step, the results can be collected and overlayed on the original page image, where coloring is used to indicate the lavel of confidence of the OCR for that particular word or letter.  Notebooks  [do](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/examples/do.ipynb) Notebooks reside in the GitHub repo in the  notebooks directory, but can best be viewed through  nbviewer . Here are all notebooks: [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/)."
-},
-{
 "ref":"fusus.about.install",
-"url":17,
-"doc":" Convention A lot of configuration can be avoided by this simple convention: Put your cloned version of this repository in your  ~/github directory. If you do not have it, make it, and organize it exactly as GitHub is organized: by organization and then by repo.  Get the software Clone the  among/fusus repo from GitHub. Here are the instructions to get this repo and place it in the conventional place on your file system.  sh cd mkdir github cd github mkdir among git clone https: github.com/among/fusus cd fusus   If you want to update later, make sure that you do not have work of your own in this repo. If you have, copy it to a location outside of this repo.  sh cd ~/github/among/fusus git fetch origin git checkout master git reset  hard origin/master    Install the software You are going to install the Python package  fusus that is contained in the repo. During install, all the packages that  fusus is dependent on, will be installed into your current Python3 installation. The package  fusus itself will be added to your Python3 installation in such a way that it can be used from anywhere, while the package inside the repo is being accessed. This is achieved by the fact that the installer will create a link to the repo.  sh cd ~/github/among/fusus pip3 install -e .    ? caution \"Mind the dot\" Do not forget the  . at the end of the line in the above instruction.  ? hint \"No nead to repeat this step\" When you update the repo later, it will not be necessary to redo the  pip3 install step, because the soft link to the fusus package in the repo will still be valid.  Build steps The following steps are relevant if you modify the software and documentation. There is a script  build.py in the top-level directory that performs these tasks. Go to the repo's top level directory and say  sh python3 build.py  help   to see what it can do. Tip: in your  .zshrc define this function:  sh function fsb { cd ~/github/among/fusus python3 build.py \"$@\" }   Then you can invoke the build script from anywhere:  sh fsb  help    Documentation The docs are here:  the README file of the repository;  the docstrings in the Python files in the  fusus package;  the markdown files in the  docs subdirectory of the  fusus package.  View documentation locally To open a browser and view the dynamically generated documentation, say  sh fsb docs    ! caution \"Limited functionality\" The search function does not work here, and images will not display. This way of local browsing the docs has the advantage that changes in the docs are detected when you save them, so that you can see the effect immediately.  Generate documentation locally To generate documentation, say  sh fsb pdocs   The documentation is now in the  site directory. Go to the  index.html file there and open it in your browser. Images and search will work, but if you modify the documentation sources, you have to issue this command again to see the changes.  Publish documentation online To generate and publish documentation online, say  sh fsb sdocs   This will publish the documentation to the  gh-pages branch in the online GitHub repository  among/fusus , from where it can be accessed by [https: among.github.io/fusus/](https: among.github.io/fusus/).  Push everything To generate and publish code and/or documentation and to push all changes to the  main branch in the online GitHub directory, say  sh fsb ship \"commit message\"   You have to provide a commit message."
-},
-{
-"ref":"fusus.about.cheatsheet",
-"url":18,
-"doc":"All functions below are illustrated in the example [notebook](https: nbviewer.jupyter.org/github/among/fusus/blob/master/example/doExample.ipynb)  Book   from fusus.book import Book    B = Book() : start up :  fusus.book.Book  B.showSettings(params) : show settings :  fusus.book.Book.showSettings : See also  fusus.parameters  B.availableBands() : show the bands defined for this book :  fusus.book.Book.availableBands  B.availableMarks() : show the marks defined for this book :  fusus.book.Book.availableMarks  B.availablePages() : show the page ranges contained in this book :  fusus.book.Book.availablePages  B.configure( kwargs) : modify settings, bands, marks :  fusus.book.Book.configure : See also  fusus.parameters  lastPage = B.process() : Process all pages in a book and return a handle to the last processed page. :  fusus.book.Book.process  lastPage = B.process(pages=\"48-60,67\", doOcr=False) : Process all specified pages and return a handle to the last processed page. Skip OCR. :  fusus.book.Book.process  Page  page = B.process(pages=\"48\", doOcr=False, batch=False) : Process all specified pages and return a handle to the last processed page. Skip OCR. Retain intermediate data for inspection. :  fusus.book.Book.process  page.show( options) : show the data/images of all intermediate stages that the page went through during processing. :  fusus.page.Page.show  page.show(stage='histogram,cleanh') : show specific stages :  fusus.page.Page.show : See also  fusus.parameters.STAGES  page.show(stage=stages, band='histogram,cleanh') : show specific stages with specific bands marked/ :  fusus.page.Page.show : See also  fusus.parameters.BAND_COLORS  page.show(stage='boxed', band=\"high,mid\", mark=\"comma,a\") : show specific marks only :  fusus.page.Page.show  page.write(stage='histogram') : write some or all stages of the page to disk :  fusus.page.Page.write "
+"url":13,
+"doc":" Convention A lot of configuration can be avoided by this simple convention: Put your cloned version of this repository in your  ~/github directory. If you do not have it, make it, and organize it exactly as GitHub is organized: by organization and then by repo.  Get the software Clone the  among/fusus repo from GitHub. Here are the instructions to get this repo and place it in the conventional place on your file system.  sh cd mkdir github cd github mkdir among git clone https: github.com/among/fusus cd fusus   If you want to update later, make sure that you do not have work of your own in this repo. If you have, copy it to a location outside of this repo.  sh cd ~/github/among/fusus git fetch origin git checkout master git reset  hard origin/master    Install the software You are going to install the Python package  fusus that is contained in the repo. We install fusus  fusus with  pip3 from the clone, not from the global, online PyPI repository. During install, all the packages that  fusus is dependent on, will be installed into your current Python3 installation. The package  fusus itself will be added to your Python3 installation in such a way that it can be used from anywhere, while the package inside the repo is being accessed. This is achieved by the fact that the installer will create a link to the repo.  sh cd ~/github/among/fusus pip3 install -e .    ? caution \"Mind the dot\" Do not forget the  . at the end of the line in the above instruction.  ? hint \"No nead to repeat this step\" When you update the repo later, it will not be necessary to redo the  pip3 install step, because the soft link to the fusus package in the repo will still be valid.  Build steps The following steps are relevant if you modify the software and documentation. There is a script  build.py in the top-level directory that performs these tasks. Go to the repo's top level directory and say  sh python3 build.py  help   to see what it can do. Tip: in your  .zshrc define this function:  sh function fsb { cd ~/github/among/fusus python3 build.py \"$@\" }   Then you can invoke the build script from anywhere:  sh fsb  help    Documentation The docs are here:  the README file of the repository;  the docstrings in the Python files in the  fusus package;  the markdown files in the  docs subdirectory of the  fusus package. Edit the sources of documentation in your local repo clone and use a set of build commands to display and publish the modified docs.  View documentation locally To open a browser and view the dynamically generated documentation, say  sh fsb docs    ! caution \"Limited functionality\" The search function does not work here, and images will not display. This way of local browsing the docs has the advantage that changes in the docs are detected when you save them, so that you can see the effect immediately.  Generate documentation locally To generate documentation, say  sh fsb pdocs   The documentation is now in the  site directory. Go to the  index.html file there and open it in your browser. Images and search will work, but if you modify the documentation sources, you have to issue this command again to see the changes.  Publish documentation online To generate and publish documentation online, say  sh fsb sdocs   This will publish the documentation to the  gh-pages branch in the online GitHub repository  among/fusus , from where it can be accessed by [https: among.github.io/fusus/](https: among.github.io/fusus/).  Push everything To generate and publish code and/or documentation and to push all changes to the  main branch in the online GitHub directory, say  sh fsb ship \"commit message\"   You have to provide a commit message."
 },
 {
 "ref":"fusus.about.howto",
-"url":19,
-"doc":" Install  Get Fusus Clone the repo from GitHub and install  fusus , which is a Python package with  pip3 . Note that we install fusus  fusus from the clone, not from the global, online PyPI repository. [install - get](https: among.github.io/fusus/fusus/about/install.html get-the-software)  Update documentation Edit the sources of documentation in your local repo clone and use a set of build commands to display and publish the modified docs. [install - documentation](https: among.github.io/fusus/fusus/about/install.html documentation)  Update fusus If you have changed the code for  fusus and/or its documentation, use a build command. [install - push](https: among.github.io/fusus/fusus/about/install.html push-everything)  Run  Run a book in batch There are simple commands to run the pipeline on Arabic books. [run - book batch](https: among.github.io/fusus/fusus/about/run.html book-in-batch)  Explore To follow the pipeline and the Lakhnawi reverse engineering in its tracks, work within a Jupyter notebook, where you can process individual pages and inspect all intermediate results and perform proofing of final results. [explore - notebooks](https: among.github.io/fusus/fusus/about/explore.html notebooks)  Tweak  Engineer  Work"
+"url":14,
+"doc":" Install and update  code and documentation  [install - get](https: among.github.io/fusus/fusus/about/install.html get-the-software)  [update - documentation](https: among.github.io/fusus/fusus/about/install.html build-steps)  [update - code](https: among.github.io/fusus/fusus/about/install.html push-everything)  Run  Straight from the command line  [run - book](https: among.github.io/fusus/fusus/about/run.html book-in-batch)  Explore  Page by page in a notebook  [do](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb) Run the pipeline in a notebook;  [inspect](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb) Inspect intermediate results in a notebook.  [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/). All notebooks.  Tweak  Sickness and cure by parameters  [tweak](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb) Basic parameter tweaking;  [piece](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/piece.ipynb) What to do if you have an image that is a small fragment of a page.   fusus.parameters All parameters.  Engineer  Change the flow  Work  Do data science with the results "
 },
 {
 "ref":"fusus.lines",
-"url":20,
+"url":15,
 "doc":""
 },
 {
 "ref":"fusus.lines.getInkDistribution",
-"url":20,
+"url":15,
 "doc":"Add line band data to all blocks based on histograms. By means of histograms we can discern where the lines are. We define several bands with respect to lines, such as main, inter, broad, high, mid, low. We also define a band for the space between lines. We mark the main bands on the  layout layer by a starting green line and an ending red line and the space between them will be overlaid with gray. Parameters      C: object Configuration settings stages: dict We need access to several intermediate results. pageH: int size of a full page in pixels blocks: dict The blocks as delivered by  getBlocks . The blocks dict will be updated: each block value gets a new key  bands with the band data. batch: boolean Whether we run in batch mode. boxed: boolean Whether we run in boxed mode (generate boxes around wiped marks). Returns    - list A list of keys in the blocks dict that correspond to blocks that turn out to be devoid of written material.",
 "func":1
 },
 {
 "ref":"fusus.lines.getInkX",
-"url":20,
+"url":15,
 "doc":"Make a horizontal histogram of an input region of interest. Optionally draw the histograms on the corresponding roi of an output image. Parameters      imgIn: np array Input image. top, bottom, left, right: int Region of interest on input and output image. imgOut: np array, optional  None Output image. Returns    - histX: list The X histogram",
 "func":1
 },
 {
 "ref":"fusus.lines.firstNonzero",
-"url":20,
+"url":15,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.lines.lastNonzero",
-"url":20,
+"url":15,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.lines.getHist",
-"url":20,
+"url":15,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.lines.getInkY",
-"url":20,
+"url":15,
 "doc":"Determine the line distribution in a block of text. Optionally draw the histogram and the peaks and valleys on the corresponding roi of an output image. In this operation, we determine the regular line height by analysing the peaks and the distances between them. But if we have just one peak, we do not have distances. In those cases, we take the last line height that has been calculated. Parameters      C: object The configuration object of the book engine. info: function To write messages to the console imgIn: np array Input image. pageH: int size of a full page in pixels top, bottom, left, right: int Region of interest on input and output image. final: boolean When computing the layout of a page, we call this function to adjust the vertical sizes of blocks. This is a non-final call to this function. Later, we determine the lines per block, that is the final call. When debugging, it is handy to be able to distinguish the debug information generated by these calls. imgOut: np array, optional  None Output image. Returns    - lines: list The detected lines, given as a list of tuples of upper and lower y coordinates",
 "func":1
 },
 {
 "ref":"fusus.ocr",
-"url":21,
+"url":16,
 "doc":"Kraken Arabic model: [OpenITI](https: github.com/OpenITI/OCR_GS_Data/blob/master/ara/abhath/arabic_generalized.mlmodel) We can call Kraken with a batch of images. We can call binarization and segmentation and ocr in one call, but then we do not get the line segmentation json file. So we split it up in three batch calls: one for binarize, one for segmentation, and one for ocr. Alternatively, we can do binarization and segmentation in our preprocessing, and use Kraken for OCR only."
 },
 {
 "ref":"fusus.ocr.getProofColor",
-"url":21,
+"url":16,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.ocr.showConf",
-"url":21,
+"url":16,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.ocr.OCR",
-"url":21,
+"url":16,
 "doc":"Sets up OCR with Kraken."
 },
 {
 "ref":"fusus.ocr.OCR.ensureLoaded",
-"url":21,
+"url":16,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.ocr.OCR.read",
-"url":21,
+"url":16,
 "doc":"Perfoms OCR with Kraken.",
 "func":1
 },
 {
 "ref":"fusus.ocr.OCR.proofing",
-"url":21,
+"url":16,
 "doc":"Produces an OCR proof page",
 "func":1
 },
 {
 "ref":"fusus.ocr.removeMargins",
-"url":21,
+"url":16,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.ocr.addWord",
-"url":21,
+"url":16,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.parameters",
-"url":22,
+"url":17,
 "doc":"Settings and configuration"
 },
 {
 "ref":"fusus.parameters.COLORS",
-"url":22,
+"url":17,
 "doc":"Named colors."
 },
 {
 "ref":"fusus.parameters.BAND_COLORS",
-"url":22,
+"url":17,
 "doc":"Band colors. Each band will be displayed in its own color."
 },
 {
 "ref":"fusus.parameters.STAGES",
-"url":22,
+"url":17,
 "doc":"Stages in page processing. When we process a scanned page, we produce named intermediate stages, in this order. The stage data consists of the following bits of information:  kind: image or data (i.e. tab separated files with unicode data).  colored: True if colored, False if grayscale, None if not an image  extension: None if an image file, otherwise the extension of a data file, e.g.  tsv "
 },
 {
 "ref":"fusus.parameters.SETTINGS",
-"url":22,
-"doc":"Customizable settings. These are the settings that can be customized in several ways. The values here are the default values. When the pipeline is run in a book directory, it will look for a file  parameters.yaml in the toplevel directory of the book where these settings can be overridden. In a program or notebook you can also make last-minute changes to these parameters by calling the  fusus.book.Book.configure method which calls the  Config.configure method. The default values can be inspected by expanding the source code. debug : Whether to show (intermediate) results. If  0 : shows nothing, if  1 : shows end result, if  2 : shows intermediate results. inDir : name of the subdirectory with page scans outDir : name of the subdirectory with the final results of the workflow interDir : name of the subdirectory with the intermediate results of the workflow cleanDir : name of the subdirectory with the cleaned, blockwise images of the workflow marksDir : name of the subdirectory with the marks skewBorder : the width of the page margins that will be whitened in order to suppress the sharp black triangles introduces by skewing the page blurX : the amount of blur in the X-direction. Blurring is needed to get better histograms To much blurring will hamper the binarization, see e.g. pag 102 in the examples directory: if you blur with 41, 41 binarization fails. blurY : the amount of blur in the X-direction. Blurring is needed to get betterskewing and histograms.  ! caution \"Amount of Y-blurring\" Too much vertical blurring will cause the disappearance of horizontal bars from the histogram. Footnote bars will go undetected. Too little vertical blurring will result in ragged histograms, from which it is difficult to get vertical line boundaries. marginThresholdX : used when interpreting horizontal histograms. When histograms for horizontal lines cross marginThresholdY, it will taken as an indication that a line boundary (upper or lower) has been reached. contourFactor : used when computing left and right contour lines of a page. Each horizontal line as a left most black pixel and a rightmost one. Together they form the left contour and the right contour of the page. The length of each line is the distance between the left contour and right contour points on that line. However, to be useful, the contour lines must be smoothed. We look up and down from each contour point and replace it by the median value of the contour points above and below that point. How far do we have to look? We want to neutralize the interline spaces, so we look up and down for a fraction line line height. That fraction is specified by this parameter. A proxy for the line height is the peak distance. peakSignificant : used when interpreting histograms for line detection When we look for significant peaks in a histogram, we determine the max peak height. Significant peaks are those that have a height greater than a specific fraction of the max peak height. This parameter states that fraction. peakTargetWidthFraction : used when interpreting histograms for line detection When we have studied the significant peaks and found the regular distance between successive peaks, we use that to pass as the  distance parameter to the SciPy [find_peaks](https: docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html scipy.signal.find_peaks) algorithm. We get the best results if we do not pass the line height itself, but a fraction of it. This parameter is that fraction. peakProminenceY, valleyProminenceY : used when interpreting histograms for line detection We detect peaks and valleys in the histogram by means of a SciPy algorithm, to which we pass a prominence parameter. This will leave out minor peaks and valleys. outerValleyShiftFraction : used when interpreting histograms for line detection The valleys at the outer ends of the histogram tend to be very broad and hence the valleys will be located too far from the actual ink. We correct for that by shifting those valleys a fraction of their plateau sizes towards the ink. This parameter is that fraction. defaultLineHeight : used for line detection After line detection, a value for the line height is found and stored in this parameter. The parameter is read when there is only one line on a page, in which case the line detection algorithm has too little information. If this occurs at the very first calculation of line heights, a fixed default value is used. accuracy : When marks are searched for in the page, we get the result in the form of a grayscale page where the value in each point reflects how much the page in that area resembles the mark. Only hits above the value of  accuracy will be considered. connectBorder : When marks are found, each hit will be inspected: is the ink in the hit connected to the ink outside the hit? This will be measured in an inner and outer border of the page, whose thickness is given by this parameter. connectThreshold : After computing inner and outer borders, they will be inverted, so that black has the maximum value. Then the inside and outside borders are multiplied pixel wise, so that places where they are both black get very high values. All places where this product is higher than the value of  connectThreshold are retained for further calculation. connectRatio : After computing the places where inner and outer borders contain joint ink, the ratio of such places with respect to the total border size is calculated. If that ratio is greater than  connectRatio , the hit counts as connected to its surroundings. We have not found a true instance of the mark, and the mark will not be cleaned. boxBorder : The hits after searching for marks will be indicated on the  boxed stage of the page by means of a small coloured border around each hit. The width of this border is  boxBorder . maxHits : When searching for marks, there are usually multiple hits: the place where the mark occurs, and some places very nearby. The cleaning algorithm will cluster nearby hits and pick the best hit per cluster. But if the number of hits is very large, it is a sign that the mark is not searched with the right accuracy, and clustering will be prevented. It would become very expensive, and useless anyway. A warning will be issued in such cases. bandMain : Offsets for the  main band. Given as  (top, bottom) , with  top and  bottom positive or negative integers. This band covers most of the ink in a line. The  main band is computed from the histogram after which the height of the top and bottom boundaries are adjusted relative to the values obtained by the histogram algorithm. You can adjust these values: higher values move the boundaries down, lower values move them up. In practice, the adjustments are zero for the main band, while all other bands are derived from the main band by applying adjustments. bandInter : Offsets for the  inter band. This band covers most of the white between two lines. The  inter band is computed from the histogram. bandBroad : Offsets for the  broad band. This band s like  main but covers even more ink in a line. bandMid : Offsets for the  mid band. This band s like  main but covers the densest part in a line. bandHigh : Offsets for the  high band. This band s like  inter but covers the upper part of the letters and the white space above it. bandLow : Offsets for the  low band. This band s like  inter but covers the lower part of the letters and the white space below it."
+"url":17,
+"doc":"Customizable settings. These are the settings that can be customized in several ways. The values here are the default values. When the pipeline is run in a book directory, it will look for a file  parameters.yaml in the toplevel directory of the book where these settings can be overridden. In a program or notebook you can also make last-minute changes to these parameters by calling the  fusus.book.Book.configure method which calls the  Config.configure method. The default values can be inspected by expanding the source code.  ! caution \"Two-edged sword\" When you change a parameter to improve a particular effect on a particular page, it may wreak havoc with many other pages. When you tweak, take care that you do it locally, on a single book, or a single page. debug : Whether to show (intermediate) results. If  0 : shows nothing, if  1 : shows end result, if  2 : shows intermediate results. inDir : name of the subdirectory with page scans outDir : name of the subdirectory with the final results of the workflow interDir : name of the subdirectory with the intermediate results of the workflow cleanDir : name of the subdirectory with the cleaned, blockwise images of the workflow marksDir : name of the subdirectory with the marks skewBorder : the width of the page margins that will be whitened in order to suppress the sharp black triangles introduces by skewing the page blurX : the amount of blur in the X-direction. Blurring is needed to get better histograms To much blurring will hamper the binarization, see e.g. pag 102 in the examples directory: if you blur with 41, 41 binarization fails. blurY : the amount of blur in the X-direction. Blurring is needed to get betterskewing and histograms.  ! caution \"Amount of Y-blurring\" Too much vertical blurring will cause the disappearance of horizontal bars from the histogram. Footnote bars will go undetected. Too little vertical blurring will result in ragged histograms, from which it is difficult to get vertical line boundaries. marginThresholdX : used when interpreting horizontal histograms. When histograms for horizontal lines cross marginThresholdY, it will taken as an indication that a line boundary (upper or lower) has been reached. contourFactor : used when computing left and right contour lines of a page. Each horizontal line as a left most black pixel and a rightmost one. Together they form the left contour and the right contour of the page. The length of each line is the distance between the left contour and right contour points on that line. However, to be useful, the contour lines must be smoothed. We look up and down from each contour point and replace it by the median value of the contour points above and below that point. How far do we have to look? We want to neutralize the interline spaces, so we look up and down for a fraction line line height. That fraction is specified by this parameter. A proxy for the line height is the peak distance. peakSignificant : used when interpreting histograms for line detection When we look for significant peaks in a histogram, we determine the max peak height. Significant peaks are those that have a height greater than a specific fraction of the max peak height. This parameter states that fraction. peakTargetWidthFraction : used when interpreting histograms for line detection When we have studied the significant peaks and found the regular distance between successive peaks, we use that to pass as the  distance parameter to the SciPy [find_peaks](https: docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html scipy.signal.find_peaks) algorithm. We get the best results if we do not pass the line height itself, but a fraction of it. This parameter is that fraction. peakProminenceY, valleyProminenceY : used when interpreting histograms for line detection We detect peaks and valleys in the histogram by means of a SciPy algorithm, to which we pass a prominence parameter. This will leave out minor peaks and valleys. outerValleyShiftFraction : used when interpreting histograms for line detection The valleys at the outer ends of the histogram tend to be very broad and hence the valleys will be located too far from the actual ink. We correct for that by shifting those valleys a fraction of their plateau sizes towards the ink. This parameter is that fraction. defaultLineHeight : used for line detection After line detection, a value for the line height is found and stored in this parameter. The parameter is read when there is only one line on a page, in which case the line detection algorithm has too little information. If this occurs at the very first calculation of line heights, a fixed default value is used. accuracy : When marks are searched for in the page, we get the result in the form of a grayscale page where the value in each point reflects how much the page in that area resembles the mark. Only hits above the value of  accuracy will be considered. connectBorder : When marks are found, each hit will be inspected: is the ink in the hit connected to the ink outside the hit? This will be measured in an inner and outer border of the page, whose thickness is given by this parameter. connectThreshold : After computing inner and outer borders, they will be inverted, so that black has the maximum value. Then the inside and outside borders are multiplied pixel wise, so that places where they are both black get very high values. All places where this product is higher than the value of  connectThreshold are retained for further calculation. connectRatio : After computing the places where inner and outer borders contain joint ink, the ratio of such places with respect to the total border size is calculated. If that ratio is greater than  connectRatio , the hit counts as connected to its surroundings. We have not found a true instance of the mark, and the mark will not be cleaned. boxBorder : The hits after searching for marks will be indicated on the  boxed stage of the page by means of a small coloured border around each hit. The width of this border is  boxBorder . maxHits : When searching for marks, there are usually multiple hits: the place where the mark occurs, and some places very nearby. The cleaning algorithm will cluster nearby hits and pick the best hit per cluster. But if the number of hits is very large, it is a sign that the mark is not searched with the right accuracy, and clustering will be prevented. It would become very expensive, and useless anyway. A warning will be issued in such cases. bandMain : Offsets for the  main band. Given as  (top, bottom) , with  top and  bottom positive or negative integers. This band covers most of the ink in a line. The  main band is computed from the histogram after which the height of the top and bottom boundaries are adjusted relative to the values obtained by the histogram algorithm. You can adjust these values: higher values move the boundaries down, lower values move them up. In practice, the adjustments are zero for the main band, while all other bands are derived from the main band by applying adjustments. bandInter : Offsets for the  inter band. This band covers most of the white between two lines. The  inter band is computed from the histogram. bandBroad : Offsets for the  broad band. This band s like  main but covers even more ink in a line. bandMid : Offsets for the  mid band. This band s like  main but covers the densest part in a line. bandHigh : Offsets for the  high band. This band s like  inter but covers the upper part of the letters and the white space above it. bandLow : Offsets for the  low band. This band s like  inter but covers the lower part of the letters and the white space below it."
 },
 {
 "ref":"fusus.parameters.Config",
-"url":22,
+"url":17,
 "doc":"Settings manager. It will expose all settings as attributes to the rest of the application. It has methods to collect modified settings from the user and apply them. The default settings are kept as a separate copy that will not be changed in any way. User modifications act on the current settings, which have been obtained by deep-copying the defaults. Parameters      tm: object Can display timed info/error messages to the display params: dict key-value pairs that act as updates for the settings. If a value is  None , the original value will be reinstated."
 },
 {
 "ref":"fusus.parameters.Config.configure",
-"url":22,
+"url":17,
 "doc":"Updates current settings based on new values. User modifications act on the current settings, which have been obtained by deep-copying the defaults. Parameters      reset: boolean, optional  False If  True , a fresh deep copy of the defaults will be made and that will be the basis for the new current settings. params: dict key-value pairs that act as updates for the settings. If a value is  None , the original value will be reinstated.",
 "func":1
 },
 {
 "ref":"fusus.parameters.Config.show",
-"url":22,
+"url":17,
 "doc":"Display current settings. Parameters      params: str, optional  None If  None , all settings will be displayed. Else it should be a comma-separated string of legal parameter names whose values are to be displayed.",
 "func":1
 },
 {
 "ref":"fusus.book",
-"url":23,
+"url":18,
 "doc":"Book workflow We will transform scanned pages of a book into Unicode text following a number of processing steps.  The express way In the terminal,  cd to a book directory (see below) and run   python3 -m fusus.book   This will process all scanned pages with default settings.  With more control and feedback Copy the notebook  example/do.ipynb into a book directory (see below). Run cells in the notebook, and see [doExample](https: github.com/among/fusus/blob/master/example/doExample.ipynb) to learn by example how you can configure the processing parameters and control the processing of pages.  Book directory A book directory should have subdirectories at the outset:   in Contains image files (scans at 1800 x2700 pixels approximately);   marks (optional) Contains subdirectories with little rectangles copied from the scans and saved in individual files at the same resolution.  Marks Marks are spots that will be wiped clean wherever they are found. They are organized in  bands which are sets of horizontal strokes on the page, relative to the individual lines. Marks will only be searched for within the bands they belong to, in order to avoid false positives. The  marks directory may contain the following bands: name | kind | items | remarks  - |  - |  - |  -  high | marks | arbitrary images | in the upper band of a line  low | marks | arbitrary images | in the lower band of a line  mid | marks | arbitrary images | in the central, narrow band of a line, with lots of ink  main | marks | arbitrary images | in the band where nearly all the letter material is  broad | marks | arbitrary images | as  main , but a bit broader  inter | marks | arbitrary images | between the lines When fusus reads the marks, it will crop all white borders from it and surround the result with a fixed small white border. So you do not have to be very precise in trimming the mark templates. After running the pipeline, the following subdirectories may have been produced:   inter Intermediate files, such as page images with histograms displayed in it, or data files with information on the marks that have been encountered and wiped;   clean Cleaned page block images, input for OCR processing.   out Output (= final results). Tab separated files with one row per word.   proof Aids to assess the quality of the output. Tab separated files with one row per character. Normalized input images. Overlay HTML files with OCR results, coloured by confidence, both on character basis and on word basis.   text Plain HTML rendering of the full, recognized text with page and line indicators. Used for reading the results by human eyes.  ! caution \"Block information\" If the layout algorithm has divided the page into blocks, the information of the blocks resides in the page object and is not currently stored on disk. This information is needed after OCR to shift the coordinates with respect to the blocks 9this is what comes out of the OCR) to coordinates with respect to the page. That means you cannot initialize the pipeline with the clean block images as sole input. You have to start with layout detection."
 },
 {
 "ref":"fusus.book.Book",
-"url":23,
+"url":18,
 "doc":"Engine for book conversion. Parameters      cd: string, optional If passed, performs a change directory to the directory specified. Else the whole book processing takes place in the current directory. You can use  ~ to denote your home directory. params: dict, optional Any number of customizable settings from  fusus.parameters.SETTINGS . They will be in effect when running the workflow, until a  Book.configure action will modify them."
 },
 {
 "ref":"fusus.book.Book.info",
-"url":23,
+"url":18,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.book.Book.warning",
-"url":23,
+"url":18,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.book.Book.error",
-"url":23,
+"url":18,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.book.Book.configure",
-"url":23,
+"url":18,
 "doc":"Updates current settings based on new values. The signature is the same as  fusus.parameters.Config.configure .",
 "func":1
 },
 {
 "ref":"fusus.book.Book.showSettings",
-"url":23,
+"url":18,
 "doc":"Display settings. Parameters      params: dict, optional Any number of customizable settings from  fusus.parameters.SETTINGS . The current values of given parameters will be displayed. The values that you give each of the  params here is not used, only their names. It is recommended to pass  None as values:  B.showSettings(blurX=None, blurY=None) ",
 "func":1
 },
 {
 "ref":"fusus.book.Book.availableBands",
-"url":23,
+"url":18,
 "doc":"Display the characteristics of all defined  bands .",
 "func":1
 },
 {
 "ref":"fusus.book.Book.availableMarks",
-"url":23,
+"url":18,
 "doc":"Display the characteristics of defined  marks . Parameters      band: string, optional  None Show only marks in this band. If  None , show marks in all bands. mark: string, optional  None Show only marks in with this name. If  None , show marks with any name.",
 "func":1
 },
 {
 "ref":"fusus.book.Book.availablePages",
-"url":23,
+"url":18,
 "doc":"Display the amount and page numbers of all pages.",
 "func":1
 },
 {
 "ref":"fusus.book.Book.process",
-"url":23,
+"url":18,
 "doc":"Process directory of images. Executes all processing steps for all images. Parameters      pages: string | int, optional  None Specification of pages to do. If absent or  None : all pages. If an int, do only that page. Otherwise it must be a comma separated string of (ranges of) page numbers. Half ranges are also allowed:  -10 (from beginning up to and including  10 ) and  10- (from 10 till end). E.g.  1 and  5-7 and  2-5,8-10 , and  -10,15-20,30- . No spaces allowed. batch: boolean, optional  True Whether to run in batch mode. In batch mode everything is geared to the final output. Less intermediate results are computed and stored. Less feedback happens on the console. boxed: boolean, optional  False If in batch mode, produce also images that display the cleaned marks in boxes. quiet: boolean, optional  True Whether to suppress warnings and the display of stroke separators. doOcr: boolean, optional  True Whether to perform OCR processing uptoLayout: boolean, optional  False Whether to stop after doing layout Returns    - A  fusus.page.Page object for the last page processed, which is the handle for further inspection of what has happened during processing.",
 "func":1
 },
 {
 "ref":"fusus.book.Book.stageDir",
-"url":23,
+"url":18,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.book.Book.measureQuality",
-"url":23,
+"url":18,
 "doc":"Measure the reported quality of the ocr processing. pages: string | int, optional  None Specification of pages to do. If absent or  None : all pages. If an int, do only that page. Otherwise it must be a comma separated string of (ranges of) page numbers. Half ranges are also allowed:  -10 (from beginning up to and including  10 ) and  10- (from 10 till end). E.g.  1 and  5-7 and  2-5,8-10 , and  -10,15-20,30- . No spaces allowed. showStats: boolean, optional  True Compute and show quality statistics updateProofs: boolean, optional  False If true, regenerate all proofing pages. This is desriable if you have tweaked the coloring of OCR results depending on the confidence. The OCR itself does not have to be performed again for this.",
 "func":1
 },
 {
 "ref":"fusus.book.Book.exportTsv",
-"url":23,
+"url":18,
 "doc":"Combine the tsv data per page to one big tsv file. pages: string | int, optional  None Specification of pages to do. If absent or  None : all pages. If an int, do only that page. Otherwise it must be a comma separated string of (ranges of) page numbers. Half ranges are also allowed:  -10 (from beginning up to and including  10 ) and  10- (from 10 till end). E.g.  1 and  5-7 and  2-5,8-10 , and  -10,15-20,30- . No spaces allowed. The output is written to the working directory.",
 "func":1
 },
 {
 "ref":"fusus.book.Book.plainText",
-"url":23,
+"url":18,
 "doc":"Get the plain text from the ocr output in one file pages: string | int, optional  None Specification of pages to do. If absent or  None : all pages. If an int, do only that page. Otherwise it must be a comma separated string of (ranges of) page numbers. Half ranges are also allowed:  -10 (from beginning up to and including  10 ) and  10- (from 10 till end). E.g.  1 and  5-7 and  2-5,8-10 , and  -10,15-20,30- . No spaces allowed. The output is written to the  text subdirectory.",
 "func":1
 },
 {
 "ref":"fusus.book.main",
-"url":23,
+"url":18,
 "doc":"Process a whole book with default settings. Go to the book directory and say   python3 -m fusus.book [pages]   where  pages is an optional string specifying ranges of pages as in  Book.process ",
 "func":1
 },
 {
 "ref":"fusus.convert",
-"url":24,
+"url":19,
 "doc":"Convenience scripts to call conversions. These scripts support one-liners on the command line to execute the pipeline and various conversion processes."
 },
 {
 "ref":"fusus.convert.tfFromTsv",
-"url":25,
+"url":20,
 "doc":""
 },
 {
 "ref":"fusus.convert.tfFromTsv.generic",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.getToc",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.getFile",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.convert",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.director",
-"url":25,
+"url":20,
 "doc":"Read tsv data fields. Fields are integer valued, except for fields with names ending in $. If a row comes from the result of OCR we have the fields:   stripe block$ line left top right bottom confidence text$   We prepend the page number in this case, yielding   page stripe block$ line left top right bottom confidence text$   Otherwise we have: page line column span direction$ left top right bottom text$ The block in an OCRed file is either  r or  l or nothing, it corresponds to material to the left and right of a vertical stroke. If there is no vertical stroke, there is just one block. The column in a non OCRed file is either  1 or  2 and comes from a line partitioned into two regions by means of white space. In both cases, the first 4 fields denote a sectional division in the words.",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.loadTf",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.parseArgs",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tfFromTsv.main",
-"url":25,
+"url":20,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tsvFromCommentary",
-"url":26,
+"url":21,
 "doc":"Run the pipeline on a commentary   python3 -m fusus.convert.tsvFromCommentary commentary   The commentary will be looked up inside the  ur directory of the repo. This command can be run from any directory."
 },
 {
 "ref":"fusus.convert.tsvFromAffifi",
-"url":27,
+"url":22,
 "doc":"Run the pipeline on the Fusus Al Hikam (Affifi edition)   python3 -m fusus.convert.tsvFromAffifi   This command can be run from any directory."
 },
 {
 "ref":"fusus.convert.tsvFromLakhnawi",
-"url":28,
+"url":23,
 "doc":"Run the pipeline on the Fusus Al Hikam (Lakhnawi edition)   python3 -m fusus.convert.tsvFromLakhnawi   This command can be run from any directory."
 },
 {
 "ref":"fusus.convert.tsvFromLakhnawi.main",
-"url":28,
+"url":23,
 "doc":"",
 "func":1
 },
 {
 "ref":"fusus.convert.tsvFromBook",
-"url":29,
+"url":24,
 "doc":"Run the pipeline on a book   python3 -m fusus.convert.tsvFromBook path_to_book_directory   The path to the book directory is either absolute or relative to the current directory. Use this command to convert books of your own that are not already in this repo. This command can be run from any directory."
 },
 {
 "ref":"fusus.convert.tsvFromBook.doBook",
-"url":29,
+"url":24,
 "doc":"",
 "func":1
 }

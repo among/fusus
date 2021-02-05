@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L0-L1077" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L0-L1088" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -889,6 +889,9 @@ class Page:
                         result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                         loc = np.where(result &gt;= accuracy)
                         pts = list(zip(*loc))
+
+                        # if too many hits: bad template or required accuracy too low
+
                         if len(pts) &gt; maxHits:
                             error(
                                 f&#34;mark &#39;{band}:{markName}&#39;:&#34;
@@ -899,8 +902,16 @@ class Page:
                         if not pts:
                             continue
 
+                        # fuzzy matching produces several hits in the neighbourhood
+                        # of marks. We have to reduce that to the best hit.
+                        # We cluster the hits into clusters of neighbouring hits.
+
                         nPts += len(pts)
                         clusters = cluster(pts, result)
+
+                        # We pick the representant hit from each cluster and
+                        # check the ink connectedness
+                        # Explanation in `fusus.clean`
 
                         for (pt, value) in clusters:
                             connDegree = connected(
@@ -1145,7 +1156,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L76-L1078" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L76-L1089" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(
@@ -1935,6 +1946,9 @@ in boxes.</dd>
                         result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                         loc = np.where(result &gt;= accuracy)
                         pts = list(zip(*loc))
+
+                        # if too many hits: bad template or required accuracy too low
+
                         if len(pts) &gt; maxHits:
                             error(
                                 f&#34;mark &#39;{band}:{markName}&#39;:&#34;
@@ -1945,8 +1959,16 @@ in boxes.</dd>
                         if not pts:
                             continue
 
+                        # fuzzy matching produces several hits in the neighbourhood
+                        # of marks. We have to reduce that to the best hit.
+                        # We cluster the hits into clusters of neighbouring hits.
+
                         nPts += len(pts)
                         clusters = cluster(pts, result)
+
+                        # We pick the representant hit from each cluster and
+                        # check the ink connectedness
+                        # Explanation in `fusus.clean`
 
                         for (pt, value) in clusters:
                             connDegree = connected(
@@ -2189,7 +2211,7 @@ and they do not contribute to the markData layer.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L706-L1008" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L706-L1019" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cleaning(self, mark=None, block=None, line=None, showKept=False):
     &#34;&#34;&#34;Remove marks from the page.
@@ -2349,6 +2371,9 @@ and they do not contribute to the markData layer.</dd>
                     result = cv2.matchTemplate(roi, mark, cv2.TM_CCOEFF_NORMED)
                     loc = np.where(result &gt;= accuracy)
                     pts = list(zip(*loc))
+
+                    # if too many hits: bad template or required accuracy too low
+
                     if len(pts) &gt; maxHits:
                         error(
                             f&#34;mark &#39;{band}:{markName}&#39;:&#34;
@@ -2359,8 +2384,16 @@ and they do not contribute to the markData layer.</dd>
                     if not pts:
                         continue
 
+                    # fuzzy matching produces several hits in the neighbourhood
+                    # of marks. We have to reduce that to the best hit.
+                    # We cluster the hits into clusters of neighbouring hits.
+
                     nPts += len(pts)
                     clusters = cluster(pts, result)
+
+                    # We pick the representant hit from each cluster and
+                    # check the ink connectedness
+                    # Explanation in `fusus.clean`
 
                     for (pt, value) in clusters:
                         connDegree = connected(
@@ -2526,7 +2559,7 @@ with the blocks marked and labelled.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L637-L704" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L637-L704" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doLayout(self):
     &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -2622,7 +2655,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L570-L635" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L570-L635" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doNormalize(self):
     &#34;&#34;&#34;Normalizes a page.
@@ -2700,7 +2733,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1064-L1071" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L1075-L1082" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocring(self):
     &#34;&#34;&#34;Calls the OCR engine for a page.&#34;&#34;&#34;
@@ -2720,7 +2753,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L1073-L1078" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L1084-L1089" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self):
     &#34;&#34;&#34;Produces proofing images&#34;&#34;&#34;
@@ -2745,7 +2778,7 @@ Otherwise, the indicated stages are read.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L355-L391" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L355-L391" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, stage=None):
     &#34;&#34;&#34;Reads processing data for selected stages from disk
@@ -2825,7 +2858,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L134-L337" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L134-L337" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -3041,7 +3074,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L339-L353" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L339-L353" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stagePath(self, stage, inter=None):
     engine = self.engine
@@ -3087,7 +3120,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/page.py#L393-L446" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/page.py#L393-L446" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None, perBlock=False):
     &#34;&#34;&#34;Writes processing stages of an page to disk.

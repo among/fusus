@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.about.howto API documentation</title>
-<meta name="description" content="Install …" />
+<meta name="description" content="Install and update …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,34 +20,46 @@
 <h1 class="title">Module <code>fusus.about.howto</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="install">Install</h1>
-<h2 id="get-fusus">Get Fusus</h2>
-<p>Clone the repo from GitHub and install <em>fusus</em>, which is a Python package with <code>pip3</code>.
-Note that we install fusus <em>fusus</em> from the clone, not from the global, online PyPI repository.
-<a href="https://among.github.io/fusus/fusus/about/install.html#get-the-software">install - get</a></p>
-<h2 id="update-documentation">Update documentation</h2>
-<p>Edit the sources of documentation in your local repo clone and use a set of build
-commands to display and publish the modified docs.
-<a href="https://among.github.io/fusus/fusus/about/install.html#documentation">install - documentation</a></p>
-<h2 id="update-fusus">Update fusus</h2>
-<p>If you have changed the code for <em>fusus</em> and/or its documentation, use a build command.
-<a href="https://among.github.io/fusus/fusus/about/install.html#push-everything">install - push</a></p>
+<h1 id="install-and-update">Install and update</h1>
+<p><em>code and documentation</em></p>
+<ul>
+<li><a href="https://among.github.io/fusus/fusus/about/install.html#get-the-software">install - get</a></li>
+<li><a href="https://among.github.io/fusus/fusus/about/install.html#build-steps">update - documentation</a></li>
+<li><a href="https://among.github.io/fusus/fusus/about/install.html#push-everything">update - code</a></li>
+</ul>
 <h1 id="run">Run</h1>
-<h2 id="run-a-book-in-batch">Run a book in batch</h2>
-<p>There are simple commands to run the pipeline on Arabic books.
-<a href="https://among.github.io/fusus/fusus/about/run.html#book-in-batch">run - book batch</a></p>
+<p><em>Straight from the command line</em></p>
+<ul>
+<li><a href="https://among.github.io/fusus/fusus/about/run.html#book-in-batch">run - book</a></li>
+</ul>
 <h1 id="explore">Explore</h1>
-<p>To follow the pipeline and the Lakhnawi reverse engineering in its tracks,
-work within a Jupyter notebook, where you can process individual pages and inspect
-all intermediate results and perform proofing of final results.
-<a href="https://among.github.io/fusus/fusus/about/explore.html#notebooks">explore - notebooks</a></p>
+<p><em>Page by page in a notebook</em></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb">do</a>
+Run the pipeline in a notebook;</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb">inspect</a>
+Inspect intermediate results in a notebook.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/">notebooks on nbviewer</a>.
+All notebooks.</li>
+</ul>
 <h1 id="tweak">Tweak</h1>
+<p><em>Sickness and cure by parameters</em></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb">tweak</a>
+Basic parameter tweaking;</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/piece.ipynb">piece</a>
+What to do if you have an image that is a small fragment of a page.</li>
+<li><code><a title="fusus.parameters" href="../parameters.html">fusus.parameters</a></code>
+All parameters.</li>
+</ul>
 <h1 id="engineer">Engineer</h1>
+<p><em>Change the flow</em></p>
 <h1 id="work">Work</h1>
+<p><em>Do data science with the results</em></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/about/howto.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/about/howto.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/howto.md
@@ -69,16 +81,8 @@ all intermediate results and perform proofing of final results.
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#install">Install</a><ul>
-<li><a href="#get-fusus">Get Fusus</a></li>
-<li><a href="#update-documentation">Update documentation</a></li>
-<li><a href="#update-fusus">Update fusus</a></li>
-</ul>
-</li>
-<li><a href="#run">Run</a><ul>
-<li><a href="#run-a-book-in-batch">Run a book in batch</a></li>
-</ul>
-</li>
+<li><a href="#install-and-update">Install and update</a></li>
+<li><a href="#run">Run</a></li>
 <li><a href="#explore">Explore</a></li>
 <li><a href="#tweak">Tweak</a></li>
 <li><a href="#engineer">Engineer</a></li>

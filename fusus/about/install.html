@@ -45,7 +45,8 @@ git checkout master
 git reset --hard origin/master
 </code></pre>
 <h1 id="install-the-software">Install the software</h1>
-<p>You are going to install the Python package <code><a title="fusus" href="../index.html">fusus</a></code> that is contained in the repo.</p>
+<p>You are going to install the Python package <code><a title="fusus" href="../index.html">fusus</a></code> that is contained in the repo.
+We install fusus <em>fusus</em> with <code>pip3</code> from the clone, not from the global, online PyPI repository.</p>
 <p>During install, all the packages that <code><a title="fusus" href="../index.html">fusus</a></code> is dependent on, will be installed
 into your current Python3 installation.</p>
 <p>The package <code><a title="fusus" href="../index.html">fusus</a></code> itself will be added to your Python3 installation in such a way
@@ -84,6 +85,8 @@ will still be valid.</p>
 <li>the docstrings in the Python files in the <em>fusus</em> package;</li>
 <li>the markdown files in the <em>docs</em> subdirectory of the <em>fusus</em> package.</li>
 </ul>
+<p>Edit the sources of documentation in your local repo clone and use a set of build
+commands to display and publish the modified docs.</p>
 <h2 id="view-documentation-locally">View documentation locally</h2>
 <p>To open a browser and view the dynamically generated documentation, say</p>
 <pre><code class="language-sh">fsb docs
@@ -117,7 +120,7 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/install.md

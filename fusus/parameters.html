@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/parameters.py#L0-L471" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L0-L478" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -172,6 +172,13 @@ calling the `fusus.book.Book.configure` method which calls the
 `Config.configure` method.
 
 The default values can be inspected by expanding the source code.
+
+!!! caution &#34;Two-edged sword&#34;
+    When you change a parameter to improve a particular effect on a particular page,
+    it may wreak havoc with many other pages.
+
+    When you tweak, take care that you do it locally,
+    on a single book, or a single page.
 
 debug
 :   Whether to show (intermediate) results.
@@ -526,6 +533,13 @@ where these settings can be overridden.</p>
 calling the <code><a title="fusus.book.Book.configure" href="book.html#fusus.book.Book.configure">Book.configure()</a></code> method which calls the
 <code><a title="fusus.parameters.Config.configure" href="#fusus.parameters.Config.configure">Config.configure()</a></code> method.</p>
 <p>The default values can be inspected by expanding the source code.</p>
+<div class="admonition caution">
+<p class="admonition-title">Two-edged sword</p>
+<p>When you change a parameter to improve a particular effect on a particular page,
+it may wreak havoc with many other pages.</p>
+<p>When you tweak, take care that you do it locally,
+on a single book, or a single page.</p>
+</div>
 <dl>
 <dt>debug</dt>
 <dd>Whether to show (intermediate) results.
@@ -749,7 +763,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/parameters.py#L347-L472" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L354-L479" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -899,7 +913,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/parameters.py#L405-L447" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L412-L454" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -961,7 +975,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/85448d88df70b24adefdc5026e7299c81fcd3d45/fusus/parameters.py#L449-L472" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L456-L479" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
