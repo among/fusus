@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L0-L478" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/parameters.py#L0-L524" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -34,14 +34,60 @@ from copy import deepcopy
 import yaml
 
 HOME = os.path.expanduser(&#39;~&#39;)
+&#34;&#34;&#34;Full path to your home directory.&#34;&#34;&#34;
+
 BASE = f&#34;{HOME}/github&#34;
+&#34;&#34;&#34;Local directory where all your local clones of GitHub repositories are stored.&#34;&#34;&#34;
+
 ORG = &#34;among&#34;
+&#34;&#34;&#34;Organization on GitHub in which this code/data repository resides.
+
+This is also the name of the parent directory of your local clone
+of this repo.
+&#34;&#34;&#34;
+
 REPO = &#34;fusus&#34;
+&#34;&#34;&#34;Name of this code/data repository.&#34;&#34;&#34;
+
 REPO_DIR = f&#34;{BASE}/{ORG}/{REPO}&#34;
+&#34;&#34;&#34;Directory of the local repo.
+
+This is where this repo resides on your computer.
+Note that we assume you have followed the convention
+that it is in your home directory, and then
+`github/among/fusus`.
+&#34;&#34;&#34;
+
 PROGRAM_DIR = f&#34;{REPO_DIR}/{REPO}&#34;
+&#34;&#34;&#34;The subdirectory in the repo that contains the `fusus` Python package`.
+&#34;&#34;&#34;
+
 LOCAL_DIR = f&#34;{REPO_DIR}/_local&#34;
+&#34;&#34;&#34;Subdirectory containing unpublished input material.
+
+This is material that we cannot make public in this repo.
+This directory is not pushed to the online repo,
+by virtue of its being in the `.gitignore` of this repo.
+
+See also `UR_DIR`.
+&#34;&#34;&#34;
+
 SOURCE_DIR = f&#34;{LOCAL_DIR}/source&#34;
+&#34;&#34;&#34;Subdirectory containing source texts.
+
+Here are the sources that we cannot make public in this repo.
+
+See also `UR_DIR` and `LOCAL_DIR`.
+&#34;&#34;&#34;
+
 UR_DIR = f&#34;{REPO_DIR}/ur&#34;
+&#34;&#34;&#34;Subdirectory containing the public source texts.
+
+Here are the sources that we can make public in this repo.
+
+See also `SOURCE_DIR`.
+&#34;&#34;&#34;
+
 ALL_PAGES = &#34;allpages&#34;
 
 KRAKEN = dict(
@@ -517,9 +563,47 @@ class Config:
 <div class="desc"><p>Band colors.</p>
 <p>Each band will be displayed in its own color.</p></div>
 </dd>
+<dt id="fusus.parameters.BASE"><code class="name">var <span class="ident">BASE</span></code></dt>
+<dd>
+<div class="desc"><p>Local directory where all your local clones of GitHub repositories are stored.</p></div>
+</dd>
 <dt id="fusus.parameters.COLORS"><code class="name">var <span class="ident">COLORS</span></code></dt>
 <dd>
 <div class="desc"><p>Named colors.</p></div>
+</dd>
+<dt id="fusus.parameters.HOME"><code class="name">var <span class="ident">HOME</span></code></dt>
+<dd>
+<div class="desc"><p>Full path to your home directory.</p></div>
+</dd>
+<dt id="fusus.parameters.LOCAL_DIR"><code class="name">var <span class="ident">LOCAL_DIR</span></code></dt>
+<dd>
+<div class="desc"><p>Subdirectory containing unpublished input material.</p>
+<p>This is material that we cannot make public in this repo.
+This directory is not pushed to the online repo,
+by virtue of its being in the <code>.gitignore</code> of this repo.</p>
+<p>See also <code><a title="fusus.parameters.UR_DIR" href="#fusus.parameters.UR_DIR">UR_DIR</a></code>.</p></div>
+</dd>
+<dt id="fusus.parameters.ORG"><code class="name">var <span class="ident">ORG</span></code></dt>
+<dd>
+<div class="desc"><p>Organization on GitHub in which this code/data repository resides.</p>
+<p>This is also the name of the parent directory of your local clone
+of this repo.</p></div>
+</dd>
+<dt id="fusus.parameters.PROGRAM_DIR"><code class="name">var <span class="ident">PROGRAM_DIR</span></code></dt>
+<dd>
+<div class="desc"><p>The subdirectory in the repo that contains the <code><a title="fusus" href="index.html">fusus</a></code> Python package`.</p></div>
+</dd>
+<dt id="fusus.parameters.REPO"><code class="name">var <span class="ident">REPO</span></code></dt>
+<dd>
+<div class="desc"><p>Name of this code/data repository.</p></div>
+</dd>
+<dt id="fusus.parameters.REPO_DIR"><code class="name">var <span class="ident">REPO_DIR</span></code></dt>
+<dd>
+<div class="desc"><p>Directory of the local repo.</p>
+<p>This is where this repo resides on your computer.
+Note that we assume you have followed the convention
+that it is in your home directory, and then
+<code>github/among/fusus</code>.</p></div>
 </dd>
 <dt id="fusus.parameters.SETTINGS"><code class="name">var <span class="ident">SETTINGS</span></code></dt>
 <dd>
@@ -718,6 +802,12 @@ space below it.</p>
 </dd>
 </dl></div>
 </dd>
+<dt id="fusus.parameters.SOURCE_DIR"><code class="name">var <span class="ident">SOURCE_DIR</span></code></dt>
+<dd>
+<div class="desc"><p>Subdirectory containing source texts.</p>
+<p>Here are the sources that we cannot make public in this repo.</p>
+<p>See also <code><a title="fusus.parameters.UR_DIR" href="#fusus.parameters.UR_DIR">UR_DIR</a></code> and <code><a title="fusus.parameters.LOCAL_DIR" href="#fusus.parameters.LOCAL_DIR">LOCAL_DIR</a></code>.</p></div>
+</dd>
 <dt id="fusus.parameters.STAGES"><code class="name">var <span class="ident">STAGES</span></code></dt>
 <dd>
 <div class="desc"><p>Stages in page processing.</p>
@@ -730,6 +820,12 @@ in this order.</p>
 <li>colored: True if colored, False if grayscale, None if not an image</li>
 <li>extension: None if an image file, otherwise the extension of a data file, e.g. <code>tsv</code></li>
 </ul></div>
+</dd>
+<dt id="fusus.parameters.UR_DIR"><code class="name">var <span class="ident">UR_DIR</span></code></dt>
+<dd>
+<div class="desc"><p>Subdirectory containing the public source texts.</p>
+<p>Here are the sources that we can make public in this repo.</p>
+<p>See also <code><a title="fusus.parameters.SOURCE_DIR" href="#fusus.parameters.SOURCE_DIR">SOURCE_DIR</a></code>.</p></div>
 </dd>
 </dl>
 </section>
@@ -763,7 +859,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L354-L479" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/parameters.py#L400-L525" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -913,7 +1009,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L412-L454" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/parameters.py#L458-L500" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -975,7 +1071,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/parameters.py#L456-L479" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/parameters.py#L502-L525" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
@@ -1022,11 +1118,20 @@ parameter names whose values are to be displayed.</dd>
 </ul>
 </li>
 <li><h3><a href="#header-variables">Global variables</a></h3>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="fusus.parameters.BAND_COLORS" href="#fusus.parameters.BAND_COLORS">BAND_COLORS</a></code></li>
+<li><code><a title="fusus.parameters.BASE" href="#fusus.parameters.BASE">BASE</a></code></li>
 <li><code><a title="fusus.parameters.COLORS" href="#fusus.parameters.COLORS">COLORS</a></code></li>
+<li><code><a title="fusus.parameters.HOME" href="#fusus.parameters.HOME">HOME</a></code></li>
+<li><code><a title="fusus.parameters.LOCAL_DIR" href="#fusus.parameters.LOCAL_DIR">LOCAL_DIR</a></code></li>
+<li><code><a title="fusus.parameters.ORG" href="#fusus.parameters.ORG">ORG</a></code></li>
+<li><code><a title="fusus.parameters.PROGRAM_DIR" href="#fusus.parameters.PROGRAM_DIR">PROGRAM_DIR</a></code></li>
+<li><code><a title="fusus.parameters.REPO" href="#fusus.parameters.REPO">REPO</a></code></li>
+<li><code><a title="fusus.parameters.REPO_DIR" href="#fusus.parameters.REPO_DIR">REPO_DIR</a></code></li>
 <li><code><a title="fusus.parameters.SETTINGS" href="#fusus.parameters.SETTINGS">SETTINGS</a></code></li>
+<li><code><a title="fusus.parameters.SOURCE_DIR" href="#fusus.parameters.SOURCE_DIR">SOURCE_DIR</a></code></li>
 <li><code><a title="fusus.parameters.STAGES" href="#fusus.parameters.STAGES">STAGES</a></code></li>
+<li><code><a title="fusus.parameters.UR_DIR" href="#fusus.parameters.UR_DIR">UR_DIR</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

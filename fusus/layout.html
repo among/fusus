@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.layout API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Detect the page layout …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,12 +20,74 @@
 <h1 class="title">Module <code>fusus.layout</code></h1>
 </header>
 <section id="section-intro">
+<p>Detect the page layout.</p>
+<p>Pages consist of a header region, a body region, and a footer region, all of which
+are optional.</p>
+<p><strong>header</strong>*
+The header consists of a caption and/or a page number.
+All headers will be discarded.</p>
+<p><strong>footer</strong>
+The footer consists of footnote bodies.
+All footers will be discarded.</p>
+<p><strong>body</strong>
+The body region consists of zero or more <em>stripes</em>.</p>
+<p><strong>stripe, column, block, line</strong>
+A stripe is a horizontal region of the body.
+If some parts of the body have two columns and other parts have one column,
+we divide the body in stripes where each stripe has a fixed number of columns,
+and neighbouring stripes have a different number of columns.</p>
+<p>If the whole body has the same number of columns, we have just one stripe.</p>
+<p>The stripes are numbered 1, 2, 3, &hellip; from top to bottom.</p>
+<p>The column is the empty string if a stripe has just one column,
+otherwise it is <code>l</code> for the left column and <code>r</code> for the right column.</p>
+<p>We assume that all stripes on all pages have at most two columns.</p>
+<p>A column within a stripe is also called a <em>block</em>.</p>
+<p>Blocks are divided into <em>lines</em>.
+The lines are numbered with the blocks that contain them.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L0-L779" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L0-L817" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">import collections
+<pre><code class="python">&#34;&#34;&#34;Detect the page layout.
+
+Pages consist of a header region, a body region, and a footer region, all of which
+are optional.
+
+
+**header***
+The header consists of a caption and/or a page number.
+All headers will be discarded.
+
+**footer**
+The footer consists of footnote bodies.
+All footers will be discarded.
+
+**body**
+The body region consists of zero or more *stripes*.
+
+**stripe, column, block, line**
+A stripe is a horizontal region of the body.
+If some parts of the body have two columns and other parts have one column,
+we divide the body in stripes where each stripe has a fixed number of columns,
+and neighbouring stripes have a different number of columns.
+
+If the whole body has the same number of columns, we have just one stripe.
+
+The stripes are numbered 1, 2, 3, ... from top to bottom.
+
+The column is the empty string if a stripe has just one column,
+otherwise it is `l` for the left column and `r` for the right column.
+
+We assume that all stripes on all pages have at most two columns.
+
+A column within a stripe is also called a *block*.
+
+Blocks are divided into *lines*.
+The lines are numbered with the blocks that contain them.
+&#34;&#34;&#34;
+
+import collections
 import cv2
 
 from tf.core.helpers import rangesFromSet
@@ -849,7 +911,7 @@ to <em>vertical</em> column dividers.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L17-L66" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L55-L104" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
     &#34;&#34;&#34;Adds the name of a block of the page near the block.
@@ -938,7 +1000,7 @@ them a name.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L69-L120" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L107-L158" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addHStroke(
     img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
@@ -1038,7 +1100,7 @@ span the whole page width are meant to be decreased.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L683-L780" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L721-L818" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def adjustVertical(
     C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
@@ -1181,7 +1243,7 @@ with the bounding box info after stripping the top and bottom material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L485-L601" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L523-L639" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
@@ -1351,7 +1413,7 @@ left, top, right, bottom.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L331-L482" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L369-L520" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     &#34;&#34;&#34;Fine-tune stripes into blocks.
@@ -1552,7 +1614,7 @@ the cluster it is in.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L123-L270" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L161-L308" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStretches(C, info, stages, pageSize, horizontal, batch):
     &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
@@ -1742,7 +1804,7 @@ and <code>None</code> otherwise.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L273-L328" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L311-L366" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStripes(stages, stretchesV):
     &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
@@ -1824,7 +1886,7 @@ with the band data.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/layout.py#L604-L680" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/layout.py#L642-L718" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def grayInterBlocks(C, stages, blocks):
     &#34;&#34;&#34;Overlay the space between blocks with gray.

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
 <title>fusus.char API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Character knowledge …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -20,12 +20,31 @@
 <h1 class="title">Module <code>fusus.char</code></h1>
 </header>
 <section id="section-intro">
+<p>Character knowledge.</p>
+<p>This module collects all character knowledge that we need to parse the
+Lakhnawi PDF and makes it available to programs.</p>
+<p>It contains definitions for things as character classes,
+e.g. <em>symbols</em>, <em>presentational characters</em>, <em>punctuation</em>,
+<em>bracket-like characters</em>, etc.</p>
+<p>See <code><a title="fusus.char.UChar" href="#fusus.char.UChar">UChar</a></code> below.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L0-L253" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L0-L362" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">from unicodedata import name as uname, normalize
+<pre><code class="python">&#34;&#34;&#34;Character knowledge.
+
+This module collects all character knowledge that we need to parse the
+Lakhnawi PDF and makes it available to programs.
+
+It contains definitions for things as character classes,
+e.g. *symbols*, *presentational characters*, *punctuation*,
+*bracket-like characters*, etc.
+
+See `UChar` below.
+&#34;&#34;&#34;
+
+from unicodedata import name as uname, normalize
 
 
 NFKC = &#34;NFKC&#34;
@@ -255,30 +274,127 @@ def isEuDigit(x):
 class UChar:
     def __init__(self):
         self.puas = getSetFromRanges(PUA_RANGES)
+        &#34;&#34;&#34;Private use character codes as defined by the unicode standard.&#34;&#34;&#34;
+
         self.arabic = getSetFromRanges(ARABIC_RANGES)
+        &#34;&#34;&#34;All Arabic unicode characters&#34;&#34;&#34;
+
         self.hebrew = getSetFromRanges(HEBREW_RANGES)
+        &#34;&#34;&#34;All Hebrew unicode characters&#34;&#34;&#34;
+
         self.syriac = getSetFromRanges(SYRIAC_RANGES)
+        &#34;&#34;&#34;All Syriac unicode characters&#34;&#34;&#34;
+
         self.latinPresentational = getSetFromRanges(LATIN_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Latin script&#34;&#34;&#34;
+
         self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Greek script&#34;&#34;&#34;
+
         self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
-        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
-        self.stops = getSetFromRanges(STOP_RANGES)
-        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        &#34;&#34;&#34;Ligatures and special letter forms in the Arabic script&#34;&#34;&#34;
+
         self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Hebrew script&#34;&#34;&#34;
+
         self.presentationalC = self.arabicPresentational | self.hebrewPresentational
+        &#34;&#34;&#34;Ligatures and special letter forms (C)
+
+        These are the ones that are best normalized with `NFKC`: Arabic and Hebrew.
+        &#34;&#34;&#34;
+
         self.presentationalD = self.latinPresentational | self.greekPresentational
+        &#34;&#34;&#34;Ligatures and special letter forms (D)
+
+        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        &#34;&#34;&#34;
+
         self.presentational = self.presentationalC | self.presentationalD
-        self.semis = self.arabic | self.hebrew | self.syriac
-        brackets = getSetFromRanges(BRACKET_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms various scripts&#34;&#34;&#34;
+
+        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
+        &#34;&#34;&#34;Arabic characters that act as symbols.
+
+        E.g. the ornate parentheses (used for Quran quotes).
+        &#34;&#34;&#34;
+
         symbols = getSetFromRanges(SYMBOL_RANGES)
-        self.nonLetter = symbols | arabicSymbols | brackets
+        &#34;&#34;&#34;Characters that act as symbols in various scripts.&#34;&#34;&#34;
+
+        self.stops = getSetFromRanges(STOP_RANGES)
+        &#34;&#34;&#34;Characters that have the function of a full stop in several scripts.&#34;&#34;&#34;
+
+        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        &#34;&#34;&#34;Punctuation characters in several scripts.&#34;&#34;&#34;
+
+        self.semis = self.arabic | self.hebrew | self.syriac
+        &#34;&#34;&#34;Characters in semitic scripts.
+
+        These scripts have a right-to-left writing direction.
+        &#34;&#34;&#34;
+
+        self.rls = self.semis
+        &#34;&#34;&#34;Characters that belong to the right-to-left writing direction.
+
+        Identical with the `UChar.semis` category.
+        But the Lakhnawi conversion will insert the private use characters
+        to this category.
+        &#34;&#34;&#34;
+
+        brackets = getSetFromRanges(BRACKET_RANGES)
+        &#34;&#34;&#34;Characters used for bracketing.
+
+        Only when they have distinct left and right forms.
+        &#34;&#34;&#34;
+
         self.bracketMap = getMapFromPairs(BRACKET_PAIRS)
+        &#34;&#34;&#34;Mapping between left and right versions of brackets.
+
+        Due to Unicode algorithms, left and right brackets will be displayed
+        flipped when used in right-to-left writing direction.
+
+        !!! caution &#34;hard flipping&#34;
+            The Lakhnawi PDF contains brackets that have been hard flipped in order
+            to display correctly in rtl direction.
+            But after text extraction, we can rely on the Unicode algorithm,
+            so we have to unflip these characters.
+        &#34;&#34;&#34;
+
+        self.nonLetter = symbols | arabicSymbols | brackets
+        &#34;&#34;&#34;Characters that act as symbols.
+
+        More precisely, these are the non letters that we may encounter in
+        *Arabic* script, including symbols from other scripts and brackets.
+        &#34;&#34;&#34;
+
         self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets | symbols
+        &#34;&#34;&#34;Characters that are neutral with respect to writing direction.
+
+        These are the characters that should not trigger a change in writing direction.
+        For example, a latin full stop amidst Arabic characters should not trigger
+        a character range consisting of that full stop with ltr writing direction.
+        &#34;&#34;&#34;
+
         self.nospacings = getSetFromRanges(NO_SPACING_RANGES)
+        &#34;&#34;&#34;Characters that will be ignored when figuring out horizontal white space.
+
+        These are characters that appear to have bounding boxes in the Lakhnawi PDF
+        that are not helpful in determining horizontal white space.
+
+        When using this category in the Lakhnawi text extraction, extra characters
+        will be added to this category, namely the diacritics in the private use
+        area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text
+        extraction will take care of this.
+        &#34;&#34;&#34;
+
         self.diacritics = getSetFromRanges(DIACRITIC_RANGES)
+        &#34;&#34;&#34;Diacritical characters in various scripts.&#34;&#34;&#34;
+
         self.diacriticLike = getSetFromRanges(PSEUDO_DIACRITIC_RANGES) | self.diacritics
+        &#34;&#34;&#34;Diacritical characters in various scripts plus the Arabic Hamza 0621.&#34;&#34;&#34;
+
         self.arabicLetters = self.arabic - self.diacritics
-        self.rls = self.semis</code></pre>
+        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -296,7 +412,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L189-L196" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L201-L208" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMapFromPairs(pairs):
     result = {}
@@ -316,7 +432,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L185-L186" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L197-L198" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromDef(defs):
     return {chr(int(item, base=16)) for item in defs.strip().split(&#34;\n&#34;)}</code></pre>
@@ -330,7 +446,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L158-L163" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L170-L175" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromRanges(rngs):
     result = set()
@@ -348,7 +464,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L207-L208" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L219-L220" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isAlefFinal(x):
     return x == ALEF_FINAL</code></pre>
@@ -362,7 +478,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L220-L221" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L232-L233" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isArDigit(x):
     return x in AR_DIGITS</code></pre>
@@ -376,7 +492,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L224-L225" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L236-L237" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isEuDigit(x):
     return x in EU_DIGITS</code></pre>
@@ -390,7 +506,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L211-L213" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L223-L225" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isMeemOrYeh(x):
     nm = uname(x)
@@ -405,7 +521,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L216-L217" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L228-L229" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isWaw(x):
     return x == WAW</code></pre>
@@ -419,7 +535,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L199-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L211-L212" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeC(x):
     return normalize(NFKC, x)</code></pre>
@@ -433,7 +549,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L203-L204" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L215-L216" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeD(x):
     return normalize(NFKD, x)</code></pre>
@@ -447,7 +563,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L150-L155" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L162-L167" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def uName(c):
     try:
@@ -470,40 +586,254 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5a06a3b93424ba90c4243be27c52e568390f0460/fusus/char.py#L228-L254" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/char.py#L240-L363" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class UChar:
     def __init__(self):
         self.puas = getSetFromRanges(PUA_RANGES)
+        &#34;&#34;&#34;Private use character codes as defined by the unicode standard.&#34;&#34;&#34;
+
         self.arabic = getSetFromRanges(ARABIC_RANGES)
+        &#34;&#34;&#34;All Arabic unicode characters&#34;&#34;&#34;
+
         self.hebrew = getSetFromRanges(HEBREW_RANGES)
+        &#34;&#34;&#34;All Hebrew unicode characters&#34;&#34;&#34;
+
         self.syriac = getSetFromRanges(SYRIAC_RANGES)
+        &#34;&#34;&#34;All Syriac unicode characters&#34;&#34;&#34;
+
         self.latinPresentational = getSetFromRanges(LATIN_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Latin script&#34;&#34;&#34;
+
         self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Greek script&#34;&#34;&#34;
+
         self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
-        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
-        self.stops = getSetFromRanges(STOP_RANGES)
-        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        &#34;&#34;&#34;Ligatures and special letter forms in the Arabic script&#34;&#34;&#34;
+
         self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms in the Hebrew script&#34;&#34;&#34;
+
         self.presentationalC = self.arabicPresentational | self.hebrewPresentational
+        &#34;&#34;&#34;Ligatures and special letter forms (C)
+
+        These are the ones that are best normalized with `NFKC`: Arabic and Hebrew.
+        &#34;&#34;&#34;
+
         self.presentationalD = self.latinPresentational | self.greekPresentational
+        &#34;&#34;&#34;Ligatures and special letter forms (D)
+
+        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        &#34;&#34;&#34;
+
         self.presentational = self.presentationalC | self.presentationalD
-        self.semis = self.arabic | self.hebrew | self.syriac
-        brackets = getSetFromRanges(BRACKET_RANGES)
+        &#34;&#34;&#34;Ligatures and special letter forms various scripts&#34;&#34;&#34;
+
+        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
+        &#34;&#34;&#34;Arabic characters that act as symbols.
+
+        E.g. the ornate parentheses (used for Quran quotes).
+        &#34;&#34;&#34;
+
         symbols = getSetFromRanges(SYMBOL_RANGES)
-        self.nonLetter = symbols | arabicSymbols | brackets
+        &#34;&#34;&#34;Characters that act as symbols in various scripts.&#34;&#34;&#34;
+
+        self.stops = getSetFromRanges(STOP_RANGES)
+        &#34;&#34;&#34;Characters that have the function of a full stop in several scripts.&#34;&#34;&#34;
+
+        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        &#34;&#34;&#34;Punctuation characters in several scripts.&#34;&#34;&#34;
+
+        self.semis = self.arabic | self.hebrew | self.syriac
+        &#34;&#34;&#34;Characters in semitic scripts.
+
+        These scripts have a right-to-left writing direction.
+        &#34;&#34;&#34;
+
+        self.rls = self.semis
+        &#34;&#34;&#34;Characters that belong to the right-to-left writing direction.
+
+        Identical with the `UChar.semis` category.
+        But the Lakhnawi conversion will insert the private use characters
+        to this category.
+        &#34;&#34;&#34;
+
+        brackets = getSetFromRanges(BRACKET_RANGES)
+        &#34;&#34;&#34;Characters used for bracketing.
+
+        Only when they have distinct left and right forms.
+        &#34;&#34;&#34;
+
         self.bracketMap = getMapFromPairs(BRACKET_PAIRS)
+        &#34;&#34;&#34;Mapping between left and right versions of brackets.
+
+        Due to Unicode algorithms, left and right brackets will be displayed
+        flipped when used in right-to-left writing direction.
+
+        !!! caution &#34;hard flipping&#34;
+            The Lakhnawi PDF contains brackets that have been hard flipped in order
+            to display correctly in rtl direction.
+            But after text extraction, we can rely on the Unicode algorithm,
+            so we have to unflip these characters.
+        &#34;&#34;&#34;
+
+        self.nonLetter = symbols | arabicSymbols | brackets
+        &#34;&#34;&#34;Characters that act as symbols.
+
+        More precisely, these are the non letters that we may encounter in
+        *Arabic* script, including symbols from other scripts and brackets.
+        &#34;&#34;&#34;
+
         self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets | symbols
+        &#34;&#34;&#34;Characters that are neutral with respect to writing direction.
+
+        These are the characters that should not trigger a change in writing direction.
+        For example, a latin full stop amidst Arabic characters should not trigger
+        a character range consisting of that full stop with ltr writing direction.
+        &#34;&#34;&#34;
+
         self.nospacings = getSetFromRanges(NO_SPACING_RANGES)
+        &#34;&#34;&#34;Characters that will be ignored when figuring out horizontal white space.
+
+        These are characters that appear to have bounding boxes in the Lakhnawi PDF
+        that are not helpful in determining horizontal white space.
+
+        When using this category in the Lakhnawi text extraction, extra characters
+        will be added to this category, namely the diacritics in the private use
+        area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text
+        extraction will take care of this.
+        &#34;&#34;&#34;
+
         self.diacritics = getSetFromRanges(DIACRITIC_RANGES)
+        &#34;&#34;&#34;Diacritical characters in various scripts.&#34;&#34;&#34;
+
         self.diacriticLike = getSetFromRanges(PSEUDO_DIACRITIC_RANGES) | self.diacritics
+        &#34;&#34;&#34;Diacritical characters in various scripts plus the Arabic Hamza 0621.&#34;&#34;&#34;
+
         self.arabicLetters = self.arabic - self.diacritics
-        self.rls = self.semis</code></pre>
+        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;</code></pre>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="fusus.lakhnawi.Lakhnawi" href="lakhnawi.html#fusus.lakhnawi.Lakhnawi">Lakhnawi</a></li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="fusus.char.UChar.arabic"><code class="name">var <span class="ident">arabic</span></code></dt>
+<dd>
+<div class="desc"><p>All Arabic unicode characters</p></div>
+</dd>
+<dt id="fusus.char.UChar.arabicLetters"><code class="name">var <span class="ident">arabicLetters</span></code></dt>
+<dd>
+<div class="desc"><p>Arabic characters with exception of the Arabic diacritics.</p></div>
+</dd>
+<dt id="fusus.char.UChar.arabicPresentational"><code class="name">var <span class="ident">arabicPresentational</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms in the Arabic script</p></div>
+</dd>
+<dt id="fusus.char.UChar.bracketMap"><code class="name">var <span class="ident">bracketMap</span></code></dt>
+<dd>
+<div class="desc"><p>Mapping between left and right versions of brackets.</p>
+<p>Due to Unicode algorithms, left and right brackets will be displayed
+flipped when used in right-to-left writing direction.</p>
+<div class="admonition caution">
+<p class="admonition-title">hard flipping</p>
+<p>The Lakhnawi PDF contains brackets that have been hard flipped in order
+to display correctly in rtl direction.
+But after text extraction, we can rely on the Unicode algorithm,
+so we have to unflip these characters.</p>
+</div></div>
+</dd>
+<dt id="fusus.char.UChar.diacriticLike"><code class="name">var <span class="ident">diacriticLike</span></code></dt>
+<dd>
+<div class="desc"><p>Diacritical characters in various scripts plus the Arabic Hamza 0621.</p></div>
+</dd>
+<dt id="fusus.char.UChar.diacritics"><code class="name">var <span class="ident">diacritics</span></code></dt>
+<dd>
+<div class="desc"><p>Diacritical characters in various scripts.</p></div>
+</dd>
+<dt id="fusus.char.UChar.greekPresentational"><code class="name">var <span class="ident">greekPresentational</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms in the Greek script</p></div>
+</dd>
+<dt id="fusus.char.UChar.hebrew"><code class="name">var <span class="ident">hebrew</span></code></dt>
+<dd>
+<div class="desc"><p>All Hebrew unicode characters</p></div>
+</dd>
+<dt id="fusus.char.UChar.hebrewPresentational"><code class="name">var <span class="ident">hebrewPresentational</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms in the Hebrew script</p></div>
+</dd>
+<dt id="fusus.char.UChar.latinPresentational"><code class="name">var <span class="ident">latinPresentational</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms in the Latin script</p></div>
+</dd>
+<dt id="fusus.char.UChar.neutrals"><code class="name">var <span class="ident">neutrals</span></code></dt>
+<dd>
+<div class="desc"><p>Characters that are neutral with respect to writing direction.</p>
+<p>These are the characters that should not trigger a change in writing direction.
+For example, a latin full stop amidst Arabic characters should not trigger
+a character range consisting of that full stop with ltr writing direction.</p></div>
+</dd>
+<dt id="fusus.char.UChar.nonLetter"><code class="name">var <span class="ident">nonLetter</span></code></dt>
+<dd>
+<div class="desc"><p>Characters that act as symbols.</p>
+<p>More precisely, these are the non letters that we may encounter in
+<em>Arabic</em> script, including symbols from other scripts and brackets.</p></div>
+</dd>
+<dt id="fusus.char.UChar.nospacings"><code class="name">var <span class="ident">nospacings</span></code></dt>
+<dd>
+<div class="desc"><p>Characters that will be ignored when figuring out horizontal white space.</p>
+<p>These are characters that appear to have bounding boxes in the Lakhnawi PDF
+that are not helpful in determining horizontal white space.</p>
+<p>When using this category in the Lakhnawi text extraction, extra characters
+will be added to this category, namely the diacritics in the private use
+area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text
+extraction will take care of this.</p></div>
+</dd>
+<dt id="fusus.char.UChar.presentational"><code class="name">var <span class="ident">presentational</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms various scripts</p></div>
+</dd>
+<dt id="fusus.char.UChar.presentationalC"><code class="name">var <span class="ident">presentationalC</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms (C)</p>
+<p>These are the ones that are best normalized with <code>NFKC</code>: Arabic and Hebrew.</p></div>
+</dd>
+<dt id="fusus.char.UChar.presentationalD"><code class="name">var <span class="ident">presentationalD</span></code></dt>
+<dd>
+<div class="desc"><p>Ligatures and special letter forms (D)</p>
+<p>These are the ones that are best normalized with <code>NFKC</code>: Latin and Greek.</p></div>
+</dd>
+<dt id="fusus.char.UChar.puas"><code class="name">var <span class="ident">puas</span></code></dt>
+<dd>
+<div class="desc"><p>Private use character codes as defined by the unicode standard.</p></div>
+</dd>
+<dt id="fusus.char.UChar.punct"><code class="name">var <span class="ident">punct</span></code></dt>
+<dd>
+<div class="desc"><p>Punctuation characters in several scripts.</p></div>
+</dd>
+<dt id="fusus.char.UChar.rls"><code class="name">var <span class="ident">rls</span></code></dt>
+<dd>
+<div class="desc"><p>Characters that belong to the right-to-left writing direction.</p>
+<p>Identical with the <code><a title="fusus.char.UChar.semis" href="#fusus.char.UChar.semis">UChar.semis</a></code> category.
+But the Lakhnawi conversion will insert the private use characters
+to this category.</p></div>
+</dd>
+<dt id="fusus.char.UChar.semis"><code class="name">var <span class="ident">semis</span></code></dt>
+<dd>
+<div class="desc"><p>Characters in semitic scripts.</p>
+<p>These scripts have a right-to-left writing direction.</p></div>
+</dd>
+<dt id="fusus.char.UChar.stops"><code class="name">var <span class="ident">stops</span></code></dt>
+<dd>
+<div class="desc"><p>Characters that have the function of a full stop in several scripts.</p></div>
+</dd>
+<dt id="fusus.char.UChar.syriac"><code class="name">var <span class="ident">syriac</span></code></dt>
+<dd>
+<div class="desc"><p>All Syriac unicode characters</p></div>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -540,6 +870,30 @@ class UChar:
 <ul>
 <li>
 <h4><code><a title="fusus.char.UChar" href="#fusus.char.UChar">UChar</a></code></h4>
+<ul class="">
+<li><code><a title="fusus.char.UChar.arabic" href="#fusus.char.UChar.arabic">arabic</a></code></li>
+<li><code><a title="fusus.char.UChar.arabicLetters" href="#fusus.char.UChar.arabicLetters">arabicLetters</a></code></li>
+<li><code><a title="fusus.char.UChar.arabicPresentational" href="#fusus.char.UChar.arabicPresentational">arabicPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.bracketMap" href="#fusus.char.UChar.bracketMap">bracketMap</a></code></li>
+<li><code><a title="fusus.char.UChar.diacriticLike" href="#fusus.char.UChar.diacriticLike">diacriticLike</a></code></li>
+<li><code><a title="fusus.char.UChar.diacritics" href="#fusus.char.UChar.diacritics">diacritics</a></code></li>
+<li><code><a title="fusus.char.UChar.greekPresentational" href="#fusus.char.UChar.greekPresentational">greekPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.hebrew" href="#fusus.char.UChar.hebrew">hebrew</a></code></li>
+<li><code><a title="fusus.char.UChar.hebrewPresentational" href="#fusus.char.UChar.hebrewPresentational">hebrewPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.latinPresentational" href="#fusus.char.UChar.latinPresentational">latinPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.neutrals" href="#fusus.char.UChar.neutrals">neutrals</a></code></li>
+<li><code><a title="fusus.char.UChar.nonLetter" href="#fusus.char.UChar.nonLetter">nonLetter</a></code></li>
+<li><code><a title="fusus.char.UChar.nospacings" href="#fusus.char.UChar.nospacings">nospacings</a></code></li>
+<li><code><a title="fusus.char.UChar.presentational" href="#fusus.char.UChar.presentational">presentational</a></code></li>
+<li><code><a title="fusus.char.UChar.presentationalC" href="#fusus.char.UChar.presentationalC">presentationalC</a></code></li>
+<li><code><a title="fusus.char.UChar.presentationalD" href="#fusus.char.UChar.presentationalD">presentationalD</a></code></li>
+<li><code><a title="fusus.char.UChar.puas" href="#fusus.char.UChar.puas">puas</a></code></li>
+<li><code><a title="fusus.char.UChar.punct" href="#fusus.char.UChar.punct">punct</a></code></li>
+<li><code><a title="fusus.char.UChar.rls" href="#fusus.char.UChar.rls">rls</a></code></li>
+<li><code><a title="fusus.char.UChar.semis" href="#fusus.char.UChar.semis">semis</a></code></li>
+<li><code><a title="fusus.char.UChar.stops" href="#fusus.char.UChar.stops">stops</a></code></li>
+<li><code><a title="fusus.char.UChar.syriac" href="#fusus.char.UChar.syriac">syriac</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

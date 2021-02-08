@@ -29,7 +29,7 @@ INDEX=[
 {
 "ref":"fusus",
 "url":0,
-"doc":"![logo](images/fusus-small.png)  Fusus Pipeline A pipe line from Arabic printed books to structured textual data. With the results of this pipeline researchers can study the commentary tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).  Straight to  .  Install ( fusus.about.install )  HowTo ( fusus.about.howto )  Sources ( fusus.about.sources )  Rationale ( fusues.about.rationale )  Authors  [Cornelis van Lit](https: digitalorientalist.com/about-cornelis-van-lit/)  [Dirk Roorda](https: www.annotation.nl)"
+"doc":"![logo](images/fusus-small.png)  Fusus Pipeline A pipe line from Arabic printed books to structured textual data. With the results of this pipeline researchers can study the commentary tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).  Straight to  .  Install ( fusus.about.install )  HowTo ( fusus.about.howto )  Sources ( fusus.about.sources )  Rationale ( fusus.about.rationale )  Authors  [Cornelis van Lit](https: digitalorientalist.com/about-cornelis-van-lit/)  [Dirk Roorda](https: www.annotation.nl)"
 },
 {
 "ref":"fusus.clean",
@@ -81,6 +81,24 @@ INDEX=[
 "ref":"fusus.lib.EXTENSIONS",
 "url":2,
 "doc":"Supported image file extensions."
+},
+{
+"ref":"fusus.lib.parseNums",
+"url":2,
+"doc":"Parses a value as one or more numbers. Parameters      numSpec: None | int | string | iterable If  None results in  None . If an  int , it stands for that int. If a  string , it is allowed to be a comma separated list of numbers or ranges, where a range is a lower bound and an upper bound separated by a  - . If none of these, it should be an iterable of  int values. Returns    - None | iterable of int Depending on the value.",
+"func":1
+},
+{
+"ref":"fusus.lib.getNbLink",
+"url":2,
+"doc":"",
+"func":1
+},
+{
+"ref":"fusus.lib.getNbPath",
+"url":2,
+"doc":"",
+"func":1
 },
 {
 "ref":"fusus.lib.tempFile",
@@ -205,7 +223,7 @@ INDEX=[
 {
 "ref":"fusus.layout",
 "url":3,
-"doc":""
+"doc":"Detect the page layout. Pages consist of a header region, a body region, and a footer region, all of which are optional.  header The header consists of a caption and/or a page number. All headers will be discarded.  footer The footer consists of footnote bodies. All footers will be discarded.  body The body region consists of zero or more  stripes .  stripe, column, block, line A stripe is a horizontal region of the body. If some parts of the body have two columns and other parts have one column, we divide the body in stripes where each stripe has a fixed number of columns, and neighbouring stripes have a different number of columns. If the whole body has the same number of columns, we have just one stripe. The stripes are numbered 1, 2, 3,  . from top to bottom. The column is the empty string if a stripe has just one column, otherwise it is  l for the left column and  r for the right column. We assume that all stripes on all pages have at most two columns. A column within a stripe is also called a  block . Blocks are divided into  lines . The lines are numbered with the blocks that contain them."
 },
 {
 "ref":"fusus.layout.addBlockName",
@@ -258,263 +276,452 @@ INDEX=[
 {
 "ref":"fusus.lakhnawi",
 "url":4,
-"doc":"Lakhnawi pdf reverse engineering. This is an effort to make the Lakhnawi PDF readable. It is a text-based PDF, no images are used to represent text. Yet the text is not easily extracted, due to:  the use of private-use unicode characters that refer to heavily customised fonts;  some fonts have some glyphs with dual unicode points;  the drawing order of characters does not reflect the reading order;  horizontal whitespace is hard to detect due to oversized bounding boxes of many private-use characters. We used the top-notch Python PDF library [PyMUPDF](https: pymupdf.readthedocs.io/en/latest/index.html), also know as  fitz .   pip3 install PyMuPDF   But even this library could not solve the above issues. Here is how we solved the issues  Private use characters We used font analysis software from PdfLib: [FontReporter](https: www.pdflib.com/download/free-software/fontreporter/) to generate a [report of character and font usage in the Lakhnawi PDF](https: github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf). Based on visual inspection of this font report and the occurrences of the private use tables we compiled a translation table mapping dirty strings (with private use characters) to clean strings (without private use characters).  Dual code points In case of dual code points, we ignore the highest code points. Often the two code points refer to a normal Arabic code point and to a ligature or special form of the character. The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms based on immediate context.  Reading order We ordered the characters ourselves, based on the coordinates. This required considerable subtlety, because we had to deal with diacritics above and below the lines. See  clusterVert .  Horizontal whitespace This is the most tricky point, because the information we retain from the PDF is, strictly speaking, insufficient to determine word boundaries. Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic. The objective part is in the amount of whitespace between characters and the form of the characters (initial, final, isolated). But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic words. So we only reached an approximate solution for this problem."
+"doc":"Lakhnawi pdf reverse engineering. This is an effort to make the Lakhnawi PDF readable. It is a text-based PDF, no images are used to represent text. Yet the text is not easily extracted, due to:  the use of private-use unicode characters that refer to heavily customised fonts;  some fonts have some glyphs with dual unicode points;  the drawing order of characters does not reflect the reading order;  horizontal whitespace is hard to detect due to oversized bounding boxes of many private-use characters. We used the top-notch Python PDF library [PyMUPDF](https: pymupdf.readthedocs.io/en/latest/index.html), also know as  fitz .   pip3 install PyMuPDF   But even this library could not solve the above issues. Here is how we solved the issues  Private use characters We used font analysis software from PdfLib: [FontReporter](https: www.pdflib.com/download/free-software/fontreporter/) to generate a [report of character and font usage in the Lakhnawi PDF](https: github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf). Based on visual inspection of this font report and the occurrences of the private use tables we compiled a translation table mapping dirty strings (with private use characters) to clean strings (without private use characters).  Dual code points In case of dual code points, we ignore the highest code points. Often the two code points refer to a normal Arabic code point and to a ligature or special form of the character. The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms based on immediate context.  Reading order We ordered the characters ourselves, based on the coordinates. This required considerable subtlety, because we had to deal with diacritics above and below the lines. See  clusterVert .  Horizontal whitespace This is the most tricky point, because the information we retain from the PDF is, strictly speaking, insufficient to determine word boundaries. Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic. The objective part is in the amount of whitespace between characters and the form of the characters (initial, final, isolated). But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic words. So we only reached an approximate solution for this problem.  ! caution \"Footnotes\" We have strippped footnotes and footnote references from the text.  Output format The most important output are tab separated files with text and positions of individual words. See  Lakhnawi.tsvPages . This data is used to feed the conversion to Text-Fabric. See also:   fusus.convert.tfFromTsv .  [Text-Fabric](https: annotation.github.io/text-fabric/tf/index.html)"
+},
+{
+"ref":"fusus.lakhnawi.CSS",
+"url":4,
+"doc":"Styles to render extracted text. The styles are chosen such that the extracted text looks as similar as possible to the PDF display."
+},
+{
+"ref":"fusus.lakhnawi.POST_HTML",
+"url":4,
+"doc":"HTML code postfixed to the HTML representation of a page."
 },
 {
 "ref":"fusus.lakhnawi.preHtml",
 "url":4,
-"doc":"",
+"doc":"Generate HTML code to be prefixed to the HTML representation of a page. Parameters      pageNum: string The page number of the page for which HTML is generated.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.getToc",
 "url":4,
-"doc":"",
+"doc":"Generate a Table Of Contents for multiple HTML pages. Parameter     - pageNums: iterable if int The page numbers of the pages in the HTML file.",
 "func":1
+},
+{
+"ref":"fusus.lakhnawi.REPLACE_DEF",
+"url":4,
+"doc":"Character replace rules There are two parts: (1) character replace rules (2) notes. Each rule consists of a left hand side, then  => , then a right hand side, then  : and then a short description. The short description may contain references to notes in the notes section, which is a list of commented lines at the end of the whole string. The left and right hand sides consist of one or more hexadecimal character codes, joined by the  + sign. The meaning is that when the left hand side matches a portion of the input text, the output text, which is otherwise a copy of the input text, will have that portion replaced by the right hand side. The exact application of rules has some subtleties which will be dealt with in  Laknawi.trimLine ."
 },
 {
 "ref":"fusus.lakhnawi.tweakSpace",
 "url":4,
-"doc":"",
+"doc":"Deal with spaces in a character representation. Unicode denormalization mmight introduce spaces before initial or after final or around isolated characters. We do not need those spaces and strip them. Parameters      c: string The representation of a character, typically coming from a Unicode (de)normalization step.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.ptRepD",
 "url":4,
-"doc":"",
+"doc":"Represent a float as an integer with enhanced precision. Parameters      p: float We multiply it by 10, then round it to the nearest integer. A none value is converted to  ? .",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.ptRep",
 "url":4,
-"doc":"",
+"doc":"Represent a float as an integer. Parameters      p: float We round it to the nearest integer. A none value is converted to  ? .",
 "func":1
+},
+{
+"ref":"fusus.lakhnawi.LETTER_CODE_DEF",
+"url":4,
+"doc":"Defines place holder  d in rule definitions."
 },
 {
 "ref":"fusus.lakhnawi.getDictFromDef",
 "url":4,
-"doc":"",
+"doc":"Interpret a string as a dictionary. Parameters      defs: string A string containing definitions of character replace rules.  ! note \"Only for rules\" We only use this functions for the rules in  REPLACE_DEF .",
 "func":1
 },
 {
-"ref":"fusus.lakhnawi.parseNums",
+"ref":"fusus.lakhnawi.FNRULE_WIDTH",
 "url":4,
-"doc":"",
-"func":1
+"doc":"Width of the rule that separates body text from footnote text."
+},
+{
+"ref":"fusus.lakhnawi.SPACE_THRESHOLD",
+"url":4,
+"doc":"Amount of separation between words. Character boxes this far apart imply that there is a white space between them. The unit is 0.1 pixel."
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi",
 "url":4,
-"doc":""
+"doc":"Text extraction from the Lakhnawi PDF. This class makes use of the  fusus.char.UChar class which defines several categories of characters. By extending that class, the Lakhnawi class makes use of those categories. It also adds specific characters to some of those categories, especially the private use characters that occur in the Lakhnawi PDF. We use  fitz ( pip3 install PyMuPDF ) for PDF reading."
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.close",
 "url":4,
-"doc":"",
+"doc":"Close the PDF handle, offered by  fitz .",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.setStyle",
 "url":4,
-"doc":"",
+"doc":"Import the CSS styles into the notebook. See  CSS .",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.getCharConfig",
 "url":4,
-"doc":"",
+"doc":"Configure all character information. Private-use characters, transformation rules, character categories.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.privateInfo",
 "url":4,
-"doc":"",
+"doc":"Set up additional character categories wrt. private-use characters. Several categories will receive additional members from the private use characters.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.setupRules",
 "url":4,
-"doc":"",
+"doc":"Set up character transformation rules. Prepare for counting how much rules will be applied when extracting text from pages of the Lakhnawi PDF.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.getCharInfo",
 "url":4,
-"doc":"",
-"func":1
-},
-{
-"ref":"fusus.lakhnawi.Lakhnawi.showChar",
-"url":4,
-"doc":"",
+"doc":"Obtain detailed character information by reading the font report file. From this file we read:  which are the private use characters?  which of them have a double unicode? The font file is [here](https: github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf).",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.plainChar",
 "url":4,
-"doc":"",
-"func":1
-},
-{
-"ref":"fusus.lakhnawi.Lakhnawi.showString",
-"url":4,
-"doc":"",
+"doc":"Show the character code of a character. Parameters      c: string The character in question, may also be the empty string or the integer 1 (diacritic place holder). Returns    - string The hexadecimal unicode point of  c , between  \u230a \u230b - brackets.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.plainString",
 "url":4,
-"doc":"",
+"doc":"Show the character codes of the characters in a string. Parameters      s: string The string to show, may be empty, may contain place holders. Returns    - string The concatenation of the unicode points of the characters in the string, each code point between brackets. See also  Lakhnawi.plainChar() .",
+"func":1
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.showChar",
+"url":4,
+"doc":"Pretty display of a single unicode character. We show the character itself and its name (if not a private-use one), its hexadecimal code, and we indicate by coloring the kind of white space that the character represents (ordinary space or tab). Parameters      c: string The character in question, may also be the empty string or the integer 1 (diacritic place holder).",
+"func":1
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.showString",
+"url":4,
+"doc":"Pretty display of a string as a series of unicode characters. Parameters      s: string The string to display, may be empty, may contain place holders. asString: boolean, optional  False If True, return the result as an HTML string. Returns    - None | string If  asString , returns an HTML string, otherwise returns None, but displays the HTML string. See also  Lakhnawi.showChar() .",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showReplacements",
 "url":4,
-"doc":"",
+"doc":"Show a character conversion rule and how it has been applied. Parameters      rule: string|int, optional  None A specification of zero or more rule numbers (see  fusus.lib.parseNums ). If None, all rules will be taken. isApplied: boolean, optional  False Only show rules that have been applied. Returns    - None Displays a table of rules with usage statistics.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.parsePageNums",
 "url":4,
-"doc":"",
+"doc":"Parses a value as one or more page numbers. Parameters      pageNumSpec: None | int | string | iterable If  None results in all page numbers. If an  int , it stands for that int. If a  string , it is allowed to be a comma separated list of numbers or ranges, where a range is a lower bound and an upper bound separated by a  - . If none of these, it should be an iterable of  int values. Returns    - None | iterable of int Depending on the value.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.drawPages",
 "url":4,
-"doc":"",
+"doc":"Draws a (part) of page from the PDF as a raster image. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . clip: (int, int), optional  None If None: produces the whole page. Otherwise it is  (top, bottom) , and a stripe from top to bottom will be displayed.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.getPages",
 "url":4,
-"doc":"",
+"doc":"Reads pages of the PDF and extracts text. This does all of the hard work of the text extraction. It saves the textual data in attributes of the Lakhnawi object, augmented with all kinds of diagnostic information. From all this data, various output representations can be generated rather easily by other methods. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . refreshConfig: boolean, optional  False If  True , rereads all character configuration. Ideal when you are iteratively developing the character configuration. doRules: boolean, optional  True If  False , suppresses the application of character transformation rules. Mainly used when debugging other aspects of the text extraction. doFilter: boolean, optional  True If  False , suppresses the application of unicode normalization, by which presentational characters are transformed into sequences of ordinary, basic characters. Used for debugging. onlyFnRules: boolean, optional  False If  True , skips most of the conversion. Only determine where the footnote rules are. Used for debugging. Returns    - None The effect is that attributes of the Lakhnawi object are filled:   Lakhnawi.fnRules For the other attributes, see  Lakhnawi.collectPage() .  ! hint \"multiple runs\" If you do multiple runs of this function for different pages, the results will not overwrite each other in general, because the attributes hold the results in dictionaries keyed by page number.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.getPageRaw",
 "url":4,
-"doc":"",
+"doc":"Do a rough/raw text extract of a specific page. The  fitz method [extractRAWDICT()](https: pymupdf.readthedocs.io/en/latest/textpage.html TextPage.extractRAWDICT) is used to obtain very detailed information about each character on that page. Used for debugging. Parameters      pageNum: int A valid page number. It is the sequence number of the page within the PDF, counting from 1. Returns    - None It pretty prints the output of the fitz method, which is a big and deep dictionary.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.getPageObj",
 "url":4,
-"doc":"",
+"doc":"Get the  fitz object for a specific page. Used for debugging. Parameters      pageNum: int A valid page number. It is the sequence number of the page within the PDF, counting from 1. Returns    - object A  fitz [page object](https: pymupdf.readthedocs.io/en/latest/page.html)",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.plainPages",
 "url":4,
-"doc":"",
+"doc":"Outputs processed pages as plain text. Uses  Lakhnawi.plainLine() . Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . Returns    - None The plain text is printed to the output.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.tsvPages",
 "url":4,
-"doc":"",
+"doc":"Outputs processed pages as tab-separated data. Uses  Lakhnawi.tsvLine() . and  Lakhnawi.tsvHeadLine() . Here is the structure: Each page is divided into lines. Each line is divided into columns (in case of hemistic verses, see  Lakhnawi.columns ). Each column is divided into spans. Span transitions occur precisely there where changes in writing direction occur. Each span is divided into words. Each word occupies exactly one line in the TSV file, with the following fields:   page page number   line line number within the page   column column number within the line   span span number within the column   direction ( l or  r ) writing direction of the span   left  x coordinate of left boundary   top  y coordinate of top boundary   right  x coordinate of right boundary   bottom  y coordinate of bottom boundary   text text of the word Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . Returns    - None The tab-separated data is written to a single tsv file. There is a heading row. The file is in  fusus.parameters.UR_DIR , under  Lakhnawi . The name of the file includes a page specification.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.htmlPages",
 "url":4,
-"doc":"",
+"doc":"Outputs processed pages as formatted HTML pages. Uses  Lakhnawi.htmlLine() . The HTML output is suitable to read the extracted text. Its layout matches the original closely, which makes it easier to see where the output deviates from the source page. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . line: None | int | string | iterable A specification of zero or more line numbers (see  fusus.lib.parseNums ). showSpaces: boolean, optional  False If  True , shows the spaces with a conspicuous coloured background. export: boolean, optional  False If  True , writes the HTML results to disk. In this case, the HTML will not be displayed in the notebook. singleFile: boolean, optional  False Only meaningful is  export=True . If  True , writes the output to a single HTML file, otherwise to one file per page, in a directory called  html . toc: boolean, optional  False Only meaningful is  export=True and  singleFile=True . If  True , writes a table of contents to the file. The TOC points to every page that is included in the output file. Returns    - None Depending on  export , the page is displayed in the notebook where this function is called, or exported to a file on disk. The file is in  fusus.parameters.UR_DIR , under  Lakhnawi . The name of the file includes a page specification.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showLines",
 "url":4,
-"doc":"",
+"doc":"Outputs processed lines as a formatted HTML table. The lines can be selected by page numbers and line numbers. Within the selected lines, the characters can be selected by start/end postions, or by characters of interest. All of these indices start at 1. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . line: None | int | string | iterable A specification of zero or more line numbers (see  fusus.lib.parseNums ). start: integer, optional  None Starting word position in each line to be output. If  None , starts at the beginning of each line. end: integer, optional  None End word position in each line to be output. If  None , ends at the end of each line. search: string or iterable of char, optional  None If not none, all characters in  search are deemed interesting. All occurrences of these characters within the selected lines are displayed, included a small context. orig: boolean, optional  False Only meaningful if  search is given. If  True : the check for interesting characters is done in the original, untranslated characters. Otherwise, interesting characters are looked up in the translated characters. every: boolean, optional  False Only meaningful if  search is given. If  True , when looking for interesting characters, all occurrences will be retrieved, otherwise only the first one. Returns    - None The output material will be displayed in the notebook.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showWords",
 "url":4,
-"doc":"",
+"doc":"Outputs processed words as a formatted HTML table. The lines can be selected by page numbers and line numbers. All words within the selected lines are put into a table with the same properties as in the TSV data, see  Lakhnawi.tsvPages . Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . line: None | int | string | iterable A specification of zero or more line numbers (see  fusus.lib.parseNums ). Returns    - None The output material will be displayed in the notebook.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showUsedChars",
 "url":4,
-"doc":"",
+"doc":"Show used characters. Gives an overview of character usage, either in the input PDF, or in the text output. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . orig: boolean, optional  False If  True : shows characters of the original PDF. Otherwise, shows characters of the translated output/ onlyPuas: boolean, optional  False If  True , the result is restricted to private use characters. onlyPresentational: boolean, optional  False If  True , the result is restricted to presentational characters. See  fusus.char.UChar.presentational . long: boolean, optional  False If  True , for each character output the complete list of pages where the character occurs. Otherwise, show only the most prominent pages. byOcc: boolean, optional  False If  True , sort the results by first occurrence of the characters. Otherwise, sort the results by unicode code point of the character. Returns    - None The output material will be displayed in the notebook.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showColumns",
 "url":4,
-"doc":"",
+"doc":"Show used characters. Gives an overview of the columns in each line. The result is a readable, ascii overview of the columns that exists in the lines of the selected pages. It is useful to visually check column detection for many pages. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . Returns    - None The output material will be displayed in the notebook.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.showSpacing",
 "url":4,
-"doc":"",
+"doc":"Show where the spaces are. Gives an overview of the white space positions in each line. It is useful to debug the horizontal white space algorithm. Parameters      pageNumSpec: None | int | string | iterable As in  Lakhnawi.parsePageNums() . line: None | int | string | iterable A specification of zero or more line numbers (see  fusus.lib.parseNums ). Returns    - None The output material will be displayed in the notebook.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.collectPage",
 "url":4,
-"doc":"",
+"doc":"Transforms raw text into proper textual data. Called by  Lakhnawi.getPages() and delivers its results to attributes of the Lakhnawi object. Here are they   Lakhnawi.lines   Lakhnawi.doubles   Lakhnawi.text They are all dictionaries, keyed by page number first and then by line. Parameters      data: dict as obtained by the [extractRAWDICT()](https: pymupdf.readthedocs.io/en/latest/textpage.html TextPage.extractRAWDICT) method of  fitz . Returns    - None",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.isPageNum",
 "url":4,
-"doc":"",
+"doc":"Checks whether a series of characters represents an arabic number. Parameters      chars: iterable of char reocrds",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.trimLine",
 "url":4,
-"doc":"Map character sequences to other sequences. Two tasks: 1. Map private use characters to well-known unicode characters 2. Insert space characters where the next character is separated from the previous one. Complications: Diacritical characters are mostly contained in a very wide box that overlaps with the boxes of the other characters. So the diacritical boxes must not be taken into account. Private use characters often com in sequences, so a sequence of characters must be transformed to another sequence. We do the tramsformation before the space insertion, because otherwise we might insert the space at the wrong point. When we transform characters we need to retain the box information, because we still have to insert the space. That's why we have as input a list of character records, where each record is itself a list with box information, orginal character, modified characters and space information. When we transform characters, we modify character records in place. We do not add or remove character records. The last member of a character record is the modified sequence. This can be zero, one, or multiple characters. The second last member is the original character. Initially, the the last and second last member of each record are equal. We call these members the original character and the result string. Space will be appended at the last member of the appropriate character records. The transformations are given as a set of rules. A rule consists of a sequence of characters to match and a sequence of characters to replace the match with. We call them the match sequence and the replacement sequence of the rule. For each character in the input list we check which rules have a match sequence that start with this character. Of these rules, we start with the one with the longest match sequence. We then check, by looking ahead, whether the whole match sequence matches the input. For the purposes of matching, we look into the result strings of the character, not to the original characters. This will prevent some rules to be applied after an earlier rule has been applied. This is intentional, and results in a more simple rule set. If there is a match, we walk through all the characters in the input for the length of the match sequence of the rule. For each input character record, we set its replacement string to the corresponding member of the replacement sequence of the rule. If the replacement sequence has run out, we replace with the empty string. If after this process the replacement sequence has not been exhausted, we join the remaining characters in the replacement string and append it after the replacement string of the last input character that we have visited. After succesful application of a rule, we do not apply other rules that would have been applicable at this point. Instead, we move our starting point to the next character record in the sequence and repeat the matching process. It might be that a character is replaced multiple times, for example when it is reached by a rule while looking ahead 3 places, and then later by a different rule looking ahead two places. However, once a character matches the first member of the match sequence of a rule, and the rule matches and is applied, that character will not be changed anymore by any other rule. The match sequence may contain the character  d , which is a placeholder for a diacritic sign. It will match any diacritic. The replacement sequence of such a rule may or may not contain a  d . It is an error if the replacement seqience of a rule contains a  d while its match sequence does not. It is also an error of there are multiple  d s in a match sequence of a replacement sequence. If so, the working of this rule is effectively two rules: Suppose the rule is x d y => r d s where x, y, r, s are sequences of arbitrary length. If the rule matches the input, then first the rule x => r will be applied at the current position. Then we shift temporarily to the position right after where the d has matched, and apply the rule y => s Then we shift back to the orginal position plus one, and continue applying rules.",
+"doc":"Map character sequences to other sequences. Two tasks: 1. Map private use characters to well-known unicode characters 2. Insert space characters where the next character is separated from the previous one. Complications: Diacritical characters are mostly contained in a very wide box that overlaps with the boxes of the other characters. So the diacritical boxes must not be taken into account. Private use characters often come in sequences, so a sequence of characters must be transformed to another sequence. We do the tramsformation before the space insertion, because otherwise we might insert the space at the wrong point. When we transform characters we need to retain the box information, because we still have to insert the space. That's why we have as input a list of character records, where each record is itself a list with box information, orginal character, modified characters and space information. When we transform characters, we modify character records in place. We do not add or remove character records. The last member of a character record is the modified sequence. This can be zero, one, or multiple characters. The second last member is the original character. Initially, the the last and second last member of each record are equal. We call these members the original character and the result string. Space will be appended at the last member of the appropriate character records. The transformations are given as a set of rules. See  REPLACE_DEFS . A rule consists of a sequence of characters to match and a sequence of characters to replace the match with. We call them the match sequence and the replacement sequence of the rule. For each character in the input list we check which rules have a match sequence that start with this character. Of these rules, we start with the one with the longest match sequence. We then check, by looking ahead, whether the whole match sequence matches the input. For the purposes of matching, we look into the result strings of the character, not to the original characters. This will prevent some rules to be applied after an earlier rule has been applied. This is intentional, and results in a more simple rule set. If there is a match, we walk through all the characters in the input for the length of the match sequence of the rule. For each input character record, we set its replacement string to the corresponding member of the replacement sequence of the rule. If the replacement sequence has run out, we replace with the empty string. If after this process the replacement sequence has not been exhausted, we join the remaining characters in the replacement string and append it after the replacement string of the last input character that we have visited. After succesful application of a rule, we do not apply other rules that would have been applicable at this point. Instead, we move our starting point to the next character record in the sequence and repeat the matching process. It might be that a character is replaced multiple times, for example when it is reached by a rule while looking ahead 3 places, and then later by a different rule looking ahead two places. However, once a character matches the first member of the match sequence of a rule, and the rule matches and is applied, that character will not be changed anymore by any other rule.  ! caution \"place holders for diacritics\" The following functionality exists in the code, but is not needed anymore to process the Lakhnawi PDF. The match sequence may contain the character  d , which is a placeholder for a diacritic sign. It will match any diacritic. The replacement sequence of such a rule may or may not contain a  d . It is an error if the replacement seqience of a rule contains a  d while its match sequence does not. It is also an error of there are multiple  d s in a match sequence of a replacement sequence. If so, the working of this rule is effectively two rules: Suppose the rule is x d y => r d s where x, y, r, s are sequences of arbitrary length. If the rule matches the input, then first the rule x => r will be applied at the current position. Then we shift temporarily to the position right after where the d has matched, and apply the rule y => s Then we shift back to the orginal position plus one, and continue applying rules.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.plainLine",
 "url":4,
-"doc":"",
+"doc":"Outputs a processed line as plain text. Used by  Lakhnawi.plainPages() . Parameters      columns: iterable An iterable of columns that make up a line. Each column is an iterable of spans. Spans contain words plus an indication of the writing direction for that span. Returns    - string The concatenation of all words in all spans separated by white space.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.tsvHeadLine",
 "url":4,
-"doc":"",
+"doc":"Outputs the field names of a word in TSV data. See  Lakhnawi.tsvPages() for the structure of TSV data as output format for the extracted text of the Lakhnawi PDF. Returns    - string A tab-separated line of field names.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.tsvLine",
 "url":4,
-"doc":"",
+"doc":"Outputs a processed line as lines of tab-separated fields for each word. Used by  Lakhnawi.tsvPages() . Parameters      columns: iterable An iterable of columns that make up a line. Each column is an iterable of spans. Spans contain words plus an indication of the writing direction for that span. pageNum: int The page number of the page where this line occurs. Returns    - string The concatenation of the TSV lines for all words in all spans in all columns.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.Lakhnawi.htmlLine",
 "url":4,
-"doc":"",
+"doc":"Outputs a processed line as HTML. Used by  Lakhnawi.htmlPages() . Parameters      columns: iterable An iterable of columns that make up a line. Each column is an iterable of spans. Spans contain words plus an indication of the writing direction for that span. prevMulti: boolean Whether the preceding line has multiple columns. isLast: boolean Whether this line is the last line on the page. Returns    - string The concatenation of the TSV lines for all words in all spans in all columns.",
 "func":1
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.doc",
+"url":4,
+"doc":"A handle to the PDF document, after it has been read by  fitz ."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.lines",
+"url":4,
+"doc":"Lines as tuples of original character objects, indexed by page number"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.text",
+"url":4,
+"doc":"Lines as tuples of converted character objects, indexed by page number"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.fnRules",
+"url":4,
+"doc":"Vertical positions of footnote lines, indexed by page number"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.spaces",
+"url":4,
+"doc":"Spacing information for each character, indexed by page and line number. For character that has space behind it, it gives the index position of that character in the line, the amount of space detected, and whether this counts as a full white space."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.columns",
+"url":4,
+"doc":"Column information, indexed by page and line number. Spaces that are significantly larger than a normal white space are interpreted as a tab, and these are considered as column separators. We remember the character positions where this happens plus the amount of space in question. Columns in the Lakhnawi PDF correspond to  hemistic poems, where lines are divided into two halves, each occupying a column. See ![hemistic](images/hemistic.png)  ! caution \"hemistic poems versus blocks\" This is very different from blocks (see  fusus.layout ) in OCRed texts, where blocks have been detected because of vertical strokes that separate columns. The reading progress in a hemistic poem is not changed by the column division, where as in the case of blocks, reading proceeds by reading the complete blocks in order."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.doubles",
+"url":4,
+"doc":"Glyphs with double unicode points. Some private use characters have two unicode points assigned to them by fonts in the PDF. This is the cause that straightforward text extractions deliver double occurrences of those letters. Even  fitz does that. We have collected these cases, and choose to use the lower unicode point, which is usually an ordinary character, whereas the other is usually a related presentational character. This dictionary maps the lower character to the higher character."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.privateLetters",
+"url":4,
+"doc":"Private-use unicodes that correspond to full letters."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.privateDias",
+"url":4,
+"doc":"Private-use unicodes that correspond to diacritics."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.privateSpace",
+"url":4,
+"doc":"Private-use-unicode used to represent a space."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.good",
+"url":4,
+"doc":"Whether processing is still ok, i.e. no errors encountered."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.puas",
+"url":5,
+"doc":"Private use character codes as defined by the unicode standard."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.arabic",
+"url":5,
+"doc":"All Arabic unicode characters"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.hebrew",
+"url":5,
+"doc":"All Hebrew unicode characters"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.syriac",
+"url":5,
+"doc":"All Syriac unicode characters"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.latinPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Latin script"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.greekPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Greek script"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.arabicPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Arabic script"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.hebrewPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Hebrew script"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.presentationalC",
+"url":5,
+"doc":"Ligatures and special letter forms (C) These are the ones that are best normalized with  NFKC : Arabic and Hebrew."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.presentationalD",
+"url":5,
+"doc":"Ligatures and special letter forms (D) These are the ones that are best normalized with  NFKC : Latin and Greek."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.presentational",
+"url":5,
+"doc":"Ligatures and special letter forms various scripts"
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.stops",
+"url":5,
+"doc":"Characters that have the function of a full stop in several scripts."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.punct",
+"url":5,
+"doc":"Punctuation characters in several scripts."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.semis",
+"url":5,
+"doc":"Characters in semitic scripts. These scripts have a right-to-left writing direction."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.rls",
+"url":5,
+"doc":"Characters that belong to the right-to-left writing direction. Identical with the  UChar.semis category. But the Lakhnawi conversion will insert the private use characters to this category."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.bracketMap",
+"url":5,
+"doc":"Mapping between left and right versions of brackets. Due to Unicode algorithms, left and right brackets will be displayed flipped when used in right-to-left writing direction.  ! caution \"hard flipping\" The Lakhnawi PDF contains brackets that have been hard flipped in order to display correctly in rtl direction. But after text extraction, we can rely on the Unicode algorithm, so we have to unflip these characters."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.nonLetter",
+"url":5,
+"doc":"Characters that act as symbols. More precisely, these are the non letters that we may encounter in  Arabic script, including symbols from other scripts and brackets."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.neutrals",
+"url":5,
+"doc":"Characters that are neutral with respect to writing direction. These are the characters that should not trigger a change in writing direction. For example, a latin full stop amidst Arabic characters should not trigger a character range consisting of that full stop with ltr writing direction."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.nospacings",
+"url":5,
+"doc":"Characters that will be ignored when figuring out horizontal white space. These are characters that appear to have bounding boxes in the Lakhnawi PDF that are not helpful in determining horizontal white space. When using this category in the Lakhnawi text extraction, extra characters will be added to this category, namely the diacritics in the private use area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text extraction will take care of this."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.diacritics",
+"url":5,
+"doc":"Diacritical characters in various scripts."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.diacriticLike",
+"url":5,
+"doc":"Diacritical characters in various scripts plus the Arabic Hamza 0621."
+},
+{
+"ref":"fusus.lakhnawi.Lakhnawi.arabicLetters",
+"url":5,
+"doc":"Arabic characters with exception of the Arabic diacritics."
 },
 {
 "ref":"fusus.lakhnawi.keyCharV",
 "url":4,
-"doc":"The vertical position of the middle of a character. Used to sort the characters of a page in the vertical direction.",
+"doc":"The vertical position of the middle of a character. Used to sort the characters of a page in the vertical direction. Parameters      char: record Returns    - float The height of the middle of the character.",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.keyCharH",
 "url":4,
-"doc":"Sort key to sort the characters of a line horizontally. Basically, characters whose right edge are closer to the right edge of the page come before characters whose right edges are further left. So we could sort on minus the x coordinate of the right edge. However, there are complications. Sometimes characters have the same right edge. Diacritics usually start right after the letter they are on together with the next letter. So they should come before that next letter. In those cases we take the width into account. Private use diacritics usually have a big width, they are wider than letters. So if we sort wider characters before narrower characters, we get that right. However, normal unicode diacritics have a typical width of zero, and also these should come before the next letter. We can solve that by sorting by a key defined as 1 divided by the widthss if the width is nonzero, and 0 if the the width is zero. Then zero width characters come first, then wide characters, then narrow characters. One extra complication: the widths are not integers but fractions. Sometimes a the diacritic and the next letter have an almost equal right edge, but not quite equal, and the wrong one comes first. We can solve that by rounding.",
+"doc":"Sort key to sort the characters of a line horizontally. Basically, characters whose right edge are closer to the right edge of the page come before characters whose right edges are further left. So we could sort on minus the x coordinate of the right edge. However, there are complications. Sometimes characters have the same right edge. Diacritics usually start right after the letter they are on together with the next letter. So they should come before that next letter. In those cases we take the width into account. Private use diacritics usually have a big width, they are wider than letters. So if we sort wider characters before narrower characters, we get that right. However, normal unicode diacritics have a typical width of zero, and also these should come before the next letter. We can solve that by sorting by a key defined as 1 divided by the width if the width is nonzero, and 0 if the the width is zero. Then zero width characters come first, then wide characters, then narrow characters. One extra complication: the widths are not integers but fractions. Sometimes a the diacritic and the next letter have an almost equal right edge, but not quite equal, and the wrong one comes first. We can solve that by rounding. Parameters      char: record Returns    - (int, float)",
 "func":1
 },
 {
 "ref":"fusus.lakhnawi.clusterVert",
 "url":4,
-"doc":"Cluster characters into lines based on their bounding boxes. Most characters on a line have their middle line in approximately the same height. But diacritics of characters in that line may occupy different heights. Without intervanetion, these would be clustered on separate lines. We take care to cluster them into the same lines as their main characters. It involves getting an idea of the regular line height, and clustering boxes that fall between the lines with the line above or below, whichever is closest.",
+"doc":"Cluster characters into lines based on their bounding boxes. Most characters on a line have their middle line in approximately the same height. But diacritics of characters in that line may occupy different heights. Without intervention, these would be clustered on separate lines. We take care to cluster them into the same lines as their main characters. It involves getting an idea of the regular line height, and clustering boxes that fall between the lines with the line above or below, whichever is closest. The result of the clustering is delivered as a key function, which will be used to sort characters. Parameters      data: iterable of record The character records Returns    - function A key function that assigns to each character record a value that corresponds to the vertical position of a real line, which is a clustered set of characters.",
 "func":1
 },
 {
 "ref":"fusus.char",
 "url":5,
-"doc":""
+"doc":"Character knowledge. This module collects all character knowledge that we need to parse the Lakhnawi PDF and makes it available to programs. It contains definitions for things as character classes, e.g.  symbols ,  presentational characters ,  punctuation ,  bracket-like characters , etc. See  UChar below."
 },
 {
 "ref":"fusus.char.uName",
@@ -586,6 +793,116 @@ INDEX=[
 "ref":"fusus.char.UChar",
 "url":5,
 "doc":""
+},
+{
+"ref":"fusus.char.UChar.puas",
+"url":5,
+"doc":"Private use character codes as defined by the unicode standard."
+},
+{
+"ref":"fusus.char.UChar.arabic",
+"url":5,
+"doc":"All Arabic unicode characters"
+},
+{
+"ref":"fusus.char.UChar.hebrew",
+"url":5,
+"doc":"All Hebrew unicode characters"
+},
+{
+"ref":"fusus.char.UChar.syriac",
+"url":5,
+"doc":"All Syriac unicode characters"
+},
+{
+"ref":"fusus.char.UChar.latinPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Latin script"
+},
+{
+"ref":"fusus.char.UChar.greekPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Greek script"
+},
+{
+"ref":"fusus.char.UChar.arabicPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Arabic script"
+},
+{
+"ref":"fusus.char.UChar.hebrewPresentational",
+"url":5,
+"doc":"Ligatures and special letter forms in the Hebrew script"
+},
+{
+"ref":"fusus.char.UChar.presentationalC",
+"url":5,
+"doc":"Ligatures and special letter forms (C) These are the ones that are best normalized with  NFKC : Arabic and Hebrew."
+},
+{
+"ref":"fusus.char.UChar.presentationalD",
+"url":5,
+"doc":"Ligatures and special letter forms (D) These are the ones that are best normalized with  NFKC : Latin and Greek."
+},
+{
+"ref":"fusus.char.UChar.presentational",
+"url":5,
+"doc":"Ligatures and special letter forms various scripts"
+},
+{
+"ref":"fusus.char.UChar.stops",
+"url":5,
+"doc":"Characters that have the function of a full stop in several scripts."
+},
+{
+"ref":"fusus.char.UChar.punct",
+"url":5,
+"doc":"Punctuation characters in several scripts."
+},
+{
+"ref":"fusus.char.UChar.semis",
+"url":5,
+"doc":"Characters in semitic scripts. These scripts have a right-to-left writing direction."
+},
+{
+"ref":"fusus.char.UChar.rls",
+"url":5,
+"doc":"Characters that belong to the right-to-left writing direction. Identical with the  UChar.semis category. But the Lakhnawi conversion will insert the private use characters to this category."
+},
+{
+"ref":"fusus.char.UChar.bracketMap",
+"url":5,
+"doc":"Mapping between left and right versions of brackets. Due to Unicode algorithms, left and right brackets will be displayed flipped when used in right-to-left writing direction.  ! caution \"hard flipping\" The Lakhnawi PDF contains brackets that have been hard flipped in order to display correctly in rtl direction. But after text extraction, we can rely on the Unicode algorithm, so we have to unflip these characters."
+},
+{
+"ref":"fusus.char.UChar.nonLetter",
+"url":5,
+"doc":"Characters that act as symbols. More precisely, these are the non letters that we may encounter in  Arabic script, including symbols from other scripts and brackets."
+},
+{
+"ref":"fusus.char.UChar.neutrals",
+"url":5,
+"doc":"Characters that are neutral with respect to writing direction. These are the characters that should not trigger a change in writing direction. For example, a latin full stop amidst Arabic characters should not trigger a character range consisting of that full stop with ltr writing direction."
+},
+{
+"ref":"fusus.char.UChar.nospacings",
+"url":5,
+"doc":"Characters that will be ignored when figuring out horizontal white space. These are characters that appear to have bounding boxes in the Lakhnawi PDF that are not helpful in determining horizontal white space. When using this category in the Lakhnawi text extraction, extra characters will be added to this category, namely the diacritics in the private use area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text extraction will take care of this."
+},
+{
+"ref":"fusus.char.UChar.diacritics",
+"url":5,
+"doc":"Diacritical characters in various scripts."
+},
+{
+"ref":"fusus.char.UChar.diacriticLike",
+"url":5,
+"doc":"Diacritical characters in various scripts plus the Arabic Hamza 0621."
+},
+{
+"ref":"fusus.char.UChar.arabicLetters",
+"url":5,
+"doc":"Arabic characters with exception of the Arabic diacritics."
 },
 {
 "ref":"fusus.page",
@@ -695,7 +1012,7 @@ INDEX=[
 {
 "ref":"fusus.about.howto",
 "url":14,
-"doc":" Install and update  code and documentation  [install - get](https: among.github.io/fusus/fusus/about/install.html get-the-software)  [update - documentation](https: among.github.io/fusus/fusus/about/install.html build-steps)  [update - code](https: among.github.io/fusus/fusus/about/install.html push-everything)  Run  Straight from the command line  [run - book](https: among.github.io/fusus/fusus/about/run.html book-in-batch)  Explore  Page by page in a notebook  [do](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb) Run the pipeline in a notebook;  [inspect](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb) Inspect intermediate results in a notebook.  [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/). All notebooks.  Tweak  Sickness and cure by parameters  [tweak](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb) Basic parameter tweaking;   fusus.parameters All parameters.  [comma](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/comma.ipynb) A ministudy in cleaning: tweak mark templates and parameters to wipe commas.  [lines](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/lines.ipynb) Follow the line detection algorithm in a wide variety of cases.  [piece](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/piece.ipynb) What to do if you have an image that is a small fragment of a page.  Engineer  Change the flow   fusus.lakhnawi PDF reverse engineering.  Work  Do data science with the results "
+"doc":" Install and update  code and documentation  [install - get](https: among.github.io/fusus/fusus/about/install.html get-the-software)  [update - documentation](https: among.github.io/fusus/fusus/about/install.html build-steps)  [update - code](https: among.github.io/fusus/fusus/about/install.html push-everything)  Run  Straight from the command line  [run - book](https: among.github.io/fusus/fusus/about/run.html book-in-batch)  Explore  Page by page in a notebook  [do](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb) Run the pipeline in a notebook;  [inspect](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb) Inspect intermediate results in a notebook.  [ocr](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb) Read the proofs of Kraken-OCR.   Lakhnawi  [characters](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/FususAlHikam/Lakhnawi/status.ipynb) See which characters are in the PDF.  [notebooks on nbviewer](https: nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/). All notebooks.  Tweak  Sickness and cure by parameters  [tweak](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb) Basic parameter tweaking;   fusus.parameters All parameters.  [comma](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/comma.ipynb) A ministudy in cleaning: tweak mark templates and parameters to wipe commas.  [lines](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/lines.ipynb) Follow the line detection algorithm in a wide variety of cases.  [piece](https: nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/piece.ipynb) What to do if you have an image that is a small fragment of a page.  Engineer  Change the flow   fusus.lakhnawi PDF reverse engineering.  Work  Do data science with the results "
 },
 {
 "ref":"fusus.lines",
@@ -794,6 +1111,51 @@ INDEX=[
 "ref":"fusus.parameters",
 "url":17,
 "doc":"Settings and configuration"
+},
+{
+"ref":"fusus.parameters.HOME",
+"url":17,
+"doc":"Full path to your home directory."
+},
+{
+"ref":"fusus.parameters.BASE",
+"url":17,
+"doc":"Local directory where all your local clones of GitHub repositories are stored."
+},
+{
+"ref":"fusus.parameters.ORG",
+"url":17,
+"doc":"Organization on GitHub in which this code/data repository resides. This is also the name of the parent directory of your local clone of this repo."
+},
+{
+"ref":"fusus.parameters.REPO",
+"url":17,
+"doc":"Name of this code/data repository."
+},
+{
+"ref":"fusus.parameters.REPO_DIR",
+"url":17,
+"doc":"Directory of the local repo. This is where this repo resides on your computer. Note that we assume you have followed the convention that it is in your home directory, and then  github/among/fusus ."
+},
+{
+"ref":"fusus.parameters.PROGRAM_DIR",
+"url":17,
+"doc":"The subdirectory in the repo that contains the  fusus Python package ."
+},
+{
+"ref":"fusus.parameters.LOCAL_DIR",
+"url":17,
+"doc":"Subdirectory containing unpublished input material. This is material that we cannot make public in this repo. This directory is not pushed to the online repo, by virtue of its being in the  .gitignore of this repo. See also  UR_DIR ."
+},
+{
+"ref":"fusus.parameters.SOURCE_DIR",
+"url":17,
+"doc":"Subdirectory containing source texts. Here are the sources that we cannot make public in this repo. See also  UR_DIR and  LOCAL_DIR ."
+},
+{
+"ref":"fusus.parameters.UR_DIR",
+"url":17,
+"doc":"Subdirectory containing the public source texts. Here are the sources that we can make public in this repo. See also  SOURCE_DIR ."
 },
 {
 "ref":"fusus.parameters.COLORS",
@@ -934,7 +1296,7 @@ INDEX=[
 {
 "ref":"fusus.convert.tfFromTsv",
 "url":20,
-"doc":""
+"doc":"Convert TSV data to Text-Fabric. The TSV data consists of one-word-per-line files for each page, and for each word the line specifies its text, its bounding boxes in the original, and its containing spaces on the page (line, block, etc). The TSV data from OCRed pages is slightly different from that of the textual extraction of the Lakhnawi PDF, but they share most fields. The code here can deal with both kinds of input. See also   fusus.convert  [Text-Fabric](https: annotation.github.io/text-fabric/tf/index.html)"
 },
 {
 "ref":"fusus.convert.tfFromTsv.generic",
@@ -963,7 +1325,7 @@ INDEX=[
 {
 "ref":"fusus.convert.tfFromTsv.director",
 "url":20,
-"doc":"Read tsv data fields. Fields are integer valued, except for fields with names ending in $. If a row comes from the result of OCR we have the fields:   stripe block$ line left top right bottom confidence text$   We prepend the page number in this case, yielding   page stripe block$ line left top right bottom confidence text$   Otherwise we have: page line column span direction$ left top right bottom text$ The block in an OCRed file is either  r or  l or nothing, it corresponds to material to the left and right of a vertical stroke. If there is no vertical stroke, there is just one block. The column in a non OCRed file is either  1 or  2 and comes from a line partitioned into two regions by means of white space. In both cases, the first 4 fields denote a sectional division in the words.",
+"doc":"Read tsv data fields. Fields are integer valued, except for fields with names ending in $. If a row comes from the result of OCR we have the fields:   stripe block$ line left top right bottom confidence text$   We prepend the page number in this case, yielding   page stripe block$ line left top right bottom confidence text$   Otherwise we have:   page line column span direction$ left top right bottom text$   See  fusus.lakhnawi.Lakhnawi.tsvPages . The block in an OCRed file is either  r or  l or nothing, it corresponds to material to the left and right of a vertical stroke. If there is no vertical stroke, there is just one block. The column in a non OCRed file is either  1 or  2 and comes from a line partitioned into two regions by means of white space. In both cases, the first 4 fields denote a sectional division in the words.",
 "func":1
 },
 {
