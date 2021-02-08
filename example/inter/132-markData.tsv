@@ -1,7 +1,7 @@
 band	seq	mark	kept	value	connectdegree	connectborder	top	bottom	left	right
 high	1	a	False	0.81006587	0.0	4	1	r	1193	560	1217	576
-mid	20	comma2	False	0.93533874	0.0	4	1	l	705	403	723	430
+mid	20	comma2	False	0.9353391	0.0	4	1	l	705	403	723	430
 mid	20	comma2	False	0.9371576	0.0	4	1	l	891	492	909	519
 mid	20	comma2	False	0.9371576	0.0	4	1	r	1635	404	1653	431
-mid	20	comma2	False	0.9377852	0.0	4	1	r	1400	592	1418	619
+mid	20	comma2	False	0.9377856	0.0	4	1	r	1400	592	1418	619
 mid	20	comma2	False	0.93837124	0.0	4	1	l	788	573	806	600

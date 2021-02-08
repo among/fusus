@@ -94,6 +94,7 @@ import collections
 import cv2
 
 from tf.core.timestamp import Timestamp
+from tf.core.helpers import unexpanduser
 
 from .parameters import Config, ALL_PAGES
 from .lib import (
@@ -103,6 +104,7 @@ from .lib import (
     select,
     showImage,
     splitext,
+    getNbPath,
 )
 from .clean import reborder
 from .page import Page
@@ -514,6 +516,10 @@ class Book:
         info = tm.info
         indent = tm.indent
 
+        cd = self.cd
+        if cd:
+            cd = f"{cd}/"
+
         allPages = self.allPages
 
         imageFiles = select(allPages, pages)
@@ -595,14 +601,19 @@ class Book:
         info(f"by-char-confidences of OCR results for {len(resultsChar)} characters")
         resultsCollected = []
         (sDir, sTrail, sExt) = self.stageDir("proofchar")
+        showPath = unexpanduser(f"{cd}{sDir}")
+        (isLink, nbLink) = getNbPath(showPath)
         for c in sorted(resultsChar):
             occs = sorted(resultsChar[c], key=lambda x: x[1])
+            elem = "a" if isLink else "span"
+            att = dict(href="{nbLink}/{x[0][1:]}{sTrail}.{sExt}") if isLink else {}
             worstExamples = " ".join(
                 f"""\
-<a
+<{elem}
     style="background-color: {getProofColor(x[1])};"
-    href="{sDir}/{x[0][1:]}{sTrail}.{sExt}"
->{x[0]}</a>\
+    {" ".join(f'{k}="{v}"' for (k, v) in att.items())}
+    title="{showPath}/{x[0][1:]}{sTrail}.{sExt}"
+>{x[0]}</{elem}>\
 """
                 for x in occs[0:20]
             )
@@ -623,7 +634,8 @@ class Book:
             Specification of pages to do. If absent or `None`: all pages.
             If an int, do only that page.
             Otherwise it must be a comma separated string of (ranges of) page numbers.
-            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            Half ranges are also allowed: `-10`
+            (from beginning up to and including `10`)
             and `10-` (from 10 till end).
             E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
             No spaces allowed.

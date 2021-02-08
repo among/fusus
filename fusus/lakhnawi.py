@@ -28,34 +28,51 @@ We used font analysis software from PdfLib:
 to generate a
 [report of character and font usage in the Lakhnawi PDF](https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf).
 
-Based on visual inspection of this font report and the occurrences of the private use tables
-we compiled a translation table mapping dirty strings (with private use characters) to
-clean strings (without private use characters).
+Based on visual inspection of this font report and the occurrences
+of the private use tables we compiled a translation table mapping dirty strings
+(with private use characters) to clean strings (without private use characters).
 
 # Dual code points
 
 In case of dual code points, we ignore the highest code points.
-Often the two code points refer to a normal Arabic code point and to a ligature or special form
-of the character.
-The unicode algorithm is very good nowadays to generate the special forms from the ordinary forms
-based on immediate context.
+Often the two code points refer to a normal Arabic code point and to a ligature or
+special form of the character.
+The unicode algorithm is very good nowadays to generate the special forms
+from the ordinary forms based on immediate context.
 
 # Reading order
 
 We ordered the characters ourselves, based on the coordinates.
-This required considerable subtlety, because we had to deal with diacritics above and below the lines.
+This required considerable subtlety, because we had to deal
+with diacritics above and below the lines.
 See `clusterVert`.
 
 # Horizontal whitespace
 
-This is the most tricky point, because the information we retain from the PDF is, strictly speaking,
-insufficient to determine word boundaries.
+This is the most tricky point, because the information we retain from the PDF is,
+strictly speaking, insufficient to determine word boundaries.
 Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic.
-The objective part is in the amount of whitespace between characters and the form of the characters
-(initial, final, isolated).
-But the rules of Arabic orthography allow initial characters inside words, and there are the enclitic
-words.
+The objective part is in the amount of whitespace between characters
+and the form of the characters (initial, final, isolated).
+But the rules of Arabic orthography allow initial characters inside words,
+and there are the enclitic words.
+
 So we only reached an approximate solution for this problem.
+
+!!! caution "Footnotes"
+    We have strippped footnotes and footnote references from the text.
+
+# Output format
+
+The most important output are tab separated files with text and positions of
+individual words.
+See `Lakhnawi.tsvPages`.
+
+This data is used to feed the conversion to Text-Fabric.
+See also:
+
+* `fusus.convert.tfFromTsv`.
+* [Text-Fabric](https://annotation.github.io/text-fabric/tf/index.html)
 """
 
 import sys
@@ -72,7 +89,7 @@ import fitz
 from tf.core.helpers import setFromSpec
 
 from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES
-from .lib import pprint
+from .lib import pprint, parseNums
 from .char import (
     UChar,
     getSetFromDef,
@@ -92,7 +109,7 @@ SOURCE = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf"
 FONT = f"{UR_DIR}/{NAME}/FontReport-{NAME}.pdf"
 DEST = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt"
 
-CSS = """
+CSS = ("""
 <style>
 *,
 *:before,
@@ -291,15 +308,30 @@ td.cols4 {
     --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
 }
 </style>
+""")
+"""Styles to render extracted text.
+
+The styles are chosen such that the extracted text looks as similar as possible to
+the PDF display.
 """
 
-POST_HTML = """
+POST_HTML = ("""
 </body>
 </html>
+""")
+"""HTML code postfixed to the HTML representation of a page.
 """
 
 
 def preHtml(pageNum):
+    """Generate HTML code to be prefixed to the HTML representation of a page.
+
+    Parameters
+    ----------
+    pageNum: string
+        The page number of the page for which HTML is generated.
+    """
+
     return f"""\
 <html>
     <head>
@@ -313,6 +345,14 @@ def preHtml(pageNum):
 
 
 def getToc(pageNums):
+    """Generate a Table Of Contents for multiple HTML pages.
+
+    Parameter
+    ---------
+    pageNums: iterable if int
+        The page numbers of the pages in the HTML file.
+    """
+
     limit = 60
 
     html = []
@@ -333,7 +373,7 @@ def getToc(pageNums):
 
 PRIVATE_SPACE = "\uea75"
 
-PRIVATE_LETTERS_DEF = """
+PRIVATE_LETTERS_DEF = ("""
 e800
 e806
 e807
@@ -347,9 +387,9 @@ e8e9
 e915
 e917
 ea79
-"""
+""")
 
-PRIVATE_DIAS_DEF = """
+PRIVATE_DIAS_DEF = ("""
 e812
 e814
 e815
@@ -408,10 +448,9 @@ e8f6
 e8f8
 e8fb
 e8fe
-"""
+""")
 
-
-REPLACE_DEF = """
+REPLACE_DEF = ("""
 # see https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
 # see https://www.compart.com/en/unicode/U+FE8E
 # see https://r12a.github.io/scripts/arabic/block
@@ -549,10 +588,41 @@ fffd                =>                : replacement character
 #      algorithm.
 # [11] as in Allah, but with fatha instead of shadda. Probaly a typo in a note,
 #      page 12 second last line.
+""")
+"""Character replace rules
+
+There are two parts: (1) character replace rules (2) notes.
+
+Each rule consists of a left hand side, then `=>`, then a right hand side,
+then `:` and then a short description.
+The short description may contain references to notes in the notes section,
+which is a list of commented lines at the end of the whole string.
+
+The left and right hand sides consist of one or more hexadecimal character codes,
+joined by the `+` sign.
+
+The meaning is that when the left hand side matches a portion of the input text,
+the output text, which is otherwise a copy of the input text, will have that portion
+replaced by the right hand side.
+
+The exact application of rules has some subtleties which will be dealt with
+in `Laknawi.trimLine`.
 """
 
 
 def tweakSpace(c):
+    """Deal with spaces in a character representation.
+
+    Unicode denormalization mmight introduce spaces before initial or after
+    final or around isolated characters. We do not need those spaces and strip them.
+
+    Parameters
+    ----------
+    c: string
+        The representation of a character, typically coming from a Unicode
+        (de)normalization step.
+    """
+
     # return c.strip() if ISOLATED in dc else (" " + c.strip()) if INITIAL in dc else c
     # return c
     return c.strip()
@@ -561,10 +631,28 @@ def tweakSpace(c):
 
 
 def ptRepD(p):
+    """Represent a float as an integer with enhanced precision.
+
+    Parameters
+    ----------
+    p: float
+        We multiply it by 10, then round it to the nearest integer.
+        A none value is converted to `?`.
+    """
+
     return "?" if p is None else int(round(p * 10))
 
 
 def ptRep(p):
+    """Represent a float as an integer.
+
+    Parameters
+    ----------
+    p: float
+        We round it to the nearest integer.
+        A none value is converted to `?`.
+    """
+
     return "?" if p is None else int(round(p))
 
 
@@ -572,9 +660,10 @@ REPLACE_RE = re.compile(r"""^([0-9a-z+]+)\s*=>\s*([0-9a-z+]*)\s*:\s*(.*)$""", re
 
 
 LETTER_CODE_DEF = dict(
-    c=(2, "letter"),
     d=(1, "diacritic"),
 )
+"""Defines place holder `d` in rule definitions.
+"""
 
 
 LETTER_CODE = {cd: info[0] for (cd, info) in LETTER_CODE_DEF.items()}
@@ -583,6 +672,17 @@ LETTER_KIND = {info[0]: info[1] for info in LETTER_CODE_DEF.values()}
 
 
 def getDictFromDef(defs):
+    """Interpret a string as a dictionary.
+
+    Parameters
+    ----------
+    defs: string
+        A string containing definitions of character replace rules.
+
+    !!! note "Only for rules"
+        We only use this functions for the rules in `REPLACE_DEF`.
+    """
+
     rules = []
     rn = 0
     good = True
@@ -606,7 +706,7 @@ def getDictFromDef(defs):
         vals = []
         d = None
         for (i, val) in enumerate(valStr.split("+")):
-            if val in {"c", "d"}:
+            if val in {"d"}:
                 if d is not None:
                     print(f"MULTIPLE d in RULE @{i}: rule {rn}: {line}")
                     good = False
@@ -619,7 +719,7 @@ def getDictFromDef(defs):
         e = None
         if replStr:
             for (i, repl) in enumerate(replStr.split("+")):
-                if repl in {"c", "d"}:
+                if repl in {"d"}:
                     if e is not None:
                         print(f"MULTIPLE d in RULE @{i}: rule {rn}: {line}")
                         good = False
@@ -647,53 +747,140 @@ def getDictFromDef(defs):
     return (result, ruleIndex)
 
 
-def parseNums(numSpec):
-    return (
-        None
-        if not numSpec
-        else [numSpec]
-        if type(numSpec) is int
-        else setFromSpec(numSpec)
-        if type(numSpec) is str
-        else list(numSpec)
-    )
-
-
 U_LINE_RE = re.compile(r"""^U\+([0-9a-f]{4})([0-9a-f ]*)$""", re.I)
 HEX_RE = re.compile(r"""^[0-9a-f]{4}$""", re.I)
 PUA_RE = re.compile(r"""⌊([^⌋]*)⌋""")
 
 RECT = "rect"
 COLOR = "color"
+
 FNRULE_WIDTH = 60
+"""Width of the rule that separates body text from footnote text.
+"""
 SPACE_THRESHOLD = 25
+"""Amount of separation between words.
+
+Character boxes this far apart imply that there is a white space between them.
+The unit is 0.1 pixel.
+"""
 
 
 class Lakhnawi(UChar):
     def __init__(self):
+        """Text extraction from the Lakhnawi PDF.
+
+        This class makes use of the `fusus.char.UChar` class which
+        defines several categories of characters.
+        By extending that class, the Lakhnawi class makes use of those categories.
+        It also adds specific characters to some of those categories, especially
+        the private use characters that occur in the Lakhnawi PDF.
+
+        We use *fitz* (`pip3 install PyMuPDF`) for PDF reading.
+        """
+
         super().__init__()
         self.getCharConfig()
         self.doc = fitz.open(SOURCE)
+        """A handle to the PDF document, after it has been read by *fitz*."""
+
         self.lines = {}
+        """Lines as tuples of original character objects, indexed by page number"""
+
         self.text = {}
+        """Lines as tuples of converted character objects, indexed by page number"""
+
         self.fnRules = {}
+        """Vertical positions of footnote lines, indexed by page number"""
+
         self.spaces = {}
+        """Spacing information for each character, indexed by page and line number.
+
+        For character that has space behind it, it gives the index position of that
+        character in the line, the amount of space detected,
+        and whether this counts as a full white space.
+        """
+
         self.columns = {}
+        """Column information, indexed by page and line number.
+
+        Spaces that are significantly larger than a normal white space
+        are interpreted as a tab, and these are considered as column separators.
+        We remember the character positions where this happens plus the amount
+        of space in question.
+
+        Columns in the Lakhnawi PDF correspond to *hemistic* poems,
+        where lines are divided into two halves, each occupying a column.
+
+        See ![hemistic](images/hemistic.png)
+
+        !!! caution "hemistic poems versus blocks"
+            This is very different from blocks (see `fusus.layout`) in OCRed texts,
+            where blocks have been detected because of vertical strokes
+            that separate columns.
+
+            The reading progress in a hemistic poem is not changed by the
+            column division, where as in the case of blocks, reading proceeds
+            by reading the complete blocks in order.
+        """
+
+        self.doubles = {}
+        """Glyphs with double unicode points.
+
+        Some private use characters have two unicode points assigned to them
+        by fonts in the PDF.
+        This is the cause that straightforward text extractions deliver
+        double occurrences of those letters. Even *fitz* does that.
+
+        We have collected these cases, and choose to use the lower unicode point,
+        which is usually an ordinary character, whereas the other is usually a
+        related presentational character.
+
+        This dictionary maps the lower character to the higher character.
+        """
+
+        self.privateLetters = None
+        """Private-use unicodes that correspond to full letters."""
+
+        self.privateDias = None
+        """Private-use unicodes that correspond to diacritics."""
+
+        self.privateSpace = None
+        """Private-use-unicode used to represent a space."""
 
         self.good = True
+        """Whether processing is still ok, i.e. no errors encountered."""
 
     def close(self):
+        """Close the PDF handle, offered by *fitz*.
+        """
+
         self.doc.close()
 
     def setStyle(self):
+        """Import the CSS styles into the notebook.
+
+        See `CSS`.
+        """
+
         display(HTML(CSS))
 
     def getCharConfig(self):
+        """Configure all character information.
+
+        Private-use characters, transformation rules, character categories.
+        """
+
         self.privateInfo()
         self.setupRules()
         self.getCharInfo()
 
     def privateInfo(self):
+        """Set up additional character categories wrt. private-use characters.
+
+        Several categories will receive additional members from the
+        private use characters.
+        """
+
         self.privateLetters = getSetFromDef(PRIVATE_LETTERS_DEF)
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
@@ -704,6 +891,12 @@ class Lakhnawi(UChar):
         self.rls |= self.puas
 
     def setupRules(self):
+        """Set up character transformation rules.
+
+        Prepare for counting how much rules will be applied
+        when extracting text from pages of the Lakhnawi PDF.
+        """
+
         (self.replace, self.ruleIndex) = getDictFromDef(REPLACE_DEF)
         if self.replace is None:
             self.replace = {}
@@ -713,6 +906,17 @@ class Lakhnawi(UChar):
             self.rulesApplied[rn] = collections.Counter()
 
     def getCharInfo(self):
+        """Obtain detailed character information by reading the font report file.
+
+        From this file we read:
+
+        * which are the private use characters?
+        * which of them have a double unicode?
+
+        The font file is
+        [here](https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf).
+        """
+
         self.doubles = {}
         self.privates = set()
         doubles = self.doubles
@@ -752,7 +956,60 @@ class Lakhnawi(UChar):
                         else:
                             doubles[cSecond] = cMain
 
+    def plainChar(self, c):
+        """Show the character code of a character.
+
+        Parameters
+        ----------
+        c: string
+            The character in question, may also be the empty string or
+            the integer 1 (diacritic place holder).
+
+        Returns
+        -------
+        string
+            The hexadecimal unicode point of `c`, between `⌊ ⌋` - brackets.
+        """
+
+        if c == "":
+            return "⌊⌋"
+        if c in {1}:
+            return CODE_LETTER[c]
+        return f"⌊{ord(c):>04x}⌋"
+
+    def plainString(self, s):
+        """Show the character codes of the characters in a string.
+
+        Parameters
+        ----------
+        s: string
+            The string to show, may be empty, may contain place holders.
+
+        Returns
+        -------
+        string
+            The concatenation of the unicode points of the characters in the string,
+            each code point between brackets.
+
+        See also `Lakhnawi.plainChar()`.
+        """
+
+        return " ".join(self.plainChar(c) for c in s)
+
     def showChar(self, c):
+        """Pretty display of a single unicode character.
+
+        We show the character itself and its name (if not a private-use one),
+        its hexadecimal code, and we indicate by coloring the kind of
+        white space that the character represents (ordinary space or tab).
+
+        Parameters
+        ----------
+        c: string
+            The character in question, may also be the empty string or
+            the integer 1 (diacritic place holder).
+        """
+
         if c in {1, 2}:
             return f"""
 <div class="ch p">
@@ -788,14 +1045,25 @@ class Lakhnawi(UChar):
 </div>
 """
 
-    def plainChar(self, c):
-        if c == "":
-            return "⌊⌋"
-        if c in {1, 2}:
-            return CODE_LETTER[c]
-        return f"⌊{ord(c):>04x}⌋"
-
     def showString(self, s, asString=False):
+        """Pretty display of a string as a series of unicode characters.
+
+        Parameters
+        ----------
+        s: string
+            The string to display, may be empty, may contain place holders.
+        asString: boolean, optional `False`
+            If True, return the result as an HTML string.
+
+        Returns
+        -------
+        None | string
+            If `asString`, returns an HTML string, otherwise returns None,
+            but displays the HTML string.
+
+        See also `Lakhnawi.showChar()`.
+        """
+
         shtml = f"""<span class="r">{s}</span>"""
         html = """<div class="sr">""" + (
             "".join(self.showChar(c) for c in s) + "</div>"
@@ -805,10 +1073,23 @@ class Lakhnawi(UChar):
 
         display(HTML(f"""<p>{shtml}</p>{html}"""))
 
-    def plainString(self, s):
-        return " ".join(self.plainChar(c) for c in s)
-
     def showReplacements(self, rule=None, isApplied=False):
+        """Show a character conversion rule and how it has been applied.
+
+        Parameters
+        ----------
+        rule: string|int, optional `None`
+            A specification of zero or more rule numbers (see `fusus.lib.parseNums`).
+            If None, all rules will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of rules with usage statistics.
+        """
+
         ruleIndex = self.ruleIndex
         rulesApplied = self.rulesApplied
         ruleNums = parseNums(rule)
@@ -869,6 +1150,24 @@ class Lakhnawi(UChar):
         display(HTML("".join(html)))
 
     def parsePageNums(self, pageNumSpec):
+        """Parses a value as one or more page numbers.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            If `None` results in all page numbers.
+            If an `int`, it stands for that int.
+            If a `string`, it is allowed to be a comma separated list of
+            numbers or ranges, where a range is a lower bound and an upper bound
+            separated by a `-`.
+            If none of these, it should be an iterable of `int` values.
+
+        Returns
+        -------
+        None | iterable of int
+            Depending on the value.
+        """
+
         doc = self.doc
         pageNums = (
             list(range(1, len(doc) + 1))
@@ -882,6 +1181,18 @@ class Lakhnawi(UChar):
         return [i for i in sorted(pageNums) if 0 < i <= len(doc)]
 
     def drawPages(self, pageNumSpec, clip=None):
+        """Draws a (part) of page from the PDF as a raster image.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        clip: (int, int), optional `None`
+            If None: produces the whole page.
+            Otherwise it is `(top, bottom)`, and a stripe
+            from top to bottom will be displayed.
+        """
+
         doc = self.doc
 
         for pageNum in self.parsePageNums(pageNumSpec):
@@ -901,6 +1212,52 @@ class Lakhnawi(UChar):
         doFilter=True,
         onlyFnRules=False,
     ):
+        """Reads pages of the PDF and extracts text.
+
+        This does all of the hard work of the text extraction.
+        It saves the textual data in attributes of the Lakhnawi object,
+        augmented with all kinds of diagnostic information.
+
+        From all this data, various output representations can be generated
+        rather easily by other methods.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        refreshConfig: boolean, optional `False`
+            If `True`, rereads all character configuration.
+            Ideal when you are iteratively developing the character configuration.
+        doRules: boolean, optional `True`
+            If `False`, suppresses the application of character transformation
+            rules. Mainly used when debugging other aspects of the text extraction.
+        doFilter: boolean, optional `True`
+            If `False`, suppresses the application of unicode normalization,
+            by which presentational characters are transformed into sequences
+            of ordinary, basic characters.
+            Used for debugging.
+        onlyFnRules: boolean, optional `False`
+            If `True`, skips most of the conversion.
+            Only determine where the footnote rules are.
+            Used for debugging.
+
+        Returns
+        -------
+        None
+           The effect is that attributes of the Lakhnawi object
+           are filled:
+
+           * `Lakhnawi.fnRules`
+
+           For the other attributes, see `Lakhnawi.collectPage()`.
+
+        !!! hint "multiple runs"
+            If you do multiple runs of this function for different pages,
+            the results will not overwrite each other in general,
+            because the attributes hold the results in dictionaries
+            keyed by page number.
+        """
+
         if not self.good:
             print("SKIPPING because of config errors")
             return
@@ -954,6 +1311,26 @@ class Lakhnawi(UChar):
             self.collectPage(data)
 
     def getPageRaw(self, pageNum):
+        """Do a rough/raw text extract of a specific page.
+
+        The *fitz* method
+        [extractRAWDICT()](https://pymupdf.readthedocs.io/en/latest/textpage.html#TextPage.extractRAWDICT)
+        is used to obtain very detailed information about each character on that page.
+        Used for debugging.
+
+        Parameters
+        ----------
+        pageNum: int
+            A valid page number.
+            It is the sequence number of the page within the PDF, counting from 1.
+
+        Returns
+        -------
+        None
+            It pretty prints the output of the fitz method, which is a big
+            and deep dictionary.
+        """
+
         self.pageNum = pageNum
         rep = f"page {pageNum:>4}"
         sys.stdout.write(f"{rep}")
@@ -966,11 +1343,43 @@ class Lakhnawi(UChar):
         pprint(data)
 
     def getPageObj(self, pageNum):
+        """Get the *fitz* object for a specific page.
+
+        Used for debugging.
+
+        Parameters
+        ----------
+        pageNum: int
+            A valid page number.
+            It is the sequence number of the page within the PDF, counting from 1.
+
+        Returns
+        -------
+        object
+            A *fitz*
+            [page object](https://pymupdf.readthedocs.io/en/latest/page.html)
+        """
+
         self.pageNum = pageNum
         doc = self.doc
         return doc[pageNum - 1]
 
     def plainPages(self, pageNumSpec):
+        """Outputs processed pages as plain text.
+
+        Uses `Lakhnawi.plainLine()`.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+
+        Returns
+        -------
+        None
+            The plain text is printed to the output.
+        """
+
         text = self.text
 
         for pageNum in self.parsePageNums(pageNumSpec):
@@ -980,6 +1389,54 @@ class Lakhnawi(UChar):
                 print(self.plainLine(line))
 
     def tsvPages(self, pageNumSpec):
+        """Outputs processed pages as tab-separated data.
+
+        Uses
+        `Lakhnawi.tsvLine()`.
+        and `Lakhnawi.tsvHeadLine()`.
+
+        Here is the structure:
+
+        Each page is divided into lines.
+
+        Each line is divided into columns
+        (in case of hemistic verses, see `Lakhnawi.columns`).
+
+        Each column is divided into spans.
+        Span transitions occur precisely there where changes in writing direction
+        occur.
+
+        Each span is divided into words.
+
+        Each word occupies exactly one line in the TSV file,
+        with the following fields:
+
+        * **page** page number
+        * **line** line number within the page
+        * **column** column number within the line
+        * **span** span number within the column
+        * **direction** (`l` or `r`) writing direction of the span
+        * **left** *x* coordinate of left boundary
+        * **top** *y* coordinate of top boundary
+        * **right** *x* coordinate of right boundary
+        * **bottom** *y* coordinate of bottom boundary
+        * **text** text of the word
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+
+        Returns
+        -------
+        None
+            The tab-separated data is written to a single tsv file.
+            There is a heading row.
+
+            The file is in `fusus.parameters.UR_DIR`, under `Lakhnawi`.
+            The name of the file includes a page specification.
+        """
+
         text = self.text
 
         destDir = f"{UR_DIR}/{NAME}"
@@ -1010,6 +1467,45 @@ class Lakhnawi(UChar):
         singleFile=False,
         toc=False,
     ):
+        """Outputs processed pages as formatted HTML pages.
+
+        Uses
+        `Lakhnawi.htmlLine()`.
+
+        The HTML output is suitable to read the extracted text.
+        Its layout matches the original closely, which makes it easier
+        to see where the output deviates from the source page.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        line: None | int | string | iterable
+            A specification of zero or more line numbers (see `fusus.lib.parseNums`).
+        showSpaces: boolean, optional `False`
+            If `True`, shows the spaces with a conspicuous coloured background.
+        export: boolean, optional `False`
+            If `True`, writes the HTML results to disk.
+            In this case, the HTML will not be displayed in the notebook.
+        singleFile: boolean, optional `False`
+            Only meaningful is `export=True`.
+            If `True`, writes the output to a single HTML file,
+            otherwise to one file per page, in a directory called `html`.
+        toc: boolean, optional `False`
+            Only meaningful is `export=True` and `singleFile=True`.
+            If `True`, writes a table of contents to the file.
+            The TOC points to every page that is included in the output file.
+
+        Returns
+        -------
+        None
+            Depending on `export`, the page is displayed in the notebook
+            where this function is called, or exported to a file on disk.
+
+            The file is in `fusus.parameters.UR_DIR`, under `Lakhnawi`.
+            The name of the file includes a page specification.
+        """
+
         self.showSpaces = showSpaces
         text = self.text
 
@@ -1107,6 +1603,48 @@ class Lakhnawi(UChar):
         orig=False,
         every=False,
     ):
+        """Outputs processed lines as a formatted HTML table.
+
+        The lines can be selected by page numbers and line numbers.
+
+        Within the selected lines, the characters can be selected by
+        start/end postions, or by characters of interest.
+
+        All of these indices start at 1.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        line: None | int | string | iterable
+            A specification of zero or more line numbers (see `fusus.lib.parseNums`).
+        start: integer, optional `None`
+            Starting word position in each line to be output.
+            If `None`, starts at the beginning of each line.
+        end: integer, optional `None`
+            End word position in each line to be output.
+            If `None`, ends at the end of each line.
+        search: string or iterable of char, optional `None`
+            If not none, all characters in `search` are deemed interesting.
+            All occurrences of these characters within the selected lines are
+            displayed, included a small context.
+        orig: boolean, optional `False`
+            Only meaningful if `search` is given.
+            If `True`: the check for interesting
+            characters is done in the original, untranslated characters.
+            Otherwise, interesting characters are looked up in the translated
+            characters.
+        every: boolean, optional `False`
+            Only meaningful if `search` is given.
+            If `True`, when looking for interesting characters, all occurrences will
+            be retrieved, otherwise only the first one.
+
+        Returns
+        -------
+        None
+            The output material will be displayed in the notebook.
+        """
+
         lines = self.lines
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
@@ -1195,6 +1733,27 @@ class Lakhnawi(UChar):
         display(HTML("".join(html)))
 
     def showWords(self, pageNumSpec, line=None):
+        """Outputs processed words as a formatted HTML table.
+
+        The lines can be selected by page numbers and line numbers.
+
+        All words within the selected lines are put into a table with
+        the same properties as in the TSV data,
+        see `Lakhnawi.tsvPages`.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        line: None | int | string | iterable
+            A specification of zero or more line numbers (see `fusus.lib.parseNums`).
+
+        Returns
+        -------
+        None
+            The output material will be displayed in the notebook.
+        """
+
         text = self.text
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
@@ -1260,6 +1819,38 @@ class Lakhnawi(UChar):
         long=False,
         byOcc=False,
     ):
+        """Show used characters.
+
+        Gives an overview of character usage, either in the input PDF, or in
+        the text output.
+
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        orig: boolean, optional `False`
+            If `True`: shows characters of the original PDF.
+            Otherwise, shows characters of the translated output/
+        onlyPuas: boolean, optional `False`
+            If `True`, the result is restricted to private use characters.
+        onlyPresentational: boolean, optional `False`
+            If `True`, the result is restricted to presentational characters.
+            See `fusus.char.UChar.presentational`.
+        long: boolean, optional `False`
+            If `True`, for each character output the complete list of pages
+            where the character occurs. Otherwise, show only the most
+            prominent pages.
+        byOcc: boolean, optional `False`
+            If `True`, sort the results by first occurrence of the characters.
+            Otherwise, sort the results by unicode code point of the character.
+
+        Returns
+        -------
+        None
+            The output material will be displayed in the notebook.
+        """
+
         presentational = self.presentational
         pageNums = self.parsePageNums(pageNumSpec)
         text = self.text
@@ -1358,6 +1949,25 @@ on {totalPages} {pageRep}</b></p>
         display(HTML("".join(html)))
 
     def showColumns(self, pageNumSpec):
+        """Show used characters.
+
+        Gives an overview of the columns in each line.
+        The result is a readable, ascii overview of the columns
+        that exists in the lines of the selected pages.
+
+        It is useful to visually check column detection for many pages.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+
+        Returns
+        -------
+        None
+            The output material will be displayed in the notebook.
+        """
+
         pageNums = self.parsePageNums(pageNumSpec)
 
         columns = self.columns
@@ -1380,6 +1990,25 @@ on {totalPages} {pageRep}</b></p>
                     print(f"\t{lNum:>2}: {'- ' * (nTabs + 1)}")
 
     def showSpacing(self, pageNumSpec, line=None):
+        """Show where the spaces are.
+
+        Gives an overview of the white space positions in each line.
+
+        It is useful to debug the horizontal white space algorithm.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        line: None | int | string | iterable
+            A specification of zero or more line numbers (see `fusus.lib.parseNums`).
+
+        Returns
+        -------
+        None
+            The output material will be displayed in the notebook.
+        """
+
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
         lineNums = None if lineNums is None else set(lineNums)
@@ -1403,6 +2032,31 @@ on {totalPages} {pageRep}</b></p>
                     print(f"\t\t{i + 1:>3} {']  [' if isSpace else ']==['} {after}")
 
     def collectPage(self, data):
+        """Transforms raw text into proper textual data.
+
+        Called by `Lakhnawi.getPages()` and delivers its results
+        to attributes of the Lakhnawi object.
+
+        Here are they
+
+        * `Lakhnawi.lines`
+        * `Lakhnawi.doubles`
+        * `Lakhnawi.text`
+
+        They are all dictionaries, keyed by page number first and then by line.
+
+        Parameters
+        ----------
+        data: dict
+            as obtained by the
+            [extractRAWDICT()](https://pymupdf.readthedocs.io/en/latest/textpage.html#TextPage.extractRAWDICT)
+            method of *fitz*.
+
+        Returns
+        -------
+        None
+        """
+
         doubles = self.doubles
         pageNum = self.pageNum
         nospacings = self.nospacings
@@ -1534,6 +2188,13 @@ on {totalPages} {pageRep}</b></p>
             self.trimLine(pageNum, ln + 1, line)
 
     def isPageNum(self, chars):
+        """Checks whether a series of characters represents an arabic number.
+
+        Parameters
+        ----------
+        chars: iterable of char reocrds
+        """
+
         return 1 <= len(chars) <= 3 and all(isArDigit(c[-1]) for c in chars)
 
     def trimLine(self, pageNum, ln, chars):
@@ -1551,7 +2212,7 @@ on {totalPages} {pageRep}</b></p>
         with the boxes of the other characters. So the diacritical boxes must not be
         taken into account.
 
-        Private use characters often com in sequences, so a sequence of characters
+        Private use characters often come in sequences, so a sequence of characters
         must be transformed to another sequence.
 
         We do the tramsformation before the space insertion, because otherwise we
@@ -1576,6 +2237,9 @@ on {totalPages} {pageRep}</b></p>
         Space will be appended at the last member of the appropriate character records.
 
         The transformations are given as a set of rules.
+
+        See `REPLACE_DEFS`.
+
         A rule consists of a sequence of characters to match and a sequence of
         characters to replace the match with. We call them the match sequence and the
         replacement sequence of the rule.
@@ -1611,33 +2275,37 @@ on {totalPages} {pageRep}</b></p>
         a rule, and the rule matches and is applied, that character will not be
         changed anymore by any other rule.
 
-        The match sequence may contain the character `d`, which is a placeholder
-        for a diacritic sign. It will match any diacritic.
-        The replacement sequence of such a rule may or may not contain a `d`.
-        It is an error if the replacement seqience of a rule contains a `d` while
-        its match sequence does not.
-        It is also an error of there are multiple `d`s in a match sequence
-        of a replacement sequence.
-        If so, the working of this rule is effectively two rules:
+        !!! caution "place holders for diacritics"
+            The following functionality exists in the code, but is not needed anymore
+            to process the Lakhnawi PDF.
 
-        Suppose the rule is
+            The match sequence may contain the character `d`, which is a placeholder
+            for a diacritic sign. It will match any diacritic.
+            The replacement sequence of such a rule may or may not contain a `d`.
+            It is an error if the replacement seqience of a rule contains a `d` while
+            its match sequence does not.
+            It is also an error of there are multiple `d`s in a match sequence
+            of a replacement sequence.
+            If so, the working of this rule is effectively two rules:
 
-        x d y => r d s
+            Suppose the rule is
 
-        where x, y, r, s are sequences of arbitrary length.
-        If the rule matches the input, then first the rule
+            x d y => r d s
 
-        x => r
+            where x, y, r, s are sequences of arbitrary length.
+            If the rule matches the input, then first the rule
 
-        will be applied at the current position.
+            x => r
 
-        Then we shift temporarily to the position right after where the d has matched,
-        and apply the rule
+            will be applied at the current position.
 
-        y => s
+            Then we shift temporarily to the position right after where the d has matched,
+            and apply the rule
 
-        Then we shift back to the orginal position plus one, and continue applying
-        rules.
+            y => s
+
+            Then we shift back to the orginal position plus one, and continue applying
+            rules.
         """
 
         replace = self.replace
@@ -1999,17 +2667,67 @@ on {totalPages} {pageRep}</b></p>
         return result
 
     def plainLine(self, columns):
+        """Outputs a processed line as plain text.
+
+        Used by `Lakhnawi.plainPages()`.
+
+        Parameters
+        ----------
+        columns: iterable
+            An iterable of columns that make up a line.
+            Each column is an iterable of spans.
+            Spans contain words plus an indication of the writing direction
+            for that span.
+
+        Returns
+        -------
+        string
+            The concatenation of all words in all spans separated by white space.
+        """
+
         return "\t".join(
             " ".join(" ".join(word[0] for word in span[1]) for span in spans)
             for spans in columns
         )
 
     def tsvHeadLine(self):
+        """Outputs the field names of a word in TSV data.
+
+        See `Lakhnawi.tsvPages()` for the structure of TSV data
+        as output format for the extracted text of the Lakhnawi PDF.
+
+        Returns
+        -------
+        string
+            A tab-separated line of field names.
+        """
+
         return "page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n"
 
-    def tsvLine(self, cols, pageNum, ln):
+    def tsvLine(self, columns, pageNum, ln):
+        """Outputs a processed line as lines of tab-separated fields for each word.
+
+        Used by `Lakhnawi.tsvPages()`.
+
+        Parameters
+        ----------
+        columns: iterable
+            An iterable of columns that make up a line.
+            Each column is an iterable of spans.
+            Spans contain words plus an indication of the writing direction
+            for that span.
+        pageNum: int
+            The page number of the page where this line occurs.
+
+        Returns
+        -------
+        string
+            The concatenation of the TSV lines for all words in all spans
+            in all columns.
+        """
+
         material = []
-        for (cn, spans) in enumerate(cols):
+        for (cn, spans) in enumerate(columns):
             for (sn, (dr, words)) in enumerate(spans):
                 for (word, (le, to, ri, bo)) in words:
                     material.append(
@@ -2035,6 +2753,29 @@ on {totalPages} {pageRep}</b></p>
         return "".join(material)
 
     def htmlLine(self, columns, prevMulti, isLast):
+        """Outputs a processed line as HTML.
+
+        Used by `Lakhnawi.htmlPages()`.
+
+        Parameters
+        ----------
+        columns: iterable
+            An iterable of columns that make up a line.
+            Each column is an iterable of spans.
+            Spans contain words plus an indication of the writing direction
+            for that span.
+        prevMulti: boolean
+            Whether the preceding line has multiple columns.
+        isLast: boolean
+            Whether this line is the last line on the page.
+
+        Returns
+        -------
+        string
+            The concatenation of the TSV lines for all words in all spans
+            in all columns.
+        """
+
         showSpaces = self.showSpaces
         result = []
 
@@ -2084,6 +2825,15 @@ def keyCharV(char):
     """The vertical position of the middle of a character.
 
     Used to sort the characters of a page in the vertical direction.
+
+    Parameters
+    ----------
+    char: record
+
+    Returns
+    -------
+    float
+        The height of the middle of the character.
     """
 
     return (char[3] + char[1]) / 2
@@ -2111,7 +2861,7 @@ def keyCharH(char):
     However, normal unicode diacritics have a typical width of zero, and also
     these should come before the next letter.
 
-    We can solve that by sorting by a key defined as 1 divided by the widthss
+    We can solve that by sorting by a key defined as 1 divided by the width
     if the width is nonzero, and 0 if the the width is zero.
 
     Then zero width characters come first, then wide characters, then narrow characters.
@@ -2122,6 +2872,14 @@ def keyCharH(char):
     but not quite equal, and the wrong one comes first.
 
     We can solve that by rounding.
+
+    Parameters
+    ----------
+    char: record
+
+    Returns
+    -------
+    (int, float)
     """
 
     width = abs(int(round(char[2] - char[0])))
@@ -2136,11 +2894,26 @@ def clusterVert(data):
     Most characters on a line have their middle line in approximately the same height.
     But diacritics of characters in that line may occupy different heights.
 
-    Without intervanetion, these would be clustered on separate lines.
+    Without intervention, these would be clustered on separate lines.
     We take care to cluster them into the same lines as their main characters.
 
     It involves getting an idea of the regular line height, and clustering boxes
     that fall between the lines with the line above or below, whichever is closest.
+
+    The result of the clustering is delivered as a key function, which will
+    be used to sort characters.
+
+    Parameters
+    ----------
+    data: iterable of record
+        The character records
+
+    Returns
+    -------
+    function
+        A key function that assigns to each character record a value
+        that corresponds to the vertical position of a real line,
+        which is a clustered set of characters.
     """
 
     keys = collections.Counter()

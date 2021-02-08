@@ -1,3 +1,20 @@
+"""Convert TSV data to Text-Fabric.
+
+The TSV data consists of one-word-per-line files for each page,
+and for each word the line specifies its text, its bounding boxes in the original,
+and its containing spaces on the page (line, block, etc).
+
+The TSV data from OCRed pages is slightly different from that of the
+textual extraction of the Lakhnawi PDF, but they share most fields.
+
+The code here can deal with both kinds of input.
+
+See also
+
+* `fusus.convert`
+* [Text-Fabric](https://annotation.github.io/text-fabric/tf/index.html)
+"""
+
 import os
 import sys
 import collections
@@ -364,7 +381,11 @@ def director(cv):
 
     Otherwise we have:
 
+    ```
     page line column span direction$ left top right bottom text$
+    ```
+
+    See `fusus.lakhnawi.Lakhnawi.tsvPages`.
 
     The block in an OCRed file is either `r` or `l` or nothing, it corresponds
     to material to the left and right of a vertical stroke.

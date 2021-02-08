@@ -10,7 +10,7 @@ import PIL.Image
 from IPython.display import HTML, Image, display
 import cv2
 
-from tf.core.helpers import rangesFromList, specFromRanges
+from tf.core.helpers import rangesFromList, specFromRanges, setFromSpec
 
 
 PP = pp.PrettyPrinter(indent=2)
@@ -33,6 +33,68 @@ EXTENSIONS = set(
 """
 
 FONT = cv2.FONT_HERSHEY_SIMPLEX
+
+NB_VIEWER = "https://nbviewer.jupyter.org/github"
+
+
+def parseNums(numSpec):
+    """Parses a value as one or more numbers.
+
+    Parameters
+    ----------
+    numSpec: None | int | string | iterable
+        If `None` results in `None`.
+        If an `int`, it stands for that int.
+        If a `string`, it is allowed to be a comma separated list of
+        numbers or ranges, where a range is a lower bound and an upper bound
+        separated by a `-`.
+        If none of these, it should be an iterable of `int` values.
+
+    Returns
+    -------
+    None | iterable of int
+        Depending on the value.
+    """
+
+    return (
+        None
+        if not numSpec
+        else [numSpec]
+        if type(numSpec) is int
+        else setFromSpec(numSpec)
+        if type(numSpec) is str
+        else list(numSpec)
+    )
+
+
+def getNbLink(path, text):
+    if path.startswith("~/github"):
+        linkA = '<a target="_blank" href="'
+        linkB = f'">{text}</a>'
+        components = path.rstrip("/").split("/")[2:]
+        if not components:
+            return path
+        nbPathA = f"{NB_VIEWER}/" + "/".join(components[0:2])
+        if len(components) <= 2:
+            return f"{linkA}{nbPathA}{linkB}"
+        else:
+            nbPathB = "/".join(components[2:])
+            return f"{linkA}{nbPathA}/blob/master/{nbPathB}{linkB}"
+    return path
+
+
+def getNbPath(path):
+    if path.startswith("~/github"):
+        components = path.rstrip("/").split("/")[2:]
+        if not components:
+            return (False, path)
+        nbPathA = f"{NB_VIEWER}/" + "/".join(components[0:2])
+        if len(components) <= 2:
+            return (True, nbPathA)
+        else:
+            nbPathB = "/".join(components[2:])
+            return (True, f"{nbPathA}/blob/master/{nbPathB}")
+    return (False, path)
 
 
 def tempFile():

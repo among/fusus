@@ -6,14 +6,60 @@ from copy import deepcopy
 import yaml
 
 HOME = os.path.expanduser('~')
+"""Full path to your home directory."""
+
 BASE = f"{HOME}/github"
+"""Local directory where all your local clones of GitHub repositories are stored."""
+
 ORG = "among"
+"""Organization on GitHub in which this code/data repository resides.
+
+This is also the name of the parent directory of your local clone
+of this repo.
+"""
+
 REPO = "fusus"
+"""Name of this code/data repository."""
+
 REPO_DIR = f"{BASE}/{ORG}/{REPO}"
+"""Directory of the local repo.
+
+This is where this repo resides on your computer.
+Note that we assume you have followed the convention
+that it is in your home directory, and then
+`github/among/fusus`.
+"""
+
 PROGRAM_DIR = f"{REPO_DIR}/{REPO}"
+"""The subdirectory in the repo that contains the `fusus` Python package`.
+"""
+
 LOCAL_DIR = f"{REPO_DIR}/_local"
+"""Subdirectory containing unpublished input material.
+
+This is material that we cannot make public in this repo.
+This directory is not pushed to the online repo,
+by virtue of its being in the `.gitignore` of this repo.
+
+See also `UR_DIR`.
+"""
+
 SOURCE_DIR = f"{LOCAL_DIR}/source"
+"""Subdirectory containing source texts.
+
+Here are the sources that we cannot make public in this repo.
+
+See also `UR_DIR` and `LOCAL_DIR`.
+"""
+
 UR_DIR = f"{REPO_DIR}/ur"
+"""Subdirectory containing the public source texts.
+
+Here are the sources that we can make public in this repo.
+
+See also `SOURCE_DIR`.
+"""
+
 ALL_PAGES = "allpages"
 
 KRAKEN = dict(

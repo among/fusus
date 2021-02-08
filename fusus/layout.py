@@ -1,3 +1,41 @@
+"""Detect the page layout.
+
+Pages consist of a header region, a body region, and a footer region, all of which
+are optional.
+
+
+**header***
+The header consists of a caption and/or a page number.
+All headers will be discarded.
+
+**footer**
+The footer consists of footnote bodies.
+All footers will be discarded.
+
+**body**
+The body region consists of zero or more *stripes*.
+
+**stripe, column, block, line**
+A stripe is a horizontal region of the body.
+If some parts of the body have two columns and other parts have one column,
+we divide the body in stripes where each stripe has a fixed number of columns,
+and neighbouring stripes have a different number of columns.
+
+If the whole body has the same number of columns, we have just one stripe.
+
+The stripes are numbered 1, 2, 3, ... from top to bottom.
+
+The column is the empty string if a stripe has just one column,
+otherwise it is `l` for the left column and `r` for the right column.
+
+We assume that all stripes on all pages have at most two columns.
+
+A column within a stripe is also called a *block*.
+
+Blocks are divided into *lines*.
+The lines are numbered with the blocks that contain them.
+"""
+
 import collections
 import cv2
 

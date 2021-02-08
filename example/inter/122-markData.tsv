@@ -1,0 +1,16 @@
+band	seq	mark	kept	value	connectdegree	connectborder	top	bottom	left	right
+mid	19	comma	False	0.83954406	0.0	4	0		186	1193	208	1225
+mid	19	comma	False	0.83963835	0.0	4	0		1403	1281	1425	1313
+mid	19	comma	False	0.84033537	0.0	4	0		183	606	205	638
+mid	19	comma	False	0.8411439	0.0	4	0		467	1192	489	1224
+mid	19	comma	False	0.84154665	0.0	4	0		1125	1284	1147	1316
+mid	19	comma	False	0.8443102	0.0	4	0		775	1190	797	1222
+mid	19	comma	False	0.85490316	0.0	4	0		614	799	636	831
+mid	19	comma	False	0.88679665	0.0	4	0		635	996	657	1028
+mid	19	comma	False	0.88846165	0.0	4	0		973	1188	995	1220
+mid	20	comma2	False	0.84358287	0.0	4	0		188	1198	206	1225
+mid	20	comma2	False	0.8435844	0.0	4	0		1405	1286	1423	1313
+mid	20	comma2	False	0.8452012	0.0	4	0		469	1197	487	1224
+mid	20	comma2	False	0.8480864	0.0	4	0		1127	1289	1145	1316
+mid	21	guillemetClose	False	0.805192	0.0	4	0		974	1190	995	1221
+mid	21	guillemetClose	False	0.8057471	0.0	4	0		636	998	657	1029

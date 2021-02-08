@@ -18,6 +18,7 @@ from .lib import (
     showImage,
     writeImage,
     splitext,
+    getNbLink,
 )
 from .clean import addBox, cluster, connected, reborder
 from .lines import getInkDistribution
@@ -189,15 +190,19 @@ class Page:
             (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[s]
             white = C.whiteRGB if stageColor else C.whiteGRS
             if stageType == "data":
-                display(
-                    HTML(f"<hr>\n<div><b>{s}</b>: <i>data:</i></div>")
-                )
+                display(HTML(f"<hr>\n<div><b>{s}</b>: <i>data:</i></div>"))
                 self._serial(s, stageData, stageExt)
             elif stageType == "link":
                 path = self.stagePath(s)
                 if os.path.exists(path):
                     showPath = unexpanduser(f"{cd}{path}")
-                    display(HTML(f"<hr>\n<div><b>{s}</b>: {stageData} in {showPath}</div>"))
+                    nbLink = getNbLink(showPath, stageData)
+                    display(
+                        HTML(
+                            f"""<hr>\n<div><b>{s}</b>: {nbLink}"""
+                            f""" (local file: {showPath})</div>"""
+                        )
+                    )
                     """
                     display(
                         IFrame(
@@ -209,7 +214,9 @@ class Page:
                     """
                 else:
                     display(
-                        HTML(f"<hr>\n<div><b>{s}</b>: <i>{showPath} does not exist.</i></div>")
+                        HTML(
+                            f"<hr>\n<div><b>{s}</b>: <i>{showPath} does not exist.</i></div>"
+                        )
                     )
             else:
                 img = stageData

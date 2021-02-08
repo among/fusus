@@ -21,6 +21,11 @@
   Run the pipeline in a notebook;
 * [inspect](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb)
   Inspect intermediate results in a notebook.
+* [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
+  Read the proofs of Kraken-OCR.
+* **Lakhnawi**
+    * [characters](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/FususAlHikam/Lakhnawi/status.ipynb)
+      See which characters are in the PDF.
 * [notebooks on nbviewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).
   All notebooks.
 

@@ -12,7 +12,7 @@ tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).
 * Install (`fusus.about.install`)
 * HowTo (`fusus.about.howto`)
 * Sources (`fusus.about.sources`)
-* Rationale (`fusues.about.rationale`)
+* Rationale (`fusus.about.rationale`)
 
 ## Authors
 

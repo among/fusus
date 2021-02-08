@@ -1,6 +1,0 @@
-inter/047-clean.tif
-inter/048-clean.tif
-inter/058-clean.tif
-inter/059-clean.tif
-inter/063-clean.tif
-inter/067-clean.tif

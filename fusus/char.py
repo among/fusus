@@ -1,3 +1,15 @@
+"""Character knowledge.
+
+This module collects all character knowledge that we need to parse the
+Lakhnawi PDF and makes it available to programs.
+
+It contains definitions for things as character classes,
+e.g. *symbols*, *presentational characters*, *punctuation*,
+*bracket-like characters*, etc.
+
+See `UChar` below.
+"""
+
 from unicodedata import name as uname, normalize
 
 
@@ -228,27 +240,124 @@ def isEuDigit(x):
 class UChar:
     def __init__(self):
         self.puas = getSetFromRanges(PUA_RANGES)
+        """Private use character codes as defined by the unicode standard."""
+
         self.arabic = getSetFromRanges(ARABIC_RANGES)
+        """All Arabic unicode characters"""
+
         self.hebrew = getSetFromRanges(HEBREW_RANGES)
+        """All Hebrew unicode characters"""
+
         self.syriac = getSetFromRanges(SYRIAC_RANGES)
+        """All Syriac unicode characters"""
+
         self.latinPresentational = getSetFromRanges(LATIN_PRESENTATIONAL_RANGES)
+        """Ligatures and special letter forms in the Latin script"""
+
         self.greekPresentational = getSetFromRanges(GREEK_PRESENTATIONAL_RANGES)
+        """Ligatures and special letter forms in the Greek script"""
+
         self.arabicPresentational = getSetFromRanges(ARABIC_PRESENTATIONAL_RANGES)
-        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
-        self.stops = getSetFromRanges(STOP_RANGES)
-        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        """Ligatures and special letter forms in the Arabic script"""
+
         self.hebrewPresentational = getSetFromRanges(HEBREW_PRESENTATIONAL_RANGES)
+        """Ligatures and special letter forms in the Hebrew script"""
+
         self.presentationalC = self.arabicPresentational | self.hebrewPresentational
+        """Ligatures and special letter forms (C)
+
+        These are the ones that are best normalized with `NFKC`: Arabic and Hebrew.
+        """
+
         self.presentationalD = self.latinPresentational | self.greekPresentational
+        """Ligatures and special letter forms (D)
+
+        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        """
+
         self.presentational = self.presentationalC | self.presentationalD
-        self.semis = self.arabic | self.hebrew | self.syriac
-        brackets = getSetFromRanges(BRACKET_RANGES)
+        """Ligatures and special letter forms various scripts"""
+
+        arabicSymbols = getSetFromRanges(ARABIC_SYMBOL_RANGES)
+        """Arabic characters that act as symbols.
+
+        E.g. the ornate parentheses (used for Quran quotes).
+        """
+
         symbols = getSetFromRanges(SYMBOL_RANGES)
-        self.nonLetter = symbols | arabicSymbols | brackets
-        self.bracketMap = getMapFromPairs(BRACKET_PAIRS)
-        self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets | symbols
-        self.nospacings = getSetFromRanges(NO_SPACING_RANGES)
-        self.diacritics = getSetFromRanges(DIACRITIC_RANGES)
-        self.diacriticLike = getSetFromRanges(PSEUDO_DIACRITIC_RANGES) | self.diacritics
-        self.arabicLetters = self.arabic - self.diacritics
+        """Characters that act as symbols in various scripts."""
+
+        self.stops = getSetFromRanges(STOP_RANGES)
+        """Characters that have the function of a full stop in several scripts."""
+
+        self.punct = getSetFromRanges(PUNCT_RANGES) | self.stops
+        """Punctuation characters in several scripts."""
+
+        self.semis = self.arabic | self.hebrew | self.syriac
+        """Characters in semitic scripts.
+
+        These scripts have a right-to-left writing direction.
+        """
+
         self.rls = self.semis
+        """Characters that belong to the right-to-left writing direction.
+
+        Identical with the `UChar.semis` category.
+        But the Lakhnawi conversion will insert the private use characters
+        to this category.
+        """
+
+        brackets = getSetFromRanges(BRACKET_RANGES)
+        """Characters used for bracketing.
+
+        Only when they have distinct left and right forms.
+        """
+
+        self.bracketMap = getMapFromPairs(BRACKET_PAIRS)
+        """Mapping between left and right versions of brackets.
+
+        Due to Unicode algorithms, left and right brackets will be displayed
+        flipped when used in right-to-left writing direction.
+
+        !!! caution "hard flipping"
+            The Lakhnawi PDF contains brackets that have been hard flipped in order
+            to display correctly in rtl direction.
+            But after text extraction, we can rely on the Unicode algorithm,
+            so we have to unflip these characters.
+        """
+
+        self.nonLetter = symbols | arabicSymbols | brackets
+        """Characters that act as symbols.
+
+        More precisely, these are the non letters that we may encounter in
+        *Arabic* script, including symbols from other scripts and brackets.
+        """
+
+        self.neutrals = getSetFromRanges(NEUTRAL_DIRECTION_RANGES) | brackets | symbols
+        """Characters that are neutral with respect to writing direction.
+
+        These are the characters that should not trigger a change in writing direction.
+        For example, a latin full stop amidst Arabic characters should not trigger
+        a character range consisting of that full stop with ltr writing direction.
+        """
+
+        self.nospacings = getSetFromRanges(NO_SPACING_RANGES)
+        """Characters that will be ignored when figuring out horizontal white space.
+
+        These are characters that appear to have bounding boxes in the Lakhnawi PDF
+        that are not helpful in determining horizontal white space.
+
+        When using this category in the Lakhnawi text extraction, extra characters
+        will be added to this category, namely the diacritics in the private use
+        area. But this is dependent on the Lakhnawi PDF and the Lakhnawi text
+        extraction will take care of this.
+        """
+
+        self.diacritics = getSetFromRanges(DIACRITIC_RANGES)
+        """Diacritical characters in various scripts."""
+
+        self.diacriticLike = getSetFromRanges(PSEUDO_DIACRITIC_RANGES) | self.diacritics
+        """Diacritical characters in various scripts plus the Arabic Hamza 0621."""
+
+        self.arabicLetters = self.arabic - self.diacritics
+        """Arabic characters with exception of the Arabic diacritics."""
