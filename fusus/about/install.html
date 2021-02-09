@@ -55,12 +55,16 @@ This is achieved by the fact that the installer will create a link to the repo.<
 <pre><code class="language-sh">cd ~/github/among/fusus
 pip3 install -e .
 </code></pre>
-<p>??? caution "Mind the dot"
-Do not forget the <code>.</code> at the end of the line in the above instruction.</p>
-<p>??? hint "No nead to repeat this step"
-When you update the repo later, it will not be necessary to redo the
+<div class="admonition caution">
+<p class="admonition-title">Mind the dot</p>
+<p>Do not forget the <code>.</code> at the end of the line in the above instruction.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">No nead to repeat this step</p>
+<p>When you update the repo later, it will not be necessary to redo the
 <code>pip3 install</code> step, because the soft link to the fusus package in the repo
 will still be valid.</p>
+</div>
 <h1 id="build-steps">Build steps</h1>
 <p>The following steps are relevant if you modify the software and documentation.</p>
 <p>There is a script <code>build.py</code> in the top-level directory that performs these tasks.</p>
@@ -120,7 +124,7 @@ the <em>main</em> branch in the online GitHub directory, say</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/0c25a217b00938b46ac6b65b17411e76819af9c9/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/about/install.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/install.md
