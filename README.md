@@ -1,8 +1,8 @@
 <div>
-<img src="docs/images/fusus-small.png" align="left" width="300"/>
-<img src="docs/images/tf-small.png" align="left" width="100"/>
-<img src="docs/images/uu.png" align="right" width="200"/>
-<img src="docs/images/dans.png" align="right" width="200"/>
+<img src="fusus/docs/images/fusus-small.png" align="left" width="300"/>
+<img src="fusus/docs/images/tf-small.png" align="left" width="100"/>
+<img src="fusus/docs/images/uu.png" align="right" width="200"/>
+<img src="fusus/docs/images/dans.png" align="right" width="200"/>
 </div>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309884.svg)](https://doi.org/10.5281/zenodo.4309884)
