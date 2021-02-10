@@ -55,7 +55,7 @@ from the ordinary forms based on immediate context.</p>
 <p>We ordered the characters ourselves, based on the coordinates.
 This required considerable subtlety, because we had to deal
 with diacritics above and below the lines.
-See <code><a title="fusus.lakhnawi.clusterVert" href="#fusus.lakhnawi.clusterVert">clusterVert()</a></code>.</p>
+See <code>clusterVert</code>.</p>
 <h1 id="horizontal-whitespace">Horizontal whitespace</h1>
 <p>This is the most tricky point, because the information we retain from the PDF is,
 strictly speaking, insufficient to determine word boundaries.
@@ -82,7 +82,7 @@ See also:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L0-L2971" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L0-L3155" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Lakhnawi pdf reverse engineering.
 
@@ -172,9 +172,9 @@ from IPython.display import display, HTML, Image
 
 import fitz
 
-from tf.core.helpers import setFromSpec
+from tf.core.helpers import setFromSpec, unexpanduser
 
-from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES
+from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES, LINE_CLUSTER_FACTOR
 from .lib import pprint, parseNums
 from .char import (
     UChar,
@@ -195,7 +195,7 @@ SOURCE = f&#34;{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf&#34;
 FONT = f&#34;{UR_DIR}/{NAME}/FontReport-{NAME}.pdf&#34;
 DEST = f&#34;{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt&#34;
 
-CSS = (&#34;&#34;&#34;
+CSS = &#34;&#34;&#34;
 &lt;style&gt;
 *,
 *:before,
@@ -394,17 +394,17 @@ td.cols4 {
     --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
 }
 &lt;/style&gt;
-&#34;&#34;&#34;)
+&#34;&#34;&#34;
 &#34;&#34;&#34;Styles to render extracted text.
 
 The styles are chosen such that the extracted text looks as similar as possible to
 the PDF display.
 &#34;&#34;&#34;
 
-POST_HTML = (&#34;&#34;&#34;
+POST_HTML = &#34;&#34;&#34;
 &lt;/body&gt;
 &lt;/html&gt;
-&#34;&#34;&#34;)
+&#34;&#34;&#34;
 &#34;&#34;&#34;HTML code postfixed to the HTML representation of a page.
 &#34;&#34;&#34;
 
@@ -459,7 +459,7 @@ def getToc(pageNums):
 
 PRIVATE_SPACE = &#34;\uea75&#34;
 
-PRIVATE_LETTERS_DEF = (&#34;&#34;&#34;
+PRIVATE_LETTERS_DEF = &#34;&#34;&#34;
 e800
 e806
 e807
@@ -469,13 +469,12 @@ e80a
 e80e
 e898
 e8d4
-e8e9
 e915
 e917
 ea79
-&#34;&#34;&#34;)
+&#34;&#34;&#34;
 
-PRIVATE_DIAS_DEF = (&#34;&#34;&#34;
+PRIVATE_DIAS_DEF = &#34;&#34;&#34;
 e812
 e814
 e815
@@ -534,9 +533,17 @@ e8f6
 e8f8
 e8fb
 e8fe
-&#34;&#34;&#34;)
+&#34;&#34;&#34;
 
-REPLACE_DEF = (&#34;&#34;&#34;
+
+PRIVATE_FINAL_SPACE_CODES = &#34;&#34;&#34;
+    e898
+    e915
+    e917
+&#34;&#34;&#34;.strip().split()
+
+
+REPLACE_DEF = &#34;&#34;&#34;
 # see https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
 # see https://www.compart.com/en/unicode/U+FE8E
 # see https://r12a.github.io/scripts/arabic/block
@@ -588,7 +595,8 @@ e83a                =&gt; 0653+0670      : MADDA+ALEF(super) [4]
 e8fe                =&gt; 0653+0670      : MADDA+ALEF(super) [4]
 e81d                =&gt; 0640+0650+0651 : TATWEEL+KASRA+SHADDA
 
-e898                =&gt; 0647           : HEH
+# e898                =&gt; 0647           : HEH
+e898                =&gt; feea           : HEH final
 
 e806                =&gt; 0627           : ALEF
 e807                =&gt; 0627           : ALEF
@@ -642,11 +650,13 @@ fefb+e85b           =&gt; 0644+623+064e  : LAM+ALEF/HAMZA+FATHA
 fefb+e85c           =&gt; 0644+0623+064f : LAM/ALEF/HAMZA+DAMMA
 fefc+e87f           =&gt; 0644+0623+064e : LAM/ALEF/HAMZA+FATHA
 
-fef4+e917           =&gt; 064a+0649+0670 : YEH+ALEF(super)
+# fef4+e917           =&gt; 064a+0649+0670 : YEH+ALEF(super)
+fef4+e917           =&gt; 064a+fef0+0670 : YEH+ALEF(super)
 
 ea75+e828+ea79      =&gt; 062d+0652+0645 : HAH+SUKUN+MEEM
 
-fe92+0650+e915      =&gt; 0628+0650+064a : BEH+KASRA+YEH
+# fe92+0650+e915      =&gt; 0628+0650+064a : BEH+KASRA+YEH
+fe92+0650+e915      =&gt; 0628+0650+fef2 : BEH+KASRA+YEH
 
 fec3+0652+e821+e80e+064e+e807 =&gt; 0637+0652+e821+e80e+064e+e807 : [9]
 
@@ -674,7 +684,7 @@ fffd                =&gt;                : replacement character
 #      algorithm.
 # [11] as in Allah, but with fatha instead of shadda. Probaly a typo in a note,
 #      page 12 second last line.
-&#34;&#34;&#34;)
+&#34;&#34;&#34;
 &#34;&#34;&#34;Character replace rules
 
 There are two parts: (1) character replace rules (2) notes.
@@ -694,26 +704,6 @@ replaced by the right hand side.
 The exact application of rules has some subtleties which will be dealt with
 in `Laknawi.trimLine`.
 &#34;&#34;&#34;
-
-
-def tweakSpace(c):
-    &#34;&#34;&#34;Deal with spaces in a character representation.
-
-    Unicode denormalization mmight introduce spaces before initial or after
-    final or around isolated characters. We do not need those spaces and strip them.
-
-    Parameters
-    ----------
-    c: string
-        The representation of a character, typically coming from a Unicode
-        (de)normalization step.
-    &#34;&#34;&#34;
-
-    # return c.strip() if ISOLATED in dc else (&#34; &#34; + c.strip()) if INITIAL in dc else c
-    # return c
-    return c.strip()
-    # return c.strip() + (&#34; &#34; if FINAL in dc else &#34;&#34;)
-    # return (c.strip(), &#34; &#34; if FINAL in dc else &#34;&#34;)
 
 
 def ptRepD(p):
@@ -865,9 +855,16 @@ class Lakhnawi(UChar):
         &#34;&#34;&#34;
 
         super().__init__()
-        self.getCharConfig()
-        self.doc = fitz.open(SOURCE)
         &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
+
+        self.heights = {}
+        &#34;&#34;&#34;Heights of characters, indexed by page number.&#34;&#34;&#34;
+
+        self.clusteredHeights = {}
+        &#34;&#34;&#34;Clustered heights of characters, indexed by page number.
+
+        The clustered heights correspond to the lines on a page.
+        &#34;&#34;&#34;
 
         self.lines = {}
         &#34;&#34;&#34;Lines as tuples of original character objects, indexed by page number&#34;&#34;&#34;
@@ -936,9 +933,11 @@ class Lakhnawi(UChar):
         self.good = True
         &#34;&#34;&#34;Whether processing is still ok, i.e. no errors encountered.&#34;&#34;&#34;
 
+        self.getCharConfig()
+        self.doc = fitz.open(SOURCE)
+
     def close(self):
-        &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
 
         self.doc.close()
 
@@ -1007,6 +1006,7 @@ class Lakhnawi(UChar):
         self.privates = set()
         doubles = self.doubles
         privates = self.privates
+        finalSpace = self.finalSpace
         puas = self.puas
 
         doc = fitz.open(FONT)
@@ -1041,6 +1041,16 @@ class Lakhnawi(UChar):
                             doubles[cMain] = cSecond
                         else:
                             doubles[cSecond] = cMain
+
+        doublesApplied = collections.defaultdict(collections.Counter)
+        for d in doubles:
+            doublesApplied[d] = collections.Counter()
+        self.doublesApplied = doublesApplied
+
+        finalsApplied = collections.defaultdict(collections.Counter)
+        for f in finalSpace:
+            finalsApplied[f] = collections.Counter()
+        self.finalsApplied = finalsApplied
 
     def plainChar(self, c):
         &#34;&#34;&#34;Show the character code of a character.
@@ -1235,6 +1245,180 @@ class Lakhnawi(UChar):
         html.append(&#34;&lt;table&gt;&#34;)
         display(HTML(&#34;&#34;.join(html)))
 
+    def showDoubles(self, double=None):
+        &#34;&#34;&#34;Show a character with double entry and how often it occurs.
+
+        See `Lakhnawi.doubles`.
+
+        Parameters
+        ----------
+        double: char, optional `None`
+            A character from the doubles list (`Lakhnawi.doubles`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of double-entry characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        doubles = self.doubles
+        doublesApplied = self.doublesApplied
+
+        theseDoubles = (
+            set(doubles) if double is None else {double} if double in doubles else set()
+        )
+
+        html = []
+        totalDoubles = len(doubles)
+        totalApplications = sum(sum(x.values()) for x in doublesApplied.values())
+        totalPages = len(set(chain.from_iterable(doublesApplied.values())))
+        doubleRep = &#34;double&#34; + (&#34;&#34; if totalDoubles == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalDoubles} {doubleRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (d, applied) in sorted(
+            doublesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if d not in theseDoubles:
+                continue
+            e = doubles[d]
+            doubleRep = f&#34;{self.showChar(e)} ⇒ {self.showChar(d)}&#34;
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{doubleRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))
+
+    def showFinals(self, final=None):
+        &#34;&#34;&#34;Show a character with final form and how often it has been replaced.
+
+        Final forms will be normalized to ground forms
+        and sometimes a space will be added.
+
+        Parameters
+        ----------
+        final: char, optional `None`
+            A character from the final space list (`fusus.char.UChar.finalSpace`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of final space characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+
+        theseFinals = (
+            finalSpace if final is None else {final} if final in finalSpace else set()
+        )
+
+        html = []
+        totalFinals = len(finalSpace)
+        totalApplications = sum(sum(x.values()) for x in finalsApplied.values())
+        totalPages = len(set(chain.from_iterable(finalsApplied.values())))
+        finalRep = &#34;final&#34; + (&#34;&#34; if totalFinals == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalFinals} {finalRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (f, applied) in sorted(
+            finalsApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if f not in theseFinals:
+                continue
+            finalRep = self.showChar(f)
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{finalRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))
+
+    def showLineHeights(self, pageNumSpec):
+        &#34;&#34;&#34;Shows how line heights have been determined.
+
+        The pages can be selected by page numbers.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        &#34;&#34;&#34;
+
+        heights = self.heights
+        clusteredHeights = self.clusteredHeights
+
+        for pageNum in self.parsePageNums(pageNumSpec):
+            theseHeights = heights[pageNum]
+            theseClusteredHeights = clusteredHeights[pageNum]
+
+            print(f&#34;Line heights page {pageNum:&gt;3}&#34;)
+            print(&#34;\nraw heights&#34;)
+            for k in sorted(theseHeights):
+                print(f&#34;{theseHeights[k]:&gt;4} characters @ height {int(round(k)):&gt;4}&#34;)
+
+            print(&#34;line heights&#34;)
+            for (ln, kc) in enumerate(sorted(theseClusteredHeights)):
+                peak = &#34;, &#34;.join(
+                    f&#34;{int(round(k)):&gt;4}&#34; for k in sorted(theseClusteredHeights[kc])
+                )
+                print(
+                    f&#34;line {ln + 1:&gt;2}: &#34;
+                    f&#34;{sum(theseHeights[k] for k in theseClusteredHeights[kc]):&gt;4}&#34;
+                    f&#34; characters @height {peak}&#34;
+                )
+
     def parsePageNums(self, pageNumSpec):
         &#34;&#34;&#34;Parses a value as one or more page numbers.
 
@@ -1333,6 +1517,8 @@ class Lakhnawi(UChar):
            The effect is that attributes of the Lakhnawi object
            are filled:
 
+           * `Lakhnawi.heights`
+           * `Lakhnawi.clusteredHeights`
            * `Lakhnawi.fnRules`
 
            For the other attributes, see `Lakhnawi.collectPage()`.
@@ -1543,6 +1729,7 @@ class Lakhnawi(UChar):
                 fh.write(self.tsvLine(line, pageNum, ln + 1))
 
         fh.close()
+        print(f&#34;TSV data written to {unexpanduser(filePath)}&#34;)
 
     def htmlPages(
         self,
@@ -1599,6 +1786,7 @@ class Lakhnawi(UChar):
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
         lineNums = None if lineNums is None else set(lineNums)
+        filesWritten = 0
 
         if export:
             if not os.path.exists(destDir):
@@ -1661,6 +1849,7 @@ class Lakhnawi(UChar):
                     filePath = f&#34;{destDir}/p{pageNum:&gt;03}.html&#34;
                     with open(filePath, &#34;w&#34;) as fh:
                         fh.write(html)
+                        filesWritten += 1
             else:
                 display(HTML(&#34;\n&#34;.join(html)))
 
@@ -1678,6 +1867,10 @@ class Lakhnawi(UChar):
                 )
             fh.write(POST_HTML)
             fh.close()
+            print(f&#34;HTML written to {unexpanduser(filePath)}&#34;)
+
+        if export and not singleFile:
+            print(f&#34;{filesWritten} HTML files written to {unexpanduser(destDir)}/&#34;)
 
     def showLines(
         self,
@@ -2144,6 +2337,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         &#34;&#34;&#34;
 
         doubles = self.doubles
+        doublesApplied = self.doublesApplied
         pageNum = self.pageNum
         nospacings = self.nospacings
         fnRules = self.fnRules
@@ -2206,9 +2400,11 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                         pc = prevChar[&#34;c&#34;]
                         if pc in doubles and doubles[pc] == c:
                             skip = True
+                            doublesApplied[pc][pageNum] += 1
                         if c in doubles and doubles[c] == pc:
                             prevChar = data
                             skip = True
+                            doublesApplied[c][pageNum] += 1
 
                     if not skip:
                         if prevChar is not None:
@@ -2225,7 +2421,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         if prevChar is not None:
             addChar()
 
-        clusterKeyCharV = clusterVert(chars)
+        clusterKeyCharV = self.clusterVert(chars)
         lines = {}
         for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), keyCharH(c))):
             k = clusterKeyCharV(char)
@@ -2403,11 +2599,13 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         columns = self.columns
         diacritics = self.diacritics
         punct = self.punct
-        # diacriticLike = self.diacriticLike
+        diacriticLike = self.diacriticLike
         arabicLetters = self.arabicLetters
         presentationalC = self.presentationalC
         presentationalD = self.presentationalD
-        # nonLetter = self.nonLetter
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+        nonLetter = self.nonLetter
         doRules = self.doRules
         doFilter = self.doFilter
 
@@ -2515,7 +2713,6 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         # sift out all presentational characters
 
         if doFilter:
-            &#34;&#34;&#34;
             trailSpace = False
 
             for (i, char) in enumerate(chars):
@@ -2525,42 +2722,30 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                     if trailSpace:
                         if x not in diacriticLike:
                             if x not in nonLetter:
-                                string += &#34; &#34;
+                                if string == &#34;&#34; and i &gt; 0:
+                                    chars[i - 1][-1] += &#34; &#34;
+                                else:
+                                    string += &#34; &#34;
                             trailSpace = False
-                    (y, space) = (
-                        tweakSpace(normalizeC(x), decomposition(x))
+                    hasFinalSpace = x in finalSpace
+                    y = (
+                        normalizeC(x)
                         if x in presentationalC
-                        else tweakSpace(normalizeD(x), decomposition(x))
+                        else normalizeD(x)
                         if x in presentationalD
-                        else (x, &#34;&#34;)
-                    )
+                        else x
+                    ).strip()
+                    space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
+                    if hasFinalSpace:
+                        finalsApplied[x][pageNum] += 1
                     string += y
                     if space:
                         trailSpace = True
                 char[-1] = string
 
             if trailSpace:
-                space += &#34; &#34;
-            &#34;&#34;&#34;
-
-            # the words yeh+alef(final) and mem+alef(final)
-            # : insert a space behind the alef(final)
-
-            for (i, char) in enumerate(chars):
-                c = char[-1]
-                string = &#34;&#34;
-
-                for x in c:
-                    d = (
-                        tweakSpace(normalizeC(x))
-                        if x in presentationalC
-                        else tweakSpace(normalizeD(x))
-                        if x in presentationalD
-                        else x + (&#34; &#34; if x in punct else &#34;&#34;)
-                    )
-                    string += d
-
-                char[-1] = string
+                if chars:
+                    chars[-1][-1] += &#34; &#34;
 
         # add horizontal spacing
 
@@ -2906,6 +3091,89 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 
         return &#34;&#34;.join(result)
 
+    def clusterVert(self, data):
+        &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
+
+        Most characters on a line have their middle line in approximately the same height.
+        But diacritics of characters in that line may occupy different heights.
+
+        Without intervention, these would be clustered on separate lines.
+        We take care to cluster them into the same lines as their main characters.
+
+        It involves getting an idea of the regular line height, and clustering boxes
+        that fall between the lines with the line above or below, whichever is closest.
+
+        The result of the clustering is delivered as a key function, which will
+        be used to sort characters.
+
+        Parameters
+        ----------
+        data: iterable of record
+            The character records
+
+        Returns
+        -------
+        function
+            A key function that assigns to each character record a value
+            that corresponds to the vertical position of a real line,
+            which is a clustered set of characters.
+
+            The information on the vertical clustering of lines
+            is delivered in the attributes `Lakhnawi.heights` and
+            `Lakhnawi.clusteredHeights`, on a page by page basis.
+        &#34;&#34;&#34;
+
+        pageNum = self.pageNum
+
+        heights = collections.Counter()
+        for char in data:
+            k = keyCharV(char)
+            heights[k] += 1
+
+        peaks = sorted(heights)
+
+        if len(peaks) &gt; 1:
+            nDistances = len(peaks) - 1
+            distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
+
+            # remove the biggest distances if &gt; 50,
+            # to prevent outliers pulling the average too high
+            for _ in range(2):
+                if len(distances) &gt; 1:
+                    if distances[-1] &gt; 50:
+                        distances = distances[0:-1]
+            # remove distances &lt; 15, which are much smaller than a line
+            distances = [d for d in distances if d &gt; 15]
+
+            nDistances = len(distances)
+            avPeakDist = sum(distances) / nDistances
+
+            peakThreshold = avPeakDist * LINE_CLUSTER_FACTOR
+            clusteredHeights = {}
+            for (k, n) in sorted(heights.items(), key=lambda x: (-x[1], x[0])):
+                added = False
+                for kc in clusteredHeights:
+                    if abs(k - kc) &lt;= peakThreshold:
+                        clusteredHeights[kc].add(k)
+                        added = True
+                        break
+                if not added:
+                    clusteredHeights[k] = {k}
+
+        toCluster = {}
+        for (kc, ks) in clusteredHeights.items():
+            for k in ks:
+                toCluster[k] = kc
+
+        self.heights[pageNum] = heights
+        self.clusteredHeights[pageNum] = clusteredHeights
+
+        def clusterKeyCharV(char):
+            k = keyCharV(char)
+            return toCluster[k]
+
+        return clusterKeyCharV
+
 
 def keyCharV(char):
     &#34;&#34;&#34;The vertical position of the middle of a character.
@@ -2971,91 +3239,7 @@ def keyCharH(char):
     width = abs(int(round(char[2] - char[0])))
     widthKey = (1 / width) if width else 0
     rightKey = int(round(char[2]))
-    return (-rightKey, widthKey)
-
-
-def clusterVert(data):
-    &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
-
-    Most characters on a line have their middle line in approximately the same height.
-    But diacritics of characters in that line may occupy different heights.
-
-    Without intervention, these would be clustered on separate lines.
-    We take care to cluster them into the same lines as their main characters.
-
-    It involves getting an idea of the regular line height, and clustering boxes
-    that fall between the lines with the line above or below, whichever is closest.
-
-    The result of the clustering is delivered as a key function, which will
-    be used to sort characters.
-
-    Parameters
-    ----------
-    data: iterable of record
-        The character records
-
-    Returns
-    -------
-    function
-        A key function that assigns to each character record a value
-        that corresponds to the vertical position of a real line,
-        which is a clustered set of characters.
-    &#34;&#34;&#34;
-
-    keys = collections.Counter()
-    for char in data:
-        k = keyCharV(char)
-        keys[k] += 1
-
-    peaks = sorted(keys)
-
-    if len(peaks) &gt; 1:
-        nDistances = len(peaks) - 1
-        distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
-
-        # remove the biggest distances if &gt; 50,
-        # to prevent outliers pulling the average too high
-        for _ in range(2):
-            if len(distances) &gt; 1:
-                if distances[-1] &gt; 50:
-                    distances = distances[0:-1]
-        # remove distances &lt; 15, which are much smaller than a line
-        distances = [d for d in distances if d &gt; 15]
-
-        nDistances = len(distances)
-        avPeakDist = sum(distances) / nDistances
-
-        peakThreshold = avPeakDist * 0.4
-        clusteredPeaks = {}
-        for (k, n) in sorted(keys.items(), key=lambda x: (-x[1], x[0])):
-            added = False
-            for kc in clusteredPeaks:
-                if abs(k - kc) &lt;= peakThreshold:
-                    clusteredPeaks[kc].add(k)
-                    added = True
-                    break
-            if not added:
-                clusteredPeaks[k] = {k}
-
-    toCluster = {}
-    for (kc, ks) in clusteredPeaks.items():
-        for k in ks:
-            toCluster[k] = kc
-
-    def clusterKeyCharV(char):
-        k = keyCharV(char)
-        return toCluster[k]
-
-    if False:
-        print(&#34;PEAKS&#34;)
-        for k in peaks:
-            print(f&#34;{k:&gt;4} : {keys[k]:&gt;4}&#34;)
-        print(&#34;CLUSTERED_PEAKS&#34;)
-        for kc in sorted(clusteredPeaks):
-            peak = &#34;, &#34;.join(f&#34;{k:&gt;4}&#34; for k in sorted(clusteredPeaks[kc]))
-            print(f&#34;{peak} : {sum(keys[k] for k in clusteredPeaks[kc]):&gt;4}&#34;)
-
-    return clusterKeyCharV</code></pre>
+    return (-rightKey, widthKey)</code></pre>
 </details>
 </section>
 <section>
@@ -3108,120 +3292,6 @@ The unit is 0.1 pixel.</p></div>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="fusus.lakhnawi.clusterVert"><code class="name flex">
-<span>def <span class="ident">clusterVert</span></span>(<span>data)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Cluster characters into lines based on their bounding boxes.</p>
-<p>Most characters on a line have their middle line in approximately the same height.
-But diacritics of characters in that line may occupy different heights.</p>
-<p>Without intervention, these would be clustered on separate lines.
-We take care to cluster them into the same lines as their main characters.</p>
-<p>It involves getting an idea of the regular line height, and clustering boxes
-that fall between the lines with the line above or below, whichever is closest.</p>
-<p>The result of the clustering is delivered as a key function, which will
-be used to sort characters.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>data</code></strong> :&ensp;<code>iterable</code> of <code>record</code></dt>
-<dd>The character records</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>function</code></dt>
-<dd>A key function that assigns to each character record a value
-that corresponds to the vertical position of a real line,
-which is a clustered set of characters.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2891-L2972" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def clusterVert(data):
-    &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
-
-    Most characters on a line have their middle line in approximately the same height.
-    But diacritics of characters in that line may occupy different heights.
-
-    Without intervention, these would be clustered on separate lines.
-    We take care to cluster them into the same lines as their main characters.
-
-    It involves getting an idea of the regular line height, and clustering boxes
-    that fall between the lines with the line above or below, whichever is closest.
-
-    The result of the clustering is delivered as a key function, which will
-    be used to sort characters.
-
-    Parameters
-    ----------
-    data: iterable of record
-        The character records
-
-    Returns
-    -------
-    function
-        A key function that assigns to each character record a value
-        that corresponds to the vertical position of a real line,
-        which is a clustered set of characters.
-    &#34;&#34;&#34;
-
-    keys = collections.Counter()
-    for char in data:
-        k = keyCharV(char)
-        keys[k] += 1
-
-    peaks = sorted(keys)
-
-    if len(peaks) &gt; 1:
-        nDistances = len(peaks) - 1
-        distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
-
-        # remove the biggest distances if &gt; 50,
-        # to prevent outliers pulling the average too high
-        for _ in range(2):
-            if len(distances) &gt; 1:
-                if distances[-1] &gt; 50:
-                    distances = distances[0:-1]
-        # remove distances &lt; 15, which are much smaller than a line
-        distances = [d for d in distances if d &gt; 15]
-
-        nDistances = len(distances)
-        avPeakDist = sum(distances) / nDistances
-
-        peakThreshold = avPeakDist * 0.4
-        clusteredPeaks = {}
-        for (k, n) in sorted(keys.items(), key=lambda x: (-x[1], x[0])):
-            added = False
-            for kc in clusteredPeaks:
-                if abs(k - kc) &lt;= peakThreshold:
-                    clusteredPeaks[kc].add(k)
-                    added = True
-                    break
-            if not added:
-                clusteredPeaks[k] = {k}
-
-    toCluster = {}
-    for (kc, ks) in clusteredPeaks.items():
-        for k in ks:
-            toCluster[k] = kc
-
-    def clusterKeyCharV(char):
-        k = keyCharV(char)
-        return toCluster[k]
-
-    if False:
-        print(&#34;PEAKS&#34;)
-        for k in peaks:
-            print(f&#34;{k:&gt;4} : {keys[k]:&gt;4}&#34;)
-        print(&#34;CLUSTERED_PEAKS&#34;)
-        for kc in sorted(clusteredPeaks):
-            peak = &#34;, &#34;.join(f&#34;{k:&gt;4}&#34; for k in sorted(clusteredPeaks[kc]))
-            print(f&#34;{peak} : {sum(keys[k] for k in clusteredPeaks[kc]):&gt;4}&#34;)
-
-    return clusterKeyCharV</code></pre>
-</details>
-</dd>
 <dt id="fusus.lakhnawi.getDictFromDef"><code class="name flex">
 <span>def <span class="ident">getDictFromDef</span></span>(<span>defs)</span>
 </code></dt>
@@ -3239,7 +3309,7 @@ which is a clustered set of characters.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L674-L747" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L664-L737" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getDictFromDef(defs):
     &#34;&#34;&#34;Interpret a string as a dictionary.
@@ -3391,7 +3461,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2842-L2888" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L3110-L3156" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharH(char):
     &#34;&#34;&#34;Sort key to sort the characters of a line horizontally.
@@ -3461,7 +3531,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2824-L2839" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L3092-L3107" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharV(char):
     &#34;&#34;&#34;The vertical position of the middle of a character.
@@ -3531,7 +3601,7 @@ A none value is converted to <code>?</code>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L646-L656" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L636-L646" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRep(p):
     &#34;&#34;&#34;Represent a float as an integer.
@@ -3560,7 +3630,7 @@ A none value is converted to <code>?</code>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L633-L643" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L623-L633" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRepD(p):
     &#34;&#34;&#34;Represent a float as an integer with enhanced precision.
@@ -3573,42 +3643,6 @@ A none value is converted to <code>?</code>.</dd>
     &#34;&#34;&#34;
 
     return &#34;?&#34; if p is None else int(round(p * 10))</code></pre>
-</details>
-</dd>
-<dt id="fusus.lakhnawi.tweakSpace"><code class="name flex">
-<span>def <span class="ident">tweakSpace</span></span>(<span>c)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Deal with spaces in a character representation.</p>
-<p>Unicode denormalization mmight introduce spaces before initial or after
-final or around isolated characters. We do not need those spaces and strip them.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>c</code></strong> :&ensp;<code>string</code></dt>
-<dd>The representation of a character, typically coming from a Unicode
-(de)normalization step.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L613-L628" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def tweakSpace(c):
-    &#34;&#34;&#34;Deal with spaces in a character representation.
-
-    Unicode denormalization mmight introduce spaces before initial or after
-    final or around isolated characters. We do not need those spaces and strip them.
-
-    Parameters
-    ----------
-    c: string
-        The representation of a character, typically coming from a Unicode
-        (de)normalization step.
-    &#34;&#34;&#34;
-
-    # return c.strip() if ISOLATED in dc else (&#34; &#34; + c.strip()) if INITIAL in dc else c
-    # return c
-    return c.strip()</code></pre>
 </details>
 </dd>
 </dl>
@@ -3630,7 +3664,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L768-L2821" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L758-L3089" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Lakhnawi(UChar):
     def __init__(self):
@@ -3646,9 +3680,16 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         &#34;&#34;&#34;
 
         super().__init__()
-        self.getCharConfig()
-        self.doc = fitz.open(SOURCE)
         &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
+
+        self.heights = {}
+        &#34;&#34;&#34;Heights of characters, indexed by page number.&#34;&#34;&#34;
+
+        self.clusteredHeights = {}
+        &#34;&#34;&#34;Clustered heights of characters, indexed by page number.
+
+        The clustered heights correspond to the lines on a page.
+        &#34;&#34;&#34;
 
         self.lines = {}
         &#34;&#34;&#34;Lines as tuples of original character objects, indexed by page number&#34;&#34;&#34;
@@ -3717,9 +3758,11 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         self.good = True
         &#34;&#34;&#34;Whether processing is still ok, i.e. no errors encountered.&#34;&#34;&#34;
 
+        self.getCharConfig()
+        self.doc = fitz.open(SOURCE)
+
     def close(self):
-        &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.
-        &#34;&#34;&#34;
+        &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
 
         self.doc.close()
 
@@ -3788,6 +3831,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         self.privates = set()
         doubles = self.doubles
         privates = self.privates
+        finalSpace = self.finalSpace
         puas = self.puas
 
         doc = fitz.open(FONT)
@@ -3822,6 +3866,16 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                             doubles[cMain] = cSecond
                         else:
                             doubles[cSecond] = cMain
+
+        doublesApplied = collections.defaultdict(collections.Counter)
+        for d in doubles:
+            doublesApplied[d] = collections.Counter()
+        self.doublesApplied = doublesApplied
+
+        finalsApplied = collections.defaultdict(collections.Counter)
+        for f in finalSpace:
+            finalsApplied[f] = collections.Counter()
+        self.finalsApplied = finalsApplied
 
     def plainChar(self, c):
         &#34;&#34;&#34;Show the character code of a character.
@@ -4016,6 +4070,180 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         html.append(&#34;&lt;table&gt;&#34;)
         display(HTML(&#34;&#34;.join(html)))
 
+    def showDoubles(self, double=None):
+        &#34;&#34;&#34;Show a character with double entry and how often it occurs.
+
+        See `Lakhnawi.doubles`.
+
+        Parameters
+        ----------
+        double: char, optional `None`
+            A character from the doubles list (`Lakhnawi.doubles`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of double-entry characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        doubles = self.doubles
+        doublesApplied = self.doublesApplied
+
+        theseDoubles = (
+            set(doubles) if double is None else {double} if double in doubles else set()
+        )
+
+        html = []
+        totalDoubles = len(doubles)
+        totalApplications = sum(sum(x.values()) for x in doublesApplied.values())
+        totalPages = len(set(chain.from_iterable(doublesApplied.values())))
+        doubleRep = &#34;double&#34; + (&#34;&#34; if totalDoubles == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalDoubles} {doubleRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (d, applied) in sorted(
+            doublesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if d not in theseDoubles:
+                continue
+            e = doubles[d]
+            doubleRep = f&#34;{self.showChar(e)} ⇒ {self.showChar(d)}&#34;
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{doubleRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))
+
+    def showFinals(self, final=None):
+        &#34;&#34;&#34;Show a character with final form and how often it has been replaced.
+
+        Final forms will be normalized to ground forms
+        and sometimes a space will be added.
+
+        Parameters
+        ----------
+        final: char, optional `None`
+            A character from the final space list (`fusus.char.UChar.finalSpace`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of final space characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+
+        theseFinals = (
+            finalSpace if final is None else {final} if final in finalSpace else set()
+        )
+
+        html = []
+        totalFinals = len(finalSpace)
+        totalApplications = sum(sum(x.values()) for x in finalsApplied.values())
+        totalPages = len(set(chain.from_iterable(finalsApplied.values())))
+        finalRep = &#34;final&#34; + (&#34;&#34; if totalFinals == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalFinals} {finalRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (f, applied) in sorted(
+            finalsApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if f not in theseFinals:
+                continue
+            finalRep = self.showChar(f)
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{finalRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))
+
+    def showLineHeights(self, pageNumSpec):
+        &#34;&#34;&#34;Shows how line heights have been determined.
+
+        The pages can be selected by page numbers.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        &#34;&#34;&#34;
+
+        heights = self.heights
+        clusteredHeights = self.clusteredHeights
+
+        for pageNum in self.parsePageNums(pageNumSpec):
+            theseHeights = heights[pageNum]
+            theseClusteredHeights = clusteredHeights[pageNum]
+
+            print(f&#34;Line heights page {pageNum:&gt;3}&#34;)
+            print(&#34;\nraw heights&#34;)
+            for k in sorted(theseHeights):
+                print(f&#34;{theseHeights[k]:&gt;4} characters @ height {int(round(k)):&gt;4}&#34;)
+
+            print(&#34;line heights&#34;)
+            for (ln, kc) in enumerate(sorted(theseClusteredHeights)):
+                peak = &#34;, &#34;.join(
+                    f&#34;{int(round(k)):&gt;4}&#34; for k in sorted(theseClusteredHeights[kc])
+                )
+                print(
+                    f&#34;line {ln + 1:&gt;2}: &#34;
+                    f&#34;{sum(theseHeights[k] for k in theseClusteredHeights[kc]):&gt;4}&#34;
+                    f&#34; characters @height {peak}&#34;
+                )
+
     def parsePageNums(self, pageNumSpec):
         &#34;&#34;&#34;Parses a value as one or more page numbers.
 
@@ -4114,6 +4342,8 @@ the private use characters that occur in the Lakhnawi PDF.</p>
            The effect is that attributes of the Lakhnawi object
            are filled:
 
+           * `Lakhnawi.heights`
+           * `Lakhnawi.clusteredHeights`
            * `Lakhnawi.fnRules`
 
            For the other attributes, see `Lakhnawi.collectPage()`.
@@ -4324,6 +4554,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                 fh.write(self.tsvLine(line, pageNum, ln + 1))
 
         fh.close()
+        print(f&#34;TSV data written to {unexpanduser(filePath)}&#34;)
 
     def htmlPages(
         self,
@@ -4380,6 +4611,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
         lineNums = None if lineNums is None else set(lineNums)
+        filesWritten = 0
 
         if export:
             if not os.path.exists(destDir):
@@ -4442,6 +4674,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                     filePath = f&#34;{destDir}/p{pageNum:&gt;03}.html&#34;
                     with open(filePath, &#34;w&#34;) as fh:
                         fh.write(html)
+                        filesWritten += 1
             else:
                 display(HTML(&#34;\n&#34;.join(html)))
 
@@ -4459,6 +4692,10 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                 )
             fh.write(POST_HTML)
             fh.close()
+            print(f&#34;HTML written to {unexpanduser(filePath)}&#34;)
+
+        if export and not singleFile:
+            print(f&#34;{filesWritten} HTML files written to {unexpanduser(destDir)}/&#34;)
 
     def showLines(
         self,
@@ -4925,6 +5162,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         &#34;&#34;&#34;
 
         doubles = self.doubles
+        doublesApplied = self.doublesApplied
         pageNum = self.pageNum
         nospacings = self.nospacings
         fnRules = self.fnRules
@@ -4987,9 +5225,11 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                         pc = prevChar[&#34;c&#34;]
                         if pc in doubles and doubles[pc] == c:
                             skip = True
+                            doublesApplied[pc][pageNum] += 1
                         if c in doubles and doubles[c] == pc:
                             prevChar = data
                             skip = True
+                            doublesApplied[c][pageNum] += 1
 
                     if not skip:
                         if prevChar is not None:
@@ -5006,7 +5246,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         if prevChar is not None:
             addChar()
 
-        clusterKeyCharV = clusterVert(chars)
+        clusterKeyCharV = self.clusterVert(chars)
         lines = {}
         for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), keyCharH(c))):
             k = clusterKeyCharV(char)
@@ -5184,11 +5424,13 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         columns = self.columns
         diacritics = self.diacritics
         punct = self.punct
-        # diacriticLike = self.diacriticLike
+        diacriticLike = self.diacriticLike
         arabicLetters = self.arabicLetters
         presentationalC = self.presentationalC
         presentationalD = self.presentationalD
-        # nonLetter = self.nonLetter
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+        nonLetter = self.nonLetter
         doRules = self.doRules
         doFilter = self.doFilter
 
@@ -5296,7 +5538,6 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         # sift out all presentational characters
 
         if doFilter:
-            &#34;&#34;&#34;
             trailSpace = False
 
             for (i, char) in enumerate(chars):
@@ -5306,42 +5547,30 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                     if trailSpace:
                         if x not in diacriticLike:
                             if x not in nonLetter:
-                                string += &#34; &#34;
+                                if string == &#34;&#34; and i &gt; 0:
+                                    chars[i - 1][-1] += &#34; &#34;
+                                else:
+                                    string += &#34; &#34;
                             trailSpace = False
-                    (y, space) = (
-                        tweakSpace(normalizeC(x), decomposition(x))
+                    hasFinalSpace = x in finalSpace
+                    y = (
+                        normalizeC(x)
                         if x in presentationalC
-                        else tweakSpace(normalizeD(x), decomposition(x))
+                        else normalizeD(x)
                         if x in presentationalD
-                        else (x, &#34;&#34;)
-                    )
+                        else x
+                    ).strip()
+                    space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
+                    if hasFinalSpace:
+                        finalsApplied[x][pageNum] += 1
                     string += y
                     if space:
                         trailSpace = True
                 char[-1] = string
 
             if trailSpace:
-                space += &#34; &#34;
-            &#34;&#34;&#34;
-
-            # the words yeh+alef(final) and mem+alef(final)
-            # : insert a space behind the alef(final)
-
-            for (i, char) in enumerate(chars):
-                c = char[-1]
-                string = &#34;&#34;
-
-                for x in c:
-                    d = (
-                        tweakSpace(normalizeC(x))
-                        if x in presentationalC
-                        else tweakSpace(normalizeD(x))
-                        if x in presentationalD
-                        else x + (&#34; &#34; if x in punct else &#34;&#34;)
-                    )
-                    string += d
-
-                char[-1] = string
+                if chars:
+                    chars[-1][-1] += &#34; &#34;
 
         # add horizontal spacing
 
@@ -5685,7 +5914,90 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             if isLast:
                 result.append(&#34;&lt;/table&gt;\n&#34;)
 
-        return &#34;&#34;.join(result)</code></pre>
+        return &#34;&#34;.join(result)
+
+    def clusterVert(self, data):
+        &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
+
+        Most characters on a line have their middle line in approximately the same height.
+        But diacritics of characters in that line may occupy different heights.
+
+        Without intervention, these would be clustered on separate lines.
+        We take care to cluster them into the same lines as their main characters.
+
+        It involves getting an idea of the regular line height, and clustering boxes
+        that fall between the lines with the line above or below, whichever is closest.
+
+        The result of the clustering is delivered as a key function, which will
+        be used to sort characters.
+
+        Parameters
+        ----------
+        data: iterable of record
+            The character records
+
+        Returns
+        -------
+        function
+            A key function that assigns to each character record a value
+            that corresponds to the vertical position of a real line,
+            which is a clustered set of characters.
+
+            The information on the vertical clustering of lines
+            is delivered in the attributes `Lakhnawi.heights` and
+            `Lakhnawi.clusteredHeights`, on a page by page basis.
+        &#34;&#34;&#34;
+
+        pageNum = self.pageNum
+
+        heights = collections.Counter()
+        for char in data:
+            k = keyCharV(char)
+            heights[k] += 1
+
+        peaks = sorted(heights)
+
+        if len(peaks) &gt; 1:
+            nDistances = len(peaks) - 1
+            distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
+
+            # remove the biggest distances if &gt; 50,
+            # to prevent outliers pulling the average too high
+            for _ in range(2):
+                if len(distances) &gt; 1:
+                    if distances[-1] &gt; 50:
+                        distances = distances[0:-1]
+            # remove distances &lt; 15, which are much smaller than a line
+            distances = [d for d in distances if d &gt; 15]
+
+            nDistances = len(distances)
+            avPeakDist = sum(distances) / nDistances
+
+            peakThreshold = avPeakDist * LINE_CLUSTER_FACTOR
+            clusteredHeights = {}
+            for (k, n) in sorted(heights.items(), key=lambda x: (-x[1], x[0])):
+                added = False
+                for kc in clusteredHeights:
+                    if abs(k - kc) &lt;= peakThreshold:
+                        clusteredHeights[kc].add(k)
+                        added = True
+                        break
+                if not added:
+                    clusteredHeights[k] = {k}
+
+        toCluster = {}
+        for (kc, ks) in clusteredHeights.items():
+            for k in ks:
+                toCluster[k] = kc
+
+        self.heights[pageNum] = heights
+        self.clusteredHeights[pageNum] = clusteredHeights
+
+        def clusterKeyCharV(char):
+            k = keyCharV(char)
+            return toCluster[k]
+
+        return clusterKeyCharV</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -5693,6 +6005,11 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 </ul>
 <h3>Instance variables</h3>
 <dl>
+<dt id="fusus.lakhnawi.Lakhnawi.clusteredHeights"><code class="name">var <span class="ident">clusteredHeights</span></code></dt>
+<dd>
+<div class="desc"><p>Clustered heights of characters, indexed by page number.</p>
+<p>The clustered heights correspond to the lines on a page.</p></div>
+</dd>
 <dt id="fusus.lakhnawi.Lakhnawi.columns"><code class="name">var <span class="ident">columns</span></code></dt>
 <dd>
 <div class="desc"><p>Column information, indexed by page and line number.</p>
@@ -5713,10 +6030,6 @@ column division, where as in the case of blocks, reading proceeds
 by reading the complete blocks in order.</p>
 </div></div>
 </dd>
-<dt id="fusus.lakhnawi.Lakhnawi.doc"><code class="name">var <span class="ident">doc</span></code></dt>
-<dd>
-<div class="desc"><p>A handle to the PDF document, after it has been read by <em>fitz</em>.</p></div>
-</dd>
 <dt id="fusus.lakhnawi.Lakhnawi.doubles"><code class="name">var <span class="ident">doubles</span></code></dt>
 <dd>
 <div class="desc"><p>Glyphs with double unicode points.</p>
@@ -5736,6 +6049,10 @@ related presentational character.</p>
 <dt id="fusus.lakhnawi.Lakhnawi.good"><code class="name">var <span class="ident">good</span></code></dt>
 <dd>
 <div class="desc"><p>Whether processing is still ok, i.e. no errors encountered.</p></div>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.heights"><code class="name">var <span class="ident">heights</span></code></dt>
+<dd>
+<div class="desc"><p>Heights of characters, indexed by page number.</p></div>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.lines"><code class="name">var <span class="ident">lines</span></code></dt>
 <dd>
@@ -5775,13 +6092,131 @@ and whether this counts as a full white space.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L853-L857" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L853-L856" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def close(self):
-    &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
 
     self.doc.close()</code></pre>
+</details>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.clusterVert"><code class="name flex">
+<span>def <span class="ident">clusterVert</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cluster characters into lines based on their bounding boxes.</p>
+<p>Most characters on a line have their middle line in approximately the same height.
+But diacritics of characters in that line may occupy different heights.</p>
+<p>Without intervention, these would be clustered on separate lines.
+We take care to cluster them into the same lines as their main characters.</p>
+<p>It involves getting an idea of the regular line height, and clustering boxes
+that fall between the lines with the line above or below, whichever is closest.</p>
+<p>The result of the clustering is delivered as a key function, which will
+be used to sort characters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>iterable</code> of <code>record</code></dt>
+<dd>The character records</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>function</code></dt>
+<dd>
+<p>A key function that assigns to each character record a value
+that corresponds to the vertical position of a real line,
+which is a clustered set of characters.</p>
+<p>The information on the vertical clustering of lines
+is delivered in the attributes <code><a title="fusus.lakhnawi.Lakhnawi.heights" href="#fusus.lakhnawi.Lakhnawi.heights">Lakhnawi.heights</a></code> and
+<code><a title="fusus.lakhnawi.Lakhnawi.clusteredHeights" href="#fusus.lakhnawi.Lakhnawi.clusteredHeights">Lakhnawi.clusteredHeights</a></code>, on a page by page basis.</p>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L3008-L3089" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def clusterVert(self, data):
+    &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
+
+    Most characters on a line have their middle line in approximately the same height.
+    But diacritics of characters in that line may occupy different heights.
+
+    Without intervention, these would be clustered on separate lines.
+    We take care to cluster them into the same lines as their main characters.
+
+    It involves getting an idea of the regular line height, and clustering boxes
+    that fall between the lines with the line above or below, whichever is closest.
+
+    The result of the clustering is delivered as a key function, which will
+    be used to sort characters.
+
+    Parameters
+    ----------
+    data: iterable of record
+        The character records
+
+    Returns
+    -------
+    function
+        A key function that assigns to each character record a value
+        that corresponds to the vertical position of a real line,
+        which is a clustered set of characters.
+
+        The information on the vertical clustering of lines
+        is delivered in the attributes `Lakhnawi.heights` and
+        `Lakhnawi.clusteredHeights`, on a page by page basis.
+    &#34;&#34;&#34;
+
+    pageNum = self.pageNum
+
+    heights = collections.Counter()
+    for char in data:
+        k = keyCharV(char)
+        heights[k] += 1
+
+    peaks = sorted(heights)
+
+    if len(peaks) &gt; 1:
+        nDistances = len(peaks) - 1
+        distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
+
+        # remove the biggest distances if &gt; 50,
+        # to prevent outliers pulling the average too high
+        for _ in range(2):
+            if len(distances) &gt; 1:
+                if distances[-1] &gt; 50:
+                    distances = distances[0:-1]
+        # remove distances &lt; 15, which are much smaller than a line
+        distances = [d for d in distances if d &gt; 15]
+
+        nDistances = len(distances)
+        avPeakDist = sum(distances) / nDistances
+
+        peakThreshold = avPeakDist * LINE_CLUSTER_FACTOR
+        clusteredHeights = {}
+        for (k, n) in sorted(heights.items(), key=lambda x: (-x[1], x[0])):
+            added = False
+            for kc in clusteredHeights:
+                if abs(k - kc) &lt;= peakThreshold:
+                    clusteredHeights[kc].add(k)
+                    added = True
+                    break
+            if not added:
+                clusteredHeights[k] = {k}
+
+    toCluster = {}
+    for (kc, ks) in clusteredHeights.items():
+        for k in ks:
+            toCluster[k] = kc
+
+    self.heights[pageNum] = heights
+    self.clusteredHeights[pageNum] = clusteredHeights
+
+    def clusterKeyCharV(char):
+        k = keyCharV(char)
+        return toCluster[k]
+
+    return clusterKeyCharV</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.collectPage"><code class="name flex">
@@ -5813,7 +6248,7 @@ method of <em>fitz</em>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2034-L2188" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2227-L2384" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def collectPage(self, data):
     &#34;&#34;&#34;Transforms raw text into proper textual data.
@@ -5842,6 +6277,7 @@ method of <em>fitz</em>.</dd>
     &#34;&#34;&#34;
 
     doubles = self.doubles
+    doublesApplied = self.doublesApplied
     pageNum = self.pageNum
     nospacings = self.nospacings
     fnRules = self.fnRules
@@ -5904,9 +6340,11 @@ method of <em>fitz</em>.</dd>
                     pc = prevChar[&#34;c&#34;]
                     if pc in doubles and doubles[pc] == c:
                         skip = True
+                        doublesApplied[pc][pageNum] += 1
                     if c in doubles and doubles[c] == pc:
                         prevChar = data
                         skip = True
+                        doublesApplied[c][pageNum] += 1
 
                 if not skip:
                     if prevChar is not None:
@@ -5923,7 +6361,7 @@ method of <em>fitz</em>.</dd>
     if prevChar is not None:
         addChar()
 
-    clusterKeyCharV = clusterVert(chars)
+    clusterKeyCharV = self.clusterVert(chars)
     lines = {}
     for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), keyCharH(c))):
         k = clusterKeyCharV(char)
@@ -5989,7 +6427,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1183-L1205" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1367-L1389" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def drawPages(self, pageNumSpec, clip=None):
     &#34;&#34;&#34;Draws a (part) of page from the PDF as a raster image.
@@ -6025,7 +6463,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L867-L875" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L866-L874" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharConfig(self):
     &#34;&#34;&#34;Configure all character information.
@@ -6053,7 +6491,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L908-L957" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L907-L967" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharInfo(self):
     &#34;&#34;&#34;Obtain detailed character information by reading the font report file.
@@ -6071,6 +6509,7 @@ from top to bottom will be displayed.</dd>
     self.privates = set()
     doubles = self.doubles
     privates = self.privates
+    finalSpace = self.finalSpace
     puas = self.puas
 
     doc = fitz.open(FONT)
@@ -6104,7 +6543,17 @@ from top to bottom will be displayed.</dd>
                     if nSecond &gt; nMain:
                         doubles[cMain] = cSecond
                     else:
-                        doubles[cSecond] = cMain</code></pre>
+                        doubles[cSecond] = cMain
+
+    doublesApplied = collections.defaultdict(collections.Counter)
+    for d in doubles:
+        doublesApplied[d] = collections.Counter()
+    self.doublesApplied = doublesApplied
+
+    finalsApplied = collections.defaultdict(collections.Counter)
+    for f in finalSpace:
+        finalsApplied[f] = collections.Counter()
+    self.finalsApplied = finalsApplied</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.getPageObj"><code class="name flex">
@@ -6128,7 +6577,7 @@ It is the sequence number of the page within the PDF, counting from 1.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1345-L1365" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1531-L1551" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageObj(self, pageNum):
     &#34;&#34;&#34;Get the *fitz* object for a specific page.
@@ -6177,7 +6626,7 @@ and deep dictionary.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1313-L1343" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1499-L1529" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageRaw(self, pageNum):
     &#34;&#34;&#34;Do a rough/raw text extract of a specific page.
@@ -6250,6 +6699,8 @@ Used for debugging.</dd>
 <p>The effect is that attributes of the Lakhnawi object
 are filled:</p>
 <ul>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.heights" href="#fusus.lakhnawi.Lakhnawi.heights">Lakhnawi.heights</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.clusteredHeights" href="#fusus.lakhnawi.Lakhnawi.clusteredHeights">Lakhnawi.clusteredHeights</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.fnRules" href="#fusus.lakhnawi.Lakhnawi.fnRules">Lakhnawi.fnRules</a></code></li>
 </ul>
 <p>For the other attributes, see <code><a title="fusus.lakhnawi.Lakhnawi.collectPage" href="#fusus.lakhnawi.Lakhnawi.collectPage">Lakhnawi.collectPage()</a></code>.</p>
@@ -6263,7 +6714,7 @@ keyed by page number.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1207-L1311" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1391-L1497" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPages(
     self,
@@ -6308,6 +6759,8 @@ keyed by page number.</p>
        The effect is that attributes of the Lakhnawi object
        are filled:
 
+       * `Lakhnawi.heights`
+       * `Lakhnawi.clusteredHeights`
        * `Lakhnawi.fnRules`
 
        For the other attributes, see `Lakhnawi.collectPage()`.
@@ -6399,7 +6852,7 @@ in all columns.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2755-L2821" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2940-L3006" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def htmlLine(self, columns, prevMulti, isLast):
     &#34;&#34;&#34;Outputs a processed line as HTML.
@@ -6513,7 +6966,7 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1461-L1594" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1648-L1787" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def htmlPages(
         self,
@@ -6570,6 +7023,7 @@ The name of the file includes a page specification.</p>
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
         lineNums = None if lineNums is None else set(lineNums)
+        filesWritten = 0
 
         if export:
             if not os.path.exists(destDir):
@@ -6632,6 +7086,7 @@ The name of the file includes a page specification.</p>
                     filePath = f&#34;{destDir}/p{pageNum:&gt;03}.html&#34;
                     with open(filePath, &#34;w&#34;) as fh:
                         fh.write(html)
+                        filesWritten += 1
             else:
                 display(HTML(&#34;\n&#34;.join(html)))
 
@@ -6648,7 +7103,11 @@ The name of the file includes a page specification.</p>
     &#34;&#34;&#34;
                 )
             fh.write(POST_HTML)
-            fh.close()</code></pre>
+            fh.close()
+            print(f&#34;HTML written to {unexpanduser(filePath)}&#34;)
+
+        if export and not singleFile:
+            print(f&#34;{filesWritten} HTML files written to {unexpanduser(destDir)}/&#34;)</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.isPageNum"><code class="name flex">
@@ -6664,7 +7123,7 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2190-L2198" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2386-L2394" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isPageNum(self, chars):
     &#34;&#34;&#34;Checks whether a series of characters represents an arabic number.
@@ -6700,7 +7159,7 @@ If none of these, it should be an iterable of <code>int</code> values.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1152-L1181" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1336-L1365" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parsePageNums(self, pageNumSpec):
     &#34;&#34;&#34;Parses a value as one or more page numbers.
@@ -6753,7 +7212,7 @@ the integer 1 (diacritic place holder).</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L959-L978" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L969-L988" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainChar(self, c):
     &#34;&#34;&#34;Show the character code of a character.
@@ -6799,7 +7258,7 @@ for that span.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2669-L2691" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2854-L2876" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainLine(self, columns):
     &#34;&#34;&#34;Outputs a processed line as plain text.
@@ -6845,7 +7304,7 @@ for that span.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1367-L1389" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1553-L1575" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainPages(self, pageNumSpec):
     &#34;&#34;&#34;Outputs processed pages as plain text.
@@ -6892,7 +7351,7 @@ each code point between brackets.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L980-L997" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L990-L1007" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainString(self, s):
     &#34;&#34;&#34;Show the character codes of the characters in a string.
@@ -6924,7 +7383,7 @@ private use characters.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L877-L891" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L876-L890" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def privateInfo(self):
     &#34;&#34;&#34;Set up additional character categories wrt. private-use characters.
@@ -6952,7 +7411,7 @@ private use characters.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L859-L865" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L858-L864" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setStyle(self):
     &#34;&#34;&#34;Import the CSS styles into the notebook.
@@ -6973,7 +7432,7 @@ when extracting text from pages of the Lakhnawi PDF.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L893-L906" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L892-L905" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setupRules(self):
     &#34;&#34;&#34;Set up character transformation rules.
@@ -7008,7 +7467,7 @@ the integer 1 (diacritic place holder).</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L999-L1046" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1009-L1056" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showChar(self, c):
         &#34;&#34;&#34;Pretty display of a single unicode character.
@@ -7082,7 +7541,7 @@ that exists in the lines of the selected pages.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1951-L1990" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2144-L2183" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showColumns(self, pageNumSpec):
     &#34;&#34;&#34;Show used characters.
@@ -7124,6 +7583,248 @@ that exists in the lines of the selected pages.</p>
             for (lNum, threshold, tabs) in multiple:
                 nTabs = len(tabs)
                 print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nTabs + 1)}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.showDoubles"><code class="name flex">
+<span>def <span class="ident">showDoubles</span></span>(<span>self, double=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Show a character with double entry and how often it occurs.</p>
+<p>See <code><a title="fusus.lakhnawi.Lakhnawi.doubles" href="#fusus.lakhnawi.Lakhnawi.doubles">Lakhnawi.doubles</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>double</code></strong> :&ensp;<code>char</code>, optional <code>None</code></dt>
+<dd>A character from the doubles list (<code><a title="fusus.lakhnawi.Lakhnawi.doubles" href="#fusus.lakhnawi.Lakhnawi.doubles">Lakhnawi.doubles</a></code>).
+If None, all such characters will be taken.</dd>
+<dt><strong><code>isApplied</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Only show rules that have been applied.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>Displays a table of double-entry characters with occurrence statistics.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1162-L1230" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">    def showDoubles(self, double=None):
+        &#34;&#34;&#34;Show a character with double entry and how often it occurs.
+
+        See `Lakhnawi.doubles`.
+
+        Parameters
+        ----------
+        double: char, optional `None`
+            A character from the doubles list (`Lakhnawi.doubles`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of double-entry characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        doubles = self.doubles
+        doublesApplied = self.doublesApplied
+
+        theseDoubles = (
+            set(doubles) if double is None else {double} if double in doubles else set()
+        )
+
+        html = []
+        totalDoubles = len(doubles)
+        totalApplications = sum(sum(x.values()) for x in doublesApplied.values())
+        totalPages = len(set(chain.from_iterable(doublesApplied.values())))
+        doubleRep = &#34;double&#34; + (&#34;&#34; if totalDoubles == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalDoubles} {doubleRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (d, applied) in sorted(
+            doublesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if d not in theseDoubles:
+                continue
+            e = doubles[d]
+            doubleRep = f&#34;{self.showChar(e)} ⇒ {self.showChar(d)}&#34;
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{doubleRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.showFinals"><code class="name flex">
+<span>def <span class="ident">showFinals</span></span>(<span>self, final=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Show a character with final form and how often it has been replaced.</p>
+<p>Final forms will be normalized to ground forms
+and sometimes a space will be added.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>final</code></strong> :&ensp;<code>char</code>, optional <code>None</code></dt>
+<dd>A character from the final space list (<code><a title="fusus.char.UChar.finalSpace" href="char.html#fusus.char.UChar.finalSpace">UChar.finalSpace</a></code>).
+If None, all such characters will be taken.</dd>
+<dt><strong><code>isApplied</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Only show rules that have been applied.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>Displays a table of final space characters with occurrence statistics.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1232-L1300" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">    def showFinals(self, final=None):
+        &#34;&#34;&#34;Show a character with final form and how often it has been replaced.
+
+        Final forms will be normalized to ground forms
+        and sometimes a space will be added.
+
+        Parameters
+        ----------
+        final: char, optional `None`
+            A character from the final space list (`fusus.char.UChar.finalSpace`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of final space characters with occurrence statistics.
+        &#34;&#34;&#34;
+
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+
+        theseFinals = (
+            finalSpace if final is None else {final} if final in finalSpace else set()
+        )
+
+        html = []
+        totalFinals = len(finalSpace)
+        totalApplications = sum(sum(x.values()) for x in finalsApplied.values())
+        totalPages = len(set(chain.from_iterable(finalsApplied.values())))
+        finalRep = &#34;final&#34; + (&#34;&#34; if totalFinals == 1 else &#34;s&#34;)
+        appRep = &#34;application&#34; + (&#34;&#34; if totalApplications == 1 else &#34;s&#34;)
+        pageRep = &#34;page&#34; + (&#34;&#34; if totalPages == 1 else &#34;s&#34;)
+        html.append(
+            f&#34;&#34;&#34;
+&lt;p&gt;&lt;b&gt;{totalFinals} {finalRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
+&lt;table&gt;
+&#34;&#34;&#34;
+        )
+
+        for (f, applied) in sorted(
+            finalsApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if f not in theseFinals:
+                continue
+            finalRep = self.showChar(f)
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f&#34;e.g. page {examplePageNum} with {nExamples} applications&#34;
+            else:
+                appliedEx = &#34;&#34;
+            appliedRep = f&#34;&lt;b&gt;{total}&lt;/b&gt; x applied on &lt;i&gt;{len(applied)}&lt;/i&gt; pages&#34;
+            html.append(
+                f&#34;&#34;&#34;
+&lt;tr&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedRep}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{appliedEx}&lt;/td&gt;
+    &lt;td class=&#34;al&#34;&gt;{finalRep}&lt;/td&gt;
+&lt;/tr&gt;
+&#34;&#34;&#34;
+            )
+
+        html.append(&#34;&lt;table&gt;&#34;)
+        display(HTML(&#34;&#34;.join(html)))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.showLineHeights"><code class="name flex">
+<span>def <span class="ident">showLineHeights</span></span>(<span>self, pageNumSpec)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shows how line heights have been determined.</p>
+<p>The pages can be selected by page numbers.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pageNumSpec</code></strong> :&ensp;<code>None | int | string | iterable</code></dt>
+<dd>As in <code><a title="fusus.lakhnawi.Lakhnawi.parsePageNums" href="#fusus.lakhnawi.Lakhnawi.parsePageNums">Lakhnawi.parsePageNums()</a></code>.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1302-L1334" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def showLineHeights(self, pageNumSpec):
+    &#34;&#34;&#34;Shows how line heights have been determined.
+
+    The pages can be selected by page numbers.
+
+    Parameters
+    ----------
+    pageNumSpec: None | int | string | iterable
+        As in `Lakhnawi.parsePageNums()`.
+    &#34;&#34;&#34;
+
+    heights = self.heights
+    clusteredHeights = self.clusteredHeights
+
+    for pageNum in self.parsePageNums(pageNumSpec):
+        theseHeights = heights[pageNum]
+        theseClusteredHeights = clusteredHeights[pageNum]
+
+        print(f&#34;Line heights page {pageNum:&gt;3}&#34;)
+        print(&#34;\nraw heights&#34;)
+        for k in sorted(theseHeights):
+            print(f&#34;{theseHeights[k]:&gt;4} characters @ height {int(round(k)):&gt;4}&#34;)
+
+        print(&#34;line heights&#34;)
+        for (ln, kc) in enumerate(sorted(theseClusteredHeights)):
+            peak = &#34;, &#34;.join(
+                f&#34;{int(round(k)):&gt;4}&#34; for k in sorted(theseClusteredHeights[kc])
+            )
+            print(
+                f&#34;line {ln + 1:&gt;2}: &#34;
+                f&#34;{sum(theseHeights[k] for k in theseClusteredHeights[kc]):&gt;4}&#34;
+                f&#34; characters @height {peak}&#34;
+            )</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.showLines"><code class="name flex">
@@ -7170,7 +7871,7 @@ be retrieved, otherwise only the first one.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1596-L1733" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1789-L1926" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showLines(
         self,
@@ -7333,7 +8034,7 @@ If None, all rules will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1076-L1150" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1086-L1160" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showReplacements(self, rule=None, isApplied=False):
         &#34;&#34;&#34;Show a character conversion rule and how it has been applied.
@@ -7434,7 +8135,7 @@ If None, all rules will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1992-L2032" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2185-L2225" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSpacing(self, pageNumSpec, line=None):
     &#34;&#34;&#34;Show where the spaces are.
@@ -7501,7 +8202,7 @@ but displays the HTML string.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1048-L1074" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1058-L1084" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showString(self, s, asString=False):
     &#34;&#34;&#34;Pretty display of a string as a series of unicode characters.
@@ -7567,7 +8268,7 @@ Otherwise, sort the results by unicode code point of the character.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1813-L1949" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2006-L2142" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showUsedChars(
         self,
@@ -7732,7 +8433,7 @@ see <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="#fusus.lakhnawi.Lakh
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1735-L1811" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1928-L2004" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showWords(self, pageNumSpec, line=None):
         &#34;&#34;&#34;Outputs processed words as a formatted HTML table.
@@ -7903,7 +8604,7 @@ rules.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2200-L2667" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2396-L2852" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def trimLine(self, pageNum, ln, chars):
     &#34;&#34;&#34;Map character sequences to other sequences.
@@ -8025,11 +8726,13 @@ rules.</p>
     columns = self.columns
     diacritics = self.diacritics
     punct = self.punct
-    # diacriticLike = self.diacriticLike
+    diacriticLike = self.diacriticLike
     arabicLetters = self.arabicLetters
     presentationalC = self.presentationalC
     presentationalD = self.presentationalD
-    # nonLetter = self.nonLetter
+    finalSpace = self.finalSpace
+    finalsApplied = self.finalsApplied
+    nonLetter = self.nonLetter
     doRules = self.doRules
     doFilter = self.doFilter
 
@@ -8137,7 +8840,6 @@ rules.</p>
     # sift out all presentational characters
 
     if doFilter:
-        &#34;&#34;&#34;
         trailSpace = False
 
         for (i, char) in enumerate(chars):
@@ -8147,42 +8849,30 @@ rules.</p>
                 if trailSpace:
                     if x not in diacriticLike:
                         if x not in nonLetter:
-                            string += &#34; &#34;
+                            if string == &#34;&#34; and i &gt; 0:
+                                chars[i - 1][-1] += &#34; &#34;
+                            else:
+                                string += &#34; &#34;
                         trailSpace = False
-                (y, space) = (
-                    tweakSpace(normalizeC(x), decomposition(x))
+                hasFinalSpace = x in finalSpace
+                y = (
+                    normalizeC(x)
                     if x in presentationalC
-                    else tweakSpace(normalizeD(x), decomposition(x))
+                    else normalizeD(x)
                     if x in presentationalD
-                    else (x, &#34;&#34;)
-                )
+                    else x
+                ).strip()
+                space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
+                if hasFinalSpace:
+                    finalsApplied[x][pageNum] += 1
                 string += y
                 if space:
                     trailSpace = True
             char[-1] = string
 
         if trailSpace:
-            space += &#34; &#34;
-        &#34;&#34;&#34;
-
-        # the words yeh+alef(final) and mem+alef(final)
-        # : insert a space behind the alef(final)
-
-        for (i, char) in enumerate(chars):
-            c = char[-1]
-            string = &#34;&#34;
-
-            for x in c:
-                d = (
-                    tweakSpace(normalizeC(x))
-                    if x in presentationalC
-                    else tweakSpace(normalizeD(x))
-                    if x in presentationalD
-                    else x + (&#34; &#34; if x in punct else &#34;&#34;)
-                )
-                string += d
-
-            char[-1] = string
+            if chars:
+                chars[-1][-1] += &#34; &#34;
 
     # add horizontal spacing
 
@@ -8390,7 +9080,7 @@ as output format for the extracted text of the Lakhnawi PDF.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2693-L2705" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2878-L2890" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvHeadLine(self):
     &#34;&#34;&#34;Outputs the field names of a word in TSV data.
@@ -8432,7 +9122,7 @@ in all columns.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2707-L2753" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L2892-L2938" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvLine(self, columns, pageNum, ln):
     &#34;&#34;&#34;Outputs a processed line as lines of tab-separated fields for each word.
@@ -8531,7 +9221,7 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1391-L1459" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/lakhnawi.py#L1577-L1646" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvPages(self, pageNumSpec):
     &#34;&#34;&#34;Outputs processed pages as tab-separated data.
@@ -8601,7 +9291,8 @@ The name of the file includes a page specification.</p>
         for (ln, line) in enumerate(lines):
             fh.write(self.tsvLine(line, pageNum, ln + 1))
 
-    fh.close()</code></pre>
+    fh.close()
+    print(f&#34;TSV data written to {unexpanduser(filePath)}&#34;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -8615,6 +9306,7 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.char.UChar.bracketMap" href="char.html#fusus.char.UChar.bracketMap">bracketMap</a></code></li>
 <li><code><a title="fusus.char.UChar.diacriticLike" href="char.html#fusus.char.UChar.diacriticLike">diacriticLike</a></code></li>
 <li><code><a title="fusus.char.UChar.diacritics" href="char.html#fusus.char.UChar.diacritics">diacritics</a></code></li>
+<li><code><a title="fusus.char.UChar.finalSpace" href="char.html#fusus.char.UChar.finalSpace">finalSpace</a></code></li>
 <li><code><a title="fusus.char.UChar.greekPresentational" href="char.html#fusus.char.UChar.greekPresentational">greekPresentational</a></code></li>
 <li><code><a title="fusus.char.UChar.hebrew" href="char.html#fusus.char.UChar.hebrew">hebrew</a></code></li>
 <li><code><a title="fusus.char.UChar.hebrewPresentational" href="char.html#fusus.char.UChar.hebrewPresentational">hebrewPresentational</a></code></li>
@@ -8669,7 +9361,6 @@ The name of the file includes a page specification.</p>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="fusus.lakhnawi.clusterVert" href="#fusus.lakhnawi.clusterVert">clusterVert</a></code></li>
 <li><code><a title="fusus.lakhnawi.getDictFromDef" href="#fusus.lakhnawi.getDictFromDef">getDictFromDef</a></code></li>
 <li><code><a title="fusus.lakhnawi.getToc" href="#fusus.lakhnawi.getToc">getToc</a></code></li>
 <li><code><a title="fusus.lakhnawi.keyCharH" href="#fusus.lakhnawi.keyCharH">keyCharH</a></code></li>
@@ -8677,7 +9368,6 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.lakhnawi.preHtml" href="#fusus.lakhnawi.preHtml">preHtml</a></code></li>
 <li><code><a title="fusus.lakhnawi.ptRep" href="#fusus.lakhnawi.ptRep">ptRep</a></code></li>
 <li><code><a title="fusus.lakhnawi.ptRepD" href="#fusus.lakhnawi.ptRepD">ptRepD</a></code></li>
-<li><code><a title="fusus.lakhnawi.tweakSpace" href="#fusus.lakhnawi.tweakSpace">tweakSpace</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -8686,9 +9376,10 @@ The name of the file includes a page specification.</p>
 <h4><code><a title="fusus.lakhnawi.Lakhnawi" href="#fusus.lakhnawi.Lakhnawi">Lakhnawi</a></code></h4>
 <ul class="two-column">
 <li><code><a title="fusus.lakhnawi.Lakhnawi.close" href="#fusus.lakhnawi.Lakhnawi.close">close</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.clusterVert" href="#fusus.lakhnawi.Lakhnawi.clusterVert">clusterVert</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.clusteredHeights" href="#fusus.lakhnawi.Lakhnawi.clusteredHeights">clusteredHeights</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.collectPage" href="#fusus.lakhnawi.Lakhnawi.collectPage">collectPage</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.columns" href="#fusus.lakhnawi.Lakhnawi.columns">columns</a></code></li>
-<li><code><a title="fusus.lakhnawi.Lakhnawi.doc" href="#fusus.lakhnawi.Lakhnawi.doc">doc</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.doubles" href="#fusus.lakhnawi.Lakhnawi.doubles">doubles</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.drawPages" href="#fusus.lakhnawi.Lakhnawi.drawPages">drawPages</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.fnRules" href="#fusus.lakhnawi.Lakhnawi.fnRules">fnRules</a></code></li>
@@ -8698,6 +9389,7 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.getPageRaw" href="#fusus.lakhnawi.Lakhnawi.getPageRaw">getPageRaw</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.getPages" href="#fusus.lakhnawi.Lakhnawi.getPages">getPages</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.good" href="#fusus.lakhnawi.Lakhnawi.good">good</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.heights" href="#fusus.lakhnawi.Lakhnawi.heights">heights</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.htmlLine" href="#fusus.lakhnawi.Lakhnawi.htmlLine">htmlLine</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.htmlPages" href="#fusus.lakhnawi.Lakhnawi.htmlPages">htmlPages</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.isPageNum" href="#fusus.lakhnawi.Lakhnawi.isPageNum">isPageNum</a></code></li>
@@ -8715,6 +9407,9 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.setupRules" href="#fusus.lakhnawi.Lakhnawi.setupRules">setupRules</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.showChar" href="#fusus.lakhnawi.Lakhnawi.showChar">showChar</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.showColumns" href="#fusus.lakhnawi.Lakhnawi.showColumns">showColumns</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showDoubles" href="#fusus.lakhnawi.Lakhnawi.showDoubles">showDoubles</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showFinals" href="#fusus.lakhnawi.Lakhnawi.showFinals">showFinals</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showLineHeights" href="#fusus.lakhnawi.Lakhnawi.showLineHeights">showLineHeights</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.showLines" href="#fusus.lakhnawi.Lakhnawi.showLines">showLines</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.showReplacements" href="#fusus.lakhnawi.Lakhnawi.showReplacements">showReplacements</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.showSpacing" href="#fusus.lakhnawi.Lakhnawi.showSpacing">showSpacing</a></code></li>

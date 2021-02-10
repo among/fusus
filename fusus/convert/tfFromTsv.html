@@ -35,7 +35,7 @@ textual extraction of the Lakhnawi PDF, but they share most fields.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L0-L675" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L0-L622" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convert TSV data to Text-Fabric.
 
@@ -54,7 +54,6 @@ See also
 * [Text-Fabric](https://annotation.github.io/text-fabric/tf/index.html)
 &#34;&#34;&#34;
 
-import os
 import sys
 import collections
 import re
@@ -64,6 +63,7 @@ from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
 from fusus.char import UChar
+from fusus.works import WORKS, getFile, getDest
 
 
 HELP = &#34;&#34;&#34;
@@ -82,47 +82,7 @@ page      : only process this page; default: all pages
 
 
 EXT = &#34;.tsv&#34;
-VERSION_TF = 0.2
-
-BASE = os.path.expanduser(&#34;~/github/among/fusus&#34;)
-
-WORKS = dict(
-    fususl=dict(
-        meta=dict(
-            name=&#34;fusus&#34;,
-            title=&#34;Fusus Al Hikam&#34;,
-            author=&#34;Ibn Arabi&#34;,
-            editor=&#34;Lakhnawi&#34;,
-            published=&#34;pdf, personal communication&#34;,
-            period=&#34;1165-1240&#34;,
-        ),
-        source=dict(
-            dir=&#34;ur/Lakhnawi&#34;,
-            file=&#34;allpages.tsv&#34;,
-        ),
-        dest=&#34;tf/fusus/Lakhnawi&#34;,
-        toc=True,
-        ocred=False,
-    ),
-    fususa=dict(
-        meta=dict(
-            name=&#34;fusus&#34;,
-            title=&#34;Fusus Al Hikam&#34;,
-            author=&#34;Ibn Arabi&#34;,
-            editor=&#34;Affifi&#34;,
-            published=&#34;pdf, personal communication&#34;,
-            period=&#34;1165-1240&#34;,
-        ),
-        source=dict(
-            dir=&#34;ur/Affifi&#34;,
-            file=&#34;allpages.tsv&#34;,
-        ),
-        dest=&#34;tf/fusus/Affifi&#34;,
-        toc=False,
-        ocred=True,
-    ),
-)
-
+VERSION_TF = 0.3
 
 # TF CONFIGURATION
 
@@ -348,18 +308,6 @@ def getToc(data):
 givenPage = None
 
 
-def getFile(source):
-    workInfo = WORKS[source]
-
-    sourceInfo = workInfo[&#34;source&#34;]
-    directory = sourceInfo[&#34;dir&#34;]
-    fileName = sourceInfo.get(&#34;file&#34;, None)
-
-    srcDir = f&#34;{BASE}/{directory}&#34;
-
-    return f&#34;{srcDir}/{fileName}&#34;
-
-
 TYPE_MAPS = {
     False: [&#34;page&#34;, &#34;line&#34;, &#34;column&#34;, &#34;span&#34;],
     True: [&#34;page&#34;, &#34;stripe&#34;, &#34;block&#34;, &#34;line&#34;],
@@ -379,7 +327,7 @@ def convert(source, page):
     givenPage = page
 
     workInfo = WORKS[source]
-    dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+    dest = getDest(source, VERSION_TF)
     SRC_FILE = getFile(source)
     HAS_TOC = workInfo.get(&#34;toc&#34;, False)
     OCRED = workInfo.get(&#34;ocred&#34;, False)
@@ -701,8 +649,7 @@ def main():
 
         if thisGood:
             if doLoad:
-                workInfo = WORKS[source]
-                dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+                dest = getDest(source, VERSION_TF)
                 loadTf(dest)
 
         if not thisGood:
@@ -730,7 +677,7 @@ if __name__ == &#34;__main__&#34;:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L330-L359" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L278-L307" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def convert(source, page):
     global givenPage
@@ -745,7 +692,7 @@ if __name__ == &#34;__main__&#34;:
     givenPage = page
 
     workInfo = WORKS[source]
-    dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+    dest = getDest(source, VERSION_TF)
     SRC_FILE = getFile(source)
     HAS_TOC = workInfo.get(&#34;toc&#34;, False)
     OCRED = workInfo.get(&#34;ocred&#34;, False)
@@ -790,7 +737,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L365-L575" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L313-L523" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def director(cv):
     &#34;&#34;&#34;Read tsv data fields.
@@ -1013,32 +960,10 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L102-L103" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L62-L63" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def generic(source):
     return {**GENERIC, **WORKS[source][&#34;meta&#34;]}</code></pre>
-</details>
-</dd>
-<dt id="fusus.convert.tfFromTsv.getFile"><code class="name flex">
-<span>def <span class="ident">getFile</span></span>(<span>source)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L312-L321" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def getFile(source):
-    workInfo = WORKS[source]
-
-    sourceInfo = workInfo[&#34;source&#34;]
-    directory = sourceInfo[&#34;dir&#34;]
-    fileName = sourceInfo.get(&#34;file&#34;, None)
-
-    srcDir = f&#34;{BASE}/{directory}&#34;
-
-    return f&#34;{srcDir}/{fileName}&#34;</code></pre>
 </details>
 </dd>
 <dt id="fusus.convert.tfFromTsv.getToc"><code class="name flex">
@@ -1049,7 +974,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L261-L304" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L221-L264" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getToc(data):
     (start, end) = TOC_PAGES
@@ -1105,7 +1030,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L581-L590" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L529-L538" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTf(outDir):
     TF = Fabric(locations=[outDir])
@@ -1127,7 +1052,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L640-L672" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L588-L619" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     args = () if len(sys.argv) == 1 else tuple(sys.argv[1:])
@@ -1154,8 +1079,7 @@ the words.</p></div>
 
         if thisGood:
             if doLoad:
-                workInfo = WORKS[source]
-                dest = f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{VERSION_TF}&#34;
+                dest = getDest(source, VERSION_TF)
                 loadTf(dest)
 
         if not thisGood:
@@ -1172,7 +1096,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L596-L637" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/convert/tfFromTsv.py#L544-L585" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseArgs(args):
     page = None
@@ -1241,7 +1165,6 @@ the words.</p></div>
 <li><code><a title="fusus.convert.tfFromTsv.convert" href="#fusus.convert.tfFromTsv.convert">convert</a></code></li>
 <li><code><a title="fusus.convert.tfFromTsv.director" href="#fusus.convert.tfFromTsv.director">director</a></code></li>
 <li><code><a title="fusus.convert.tfFromTsv.generic" href="#fusus.convert.tfFromTsv.generic">generic</a></code></li>
-<li><code><a title="fusus.convert.tfFromTsv.getFile" href="#fusus.convert.tfFromTsv.getFile">getFile</a></code></li>
 <li><code><a title="fusus.convert.tfFromTsv.getToc" href="#fusus.convert.tfFromTsv.getToc">getToc</a></code></li>
 <li><code><a title="fusus.convert.tfFromTsv.loadTf" href="#fusus.convert.tfFromTsv.loadTf">loadTf</a></code></li>
 <li><code><a title="fusus.convert.tfFromTsv.main" href="#fusus.convert.tfFromTsv.main">main</a></code></li>

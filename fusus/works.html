@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus API documentation</title>
-<meta name="description" content="![logo](images/fusus-small.png) …" />
+<title>fusus.works API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,104 +17,175 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>fusus</code></h1>
+<h1 class="title">Module <code>fusus.works</code></h1>
 </header>
 <section id="section-intro">
-<p><img alt="logo" src="images/fusus-small.png"></p>
-<h1 id="fusus-pipeline">Fusus Pipeline</h1>
-<p>A pipe line from Arabic printed books to structured textual data.
-With the results of this pipeline researchers can study the commentary
-tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).</p>
-<h2 id="straight-to">Straight to &hellip;</h2>
-<ul>
-<li>Install (<code><a title="fusus.about.install" href="about/install.html">fusus.about.install</a></code>)</li>
-<li>HowTo (<code><a title="fusus.about.howto" href="about/howto.html">fusus.about.howto</a></code>)</li>
-<li>Sources (<code><a title="fusus.about.sources" href="about/sources.html">fusus.about.sources</a></code>)</li>
-<li>Rationale (<code><a title="fusus.about.rationale" href="about/rationale.html">fusus.about.rationale</a></code>)</li>
-</ul>
-<h2 id="authors">Authors</h2>
-<ul>
-<li><a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a></li>
-<li><a href="https://www.annotation.nl">Dirk Roorda</a></li>
-</ul>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/__init__.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/works.py#L0-L84" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-.. include:: docs/main/top.md
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">import os
+
+
+BASE = os.path.expanduser(&#34;~/github/among/fusus&#34;)
+
+WORKS = dict(
+    fususl=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Lakhnawi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Lakhnawi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/fusus/Lakhnawi&#34;,
+        toc=True,
+        ocred=False,
+    ),
+    fususa=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Affifi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Affifi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/fusus/Affifi&#34;,
+        toc=False,
+        ocred=True,
+    ),
+)
+&#34;&#34;&#34;Metadata of works in the pipeline.
+
+Here are the main works and the commentaries.
+
+They are given a keyword, and under that keyword
+there is metadata, the source directory, the destination directory for
+Text-Fabric files, whether the work has a table of contents, and whether
+the work is the outcome of an OCR process.
+
+Functions that deal with works can be given the keyword as an argument,
+and then they know how to deal with its data.
+&#34;&#34;&#34;
+
+
+def getFile(source):
+    if source not in WORKS:
+        print(f&#34;Unknown work `{source}`&#34;)
+        return None
+
+    workInfo = WORKS[source]
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return None
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;dir&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a directory in its source&#34;)
+        return None
+    if &#34;file&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a file in its source&#34;)
+        return None
+    directory = sourceInfo[&#34;dir&#34;]
+    fileName = sourceInfo[&#34;file&#34;]
+
+    srcDir = f&#34;{BASE}/{directory}&#34;
+
+    return f&#34;{srcDir}/{fileName}&#34;
+
+
+def getDest(source, versionTf):
+    workInfo = WORKS[source]
+    return f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{versionTf}&#34;</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
-<dt><code class="name"><a title="fusus.about" href="about/index.html">fusus.about</a></code></dt>
+<dt id="fusus.works.WORKS"><code class="name">var <span class="ident">WORKS</span></code></dt>
 <dd>
-<div class="desc"><p>Documents …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.book" href="book.html">fusus.book</a></code></dt>
-<dd>
-<div class="desc"><p>Book workflow …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.char" href="char.html">fusus.char</a></code></dt>
-<dd>
-<div class="desc"><p>Character knowledge …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.clean" href="clean.html">fusus.clean</a></code></dt>
-<dd>
-<div class="desc"><p>Wipe marks from images …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.convert" href="convert/index.html">fusus.convert</a></code></dt>
-<dd>
-<div class="desc"><p>Convenience scripts to call conversions …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code></dt>
-<dd>
-<div class="desc"><p>Lakhnawi pdf reverse engineering …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.layout" href="layout.html">fusus.layout</a></code></dt>
-<dd>
-<div class="desc"><p>Detect the page layout …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.lib" href="lib.html">fusus.lib</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fusus.lines" href="lines.html">fusus.lines</a></code></dt>
-<dd>
-<div class="desc"><p>Line detection …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.ocr" href="ocr.html">fusus.ocr</a></code></dt>
-<dd>
-<div class="desc"><p>Kraken Arabic model: …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.page" href="page.html">fusus.page</a></code></dt>
-<dd>
-<div class="desc"><p>Single page processing.</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.parameters" href="parameters.html">fusus.parameters</a></code></dt>
-<dd>
-<div class="desc"><p>Settings and configuration</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.pdf" href="pdf.html">fusus.pdf</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fusus.tsv" href="tsv.html">fusus.tsv</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fusus.works" href="works.html">fusus.works</a></code></dt>
-<dd>
-<div class="desc"></div>
+<div class="desc"><p>Metadata of works in the pipeline.</p>
+<p>Here are the main works and the commentaries.</p>
+<p>They are given a keyword, and under that keyword
+there is metadata, the source directory, the destination directory for
+Text-Fabric files, whether the work has a table of contents, and whether
+the work is the outcome of an OCR process.</p>
+<p>Functions that deal with works can be given the keyword as an argument,
+and then they know how to deal with its data.</p></div>
 </dd>
 </dl>
 </section>
 <section>
-</section>
-<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.works.getDest"><code class="name flex">
+<span>def <span class="ident">getDest</span></span>(<span>source, versionTf)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/works.py#L83-L85" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getDest(source, versionTf):
+    workInfo = WORKS[source]
+    return f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{versionTf}&#34;</code></pre>
+</details>
+</dd>
+<dt id="fusus.works.getFile"><code class="name flex">
+<span>def <span class="ident">getFile</span></span>(<span>source)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/works.py#L56-L80" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getFile(source):
+    if source not in WORKS:
+        print(f&#34;Unknown work `{source}`&#34;)
+        return None
+
+    workInfo = WORKS[source]
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return None
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;dir&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a directory in its source&#34;)
+        return None
+    if &#34;file&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a file in its source&#34;)
+        return None
+    directory = sourceInfo[&#34;dir&#34;]
+    fileName = sourceInfo[&#34;file&#34;]
+
+    srcDir = f&#34;{BASE}/{directory}&#34;
+
+    return f&#34;{srcDir}/{fileName}&#34;</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -124,32 +195,23 @@ tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).</p>
 <p><a href="../fusus/index.html">fusus home</a> - <a href="../fusus/about/howto.html">HowTo</a></p>
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#fusus-pipeline">Fusus Pipeline</a><ul>
-<li><a href="#straight-to">Straight to &hellip;</a></li>
-<li><a href="#authors">Authors</a></li>
-</ul>
-</li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus.about" href="about/index.html">fusus.about</a></code></li>
-<li><code><a title="fusus.book" href="book.html">fusus.book</a></code></li>
-<li><code><a title="fusus.char" href="char.html">fusus.char</a></code></li>
-<li><code><a title="fusus.clean" href="clean.html">fusus.clean</a></code></li>
-<li><code><a title="fusus.convert" href="convert/index.html">fusus.convert</a></code></li>
-<li><code><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code></li>
-<li><code><a title="fusus.layout" href="layout.html">fusus.layout</a></code></li>
-<li><code><a title="fusus.lib" href="lib.html">fusus.lib</a></code></li>
-<li><code><a title="fusus.lines" href="lines.html">fusus.lines</a></code></li>
-<li><code><a title="fusus.ocr" href="ocr.html">fusus.ocr</a></code></li>
-<li><code><a title="fusus.page" href="page.html">fusus.page</a></code></li>
-<li><code><a title="fusus.parameters" href="parameters.html">fusus.parameters</a></code></li>
-<li><code><a title="fusus.pdf" href="pdf.html">fusus.pdf</a></code></li>
-<li><code><a title="fusus.tsv" href="tsv.html">fusus.tsv</a></code></li>
-<li><code><a title="fusus.works" href="works.html">fusus.works</a></code></li>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.works.getDest" href="#fusus.works.getDest">getDest</a></code></li>
+<li><code><a title="fusus.works.getFile" href="#fusus.works.getFile">getFile</a></code></li>
 </ul>
 </li>
 </ul>

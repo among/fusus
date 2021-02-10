@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L0-L524" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L0-L533" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -424,6 +424,15 @@ MARK_PARAMS = dict(acc=&#34;accuracy&#34;, bw=&#34;connectBorder&#34;, r=&#34;co
 
 CONFIG_FILE = &#34;parameters.yaml&#34;
 
+LINE_CLUSTER_FACTOR = 0.46
+&#34;&#34;&#34;Clustering characters into lines in the Lakhnawi PDF.
+
+When the characters on a page are divided into lines based on their height,
+this parameter determines which heights can be clustered together.
+Heights that differ less than the estimated average line height times this
+factor, can be clustered together.
+&#34;&#34;&#34;
+
 
 class Config:
     def __init__(self, tm, **params):
@@ -574,6 +583,14 @@ class Config:
 <dt id="fusus.parameters.HOME"><code class="name">var <span class="ident">HOME</span></code></dt>
 <dd>
 <div class="desc"><p>Full path to your home directory.</p></div>
+</dd>
+<dt id="fusus.parameters.LINE_CLUSTER_FACTOR"><code class="name">var <span class="ident">LINE_CLUSTER_FACTOR</span></code></dt>
+<dd>
+<div class="desc"><p>Clustering characters into lines in the Lakhnawi PDF.</p>
+<p>When the characters on a page are divided into lines based on their height,
+this parameter determines which heights can be clustered together.
+Heights that differ less than the estimated average line height times this
+factor, can be clustered together.</p></div>
 </dd>
 <dt id="fusus.parameters.LOCAL_DIR"><code class="name">var <span class="ident">LOCAL_DIR</span></code></dt>
 <dd>
@@ -859,7 +876,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L400-L525" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L409-L534" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -1009,7 +1026,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L458-L500" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L467-L509" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1071,7 +1088,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L502-L525" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/parameters.py#L511-L534" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
@@ -1123,6 +1140,7 @@ parameter names whose values are to be displayed.</dd>
 <li><code><a title="fusus.parameters.BASE" href="#fusus.parameters.BASE">BASE</a></code></li>
 <li><code><a title="fusus.parameters.COLORS" href="#fusus.parameters.COLORS">COLORS</a></code></li>
 <li><code><a title="fusus.parameters.HOME" href="#fusus.parameters.HOME">HOME</a></code></li>
+<li><code><a title="fusus.parameters.LINE_CLUSTER_FACTOR" href="#fusus.parameters.LINE_CLUSTER_FACTOR">LINE_CLUSTER_FACTOR</a></code></li>
 <li><code><a title="fusus.parameters.LOCAL_DIR" href="#fusus.parameters.LOCAL_DIR">LOCAL_DIR</a></code></li>
 <li><code><a title="fusus.parameters.ORG" href="#fusus.parameters.ORG">ORG</a></code></li>
 <li><code><a title="fusus.parameters.PROGRAM_DIR" href="#fusus.parameters.PROGRAM_DIR">PROGRAM_DIR</a></code></li>

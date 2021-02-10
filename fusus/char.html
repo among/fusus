@@ -30,7 +30,7 @@ e.g. <em>symbols</em>, <em>presentational characters</em>, <em>punctuation</em>,
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L0-L362" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L0-L413" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Character knowledge.
 
@@ -192,6 +192,39 @@ PSEUDO_DIACRITIC_RANGES = ((&#34;0621&#34;, &#34;0621&#34;),)
 AR_DIGIT_RANGES = ((&#34;0660&#34;, &#34;0669&#34;),)
 EU_DIGIT_RANGES = ((&#34;0030&#34;, &#34;0039&#34;),)
 
+FINAL_SPACE_CODES = &#34;&#34;&#34;
+    fbfd
+    fc32
+    fc43
+    fc5d
+    fc8d
+    fc90
+    fc94
+    fe90
+    fe94
+    fe96
+    fe9a
+    fe9e
+    fea2
+    fea6
+    feb2
+    feb6
+    feba
+    febe
+    fec2
+    fec6
+    feca
+    fece
+    fed2
+    fed6
+    feda
+    fede
+    fee2
+    fee6
+    feea
+    fef2
+&#34;&#34;&#34;.strip().split()
+
 
 def uName(c):
     try:
@@ -199,6 +232,14 @@ def uName(c):
     except Exception:
         un = &#34;NO NAME&#34;
     return un
+
+
+def getSetFromCodes(codes):
+    result = set()
+    for c in codes:
+        uc = int(c, base=16)
+        result.add(chr(uc))
+    return result
 
 
 def getSetFromRanges(rngs):
@@ -306,7 +347,7 @@ class UChar:
         self.presentationalD = self.latinPresentational | self.greekPresentational
         &#34;&#34;&#34;Ligatures and special letter forms (D)
 
-        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        These are the ones that are best normalized with `NFKD`: Latin and Greek.
         &#34;&#34;&#34;
 
         self.presentational = self.presentationalC | self.presentationalD
@@ -394,7 +435,17 @@ class UChar:
         &#34;&#34;&#34;Diacritical characters in various scripts plus the Arabic Hamza 0621.&#34;&#34;&#34;
 
         self.arabicLetters = self.arabic - self.diacritics
-        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;</code></pre>
+        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;
+
+        self.finalSpace = getSetFromCodes(FINAL_SPACE_CODES)
+        &#34;&#34;&#34;Space insertion triggered by final characters.
+
+        Some characters imply a word-boundary after them.
+
+        Characters marked as &#34;FINAL&#34; by Unicode are candidates, but not all of them
+        have this behaviour.
+        Here is the exact set of characters after which we need to trigger a word boundary.
+        &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -412,7 +463,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L201-L208" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L242-L249" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMapFromPairs(pairs):
     result = {}
@@ -424,6 +475,24 @@ class UChar:
     return result</code></pre>
 </details>
 </dd>
+<dt id="fusus.char.getSetFromCodes"><code class="name flex">
+<span>def <span class="ident">getSetFromCodes</span></span>(<span>codes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L203-L208" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getSetFromCodes(codes):
+    result = set()
+    for c in codes:
+        uc = int(c, base=16)
+        result.add(chr(uc))
+    return result</code></pre>
+</details>
+</dd>
 <dt id="fusus.char.getSetFromDef"><code class="name flex">
 <span>def <span class="ident">getSetFromDef</span></span>(<span>defs)</span>
 </code></dt>
@@ -432,7 +501,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L197-L198" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L238-L239" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromDef(defs):
     return {chr(int(item, base=16)) for item in defs.strip().split(&#34;\n&#34;)}</code></pre>
@@ -446,7 +515,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L170-L175" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L211-L216" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromRanges(rngs):
     result = set()
@@ -464,7 +533,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L219-L220" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L260-L261" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isAlefFinal(x):
     return x == ALEF_FINAL</code></pre>
@@ -478,7 +547,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L232-L233" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L273-L274" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isArDigit(x):
     return x in AR_DIGITS</code></pre>
@@ -492,7 +561,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L236-L237" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L277-L278" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isEuDigit(x):
     return x in EU_DIGITS</code></pre>
@@ -506,7 +575,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L223-L225" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L264-L266" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isMeemOrYeh(x):
     nm = uname(x)
@@ -521,7 +590,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L228-L229" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L269-L270" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isWaw(x):
     return x == WAW</code></pre>
@@ -535,7 +604,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L211-L212" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L252-L253" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeC(x):
     return normalize(NFKC, x)</code></pre>
@@ -549,7 +618,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L215-L216" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L256-L257" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeD(x):
     return normalize(NFKD, x)</code></pre>
@@ -563,7 +632,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L162-L167" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L195-L200" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def uName(c):
     try:
@@ -586,7 +655,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L240-L363" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/93b342a1cda13712a783158f126faaad4c6d204c/fusus/char.py#L281-L414" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class UChar:
     def __init__(self):
@@ -623,7 +692,7 @@ class UChar:
         self.presentationalD = self.latinPresentational | self.greekPresentational
         &#34;&#34;&#34;Ligatures and special letter forms (D)
 
-        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        These are the ones that are best normalized with `NFKD`: Latin and Greek.
         &#34;&#34;&#34;
 
         self.presentational = self.presentationalC | self.presentationalD
@@ -711,7 +780,17 @@ class UChar:
         &#34;&#34;&#34;Diacritical characters in various scripts plus the Arabic Hamza 0621.&#34;&#34;&#34;
 
         self.arabicLetters = self.arabic - self.diacritics
-        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;</code></pre>
+        &#34;&#34;&#34;Arabic characters with exception of the Arabic diacritics.&#34;&#34;&#34;
+
+        self.finalSpace = getSetFromCodes(FINAL_SPACE_CODES)
+        &#34;&#34;&#34;Space insertion triggered by final characters.
+
+        Some characters imply a word-boundary after them.
+
+        Characters marked as &#34;FINAL&#34; by Unicode are candidates, but not all of them
+        have this behaviour.
+        Here is the exact set of characters after which we need to trigger a word boundary.
+        &#34;&#34;&#34;</code></pre>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
@@ -751,6 +830,14 @@ so we have to unflip these characters.</p>
 <dt id="fusus.char.UChar.diacritics"><code class="name">var <span class="ident">diacritics</span></code></dt>
 <dd>
 <div class="desc"><p>Diacritical characters in various scripts.</p></div>
+</dd>
+<dt id="fusus.char.UChar.finalSpace"><code class="name">var <span class="ident">finalSpace</span></code></dt>
+<dd>
+<div class="desc"><p>Space insertion triggered by final characters.</p>
+<p>Some characters imply a word-boundary after them.</p>
+<p>Characters marked as "FINAL" by Unicode are candidates, but not all of them
+have this behaviour.
+Here is the exact set of characters after which we need to trigger a word boundary.</p></div>
 </dd>
 <dt id="fusus.char.UChar.greekPresentational"><code class="name">var <span class="ident">greekPresentational</span></code></dt>
 <dd>
@@ -803,7 +890,7 @@ extraction will take care of this.</p></div>
 <dt id="fusus.char.UChar.presentationalD"><code class="name">var <span class="ident">presentationalD</span></code></dt>
 <dd>
 <div class="desc"><p>Ligatures and special letter forms (D)</p>
-<p>These are the ones that are best normalized with <code>NFKC</code>: Latin and Greek.</p></div>
+<p>These are the ones that are best normalized with <code>NFKD</code>: Latin and Greek.</p></div>
 </dd>
 <dt id="fusus.char.UChar.puas"><code class="name">var <span class="ident">puas</span></code></dt>
 <dd>
@@ -854,6 +941,7 @@ to this category.</p></div>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
 <li><code><a title="fusus.char.getMapFromPairs" href="#fusus.char.getMapFromPairs">getMapFromPairs</a></code></li>
+<li><code><a title="fusus.char.getSetFromCodes" href="#fusus.char.getSetFromCodes">getSetFromCodes</a></code></li>
 <li><code><a title="fusus.char.getSetFromDef" href="#fusus.char.getSetFromDef">getSetFromDef</a></code></li>
 <li><code><a title="fusus.char.getSetFromRanges" href="#fusus.char.getSetFromRanges">getSetFromRanges</a></code></li>
 <li><code><a title="fusus.char.isAlefFinal" href="#fusus.char.isAlefFinal">isAlefFinal</a></code></li>
@@ -877,6 +965,7 @@ to this category.</p></div>
 <li><code><a title="fusus.char.UChar.bracketMap" href="#fusus.char.UChar.bracketMap">bracketMap</a></code></li>
 <li><code><a title="fusus.char.UChar.diacriticLike" href="#fusus.char.UChar.diacriticLike">diacriticLike</a></code></li>
 <li><code><a title="fusus.char.UChar.diacritics" href="#fusus.char.UChar.diacritics">diacritics</a></code></li>
+<li><code><a title="fusus.char.UChar.finalSpace" href="#fusus.char.UChar.finalSpace">finalSpace</a></code></li>
 <li><code><a title="fusus.char.UChar.greekPresentational" href="#fusus.char.UChar.greekPresentational">greekPresentational</a></code></li>
 <li><code><a title="fusus.char.UChar.hebrew" href="#fusus.char.UChar.hebrew">hebrew</a></code></li>
 <li><code><a title="fusus.char.UChar.hebrewPresentational" href="#fusus.char.UChar.hebrewPresentational">hebrewPresentational</a></code></li>
