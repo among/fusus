@@ -15,7 +15,6 @@ See also
 * [Text-Fabric](https://annotation.github.io/text-fabric/tf/index.html)
 """
 
-import os
 import sys
 import collections
 import re
@@ -25,6 +24,7 @@ from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
 from fusus.char import UChar
+from fusus.works import WORKS, getFile, getDest
 
 
 HELP = """
@@ -43,47 +43,7 @@ page      : only process this page; default: all pages
 
 
 EXT = ".tsv"
-VERSION_TF = 0.2
-
-BASE = os.path.expanduser("~/github/among/fusus")
-
-WORKS = dict(
-    fususl=dict(
-        meta=dict(
-            name="fusus",
-            title="Fusus Al Hikam",
-            author="Ibn Arabi",
-            editor="Lakhnawi",
-            published="pdf, personal communication",
-            period="1165-1240",
-        ),
-        source=dict(
-            dir="ur/Lakhnawi",
-            file="allpages.tsv",
-        ),
-        dest="tf/fusus/Lakhnawi",
-        toc=True,
-        ocred=False,
-    ),
-    fususa=dict(
-        meta=dict(
-            name="fusus",
-            title="Fusus Al Hikam",
-            author="Ibn Arabi",
-            editor="Affifi",
-            published="pdf, personal communication",
-            period="1165-1240",
-        ),
-        source=dict(
-            dir="ur/Affifi",
-            file="allpages.tsv",
-        ),
-        dest="tf/fusus/Affifi",
-        toc=False,
-        ocred=True,
-    ),
-)
-
+VERSION_TF = 0.3
 
 # TF CONFIGURATION
 
@@ -309,18 +269,6 @@ def getToc(data):
 givenPage = None
 
 
-def getFile(source):
-    workInfo = WORKS[source]
-
-    sourceInfo = workInfo["source"]
-    directory = sourceInfo["dir"]
-    fileName = sourceInfo.get("file", None)
-
-    srcDir = f"{BASE}/{directory}"
-
-    return f"{srcDir}/{fileName}"
-
-
 TYPE_MAPS = {
     False: ["page", "line", "column", "span"],
     True: ["page", "stripe", "block", "line"],
@@ -340,7 +288,7 @@ def convert(source, page):
     givenPage = page
 
     workInfo = WORKS[source]
-    dest = f"{BASE}/{workInfo['dest']}/{VERSION_TF}"
+    dest = getDest(source, VERSION_TF)
     SRC_FILE = getFile(source)
     HAS_TOC = workInfo.get("toc", False)
     OCRED = workInfo.get("ocred", False)
@@ -662,8 +610,7 @@ def main():
 
         if thisGood:
             if doLoad:
-                workInfo = WORKS[source]
-                dest = f"{BASE}/{workInfo['dest']}/{VERSION_TF}"
+                dest = getDest(source, VERSION_TF)
                 loadTf(dest)
 
         if not thisGood:

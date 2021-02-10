@@ -158,6 +158,39 @@ PSEUDO_DIACRITIC_RANGES = (("0621", "0621"),)
 AR_DIGIT_RANGES = (("0660", "0669"),)
 EU_DIGIT_RANGES = (("0030", "0039"),)
 
+FINAL_SPACE_CODES = """
+    fbfd
+    fc32
+    fc43
+    fc5d
+    fc8d
+    fc90
+    fc94
+    fe90
+    fe94
+    fe96
+    fe9a
+    fe9e
+    fea2
+    fea6
+    feb2
+    feb6
+    feba
+    febe
+    fec2
+    fec6
+    feca
+    fece
+    fed2
+    fed6
+    feda
+    fede
+    fee2
+    fee6
+    feea
+    fef2
+""".strip().split()
+
 
 def uName(c):
     try:
@@ -165,6 +198,14 @@ def uName(c):
     except Exception:
         un = "NO NAME"
     return un
+
+
+def getSetFromCodes(codes):
+    result = set()
+    for c in codes:
+        uc = int(c, base=16)
+        result.add(chr(uc))
+    return result
 
 
 def getSetFromRanges(rngs):
@@ -272,7 +313,7 @@ class UChar:
         self.presentationalD = self.latinPresentational | self.greekPresentational
         """Ligatures and special letter forms (D)
 
-        These are the ones that are best normalized with `NFKC`: Latin and Greek.
+        These are the ones that are best normalized with `NFKD`: Latin and Greek.
         """
 
         self.presentational = self.presentationalC | self.presentationalD
@@ -361,3 +402,13 @@ class UChar:
 
         self.arabicLetters = self.arabic - self.diacritics
         """Arabic characters with exception of the Arabic diacritics."""
+
+        self.finalSpace = getSetFromCodes(FINAL_SPACE_CODES)
+        """Space insertion triggered by final characters.
+
+        Some characters imply a word-boundary after them.
+
+        Characters marked as "FINAL" by Unicode are candidates, but not all of them
+        have this behaviour.
+        Here is the exact set of characters after which we need to trigger a word boundary.
+        """

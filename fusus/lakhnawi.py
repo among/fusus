@@ -86,9 +86,9 @@ from IPython.display import display, HTML, Image
 
 import fitz
 
-from tf.core.helpers import setFromSpec
+from tf.core.helpers import setFromSpec, unexpanduser
 
-from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES
+from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES, LINE_CLUSTER_FACTOR
 from .lib import pprint, parseNums
 from .char import (
     UChar,
@@ -109,7 +109,7 @@ SOURCE = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.pdf"
 FONT = f"{UR_DIR}/{NAME}/FontReport-{NAME}.pdf"
 DEST = f"{SOURCE_DIR}/{NAME}/{NAME.lower()}.txt"
 
-CSS = ("""
+CSS = """
 <style>
 *,
 *:before,
@@ -308,17 +308,17 @@ td.cols4 {
     --fog-rim:          hsla(  0,   0%,  60%, 0.5  );
 }
 </style>
-""")
+"""
 """Styles to render extracted text.
 
 The styles are chosen such that the extracted text looks as similar as possible to
 the PDF display.
 """
 
-POST_HTML = ("""
+POST_HTML = """
 </body>
 </html>
-""")
+"""
 """HTML code postfixed to the HTML representation of a page.
 """
 
@@ -373,7 +373,7 @@ def getToc(pageNums):
 
 PRIVATE_SPACE = "\uea75"
 
-PRIVATE_LETTERS_DEF = ("""
+PRIVATE_LETTERS_DEF = """
 e800
 e806
 e807
@@ -383,13 +383,12 @@ e80a
 e80e
 e898
 e8d4
-e8e9
 e915
 e917
 ea79
-""")
+"""
 
-PRIVATE_DIAS_DEF = ("""
+PRIVATE_DIAS_DEF = """
 e812
 e814
 e815
@@ -448,9 +447,17 @@ e8f6
 e8f8
 e8fb
 e8fe
-""")
+"""
 
-REPLACE_DEF = ("""
+
+PRIVATE_FINAL_SPACE_CODES = """
+    e898
+    e915
+    e917
+""".strip().split()
+
+
+REPLACE_DEF = """
 # see https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
 # see https://www.compart.com/en/unicode/U+FE8E
 # see https://r12a.github.io/scripts/arabic/block
@@ -502,7 +509,8 @@ e83a                => 0653+0670      : MADDA+ALEF(super) [4]
 e8fe                => 0653+0670      : MADDA+ALEF(super) [4]
 e81d                => 0640+0650+0651 : TATWEEL+KASRA+SHADDA
 
-e898                => 0647           : HEH
+# e898                => 0647           : HEH
+e898                => feea           : HEH final
 
 e806                => 0627           : ALEF
 e807                => 0627           : ALEF
@@ -556,11 +564,13 @@ fefb+e85b           => 0644+623+064e  : LAM+ALEF/HAMZA+FATHA
 fefb+e85c           => 0644+0623+064f : LAM/ALEF/HAMZA+DAMMA
 fefc+e87f           => 0644+0623+064e : LAM/ALEF/HAMZA+FATHA
 
-fef4+e917           => 064a+0649+0670 : YEH+ALEF(super)
+# fef4+e917           => 064a+0649+0670 : YEH+ALEF(super)
+fef4+e917           => 064a+fef0+0670 : YEH+ALEF(super)
 
 ea75+e828+ea79      => 062d+0652+0645 : HAH+SUKUN+MEEM
 
-fe92+0650+e915      => 0628+0650+064a : BEH+KASRA+YEH
+# fe92+0650+e915      => 0628+0650+064a : BEH+KASRA+YEH
+fe92+0650+e915      => 0628+0650+fef2 : BEH+KASRA+YEH
 
 fec3+0652+e821+e80e+064e+e807 => 0637+0652+e821+e80e+064e+e807 : [9]
 
@@ -588,7 +598,7 @@ fffd                =>                : replacement character
 #      algorithm.
 # [11] as in Allah, but with fatha instead of shadda. Probaly a typo in a note,
 #      page 12 second last line.
-""")
+"""
 """Character replace rules
 
 There are two parts: (1) character replace rules (2) notes.
@@ -608,26 +618,6 @@ replaced by the right hand side.
 The exact application of rules has some subtleties which will be dealt with
 in `Laknawi.trimLine`.
 """
-
-
-def tweakSpace(c):
-    """Deal with spaces in a character representation.
-
-    Unicode denormalization mmight introduce spaces before initial or after
-    final or around isolated characters. We do not need those spaces and strip them.
-
-    Parameters
-    ----------
-    c: string
-        The representation of a character, typically coming from a Unicode
-        (de)normalization step.
-    """
-
-    # return c.strip() if ISOLATED in dc else (" " + c.strip()) if INITIAL in dc else c
-    # return c
-    return c.strip()
-    # return c.strip() + (" " if FINAL in dc else "")
-    # return (c.strip(), " " if FINAL in dc else "")
 
 
 def ptRepD(p):
@@ -779,9 +769,16 @@ class Lakhnawi(UChar):
         """
 
         super().__init__()
-        self.getCharConfig()
-        self.doc = fitz.open(SOURCE)
         """A handle to the PDF document, after it has been read by *fitz*."""
+
+        self.heights = {}
+        """Heights of characters, indexed by page number."""
+
+        self.clusteredHeights = {}
+        """Clustered heights of characters, indexed by page number.
+
+        The clustered heights correspond to the lines on a page.
+        """
 
         self.lines = {}
         """Lines as tuples of original character objects, indexed by page number"""
@@ -850,9 +847,11 @@ class Lakhnawi(UChar):
         self.good = True
         """Whether processing is still ok, i.e. no errors encountered."""
 
+        self.getCharConfig()
+        self.doc = fitz.open(SOURCE)
+
     def close(self):
-        """Close the PDF handle, offered by *fitz*.
-        """
+        """Close the PDF handle, offered by *fitz*."""
 
         self.doc.close()
 
@@ -921,6 +920,7 @@ class Lakhnawi(UChar):
         self.privates = set()
         doubles = self.doubles
         privates = self.privates
+        finalSpace = self.finalSpace
         puas = self.puas
 
         doc = fitz.open(FONT)
@@ -955,6 +955,16 @@ class Lakhnawi(UChar):
                             doubles[cMain] = cSecond
                         else:
                             doubles[cSecond] = cMain
+
+        doublesApplied = collections.defaultdict(collections.Counter)
+        for d in doubles:
+            doublesApplied[d] = collections.Counter()
+        self.doublesApplied = doublesApplied
+
+        finalsApplied = collections.defaultdict(collections.Counter)
+        for f in finalSpace:
+            finalsApplied[f] = collections.Counter()
+        self.finalsApplied = finalsApplied
 
     def plainChar(self, c):
         """Show the character code of a character.
@@ -1149,6 +1159,180 @@ class Lakhnawi(UChar):
         html.append("<table>")
         display(HTML("".join(html)))
 
+    def showDoubles(self, double=None):
+        """Show a character with double entry and how often it occurs.
+
+        See `Lakhnawi.doubles`.
+
+        Parameters
+        ----------
+        double: char, optional `None`
+            A character from the doubles list (`Lakhnawi.doubles`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of double-entry characters with occurrence statistics.
+        """
+
+        doubles = self.doubles
+        doublesApplied = self.doublesApplied
+
+        theseDoubles = (
+            set(doubles) if double is None else {double} if double in doubles else set()
+        )
+
+        html = []
+        totalDoubles = len(doubles)
+        totalApplications = sum(sum(x.values()) for x in doublesApplied.values())
+        totalPages = len(set(chain.from_iterable(doublesApplied.values())))
+        doubleRep = "double" + ("" if totalDoubles == 1 else "s")
+        appRep = "application" + ("" if totalApplications == 1 else "s")
+        pageRep = "page" + ("" if totalPages == 1 else "s")
+        html.append(
+            f"""
+<p><b>{totalDoubles} {doubleRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}</b></p>
+<table>
+"""
+        )
+
+        for (d, applied) in sorted(
+            doublesApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if d not in theseDoubles:
+                continue
+            e = doubles[d]
+            doubleRep = f"{self.showChar(e)} ⇒ {self.showChar(d)}"
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f"e.g. page {examplePageNum} with {nExamples} applications"
+            else:
+                appliedEx = ""
+            appliedRep = f"<b>{total}</b> x applied on <i>{len(applied)}</i> pages"
+            html.append(
+                f"""
+<tr>
+    <td class="al">{appliedRep}</td>
+    <td class="al">{appliedEx}</td>
+    <td class="al">{doubleRep}</td>
+</tr>
+"""
+            )
+
+        html.append("<table>")
+        display(HTML("".join(html)))
+
+    def showFinals(self, final=None):
+        """Show a character with final form and how often it has been replaced.
+
+        Final forms will be normalized to ground forms
+        and sometimes a space will be added.
+
+        Parameters
+        ----------
+        final: char, optional `None`
+            A character from the final space list (`fusus.char.UChar.finalSpace`).
+            If None, all such characters will be taken.
+        isApplied: boolean, optional `False`
+            Only show rules that have been applied.
+
+        Returns
+        -------
+        None
+            Displays a table of final space characters with occurrence statistics.
+        """
+
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+
+        theseFinals = (
+            finalSpace if final is None else {final} if final in finalSpace else set()
+        )
+
+        html = []
+        totalFinals = len(finalSpace)
+        totalApplications = sum(sum(x.values()) for x in finalsApplied.values())
+        totalPages = len(set(chain.from_iterable(finalsApplied.values())))
+        finalRep = "final" + ("" if totalFinals == 1 else "s")
+        appRep = "application" + ("" if totalApplications == 1 else "s")
+        pageRep = "page" + ("" if totalPages == 1 else "s")
+        html.append(
+            f"""
+<p><b>{totalFinals} {finalRep} with
+{totalApplications} {appRep} on {totalPages} {pageRep}</b></p>
+<table>
+"""
+        )
+
+        for (f, applied) in sorted(
+            finalsApplied.items(), key=lambda x: (-sum(x[1].values()), x[0])
+        ):
+            if f not in theseFinals:
+                continue
+            finalRep = self.showChar(f)
+
+            total = sum(applied.values())
+            if applied:
+                examplePageNum = sorted(applied, key=lambda p: -applied[p])[0]
+                nExamples = applied[examplePageNum]
+                appliedEx = f"e.g. page {examplePageNum} with {nExamples} applications"
+            else:
+                appliedEx = ""
+            appliedRep = f"<b>{total}</b> x applied on <i>{len(applied)}</i> pages"
+            html.append(
+                f"""
+<tr>
+    <td class="al">{appliedRep}</td>
+    <td class="al">{appliedEx}</td>
+    <td class="al">{finalRep}</td>
+</tr>
+"""
+            )
+
+        html.append("<table>")
+        display(HTML("".join(html)))
+
+    def showLineHeights(self, pageNumSpec):
+        """Shows how line heights have been determined.
+
+        The pages can be selected by page numbers.
+
+        Parameters
+        ----------
+        pageNumSpec: None | int | string | iterable
+            As in `Lakhnawi.parsePageNums()`.
+        """
+
+        heights = self.heights
+        clusteredHeights = self.clusteredHeights
+
+        for pageNum in self.parsePageNums(pageNumSpec):
+            theseHeights = heights[pageNum]
+            theseClusteredHeights = clusteredHeights[pageNum]
+
+            print(f"Line heights page {pageNum:>3}")
+            print("\nraw heights")
+            for k in sorted(theseHeights):
+                print(f"{theseHeights[k]:>4} characters @ height {int(round(k)):>4}")
+
+            print("line heights")
+            for (ln, kc) in enumerate(sorted(theseClusteredHeights)):
+                peak = ", ".join(
+                    f"{int(round(k)):>4}" for k in sorted(theseClusteredHeights[kc])
+                )
+                print(
+                    f"line {ln + 1:>2}: "
+                    f"{sum(theseHeights[k] for k in theseClusteredHeights[kc]):>4}"
+                    f" characters @height {peak}"
+                )
+
     def parsePageNums(self, pageNumSpec):
         """Parses a value as one or more page numbers.
 
@@ -1247,6 +1431,8 @@ class Lakhnawi(UChar):
            The effect is that attributes of the Lakhnawi object
            are filled:
 
+           * `Lakhnawi.heights`
+           * `Lakhnawi.clusteredHeights`
            * `Lakhnawi.fnRules`
 
            For the other attributes, see `Lakhnawi.collectPage()`.
@@ -1457,6 +1643,7 @@ class Lakhnawi(UChar):
                 fh.write(self.tsvLine(line, pageNum, ln + 1))
 
         fh.close()
+        print(f"TSV data written to {unexpanduser(filePath)}")
 
     def htmlPages(
         self,
@@ -1513,6 +1700,7 @@ class Lakhnawi(UChar):
         pageNums = self.parsePageNums(pageNumSpec)
         lineNums = parseNums(line)
         lineNums = None if lineNums is None else set(lineNums)
+        filesWritten = 0
 
         if export:
             if not os.path.exists(destDir):
@@ -1575,6 +1763,7 @@ class Lakhnawi(UChar):
                     filePath = f"{destDir}/p{pageNum:>03}.html"
                     with open(filePath, "w") as fh:
                         fh.write(html)
+                        filesWritten += 1
             else:
                 display(HTML("\n".join(html)))
 
@@ -1592,6 +1781,10 @@ class Lakhnawi(UChar):
                 )
             fh.write(POST_HTML)
             fh.close()
+            print(f"HTML written to {unexpanduser(filePath)}")
+
+        if export and not singleFile:
+            print(f"{filesWritten} HTML files written to {unexpanduser(destDir)}/")
 
     def showLines(
         self,
@@ -2058,6 +2251,7 @@ on {totalPages} {pageRep}</b></p>
         """
 
         doubles = self.doubles
+        doublesApplied = self.doublesApplied
         pageNum = self.pageNum
         nospacings = self.nospacings
         fnRules = self.fnRules
@@ -2120,9 +2314,11 @@ on {totalPages} {pageRep}</b></p>
                         pc = prevChar["c"]
                         if pc in doubles and doubles[pc] == c:
                             skip = True
+                            doublesApplied[pc][pageNum] += 1
                         if c in doubles and doubles[c] == pc:
                             prevChar = data
                             skip = True
+                            doublesApplied[c][pageNum] += 1
 
                     if not skip:
                         if prevChar is not None:
@@ -2139,7 +2335,7 @@ on {totalPages} {pageRep}</b></p>
         if prevChar is not None:
             addChar()
 
-        clusterKeyCharV = clusterVert(chars)
+        clusterKeyCharV = self.clusterVert(chars)
         lines = {}
         for char in sorted(chars, key=lambda c: (clusterKeyCharV(c), keyCharH(c))):
             k = clusterKeyCharV(char)
@@ -2317,11 +2513,13 @@ on {totalPages} {pageRep}</b></p>
         columns = self.columns
         diacritics = self.diacritics
         punct = self.punct
-        # diacriticLike = self.diacriticLike
+        diacriticLike = self.diacriticLike
         arabicLetters = self.arabicLetters
         presentationalC = self.presentationalC
         presentationalD = self.presentationalD
-        # nonLetter = self.nonLetter
+        finalSpace = self.finalSpace
+        finalsApplied = self.finalsApplied
+        nonLetter = self.nonLetter
         doRules = self.doRules
         doFilter = self.doFilter
 
@@ -2429,7 +2627,6 @@ on {totalPages} {pageRep}</b></p>
         # sift out all presentational characters
 
         if doFilter:
-            """
             trailSpace = False
 
             for (i, char) in enumerate(chars):
@@ -2439,42 +2636,30 @@ on {totalPages} {pageRep}</b></p>
                     if trailSpace:
                         if x not in diacriticLike:
                             if x not in nonLetter:
-                                string += " "
+                                if string == "" and i > 0:
+                                    chars[i - 1][-1] += " "
+                                else:
+                                    string += " "
                             trailSpace = False
-                    (y, space) = (
-                        tweakSpace(normalizeC(x), decomposition(x))
+                    hasFinalSpace = x in finalSpace
+                    y = (
+                        normalizeC(x)
                         if x in presentationalC
-                        else tweakSpace(normalizeD(x), decomposition(x))
+                        else normalizeD(x)
                         if x in presentationalD
-                        else (x, "")
-                    )
+                        else x
+                    ).strip()
+                    space = " " if hasFinalSpace or x in punct else ""
+                    if hasFinalSpace:
+                        finalsApplied[x][pageNum] += 1
                     string += y
                     if space:
                         trailSpace = True
                 char[-1] = string
 
             if trailSpace:
-                space += " "
-            """
-
-            # the words yeh+alef(final) and mem+alef(final)
-            # : insert a space behind the alef(final)
-
-            for (i, char) in enumerate(chars):
-                c = char[-1]
-                string = ""
-
-                for x in c:
-                    d = (
-                        tweakSpace(normalizeC(x))
-                        if x in presentationalC
-                        else tweakSpace(normalizeD(x))
-                        if x in presentationalD
-                        else x + (" " if x in punct else "")
-                    )
-                    string += d
-
-                char[-1] = string
+                if chars:
+                    chars[-1][-1] += " "
 
         # add horizontal spacing
 
@@ -2820,6 +3005,89 @@ on {totalPages} {pageRep}</b></p>
 
         return "".join(result)
 
+    def clusterVert(self, data):
+        """Cluster characters into lines based on their bounding boxes.
+
+        Most characters on a line have their middle line in approximately the same height.
+        But diacritics of characters in that line may occupy different heights.
+
+        Without intervention, these would be clustered on separate lines.
+        We take care to cluster them into the same lines as their main characters.
+
+        It involves getting an idea of the regular line height, and clustering boxes
+        that fall between the lines with the line above or below, whichever is closest.
+
+        The result of the clustering is delivered as a key function, which will
+        be used to sort characters.
+
+        Parameters
+        ----------
+        data: iterable of record
+            The character records
+
+        Returns
+        -------
+        function
+            A key function that assigns to each character record a value
+            that corresponds to the vertical position of a real line,
+            which is a clustered set of characters.
+
+            The information on the vertical clustering of lines
+            is delivered in the attributes `Lakhnawi.heights` and
+            `Lakhnawi.clusteredHeights`, on a page by page basis.
+        """
+
+        pageNum = self.pageNum
+
+        heights = collections.Counter()
+        for char in data:
+            k = keyCharV(char)
+            heights[k] += 1
+
+        peaks = sorted(heights)
+
+        if len(peaks) > 1:
+            nDistances = len(peaks) - 1
+            distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
+
+            # remove the biggest distances if > 50,
+            # to prevent outliers pulling the average too high
+            for _ in range(2):
+                if len(distances) > 1:
+                    if distances[-1] > 50:
+                        distances = distances[0:-1]
+            # remove distances < 15, which are much smaller than a line
+            distances = [d for d in distances if d > 15]
+
+            nDistances = len(distances)
+            avPeakDist = sum(distances) / nDistances
+
+            peakThreshold = avPeakDist * LINE_CLUSTER_FACTOR
+            clusteredHeights = {}
+            for (k, n) in sorted(heights.items(), key=lambda x: (-x[1], x[0])):
+                added = False
+                for kc in clusteredHeights:
+                    if abs(k - kc) <= peakThreshold:
+                        clusteredHeights[kc].add(k)
+                        added = True
+                        break
+                if not added:
+                    clusteredHeights[k] = {k}
+
+        toCluster = {}
+        for (kc, ks) in clusteredHeights.items():
+            for k in ks:
+                toCluster[k] = kc
+
+        self.heights[pageNum] = heights
+        self.clusteredHeights[pageNum] = clusteredHeights
+
+        def clusterKeyCharV(char):
+            k = keyCharV(char)
+            return toCluster[k]
+
+        return clusterKeyCharV
+
 
 def keyCharV(char):
     """The vertical position of the middle of a character.
@@ -2886,87 +3154,3 @@ def keyCharH(char):
     widthKey = (1 / width) if width else 0
     rightKey = int(round(char[2]))
     return (-rightKey, widthKey)
-
-
-def clusterVert(data):
-    """Cluster characters into lines based on their bounding boxes.
-
-    Most characters on a line have their middle line in approximately the same height.
-    But diacritics of characters in that line may occupy different heights.
-
-    Without intervention, these would be clustered on separate lines.
-    We take care to cluster them into the same lines as their main characters.
-
-    It involves getting an idea of the regular line height, and clustering boxes
-    that fall between the lines with the line above or below, whichever is closest.
-
-    The result of the clustering is delivered as a key function, which will
-    be used to sort characters.
-
-    Parameters
-    ----------
-    data: iterable of record
-        The character records
-
-    Returns
-    -------
-    function
-        A key function that assigns to each character record a value
-        that corresponds to the vertical position of a real line,
-        which is a clustered set of characters.
-    """
-
-    keys = collections.Counter()
-    for char in data:
-        k = keyCharV(char)
-        keys[k] += 1
-
-    peaks = sorted(keys)
-
-    if len(peaks) > 1:
-        nDistances = len(peaks) - 1
-        distances = sorted(peaks[i + 1] - peaks[i] for i in range(nDistances))
-
-        # remove the biggest distances if > 50,
-        # to prevent outliers pulling the average too high
-        for _ in range(2):
-            if len(distances) > 1:
-                if distances[-1] > 50:
-                    distances = distances[0:-1]
-        # remove distances < 15, which are much smaller than a line
-        distances = [d for d in distances if d > 15]
-
-        nDistances = len(distances)
-        avPeakDist = sum(distances) / nDistances
-
-        peakThreshold = avPeakDist * 0.4
-        clusteredPeaks = {}
-        for (k, n) in sorted(keys.items(), key=lambda x: (-x[1], x[0])):
-            added = False
-            for kc in clusteredPeaks:
-                if abs(k - kc) <= peakThreshold:
-                    clusteredPeaks[kc].add(k)
-                    added = True
-                    break
-            if not added:
-                clusteredPeaks[k] = {k}
-
-    toCluster = {}
-    for (kc, ks) in clusteredPeaks.items():
-        for k in ks:
-            toCluster[k] = kc
-
-    def clusterKeyCharV(char):
-        k = keyCharV(char)
-        return toCluster[k]
-
-    if False:
-        print("PEAKS")
-        for k in peaks:
-            print(f"{k:>4} : {keys[k]:>4}")
-        print("CLUSTERED_PEAKS")
-        for kc in sorted(clusteredPeaks):
-            peak = ", ".join(f"{k:>4}" for k in sorted(clusteredPeaks[kc]))
-            print(f"{peak} : {sum(keys[k] for k in clusteredPeaks[kc]):>4}")
-
-    return clusterKeyCharV

@@ -50,10 +50,10 @@ cd ~/github/among/fusus
 pip3 install -e .
 ```
 
-??? caution "Mind the dot"
+!!! caution "Mind the dot"
     Do not forget the `.` at the end of the line in the above instruction.
 
-??? hint "No nead to repeat this step"
+!!! hint "No nead to repeat this step"
     When you update the repo later, it will not be necessary to redo the
     `pip3 install` step, because the soft link to the fusus package in the repo
     will still be valid.

@@ -12,6 +12,8 @@ fusus/ocr.py
 fusus/page.py
 fusus/parameters.py
 fusus/pdf.py
+fusus/tsv.py
+fusus/works.py
 fusus.egg-info/PKG-INFO
 fusus.egg-info/SOURCES.txt
 fusus.egg-info/dependency_links.txt
@@ -22,4 +24,5 @@ fusus/convert/__init__.py
 fusus/convert/tfFromTsv.py
 fusus/convert/tsvFromAffifi.py
 fusus/convert/tsvFromBook.py
+fusus/convert/tsvFromCommentary.py
 fusus/convert/tsvFromLakhnawi.py

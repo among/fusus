@@ -20,6 +20,10 @@ def pprint(x):
     PP.pprint(x)
 
 
+def dh(html):
+    display(HTML(html))
+
+
 EXTENSIONS = set(
     """
     jpeg

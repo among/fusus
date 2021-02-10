@@ -396,6 +396,15 @@ MARK_PARAMS = dict(acc="accuracy", bw="connectBorder", r="connectRatio")
 
 CONFIG_FILE = "parameters.yaml"
 
+LINE_CLUSTER_FACTOR = 0.46
+"""Clustering characters into lines in the Lakhnawi PDF.
+
+When the characters on a page are divided into lines based on their height,
+this parameter determines which heights can be clustered together.
+Heights that differ less than the estimated average line height times this
+factor, can be clustered together.
+"""
+
 
 class Config:
     def __init__(self, tm, **params):
