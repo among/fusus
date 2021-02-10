@@ -2641,6 +2641,7 @@ on {totalPages} {pageRep}</b></p>
                                 else:
                                     string += " "
                             trailSpace = False
+
                     hasFinalSpace = x in finalSpace
                     y = (
                         normalizeC(x)
@@ -2648,7 +2649,7 @@ on {totalPages} {pageRep}</b></p>
                         else normalizeD(x)
                         if x in presentationalD
                         else x
-                    ).strip()
+                    )
                     space = " " if hasFinalSpace or x in punct else ""
                     if hasFinalSpace:
                         finalsApplied[x][pageNum] += 1
