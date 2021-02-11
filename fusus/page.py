@@ -11,6 +11,7 @@ from IPython.display import HTML, display
 from tf.core.helpers import unexpanduser
 
 from .lib import (
+    DEFAULT_EXTENSION,
     parseStages,
     parseBands,
     parseMarks,
@@ -355,7 +356,7 @@ class Page:
         inter = "" if inter is None else f"-{inter}"
         trail = stage if stagePart is None else "" if not stagePart else stagePart
         trail = "" if not trail else f"-{trail}"
-        ext = "png" if stageType == "image" else (stageExt or ext)
+        ext = DEFAULT_EXTENSION if stageType == "image" else (stageExt or ext)
         base = f"{dest}/{bare}{inter}{trail}"
         return f"{base}.{ext}"
 

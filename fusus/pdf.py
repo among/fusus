@@ -1,6 +1,8 @@
 import os
 import fitz
 
+from .lib import DEFAULT_EXTENSION
+
 
 """Installation
 
@@ -27,7 +29,7 @@ def pdf2png(inPdf, outDir, silent=True):
             p += 1
             xref = entry[0]
             pix = fitz.Pixmap(doc, xref)
-            pix.writeImage(f"{outDir}/{p:>03}.png")
+            pix.writeImage(f"{outDir}/{p:>03}.{DEFAULT_EXTENSION}")
     if not silent:
         plural = "" if p == 1 else "s"
         print(f"Written {p} image{plural}")

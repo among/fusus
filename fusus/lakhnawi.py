@@ -71,7 +71,7 @@ See `Lakhnawi.tsvPages`.
 This data is used to feed the conversion to Text-Fabric.
 See also:
 
-* `fusus.convert.tfFromTsv`.
+* `fusus.tfFromTsv`.
 * [Text-Fabric](https://annotation.github.io/text-fabric/tf/index.html)
 """
 
@@ -89,7 +89,7 @@ import fitz
 from tf.core.helpers import setFromSpec, unexpanduser
 
 from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES, LINE_CLUSTER_FACTOR
-from .lib import pprint, parseNums
+from .lib import DEFAULT_EXTENSION, pprint, parseNums
 from .char import (
     UChar,
     getSetFromDef,
@@ -1386,7 +1386,7 @@ class Lakhnawi(UChar):
 
             pix = page.getPixmap(matrix=fitz.Matrix(4, 4), clip=clip, alpha=False)
             display(HTML(f"""<p><b>page {pageNum}</b></p>"""))
-            display(Image(data=pix.getPNGData(), format="png"))
+            display(Image(data=pix.getPNGData(), format=DEFAULT_EXTENSION))
 
     def getPages(
         self,

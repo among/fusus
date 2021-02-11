@@ -36,6 +36,9 @@ EXTENSIONS = set(
 """Supported image file extensions.
 """
 
+DEFAULT_EXTENSION = "png"
+
+
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 NB_VIEWER = "https://nbviewer.jupyter.org/github"

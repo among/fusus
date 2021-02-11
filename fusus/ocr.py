@@ -28,6 +28,8 @@ from kraken.rpred import rpred
 
 from tf.core.helpers import unexpanduser
 
+from .lib import DEFAULT_EXTENSION
+
 
 RL = "horizontal-rl"
 TEMPLATE = dict(
@@ -405,7 +407,7 @@ class OCR:
                 TEMPLATE["doc"]
                 .replace("«width»", g(w))
                 .replace("«height»", g(h))
-                .replace("«source»", page.file)
+                .replace("«source»", f"{page.bare}.{DEFAULT_EXTENSION}")
                 .replace("«lines»", linesHtml)
                 .replace("«boxes»", boxesHtml)
             )

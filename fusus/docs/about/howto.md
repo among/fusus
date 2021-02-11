@@ -1,17 +1,24 @@
 # Install and update
 
-*code and documentation*
+*code and documentation* `fusus.about.install`
 
-* [install - get](https://among.github.io/fusus/fusus/about/install.html#get-the-software)
-* [update - documentation](https://among.github.io/fusus/fusus/about/install.html#build-steps)
-* [update - code](https://among.github.io/fusus/fusus/about/install.html#push-everything)
+* get code
+* update docs
+* update code
 
 # Run 
 
-*Straight from the command line*
+*Straight from the command line* `fusus.convert`
 
-* [run - book](https://among.github.io/fusus/fusus/about/run.html#book-in-batch)
+* run the OCR pipeline from the command line
+* run the PDF extraction from the command line
+* convert TSV to TF
 
+# Contribute more sources
+
+*From "no comments" to "more comments"* `fusus.works`
+
+* add commentaries as works
 
 # Explore
 

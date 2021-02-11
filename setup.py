@@ -4,7 +4,6 @@ setup(
     name="fusus",
     packages=[
         "fusus",
-        "fusus.convert",
     ],
     install_requires=[
         "pyyaml>=5.3",
