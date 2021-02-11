@@ -61,7 +61,7 @@ to integer.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L0-L429" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L0-L436" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convenience methods to call conversions to and from tsv and to tf.
 
@@ -141,26 +141,33 @@ python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
 
 --help: print this text and exit
 
-&#34;source&#34;  : a work (given as keyword or as path to its work directory)
-            Examples:
+source      : a work (given as keyword or as path to its work directory)
+              Examples:
                 fususl (Fusus Al Hikam in Lakhnawi edition)
                 fususa (Fusus Al Hikam in Affifi edition)
                 any commentary by its keyword
                 ~/github/myorg/myrepo/mydata
                 mydir/mysubdir
-&#34;pages&#34;   : page specification, only process these pages; default: all pages
-            Examples:
+
+pages       : page specification, only process these pages; default: all pages
+              Examples:
                 50
                 50,70
                 50-70,91,92,300-350
-&#34;ocr&#34;     : assume the work is in the OCR pipeline
-&#34;noocr&#34;   : assume the work is not in the OCR pipeline
-            (it is then a text extract from a pdf)
+
+ocr         : assume the work is in the OCR pipeline
+noocr       : assume the work is not in the OCR pipeline
+              (it is then a text extract from a pdf)
 
 For tf only:
 
-&#34;load&#34;    : loads the generated TF; if missing this step is not performed
-&#34;loadOnly&#34;: does not generate TF; loads previously generated TF
+versiontf   : loads the generated TF; if missing this step is not performed
+              Examples:
+                0.4
+                3.7.2
+
+load        : loads the generated TF; if missing this step is not performed
+loadOnly    : does not generate TF; loads previously generated TF
 &#34;&#34;&#34;
 &#34;&#34;&#34;Help&#34;&#34;&#34;
 
@@ -511,26 +518,33 @@ python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
 
 --help: print this text and exit
 
-&quot;source&quot;  : a work (given as keyword or as path to its work directory)
-            Examples:
+source      : a work (given as keyword or as path to its work directory)
+              Examples:
                 fususl (Fusus Al Hikam in Lakhnawi edition)
                 fususa (Fusus Al Hikam in Affifi edition)
                 any commentary by its keyword
                 ~/github/myorg/myrepo/mydata
                 mydir/mysubdir
-&quot;pages&quot;   : page specification, only process these pages; default: all pages
-            Examples:
+
+pages       : page specification, only process these pages; default: all pages
+              Examples:
                 50
                 50,70
                 50-70,91,92,300-350
-&quot;ocr&quot;     : assume the work is in the OCR pipeline
-&quot;noocr&quot;   : assume the work is not in the OCR pipeline
-            (it is then a text extract from a pdf)
+
+ocr         : assume the work is in the OCR pipeline
+noocr       : assume the work is not in the OCR pipeline
+              (it is then a text extract from a pdf)
 
 For tf only:
 
-&quot;load&quot;    : loads the generated TF; if missing this step is not performed
-&quot;loadOnly&quot;: does not generate TF; loads previously generated TF
+versiontf   : loads the generated TF; if missing this step is not performed
+              Examples:
+                0.4
+                3.7.2
+
+load        : loads the generated TF; if missing this step is not performed
+loadOnly    : does not generate TF; loads previously generated TF
 
 </code></pre></div>
 </dd>
@@ -578,7 +592,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L239-L314" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L246-L321" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Load a tsv file into memory.
@@ -667,7 +681,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L408-L426" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L415-L433" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Perform tasks.
@@ -735,7 +749,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L105-L178" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L112-L185" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTf(
     versionTf=None,
@@ -847,7 +861,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L181-L236" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L188-L243" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Make TSV data out of the source of a work.
@@ -928,7 +942,7 @@ which will be passed on to the rest of program.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/convert.py#L320-L405" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L327-L412" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseArgs(args):
     &#34;&#34;&#34;Parse arguments from the command line.

@@ -25,7 +25,7 @@ INDEX=[
 {
 "ref":"fusus",
 "url":0,
-"doc":"![logo](images/fusus-small.png)  Fusus Pipeline A pipe line from Arabic printed books to structured textual data. With the results of this pipeline researchers can study the commentary tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).  Straight to  .  Install ( fusus.about.install )  HowTo ( fusus.about.howto )  Sources ( fusus.about.sources )  Rationale ( fusus.about.rationale )  Authors  [Cornelis van Lit](https: digitalorientalist.com/about-cornelis-van-lit/)  [Dirk Roorda](https: www.annotation.nl)"
+"doc":"![logo](images/fusus-small.png)  Fusus Pipeline A pipe line from Arabic printed books to structured textual data. With the results of this pipeline researchers can study the commentary tradition based on Ibn Arabi's Fusus Al Hikam (Bezels of Wisdom).  Straight to  .  Install ( fusus.about.install )  HowTo ( fusus.about.howto )  Sources ( fusus.about.sources )  Rationale ( fusus.about.rationale )  Authors  [Cornelis van Lit](https: digitalorientalist.com/about-cornelis-van-lit/)  [Dirk Roorda](https: www.annotation.nl)  Project Fusus has been funded by the IT Research Innovation Fund. It has been developed between 2020-03-01 and 2021-03-01"
 },
 {
 "ref":"fusus.clean",
@@ -87,7 +87,7 @@ INDEX=[
 {
 "ref":"fusus.lib.parseNums",
 "url":2,
-"doc":"Parses a value as one or more numbers. Parameters      numSpec: None | int | string | iterable If  None results in  None . If an  int , it stands for that int. If a  string , it is allowed to be a comma separated list of numbers or ranges, where a range is a lower bound and an upper bound separated by a  - . If none of these, it should be an iterable of  int values. Returns    - None | iterable of int Depending on the value.",
+"doc":"Parses a value as one or more numbers. Parameters      numSpec: None | int | string | iterable If  None results in  None . If an  int , it stands for that int. If a  string , it is allowed to be a comma separated list of numbers or ranges, where a range is a lower bound and an upper bound separated by a  - . If none of these, it should be an iterable of  int values. Examples: 50 \"50\" \"50,70\" \"50-70,91,92,300-350\" (50, 70, 91, 92, 300) [50, 70, 90] range(300, 350) Returns    - None | iterable of int Depending on the value.",
 "func":1
 },
 {
@@ -324,7 +324,7 @@ INDEX=[
 {
 "ref":"fusus.convert.HELP",
 "url":5,
-"doc":" text Convert tsv data files to TF and optionally loads the TF. python3 -m fusus.convert  help python3 -m fusus.convert tsv source ocr|noocr pages python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]  help: print this text and exit \"source\" : a work (given as keyword or as path to its work directory) Examples: fususl (Fusus Al Hikam in Lakhnawi edition) fususa (Fusus Al Hikam in Affifi edition) any commentary by its keyword ~/github/myorg/myrepo/mydata mydir/mysubdir \"pages\" : page specification, only process these pages; default: all pages Examples: 50 50,70 50-70,91,92,300-350 \"ocr\" : assume the work is in the OCR pipeline \"noocr\" : assume the work is not in the OCR pipeline (it is then a text extract from a pdf) For tf only: \"load\" : loads the generated TF; if missing this step is not performed \"loadOnly\": does not generate TF; loads previously generated TF  "
+"doc":" text Convert tsv data files to TF and optionally loads the TF. python3 -m fusus.convert  help python3 -m fusus.convert tsv source ocr|noocr pages python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]  help: print this text and exit source : a work (given as keyword or as path to its work directory) Examples: fususl (Fusus Al Hikam in Lakhnawi edition) fususa (Fusus Al Hikam in Affifi edition) any commentary by its keyword ~/github/myorg/myrepo/mydata mydir/mysubdir pages : page specification, only process these pages; default: all pages Examples: 50 50,70 50-70,91,92,300-350 ocr : assume the work is in the OCR pipeline noocr : assume the work is not in the OCR pipeline (it is then a text extract from a pdf) For tf only: versiontf : loads the generated TF; if missing this step is not performed Examples: 0.4 3.7.2 load : loads the generated TF; if missing this step is not performed loadOnly : does not generate TF; loads previously generated TF  "
 },
 {
 "ref":"fusus.convert.makeTf",
