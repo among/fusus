@@ -23,10 +23,12 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/pdf.py#L0-L32" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/pdf.py#L0-L34" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import fitz
+
+from .lib import DEFAULT_EXTENSION
 
 
 &#34;&#34;&#34;Installation
@@ -54,7 +56,7 @@ def pdf2png(inPdf, outDir, silent=True):
             p += 1
             xref = entry[0]
             pix = fitz.Pixmap(doc, xref)
-            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.png&#34;)
+            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.{DEFAULT_EXTENSION}&#34;)
     if not silent:
         plural = &#34;&#34; if p == 1 else &#34;s&#34;
         print(f&#34;Written {p} image{plural}&#34;)</code></pre>
@@ -75,7 +77,7 @@ def pdf2png(inPdf, outDir, silent=True):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/pdf.py#L15-L33" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/pdf.py#L17-L35" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pdf2png(inPdf, outDir, silent=True):
     &#34;&#34;&#34;Extract all images in a PDF to an output directory.
@@ -92,7 +94,7 @@ def pdf2png(inPdf, outDir, silent=True):
             p += 1
             xref = entry[0]
             pix = fitz.Pixmap(doc, xref)
-            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.png&#34;)
+            pix.writeImage(f&#34;{outDir}/{p:&gt;03}.{DEFAULT_EXTENSION}&#34;)
     if not silent:
         plural = &#34;&#34; if p == 1 else &#34;s&#34;
         print(f&#34;Written {p} image{plural}&#34;)</code></pre>

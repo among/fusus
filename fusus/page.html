@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L0-L1095" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L0-L1096" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -39,10 +39,12 @@ from IPython.display import HTML, display
 from tf.core.helpers import unexpanduser
 
 from .lib import (
+    DEFAULT_EXTENSION,
     parseStages,
     parseBands,
     parseMarks,
-    removeSkewStripes,
+    cropBorders,
+    removeBorders,
     showImage,
     writeImage,
     splitext,
@@ -225,21 +227,15 @@ class Page:
                 if os.path.exists(path):
                     showPath = unexpanduser(f&#34;{cd}{path}&#34;)
                     nbLink = getNbLink(showPath, stageData)
-                    display(
-                        HTML(
-                            f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
-                            f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                    if nbLink is None:
+                        display(HTML(f&#34;{stageData} in {showPath}&#34;))
+                    else:
+                        display(
+                            HTML(
+                                f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
+                                f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                            )
                         )
-                    )
-                    &#34;&#34;&#34;
-                    display(
-                        IFrame(
-                            src=path,
-                            width=f&#34;{self.proofW + 10}px&#34;,
-                            height=f&#34;{self.proofH + 10}px&#34;,
-                        )
-                    )
-                    &#34;&#34;&#34;
                 else:
                     display(
                         HTML(
@@ -383,7 +379,7 @@ class Page:
         inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
         trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
         trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-        ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
+        ext = DEFAULT_EXTENSION if stageType == &#34;image&#34; else (stageExt or ext)
         base = f&#34;{dest}/{bare}{inter}{trail}&#34;
         return f&#34;{base}.{ext}&#34;
 
@@ -640,14 +636,19 @@ class Page:
         orig = stages[&#34;orig&#34;]
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages[&#34;gray&#34;] = gray
+        blurredGray = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        (th, blurredGray) = cv2.threshold(
+            blurredGray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        )
+        crop = cropBorders(blurredGray)
 
         normalized = gray.copy()
-        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        removeBorders(normalized, crop, C.whiteGRS)
         stages[&#34;normalized&#34;] = normalized
 
         if not batch or boxed:
             normalizedC = orig.copy()
-            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            removeBorders(normalizedC, crop, C.whiteRGB)
             stages[&#34;normalizedC&#34;] = normalizedC
 
         blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
@@ -1163,7 +1164,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L77-L1096" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L79-L1097" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(
@@ -1288,21 +1289,15 @@ in boxes.</dd>
                 if os.path.exists(path):
                     showPath = unexpanduser(f&#34;{cd}{path}&#34;)
                     nbLink = getNbLink(showPath, stageData)
-                    display(
-                        HTML(
-                            f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
-                            f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                    if nbLink is None:
+                        display(HTML(f&#34;{stageData} in {showPath}&#34;))
+                    else:
+                        display(
+                            HTML(
+                                f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
+                                f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                            )
                         )
-                    )
-                    &#34;&#34;&#34;
-                    display(
-                        IFrame(
-                            src=path,
-                            width=f&#34;{self.proofW + 10}px&#34;,
-                            height=f&#34;{self.proofH + 10}px&#34;,
-                        )
-                    )
-                    &#34;&#34;&#34;
                 else:
                     display(
                         HTML(
@@ -1446,7 +1441,7 @@ in boxes.</dd>
         inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
         trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
         trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-        ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
+        ext = DEFAULT_EXTENSION if stageType == &#34;image&#34; else (stageExt or ext)
         base = f&#34;{dest}/{bare}{inter}{trail}&#34;
         return f&#34;{base}.{ext}&#34;
 
@@ -1703,14 +1698,19 @@ in boxes.</dd>
         orig = stages[&#34;orig&#34;]
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages[&#34;gray&#34;] = gray
+        blurredGray = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        (th, blurredGray) = cv2.threshold(
+            blurredGray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        )
+        crop = cropBorders(blurredGray)
 
         normalized = gray.copy()
-        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        removeBorders(normalized, crop, C.whiteGRS)
         stages[&#34;normalized&#34;] = normalized
 
         if not batch or boxed:
             normalizedC = orig.copy()
-            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            removeBorders(normalizedC, crop, C.whiteRGB)
             stages[&#34;normalizedC&#34;] = normalizedC
 
         blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
@@ -2224,7 +2224,7 @@ and they do not contribute to the markData layer.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L713-L1026" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L714-L1027" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cleaning(self, mark=None, block=None, line=None, showKept=False):
     &#34;&#34;&#34;Remove marks from the page.
@@ -2572,7 +2572,7 @@ with the blocks marked and labelled.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L644-L711" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L645-L712" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doLayout(self):
     &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
@@ -2668,7 +2668,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L577-L642" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L573-L643" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doNormalize(self):
     &#34;&#34;&#34;Normalizes a page.
@@ -2708,14 +2708,19 @@ needed for histograms later on;</li>
     orig = stages[&#34;orig&#34;]
     gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
     stages[&#34;gray&#34;] = gray
+    blurredGray = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+    (th, blurredGray) = cv2.threshold(
+        blurredGray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+    )
+    crop = cropBorders(blurredGray)
 
     normalized = gray.copy()
-    removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+    removeBorders(normalized, crop, C.whiteGRS)
     stages[&#34;normalized&#34;] = normalized
 
     if not batch or boxed:
         normalizedC = orig.copy()
-        removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+        removeBorders(normalizedC, crop, C.whiteRGB)
         stages[&#34;normalizedC&#34;] = normalizedC
 
     blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)
@@ -2746,7 +2751,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L1082-L1089" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L1083-L1090" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocring(self):
     &#34;&#34;&#34;Calls the OCR engine for a page.&#34;&#34;&#34;
@@ -2766,7 +2771,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L1091-L1096" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L1092-L1097" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self):
     &#34;&#34;&#34;Produces proofing images&#34;&#34;&#34;
@@ -2791,7 +2796,7 @@ Otherwise, the indicated stages are read.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L362-L398" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L358-L394" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, stage=None):
     &#34;&#34;&#34;Reads processing data for selected stages from disk
@@ -2871,7 +2876,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L135-L344" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L137-L340" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -2938,21 +2943,15 @@ will be displayed on a fresh copy of that stage.</p>
             if os.path.exists(path):
                 showPath = unexpanduser(f&#34;{cd}{path}&#34;)
                 nbLink = getNbLink(showPath, stageData)
-                display(
-                    HTML(
-                        f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
-                        f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                if nbLink is None:
+                    display(HTML(f&#34;{stageData} in {showPath}&#34;))
+                else:
+                    display(
+                        HTML(
+                            f&#34;&#34;&#34;&lt;hr&gt;\n&lt;div&gt;&lt;b&gt;{s}&lt;/b&gt;: {nbLink}&#34;&#34;&#34;
+                            f&#34;&#34;&#34; (local file: {showPath})&lt;/div&gt;&#34;&#34;&#34;
+                        )
                     )
-                )
-                &#34;&#34;&#34;
-                display(
-                    IFrame(
-                        src=path,
-                        width=f&#34;{self.proofW + 10}px&#34;,
-                        height=f&#34;{self.proofH + 10}px&#34;,
-                    )
-                )
-                &#34;&#34;&#34;
             else:
                 display(
                     HTML(
@@ -3093,7 +3092,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L346-L360" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L342-L356" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stagePath(self, stage, inter=None):
     engine = self.engine
@@ -3107,7 +3106,7 @@ will be displayed on a fresh copy of that stage.</p>
     inter = &#34;&#34; if inter is None else f&#34;-{inter}&#34;
     trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
     trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
-    ext = &#34;png&#34; if stageType == &#34;image&#34; else (stageExt or ext)
+    ext = DEFAULT_EXTENSION if stageType == &#34;image&#34; else (stageExt or ext)
     base = f&#34;{dest}/{bare}{inter}{trail}&#34;
     return f&#34;{base}.{ext}&#34;</code></pre>
 </details>
@@ -3139,7 +3138,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/page.py#L400-L453" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/page.py#L396-L449" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None, perBlock=False):
     &#34;&#34;&#34;Writes processing stages of an page to disk.

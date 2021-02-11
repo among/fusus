@@ -21,16 +21,23 @@
 </header>
 <section id="section-intro">
 <h1 id="install-and-update">Install and update</h1>
-<p><em>code and documentation</em></p>
+<p><em>code and documentation</em> <code><a title="fusus.about.install" href="install.html">fusus.about.install</a></code></p>
 <ul>
-<li><a href="https://among.github.io/fusus/fusus/about/install.html#get-the-software">install - get</a></li>
-<li><a href="https://among.github.io/fusus/fusus/about/install.html#build-steps">update - documentation</a></li>
-<li><a href="https://among.github.io/fusus/fusus/about/install.html#push-everything">update - code</a></li>
+<li>get code</li>
+<li>update docs</li>
+<li>update code</li>
 </ul>
 <h1 id="run">Run</h1>
-<p><em>Straight from the command line</em></p>
+<p><em>Straight from the command line</em> <code><a title="fusus.convert" href="../convert.html">fusus.convert</a></code></p>
 <ul>
-<li><a href="https://among.github.io/fusus/fusus/about/run.html#book-in-batch">run - book</a></li>
+<li>run the OCR pipeline from the command line</li>
+<li>run the PDF extraction from the command line</li>
+<li>convert TSV to TF</li>
+</ul>
+<h1 id="contribute-more-sources">Contribute more sources</h1>
+<p><em>From "no comments" to "more comments"</em> <code><a title="fusus.works" href="../works.html">fusus.works</a></code></p>
+<ul>
+<li>add commentaries as works</li>
 </ul>
 <h1 id="explore">Explore</h1>
 <p><em>Page by page in a notebook</em></p>
@@ -41,11 +48,6 @@ Run the pipeline in a notebook;</li>
 Inspect intermediate results in a notebook.</li>
 <li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb">ocr</a>
 Read the proofs of Kraken-OCR.</li>
-<li><strong>Lakhnawi</strong><ul>
-<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/FususAlHikam/Lakhnawi/status.ipynb">characters</a>
-See which characters are in the PDF.</li>
-</ul>
-</li>
 <li><a href="https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/">notebooks on nbviewer</a>.
 All notebooks.</li>
 </ul>
@@ -66,15 +68,36 @@ What to do if you have an image that is a small fragment of a page.</li>
 <h1 id="engineer">Engineer</h1>
 <p><em>Change the flow</em></p>
 <ul>
-<li><code><a title="fusus.lakhnawi" href="../lakhnawi.html">fusus.lakhnawi</a></code>
-PDF reverse engineering.</li>
+<li>
+<p><code><a title="fusus.lakhnawi" href="../lakhnawi.html">fusus.lakhnawi</a></code>
+PDF reverse engineering.</p>
+</li>
+<li>
+<p><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/pages.ipynb">pages</a>
+Work with pages, follow line division, extract text and save to disk.</p>
+</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/characters.ipynb">characters</a>
+See which characters are in the PDF and how they are converted.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/final.ipynb">final</a>
+See in the effect of final characters on spacing.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/border.ipynb">border</a>
+See how black borders get removed from a page.
+See also <code><a title="fusus.lib.cropBorders" href="../lib.html#fusus.lib.cropBorders">cropBorders()</a></code> and <code><a title="fusus.lib.removeBorders" href="../lib.html#fusus.lib.removeBorders">removeBorders()</a></code>.</li>
 </ul>
 <h1 id="work">Work</h1>
 <p><em>Do data science with the results</em></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTsv.ipynb">useTsv</a>
+Use the TSV output of the pipeline.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTf.ipynb">useTf</a>
+Use the Text-Fabric output of the pipeline.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/boxes.ipynb">boxes</a>
+Work with bounding boxes in the Text-Fabric data of the Lakhnawi.</li>
+</ul>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/about/howto.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/about/howto.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/howto.md
@@ -98,6 +121,7 @@ PDF reverse engineering.</li>
 <ul>
 <li><a href="#install-and-update">Install and update</a></li>
 <li><a href="#run">Run</a></li>
+<li><a href="#contribute-more-sources">Contribute more sources</a></li>
 <li><a href="#explore">Explore</a></li>
 <li><a href="#tweak">Tweak</a></li>
 <li><a href="#engineer">Engineer</a></li>

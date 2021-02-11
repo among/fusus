@@ -23,7 +23,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L0-L631" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L0-L686" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">import os
 import io
@@ -63,6 +63,9 @@ EXTENSIONS = set(
 &#34;&#34;&#34;Supported image file extensions.
 &#34;&#34;&#34;
 
+DEFAULT_EXTENSION = &#34;png&#34;
+
+
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 NB_VIEWER = &#34;https://nbviewer.jupyter.org/github&#34;
@@ -100,12 +103,14 @@ def parseNums(numSpec):
 
 def getNbLink(path, text):
     if path.startswith(&#34;~/github&#34;):
-        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
-        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
         components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
         if not components:
-            return path
+            return None
+
+        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
+        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
         nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
         if len(components) &lt;= 2:
             return f&#34;{linkA}{nbPathA}{linkB}&#34;
         else:
@@ -119,7 +124,9 @@ def getNbPath(path):
         components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
         if not components:
             return (False, path)
+
         nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
         if len(components) &lt;= 2:
             return (True, nbPathA)
         else:
@@ -350,24 +357,73 @@ def select(source, selection):
     return sorted(index[n] for n in selected)
 
 
-def removeSkewStripes(img, skewBorderFraction, skewColor):
-    &#34;&#34;&#34;Remove black triangles resulting from unskewing images.
+def cropBorders(img, tolerance=10):
+    &#34;&#34;&#34;Get the bounding box of the image without black borders, if any.
+
+    The image is white writing on black background.
+    The outer frame is white, if any.
+    We find the region within a white outer frame
+    by identifying all black pixels and computing a bounding box around it.
+
+    Thanks to
+    [stackoverflow](https://codereview.stackexchange.com/a/132933).
+
+    Parameters
+    ----------
+    img: numpy array
+        The image. We assume it is grayscale, and inverted.
+        For best results, it should be blurred before thresholding.
+    tolerance: integer
+        This parameter is the upper limit of what counts as black.
+
+    Returns
+    -------
+    int, int, int, int
+        The (x0, x1, y0, y1) of the crop region.
+        This will be used in `removeBorders` to whiten the margins outside it.
+    &#34;&#34;&#34;
+
+    # check whether image is completely non-black
+    # then we do not crop
+    if np.amin(img) &gt;= tolerance:
+        (imH, imW) = img.shape[0:2]
+        print(&#34;*&#34;, 0, imW, 0, imH)
+        return (0, imW, 0, imH)
+
+    # Mask of black pixels
+    mask = img &lt; tolerance
+
+    # Coordinates of black pixels.
+    coords = np.argwhere(mask)
+
+    # Bounding box of black pixels.
+    (y0, x0) = coords.min(axis=0)
+    (y1, x1) = coords.max(axis=0)
+
+    # Get the contents of the bounding box.
+    print(x0, x1, y0, y1)
+    return (x0, x1, y0, y1)
+
+
+def removeBorders(img, crop, white):
+    &#34;&#34;&#34;Remove black borders around an image.
 
     When an image has been unskewed, sharp triangle-shape strokes in the corners
     may have been introduced.
+    Or it might be the result of scanning a page.
+
     This function removes them by coloring all image borders with white.
 
-    The width of these borders is calculated as a fraction of the width and height
-    of the image. The fraction ultimately comes from the parameter
-    `skewBorderFraction` in `fusus.parameters.SETTINGS`.
+    The exact borders to be whitened are calculated by `cropBorders`.
 
     Parameters
     ----------
     img: image as np array
         the image to operate on
-    skewBorder: int
-        the width of the border that is whitened
-    skewColor: color
+    crop: (int, int, int, int)
+        the x1, x2, y1, y2 values which indicate the region
+        outside which the white may be applied
+    white: color
         the exact white color with which we color the borders.
 
     Returns
@@ -377,16 +433,15 @@ def removeSkewStripes(img, skewBorderFraction, skewColor):
     &#34;&#34;&#34;
 
     (imH, imW) = img.shape[0:2]
-    skewBorderX = int(round(skewBorderFraction * imW))
-    skewBorderY = int(round(skewBorderFraction * imH))
-    # print(f&#34;\n{skewBorderFraction=} {skewBorderX=} {skewBorderY=}&#34;)
+    (x0, x1, y0, y1) = crop
+
     for rect in (
-        ((0, 0), (skewBorderX, imH)),
-        ((0, 0), (imW, skewBorderY)),
-        ((imW - skewBorderX, 0), (imW, imH)),
-        ((0, imH - skewBorderY), (imW, imH)),
+        ((0, 0), (x0, imH)),
+        ((0, 0), (imW, y0)),
+        ((x1, 0), (imW, imH)),
+        ((0, y1), (imW, imH)),
     ):
-        cv2.rectangle(img, *rect, skewColor, -1)
+        cv2.rectangle(img, *rect, white, -1)
 
 
 def parseStages(stage, allStages, sortedStages, error):
@@ -681,7 +736,7 @@ def pureAverage(data, supplied):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L118-L119" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L125-L126" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def PILFromArray(a):
     return PIL.Image.fromarray(a)</code></pre>
@@ -718,7 +773,7 @@ Lines are given as a tuple of tuples of top and bottom heights.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L527-L569" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L582-L624" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def applyBandOffset(C, height, bandName, lines, inter=False):
     &#34;&#34;&#34;Produce bands from a list of lines.
@@ -773,10 +828,88 @@ Lines are given as a tuple of tuples of top and bottom heights.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L122-L123" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L129-L130" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def arrayFromPIL(img):
     return np.asarray(img)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.cropBorders"><code class="name flex">
+<span>def <span class="ident">cropBorders</span></span>(<span>img, tolerance=10)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the bounding box of the image without black borders, if any.</p>
+<p>The image is white writing on black background.
+The outer frame is white, if any.
+We find the region within a white outer frame
+by identifying all black pixels and computing a bounding box around it.</p>
+<p>Thanks to
+<a href="https://codereview.stackexchange.com/a/132933">stackoverflow</a>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>numpy array</code></dt>
+<dd>The image. We assume it is grayscale, and inverted.
+For best results, it should be blurred before thresholding.</dd>
+<dt><strong><code>tolerance</code></strong> :&ensp;<code>integer</code></dt>
+<dd>This parameter is the upper limit of what counts as black.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int, int, int, int</code></dt>
+<dd>The (x0, x1, y0, y1) of the crop region.
+This will be used in <code><a title="fusus.lib.removeBorders" href="#fusus.lib.removeBorders">removeBorders()</a></code> to whiten the margins outside it.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L333-L378" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def cropBorders(img, tolerance=10):
+    &#34;&#34;&#34;Get the bounding box of the image without black borders, if any.
+
+    The image is white writing on black background.
+    The outer frame is white, if any.
+    We find the region within a white outer frame
+    by identifying all black pixels and computing a bounding box around it.
+
+    Thanks to
+    [stackoverflow](https://codereview.stackexchange.com/a/132933).
+
+    Parameters
+    ----------
+    img: numpy array
+        The image. We assume it is grayscale, and inverted.
+        For best results, it should be blurred before thresholding.
+    tolerance: integer
+        This parameter is the upper limit of what counts as black.
+
+    Returns
+    -------
+    int, int, int, int
+        The (x0, x1, y0, y1) of the crop region.
+        This will be used in `removeBorders` to whiten the margins outside it.
+    &#34;&#34;&#34;
+
+    # check whether image is completely non-black
+    # then we do not crop
+    if np.amin(img) &gt;= tolerance:
+        (imH, imW) = img.shape[0:2]
+        print(&#34;*&#34;, 0, imW, 0, imH)
+        return (0, imW, 0, imH)
+
+    # Mask of black pixels
+    mask = img &lt; tolerance
+
+    # Coordinates of black pixels.
+    coords = np.argwhere(mask)
+
+    # Bounding box of black pixels.
+    (y0, x0) = coords.min(axis=0)
+    (y1, x1) = coords.max(axis=0)
+
+    # Get the contents of the bounding box.
+    print(x0, x1, y0, y1)
+    return (x0, x1, y0, y1)</code></pre>
 </details>
 </dd>
 <dt id="fusus.lib.dh"><code class="name flex">
@@ -787,7 +920,7 @@ Lines are given as a tuple of tuples of top and bottom heights.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L23-L24" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L23-L24" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def dh(html):
     display(HTML(html))</code></pre>
@@ -803,7 +936,7 @@ Lines are given as a tuple of tuples of top and bottom heights.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L494-L524" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L549-L579" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def findRuns(x):
     &#34;&#34;&#34;Find runs of consecutive items in an array.
@@ -859,7 +992,7 @@ above the threshold, and (0, maxW) otherwise.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L572-L597" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L627-L652" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMargins(hist, width, threshold):
     &#34;&#34;&#34;Get margins from a histogram.
@@ -897,16 +1030,18 @@ above the threshold, and (0, maxW) otherwise.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L74-L87" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L77-L92" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getNbLink(path, text):
     if path.startswith(&#34;~/github&#34;):
-        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
-        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
         components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
         if not components:
-            return path
+            return None
+
+        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
+        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
         nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
         if len(components) &lt;= 2:
             return f&#34;{linkA}{nbPathA}{linkB}&#34;
         else:
@@ -923,14 +1058,16 @@ above the threshold, and (0, maxW) otherwise.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L90-L101" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L95-L108" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getNbPath(path):
     if path.startswith(&#34;~/github&#34;):
         components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
         if not components:
             return (False, path)
+
         nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
         if len(components) &lt;= 2:
             return (True, nbPathA)
         else:
@@ -959,7 +1096,7 @@ are listed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L203-L231" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L210-L238" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileList(imDir):
     &#34;&#34;&#34;Gets a sorted list of image files from a directory.
@@ -1013,7 +1150,7 @@ alphabetically sorted list of file names (without directory, with extension)</dd
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L234-L260" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L241-L267" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imageFileListSub(imDir):
     &#34;&#34;&#34;Gets sorted lisst of image files from the subdirectories of a directory.
@@ -1052,7 +1189,7 @@ alphabetically sorted list of file names (without directory, with extension)</dd
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L111-L115" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L118-L122" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def imgElem(data):
     &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
@@ -1084,7 +1221,7 @@ The new color of the replaced pixels.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L155-L177" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L162-L184" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def overlay(img, left, top, right, bottom, srcColor, dstColor):
     &#34;&#34;&#34;Colors a region of an image with care.
@@ -1132,7 +1269,7 @@ mentioning the page numbers, using intervals where possible.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L263-L280" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L270-L287" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pagesRep(source, asList=False):
     &#34;&#34;&#34;Represents a set of pages as a string in a compact way or as a list.
@@ -1181,7 +1318,7 @@ If an iterable: the items must be names of bands.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L408-L445" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L463-L500" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseBands(band, allBands, error):
     &#34;&#34;&#34;Parses a string that specifies bands.
@@ -1250,7 +1387,7 @@ If an iterable: the items must be names of marks.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L448-L491" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L503-L546" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseMarks(mark, allMarks, bands, error):
     &#34;&#34;&#34;Parses a string that specifies Marks.
@@ -1321,7 +1458,7 @@ If none of these, it should be an iterable of <code>int</code> values.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L44-L71" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L47-L74" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseNums(numSpec):
     &#34;&#34;&#34;Parses a value as one or more numbers.
@@ -1381,7 +1518,7 @@ If an iterable: the items must be names of stages.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L365-L405" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L420-L460" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
     &#34;&#34;&#34;Parses a string that specifies stages.
@@ -1434,7 +1571,7 @@ If an iterable: the items must be names of stages.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L19-L20" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L19-L20" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pprint(x):
     PP.pprint(x)</code></pre>
@@ -1459,7 +1596,7 @@ causes some abnormal peak distances which we want to remove.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L600-L632" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L655-L687" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def pureAverage(data, supplied):
     &#34;&#34;&#34;Get the average of a list of values after removing the outliers.
@@ -1496,24 +1633,24 @@ causes some abnormal peak distances which we want to remove.</p>
     return int(round(np.average(pure)))</code></pre>
 </details>
 </dd>
-<dt id="fusus.lib.removeSkewStripes"><code class="name flex">
-<span>def <span class="ident">removeSkewStripes</span></span>(<span>img, skewBorderFraction, skewColor)</span>
+<dt id="fusus.lib.removeBorders"><code class="name flex">
+<span>def <span class="ident">removeBorders</span></span>(<span>img, crop, white)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Remove black triangles resulting from unskewing images.</p>
+<div class="desc"><p>Remove black borders around an image.</p>
 <p>When an image has been unskewed, sharp triangle-shape strokes in the corners
 may have been introduced.
-This function removes them by coloring all image borders with white.</p>
-<p>The width of these borders is calculated as a fraction of the width and height
-of the image. The fraction ultimately comes from the parameter
-<code>skewBorderFraction</code> in <code><a title="fusus.parameters.SETTINGS" href="parameters.html#fusus.parameters.SETTINGS">SETTINGS</a></code>.</p>
+Or it might be the result of scanning a page.</p>
+<p>This function removes them by coloring all image borders with white.</p>
+<p>The exact borders to be whitened are calculated by <code><a title="fusus.lib.cropBorders" href="#fusus.lib.cropBorders">cropBorders()</a></code>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>img</code></strong> :&ensp;<code>image as np array</code></dt>
 <dd>the image to operate on</dd>
-<dt><strong><code>skewBorder</code></strong> :&ensp;<code>int</code></dt>
-<dd>the width of the border that is whitened</dd>
-<dt><strong><code>skewColor</code></strong> :&ensp;<code>color</code></dt>
+<dt><strong><code>crop</code></strong> :&ensp;<code>(int, int, int, int)</code></dt>
+<dd>the x1, x2, y1, y2 values which indicate the region
+outside which the white may be applied</dd>
+<dt><strong><code>white</code></strong> :&ensp;<code>color</code></dt>
 <dd>the exact white color with which we color the borders.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
@@ -1524,26 +1661,27 @@ of the image. The fraction ultimately comes from the parameter
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L326-L362" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L381-L417" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def removeSkewStripes(img, skewBorderFraction, skewColor):
-    &#34;&#34;&#34;Remove black triangles resulting from unskewing images.
+<pre><code class="python">def removeBorders(img, crop, white):
+    &#34;&#34;&#34;Remove black borders around an image.
 
     When an image has been unskewed, sharp triangle-shape strokes in the corners
     may have been introduced.
+    Or it might be the result of scanning a page.
+
     This function removes them by coloring all image borders with white.
 
-    The width of these borders is calculated as a fraction of the width and height
-    of the image. The fraction ultimately comes from the parameter
-    `skewBorderFraction` in `fusus.parameters.SETTINGS`.
+    The exact borders to be whitened are calculated by `cropBorders`.
 
     Parameters
     ----------
     img: image as np array
         the image to operate on
-    skewBorder: int
-        the width of the border that is whitened
-    skewColor: color
+    crop: (int, int, int, int)
+        the x1, x2, y1, y2 values which indicate the region
+        outside which the white may be applied
+    white: color
         the exact white color with which we color the borders.
 
     Returns
@@ -1553,16 +1691,15 @@ of the image. The fraction ultimately comes from the parameter
     &#34;&#34;&#34;
 
     (imH, imW) = img.shape[0:2]
-    skewBorderX = int(round(skewBorderFraction * imW))
-    skewBorderY = int(round(skewBorderFraction * imH))
-    # print(f&#34;\n{skewBorderFraction=} {skewBorderX=} {skewBorderY=}&#34;)
+    (x0, x1, y0, y1) = crop
+
     for rect in (
-        ((0, 0), (skewBorderX, imH)),
-        ((0, 0), (imW, skewBorderY)),
-        ((imW - skewBorderX, 0), (imW, imH)),
-        ((0, imH - skewBorderY), (imW, imH)),
+        ((0, 0), (x0, imH)),
+        ((0, 0), (imW, y0)),
+        ((x1, 0), (imW, imH)),
+        ((0, y1), (imW, imH)),
     ):
-        cv2.rectangle(img, *rect, skewColor, -1)</code></pre>
+        cv2.rectangle(img, *rect, white, -1)</code></pre>
 </details>
 </dd>
 <dt id="fusus.lib.select"><code class="name flex">
@@ -1588,7 +1725,7 @@ using ranges and commas.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L283-L323" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L290-L330" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def select(source, selection):
     &#34;&#34;&#34;Choose items from a bunch of integers.
@@ -1641,7 +1778,7 @@ using ranges and commas.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L126-L143" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L133-L150" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
     &#34;&#34;&#34;Show one or more images.
@@ -1684,7 +1821,7 @@ else the dot is stripped from it.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L180-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L187-L207" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def splitext(f, withDot=True):
     &#34;&#34;&#34;Splits a file name into its main part and its extension.
@@ -1717,7 +1854,7 @@ else the dot is stripped from it.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L104-L108" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L111-L115" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tempFile():
     &#34;&#34;&#34;Get a temporary file.
@@ -1734,7 +1871,7 @@ else the dot is stripped from it.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/1a0acc5ab8a653d9ab45591a66e2a0676c0f56ee/fusus/lib.py#L146-L152" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/b93d47a70b76f42c8f82924382f8d9423a22fe52/fusus/lib.py#L153-L159" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def writeImage(a, path, **kwargs):
     &#34;&#34;&#34;Write an image to disk
@@ -1773,6 +1910,7 @@ else the dot is stripped from it.</dd>
 <li><code><a title="fusus.lib.PILFromArray" href="#fusus.lib.PILFromArray">PILFromArray</a></code></li>
 <li><code><a title="fusus.lib.applyBandOffset" href="#fusus.lib.applyBandOffset">applyBandOffset</a></code></li>
 <li><code><a title="fusus.lib.arrayFromPIL" href="#fusus.lib.arrayFromPIL">arrayFromPIL</a></code></li>
+<li><code><a title="fusus.lib.cropBorders" href="#fusus.lib.cropBorders">cropBorders</a></code></li>
 <li><code><a title="fusus.lib.dh" href="#fusus.lib.dh">dh</a></code></li>
 <li><code><a title="fusus.lib.findRuns" href="#fusus.lib.findRuns">findRuns</a></code></li>
 <li><code><a title="fusus.lib.getMargins" href="#fusus.lib.getMargins">getMargins</a></code></li>
@@ -1789,7 +1927,7 @@ else the dot is stripped from it.</dd>
 <li><code><a title="fusus.lib.parseStages" href="#fusus.lib.parseStages">parseStages</a></code></li>
 <li><code><a title="fusus.lib.pprint" href="#fusus.lib.pprint">pprint</a></code></li>
 <li><code><a title="fusus.lib.pureAverage" href="#fusus.lib.pureAverage">pureAverage</a></code></li>
-<li><code><a title="fusus.lib.removeSkewStripes" href="#fusus.lib.removeSkewStripes">removeSkewStripes</a></code></li>
+<li><code><a title="fusus.lib.removeBorders" href="#fusus.lib.removeBorders">removeBorders</a></code></li>
 <li><code><a title="fusus.lib.select" href="#fusus.lib.select">select</a></code></li>
 <li><code><a title="fusus.lib.showImage" href="#fusus.lib.showImage">showImage</a></code></li>
 <li><code><a title="fusus.lib.splitext" href="#fusus.lib.splitext">splitext</a></code></li>
