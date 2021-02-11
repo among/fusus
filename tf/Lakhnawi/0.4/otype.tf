@@ -1,11 +1,7 @@
-@config
+@node
 @author=Ibn Arabi
 @converters=Cornelis van Lit, Dirk Roorda (Text-Fabric)
 @editor=Lakhnawi
-@fmt:text-orig-full={pre}{text}{post}
-@fmt:text-orig-nice={prea}{nice}{posta}
-@fmt:text-orig-plain={prea}{plain}{posta}
-@fmt:text-orig-trans={prea}{trans}{posta}
 @institute=Univ Utrecht NL/DANS
 @language=ara
 @name=fusus
@@ -13,10 +9,16 @@
 @project=Fusus
 @published=pdf, personal communication
 @researcher=Cornelis van Lit
-@sectionFeatures=n,n,ln
-@sectionTypes=piece,page,line
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikam
+@valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-02-11T11:11:08Z
+@dateWritten=2021-02-11T12:00:00Z
 
+1-52371	word
+52372-57535	column
+57536-62600	line
+62601-63038	page
+63039-63073	piece
+63074-65766	sentence
+65767-70937	span

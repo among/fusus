@@ -15,7 +15,8 @@ from .lib import (
     parseStages,
     parseBands,
     parseMarks,
-    removeSkewStripes,
+    cropBorders,
+    removeBorders,
     showImage,
     writeImage,
     splitext,
@@ -198,21 +199,15 @@ class Page:
                 if os.path.exists(path):
                     showPath = unexpanduser(f"{cd}{path}")
                     nbLink = getNbLink(showPath, stageData)
-                    display(
-                        HTML(
-                            f"""<hr>\n<div><b>{s}</b>: {nbLink}"""
-                            f""" (local file: {showPath})</div>"""
+                    if nbLink is None:
+                        display(HTML(f"{stageData} in {showPath}"))
+                    else:
+                        display(
+                            HTML(
+                                f"""<hr>\n<div><b>{s}</b>: {nbLink}"""
+                                f""" (local file: {showPath})</div>"""
+                            )
                         )
-                    )
-                    """
-                    display(
-                        IFrame(
-                            src=path,
-                            width=f"{self.proofW + 10}px",
-                            height=f"{self.proofH + 10}px",
-                        )
-                    )
-                    """
                 else:
                     display(
                         HTML(
@@ -613,14 +608,19 @@ class Page:
         orig = stages["orig"]
         gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
         stages["gray"] = gray
+        blurredGray = cv2.GaussianBlur(gray, (C.blurX, C.blurY), 0, 0)
+        (th, blurredGray) = cv2.threshold(
+            blurredGray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU
+        )
+        crop = cropBorders(blurredGray)
 
         normalized = gray.copy()
-        removeSkewStripes(normalized, C.skewBorderFraction, C.whiteGRS)
+        removeBorders(normalized, crop, C.whiteGRS)
         stages["normalized"] = normalized
 
         if not batch or boxed:
             normalizedC = orig.copy()
-            removeSkewStripes(normalizedC, C.skewBorderFraction, C.whiteRGB)
+            removeBorders(normalizedC, crop, C.whiteRGB)
             stages["normalizedC"] = normalizedC
 
         blurred = cv2.GaussianBlur(normalized, (C.blurX, C.blurY), 0, 0)

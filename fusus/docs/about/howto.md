@@ -30,9 +30,6 @@
   Inspect intermediate results in a notebook.
 * [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
   Read the proofs of Kraken-OCR.
-* **Lakhnawi**
-    * [characters](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/FususAlHikam/Lakhnawi/status.ipynb)
-      See which characters are in the PDF.
 * [notebooks on nbviewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).
   All notebooks.
 
@@ -60,7 +57,24 @@
 * `fusus.lakhnawi` 
   PDF reverse engineering.
 
+  * [pages](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/pages.ipynb)
+    Work with pages, follow line division, extract text and save to disk.
+  * [characters](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/characters.ipynb)
+    See which characters are in the PDF and how they are converted.
+  * [final](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/final.ipynb)
+    See in the effect of final characters on spacing.
+* [border](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/border.ipynb)
+  See how black borders get removed from a page.
+  See also `fusus.lib.cropBorders` and `fusus.lib.removeBorders`.
+
 
 # Work
 
 *Do data science with the results*
+
+* [useTsv](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTsv.ipynb)
+  Use the TSV output of the pipeline.
+* [useTf](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTf.ipynb)
+  Use the Text-Fabric output of the pipeline.
+* [boxes](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/boxes.ipynb)
+  Work with bounding boxes in the Text-Fabric data of the Lakhnawi.

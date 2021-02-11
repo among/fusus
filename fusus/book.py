@@ -606,17 +606,22 @@ class Book:
         for c in sorted(resultsChar):
             occs = sorted(resultsChar[c], key=lambda x: x[1])
             elem = "a" if isLink else "span"
-            att = dict(href="{nbLink}/{x[0][1:]}{sTrail}.{sExt}") if isLink else {}
-            worstExamples = " ".join(
-                f"""\
+            href = nbLink if isLink else None
+            worstExamples = []
+            for x in occs[0:20]:
+                href = (
+                    f'''href="{nbLink}/{x[0][1:]}{sTrail}.{sExt}"''' if isLink else ""
+                )
+                worstExamples.append(
+                    f"""
 <{elem}
     style="background-color: {getProofColor(x[1])};"
-    {" ".join(f'{k}="{v}"' for (k, v) in att.items())}
     title="{showPath}/{x[0][1:]}{sTrail}.{sExt}"
->{x[0]}</{elem}>\
+    {href}
+>{x[0]}</{elem}>
 """
-                for x in occs[0:20]
-            )
+                )
+            worstExamples = " ".join(worstExamples)
             nOccs = len(occs)
             minC = min(r[1] for r in occs)
             maxC = max(r[1] for r in occs)

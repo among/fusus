@@ -149,7 +149,6 @@ SETTINGS = dict(
     proofDir="proof",
     textDir="text",
     marksDir="marks",
-    skewBorderFraction=0.03,
     blurX=21,
     blurY=21,
     marginThresholdX=1,

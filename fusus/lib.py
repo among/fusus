@@ -76,12 +76,14 @@ def parseNums(numSpec):
 
 def getNbLink(path, text):
     if path.startswith("~/github"):
-        linkA = '<a target="_blank" href="'
-        linkB = f'">{text}</a>'
         components = path.rstrip("/").split("/")[2:]
         if not components:
-            return path
+            return None
+
+        linkA = '<a target="_blank" href="'
+        linkB = f'">{text}</a>'
         nbPathA = f"{NB_VIEWER}/" + "/".join(components[0:2])
+
         if len(components) <= 2:
             return f"{linkA}{nbPathA}{linkB}"
         else:
@@ -95,7 +97,9 @@ def getNbPath(path):
         components = path.rstrip("/").split("/")[2:]
         if not components:
             return (False, path)
+
         nbPathA = f"{NB_VIEWER}/" + "/".join(components[0:2])
+
         if len(components) <= 2:
             return (True, nbPathA)
         else:
@@ -326,24 +330,73 @@ def select(source, selection):
     return sorted(index[n] for n in selected)
 
 
-def removeSkewStripes(img, skewBorderFraction, skewColor):
-    """Remove black triangles resulting from unskewing images.
+def cropBorders(img, tolerance=10):
+    """Get the bounding box of the image without black borders, if any.
+
+    The image is white writing on black background.
+    The outer frame is white, if any.
+    We find the region within a white outer frame
+    by identifying all black pixels and computing a bounding box around it.
+
+    Thanks to
+    [stackoverflow](https://codereview.stackexchange.com/a/132933).
+
+    Parameters
+    ----------
+    img: numpy array
+        The image. We assume it is grayscale, and inverted.
+        For best results, it should be blurred before thresholding.
+    tolerance: integer
+        This parameter is the upper limit of what counts as black.
+
+    Returns
+    -------
+    int, int, int, int
+        The (x0, x1, y0, y1) of the crop region.
+        This will be used in `removeBorders` to whiten the margins outside it.
+    """
+
+    # check whether image is completely non-black
+    # then we do not crop
+    if np.amin(img) >= tolerance:
+        (imH, imW) = img.shape[0:2]
+        print("*", 0, imW, 0, imH)
+        return (0, imW, 0, imH)
+
+    # Mask of black pixels
+    mask = img < tolerance
+
+    # Coordinates of black pixels.
+    coords = np.argwhere(mask)
+
+    # Bounding box of black pixels.
+    (y0, x0) = coords.min(axis=0)
+    (y1, x1) = coords.max(axis=0)
+
+    # Get the contents of the bounding box.
+    print(x0, x1, y0, y1)
+    return (x0, x1, y0, y1)
+
+
+def removeBorders(img, crop, white):
+    """Remove black borders around an image.
 
     When an image has been unskewed, sharp triangle-shape strokes in the corners
     may have been introduced.
+    Or it might be the result of scanning a page.
+
     This function removes them by coloring all image borders with white.
 
-    The width of these borders is calculated as a fraction of the width and height
-    of the image. The fraction ultimately comes from the parameter
-    `skewBorderFraction` in `fusus.parameters.SETTINGS`.
+    The exact borders to be whitened are calculated by `cropBorders`.
 
     Parameters
     ----------
     img: image as np array
         the image to operate on
-    skewBorder: int
-        the width of the border that is whitened
-    skewColor: color
+    crop: (int, int, int, int)
+        the x1, x2, y1, y2 values which indicate the region
+        outside which the white may be applied
+    white: color
         the exact white color with which we color the borders.
 
     Returns
@@ -353,16 +406,15 @@ def removeSkewStripes(img, skewBorderFraction, skewColor):
     """
 
     (imH, imW) = img.shape[0:2]
-    skewBorderX = int(round(skewBorderFraction * imW))
-    skewBorderY = int(round(skewBorderFraction * imH))
-    # print(f"\n{skewBorderFraction=} {skewBorderX=} {skewBorderY=}")
+    (x0, x1, y0, y1) = crop
+
     for rect in (
-        ((0, 0), (skewBorderX, imH)),
-        ((0, 0), (imW, skewBorderY)),
-        ((imW - skewBorderX, 0), (imW, imH)),
-        ((0, imH - skewBorderY), (imW, imH)),
+        ((0, 0), (x0, imH)),
+        ((0, 0), (imW, y0)),
+        ((x1, 0), (imW, imH)),
+        ((0, y1), (imW, imH)),
     ):
-        cv2.rectangle(img, *rect, skewColor, -1)
+        cv2.rectangle(img, *rect, white, -1)
 
 
 def parseStages(stage, allStages, sortedStages, error):
