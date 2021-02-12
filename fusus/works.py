@@ -166,6 +166,7 @@ def getWorkDir(source, ocred):
         ocr status is returned, otherwise None.
     """
     if source not in WORKS:
+        source = os.path.expanduser(source)
         if os.path.exists(source):
             if ocred is None:
                 print("Assume that {unexpanduser(source)} is OCRed")
@@ -221,12 +222,19 @@ def getFile(source, ocred):
     if workDir is None:
         return (None, ocred)
 
-    workInfo = WORKS[source]
+    workInfo = WORKS.get(source, None)
+    if workInfo is None:
+        return (workDir, ocred)
+
+    if "source" not in workInfo:
+        print(f"{source} does not specify a source")
+        return (workDir, ocred)
+
     sourceInfo = workInfo["source"]
 
     if "file" not in sourceInfo:
         print(f"{source} does not specify a file in its source")
-        return (None, ocred)
+        return (workDir, ocred)
 
     fileName = sourceInfo["file"]
 

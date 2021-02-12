@@ -105,6 +105,8 @@ from .lib import (
     showImage,
     splitext,
     getNbPath,
+    getNbLink,
+    dh,
 )
 from .clean import reborder
 from .page import Page
@@ -715,7 +717,9 @@ class Book:
         indent = tm.indent
 
         C = self.C
+        cd = self.cd
         textDir = C.textDir
+
         if not os.path.exists(textDir):
             os.makedirs(textDir, exist_ok=True)
 
@@ -729,7 +733,8 @@ class Book:
 
         page = None
 
-        path = f"{textDir}/{pagesDesc}.html"
+        fileName = f"{pagesDesc}.html"
+        path = f"{textDir}/{fileName}"
 
         doc = """\
 <html>
@@ -834,6 +839,12 @@ span.ln {
         with open(path, "w") as f:
             f.write(doc.replace("«body»", "\n".join(body)))
         info(f"written to {path}")
+        showPath = unexpanduser(f"{cd}{path}")
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f"""{nbLink} (local file: {showPath})""")
 
 
 def main():

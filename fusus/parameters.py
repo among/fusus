@@ -402,6 +402,13 @@ When the characters on a page are divided into lines based on their height,
 this parameter determines which heights can be clustered together.
 Heights that differ less than the estimated average line height times this
 factor, can be clustered together.
+
+!!! caution "tolerance"
+    When you choose a value of `0.44` or lower for this parameter,
+    line 8 on the title page will go wrong.
+
+    When you choose higher values, you run the risk of clustering
+    the characters of multiple lines into one line.
 """
 
 

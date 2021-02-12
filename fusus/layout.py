@@ -4,7 +4,7 @@ Pages consist of a header region, a body region, and a footer region, all of whi
 are optional.
 
 
-**header***
+**header**
 The header consists of a caption and/or a page number.
 All headers will be discarded.
 

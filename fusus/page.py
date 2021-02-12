@@ -50,6 +50,7 @@ MARK_HEADERS = """
 
 HEADERS = tuple(
     """
+    page
     stripe
     column
     line

@@ -24,8 +24,10 @@
 
 *Page by page in a notebook*
 
-* [do](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb)
-  Run the pipeline in a notebook;
+* [do example](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb)
+  Run the pipeline in a notebook on the examples;
+* [do Affifi](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Affifi/do.ipynb)
+  Run the pipeline in a notebook on the Affifi edition of the Fusus;
 * [inspect](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb)
   Inspect intermediate results in a notebook.
 * [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
@@ -57,6 +59,8 @@
 * `fusus.lakhnawi` 
   PDF reverse engineering.
 
+  * [drilldown](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/drilldown.ipynb)
+    Narrow down to specific pages and lines and see what text is extracted from which portion. 
   * [pages](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/pages.ipynb)
     Work with pages, follow line division, extract text and save to disk.
   * [characters](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/characters.ipynb)

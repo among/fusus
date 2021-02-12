@@ -57,6 +57,16 @@ def parseNums(numSpec):
         separated by a `-`.
         If none of these, it should be an iterable of `int` values.
 
+        Examples:
+
+            50
+            "50"
+            "50,70"
+            "50-70,91,92,300-350"
+            (50, 70, 91, 92, 300)
+            [50, 70, 90]
+            range(300, 350)
+
     Returns
     -------
     None | iterable of int
@@ -374,7 +384,6 @@ def cropBorders(img, tolerance=10):
     (y1, x1) = coords.max(axis=0)
 
     # Get the contents of the bounding box.
-    print(x0, x1, y0, y1)
     return (x0, x1, y0, y1)
 
 

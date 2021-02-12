@@ -45,6 +45,44 @@ to execute the pipeline and various conversion processes.
 
 See  `fusus.convert.HELP`.
 
+Here are concrete commands for known works:
+
+---
+
+``` sh
+python3 -m fusus.convert tsv fususa
+python3 -m fusus.convert tsv fususl
+```
+
+This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+and deliver TSV data as result;
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5
+python3 -m fusus.convert tf fususl 0.5
+```
+
+This will convert the TSV data to TF and deliver the tf files in version 0.5,
+for the Affifi and Lakhnawi editions resepctively.
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5 loadonly
+python3 -m fusus.convert tf fususl 0.5 loadonly
+```
+
+This will load the TF data in version 0.5.
+The first time it loads, some extra computations will be performed, and
+a binary version of the tf files will be generated, which will be used for
+subsequent use by Text-Fabric.
+
+---
+
+See also `fusus.convert`.
+
 ## Load TSV
 
 The function `loadTsv` to load TSV data in memory.
@@ -76,26 +114,33 @@ python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
 
 --help: print this text and exit
 
-"source"  : a work (given as keyword or as path to its work directory)
-            Examples:
+source      : a work (given as keyword or as path to its work directory)
+              Examples:
                 fususl (Fusus Al Hikam in Lakhnawi edition)
                 fususa (Fusus Al Hikam in Affifi edition)
                 any commentary by its keyword
                 ~/github/myorg/myrepo/mydata
                 mydir/mysubdir
-"pages"   : page specification, only process these pages; default: all pages
-            Examples:
+
+pages       : page specification, only process these pages; default: all pages
+              Examples:
                 50
                 50,70
                 50-70,91,92,300-350
-"ocr"     : assume the work is in the OCR pipeline
-"noocr"   : assume the work is not in the OCR pipeline
-            (it is then a text extract from a pdf)
+
+ocr         : assume the work is in the OCR pipeline
+noocr       : assume the work is not in the OCR pipeline
+              (it is then a text extract from a pdf)
 
 For tf only:
 
-"load"    : loads the generated TF; if missing this step is not performed
-"loadOnly": does not generate TF; loads previously generated TF
+versiontf   : loads the generated TF; if missing this step is not performed
+              Examples:
+                0.4
+                3.7.2
+
+load        : loads the generated TF; if missing this step is not performed
+loadOnly    : does not generate TF; loads previously generated TF
 """
 """Help"""
 
