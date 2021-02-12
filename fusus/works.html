@@ -50,7 +50,7 @@ subsequent use by Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L0-L261" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L0-L269" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Registry of sources.
 
@@ -220,6 +220,7 @@ def getWorkDir(source, ocred):
         ocr status is returned, otherwise None.
     &#34;&#34;&#34;
     if source not in WORKS:
+        source = os.path.expanduser(source)
         if os.path.exists(source):
             if ocred is None:
                 print(&#34;Assume that {unexpanduser(source)} is OCRed&#34;)
@@ -275,12 +276,19 @@ def getFile(source, ocred):
     if workDir is None:
         return (None, ocred)
 
-    workInfo = WORKS[source]
+    workInfo = WORKS.get(source, None)
+    if workInfo is None:
+        return (workDir, ocred)
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (workDir, ocred)
+
     sourceInfo = workInfo[&#34;source&#34;]
 
     if &#34;file&#34; not in sourceInfo:
         print(f&#34;{source} does not specify a file in its source&#34;)
-        return (None, ocred)
+        return (workDir, ocred)
 
     fileName = sourceInfo[&#34;file&#34;]
 
@@ -408,7 +416,7 @@ ocr status is returned, otherwise None.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L197-L233" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L198-L241" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getFile(source, ocred):
     &#34;&#34;&#34;Resolve a work data file location, given by key of directory.
@@ -437,12 +445,19 @@ ocr status is returned, otherwise None.
     if workDir is None:
         return (None, ocred)
 
-    workInfo = WORKS[source]
+    workInfo = WORKS.get(source, None)
+    if workInfo is None:
+        return (workDir, ocred)
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (workDir, ocred)
+
     sourceInfo = workInfo[&#34;source&#34;]
 
     if &#34;file&#34; not in sourceInfo:
         print(f&#34;{source} does not specify a file in its source&#34;)
-        return (None, ocred)
+        return (workDir, ocred)
 
     fileName = sourceInfo[&#34;file&#34;]
 
@@ -471,7 +486,7 @@ its versioned tf data directory is returned.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L236-L262" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L244-L270" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getTfDest(source, versionTf):
     &#34;&#34;&#34;Resolve a work tf directory, given by key of directory.
@@ -528,7 +543,7 @@ ocr status is returned, otherwise None.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L146-L194" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/works.py#L146-L195" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getWorkDir(source, ocred):
     &#34;&#34;&#34;Resolve a work location, given by key of directory.
@@ -553,6 +568,7 @@ ocr status is returned, otherwise None.
         ocr status is returned, otherwise None.
     &#34;&#34;&#34;
     if source not in WORKS:
+        source = os.path.expanduser(source)
         if os.path.exists(source):
             if ocred is None:
                 print(&#34;Assume that {unexpanduser(source)} is OCRed&#34;)

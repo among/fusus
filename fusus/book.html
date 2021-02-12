@@ -132,7 +132,7 @@ input. You have to start with layout detection.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L0-L859" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L0-L870" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Book workflow
 
@@ -241,6 +241,8 @@ from .lib import (
     showImage,
     splitext,
     getNbPath,
+    getNbLink,
+    dh,
 )
 from .clean import reborder
 from .page import Page
@@ -851,7 +853,9 @@ class Book:
         indent = tm.indent
 
         C = self.C
+        cd = self.cd
         textDir = C.textDir
+
         if not os.path.exists(textDir):
             os.makedirs(textDir, exist_ok=True)
 
@@ -865,7 +869,8 @@ class Book:
 
         page = None
 
-        path = f&#34;{textDir}/{pagesDesc}.html&#34;
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{textDir}/{fileName}&#34;
 
         doc = &#34;&#34;&#34;\
 &lt;html&gt;
@@ -970,6 +975,12 @@ span.ln {
         with open(path, &#34;w&#34;) as f:
             f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
         info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)
 
 
 def main():
@@ -1016,7 +1027,7 @@ of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L839-L856" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L850-L867" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Process a whole book with default settings.
@@ -1065,7 +1076,7 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L114-L836" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L116-L847" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Book:
     def __init__(self, cd=None, **params):
@@ -1671,7 +1682,9 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
         indent = tm.indent
 
         C = self.C
+        cd = self.cd
         textDir = C.textDir
+
         if not os.path.exists(textDir):
             os.makedirs(textDir, exist_ok=True)
 
@@ -1685,7 +1698,8 @@ a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">B
 
         page = None
 
-        path = f&#34;{textDir}/{pagesDesc}.html&#34;
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{textDir}/{fileName}&#34;
 
         doc = &#34;&#34;&#34;\
 &lt;html&gt;
@@ -1789,7 +1803,13 @@ span.ln {
         indent(level=0)
         with open(path, &#34;w&#34;) as f:
             f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
-        info(f&#34;written to {path}&#34;)</code></pre>
+        info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -1801,7 +1821,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L240-L251" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L242-L253" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableBands(self):
     &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
@@ -1832,7 +1852,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L253-L289" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L255-L291" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availableMarks(self, band=None, mark=None):
     &#34;&#34;&#34;Display the characteristics of defined *marks*.
@@ -1881,7 +1901,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L291-L300" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L293-L302" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def availablePages(self):
     &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
@@ -1904,7 +1924,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L215-L222" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L217-L224" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1924,7 +1944,7 @@ span.ln {
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L210-L213" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L212-L215" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def error(self, msg):
     tm = self.tm
@@ -1950,7 +1970,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L635-L696" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L637-L698" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def exportTsv(self, pages=None):
     &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
@@ -2024,7 +2044,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L200-L203" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L202-L205" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def info(self, msg):
     tm = self.tm
@@ -2055,7 +2075,7 @@ The OCR itself does not have to be performed again for this.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L493-L633" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L495-L635" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
         &#34;&#34;&#34;Measure the reported quality of the ocr processing.
@@ -2217,7 +2237,7 @@ No spaces allowed.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L698-L836" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L700-L847" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def plainText(self, pages=None):
         &#34;&#34;&#34;Get the plain text from the ocr output in one file
@@ -2239,7 +2259,9 @@ No spaces allowed.</p>
         indent = tm.indent
 
         C = self.C
+        cd = self.cd
         textDir = C.textDir
+
         if not os.path.exists(textDir):
             os.makedirs(textDir, exist_ok=True)
 
@@ -2253,7 +2275,8 @@ No spaces allowed.</p>
 
         page = None
 
-        path = f&#34;{textDir}/{pagesDesc}.html&#34;
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{textDir}/{fileName}&#34;
 
         doc = &#34;&#34;&#34;\
 &lt;html&gt;
@@ -2357,7 +2380,13 @@ span.ln {
         indent(level=0)
         with open(path, &#34;w&#34;) as f:
             f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
-        info(f&#34;written to {path}&#34;)</code></pre>
+        info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)</code></pre>
 </details>
 </dd>
 <dt id="fusus.book.Book.process"><code class="name flex">
@@ -2401,7 +2430,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L384-L484" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L386-L486" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def process(
     self,
@@ -2525,7 +2554,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L224-L238" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L226-L240" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSettings(self, params=None):
     &#34;&#34;&#34;Display settings.
@@ -2552,7 +2581,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L486-L491" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L488-L493" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stageDir(self, stage):
     C = self.C
@@ -2570,7 +2599,7 @@ only their names. It is recommended to pass <code>None</code> as values:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L205-L208" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/book.py#L207-L210" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def warning(self, msg):
     tm = self.tm

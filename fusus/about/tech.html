@@ -35,47 +35,570 @@ on these pages.</p>
 <p>It turned out that Kraken did a much better job, using a model trained by others
 on Arabic texts. See below.</p>
 <h2 id="preprocessing">Preprocessing</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">OpenCV</a>.</li>
+<li><a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/">SciPy</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.page.Page.doLayout" href="../page.html#fusus.page.Page.doLayout">Page.doLayout()</a></code></li>
+<li><code><a title="fusus.page.Page.cleaning" href="../page.html#fusus.page.Page.cleaning">Page.cleaning()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb">inspect</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
 <p>Yet we needed considerable preprocessing to aid and feed the OCR engine.</p>
-<p>The tool of the trade for that is
-<a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">OpenCV</a>.
-The added beauty of this is that OpenCV represents images as
-<a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a>
-arrays and allows
+<p>The tool of the trade for that is OpenCV.
+The added beauty of this is that OpenCV represents images as NumPy arrays and allows us
 to manipulate images under the hood by NumPy operations.
 This is what we do frequently.</p>
 <p>When things get less straightforward, we can also make use of the signal processing library
-within the
-<a href="https://docs.scipy.org/doc/scipy/reference/">SciPy</a>
-library.</p>
+within the SciPy library.</p>
 <h3 id="normalizing">Normalizing</h3>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">OpenCV</a>.</li>
+<li><a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.lib.cropBorders" href="../lib.html#fusus.lib.cropBorders">cropBorders()</a></code>.</li>
+<li><code><a title="fusus.lib.removeBorders" href="../lib.html#fusus.lib.removeBorders">removeBorders()</a></code>.</li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/tweak.ipynb">tweak</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/border.ipynb">border</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
 <p>Page images need to be normalized, i.e. turned into gray-scale and then black-and white.
-If there are black borders, they need to be removed.
-A first attempt was to make the edges of the page white, using a fixed proportion of
+If there are black borders, they need to be removed.</p>
+<p><img alt="border" src="../images/border.png"></p>
+<p>A first attempt was to make the edges of the page white, using a fixed proportion of
 the page dimensions to determine what counts as a border.
 However, if we adjust the border widths to the extent that it removes all known black borders,
 it will also clip some real text on other pages.</p>
 <p>Now we do it dynamically: we detect where the borders are by surprisingly straightforward
-Numpy operations.</p>
-<p>See <code><a title="fusus.lib.cropBorders" href="../lib.html#fusus.lib.cropBorders">cropBorders()</a></code>.</p>
+NumPy operations.</p>
 <p>We also blur, invert and threshold the image, in order to make useful histograms of the
 ink distribution on the page.</p>
+<p><img alt="blurred" src="../images/blurred.png"></p>
 <h3 id="mark-removal">Mark removal</h3>
-<p>In order to remove unwanted marks that occur repeatedly we use
-<a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html#template-matching">template matching</a>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html#template-matching">template matching</a></li>
+<li><a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.clean" href="../clean.html">fusus.clean</a></code>.</li>
+<li><code><a title="fusus.clean.connected" href="../clean.html#fusus.clean.connected">connected()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/comma.ipynb">comma</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>In order to remove unwanted marks that occur repeatedly we use template matching
 by OpenCV to spot them.</p>
+<p>We need various parameters to control the correct wiping of marks.
+It turned out that by parameter tweaking alone we could not separate false positives from true
+positives in a reliable way.</p>
+<p><img alt="marks" src="../images/marks.png"></p>
+<p>A thing that helped was to track whether a hit had an ink connection with other material.
+Such a connection means that the hit is not a mark on its own, but a part of another glyph:
+a false positive.</p>
+<p><img alt="falsepos" src="../images/falsepos.png"></p>
 <h3 id="layout-detection">Layout detection</h3>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a></li>
+<li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_houghlines/py_houghlines.html">Hough lines</a>
+(<em>not used</em>)</li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.layout" href="../layout.html">fusus.layout</a></code></li>
+<li><code><a title="fusus.layout.getStretches" href="../layout.html#fusus.layout.getStretches">getStretches()</a></code>.</li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb">inspect</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>Pages are usually divided into regions: header, middle, footer.
+There can be vertical divisions to, into columns.
+We detect such regions by spotting horizontal and vertical lines and dividing the page accordingly.</p>
+<p>A subtlety is that vertical stroke are often just an approximation: they do not exactly
+correspond with the boundaries of the lines on the left and right of the stroke.</p>
+<p>We solve this by making a premature line division left and right, and adjusting the size of the
+left and right columns accordingly.</p>
+<p>In this way we divide the page into blocks, which are the ultimate containers of lines.</p>
+<p><img alt="layout" src="../images/layout.png"></p>
+<p>Stroke detection turns out to be subtle.
+First we experimented with well-known sophisticated algorithms such as Hough Lines.
+The problem is that this works fine for scenery, but not pages of text.
+On the one hand, it failed to detect some very obvious strokes, and on the other hand, it detected many
+false strokes, by connecting bits and pieces of many letters.</p>
+<p>In the end we devised our own algorithm, expressed in NumPy operations.</p>
 <h3 id="line-detection">Line detection</h3>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html#scipy.signal.find_peaks">find_peaks</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.medfilt.html#scipy.signal.medfilt">medfilt</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.lines" href="../lines.html">fusus.lines</a></code>.</li>
+<li><code><a title="fusus.lines.getInkY" href="../lines.html#fusus.lines.getInkY">getInkY()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/lines.ipynb">lines</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>The basic idead for line detection is using histograms of the ink distribution and then inferring
+the line boxes by reading off the peaks of the histogram.
+While this works in the majority of cases, it also fails spectacularly in a wide range of minority cases.
+We had to do something about it.</p>
+<p>The first problem is that there are false peaks. Especially in pages with many diacritics,
+there are sometimes rather pronounced secondary peaks.</p>
+<p>The second problem is that every now and then a line is very short, and such lines hardly have
+peaks.</p>
+<p>In order to discard false peaks, we used the SciPy signal processing function <code>find_peaks</code>
+with carefully chosen parameters.</p>
+<p>However, it turned out to be very difficult to tweak those parameters in such a way that the lines
+came out right in all cases.
+Either we missed out the peaks of short lines, or we were overwhelmed with strongish secondary peaks.</p>
+<p>That's why we needed to correct for line length.
+The straightforward idea is to examine every horizontal pixel line and determine its first and last
+black pixel, and take the space between them as the line length.
+We can then divide the histogram value for that line by this length.</p>
+<p>It turned out that this made things worse. Some pixel lines turned out to be very short, especially at the
+top and the bottom of text lines, so the correction caused extremely high but also extremely narrow peaks
+at those places.</p>
+<p>Yet the need for correction is still there. We used two tactics to make the basic idea workable.</p>
+<p>The first one is to determine the text line length in a better way, not by looking at horizontal
+pixel lines, but at the text line as a whole.</p>
+<p>We still take the first pixels and last pixels of horizontal pixel lines, but instead of using them
+individually, we first smooth them.
+The first pixels form a contour of the left line bondaries, the last pixels form a contour of the
+right line boundaries.</p>
+<p>We smoothen these contours, by taking at each point the median of the points above and below on the
+contour.
+For this we used the SciPy signal processing function <code>medfilt</code>, which computes a rolling median.</p>
+<p>The question is: how far do we look up and down to find the median?
+A good value turns out to be one third of the line height.
+However, we do not yet know the line height. However, we can estimate the line height by using
+the unsophisticated histogram, and from it the most reliable peaks.
+This fails if the page has too few lines, but in that case we use a fixed default.</p>
+<p>Now we have a much more reasonable estimation of the length of a text line.
+However, in many cases we still suffered from too high peaks at the top and bottom of the lines,
+and this had to do with the fact that even the smoothened contours fitted the lines too closely.
+Very short lines gave rise to exaggerated ink densities.
+The solution for this aspect was to move the contours a marginal distance to the left and right, so that
+all corrected densities got lowered, but, more importantly, the fluctuation for very short lines became
+much less. Because short lines now still have a positive length (twice the margin) instead of their
+length approaching zero.</p>
+<p><img alt="lines" src="../images/lines.png"></p>
+<p>The combination of all these ingredients (finding the significant peaks and using sensible contour lines)
+solved the problem.
+We were able to choose parameter values that did the trick.</p>
 <h2 id="ocr-application">OCR application</h2>
-<h2 id="proofing">Proofing</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://github.com/mittagessen/kraken">Kraken</a></li>
+<li><a href="https://github.com/OpenITI/OCR_GS_Data/blob/master/ara/abhath/arabic_generalized.mlmodel">OpenITI</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSS</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.ocr" href="../ocr.html">fusus.ocr</a></code></li>
+<li><code><a title="fusus.layout" href="../layout.html">fusus.layout</a></code></li>
+<li><code><a title="fusus.ocr.OCR.read" href="../ocr.html#fusus.ocr.OCR.read">OCR.read()</a></code></li>
+<li><code><a title="fusus.ocr.OCR.proofing" href="../ocr.html#fusus.ocr.OCR.proofing">OCR.proofing()</a></code></li>
+<li><code><a title="fusus.book.Book.measureQuality" href="../book.html#fusus.book.Book.measureQuality">Book.measureQuality()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb">ocr</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>We used two very helpful pieces of software to perform OCR.</p>
+<p><em>Kraken</em> is a Python library to apply an OCR model to text images.
+OpenITI has trained an <em>OCR model</em> on many printed Arabic pages.</p>
+<p>It was easy to bring them together.</p>
+<p>However, there were some things that required extra care: Kraken can do binarization and segmentation
+itself, but not layout detection.
+So, at first we tried to feed our blocks of text, coming out layout detection, to Kraken.
+Then it turned out that the line segmenter in Kraken had some worst case performance that was excessive.
+Given the fact that we needed line segmentation for cleaning, and solved it, we decided to feed
+Kraken the text of a block in line by line pieces.</p>
+<p>This is feasible, because Kraken has an API and can be called from within Python.
+Loading the model takes 5 to 10 seconds, so it is important to do that just once in a session.</p>
+<p>The output of Kraken consists of the unicodes and bounding boxes of recognized characters
+and the confidences by which they have been recognized.</p>
+<p>We store this data in TSV files and we also make a version where we have combined
+the character data into word data.</p>
+<p>We also include columns for the page, block, and line information of the characters and words.</p>
+<p>This enables us to compose <em>proofing</em> pages, which consist of HTML pages
+with the page image as background and the recognized characters/words at the proper fixed
+positions, with a coloured background that represents the confidence of recognition.</p>
+<p><img alt="proof" src="../images/proof.png"></p>
+<p>We also provide statistics per character and word, highlighting the pages the worst recognitions
+take place.</p>
+<p><img alt="measure" src="../images/measure.png"></p>
 <h1 id="pdf-text-extraction">PDF Text Extraction</h1>
-<h2 id="double-characters">Double characters</h2>
-<h2 id="private-use-characters">Private use characters</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://pymupdf.readthedocs.io/en/latest/index.html">PyMUPDF</a>, also know as <em>fitz</em>
+(see note <em>[1]</em>).</li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.lakhnawi" href="../lakhnawi.html">fusus.lakhnawi</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.getPages" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.getPages">Lakhnawi.getPages()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/pages.ipynb">pages</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>We have to extract text from a PDF containing the full formatted text of the Fusus in the
+Lakhnawi edition.</p>
+<p>Normally, extracting text from a PDF is an easy task, with a number of programs and libraries and services
+that can do this.</p>
+<p>This particular PDF resisted all those attempts.
+While there was text coming out, the text had many defects: weird characters,
+duplication of characters, and a strange order.</p>
+<p>It required a kind of reverse engineering to get it done.</p>
+<p>The first task was to select the best PDF library available.
+It turned out to be <em>PyMuPDF</em>, also known as <em>fitz</em>, that provided a very complete Python API
+for manipulating PDF objects.</p>
+<p><strong>Notes</strong></p>
+<p><em>[1]</em></p>
+<blockquote>
+<p>In 2002, Tor Andersson started work on MuPDF based on the Libart rendering library by Raph Levien.
+After Artifex Software acquired the MuPDF project,
+the development focus shifted on writing a new modern graphics library called Fitz.
+Fitz was originally intended as an R&amp;D project to replace the aging Ghostscript graphics library,
+but has instead become the rendering engine powering MuPDF.</p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/MuPDF">MUPDF</a></p>
+</blockquote>
+<h2 id="characters">Characters</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="http://www.unicode.org/versions/Unicode13.0.0/">Unicode</a></li>
+<li><a href="https://www.unicode.org/charts/charindex.html">Unicode Name Index (online)</a></li>
+<li><a href="https://www.unicode.org/Public/zipped/13.0.0/UCD.zip">Unicode NamesList.txt (download)</a></li>
+<li><a href="https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf">Unicode Arabic</a></li>
+<li><a href="https://www.pdflib.com/download/free-software/fontreporter/">FontReporter</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.char" href="../char.html">fusus.char</a></code></li>
+<li><code><a title="fusus.lakhnawi.REPLACE_DEF" href="../lakhnawi.html#fusus.lakhnawi.REPLACE_DEF">REPLACE_DEF</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.doubles" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.doubles">Lakhnawi.doubles</a></code></li>
+<li><code><a title="fusus.char.UChar.finalSpace" href="../char.html#fusus.char.UChar.finalSpace">UChar.finalSpace</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.getCharInfo" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.getCharInfo">Lakhnawi.getCharInfo()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.columns" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.columns">Lakhnawi.columns</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showDoubles" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showDoubles">Lakhnawi.showDoubles()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showFinals" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showFinals">Lakhnawi.showFinals()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showLines" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showLines">Lakhnawi.showLines()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showReplacements" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showReplacements">Lakhnawi.showReplacements()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://github.com/among/fusus/blob/master/ur/Lakhnawi/FontReport-Lakhnawi.pdf">report of character and font usage in the Lakhnawi PDF</a>.</li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/characters.ipynb">characters</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/final.ipynb">final</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>The second task was to examine the fonts and their usage in the PDF. For that we
+used the font reported, which produced a exhaustive report (in PDF) of all character/font combinations
+used in the PDF.</p>
+<p>We needed to read that font report programmatically, and for that we used <em>fitz</em>, of course.</p>
+<h3 id="duplicate-characters">Duplicate characters</h3>
+<p>When we used each and every method provided by <em>fitz</em> for text extraction, we were faced with duplicate
+characters. This also happened when using other libraries, and also when we naïvely copied and pasted
+portions from the PDF.</p>
+<p><img alt="titlel" src="../images/titlel.png"></p>
+<p><img alt="dbl" src="../images/dbl.png"></p>
+<p>The font report gave us a clue. Some characters are listed with a double unicode, and exactly
+those characters lead to duplicate occurrences.</p>
+<p>Here is an example:
+<img alt="double" src="images/double.png"></p>
+<p>It turns out that both unicodes refer to the same character, one to the base form, and the other to
+the isolated form, which happen to be identical glyphs.
+This is true for all double characters that we have found in the font report file.</p>
+<p>We then made a mapping between doubles, which we use to retain the base form and to discard the
+isolated form.</p>
+<h3 id="presentational-characters">Presentational characters</h3>
+<p>The isolated form is an example of <em>presentational</em> forms. In Arabic writing, characters may have
+a number of different appearances depending on how they are connected to the context
+(the Arabic script is a connected script). There are isolated, initial, medial, and final forms.
+In Unicode they have all separate code points, and there are also code points for the letters
+regardless to their presentational forms. These are the base characters, and they have the lowest code
+points.</p>
+<p>It turns out that Unicode provides an algorithm to switch between presentational forms according to the need
+of the context. It is even able to furnish the correct presentation of the word Allah out of its three
+basic characters.</p>
+<p>Hence we decided to transform all presentational characters to their base forms and let unicode do the rest.
+This had excellent results, with a few caveats concerning word separation, that we will address below. </p>
+<h3 id="private-use-characters">Private use characters</h3>
+<p>Text extraction had more surprises for us: lots of Asian characters!
+On closer inspection they were all in the range <em>E000-EFFF</em>, which are private use characters in Unicode.
+The idea is that a font designer can map arbitrary glyphs of his font to these code points,
+so that text-writers can address them by normal unicode machinery.</p>
+<p>The Lakhnawi PDF makes heavy use of this facility to render parts of ligatures, diacritics in various
+relative places with respect to their base characters, and various idiosyncratic variants of the
+letters.</p>
+<p><img alt="titlel2" src="../images/titlel2.png"></p>
+<p><img alt="prv" src="../images/prv.png"></p>
+<p>By means of the font report we were able to compile a mapping table to ordinary unicode characters.
+It turned out not to be a simple one-one mapping. Typically we had to map sequences containing a
+private use characters to sequences not containing private use characters.</p>
+<p>We ended up with 84 rules.</p>
+<p><img alt="rule50" src="../images/rule50.png"></p>
+<p><img alt="rule43" src="../images/rule43.png"></p>
+<p><img alt="rule77" src="../images/rule77.png"></p>
+<h3 id="word-separation">Word separation</h3>
+<p>In a PDF, spaces are typically not rendered by filling a box with a space glyph, but by just
+leaving space between boxes.
+We used that space to detect spaces. When the space between boxes exceed a certain threshold,
+we generate a white space in our text extract.</p>
+<p><img alt="realspace" src="../images/realspace.png"></p>
+<p>Sometimes we encounter a very big space, namely in <em>hemistic</em> verse lines, which consist of
+wo parts, each centered on the left/right half of the page.</p>
+<p><img alt="hemistica" src="../images/hemistica.png"></p>
+<p>Such spaces we convert into tabs, which are translated to columns later on (so that they
+do not end up in the tab-separated files that hold the results).</p>
+<p><img alt="hemisticb" src="../images/hemisticb.png"></p>
+<p>Unfortunately, this does not give us all the word-separating white spaces!
+When we lower the threshold for detecting white space, we get unwanted spaces before we get enough
+of the missing spaces.
+It turns out that we cannot rely on physical distance between the boxes in order to get all the spaces.</p>
+<p>Space detection also gets confounded by overlapping boxes and boxes that are rather wide.
+Sometimes a visible character has an edge that extends beyond the edge of the box of its neighbour.
+However, when we ignore the boxes of the diacritics, this problem is alleviated.</p>
+<p>Trained readers of Arabic use other clues to separate words: the presentational forms.
+Final and initial forms are prone to indicate word boundaries.
+Unfortunately, not all Arabic letters connect to both sides, so there are final and initial forms
+inside words.
+However, we compiled a class of final letters that guarantee the end of a word.</p>
+<p><img alt="finalspaces" src="../images/finalspaces.png"></p>
+<p>When we encounter final space characters, we make sure a space is inserted after it and its diacritics.</p>
+<p><img alt="finalspace" src="../images/finalspace.png"></p>
+<p>But, in the end, we have not achieved perfect word separation.</p>
 <h2 id="reading-order">Reading order</h2>
-<h2 id="word-separation">Word separation</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li>clustering</li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.lakhnawi.keyCharH" href="../lakhnawi.html#fusus.lakhnawi.keyCharH">keyCharH()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.clusterVert" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.clusterVert">Lakhnawi.clusterVert()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showLineHeights" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showLineHeights">Lakhnawi.showLineHeights()</a></code></li>
+<li><code><a title="fusus.parameters.LINE_CLUSTER_FACTOR" href="../parameters.html#fusus.parameters.LINE_CLUSTER_FACTOR">LINE_CLUSTER_FACTOR</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/lines.ipynb">lines</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>When a PDF is renders, its shape definitions are translated to pixels.
+Letters in a PDF are shape definitions that are stored in a font, and addressed by a key.
+For the end result the rendering, it does not matter in what order the shapes are rendered.</p>
+<p>When <em>fitz</em> extracts text from a PDF, it extracts the rendering definitions in the order in which they
+are stored in the PDF. Other text extraction tools do the same.</p>
+<p><img alt="p101" src="../images/p101.png"></p>
+<p>It turns out that in the Lakhnawi PDF this is by no means equal to the reading order.
+This is one of the main reasons why the text comes out garbled.</p>
+<p><img alt="p101t" src="../images/p101t.png"></p>
+<p>However, since we have access to the bounding boxes of the letters, we can sort them into reading order.
+We can sort them vertically to get the lines and then horizontally to get the letters within the lines
+in the proper order.</p>
+<p>This basic idea is sound, but a straightforward implementation does not yet solve the whole problem.</p>
+<p>Some characters have identical left and right boundaries, or one embeds another.
+Usually, one of them is then a diacritic, and we can detect that, and put the main character first.</p>
+<p>As to the vertical ordering: whereas most characters on the same line have their bounding boxes aligned
+with a fixed base line, their are exceptions.</p>
+<p>On the title page, there is a line where the letters go slightly up.
+Sometimes diacritics have significant higher or lower alignments.</p>
+<p>At the end of the day, we have to cluster the heights of the characters into meaningful classes,
+which will then define the lines.</p>
 <h2 id="text-reconstruction">Text reconstruction</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSS</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.htmlPages" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.htmlPages">Lakhnawi.htmlPages()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.plainPages" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.plainPages">Lakhnawi.plainPages()</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.showWords" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.showWords">Lakhnawi.showWords()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/drilldown.ipynb">drilldown</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/pages.ipynb">pages</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>After (partially) solving all the problems above, we have to find ways present the extracted text.</p>
+<p>The most faithful one is a rendering to HTML.
+There we can control the writing direction, the column layout of hemistic verses, use margins for
+page references, and place a convenient table of contents in a side bar.</p>
+<p>This is page 12 as seen in the PDF:</p>
+<p><img alt="p12" src="../images/p12.png"></p>
+<p>And here as it is in the heaven of HTML:</p>
+<p><img alt="p12h" src="../images/p12h.png"></p>
+<p>Alternatively, we also do a plain text export, which is easier as input for text mining tools. </p>
+<p>We can control the html pages very tightly: we can select pages and lines.</p>
+<p>There are also methods to look to words in lines.</p>
 <h1 id="delivery">Delivery</h1>
+<p>The export to HTML and plain text discussed above is primarily an aid to study and check
+the pipeline and text extraction. But the real results of are delivered as
+Tab-Separated-Value files.</p>
+<h2 id="works">Works</h2>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.works" href="../works.html">fusus.works</a></code></li>
+<li><code><a title="fusus.works.WORKS" href="../works.html#fusus.works.WORKS">WORKS</a></code></li>
+<li><code><a title="fusus.convert" href="../convert.html">fusus.convert</a></code></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>Here we are at the stage where the results of the pipeline and those of the text extraction
+reach a common file format, with an almost identical column division.</p>
+<p>In order to streamline the orchestration of work we have registered the works that
+we have subjected to the pipeline and the text extraction.
+They can be referred to by a simple acronym in several data conversion and delivery functions.</p>
+<p>This does not restrict the package <em>fusus</em> to these known works.
+Instead of passing an acronym of a known work, you can also give a full path
+to a directory or file where a work resides, and then <em>fusus</em> will operate on that.</p>
+<p>The intention is to run more commentary works through the OCR pipeline, give them an acronym,
+and register them in the WORKS dictionary.</p>
 <h2 id="tsv-files">TSV files</h2>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tab-separated_values">tsv</a> (<em>admittedly low tech)</em></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.convert.HELP" href="../convert.html#fusus.convert.HELP">HELP</a></code></li>
+<li><code><a title="fusus.convert.makeTsv" href="../convert.html#fusus.convert.makeTsv">makeTsv()</a></code></li>
+<li><code><a title="fusus.convert.loadTsv" href="../convert.html#fusus.convert.loadTsv">loadTsv()</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTsv.ipynb">useTsv</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>All data that we produce with <em>fusus</em> consists of records corresponding to individual words
+(or at least what the software has identified as individual words).</p>
+<p>For each word we have location information (<em>page, stripe, block, line, column, span, direction</em>),
+position information (a bounding box: <em>left, top, right, bottom</em> coordinates), a <em>confidence</em>,
+and a <em>text</em>.</p>
+<p>If the data comes from the pipe line, we do not have the <em>column, span, direction</em> fields.
+These are regions within the line, based on the detection of tabs and the occurrence
+of unicode characters in ltr and rtl scripts.</p>
+<p>This is the start of the TSV for Affifi:</p>
+<p><img alt="affifitsv" src="../images/affifitsv.png"></p>
+<p>If the data comes from text-extraction, we do not have the <em>stripe, block</em> fields,
+which come from pre-ocr layout detection, and we also do not have a <em>confidence</em> field.</p>
+<p>This is the start of the TSV for Lakhnawi:</p>
+<p><img alt="lakhnawitsv" src="../images/lakhnawitsv.png"></p>
+<p>For known works, <em>fusus</em> knows what to expect, and the user of the software does not have to
+spell out the details.</p>
+<p>There is one streamlined function to execute the full conversion from page images to TSV and from
+PDF to TSV.
+It is also possible to trigger this function as a one liner from the command line.</p>
+<p>Conversely, if you want to work with result tsv files from within a Python program,
+there is a convenience function to load them from disk straight into Python memeory
+as tuples of tuples of fields of the right type.</p>
+<div class="admonition hint">
+<p class="admonition-title">Why TSV</p>
+<p>TSV is a very transparant plain text format for structured data.
+Why not Comma-Separated?
+Well, technically, TSV is CSV but them with the TAB as field separator.
+There are two advantages of the TAB above the comma:</p>
+<ul>
+<li>tabs do not occur in normal text, so we do not have to escape tabs in our text fields,
+nor do we have to enclose our text fields in quotes (en then we would have
+to escape the quotes that happen to occur in our texts)</li>
+<li>in CSV files either a comma or semicolon is used as separator, and it depends on your computer
+settings. That is bad for interoperability.</li>
+</ul>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">TSV and Unicode</p>
+<p>Our TSV files are in UTF-8. But for Excel UTF-16_LE would have been a better choice.
+But that makes it more difficult for all other applications to read the data.
+See also the
+<a href="https://annotation.github.io/text-fabric/tf/advanced/display.html#tf.advanced.display.export">Text-Fabric docs on this</a> (under Encoding).</p>
+</div>
 <h2 id="text-fabric-datasets">Text-Fabric datasets</h2>
+<p>Next step: turn TSV data into a Text-Fabric dataset.</p>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://github.com/annotation/text-fabric">Text-Fabric</a></li>
+<li><a href="https://annotation.github.io/text-fabric/tf/about/datamodel.html">TF data model</a></li>
+<li><a href="https://annotation.github.io/text-fabric/tf/writing/arabic.html">Transliteration</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.convert.makeTf" href="../convert.html#fusus.convert.makeTf">makeTf()</a></code></li>
+<li><code><a title="fusus.tfFromTsv" href="../tfFromTsv.html">fusus.tfFromTsv</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTf.ipynb">useTf</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Lakhnawi/boxes.ipynb">boxes</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/ETCBC/parallels/blob/master/programs/parallels.ipynb">parallel detection Hebrew Bible</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/ETCBC/parallels/blob/master/programs/kings_ii.ipynb">parallel detection 2 Kings</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/annotation/tutorials/blob/master/uruk/start.ipynb">uruk</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>Text-Fabric is a package that provides an API to text plus annotations.
+It supports adding new data as annotations in a distributed way.
+Distributed in the sense that you can take a Text-Fabric dataset, work with it,
+produce new data associated with it (such as named entities, part-of-speech, semantic enrichments),
+and publish it in your own GitHub repo.
+Then other users can load the original dataset and your annotations in one go, and can compute with
+the combined result.</p>
+<p>When we convert the TSV to Text_Fabric we perform two extra steps:</p>
+<ul>
+<li>separatation punctuation from words;</li>
+<li>transliteration of Arabic text to various schemes;
+these schemes are now part of Text-Fabric.</li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Limited quality transliteration</p>
+<p>Arabic transliteration involves knowledge of Arabic orthography, morphology and parsing.
+That type of knowledge is nowhere built-in in <em>fusus</em> or Text-Fabric,
+so our transliteration is a poor man's job: the result of a character mapping.</p>
+</div>
+<p>Since these steps are relevant for the data coming out of the text extraction and the OCR pipeline,
+we deploy them in this stage.</p>
+<p>Text-Fabric has been used for richly annotated corpora such as the
+<a href="https://github.com/ETCBC/bhsa">Hebrew Bible</a> and the
+<a href="https://github.com/q-ran/quran">Quran</a> and
+<a href="https://github.com/Nino-cunei/uruk">Uruk</a>.</p>
+<p>In this case, the potentially interesting thing is to be able to use bounding box and confidence
+in textual queries.</p>
+<p><img alt="boxes" src="../images/boxes.png"></p>
+<p>We also hope to exploit the distributed addition of linguistic features, such as
+reliable word/morpheme boundaries, lexemes, morphological tags, and part-of-speech.</p>
+<p>Most of all we are interested in intertextuality between the Fusus Al Hikam and its commentaries,
+which can be stored as
+<a href="https://annotation.github.io/text-fabric/tf/core/edgefeature.html#tf.core.edgefeature.EdgeFeature">edge features</a>
+in Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -110,18 +633,22 @@ by OpenCV to spot them.</p>
 </ul>
 </li>
 <li><a href="#ocr-application">OCR application</a></li>
-<li><a href="#proofing">Proofing</a></li>
 </ul>
 </li>
 <li><a href="#pdf-text-extraction">PDF Text Extraction</a><ul>
-<li><a href="#double-characters">Double characters</a></li>
+<li><a href="#characters">Characters</a><ul>
+<li><a href="#duplicate-characters">Duplicate characters</a></li>
+<li><a href="#presentational-characters">Presentational characters</a></li>
 <li><a href="#private-use-characters">Private use characters</a></li>
-<li><a href="#reading-order">Reading order</a></li>
 <li><a href="#word-separation">Word separation</a></li>
+</ul>
+</li>
+<li><a href="#reading-order">Reading order</a></li>
 <li><a href="#text-reconstruction">Text reconstruction</a></li>
 </ul>
 </li>
 <li><a href="#delivery">Delivery</a><ul>
+<li><a href="#works">Works</a></li>
 <li><a href="#tsv-files">TSV files</a></li>
 <li><a href="#text-fabric-datasets">Text-Fabric datasets</a></li>
 </ul>

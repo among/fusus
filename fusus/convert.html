@@ -54,6 +54,29 @@ on books that you provide yourself.</p>
 to execute the pipeline and various conversion processes.</p>
 <p>See
 <code><a title="fusus.convert.HELP" href="#fusus.convert.HELP">HELP</a></code>.</p>
+<p>Here are concrete commands for known works:</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tsv fususa
+python3 -m fusus.convert tsv fususl
+</code></pre>
+<p>This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+and deliver TSV data as result;</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tf fususa 0.5
+python3 -m fusus.convert tf fususl 0.5
+</code></pre>
+<p>This will convert the TSV data to TF and deliver the tf files in version 0.5,
+for the Affifi and Lakhnawi editions resepctively.</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tf fususa 0.5 loadonly
+python3 -m fusus.convert tf fususl 0.5 loadonly
+</code></pre>
+<p>This will load the TF data in version 0.5.
+The first time it loads, some extra computations will be performed, and
+a binary version of the tf files will be generated, which will be used for
+subsequent use by Text-Fabric.</p>
+<hr>
+<p>See also <code><a title="fusus.convert" href="#fusus.convert">fusus.convert</a></code>.</p>
 <h2 id="load-tsv">Load TSV</h2>
 <p>The function <code><a title="fusus.convert.loadTsv" href="#fusus.convert.loadTsv">loadTsv()</a></code> to load TSV data in memory.
 For known works, it will also convert the data types of the appropriate fields
@@ -61,7 +84,7 @@ to integer.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L0-L436" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L0-L474" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convenience methods to call conversions to and from tsv and to tf.
 
@@ -109,6 +132,44 @@ This script supports one-liners on the command line
 to execute the pipeline and various conversion processes.
 
 See  `fusus.convert.HELP`.
+
+Here are concrete commands for known works:
+
+---
+
+``` sh
+python3 -m fusus.convert tsv fususa
+python3 -m fusus.convert tsv fususl
+```
+
+This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+and deliver TSV data as result;
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5
+python3 -m fusus.convert tf fususl 0.5
+```
+
+This will convert the TSV data to TF and deliver the tf files in version 0.5,
+for the Affifi and Lakhnawi editions resepctively.
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5 loadonly
+python3 -m fusus.convert tf fususl 0.5 loadonly
+```
+
+This will load the TF data in version 0.5.
+The first time it loads, some extra computations will be performed, and
+a binary version of the tf files will be generated, which will be used for
+subsequent use by Text-Fabric.
+
+---
+
+See also `fusus.convert`.
 
 ## Load TSV
 
@@ -592,7 +653,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L246-L321" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L284-L359" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Load a tsv file into memory.
@@ -681,7 +742,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L415-L433" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L453-L471" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Perform tasks.
@@ -749,7 +810,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L112-L185" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L150-L223" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTf(
     versionTf=None,
@@ -861,7 +922,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L188-L243" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L226-L281" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Make TSV data out of the source of a work.
@@ -942,7 +1003,7 @@ which will be passed on to the rest of program.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L327-L412" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L365-L450" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseArgs(args):
     &#34;&#34;&#34;Parse arguments from the command line.

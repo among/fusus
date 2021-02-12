@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L0-L532" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L0-L539" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Settings and configuration
 &#34;&#34;&#34;
@@ -430,6 +430,13 @@ When the characters on a page are divided into lines based on their height,
 this parameter determines which heights can be clustered together.
 Heights that differ less than the estimated average line height times this
 factor, can be clustered together.
+
+!!! caution &#34;tolerance&#34;
+    When you choose a value of `0.44` or lower for this parameter,
+    line 8 on the title page will go wrong.
+
+    When you choose higher values, you run the risk of clustering
+    the characters of multiple lines into one line.
 &#34;&#34;&#34;
 
 
@@ -589,7 +596,14 @@ class Config:
 <p>When the characters on a page are divided into lines based on their height,
 this parameter determines which heights can be clustered together.
 Heights that differ less than the estimated average line height times this
-factor, can be clustered together.</p></div>
+factor, can be clustered together.</p>
+<div class="admonition caution">
+<p class="admonition-title">tolerance</p>
+<p>When you choose a value of <code>0.44</code> or lower for this parameter,
+line 8 on the title page will go wrong.</p>
+<p>When you choose higher values, you run the risk of clustering
+the characters of multiple lines into one line.</p>
+</div></div>
 </dd>
 <dt id="fusus.parameters.LOCAL_DIR"><code class="name">var <span class="ident">LOCAL_DIR</span></code></dt>
 <dd>
@@ -875,7 +889,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L408-L533" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L415-L540" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Config:
     def __init__(self, tm, **params):
@@ -1025,7 +1039,7 @@ If a value is <code>None</code>, the original value will be reinstated.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L466-L508" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L473-L515" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def configure(self, reset=False, **params):
     &#34;&#34;&#34;Updates current settings based on new values.
@@ -1087,7 +1101,7 @@ parameter names whose values are to be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L510-L533" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/parameters.py#L517-L540" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, params=None):
     &#34;&#34;&#34;Display current settings.
