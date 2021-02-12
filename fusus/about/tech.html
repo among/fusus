@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about API documentation</title>
-<meta name="description" content="Documents …" />
+<title>fusus.about.tech API documentation</title>
+<meta name="description" content="This is a technical overview of the capabilities of the fusus package …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,51 +17,76 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about</code></h1>
+<h1 class="title">Module <code>fusus.about.tech</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="documents">Documents</h1>
-<p>Higher level documentation.</p>
+<p>This is a technical overview of the capabilities of the fusus package.</p>
+<p>We discuss the main problems we encountered and how we solved them,
+pointing to relevant technologies.</p>
+<p>The <em>fusus</em> package deals with two distinct problems:</p>
+<ul>
+<li>get text from page images by means of Optical Character Recognition</li>
+<li>extract text from a textual, but convoluted PDF</li>
+</ul>
+<h1 id="ocr-pipeline">OCR Pipeline</h1>
+<p>We have to recognize page images from Arabic books over several centuries.</p>
+<p>Initial experiments showed that Tesseract and its Arabic model did not do a good job
+on these pages.</p>
+<p>It turned out that Kraken did a much better job, using a model trained by others
+on Arabic texts. See below.</p>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>Yet we needed considerable preprocessing to aid and feed the OCR engine.</p>
+<p>The tool of the trade for that is
+<a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">OpenCV</a>.
+The added beauty of this is that OpenCV represents images as
+<a href="https://numpy.org/doc/stable/reference/index.html">NumPy</a>
+arrays and allows
+to manipulate images under the hood by NumPy operations.
+This is what we do frequently.</p>
+<p>When things get less straightforward, we can also make use of the signal processing library
+within the
+<a href="https://docs.scipy.org/doc/scipy/reference/">SciPy</a>
+library.</p>
+<h3 id="normalizing">Normalizing</h3>
+<p>Page images need to be normalized, i.e. turned into gray-scale and then black-and white.
+If there are black borders, they need to be removed.
+A first attempt was to make the edges of the page white, using a fixed proportion of
+the page dimensions to determine what counts as a border.
+However, if we adjust the border widths to the extent that it removes all known black borders,
+it will also clip some real text on other pages.</p>
+<p>Now we do it dynamically: we detect where the borders are by surprisingly straightforward
+Numpy operations.</p>
+<p>See <code><a title="fusus.lib.cropBorders" href="../lib.html#fusus.lib.cropBorders">cropBorders()</a></code>.</p>
+<p>We also blur, invert and threshold the image, in order to make useful histograms of the
+ink distribution on the page.</p>
+<h3 id="mark-removal">Mark removal</h3>
+<p>In order to remove unwanted marks that occur repeatedly we use
+<a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_template_matching/py_template_matching.html#template-matching">template matching</a>
+by OpenCV to spot them.</p>
+<h3 id="layout-detection">Layout detection</h3>
+<h3 id="line-detection">Line detection</h3>
+<h2 id="ocr-application">OCR application</h2>
+<h2 id="proofing">Proofing</h2>
+<h1 id="pdf-text-extraction">PDF Text Extraction</h1>
+<h2 id="double-characters">Double characters</h2>
+<h2 id="private-use-characters">Private use characters</h2>
+<h2 id="reading-order">Reading order</h2>
+<h2 id="word-separation">Word separation</h2>
+<h2 id="text-reconstruction">Text reconstruction</h2>
+<h1 id="delivery">Delivery</h1>
+<h2 id="tsv-files">TSV files</h2>
+<h2 id="text-fabric-datasets">Text-Fabric datasets</h2>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/about/__init__.py#L0-L4" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-# Documents
-
-Higher level documentation.
+.. include:: ../docs/about/tech.md
 &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="fusus.about.howto" href="howto.html">fusus.about.howto</a></code></dt>
-<dd>
-<div class="desc"><p>Install and update …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.install" href="install.html">fusus.about.install</a></code></dt>
-<dd>
-<div class="desc"><p>Convention …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.model" href="model.html">fusus.about.model</a></code></dt>
-<dd>
-<div class="desc"><p>OCR Models for Kraken …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.rationale" href="rationale.html">fusus.about.rationale</a></code></dt>
-<dd>
-<div class="desc"><p>Rationale …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.sources" href="sources.html">fusus.about.sources</a></code></dt>
-<dd>
-<div class="desc"><p>Availability …</p></div>
-</dd>
-<dt><code class="name"><a title="fusus.about.tech" href="tech.html">fusus.about.tech</a></code></dt>
-<dd>
-<div class="desc"><p>This is a technical overview of the capabilities of the fusus package …</p></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
@@ -76,23 +101,37 @@ Higher level documentation.
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#documents">Documents</a></li>
+<li><a href="#ocr-pipeline">OCR Pipeline</a><ul>
+<li><a href="#preprocessing">Preprocessing</a><ul>
+<li><a href="#normalizing">Normalizing</a></li>
+<li><a href="#mark-removal">Mark removal</a></li>
+<li><a href="#layout-detection">Layout detection</a></li>
+<li><a href="#line-detection">Line detection</a></li>
+</ul>
+</li>
+<li><a href="#ocr-application">OCR application</a></li>
+<li><a href="#proofing">Proofing</a></li>
+</ul>
+</li>
+<li><a href="#pdf-text-extraction">PDF Text Extraction</a><ul>
+<li><a href="#double-characters">Double characters</a></li>
+<li><a href="#private-use-characters">Private use characters</a></li>
+<li><a href="#reading-order">Reading order</a></li>
+<li><a href="#word-separation">Word separation</a></li>
+<li><a href="#text-reconstruction">Text reconstruction</a></li>
+</ul>
+</li>
+<li><a href="#delivery">Delivery</a><ul>
+<li><a href="#tsv-files">TSV files</a></li>
+<li><a href="#text-fabric-datasets">Text-Fabric datasets</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fusus" href="../index.html">fusus</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="fusus.about.howto" href="howto.html">fusus.about.howto</a></code></li>
-<li><code><a title="fusus.about.install" href="install.html">fusus.about.install</a></code></li>
-<li><code><a title="fusus.about.model" href="model.html">fusus.about.model</a></code></li>
-<li><code><a title="fusus.about.rationale" href="rationale.html">fusus.about.rationale</a></code></li>
-<li><code><a title="fusus.about.sources" href="sources.html">fusus.about.sources</a></code></li>
-<li><code><a title="fusus.about.tech" href="tech.html">fusus.about.tech</a></code></li>
+<li><code><a title="fusus.about" href="index.html">fusus.about</a></code></li>
 </ul>
 </li>
 </ul>
