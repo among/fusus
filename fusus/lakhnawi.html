@@ -82,7 +82,7 @@ See also:</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L0-L3156" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L0-L3170" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Lakhnawi pdf reverse engineering.
 
@@ -178,6 +178,7 @@ from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES, LINE_CLUSTER_FACTOR
 from .lib import DEFAULT_EXTENSION, pprint, parseNums
 from .char import (
     UChar,
+    EMSPACE,
     getSetFromDef,
     isAlefFinal,
     isArDigit,
@@ -261,6 +262,11 @@ div.phead {
 }
 
 
+.box {
+    border: 1pt solid #888888;
+    border-radius: 2pt;
+}
+
 .r {
     font-family: normal, sans-serif;
     font-size: 22pt;
@@ -316,7 +322,7 @@ p.r {
     font-weight: bold;
 }
 span.sp {
-    background-color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.5);
 }
 td.al {
     text-align: left ! important;
@@ -349,7 +355,7 @@ div.ch {
 div.chs {
     background-color: #ccffcc;
 }
-div.cht {
+div.chm {
     background-color: #44ff44;
 }
 div.sr {
@@ -482,7 +488,6 @@ e816
 e817
 e818
 e81d
-e821
 e823
 e824
 e825
@@ -535,6 +540,7 @@ e8fb
 e8fe
 &#34;&#34;&#34;
 
+PRIVATE_TATWEEL = &#34;\ue821&#34;
 
 PRIVATE_FINAL_SPACE_CODES = &#34;&#34;&#34;
     e898
@@ -833,7 +839,9 @@ COLOR = &#34;color&#34;
 FNRULE_WIDTH = 60
 &#34;&#34;&#34;Width of the rule that separates body text from footnote text.
 &#34;&#34;&#34;
-SPACE_THRESHOLD = 25
+
+# SPACE_THRESHOLD = 25
+SPACE_THRESHOLD = 10
 &#34;&#34;&#34;Amount of separation between words.
 
 Character boxes this far apart imply that there is a white space between them.
@@ -855,7 +863,6 @@ class Lakhnawi(UChar):
         &#34;&#34;&#34;
 
         super().__init__()
-        &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
 
         self.heights = {}
         &#34;&#34;&#34;Heights of characters, indexed by page number.&#34;&#34;&#34;
@@ -887,7 +894,7 @@ class Lakhnawi(UChar):
         &#34;&#34;&#34;Column information, indexed by page and line number.
 
         Spaces that are significantly larger than a normal white space
-        are interpreted as a tab, and these are considered as column separators.
+        are interpreted as an emspace, and these are considered as column separators.
         We remember the character positions where this happens plus the amount
         of space in question.
 
@@ -934,7 +941,9 @@ class Lakhnawi(UChar):
         &#34;&#34;&#34;Whether processing is still ok, i.e. no errors encountered.&#34;&#34;&#34;
 
         self.getCharConfig()
+
         self.doc = fitz.open(SOURCE)
+        &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
 
     def close(self):
         &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
@@ -970,6 +979,7 @@ class Lakhnawi(UChar):
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
         self.nospacings |= self.privateDias
+        # self.nospacings.add(PRIVATE_TATWEEL)
         self.diacritics |= self.privateDias
         self.diacriticLike |= self.privateDias
         self.arabicLetters = self.arabic - self.privateDias
@@ -1097,7 +1107,7 @@ class Lakhnawi(UChar):
 
         We show the character itself and its name (if not a private-use one),
         its hexadecimal code, and we indicate by coloring the kind of
-        white space that the character represents (ordinary space or tab).
+        white space that the character represents (ordinary space or emspace).
 
         Parameters
         ----------
@@ -1131,7 +1141,9 @@ class Lakhnawi(UChar):
                 else f&#34;&#34;&#34;&lt;span class=&#34;{&#34;rc&#34; if c in rls else &#34;lc&#34;}&#34;&gt;{c}&#34;&#34;&#34;
             )
             cname = &#34;&#34; if c in puas else f&#34;&#34;&#34;&lt;span class=&#34;c&#34;&gt;{uName(c)}&lt;/span&gt;&#34;&#34;&#34;
-            extra = &#34;t&#34; if c == &#34;\t&#34; else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            extra = (
+                &#34;m&#34; if c == EMSPACE else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            )
 
         return f&#34;&#34;&#34;
 &lt;div class=&#34;ch{extra}&#34;&gt;
@@ -1569,7 +1581,7 @@ class Lakhnawi(UChar):
                     rect = fnRule[RECT]
                     width = rect.x1 - rect.x0
                     if width &gt; FNRULE_WIDTH:
-                        theseFnRules.add(int(round(rect.y0)))
+                        theseFnRules.add(int(round(rect.y1)))
 
             fnRules[pageNum] = tuple(sorted(theseFnRules))
             spaces[pageNum] = {}
@@ -1663,36 +1675,12 @@ class Lakhnawi(UChar):
     def tsvPages(self, pageNumSpec):
         &#34;&#34;&#34;Outputs processed pages as tab-separated data.
 
+        See `fusus.convert` for the details of the output format.
+
         Uses
         `Lakhnawi.tsvLine()`.
         and `Lakhnawi.tsvHeadLine()`.
 
-        Here is the structure:
-
-        Each page is divided into lines.
-
-        Each line is divided into columns
-        (in case of hemistic verses, see `Lakhnawi.columns`).
-
-        Each column is divided into spans.
-        Span transitions occur precisely there where changes in writing direction
-        occur.
-
-        Each span is divided into words.
-
-        Each word occupies exactly one line in the TSV file,
-        with the following fields:
-
-        * **page** page number
-        * **line** line number within the page
-        * **column** column number within the line
-        * **span** span number within the column
-        * **direction** (`l` or `r`) writing direction of the span
-        * **left** *x* coordinate of left boundary
-        * **top** *y* coordinate of top boundary
-        * **right** *x* coordinate of right boundary
-        * **bottom** *y* coordinate of bottom boundary
-        * **text** text of the word
 
         Parameters
         ----------
@@ -2053,7 +2041,8 @@ class Lakhnawi(UChar):
     &lt;th&gt;top&lt;/th&gt;
     &lt;th&gt;right&lt;/th&gt;
     &lt;th&gt;bottom&lt;/th&gt;
-    &lt;th&gt;word&lt;/th&gt;
+    &lt;th&gt;letters&lt;/th&gt;
+    &lt;th&gt;punc&lt;/th&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
         )
@@ -2068,7 +2057,7 @@ class Lakhnawi(UChar):
                 cols = pageLines[ln - 1]
                 for (cn, spans) in enumerate(cols):
                     for (sn, (dr, words)) in enumerate(spans):
-                        for (word, (le, to, ri, bo)) in words:
+                        for (letters, punc, (le, to, ri, bo)) in words:
                             html.append(
                                 f&#34;&#34;&#34;
 &lt;tr&gt;
@@ -2081,7 +2070,8 @@ class Lakhnawi(UChar):
     &lt;td&gt;{ptRep(to)}&lt;/td&gt;
     &lt;td&gt;{ptRep(ri)}&lt;/td&gt;
     &lt;td&gt;{ptRep(bo)}&lt;/td&gt;
-    &lt;td&gt;{self.showString(word, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(letters, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(punc, asString=True)}&lt;/td&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
                             )
@@ -2165,12 +2155,13 @@ class Lakhnawi(UChar):
                     for col in line:
                         for span in col:
                             for word in span[1]:
-                                string = word[0]
-                                thesePuas = PUA_RE.findall(string)
+                                letters = word[0]
+                                punc = word[1]
+                                thesePuas = PUA_RE.findall(letters)
                                 for pua in thesePuas:
                                     charsOut[chr(int(pua, base=16))][pageNum] += 1
                                 if not onlyPuas:
-                                    rest = PUA_RE.sub(&#34;&#34;, string)
+                                    rest = PUA_RE.sub(&#34;&#34;, f&#34;{letters}{punc}&#34;)
                                     for c in rest:
                                         if not (
                                             onlyPresentational
@@ -2256,17 +2247,17 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             lineInfo = columns[pageNum]
             multiple = []
             for lNum in sorted(lineInfo):
-                (threshold, tabs) = lineInfo[lNum]
-                nTabs = len(tabs)
-                if threshold is not None and nTabs &gt; 0:
-                    multiple.append((lNum, threshold, tabs))
+                (threshold, emspaces) = lineInfo[lNum]
+                nEmspaces = len(emspaces)
+                if threshold is not None and nEmspaces &gt; 0:
+                    multiple.append((lNum, threshold, emspaces))
             if not len(multiple):
                 print(f&#34;page {pageNum:&gt;3} -&#34;)
             else:
                 print(f&#34;page {pageNum:&gt;3}:&#34;)
-                for (lNum, threshold, tabs) in multiple:
-                    nTabs = len(tabs)
-                    print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nTabs + 1)}&#34;)
+                for (lNum, threshold, emspaces) in multiple:
+                    nEmspaces = len(emspaces)
+                    print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nEmspaces + 1)}&#34;)
 
     def showSpacing(self, pageNumSpec, line=None):
         &#34;&#34;&#34;Show where the spaces are.
@@ -2354,10 +2345,10 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 
         def addChar():
             box = prevChar[&#34;bbox&#34;]
-            yTop = box[1]
+            yBot = box[3]
 
             # skip chars below the footnote rule, if any
-            if fnRule is not None and yTop &gt; fnRule:
+            if fnRule is not None and yBot &gt; fnRule:
                 return
 
             c = prevChar[&#34;c&#34;]
@@ -2735,7 +2726,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                         else normalizeD(x)
                         if x in presentationalD
                         else x
-                    )
+                    ).strip()
                     space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
                     if hasFinalSpace:
                         finalsApplied[x][pageNum] += 1
@@ -2787,7 +2778,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         if chars:
             chars[-1][-3] = &#34;end&#34;
 
-        # change big spaces to tabs
+        # change big spaces to emspaces
 
         nSpaces = sum(1 for x in theseSpaces if x[2])
 
@@ -2806,7 +2797,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                 if isSpace and after &gt; threshold:
                     theseColumns[1].append((i, after))
                     char = chars[i]
-                    char[-1] = char[-1].rstrip(&#34; &#34;) + &#34;\t&#34;
+                    char[-1] = char[-1].rstrip(&#34; &#34;) + EMSPACE
 
         # remove space between alef and initial follower,
         # provided the alef is the single letter in its word.
@@ -2849,14 +2840,14 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 
         # divide lines into columns
 
-        tabs = theseColumns[1]
-        tabPositions = {t[0] for t in tabs}
+        emspaces = theseColumns[1]
+        emspacePositions = {t[0] for t in emspaces}
 
         columnedChars = [[]]
         dest = columnedChars[-1]
 
         for (i, char) in enumerate(chars):
-            if i in tabPositions:
+            if i in emspacePositions:
                 if char[-1]:
                     dest.append(char)
                 columnedChars.append([])
@@ -2874,37 +2865,49 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         # a line datum is a list of columns
         # a column is a list of spans
         # a span is a pair of a direction char (&#34;l&#34; or &#34;r&#34;) plus a list of word data
-        # a word datum is a string plus a word boundary
-        # a word boundary is a (left, top, right, bottom) tuple
+        # a word datum is a string plus a word box
+        # a word box is a (left, top, right, bottom) tuple
 
         result = []
         text.setdefault(pageNum, []).append(result)
         prevDir = &#34;r&#34;
-        outChars = []
-        boundary = [None, None, None, None]
+
+        # we transform letters into chunks, where each chunk is a pair of
+        # word material
+        # punctuation material
+
+        outChars = [[], []]
+        inWord = True
+        box = [None, None, None, None]
 
         def addWord():
-            if outChars:
-                charsRep = &#34;&#34;.join(outChars if prevDir == &#34;r&#34; else reversed(outChars))
+            if outChars[0] or outChars[1]:
+                wordCharsRep = &#34;&#34;.join(
+                    outChars[0] if prevDir == &#34;r&#34; else reversed(outChars[0])
+                )
+                puncCharsRep = &#34;&#34;.join(
+                    outChars[1] if prevDir == &#34;r&#34; else reversed(outChars[1])
+                )
                 lastSpan = None if len(result[-1]) == 0 else result[-1][-1]
+                element = (wordCharsRep, puncCharsRep, tuple(box))
                 if lastSpan is None or lastSpan[0] != prevDir:
-                    result[-1].append((prevDir, [(charsRep, tuple(boundary))]))
+                    result[-1].append((prevDir, [element]))
                 else:
-                    result[-1][-1][-1].append((charsRep, tuple(boundary)))
+                    result[-1][-1][-1].append(element)
 
-        def setBoundary(char):
+        def setBox(char):
             for (i, coor) in enumerate(char[0:4]):
                 if (
-                    (b := boundary[i]) is None
+                    (b := box[i]) is None
                     or (i &lt; 2 and coor &lt; b)
                     or (i &gt;= 2 and coor &gt; b)
                 ):
-                    boundary[i] = coor
+                    box[i] = coor
 
         for chars in columnedChars:
             result.append([])
-            outChars = []
-            boundary = [None, None, None, None]
+            outChars = [[], []]
+            box = [None, None, None, None]
 
             for char in chars:
                 c = char[-1]
@@ -2913,30 +2916,39 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                     continue
 
                 for d in c:
-                    if d in {&#34; &#34;, &#34;\t&#34;}:
+                    spaceSeen = d in {&#34; &#34;, EMSPACE}
+                    changeWord = not inWord and d not in nonLetter
+
+                    if spaceSeen:
+                        outChars[1].append(d)
+                    if spaceSeen or changeWord:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[d] if changeWord else [], []]
+                        inWord = True
                         continue
 
                     thisDir = prevDir if d in neutrals else &#34;r&#34; if d in rls else &#34;l&#34;
 
                     if prevDir != thisDir:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[], []]
+                        inWord = True
                         prevDir = thisDir
 
+                    if inWord:
+                        if d in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
                     rep = d
                     if d in puas:
-                        rep = f&#34;&#34;&#34;⌊{ord(d):&gt;04x}⌋&#34;&#34;&#34;
-                    outChars.append(rep)
+                        rep = f&#34;⌊{ord(d):&gt;04x}⌋&#34;
+                    outChars[dest].append(rep)
 
-                setBoundary(char)
+                setBox(char)
 
             addWord()
-
-        return result
 
     def plainLine(self, columns):
         &#34;&#34;&#34;Outputs a processed line as plain text.
@@ -2958,7 +2970,9 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         &#34;&#34;&#34;
 
         return &#34;\t&#34;.join(
-            &#34; &#34;.join(&#34; &#34;.join(word[0] for word in span[1]) for span in spans)
+            &#34; &#34;.join(
+                &#34; &#34;.join(f&#34;{word[0]}{word[1]}&#34; for word in span[1]) for span in spans
+            )
             for spans in columns
         )
 
@@ -2974,7 +2988,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             A tab-separated line of field names.
         &#34;&#34;&#34;
 
-        return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n&#34;
+        return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tletters\tpunc\n&#34;
 
     def tsvLine(self, columns, pageNum, ln):
         &#34;&#34;&#34;Outputs a processed line as lines of tab-separated fields for each word.
@@ -3001,7 +3015,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         material = []
         for (cn, spans) in enumerate(columns):
             for (sn, (dr, words)) in enumerate(spans):
-                for (word, (le, to, ri, bo)) in words:
+                for (letters, punc, (le, to, ri, bo)) in words:
                     material.append(
                         (
                             &#34;\t&#34;.join(
@@ -3016,7 +3030,8 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                                     ptRep(to),
                                     ptRep(ri),
                                     ptRep(bo),
-                                    word,
+                                    letters,
+                                    punc,
                                 )
                             )
                         )
@@ -3066,21 +3081,20 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             result.append(
                 f&#34;&#34;&#34;\t&lt;td class=&#34;cols col{nCols}&#34;&gt;&#34;&#34;&#34; if multi else &#34;&#34;&#34;&lt;p class=&#34;r&#34;&gt;&#34;&#34;&#34;
             )
-            space = &#34;&#34;
 
             for (textDir, words) in spans:
                 result.append(f&#34;&#34;&#34;&lt;span class=&#34;{textDir}&#34;&gt;&#34;&#34;&#34;)
                 for word in words:
-                    if space:
-                        result.append(
-                            &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34; if showSpaces else space
-                        )
-                    string = normalizeD(word[0])
-                    string = string.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
+                    letters = normalizeD(word[0])
+                    letters = letters.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
                         &#34;⌋&#34;, &#34;&lt;/span&gt;&#34;
                     )
-                    result.append(string)
-                    space = &#34; &#34;
+                    if showSpaces:
+                        letters = f&#34;&#34;&#34;&lt;span class=&#34;box&#34;&gt;{letters}&lt;/span&gt;&#34;&#34;&#34;
+                    punc = word[1]
+                    if showSpaces:
+                        punc = punc.replace(&#34; &#34;, &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34;)
+                    result.append(f&#34;{letters}{punc}&#34;)
                 result.append(&#34;&#34;&#34;&lt;/span&gt;&#34;&#34;&#34;)
 
             result.append(&#34;&lt;/td&gt;\n&#34; if multi else &#34;&lt;/p&gt;\n&#34;)
@@ -3310,7 +3324,7 @@ The unit is 0.1 pixel.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L664-L737" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L670-L743" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getDictFromDef(defs):
     &#34;&#34;&#34;Interpret a string as a dictionary.
@@ -3399,7 +3413,7 @@ The page numbers of the pages in the HTML file.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L347-L371" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L353-L377" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getToc(pageNums):
     &#34;&#34;&#34;Generate a Table Of Contents for multiple HTML pages.
@@ -3462,7 +3476,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L3111-L3157" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L3125-L3171" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharH(char):
     &#34;&#34;&#34;Sort key to sort the characters of a line horizontally.
@@ -3532,7 +3546,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L3093-L3108" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L3107-L3122" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def keyCharV(char):
     &#34;&#34;&#34;The vertical position of the middle of a character.
@@ -3565,7 +3579,7 @@ but not quite equal, and the wrong one comes first.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L326-L344" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L332-L350" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def preHtml(pageNum):
     &#34;&#34;&#34;Generate HTML code to be prefixed to the HTML representation of a page.
@@ -3602,7 +3616,7 @@ A none value is converted to <code>?</code>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L636-L646" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L642-L652" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRep(p):
     &#34;&#34;&#34;Represent a float as an integer.
@@ -3631,7 +3645,7 @@ A none value is converted to <code>?</code>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L623-L633" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L629-L639" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ptRepD(p):
     &#34;&#34;&#34;Represent a float as an integer with enhanced precision.
@@ -3665,7 +3679,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L758-L3090" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L766-L3104" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Lakhnawi(UChar):
     def __init__(self):
@@ -3681,7 +3695,6 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         &#34;&#34;&#34;
 
         super().__init__()
-        &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
 
         self.heights = {}
         &#34;&#34;&#34;Heights of characters, indexed by page number.&#34;&#34;&#34;
@@ -3713,7 +3726,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         &#34;&#34;&#34;Column information, indexed by page and line number.
 
         Spaces that are significantly larger than a normal white space
-        are interpreted as a tab, and these are considered as column separators.
+        are interpreted as an emspace, and these are considered as column separators.
         We remember the character positions where this happens plus the amount
         of space in question.
 
@@ -3760,7 +3773,9 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         &#34;&#34;&#34;Whether processing is still ok, i.e. no errors encountered.&#34;&#34;&#34;
 
         self.getCharConfig()
+
         self.doc = fitz.open(SOURCE)
+        &#34;&#34;&#34;A handle to the PDF document, after it has been read by *fitz*.&#34;&#34;&#34;
 
     def close(self):
         &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
@@ -3796,6 +3811,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
         self.nospacings |= self.privateDias
+        # self.nospacings.add(PRIVATE_TATWEEL)
         self.diacritics |= self.privateDias
         self.diacriticLike |= self.privateDias
         self.arabicLetters = self.arabic - self.privateDias
@@ -3923,7 +3939,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
 
         We show the character itself and its name (if not a private-use one),
         its hexadecimal code, and we indicate by coloring the kind of
-        white space that the character represents (ordinary space or tab).
+        white space that the character represents (ordinary space or emspace).
 
         Parameters
         ----------
@@ -3957,7 +3973,9 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                 else f&#34;&#34;&#34;&lt;span class=&#34;{&#34;rc&#34; if c in rls else &#34;lc&#34;}&#34;&gt;{c}&#34;&#34;&#34;
             )
             cname = &#34;&#34; if c in puas else f&#34;&#34;&#34;&lt;span class=&#34;c&#34;&gt;{uName(c)}&lt;/span&gt;&#34;&#34;&#34;
-            extra = &#34;t&#34; if c == &#34;\t&#34; else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            extra = (
+                &#34;m&#34; if c == EMSPACE else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            )
 
         return f&#34;&#34;&#34;
 &lt;div class=&#34;ch{extra}&#34;&gt;
@@ -4395,7 +4413,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                     rect = fnRule[RECT]
                     width = rect.x1 - rect.x0
                     if width &gt; FNRULE_WIDTH:
-                        theseFnRules.add(int(round(rect.y0)))
+                        theseFnRules.add(int(round(rect.y1)))
 
             fnRules[pageNum] = tuple(sorted(theseFnRules))
             spaces[pageNum] = {}
@@ -4489,36 +4507,12 @@ the private use characters that occur in the Lakhnawi PDF.</p>
     def tsvPages(self, pageNumSpec):
         &#34;&#34;&#34;Outputs processed pages as tab-separated data.
 
+        See `fusus.convert` for the details of the output format.
+
         Uses
         `Lakhnawi.tsvLine()`.
         and `Lakhnawi.tsvHeadLine()`.
 
-        Here is the structure:
-
-        Each page is divided into lines.
-
-        Each line is divided into columns
-        (in case of hemistic verses, see `Lakhnawi.columns`).
-
-        Each column is divided into spans.
-        Span transitions occur precisely there where changes in writing direction
-        occur.
-
-        Each span is divided into words.
-
-        Each word occupies exactly one line in the TSV file,
-        with the following fields:
-
-        * **page** page number
-        * **line** line number within the page
-        * **column** column number within the line
-        * **span** span number within the column
-        * **direction** (`l` or `r`) writing direction of the span
-        * **left** *x* coordinate of left boundary
-        * **top** *y* coordinate of top boundary
-        * **right** *x* coordinate of right boundary
-        * **bottom** *y* coordinate of bottom boundary
-        * **text** text of the word
 
         Parameters
         ----------
@@ -4879,7 +4873,8 @@ the private use characters that occur in the Lakhnawi PDF.</p>
     &lt;th&gt;top&lt;/th&gt;
     &lt;th&gt;right&lt;/th&gt;
     &lt;th&gt;bottom&lt;/th&gt;
-    &lt;th&gt;word&lt;/th&gt;
+    &lt;th&gt;letters&lt;/th&gt;
+    &lt;th&gt;punc&lt;/th&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
         )
@@ -4894,7 +4889,7 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                 cols = pageLines[ln - 1]
                 for (cn, spans) in enumerate(cols):
                     for (sn, (dr, words)) in enumerate(spans):
-                        for (word, (le, to, ri, bo)) in words:
+                        for (letters, punc, (le, to, ri, bo)) in words:
                             html.append(
                                 f&#34;&#34;&#34;
 &lt;tr&gt;
@@ -4907,7 +4902,8 @@ the private use characters that occur in the Lakhnawi PDF.</p>
     &lt;td&gt;{ptRep(to)}&lt;/td&gt;
     &lt;td&gt;{ptRep(ri)}&lt;/td&gt;
     &lt;td&gt;{ptRep(bo)}&lt;/td&gt;
-    &lt;td&gt;{self.showString(word, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(letters, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(punc, asString=True)}&lt;/td&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
                             )
@@ -4991,12 +4987,13 @@ the private use characters that occur in the Lakhnawi PDF.</p>
                     for col in line:
                         for span in col:
                             for word in span[1]:
-                                string = word[0]
-                                thesePuas = PUA_RE.findall(string)
+                                letters = word[0]
+                                punc = word[1]
+                                thesePuas = PUA_RE.findall(letters)
                                 for pua in thesePuas:
                                     charsOut[chr(int(pua, base=16))][pageNum] += 1
                                 if not onlyPuas:
-                                    rest = PUA_RE.sub(&#34;&#34;, string)
+                                    rest = PUA_RE.sub(&#34;&#34;, f&#34;{letters}{punc}&#34;)
                                     for c in rest:
                                         if not (
                                             onlyPresentational
@@ -5082,17 +5079,17 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             lineInfo = columns[pageNum]
             multiple = []
             for lNum in sorted(lineInfo):
-                (threshold, tabs) = lineInfo[lNum]
-                nTabs = len(tabs)
-                if threshold is not None and nTabs &gt; 0:
-                    multiple.append((lNum, threshold, tabs))
+                (threshold, emspaces) = lineInfo[lNum]
+                nEmspaces = len(emspaces)
+                if threshold is not None and nEmspaces &gt; 0:
+                    multiple.append((lNum, threshold, emspaces))
             if not len(multiple):
                 print(f&#34;page {pageNum:&gt;3} -&#34;)
             else:
                 print(f&#34;page {pageNum:&gt;3}:&#34;)
-                for (lNum, threshold, tabs) in multiple:
-                    nTabs = len(tabs)
-                    print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nTabs + 1)}&#34;)
+                for (lNum, threshold, emspaces) in multiple:
+                    nEmspaces = len(emspaces)
+                    print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nEmspaces + 1)}&#34;)
 
     def showSpacing(self, pageNumSpec, line=None):
         &#34;&#34;&#34;Show where the spaces are.
@@ -5180,10 +5177,10 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 
         def addChar():
             box = prevChar[&#34;bbox&#34;]
-            yTop = box[1]
+            yBot = box[3]
 
             # skip chars below the footnote rule, if any
-            if fnRule is not None and yTop &gt; fnRule:
+            if fnRule is not None and yBot &gt; fnRule:
                 return
 
             c = prevChar[&#34;c&#34;]
@@ -5561,7 +5558,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                         else normalizeD(x)
                         if x in presentationalD
                         else x
-                    )
+                    ).strip()
                     space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
                     if hasFinalSpace:
                         finalsApplied[x][pageNum] += 1
@@ -5613,7 +5610,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         if chars:
             chars[-1][-3] = &#34;end&#34;
 
-        # change big spaces to tabs
+        # change big spaces to emspaces
 
         nSpaces = sum(1 for x in theseSpaces if x[2])
 
@@ -5632,7 +5629,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                 if isSpace and after &gt; threshold:
                     theseColumns[1].append((i, after))
                     char = chars[i]
-                    char[-1] = char[-1].rstrip(&#34; &#34;) + &#34;\t&#34;
+                    char[-1] = char[-1].rstrip(&#34; &#34;) + EMSPACE
 
         # remove space between alef and initial follower,
         # provided the alef is the single letter in its word.
@@ -5675,14 +5672,14 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 
         # divide lines into columns
 
-        tabs = theseColumns[1]
-        tabPositions = {t[0] for t in tabs}
+        emspaces = theseColumns[1]
+        emspacePositions = {t[0] for t in emspaces}
 
         columnedChars = [[]]
         dest = columnedChars[-1]
 
         for (i, char) in enumerate(chars):
-            if i in tabPositions:
+            if i in emspacePositions:
                 if char[-1]:
                     dest.append(char)
                 columnedChars.append([])
@@ -5700,37 +5697,49 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         # a line datum is a list of columns
         # a column is a list of spans
         # a span is a pair of a direction char (&#34;l&#34; or &#34;r&#34;) plus a list of word data
-        # a word datum is a string plus a word boundary
-        # a word boundary is a (left, top, right, bottom) tuple
+        # a word datum is a string plus a word box
+        # a word box is a (left, top, right, bottom) tuple
 
         result = []
         text.setdefault(pageNum, []).append(result)
         prevDir = &#34;r&#34;
-        outChars = []
-        boundary = [None, None, None, None]
+
+        # we transform letters into chunks, where each chunk is a pair of
+        # word material
+        # punctuation material
+
+        outChars = [[], []]
+        inWord = True
+        box = [None, None, None, None]
 
         def addWord():
-            if outChars:
-                charsRep = &#34;&#34;.join(outChars if prevDir == &#34;r&#34; else reversed(outChars))
+            if outChars[0] or outChars[1]:
+                wordCharsRep = &#34;&#34;.join(
+                    outChars[0] if prevDir == &#34;r&#34; else reversed(outChars[0])
+                )
+                puncCharsRep = &#34;&#34;.join(
+                    outChars[1] if prevDir == &#34;r&#34; else reversed(outChars[1])
+                )
                 lastSpan = None if len(result[-1]) == 0 else result[-1][-1]
+                element = (wordCharsRep, puncCharsRep, tuple(box))
                 if lastSpan is None or lastSpan[0] != prevDir:
-                    result[-1].append((prevDir, [(charsRep, tuple(boundary))]))
+                    result[-1].append((prevDir, [element]))
                 else:
-                    result[-1][-1][-1].append((charsRep, tuple(boundary)))
+                    result[-1][-1][-1].append(element)
 
-        def setBoundary(char):
+        def setBox(char):
             for (i, coor) in enumerate(char[0:4]):
                 if (
-                    (b := boundary[i]) is None
+                    (b := box[i]) is None
                     or (i &lt; 2 and coor &lt; b)
                     or (i &gt;= 2 and coor &gt; b)
                 ):
-                    boundary[i] = coor
+                    box[i] = coor
 
         for chars in columnedChars:
             result.append([])
-            outChars = []
-            boundary = [None, None, None, None]
+            outChars = [[], []]
+            box = [None, None, None, None]
 
             for char in chars:
                 c = char[-1]
@@ -5739,30 +5748,39 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                     continue
 
                 for d in c:
-                    if d in {&#34; &#34;, &#34;\t&#34;}:
+                    spaceSeen = d in {&#34; &#34;, EMSPACE}
+                    changeWord = not inWord and d not in nonLetter
+
+                    if spaceSeen:
+                        outChars[1].append(d)
+                    if spaceSeen or changeWord:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[d] if changeWord else [], []]
+                        inWord = True
                         continue
 
                     thisDir = prevDir if d in neutrals else &#34;r&#34; if d in rls else &#34;l&#34;
 
                     if prevDir != thisDir:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[], []]
+                        inWord = True
                         prevDir = thisDir
 
+                    if inWord:
+                        if d in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
                     rep = d
                     if d in puas:
-                        rep = f&#34;&#34;&#34;⌊{ord(d):&gt;04x}⌋&#34;&#34;&#34;
-                    outChars.append(rep)
+                        rep = f&#34;⌊{ord(d):&gt;04x}⌋&#34;
+                    outChars[dest].append(rep)
 
-                setBoundary(char)
+                setBox(char)
 
             addWord()
-
-        return result
 
     def plainLine(self, columns):
         &#34;&#34;&#34;Outputs a processed line as plain text.
@@ -5784,7 +5802,9 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         &#34;&#34;&#34;
 
         return &#34;\t&#34;.join(
-            &#34; &#34;.join(&#34; &#34;.join(word[0] for word in span[1]) for span in spans)
+            &#34; &#34;.join(
+                &#34; &#34;.join(f&#34;{word[0]}{word[1]}&#34; for word in span[1]) for span in spans
+            )
             for spans in columns
         )
 
@@ -5800,7 +5820,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             A tab-separated line of field names.
         &#34;&#34;&#34;
 
-        return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n&#34;
+        return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tletters\tpunc\n&#34;
 
     def tsvLine(self, columns, pageNum, ln):
         &#34;&#34;&#34;Outputs a processed line as lines of tab-separated fields for each word.
@@ -5827,7 +5847,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
         material = []
         for (cn, spans) in enumerate(columns):
             for (sn, (dr, words)) in enumerate(spans):
-                for (word, (le, to, ri, bo)) in words:
+                for (letters, punc, (le, to, ri, bo)) in words:
                     material.append(
                         (
                             &#34;\t&#34;.join(
@@ -5842,7 +5862,8 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
                                     ptRep(to),
                                     ptRep(ri),
                                     ptRep(bo),
-                                    word,
+                                    letters,
+                                    punc,
                                 )
                             )
                         )
@@ -5892,21 +5913,20 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
             result.append(
                 f&#34;&#34;&#34;\t&lt;td class=&#34;cols col{nCols}&#34;&gt;&#34;&#34;&#34; if multi else &#34;&#34;&#34;&lt;p class=&#34;r&#34;&gt;&#34;&#34;&#34;
             )
-            space = &#34;&#34;
 
             for (textDir, words) in spans:
                 result.append(f&#34;&#34;&#34;&lt;span class=&#34;{textDir}&#34;&gt;&#34;&#34;&#34;)
                 for word in words:
-                    if space:
-                        result.append(
-                            &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34; if showSpaces else space
-                        )
-                    string = normalizeD(word[0])
-                    string = string.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
+                    letters = normalizeD(word[0])
+                    letters = letters.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
                         &#34;⌋&#34;, &#34;&lt;/span&gt;&#34;
                     )
-                    result.append(string)
-                    space = &#34; &#34;
+                    if showSpaces:
+                        letters = f&#34;&#34;&#34;&lt;span class=&#34;box&#34;&gt;{letters}&lt;/span&gt;&#34;&#34;&#34;
+                    punc = word[1]
+                    if showSpaces:
+                        punc = punc.replace(&#34; &#34;, &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34;)
+                    result.append(f&#34;{letters}{punc}&#34;)
                 result.append(&#34;&#34;&#34;&lt;/span&gt;&#34;&#34;&#34;)
 
             result.append(&#34;&lt;/td&gt;\n&#34; if multi else &#34;&lt;/p&gt;\n&#34;)
@@ -6016,7 +6036,7 @@ on {totalPages} {pageRep}&lt;/b&gt;&lt;/p&gt;
 <dd>
 <div class="desc"><p>Column information, indexed by page and line number.</p>
 <p>Spaces that are significantly larger than a normal white space
-are interpreted as a tab, and these are considered as column separators.
+are interpreted as an emspace, and these are considered as column separators.
 We remember the character positions where this happens plus the amount
 of space in question.</p>
 <p>Columns in the Lakhnawi PDF correspond to <em>hemistic</em> poems,
@@ -6031,6 +6051,10 @@ that separate columns.</p>
 column division, where as in the case of blocks, reading proceeds
 by reading the complete blocks in order.</p>
 </div></div>
+</dd>
+<dt id="fusus.lakhnawi.Lakhnawi.doc"><code class="name">var <span class="ident">doc</span></code></dt>
+<dd>
+<div class="desc"><p>A handle to the PDF document, after it has been read by <em>fitz</em>.</p></div>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.doubles"><code class="name">var <span class="ident">doubles</span></code></dt>
 <dd>
@@ -6094,7 +6118,7 @@ and whether this counts as a full white space.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L853-L856" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L862-L865" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def close(self):
     &#34;&#34;&#34;Close the PDF handle, offered by *fitz*.&#34;&#34;&#34;
@@ -6135,7 +6159,7 @@ is delivered in the attributes <code><a title="fusus.lakhnawi.Lakhnawi.heights" 
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L3009-L3090" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L3023-L3104" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def clusterVert(self, data):
     &#34;&#34;&#34;Cluster characters into lines based on their bounding boxes.
@@ -6250,7 +6274,7 @@ method of <em>fitz</em>.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2227-L2384" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2218-L2375" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def collectPage(self, data):
     &#34;&#34;&#34;Transforms raw text into proper textual data.
@@ -6296,10 +6320,10 @@ method of <em>fitz</em>.</dd>
 
     def addChar():
         box = prevChar[&#34;bbox&#34;]
-        yTop = box[1]
+        yBot = box[3]
 
         # skip chars below the footnote rule, if any
-        if fnRule is not None and yTop &gt; fnRule:
+        if fnRule is not None and yBot &gt; fnRule:
             return
 
         c = prevChar[&#34;c&#34;]
@@ -6429,7 +6453,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1367-L1389" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1379-L1401" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def drawPages(self, pageNumSpec, clip=None):
     &#34;&#34;&#34;Draws a (part) of page from the PDF as a raster image.
@@ -6465,7 +6489,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L866-L874" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L875-L883" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharConfig(self):
     &#34;&#34;&#34;Configure all character information.
@@ -6493,7 +6517,7 @@ from top to bottom will be displayed.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L907-L967" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L917-L977" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getCharInfo(self):
     &#34;&#34;&#34;Obtain detailed character information by reading the font report file.
@@ -6579,7 +6603,7 @@ It is the sequence number of the page within the PDF, counting from 1.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1531-L1551" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1543-L1563" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageObj(self, pageNum):
     &#34;&#34;&#34;Get the *fitz* object for a specific page.
@@ -6628,7 +6652,7 @@ and deep dictionary.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1499-L1529" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1511-L1541" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPageRaw(self, pageNum):
     &#34;&#34;&#34;Do a rough/raw text extract of a specific page.
@@ -6716,7 +6740,7 @@ keyed by page number.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1391-L1497" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1403-L1509" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getPages(
     self,
@@ -6813,7 +6837,7 @@ keyed by page number.</p>
                 rect = fnRule[RECT]
                 width = rect.x1 - rect.x0
                 if width &gt; FNRULE_WIDTH:
-                    theseFnRules.add(int(round(rect.y0)))
+                    theseFnRules.add(int(round(rect.y1)))
 
         fnRules[pageNum] = tuple(sorted(theseFnRules))
         spaces[pageNum] = {}
@@ -6854,7 +6878,7 @@ in all columns.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2941-L3007" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2956-L3021" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def htmlLine(self, columns, prevMulti, isLast):
     &#34;&#34;&#34;Outputs a processed line as HTML.
@@ -6898,21 +6922,20 @@ in all columns.</dd>
         result.append(
             f&#34;&#34;&#34;\t&lt;td class=&#34;cols col{nCols}&#34;&gt;&#34;&#34;&#34; if multi else &#34;&#34;&#34;&lt;p class=&#34;r&#34;&gt;&#34;&#34;&#34;
         )
-        space = &#34;&#34;
 
         for (textDir, words) in spans:
             result.append(f&#34;&#34;&#34;&lt;span class=&#34;{textDir}&#34;&gt;&#34;&#34;&#34;)
             for word in words:
-                if space:
-                    result.append(
-                        &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34; if showSpaces else space
-                    )
-                string = normalizeD(word[0])
-                string = string.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
+                letters = normalizeD(word[0])
+                letters = letters.replace(&#34;⌊&#34;, &#34;&#34;&#34;&lt;span class=&#34;p&#34;&gt;&#34;&#34;&#34;).replace(
                     &#34;⌋&#34;, &#34;&lt;/span&gt;&#34;
                 )
-                result.append(string)
-                space = &#34; &#34;
+                if showSpaces:
+                    letters = f&#34;&#34;&#34;&lt;span class=&#34;box&#34;&gt;{letters}&lt;/span&gt;&#34;&#34;&#34;
+                punc = word[1]
+                if showSpaces:
+                    punc = punc.replace(&#34; &#34;, &#34;&#34;&#34;&lt;span class=&#34;sp&#34;&gt; &lt;/span&gt;&#34;&#34;&#34;)
+                result.append(f&#34;{letters}{punc}&#34;)
             result.append(&#34;&#34;&#34;&lt;/span&gt;&#34;&#34;&#34;)
 
         result.append(&#34;&lt;/td&gt;\n&#34; if multi else &#34;&lt;/p&gt;\n&#34;)
@@ -6968,7 +6991,7 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1648-L1787" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1636-L1775" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def htmlPages(
         self,
@@ -7125,7 +7148,7 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2386-L2394" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2377-L2385" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isPageNum(self, chars):
     &#34;&#34;&#34;Checks whether a series of characters represents an arabic number.
@@ -7161,7 +7184,7 @@ If none of these, it should be an iterable of <code>int</code> values.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1336-L1365" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1348-L1377" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parsePageNums(self, pageNumSpec):
     &#34;&#34;&#34;Parses a value as one or more page numbers.
@@ -7214,7 +7237,7 @@ the integer 1 (diacritic place holder).</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L969-L988" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L979-L998" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainChar(self, c):
     &#34;&#34;&#34;Show the character code of a character.
@@ -7260,7 +7283,7 @@ for that span.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2855-L2877" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2867-L2891" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainLine(self, columns):
     &#34;&#34;&#34;Outputs a processed line as plain text.
@@ -7282,7 +7305,9 @@ for that span.</dd>
     &#34;&#34;&#34;
 
     return &#34;\t&#34;.join(
-        &#34; &#34;.join(&#34; &#34;.join(word[0] for word in span[1]) for span in spans)
+        &#34; &#34;.join(
+            &#34; &#34;.join(f&#34;{word[0]}{word[1]}&#34; for word in span[1]) for span in spans
+        )
         for spans in columns
     )</code></pre>
 </details>
@@ -7306,7 +7331,7 @@ for that span.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1553-L1575" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1565-L1587" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainPages(self, pageNumSpec):
     &#34;&#34;&#34;Outputs processed pages as plain text.
@@ -7353,7 +7378,7 @@ each code point between brackets.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L990-L1007" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1000-L1017" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def plainString(self, s):
     &#34;&#34;&#34;Show the character codes of the characters in a string.
@@ -7385,7 +7410,7 @@ private use characters.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L876-L890" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L885-L900" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def privateInfo(self):
     &#34;&#34;&#34;Set up additional character categories wrt. private-use characters.
@@ -7398,6 +7423,7 @@ private use characters.</p></div>
     self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
     self.privateSpace = PRIVATE_SPACE
     self.nospacings |= self.privateDias
+    # self.nospacings.add(PRIVATE_TATWEEL)
     self.diacritics |= self.privateDias
     self.diacriticLike |= self.privateDias
     self.arabicLetters = self.arabic - self.privateDias
@@ -7413,7 +7439,7 @@ private use characters.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L858-L864" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L867-L873" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setStyle(self):
     &#34;&#34;&#34;Import the CSS styles into the notebook.
@@ -7434,7 +7460,7 @@ when extracting text from pages of the Lakhnawi PDF.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L892-L905" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L902-L915" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def setupRules(self):
     &#34;&#34;&#34;Set up character transformation rules.
@@ -7459,7 +7485,7 @@ when extracting text from pages of the Lakhnawi PDF.</p></div>
 <div class="desc"><p>Pretty display of a single unicode character.</p>
 <p>We show the character itself and its name (if not a private-use one),
 its hexadecimal code, and we indicate by coloring the kind of
-white space that the character represents (ordinary space or tab).</p>
+white space that the character represents (ordinary space or emspace).</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>c</code></strong> :&ensp;<code>string</code></dt>
@@ -7469,14 +7495,14 @@ the integer 1 (diacritic place holder).</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1009-L1056" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1019-L1068" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showChar(self, c):
         &#34;&#34;&#34;Pretty display of a single unicode character.
 
         We show the character itself and its name (if not a private-use one),
         its hexadecimal code, and we indicate by coloring the kind of
-        white space that the character represents (ordinary space or tab).
+        white space that the character represents (ordinary space or emspace).
 
         Parameters
         ----------
@@ -7510,7 +7536,9 @@ the integer 1 (diacritic place holder).</dd>
                 else f&#34;&#34;&#34;&lt;span class=&#34;{&#34;rc&#34; if c in rls else &#34;lc&#34;}&#34;&gt;{c}&#34;&#34;&#34;
             )
             cname = &#34;&#34; if c in puas else f&#34;&#34;&#34;&lt;span class=&#34;c&#34;&gt;{uName(c)}&lt;/span&gt;&#34;&#34;&#34;
-            extra = &#34;t&#34; if c == &#34;\t&#34; else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            extra = (
+                &#34;m&#34; if c == EMSPACE else &#34;s&#34; if c == &#34; &#34; else &#34;&#34;
+            )
 
         return f&#34;&#34;&#34;
 &lt;div class=&#34;ch{extra}&#34;&gt;
@@ -7543,7 +7571,7 @@ that exists in the lines of the selected pages.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2144-L2183" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2135-L2174" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showColumns(self, pageNumSpec):
     &#34;&#34;&#34;Show used characters.
@@ -7574,17 +7602,17 @@ that exists in the lines of the selected pages.</p>
         lineInfo = columns[pageNum]
         multiple = []
         for lNum in sorted(lineInfo):
-            (threshold, tabs) = lineInfo[lNum]
-            nTabs = len(tabs)
-            if threshold is not None and nTabs &gt; 0:
-                multiple.append((lNum, threshold, tabs))
+            (threshold, emspaces) = lineInfo[lNum]
+            nEmspaces = len(emspaces)
+            if threshold is not None and nEmspaces &gt; 0:
+                multiple.append((lNum, threshold, emspaces))
         if not len(multiple):
             print(f&#34;page {pageNum:&gt;3} -&#34;)
         else:
             print(f&#34;page {pageNum:&gt;3}:&#34;)
-            for (lNum, threshold, tabs) in multiple:
-                nTabs = len(tabs)
-                print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nTabs + 1)}&#34;)</code></pre>
+            for (lNum, threshold, emspaces) in multiple:
+                nEmspaces = len(emspaces)
+                print(f&#34;\t{lNum:&gt;2}: {&#39;- &#39; * (nEmspaces + 1)}&#34;)</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.showDoubles"><code class="name flex">
@@ -7609,7 +7637,7 @@ If None, all such characters will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1162-L1230" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1174-L1242" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showDoubles(self, double=None):
         &#34;&#34;&#34;Show a character with double entry and how often it occurs.
@@ -7705,7 +7733,7 @@ If None, all such characters will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1232-L1300" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1244-L1312" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showFinals(self, final=None):
         &#34;&#34;&#34;Show a character with final form and how often it has been replaced.
@@ -7792,7 +7820,7 @@ If None, all such characters will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1302-L1334" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1314-L1346" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showLineHeights(self, pageNumSpec):
     &#34;&#34;&#34;Shows how line heights have been determined.
@@ -7873,7 +7901,7 @@ be retrieved, otherwise only the first one.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1789-L1926" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1777-L1914" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showLines(
         self,
@@ -8036,7 +8064,7 @@ If None, all rules will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1086-L1160" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1098-L1172" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showReplacements(self, rule=None, isApplied=False):
         &#34;&#34;&#34;Show a character conversion rule and how it has been applied.
@@ -8137,7 +8165,7 @@ If None, all rules will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2185-L2225" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2176-L2216" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showSpacing(self, pageNumSpec, line=None):
     &#34;&#34;&#34;Show where the spaces are.
@@ -8204,7 +8232,7 @@ but displays the HTML string.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1058-L1084" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1070-L1096" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showString(self, s, asString=False):
     &#34;&#34;&#34;Pretty display of a string as a series of unicode characters.
@@ -8270,7 +8298,7 @@ Otherwise, sort the results by unicode code point of the character.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2006-L2142" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1996-L2133" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showUsedChars(
         self,
@@ -8348,12 +8376,13 @@ Otherwise, sort the results by unicode code point of the character.</dd>
                     for col in line:
                         for span in col:
                             for word in span[1]:
-                                string = word[0]
-                                thesePuas = PUA_RE.findall(string)
+                                letters = word[0]
+                                punc = word[1]
+                                thesePuas = PUA_RE.findall(letters)
                                 for pua in thesePuas:
                                     charsOut[chr(int(pua, base=16))][pageNum] += 1
                                 if not onlyPuas:
-                                    rest = PUA_RE.sub(&#34;&#34;, string)
+                                    rest = PUA_RE.sub(&#34;&#34;, f&#34;{letters}{punc}&#34;)
                                     for c in rest:
                                         if not (
                                             onlyPresentational
@@ -8435,7 +8464,7 @@ see <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="#fusus.lakhnawi.Lakh
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1928-L2004" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1916-L1994" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">    def showWords(self, pageNumSpec, line=None):
         &#34;&#34;&#34;Outputs processed words as a formatted HTML table.
@@ -8479,7 +8508,8 @@ see <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="#fusus.lakhnawi.Lakh
     &lt;th&gt;top&lt;/th&gt;
     &lt;th&gt;right&lt;/th&gt;
     &lt;th&gt;bottom&lt;/th&gt;
-    &lt;th&gt;word&lt;/th&gt;
+    &lt;th&gt;letters&lt;/th&gt;
+    &lt;th&gt;punc&lt;/th&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
         )
@@ -8494,7 +8524,7 @@ see <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="#fusus.lakhnawi.Lakh
                 cols = pageLines[ln - 1]
                 for (cn, spans) in enumerate(cols):
                     for (sn, (dr, words)) in enumerate(spans):
-                        for (word, (le, to, ri, bo)) in words:
+                        for (letters, punc, (le, to, ri, bo)) in words:
                             html.append(
                                 f&#34;&#34;&#34;
 &lt;tr&gt;
@@ -8507,7 +8537,8 @@ see <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="#fusus.lakhnawi.Lakh
     &lt;td&gt;{ptRep(to)}&lt;/td&gt;
     &lt;td&gt;{ptRep(ri)}&lt;/td&gt;
     &lt;td&gt;{ptRep(bo)}&lt;/td&gt;
-    &lt;td&gt;{self.showString(word, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(letters, asString=True)}&lt;/td&gt;
+    &lt;td&gt;{self.showString(punc, asString=True)}&lt;/td&gt;
 &lt;/tr&gt;
 &#34;&#34;&#34;
                             )
@@ -8606,7 +8637,7 @@ rules.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2396-L2853" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2387-L2865" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def trimLine(self, pageNum, ln, chars):
     &#34;&#34;&#34;Map character sequences to other sequences.
@@ -8864,7 +8895,7 @@ rules.</p>
                     else normalizeD(x)
                     if x in presentationalD
                     else x
-                )
+                ).strip()
                 space = &#34; &#34; if hasFinalSpace or x in punct else &#34;&#34;
                 if hasFinalSpace:
                     finalsApplied[x][pageNum] += 1
@@ -8916,7 +8947,7 @@ rules.</p>
     if chars:
         chars[-1][-3] = &#34;end&#34;
 
-    # change big spaces to tabs
+    # change big spaces to emspaces
 
     nSpaces = sum(1 for x in theseSpaces if x[2])
 
@@ -8935,7 +8966,7 @@ rules.</p>
             if isSpace and after &gt; threshold:
                 theseColumns[1].append((i, after))
                 char = chars[i]
-                char[-1] = char[-1].rstrip(&#34; &#34;) + &#34;\t&#34;
+                char[-1] = char[-1].rstrip(&#34; &#34;) + EMSPACE
 
     # remove space between alef and initial follower,
     # provided the alef is the single letter in its word.
@@ -8978,14 +9009,14 @@ rules.</p>
 
     # divide lines into columns
 
-    tabs = theseColumns[1]
-    tabPositions = {t[0] for t in tabs}
+    emspaces = theseColumns[1]
+    emspacePositions = {t[0] for t in emspaces}
 
     columnedChars = [[]]
     dest = columnedChars[-1]
 
     for (i, char) in enumerate(chars):
-        if i in tabPositions:
+        if i in emspacePositions:
             if char[-1]:
                 dest.append(char)
             columnedChars.append([])
@@ -9003,37 +9034,49 @@ rules.</p>
     # a line datum is a list of columns
     # a column is a list of spans
     # a span is a pair of a direction char (&#34;l&#34; or &#34;r&#34;) plus a list of word data
-    # a word datum is a string plus a word boundary
-    # a word boundary is a (left, top, right, bottom) tuple
+    # a word datum is a string plus a word box
+    # a word box is a (left, top, right, bottom) tuple
 
     result = []
     text.setdefault(pageNum, []).append(result)
     prevDir = &#34;r&#34;
-    outChars = []
-    boundary = [None, None, None, None]
+
+    # we transform letters into chunks, where each chunk is a pair of
+    # word material
+    # punctuation material
+
+    outChars = [[], []]
+    inWord = True
+    box = [None, None, None, None]
 
     def addWord():
-        if outChars:
-            charsRep = &#34;&#34;.join(outChars if prevDir == &#34;r&#34; else reversed(outChars))
+        if outChars[0] or outChars[1]:
+            wordCharsRep = &#34;&#34;.join(
+                outChars[0] if prevDir == &#34;r&#34; else reversed(outChars[0])
+            )
+            puncCharsRep = &#34;&#34;.join(
+                outChars[1] if prevDir == &#34;r&#34; else reversed(outChars[1])
+            )
             lastSpan = None if len(result[-1]) == 0 else result[-1][-1]
+            element = (wordCharsRep, puncCharsRep, tuple(box))
             if lastSpan is None or lastSpan[0] != prevDir:
-                result[-1].append((prevDir, [(charsRep, tuple(boundary))]))
+                result[-1].append((prevDir, [element]))
             else:
-                result[-1][-1][-1].append((charsRep, tuple(boundary)))
+                result[-1][-1][-1].append(element)
 
-    def setBoundary(char):
+    def setBox(char):
         for (i, coor) in enumerate(char[0:4]):
             if (
-                (b := boundary[i]) is None
+                (b := box[i]) is None
                 or (i &lt; 2 and coor &lt; b)
                 or (i &gt;= 2 and coor &gt; b)
             ):
-                boundary[i] = coor
+                box[i] = coor
 
     for chars in columnedChars:
         result.append([])
-        outChars = []
-        boundary = [None, None, None, None]
+        outChars = [[], []]
+        box = [None, None, None, None]
 
         for char in chars:
             c = char[-1]
@@ -9042,30 +9085,39 @@ rules.</p>
                 continue
 
             for d in c:
-                if d in {&#34; &#34;, &#34;\t&#34;}:
+                spaceSeen = d in {&#34; &#34;, EMSPACE}
+                changeWord = not inWord and d not in nonLetter
+
+                if spaceSeen:
+                    outChars[1].append(d)
+                if spaceSeen or changeWord:
                     addWord()
-                    boundary = [None, None, None, None]
-                    outChars = []
+                    box = [None, None, None, None]
+                    outChars = [[d] if changeWord else [], []]
+                    inWord = True
                     continue
 
                 thisDir = prevDir if d in neutrals else &#34;r&#34; if d in rls else &#34;l&#34;
 
                 if prevDir != thisDir:
                     addWord()
-                    boundary = [None, None, None, None]
-                    outChars = []
+                    box = [None, None, None, None]
+                    outChars = [[], []]
+                    inWord = True
                     prevDir = thisDir
 
+                if inWord:
+                    if d in nonLetter:
+                        inWord = False
+                dest = 0 if inWord else 1
                 rep = d
                 if d in puas:
-                    rep = f&#34;&#34;&#34;⌊{ord(d):&gt;04x}⌋&#34;&#34;&#34;
-                outChars.append(rep)
+                    rep = f&#34;⌊{ord(d):&gt;04x}⌋&#34;
+                outChars[dest].append(rep)
 
-            setBoundary(char)
+            setBox(char)
 
-        addWord()
-
-    return result</code></pre>
+        addWord()</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.tsvHeadLine"><code class="name flex">
@@ -9083,7 +9135,7 @@ as output format for the extracted text of the Lakhnawi PDF.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2879-L2891" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2893-L2905" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvHeadLine(self):
     &#34;&#34;&#34;Outputs the field names of a word in TSV data.
@@ -9097,7 +9149,7 @@ as output format for the extracted text of the Lakhnawi PDF.</p>
         A tab-separated line of field names.
     &#34;&#34;&#34;
 
-    return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n&#34;</code></pre>
+    return &#34;page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tletters\tpunc\n&#34;</code></pre>
 </details>
 </dd>
 <dt id="fusus.lakhnawi.Lakhnawi.tsvLine"><code class="name flex">
@@ -9125,7 +9177,7 @@ in all columns.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L2893-L2939" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L2907-L2954" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvLine(self, columns, pageNum, ln):
     &#34;&#34;&#34;Outputs a processed line as lines of tab-separated fields for each word.
@@ -9152,7 +9204,7 @@ in all columns.</dd>
     material = []
     for (cn, spans) in enumerate(columns):
         for (sn, (dr, words)) in enumerate(spans):
-            for (word, (le, to, ri, bo)) in words:
+            for (letters, punc, (le, to, ri, bo)) in words:
                 material.append(
                     (
                         &#34;\t&#34;.join(
@@ -9167,7 +9219,8 @@ in all columns.</dd>
                                 ptRep(to),
                                 ptRep(ri),
                                 ptRep(bo),
-                                word,
+                                letters,
+                                punc,
                             )
                         )
                     )
@@ -9181,31 +9234,10 @@ in all columns.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Outputs processed pages as tab-separated data.</p>
+<p>See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> for the details of the output format.</p>
 <p>Uses
 <code><a title="fusus.lakhnawi.Lakhnawi.tsvLine" href="#fusus.lakhnawi.Lakhnawi.tsvLine">Lakhnawi.tsvLine()</a></code>.
 and <code><a title="fusus.lakhnawi.Lakhnawi.tsvHeadLine" href="#fusus.lakhnawi.Lakhnawi.tsvHeadLine">Lakhnawi.tsvHeadLine()</a></code>.</p>
-<p>Here is the structure:</p>
-<p>Each page is divided into lines.</p>
-<p>Each line is divided into columns
-(in case of hemistic verses, see <code><a title="fusus.lakhnawi.Lakhnawi.columns" href="#fusus.lakhnawi.Lakhnawi.columns">Lakhnawi.columns</a></code>).</p>
-<p>Each column is divided into spans.
-Span transitions occur precisely there where changes in writing direction
-occur.</p>
-<p>Each span is divided into words.</p>
-<p>Each word occupies exactly one line in the TSV file,
-with the following fields:</p>
-<ul>
-<li><strong>page</strong> page number</li>
-<li><strong>line</strong> line number within the page</li>
-<li><strong>column</strong> column number within the line</li>
-<li><strong>span</strong> span number within the column</li>
-<li><strong>direction</strong> (<code>l</code> or <code>r</code>) writing direction of the span</li>
-<li><strong>left</strong> <em>x</em> coordinate of left boundary</li>
-<li><strong>top</strong> <em>y</em> coordinate of top boundary</li>
-<li><strong>right</strong> <em>x</em> coordinate of right boundary</li>
-<li><strong>bottom</strong> <em>y</em> coordinate of bottom boundary</li>
-<li><strong>text</strong> text of the word</li>
-</ul>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>pageNumSpec</code></strong> :&ensp;<code>None | int | string | iterable</code></dt>
@@ -9224,41 +9256,17 @@ The name of the file includes a page specification.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lakhnawi.py#L1577-L1646" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lakhnawi.py#L1589-L1634" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def tsvPages(self, pageNumSpec):
     &#34;&#34;&#34;Outputs processed pages as tab-separated data.
+
+    See `fusus.convert` for the details of the output format.
 
     Uses
     `Lakhnawi.tsvLine()`.
     and `Lakhnawi.tsvHeadLine()`.
 
-    Here is the structure:
-
-    Each page is divided into lines.
-
-    Each line is divided into columns
-    (in case of hemistic verses, see `Lakhnawi.columns`).
-
-    Each column is divided into spans.
-    Span transitions occur precisely there where changes in writing direction
-    occur.
-
-    Each span is divided into words.
-
-    Each word occupies exactly one line in the TSV file,
-    with the following fields:
-
-    * **page** page number
-    * **line** line number within the page
-    * **column** column number within the line
-    * **span** span number within the column
-    * **direction** (`l` or `r`) writing direction of the span
-    * **left** *x* coordinate of left boundary
-    * **top** *y* coordinate of top boundary
-    * **right** *x* coordinate of right boundary
-    * **bottom** *y* coordinate of bottom boundary
-    * **text** text of the word
 
     Parameters
     ----------
@@ -9326,6 +9334,7 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.char.UChar.semis" href="char.html#fusus.char.UChar.semis">semis</a></code></li>
 <li><code><a title="fusus.char.UChar.stops" href="char.html#fusus.char.UChar.stops">stops</a></code></li>
 <li><code><a title="fusus.char.UChar.syriac" href="char.html#fusus.char.UChar.syriac">syriac</a></code></li>
+<li><code><a title="fusus.char.UChar.wordRe" href="char.html#fusus.char.UChar.wordRe">wordRe</a></code></li>
 </ul>
 </li>
 </ul>
@@ -9383,6 +9392,7 @@ The name of the file includes a page specification.</p>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.clusteredHeights" href="#fusus.lakhnawi.Lakhnawi.clusteredHeights">clusteredHeights</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.collectPage" href="#fusus.lakhnawi.Lakhnawi.collectPage">collectPage</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.columns" href="#fusus.lakhnawi.Lakhnawi.columns">columns</a></code></li>
+<li><code><a title="fusus.lakhnawi.Lakhnawi.doc" href="#fusus.lakhnawi.Lakhnawi.doc">doc</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.doubles" href="#fusus.lakhnawi.Lakhnawi.doubles">doubles</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.drawPages" href="#fusus.lakhnawi.Lakhnawi.drawPages">drawPages</a></code></li>
 <li><code><a title="fusus.lakhnawi.Lakhnawi.fnRules" href="#fusus.lakhnawi.Lakhnawi.fnRules">fnRules</a></code></li>

@@ -130,13 +130,13 @@ a false positive.</p>
 <li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb">inspect</a></li>
 </ul>
 <p><strong>Discussion</strong></p>
-<p>Pages are usually divided into regions: header, middle, footer.
-There can be vertical divisions to, into columns.
+<p>Pages are usually divided into horizontal regions: header, middle, footer.
+There can be vertical divisions too, into blocks.
 We detect such regions by spotting horizontal and vertical lines and dividing the page accordingly.</p>
-<p>A subtlety is that vertical stroke are often just an approximation: they do not exactly
+<p>A subtlety is that vertical strokes are often just an approximation: they do not exactly
 correspond with the boundaries of the lines on the left and right of the stroke.</p>
 <p>We solve this by making a premature line division left and right, and adjusting the size of the
-left and right columns accordingly.</p>
+left and right blocks accordingly.</p>
 <p>In this way we divide the page into blocks, which are the ultimate containers of lines.</p>
 <p><img alt="layout" src="../images/layout.png"></p>
 <p>Stroke detection turns out to be subtle.
@@ -245,7 +245,7 @@ Loading the model takes 5 to 10 seconds, so it is important to do that just once
 and the confidences by which they have been recognized.</p>
 <p>We store this data in TSV files and we also make a version where we have combined
 the character data into word data.</p>
-<p>We also include columns for the page, block, and line information of the characters and words.</p>
+<p>We also include fields for the page, block, and line information of the characters and words.</p>
 <p>This enables us to compose <em>proofing</em> pages, which consist of HTML pages
 with the page image as background and the recognized characters/words at the proper fixed
 positions, with a coloured background that represents the confidence of recognition.</p>
@@ -475,7 +475,7 @@ Tab-Separated-Value files.</p>
 </ul>
 <p><strong>Discussion</strong></p>
 <p>Here we are at the stage where the results of the pipeline and those of the text extraction
-reach a common file format, with an almost identical column division.</p>
+reach a common file format, with an almost identical field division.</p>
 <p>In order to streamline the orchestration of work we have registered the works that
 we have subjected to the pipeline and the text extraction.
 They can be referred to by a simple acronym in several data conversion and delivery functions.</p>
@@ -491,6 +491,7 @@ and register them in the WORKS dictionary.</p>
 </ul>
 <p><strong>Code references</strong></p>
 <ul>
+<li><code><a title="fusus.convert" href="../convert.html">fusus.convert</a></code></li>
 <li><code><a title="fusus.convert.HELP" href="../convert.html#fusus.convert.HELP">HELP</a></code></li>
 <li><code><a title="fusus.convert.makeTsv" href="../convert.html#fusus.convert.makeTsv">makeTsv()</a></code></li>
 <li><code><a title="fusus.convert.loadTsv" href="../convert.html#fusus.convert.loadTsv">loadTsv()</a></code></li>
@@ -572,12 +573,22 @@ produce new data associated with it (such as named entities, part-of-speech, sem
 and publish it in your own GitHub repo.
 Then other users can load the original dataset and your annotations in one go, and can compute with
 the combined result.</p>
-<p>When we convert the TSV to Text_Fabric we perform two extra steps:</p>
+<p>When we convert the TSV to Text-Fabric we perform an extra step:</p>
 <ul>
-<li>separatation punctuation from words;</li>
 <li>transliteration of Arabic text to various schemes;
 these schemes are now part of Text-Fabric.</li>
 </ul>
+<p>The resulting TF files are <em>versioned</em>.
+That is important, because enrichments that have been created by other parties need to refer
+to the exact dataset.
+Later, when new versions of the dataset have been made, enrichments may not be compatible with the
+new version. Then it is good to have the old version still around, for the sake of reproducibility.</p>
+<p>In Text-Fabric, the concept of
+<a href="https://annotation.github.io/text-fabric/tf/compose/nodemaps.html">node mapping</a>
+is supported.
+We can map the nodes from a newer version to the nodes of an older version.
+With this mapping in hand, we can apply older enrichments to the new version, without doing
+all that enrichment work a new.</p>
 <div class="admonition caution">
 <p class="admonition-title">Limited quality transliteration</p>
 <p>Arabic transliteration involves knowledge of Arabic orthography, morphology and parsing.
@@ -602,7 +613,7 @@ in Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/tech.md

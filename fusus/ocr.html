@@ -32,7 +32,7 @@ use Kraken for OCR only.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L0-L436" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L0-L460" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 Kraken Arabic model:
@@ -64,6 +64,7 @@ from kraken.rpred import rpred
 
 from tf.core.helpers import unexpanduser
 
+from .char import UChar
 from .lib import DEFAULT_EXTENSION
 
 
@@ -290,9 +291,11 @@ def showConf(stage, results, label=&#34;notes&#34;):
     display(HTML(html))
 
 
-class OCR:
+class OCR(UChar):
     def __init__(self, engine):
         &#34;&#34;&#34;Sets up OCR with Kraken.&#34;&#34;&#34;
+
+        super().__init__()
 
         self.engine = engine
         self.model = None
@@ -322,6 +325,8 @@ class OCR:
         if scan is None:
             return None
 
+        nonLetter = self.nonLetter
+
         model = self.ensureLoaded()
 
         blocks = page.blocks
@@ -333,7 +338,7 @@ class OCR:
         stages[&#34;line&#34;] = ocrLines
         binary = pil2array(nlbin(array2pil(scan)))
 
-        for ((stripe, column), data) in blocks.items():
+        for ((stripe, block), data) in blocks.items():
             (left, top, right, bottom) = data[&#34;inner&#34;]
             thisBinary = binary[top:bottom, left:right]
             lines = data[&#34;bands&#34;][&#34;main&#34;][&#34;lines&#34;]
@@ -341,7 +346,7 @@ class OCR:
                 lln = ln + 1
                 roi = thisBinary[up : lo + 1]
                 (b, e, roi) = removeMargins(roi, keep=16)
-                ocrLines.append((stripe, column, lln, left + b, top + up, left + e, top + lo))
+                ocrLines.append((stripe, block, lln, left + b, top + up, left + e, top + lo))
                 (roiH, roiW) = roi.shape[0:2]
                 roi = array2pil(roi)
                 bounds = dict(boxes=([0, 0, roiW, roiH],), text_direction=RL)
@@ -368,24 +373,38 @@ class OCR:
                 if adaptedPreds:
                     adaptedPreds[-1][1][0] = 0
 
-                # divide into words
+                # divide into words, not only on spaces, but also on punctuation
 
-                curWord = []
+                curWord = [[], []]
+                inWord = True
 
                 for (c, (le, to, ri, bo), conf) in adaptedPreds:
                     offsetW = left + b
                     offsetH = top + up
                     pos = (le + offsetW, to + offsetH, ri + offsetW, bo + offsetH)
                     conf = int(round(conf * 100))
-                    ocrChars.append((stripe, column, lln, *pos, conf, c))
+                    ocrChars.append((stripe, block, lln, *pos, conf, c))
 
-                    if c == &#34; &#34; and curWord:
-                        ocrWords.append((stripe, column, lln, *addWord(curWord)))
-                        curWord = []
-                        continue
-                    curWord.append((c, pos, conf))
-                if curWord:
-                    ocrWords.append((stripe, column, lln, *addWord(curWord)))
+                    spaceSeen = c == &#34; &#34;
+                    changeWord = not inWord and c not in nonLetter
+                    element = (c, pos, conf)
+
+                    if spaceSeen:
+                        curWord[1].append(element)
+                    if spaceSeen or changeWord:
+                        if curWord[0] or curWord[1]:
+                            ocrWords.append((stripe, block, lln, *addWord(curWord)))
+                            curWord = [[], []]
+                            inWord = True
+                            continue
+
+                    if inWord:
+                        if c in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
+                    curWord[dest].append(element)
+                if curWord[0] or curWord[1]:
+                    ocrWords.append((stripe, block, lln, *addWord(curWord)))
 
         page.write(stage=&#34;line,word,char&#34;)
 
@@ -414,31 +433,34 @@ class OCR:
             .replace(&#34;«width»&#34;, g(right - left))
             .replace(&#34;«height»&#34;, g(bottom - top))
             .replace(&#34;«text»&#34;, f&#34;{ln:&gt;01}&#34;)
-            for (stripe, column, ln, left, top, right, bottom) in ocrLines
+            for (stripe, block, ln, left, top, right, bottom) in ocrLines
         )
 
         for stage in (&#34;char&#34;, &#34;word&#34;):
             stageData = stages.get(stage, [])
-            boxesHtml = &#34;&#34;.join(
-                TEMPLATE[stage]
-                .replace(&#34;«left»&#34;, g(left))
-                .replace(&#34;«top»&#34;, g(top))
-                .replace(&#34;«width»&#34;, g(right - left))
-                .replace(&#34;«height»&#34;, g(bottom - top))
-                .replace(&#34;«background»&#34;, getProofColor(conf))
-                .replace(&#34;«text»&#34;, text)
-                for (
-                    stripe,
-                    column,
-                    ln,
-                    left,
-                    top,
-                    right,
-                    bottom,
-                    conf,
-                    text,
-                ) in stageData
-            )
+            boxesHtml = []
+            for (
+                stripe,
+                block,
+                ln,
+                left,
+                top,
+                right,
+                bottom,
+                conf,
+                *rest,
+            ) in stageData:
+                boxesHtml.append(
+                    TEMPLATE[stage]
+                    .replace(&#34;«left»&#34;, g(left))
+                    .replace(&#34;«top»&#34;, g(top))
+                    .replace(&#34;«width»&#34;, g(right - left))
+                    .replace(&#34;«height»&#34;, g(bottom - top))
+                    .replace(&#34;«background»&#34;, getProofColor(conf))
+                    .replace(&#34;«text»&#34;, &#34;&#34;.join(rest))
+                )
+
+            boxesHtml = &#34;&#34;.join(boxesHtml)
             proofData = (
                 TEMPLATE[&#34;doc&#34;]
                 .replace(&#34;«width»&#34;, g(w))
@@ -462,15 +484,17 @@ def removeMargins(img, keep=0):
     return (start, end, img[:, start:end])
 
 
-def addWord(curChars):
-    word = &#34;&#34;.join(x[0] for x in curChars)
-    conf = int(round(sum(x[-1] for x in curChars) / len(curChars)))
-    left = min(x[1][0] for x in curChars)
-    top = min(x[1][1] for x in curChars)
-    right = max(x[1][2] for x in curChars)
-    bot = max(x[1][3] for x in curChars)
+def addWord(curWord):
+    letters = &#34;&#34;.join(x[0] for x in curWord[0])
+    punc = &#34;&#34;.join(x[0] for x in curWord[1])
+    allChars = curWord[0] + curWord[1]
+    conf = int(round(sum(x[-1] for x in allChars) / len(allChars)))
+    left = min(x[1][0] for x in allChars)
+    top = min(x[1][1] for x in allChars)
+    right = max(x[1][2] for x in allChars)
+    bot = max(x[1][3] for x in allChars)
 
-    return (left, top, right, bot, conf, word)</code></pre>
+    return (left, top, right, bot, conf, letters, punc)</code></pre>
 </details>
 </section>
 <section>
@@ -481,24 +505,26 @@ def addWord(curChars):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="fusus.ocr.addWord"><code class="name flex">
-<span>def <span class="ident">addWord</span></span>(<span>curChars)</span>
+<span>def <span class="ident">addWord</span></span>(<span>curWord)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L429-L437" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L451-L461" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def addWord(curChars):
-    word = &#34;&#34;.join(x[0] for x in curChars)
-    conf = int(round(sum(x[-1] for x in curChars) / len(curChars)))
-    left = min(x[1][0] for x in curChars)
-    top = min(x[1][1] for x in curChars)
-    right = max(x[1][2] for x in curChars)
-    bot = max(x[1][3] for x in curChars)
+<pre><code class="python">def addWord(curWord):
+    letters = &#34;&#34;.join(x[0] for x in curWord[0])
+    punc = &#34;&#34;.join(x[0] for x in curWord[1])
+    allChars = curWord[0] + curWord[1]
+    conf = int(round(sum(x[-1] for x in allChars) / len(allChars)))
+    left = min(x[1][0] for x in allChars)
+    top = min(x[1][1] for x in allChars)
+    right = max(x[1][2] for x in allChars)
+    bot = max(x[1][3] for x in allChars)
 
-    return (left, top, right, bot, conf, word)</code></pre>
+    return (left, top, right, bot, conf, letters, punc)</code></pre>
 </details>
 </dd>
 <dt id="fusus.ocr.getProofColor"><code class="name flex">
@@ -509,7 +535,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L166-L199" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L167-L200" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getProofColor(conf, test=False):
     for (
@@ -555,7 +581,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L420-L426" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L442-L448" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeMargins(img, keep=0):
     mask = img &lt; 255
@@ -574,7 +600,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L202-L254" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L203-L255" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showConf(stage, results, label=&#34;notes&#34;):
     header = f&#34;&#34;&#34;
@@ -645,11 +671,13 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L257-L417" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L258-L439" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">class OCR:
+<pre><code class="python">class OCR(UChar):
     def __init__(self, engine):
         &#34;&#34;&#34;Sets up OCR with Kraken.&#34;&#34;&#34;
+
+        super().__init__()
 
         self.engine = engine
         self.model = None
@@ -679,6 +707,8 @@ def addWord(curChars):
         if scan is None:
             return None
 
+        nonLetter = self.nonLetter
+
         model = self.ensureLoaded()
 
         blocks = page.blocks
@@ -690,7 +720,7 @@ def addWord(curChars):
         stages[&#34;line&#34;] = ocrLines
         binary = pil2array(nlbin(array2pil(scan)))
 
-        for ((stripe, column), data) in blocks.items():
+        for ((stripe, block), data) in blocks.items():
             (left, top, right, bottom) = data[&#34;inner&#34;]
             thisBinary = binary[top:bottom, left:right]
             lines = data[&#34;bands&#34;][&#34;main&#34;][&#34;lines&#34;]
@@ -698,7 +728,7 @@ def addWord(curChars):
                 lln = ln + 1
                 roi = thisBinary[up : lo + 1]
                 (b, e, roi) = removeMargins(roi, keep=16)
-                ocrLines.append((stripe, column, lln, left + b, top + up, left + e, top + lo))
+                ocrLines.append((stripe, block, lln, left + b, top + up, left + e, top + lo))
                 (roiH, roiW) = roi.shape[0:2]
                 roi = array2pil(roi)
                 bounds = dict(boxes=([0, 0, roiW, roiH],), text_direction=RL)
@@ -725,24 +755,38 @@ def addWord(curChars):
                 if adaptedPreds:
                     adaptedPreds[-1][1][0] = 0
 
-                # divide into words
+                # divide into words, not only on spaces, but also on punctuation
 
-                curWord = []
+                curWord = [[], []]
+                inWord = True
 
                 for (c, (le, to, ri, bo), conf) in adaptedPreds:
                     offsetW = left + b
                     offsetH = top + up
                     pos = (le + offsetW, to + offsetH, ri + offsetW, bo + offsetH)
                     conf = int(round(conf * 100))
-                    ocrChars.append((stripe, column, lln, *pos, conf, c))
+                    ocrChars.append((stripe, block, lln, *pos, conf, c))
 
-                    if c == &#34; &#34; and curWord:
-                        ocrWords.append((stripe, column, lln, *addWord(curWord)))
-                        curWord = []
-                        continue
-                    curWord.append((c, pos, conf))
-                if curWord:
-                    ocrWords.append((stripe, column, lln, *addWord(curWord)))
+                    spaceSeen = c == &#34; &#34;
+                    changeWord = not inWord and c not in nonLetter
+                    element = (c, pos, conf)
+
+                    if spaceSeen:
+                        curWord[1].append(element)
+                    if spaceSeen or changeWord:
+                        if curWord[0] or curWord[1]:
+                            ocrWords.append((stripe, block, lln, *addWord(curWord)))
+                            curWord = [[], []]
+                            inWord = True
+                            continue
+
+                    if inWord:
+                        if c in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
+                    curWord[dest].append(element)
+                if curWord[0] or curWord[1]:
+                    ocrWords.append((stripe, block, lln, *addWord(curWord)))
 
         page.write(stage=&#34;line,word,char&#34;)
 
@@ -771,31 +815,34 @@ def addWord(curChars):
             .replace(&#34;«width»&#34;, g(right - left))
             .replace(&#34;«height»&#34;, g(bottom - top))
             .replace(&#34;«text»&#34;, f&#34;{ln:&gt;01}&#34;)
-            for (stripe, column, ln, left, top, right, bottom) in ocrLines
+            for (stripe, block, ln, left, top, right, bottom) in ocrLines
         )
 
         for stage in (&#34;char&#34;, &#34;word&#34;):
             stageData = stages.get(stage, [])
-            boxesHtml = &#34;&#34;.join(
-                TEMPLATE[stage]
-                .replace(&#34;«left»&#34;, g(left))
-                .replace(&#34;«top»&#34;, g(top))
-                .replace(&#34;«width»&#34;, g(right - left))
-                .replace(&#34;«height»&#34;, g(bottom - top))
-                .replace(&#34;«background»&#34;, getProofColor(conf))
-                .replace(&#34;«text»&#34;, text)
-                for (
-                    stripe,
-                    column,
-                    ln,
-                    left,
-                    top,
-                    right,
-                    bottom,
-                    conf,
-                    text,
-                ) in stageData
-            )
+            boxesHtml = []
+            for (
+                stripe,
+                block,
+                ln,
+                left,
+                top,
+                right,
+                bottom,
+                conf,
+                *rest,
+            ) in stageData:
+                boxesHtml.append(
+                    TEMPLATE[stage]
+                    .replace(&#34;«left»&#34;, g(left))
+                    .replace(&#34;«top»&#34;, g(top))
+                    .replace(&#34;«width»&#34;, g(right - left))
+                    .replace(&#34;«height»&#34;, g(bottom - top))
+                    .replace(&#34;«background»&#34;, getProofColor(conf))
+                    .replace(&#34;«text»&#34;, &#34;&#34;.join(rest))
+                )
+
+            boxesHtml = &#34;&#34;.join(boxesHtml)
             proofData = (
                 TEMPLATE[&#34;doc&#34;]
                 .replace(&#34;«width»&#34;, g(w))
@@ -809,6 +856,10 @@ def addWord(curChars):
                 f.write(proofData)
             stages[proofStage] = f&#34;see proof at {stage} level&#34;</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="fusus.char.UChar" href="char.html#fusus.char.UChar">UChar</a></li>
+</ul>
 <h3>Methods</h3>
 <dl>
 <dt id="fusus.ocr.OCR.ensureLoaded"><code class="name flex">
@@ -819,7 +870,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L264-L279" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L267-L282" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ensureLoaded(self):
     if self.model is None:
@@ -847,7 +898,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L356-L417" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L375-L439" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self, page):
     &#34;&#34;&#34;Produces an OCR proof page&#34;&#34;&#34;
@@ -874,31 +925,34 @@ def addWord(curChars):
         .replace(&#34;«width»&#34;, g(right - left))
         .replace(&#34;«height»&#34;, g(bottom - top))
         .replace(&#34;«text»&#34;, f&#34;{ln:&gt;01}&#34;)
-        for (stripe, column, ln, left, top, right, bottom) in ocrLines
+        for (stripe, block, ln, left, top, right, bottom) in ocrLines
     )
 
     for stage in (&#34;char&#34;, &#34;word&#34;):
         stageData = stages.get(stage, [])
-        boxesHtml = &#34;&#34;.join(
-            TEMPLATE[stage]
-            .replace(&#34;«left»&#34;, g(left))
-            .replace(&#34;«top»&#34;, g(top))
-            .replace(&#34;«width»&#34;, g(right - left))
-            .replace(&#34;«height»&#34;, g(bottom - top))
-            .replace(&#34;«background»&#34;, getProofColor(conf))
-            .replace(&#34;«text»&#34;, text)
-            for (
-                stripe,
-                column,
-                ln,
-                left,
-                top,
-                right,
-                bottom,
-                conf,
-                text,
-            ) in stageData
-        )
+        boxesHtml = []
+        for (
+            stripe,
+            block,
+            ln,
+            left,
+            top,
+            right,
+            bottom,
+            conf,
+            *rest,
+        ) in stageData:
+            boxesHtml.append(
+                TEMPLATE[stage]
+                .replace(&#34;«left»&#34;, g(left))
+                .replace(&#34;«top»&#34;, g(top))
+                .replace(&#34;«width»&#34;, g(right - left))
+                .replace(&#34;«height»&#34;, g(bottom - top))
+                .replace(&#34;«background»&#34;, getProofColor(conf))
+                .replace(&#34;«text»&#34;, &#34;&#34;.join(rest))
+            )
+
+        boxesHtml = &#34;&#34;.join(boxesHtml)
         proofData = (
             TEMPLATE[&#34;doc&#34;]
             .replace(&#34;«width»&#34;, g(w))
@@ -921,7 +975,7 @@ def addWord(curChars):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/ocr.py#L281-L354" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/ocr.py#L284-L373" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, page):
     &#34;&#34;&#34;Perfoms OCR with Kraken.&#34;&#34;&#34;
@@ -930,6 +984,8 @@ def addWord(curChars):
     scan = stages.get(&#34;clean&#34;, None)
     if scan is None:
         return None
+
+    nonLetter = self.nonLetter
 
     model = self.ensureLoaded()
 
@@ -942,7 +998,7 @@ def addWord(curChars):
     stages[&#34;line&#34;] = ocrLines
     binary = pil2array(nlbin(array2pil(scan)))
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (left, top, right, bottom) = data[&#34;inner&#34;]
         thisBinary = binary[top:bottom, left:right]
         lines = data[&#34;bands&#34;][&#34;main&#34;][&#34;lines&#34;]
@@ -950,7 +1006,7 @@ def addWord(curChars):
             lln = ln + 1
             roi = thisBinary[up : lo + 1]
             (b, e, roi) = removeMargins(roi, keep=16)
-            ocrLines.append((stripe, column, lln, left + b, top + up, left + e, top + lo))
+            ocrLines.append((stripe, block, lln, left + b, top + up, left + e, top + lo))
             (roiH, roiW) = roi.shape[0:2]
             roi = array2pil(roi)
             bounds = dict(boxes=([0, 0, roiW, roiH],), text_direction=RL)
@@ -977,29 +1033,74 @@ def addWord(curChars):
             if adaptedPreds:
                 adaptedPreds[-1][1][0] = 0
 
-            # divide into words
+            # divide into words, not only on spaces, but also on punctuation
 
-            curWord = []
+            curWord = [[], []]
+            inWord = True
 
             for (c, (le, to, ri, bo), conf) in adaptedPreds:
                 offsetW = left + b
                 offsetH = top + up
                 pos = (le + offsetW, to + offsetH, ri + offsetW, bo + offsetH)
                 conf = int(round(conf * 100))
-                ocrChars.append((stripe, column, lln, *pos, conf, c))
+                ocrChars.append((stripe, block, lln, *pos, conf, c))
 
-                if c == &#34; &#34; and curWord:
-                    ocrWords.append((stripe, column, lln, *addWord(curWord)))
-                    curWord = []
-                    continue
-                curWord.append((c, pos, conf))
-            if curWord:
-                ocrWords.append((stripe, column, lln, *addWord(curWord)))
+                spaceSeen = c == &#34; &#34;
+                changeWord = not inWord and c not in nonLetter
+                element = (c, pos, conf)
+
+                if spaceSeen:
+                    curWord[1].append(element)
+                if spaceSeen or changeWord:
+                    if curWord[0] or curWord[1]:
+                        ocrWords.append((stripe, block, lln, *addWord(curWord)))
+                        curWord = [[], []]
+                        inWord = True
+                        continue
+
+                if inWord:
+                    if c in nonLetter:
+                        inWord = False
+                dest = 0 if inWord else 1
+                curWord[dest].append(element)
+            if curWord[0] or curWord[1]:
+                ocrWords.append((stripe, block, lln, *addWord(curWord)))
 
     page.write(stage=&#34;line,word,char&#34;)</code></pre>
 </details>
 </dd>
 </dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="fusus.char.UChar" href="char.html#fusus.char.UChar">UChar</a></b></code>:
+<ul class="hlist">
+<li><code><a title="fusus.char.UChar.arabic" href="char.html#fusus.char.UChar.arabic">arabic</a></code></li>
+<li><code><a title="fusus.char.UChar.arabicLetters" href="char.html#fusus.char.UChar.arabicLetters">arabicLetters</a></code></li>
+<li><code><a title="fusus.char.UChar.arabicPresentational" href="char.html#fusus.char.UChar.arabicPresentational">arabicPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.bracketMap" href="char.html#fusus.char.UChar.bracketMap">bracketMap</a></code></li>
+<li><code><a title="fusus.char.UChar.diacriticLike" href="char.html#fusus.char.UChar.diacriticLike">diacriticLike</a></code></li>
+<li><code><a title="fusus.char.UChar.diacritics" href="char.html#fusus.char.UChar.diacritics">diacritics</a></code></li>
+<li><code><a title="fusus.char.UChar.finalSpace" href="char.html#fusus.char.UChar.finalSpace">finalSpace</a></code></li>
+<li><code><a title="fusus.char.UChar.greekPresentational" href="char.html#fusus.char.UChar.greekPresentational">greekPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.hebrew" href="char.html#fusus.char.UChar.hebrew">hebrew</a></code></li>
+<li><code><a title="fusus.char.UChar.hebrewPresentational" href="char.html#fusus.char.UChar.hebrewPresentational">hebrewPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.latinPresentational" href="char.html#fusus.char.UChar.latinPresentational">latinPresentational</a></code></li>
+<li><code><a title="fusus.char.UChar.neutrals" href="char.html#fusus.char.UChar.neutrals">neutrals</a></code></li>
+<li><code><a title="fusus.char.UChar.nonLetter" href="char.html#fusus.char.UChar.nonLetter">nonLetter</a></code></li>
+<li><code><a title="fusus.char.UChar.nospacings" href="char.html#fusus.char.UChar.nospacings">nospacings</a></code></li>
+<li><code><a title="fusus.char.UChar.presentational" href="char.html#fusus.char.UChar.presentational">presentational</a></code></li>
+<li><code><a title="fusus.char.UChar.presentationalC" href="char.html#fusus.char.UChar.presentationalC">presentationalC</a></code></li>
+<li><code><a title="fusus.char.UChar.presentationalD" href="char.html#fusus.char.UChar.presentationalD">presentationalD</a></code></li>
+<li><code><a title="fusus.char.UChar.puas" href="char.html#fusus.char.UChar.puas">puas</a></code></li>
+<li><code><a title="fusus.char.UChar.punct" href="char.html#fusus.char.UChar.punct">punct</a></code></li>
+<li><code><a title="fusus.char.UChar.rls" href="char.html#fusus.char.UChar.rls">rls</a></code></li>
+<li><code><a title="fusus.char.UChar.semis" href="char.html#fusus.char.UChar.semis">semis</a></code></li>
+<li><code><a title="fusus.char.UChar.stops" href="char.html#fusus.char.UChar.stops">stops</a></code></li>
+<li><code><a title="fusus.char.UChar.syriac" href="char.html#fusus.char.UChar.syriac">syriac</a></code></li>
+<li><code><a title="fusus.char.UChar.wordRe" href="char.html#fusus.char.UChar.wordRe">wordRe</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>

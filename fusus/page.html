@@ -24,7 +24,7 @@
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L0-L1097" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L0-L1101" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Single page processing.
 &#34;&#34;&#34;
@@ -80,14 +80,15 @@ HEADERS = tuple(
     &#34;&#34;&#34;
     page
     stripe
-    column
+    block
     line
     left
     top
     right
     bottom
     confidence
-    text
+    letters
+    punc
 &#34;&#34;&#34;.strip().split()
 )
 DATA_TYPES = tuple(
@@ -100,6 +101,7 @@ DATA_TYPES = tuple(
     int
     int
     int
+    str
     str
 &#34;&#34;&#34;.strip().split()
 )
@@ -144,8 +146,10 @@ class Page:
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
-        self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
+        self.dataHeaders = dict(char=HEADERS[0:-1], word=HEADERS, line=HEADERS[0:-3])
+        self.dataTypes = dict(
+            char=DATA_TYPES[0:-1], word=DATA_TYPES, line=DATA_TYPES[0:-3]
+        )
 
         if minimal:
             self.stages = {}
@@ -254,7 +258,7 @@ class Page:
                         if s == &#34;boxed&#34; and mark is not None
                         else stageData
                     ).copy()
-                    for ((stripe, column), data) in blocks.items():
+                    for ((stripe, block), data) in blocks.items():
 
                         bands = data[&#34;bands&#34;]
                         doBands = (
@@ -273,7 +277,7 @@ class Page:
                             else &#34;&#34;
                         )
                         headingInfo.append(
-                            f&#34;&lt;b&gt;{stripe}{column}&lt;/b&gt; {bandRep}{markRep}&#34;
+                            f&#34;&lt;b&gt;{stripe}{block}&lt;/b&gt; {bandRep}{markRep}&#34;
                         )
 
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
@@ -330,7 +334,7 @@ class Page:
                                 connDegree,
                                 connectBorder,
                                 stripe,
-                                column,
+                                block,
                                 left,
                                 top,
                                 right,
@@ -434,7 +438,7 @@ class Page:
             Otherwise it is an iterable of stage names.
         perBlock: boolean, optional `False`
             If True, the stage output will be split into blocks and written
-            to disk separately. The stripe and column of a block are appended
+            to disk separately. The stripe and block are appended
             to the file name.
 
         Returns
@@ -461,8 +465,8 @@ class Page:
 
             if stageType == &#34;image&#34;:
                 if perBlock:
-                    for ((stripe, column), data) in blocks.items():
-                        blockSpec = f&#34;{stripe:02d}{column}&#34;
+                    for ((stripe, block), data) in blocks.items():
+                        blockSpec = f&#34;{stripe:02d}{block}&#34;
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
@@ -513,7 +517,7 @@ class Page:
         &#34;&#34;&#34;
 
         headers = self.dataHeaders.get(stage, None)
-        header = &#34;\t&#34;.join(str(column) for column in headers) if headers else None
+        header = &#34;\t&#34;.join(str(head) for head in headers) if headers else None
 
         if handle:
             if stage == &#34;markData&#34;:
@@ -529,7 +533,7 @@ class Page:
             if header:
                 handle.write(f&#34;{header}\n&#34;)
             handle.write(
-                &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
+                &#34;&#34;.join(&#34;\t&#34;.join(str(field) for field in row) + &#34;\n&#34; for row in data)
                 if extension == &#34;tsv&#34;
                 else json.dumps(data)
                 if extension == &#34;json&#34;
@@ -672,18 +676,18 @@ class Page:
         self.empty = False
 
     def doLayout(self):
-        &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
+        &#34;&#34;&#34;Divide the page into stripes and the stripes into blocks.
 
-        We detect vertical strokes as columns separators and horizontal strokes
+        We detect vertical strokes as block separators and horizontal strokes
         as separators to split off top and bottom material.
 
-        A page may or may not be partially divided into columns.
+        A page may or may not be partially divided into blocks.
         Where there is a vertical stroke, we define a stripe: the
         horizontal band that contains the vertical stroke tightly and extends to
         the full with of the page.
 
-        Between the stripes corresponding to column separators we have stripes that
-        are not split into columns.
+        Between the stripes corresponding to block separators we have stripes that
+        are not split into blocks.
 
         The stripes will be numbered from top to bottom, starting at 1.
 
@@ -849,8 +853,8 @@ class Page:
         blocks = self.blocks
         markResults = {}
 
-        for ((stripe, column), data) in blocks.items():
-            if block is not None and block != (stripe, column):
+        for ((stripe, block), data) in blocks.items():
+            if block is not None and block != (stripe, block):
                 continue
             (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
             thisDemargined = demargined[topB:bottomB, leftB:rightB]
@@ -862,7 +866,7 @@ class Page:
 
             for (band, markData) in searchMarks.items():
                 if &#34;bands&#34; not in data:
-                    # error(f&#34;No bands in {stripe}{column}&#34;)
+                    # error(f&#34;No bands in {stripe}{block}&#34;)
                     continue
                 bandData = data[&#34;bands&#34;][band]
                 lines = bandData[&#34;lines&#34;]
@@ -957,7 +961,7 @@ class Page:
                                             connDegree,
                                             connectBorder,
                                             stripe,
-                                            column,
+                                            block,
                                             left,
                                             top,
                                             right,
@@ -998,7 +1002,7 @@ class Page:
                                                     connDegree,
                                                     connectBorder,
                                                     stripe,
-                                                    column,
+                                                    block,
                                                     left,
                                                     top,
                                                     right,
@@ -1020,7 +1024,7 @@ class Page:
                     thisTop = max(0, theUpper - grace)
                     thisBottom = min(maxH, theLower + grace)
                     info(
-                        f&#34;block {stripe}{column} line {line} BEFORE/AFTER cleaning\n&#34;,
+                        f&#34;block {stripe}{block} line {line} BEFORE/AFTER cleaning\n&#34;,
                         tm=False,
                     )
                     roi = thisDemargined[thisTop:thisBottom]
@@ -1093,7 +1097,7 @@ class Page:
                     conn,
                     border,
                     stripe,
-                    column,
+                    block,
                     top,
                     bottom,
                     left,
@@ -1101,7 +1105,7 @@ class Page:
                 ) in sorted(entries):
                     indent(level=2)
                     wRep = &#34;kept&#34; if k else &#34;wiped&#34;
-                    block = f&#34;{stripe}{column}&#34;
+                    block = f&#34;{stripe}{block}&#34;
                     info(
                         f&#34;{wRep:&lt;5} [{block:&gt;3}]&#34;
                         f&#34; tblr={top:&gt;4} {bottom:&gt;4} {left:&gt;4} {right:&gt;4},&#34;
@@ -1165,7 +1169,7 @@ in boxes.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L80-L1098" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L82-L1102" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class Page:
     def __init__(
@@ -1206,8 +1210,10 @@ in boxes.</dd>
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
-        self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
+        self.dataHeaders = dict(char=HEADERS[0:-1], word=HEADERS, line=HEADERS[0:-3])
+        self.dataTypes = dict(
+            char=DATA_TYPES[0:-1], word=DATA_TYPES, line=DATA_TYPES[0:-3]
+        )
 
         if minimal:
             self.stages = {}
@@ -1316,7 +1322,7 @@ in boxes.</dd>
                         if s == &#34;boxed&#34; and mark is not None
                         else stageData
                     ).copy()
-                    for ((stripe, column), data) in blocks.items():
+                    for ((stripe, block), data) in blocks.items():
 
                         bands = data[&#34;bands&#34;]
                         doBands = (
@@ -1335,7 +1341,7 @@ in boxes.</dd>
                             else &#34;&#34;
                         )
                         headingInfo.append(
-                            f&#34;&lt;b&gt;{stripe}{column}&lt;/b&gt; {bandRep}{markRep}&#34;
+                            f&#34;&lt;b&gt;{stripe}{block}&lt;/b&gt; {bandRep}{markRep}&#34;
                         )
 
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
@@ -1392,7 +1398,7 @@ in boxes.</dd>
                                 connDegree,
                                 connectBorder,
                                 stripe,
-                                column,
+                                block,
                                 left,
                                 top,
                                 right,
@@ -1496,7 +1502,7 @@ in boxes.</dd>
             Otherwise it is an iterable of stage names.
         perBlock: boolean, optional `False`
             If True, the stage output will be split into blocks and written
-            to disk separately. The stripe and column of a block are appended
+            to disk separately. The stripe and block are appended
             to the file name.
 
         Returns
@@ -1523,8 +1529,8 @@ in boxes.</dd>
 
             if stageType == &#34;image&#34;:
                 if perBlock:
-                    for ((stripe, column), data) in blocks.items():
-                        blockSpec = f&#34;{stripe:02d}{column}&#34;
+                    for ((stripe, block), data) in blocks.items():
+                        blockSpec = f&#34;{stripe:02d}{block}&#34;
                         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
@@ -1575,7 +1581,7 @@ in boxes.</dd>
         &#34;&#34;&#34;
 
         headers = self.dataHeaders.get(stage, None)
-        header = &#34;\t&#34;.join(str(column) for column in headers) if headers else None
+        header = &#34;\t&#34;.join(str(head) for head in headers) if headers else None
 
         if handle:
             if stage == &#34;markData&#34;:
@@ -1591,7 +1597,7 @@ in boxes.</dd>
             if header:
                 handle.write(f&#34;{header}\n&#34;)
             handle.write(
-                &#34;&#34;.join(&#34;\t&#34;.join(str(column) for column in row) + &#34;\n&#34; for row in data)
+                &#34;&#34;.join(&#34;\t&#34;.join(str(field) for field in row) + &#34;\n&#34; for row in data)
                 if extension == &#34;tsv&#34;
                 else json.dumps(data)
                 if extension == &#34;json&#34;
@@ -1734,18 +1740,18 @@ in boxes.</dd>
         self.empty = False
 
     def doLayout(self):
-        &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
+        &#34;&#34;&#34;Divide the page into stripes and the stripes into blocks.
 
-        We detect vertical strokes as columns separators and horizontal strokes
+        We detect vertical strokes as block separators and horizontal strokes
         as separators to split off top and bottom material.
 
-        A page may or may not be partially divided into columns.
+        A page may or may not be partially divided into blocks.
         Where there is a vertical stroke, we define a stripe: the
         horizontal band that contains the vertical stroke tightly and extends to
         the full with of the page.
 
-        Between the stripes corresponding to column separators we have stripes that
-        are not split into columns.
+        Between the stripes corresponding to block separators we have stripes that
+        are not split into blocks.
 
         The stripes will be numbered from top to bottom, starting at 1.
 
@@ -1911,8 +1917,8 @@ in boxes.</dd>
         blocks = self.blocks
         markResults = {}
 
-        for ((stripe, column), data) in blocks.items():
-            if block is not None and block != (stripe, column):
+        for ((stripe, block), data) in blocks.items():
+            if block is not None and block != (stripe, block):
                 continue
             (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
             thisDemargined = demargined[topB:bottomB, leftB:rightB]
@@ -1924,7 +1930,7 @@ in boxes.</dd>
 
             for (band, markData) in searchMarks.items():
                 if &#34;bands&#34; not in data:
-                    # error(f&#34;No bands in {stripe}{column}&#34;)
+                    # error(f&#34;No bands in {stripe}{block}&#34;)
                     continue
                 bandData = data[&#34;bands&#34;][band]
                 lines = bandData[&#34;lines&#34;]
@@ -2019,7 +2025,7 @@ in boxes.</dd>
                                             connDegree,
                                             connectBorder,
                                             stripe,
-                                            column,
+                                            block,
                                             left,
                                             top,
                                             right,
@@ -2060,7 +2066,7 @@ in boxes.</dd>
                                                     connDegree,
                                                     connectBorder,
                                                     stripe,
-                                                    column,
+                                                    block,
                                                     left,
                                                     top,
                                                     right,
@@ -2082,7 +2088,7 @@ in boxes.</dd>
                     thisTop = max(0, theUpper - grace)
                     thisBottom = min(maxH, theLower + grace)
                     info(
-                        f&#34;block {stripe}{column} line {line} BEFORE/AFTER cleaning\n&#34;,
+                        f&#34;block {stripe}{block} line {line} BEFORE/AFTER cleaning\n&#34;,
                         tm=False,
                     )
                     roi = thisDemargined[thisTop:thisBottom]
@@ -2155,7 +2161,7 @@ in boxes.</dd>
                     conn,
                     border,
                     stripe,
-                    column,
+                    block,
                     top,
                     bottom,
                     left,
@@ -2163,7 +2169,7 @@ in boxes.</dd>
                 ) in sorted(entries):
                     indent(level=2)
                     wRep = &#34;kept&#34; if k else &#34;wiped&#34;
-                    block = f&#34;{stripe}{column}&#34;
+                    block = f&#34;{stripe}{block}&#34;
                     info(
                         f&#34;{wRep:&lt;5} [{block:&gt;3}]&#34;
                         f&#34; tblr={top:&gt;4} {bottom:&gt;4} {left:&gt;4} {right:&gt;4},&#34;
@@ -2225,7 +2231,7 @@ and they do not contribute to the markData layer.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L715-L1028" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L719-L1032" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def cleaning(self, mark=None, block=None, line=None, showKept=False):
     &#34;&#34;&#34;Remove marks from the page.
@@ -2336,8 +2342,8 @@ and they do not contribute to the markData layer.</dd>
     blocks = self.blocks
     markResults = {}
 
-    for ((stripe, column), data) in blocks.items():
-        if block is not None and block != (stripe, column):
+    for ((stripe, block), data) in blocks.items():
+        if block is not None and block != (stripe, block):
             continue
         (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
         thisDemargined = demargined[topB:bottomB, leftB:rightB]
@@ -2349,7 +2355,7 @@ and they do not contribute to the markData layer.</dd>
 
         for (band, markData) in searchMarks.items():
             if &#34;bands&#34; not in data:
-                # error(f&#34;No bands in {stripe}{column}&#34;)
+                # error(f&#34;No bands in {stripe}{block}&#34;)
                 continue
             bandData = data[&#34;bands&#34;][band]
             lines = bandData[&#34;lines&#34;]
@@ -2444,7 +2450,7 @@ and they do not contribute to the markData layer.</dd>
                                         connDegree,
                                         connectBorder,
                                         stripe,
-                                        column,
+                                        block,
                                         left,
                                         top,
                                         right,
@@ -2485,7 +2491,7 @@ and they do not contribute to the markData layer.</dd>
                                                 connDegree,
                                                 connectBorder,
                                                 stripe,
-                                                column,
+                                                block,
                                                 left,
                                                 top,
                                                 right,
@@ -2507,7 +2513,7 @@ and they do not contribute to the markData layer.</dd>
                 thisTop = max(0, theUpper - grace)
                 thisBottom = min(maxH, theLower + grace)
                 info(
-                    f&#34;block {stripe}{column} line {line} BEFORE/AFTER cleaning\n&#34;,
+                    f&#34;block {stripe}{block} line {line} BEFORE/AFTER cleaning\n&#34;,
                     tm=False,
                 )
                 roi = thisDemargined[thisTop:thisBottom]
@@ -2547,15 +2553,15 @@ and they do not contribute to the markData layer.</dd>
 <span>def <span class="ident">doLayout</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Divide the page into stripes and the stripes into columns.</p>
-<p>We detect vertical strokes as columns separators and horizontal strokes
+<div class="desc"><p>Divide the page into stripes and the stripes into blocks.</p>
+<p>We detect vertical strokes as block separators and horizontal strokes
 as separators to split off top and bottom material.</p>
-<p>A page may or may not be partially divided into columns.
+<p>A page may or may not be partially divided into blocks.
 Where there is a vertical stroke, we define a stripe: the
 horizontal band that contains the vertical stroke tightly and extends to
 the full with of the page.</p>
-<p>Between the stripes corresponding to column separators we have stripes that
-are not split into columns.</p>
+<p>Between the stripes corresponding to block separators we have stripes that
+are not split into blocks.</p>
 <p>The stripes will be numbered from top to bottom, starting at 1.</p>
 <p>If a stripe is not split, it defines a roi (region of interest) with
 label <code>(i, '')</code>.</p>
@@ -2573,21 +2579,21 @@ with the blocks marked and labelled.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L646-L713" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L650-L717" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doLayout(self):
-    &#34;&#34;&#34;Divide the page into stripes and the stripes into columns.
+    &#34;&#34;&#34;Divide the page into stripes and the stripes into blocks.
 
-    We detect vertical strokes as columns separators and horizontal strokes
+    We detect vertical strokes as block separators and horizontal strokes
     as separators to split off top and bottom material.
 
-    A page may or may not be partially divided into columns.
+    A page may or may not be partially divided into blocks.
     Where there is a vertical stroke, we define a stripe: the
     horizontal band that contains the vertical stroke tightly and extends to
     the full with of the page.
 
-    Between the stripes corresponding to column separators we have stripes that
-    are not split into columns.
+    Between the stripes corresponding to block separators we have stripes that
+    are not split into blocks.
 
     The stripes will be numbered from top to bottom, starting at 1.
 
@@ -2669,7 +2675,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L574-L644" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L578-L648" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def doNormalize(self):
     &#34;&#34;&#34;Normalizes a page.
@@ -2752,7 +2758,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L1084-L1091" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L1088-L1095" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ocring(self):
     &#34;&#34;&#34;Calls the OCR engine for a page.&#34;&#34;&#34;
@@ -2772,7 +2778,7 @@ needed for histograms later on;</li>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L1093-L1098" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L1097-L1102" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self):
     &#34;&#34;&#34;Produces proofing images&#34;&#34;&#34;
@@ -2797,7 +2803,7 @@ Otherwise, the indicated stages are read.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L359-L395" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L363-L399" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, stage=None):
     &#34;&#34;&#34;Reads processing data for selected stages from disk
@@ -2877,7 +2883,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L138-L341" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L142-L345" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def show(self, stage=None, band=None, mark=None, **displayParams):
     &#34;&#34;&#34;Displays processing stages of an page.
@@ -2970,7 +2976,7 @@ will be displayed on a fresh copy of that stage.</p>
                     if s == &#34;boxed&#34; and mark is not None
                     else stageData
                 ).copy()
-                for ((stripe, column), data) in blocks.items():
+                for ((stripe, block), data) in blocks.items():
 
                     bands = data[&#34;bands&#34;]
                     doBands = (
@@ -2989,7 +2995,7 @@ will be displayed on a fresh copy of that stage.</p>
                         else &#34;&#34;
                     )
                     headingInfo.append(
-                        f&#34;&lt;b&gt;{stripe}{column}&lt;/b&gt; {bandRep}{markRep}&#34;
+                        f&#34;&lt;b&gt;{stripe}{block}&lt;/b&gt; {bandRep}{markRep}&#34;
                     )
 
                     (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
@@ -3046,7 +3052,7 @@ will be displayed on a fresh copy of that stage.</p>
                             connDegree,
                             connectBorder,
                             stripe,
-                            column,
+                            block,
                             left,
                             top,
                             right,
@@ -3093,7 +3099,7 @@ will be displayed on a fresh copy of that stage.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L343-L357" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L347-L361" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def stagePath(self, stage, inter=None):
     engine = self.engine
@@ -3126,7 +3132,7 @@ If a string, it may be a comma-separated list of stage names.
 Otherwise it is an iterable of stage names.</dd>
 <dt><strong><code>perBlock</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
 <dd>If True, the stage output will be split into blocks and written
-to disk separately. The stripe and column of a block are appended
+to disk separately. The stripe and block are appended
 to the file name.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
@@ -3139,7 +3145,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/page.py#L397-L450" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/page.py#L401-L454" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def write(self, stage=None, perBlock=False):
     &#34;&#34;&#34;Writes processing stages of an page to disk.
@@ -3153,7 +3159,7 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
         Otherwise it is an iterable of stage names.
     perBlock: boolean, optional `False`
         If True, the stage output will be split into blocks and written
-        to disk separately. The stripe and column of a block are appended
+        to disk separately. The stripe and block are appended
         to the file name.
 
     Returns
@@ -3180,8 +3186,8 @@ If <code>clean</code>, the name of the stage is omitted.</dd>
 
         if stageType == &#34;image&#34;:
             if perBlock:
-                for ((stripe, column), data) in blocks.items():
-                    blockSpec = f&#34;{stripe:02d}{column}&#34;
+                for ((stripe, block), data) in blocks.items():
+                    blockSpec = f&#34;{stripe:02d}{block}&#34;
                     (leftB, topB, rightB, bottomB) = data[&#34;inner&#34;]
                     roi = stageData[topB:bottomB, leftB:rightB]
                     thisPath = self.stagePath(stage, inter=blockSpec)

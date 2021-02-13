@@ -30,7 +30,7 @@ e.g. <em>symbols</em>, <em>presentational characters</em>, <em>punctuation</em>,
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L0-L413" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L0-L454" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Character knowledge.
 
@@ -44,11 +44,14 @@ e.g. *symbols*, *presentational characters*, *punctuation*,
 See `UChar` below.
 &#34;&#34;&#34;
 
+import re
 from unicodedata import name as uname, normalize
 
 
 NFKC = &#34;NFKC&#34;
 NFKD = &#34;NFKD&#34;
+
+EMSPACE = &#34;\u2003&#34;
 
 PUA_RANGES = ((&#34;e000&#34;, &#34;f8ff&#34;),)
 
@@ -401,7 +404,8 @@ class UChar:
             so we have to unflip these characters.
         &#34;&#34;&#34;
 
-        self.nonLetter = symbols | arabicSymbols | brackets
+        nonLetter = symbols | arabicSymbols | brackets
+        self.nonLetter = nonLetter
         &#34;&#34;&#34;Characters that act as symbols.
 
         More precisely, these are the non letters that we may encounter in
@@ -444,7 +448,44 @@ class UChar:
 
         Characters marked as &#34;FINAL&#34; by Unicode are candidates, but not all of them
         have this behaviour.
-        Here is the exact set of characters after which we need to trigger a word boundary.
+        Here is the exact set of characters after which
+        we need to trigger a word boundary.
+        &#34;&#34;&#34;
+
+        nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
+
+        wordRe = re.compile(
+            fr&#34;&#34;&#34;
+            (
+                [^{nonLetterRange}]+
+            )
+            |
+            (
+                [{nonLetterRange}]+
+            )
+    &#34;&#34;&#34;,
+            re.X,
+        )
+        self.wordRe = wordRe
+        &#34;&#34;&#34;Regular expression that matches word stretches and non word stretches.
+
+        When we split strings up into words using spaces, we are left with
+        strings that contain letters and punctuation.
+        This pattern can be used to separate letters from non-letters in such strings.
+
+        Each time this pattern matches, you either get a string consisting of
+        stuff that fits in a word (letters, diacritics, etc.),
+        or stuff that does not fit in a word (punctuation, symbols, brackets, etc.).
+
+        The policy is to split each string first on space, and then chunk it into
+        chunks that are completely word-like or completely non-word-like.
+
+        We then partition this list of chunks into pairs consisting of a
+        word-like chunk followed by a non-word-like chunk.
+
+        If the first chunk is non-word-like, we insert an empty chunk before it.
+
+        If the last chunk is word-like, we insert an empty chunk after it.
         &#34;&#34;&#34;</code></pre>
 </details>
 </section>
@@ -463,7 +504,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L242-L249" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L245-L252" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getMapFromPairs(pairs):
     result = {}
@@ -483,7 +524,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L203-L208" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L206-L211" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromCodes(codes):
     result = set()
@@ -501,7 +542,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L238-L239" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L241-L242" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromDef(defs):
     return {chr(int(item, base=16)) for item in defs.strip().split(&#34;\n&#34;)}</code></pre>
@@ -515,7 +556,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L211-L216" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L214-L219" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getSetFromRanges(rngs):
     result = set()
@@ -533,7 +574,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L260-L261" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L263-L264" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isAlefFinal(x):
     return x == ALEF_FINAL</code></pre>
@@ -547,7 +588,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L273-L274" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L276-L277" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isArDigit(x):
     return x in AR_DIGITS</code></pre>
@@ -561,7 +602,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L277-L278" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L280-L281" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isEuDigit(x):
     return x in EU_DIGITS</code></pre>
@@ -575,7 +616,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L264-L266" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L267-L269" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isMeemOrYeh(x):
     nm = uname(x)
@@ -590,7 +631,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L269-L270" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L272-L273" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def isWaw(x):
     return x == WAW</code></pre>
@@ -604,7 +645,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L252-L253" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L255-L256" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeC(x):
     return normalize(NFKC, x)</code></pre>
@@ -618,7 +659,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L256-L257" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L259-L260" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def normalizeD(x):
     return normalize(NFKD, x)</code></pre>
@@ -632,7 +673,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L195-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L198-L203" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def uName(c):
     try:
@@ -655,7 +696,7 @@ class UChar:
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/char.py#L281-L414" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/char.py#L284-L455" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class UChar:
     def __init__(self):
@@ -746,7 +787,8 @@ class UChar:
             so we have to unflip these characters.
         &#34;&#34;&#34;
 
-        self.nonLetter = symbols | arabicSymbols | brackets
+        nonLetter = symbols | arabicSymbols | brackets
+        self.nonLetter = nonLetter
         &#34;&#34;&#34;Characters that act as symbols.
 
         More precisely, these are the non letters that we may encounter in
@@ -789,12 +831,50 @@ class UChar:
 
         Characters marked as &#34;FINAL&#34; by Unicode are candidates, but not all of them
         have this behaviour.
-        Here is the exact set of characters after which we need to trigger a word boundary.
+        Here is the exact set of characters after which
+        we need to trigger a word boundary.
+        &#34;&#34;&#34;
+
+        nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
+
+        wordRe = re.compile(
+            fr&#34;&#34;&#34;
+            (
+                [^{nonLetterRange}]+
+            )
+            |
+            (
+                [{nonLetterRange}]+
+            )
+    &#34;&#34;&#34;,
+            re.X,
+        )
+        self.wordRe = wordRe
+        &#34;&#34;&#34;Regular expression that matches word stretches and non word stretches.
+
+        When we split strings up into words using spaces, we are left with
+        strings that contain letters and punctuation.
+        This pattern can be used to separate letters from non-letters in such strings.
+
+        Each time this pattern matches, you either get a string consisting of
+        stuff that fits in a word (letters, diacritics, etc.),
+        or stuff that does not fit in a word (punctuation, symbols, brackets, etc.).
+
+        The policy is to split each string first on space, and then chunk it into
+        chunks that are completely word-like or completely non-word-like.
+
+        We then partition this list of chunks into pairs consisting of a
+        word-like chunk followed by a non-word-like chunk.
+
+        If the first chunk is non-word-like, we insert an empty chunk before it.
+
+        If the last chunk is word-like, we insert an empty chunk after it.
         &#34;&#34;&#34;</code></pre>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="fusus.lakhnawi.Lakhnawi" href="lakhnawi.html#fusus.lakhnawi.Lakhnawi">Lakhnawi</a></li>
+<li><a title="fusus.ocr.OCR" href="ocr.html#fusus.ocr.OCR">OCR</a></li>
 </ul>
 <h3>Instance variables</h3>
 <dl>
@@ -837,7 +917,8 @@ so we have to unflip these characters.</p>
 <p>Some characters imply a word-boundary after them.</p>
 <p>Characters marked as "FINAL" by Unicode are candidates, but not all of them
 have this behaviour.
-Here is the exact set of characters after which we need to trigger a word boundary.</p></div>
+Here is the exact set of characters after which
+we need to trigger a word boundary.</p></div>
 </dd>
 <dt id="fusus.char.UChar.greekPresentational"><code class="name">var <span class="ident">greekPresentational</span></code></dt>
 <dd>
@@ -920,6 +1001,22 @@ to this category.</p></div>
 <dd>
 <div class="desc"><p>All Syriac unicode characters</p></div>
 </dd>
+<dt id="fusus.char.UChar.wordRe"><code class="name">var <span class="ident">wordRe</span></code></dt>
+<dd>
+<div class="desc"><p>Regular expression that matches word stretches and non word stretches.</p>
+<p>When we split strings up into words using spaces, we are left with
+strings that contain letters and punctuation.
+This pattern can be used to separate letters from non-letters in such strings.</p>
+<p>Each time this pattern matches, you either get a string consisting of
+stuff that fits in a word (letters, diacritics, etc.),
+or stuff that does not fit in a word (punctuation, symbols, brackets, etc.).</p>
+<p>The policy is to split each string first on space, and then chunk it into
+chunks that are completely word-like or completely non-word-like.</p>
+<p>We then partition this list of chunks into pairs consisting of a
+word-like chunk followed by a non-word-like chunk.</p>
+<p>If the first chunk is non-word-like, we insert an empty chunk before it.</p>
+<p>If the last chunk is word-like, we insert an empty chunk after it.</p></div>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -982,6 +1079,7 @@ to this category.</p></div>
 <li><code><a title="fusus.char.UChar.semis" href="#fusus.char.UChar.semis">semis</a></code></li>
 <li><code><a title="fusus.char.UChar.stops" href="#fusus.char.UChar.stops">stops</a></code></li>
 <li><code><a title="fusus.char.UChar.syriac" href="#fusus.char.UChar.syriac">syriac</a></code></li>
+<li><code><a title="fusus.char.UChar.wordRe" href="#fusus.char.UChar.wordRe">wordRe</a></code></li>
 </ul>
 </li>
 </ul>

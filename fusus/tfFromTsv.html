@@ -35,7 +35,7 @@ textual extraction of the Lakhnawi PDF, but they share most fields.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L0-L523" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L0-L447" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convert TSV data to Text-Fabric.
 
@@ -89,10 +89,10 @@ def generic(source):
 
 otext = {}
 otext[None] = {
-    &#34;fmt:text-orig-full&#34;: &#34;{pre}{text}{post}&#34;,
-    &#34;fmt:text-orig-plain&#34;: &#34;{prea}{plain}{posta}&#34;,
-    &#34;fmt:text-orig-nice&#34;: &#34;{prea}{nice}{posta}&#34;,
-    &#34;fmt:text-orig-trans&#34;: &#34;{prea}{trans}{posta}&#34;,
+    &#34;fmt:text-orig-full&#34;: &#34;{letters}{punc}&#34;,
+    &#34;fmt:text-orig-plain&#34;: &#34;{lettersp}{punca}&#34;,
+    &#34;fmt:text-orig-nice&#34;: &#34;{lettersn}{punca}&#34;,
+    &#34;fmt:text-orig-trans&#34;: &#34;{letterst}{punca}&#34;,
 }
 otext[False] = {
     &#34;sectionFeatures&#34;: &#34;n,n,ln&#34;,
@@ -132,39 +132,31 @@ featureMeta[None] = {
         &#34;description&#34;: &#34;bottom y-coordinate of word&#34;,
         &#34;format&#34;: &#34;number&#34;,
     },
-    &#34;nice&#34;: {
-        &#34;description&#34;: &#34;text string of a word in latin transcription (beta code)&#34;,
-        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
-    },
-    &#34;plain&#34;: {
-        &#34;description&#34;: &#34;text string of a word in ascii transcription (beta code)&#34;,
-        &#34;format&#34;: &#34;string, ascii&#34;,
-    },
-    &#34;post&#34;: {
-        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
-        &#34;format&#34;: &#34;string&#34;,
-    },
-    &#34;posta&#34;: {
-        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
-        &#34;format&#34;: &#34;string, ascii&#34;,
-    },
-    &#34;pre&#34;: {
-        &#34;description&#34;: &#34;punctuation (but no whitespace) immediately before a word&#34;,
-        &#34;format&#34;: &#34;string&#34;,
-    },
-    &#34;prea&#34;: {
-        &#34;description&#34;: &#34;punctuation (but no whitespace) immediately before a word&#34;,
-        &#34;format&#34;: &#34;string, ascii&#34;,
-    },
-    &#34;text&#34;: {
+    &#34;letters&#34;: {
         &#34;description&#34;: &#34;text string of a word without punctuation&#34;,
         &#34;format&#34;: &#34;string&#34;,
     },
-    &#34;trans&#34;: {
+    &#34;lettersn&#34;: {
+        &#34;description&#34;: &#34;text string of a word in latin transcription (beta code)&#34;,
+        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+    &#34;lettersp&#34;: {
+        &#34;description&#34;: &#34;text string of a word in ascii transcription (beta code)&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;letterst&#34;: {
         &#34;description&#34;: (
             &#34;text string of a word in romanized transcription&#34; &#34; (Library of Congress)&#34;
         ),
         &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+    &#34;punc&#34;: {
+        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;punca&#34;: {
+        &#34;description&#34;: &#34;punctuation and/or space immediately after a word&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
     },
 }
 
@@ -262,9 +254,8 @@ def getToc(data):
             if curLine:
                 lines.append(&#34;&#34;.join(curLine))
                 curLine = []
-            space = &#34;&#34;
 
-        curLine.append(f&#34;{space}{fields[-1]}&#34;)
+        curLine.append(f&#34;{fields[-2]}{fields[-1]}&#34;)
         prevLine = line
 
     if curLine:
@@ -338,55 +329,13 @@ def convert(source, ocred, pages, versionTf):
 def director(cv):
     &#34;&#34;&#34;Read tsv data fields.
 
-    Fields are integer valued, except for fields with names ending in $.
-
-    If a row comes from the result of OCR we have the fields:
-
-    ```
-    stripe block$ line left top right bottom confidence text$
-    ```
-
-    We prepend the page number in this case, yielding
-
-    ```
-    page stripe block$ line left top right bottom confidence text$
-    ```
-
-    Otherwise we have:
-
-    ```
-    page line column span direction$ left top right bottom text$
-    ```
-
-    See `fusus.lakhnawi.Lakhnawi.tsvPages`.
-
-    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
-    to material to the left and right of a vertical stroke.
-    If there is no vertical stroke, there is just one block.
-
-    The column in a non OCRed file is either `1` or `2` and comes
-    from a line partitioned into two regions by means of white space.
-
-    In both cases, the first 4 fields denote a sectional division in
-    the words.
+    This is a function that does the work as indicated in the
+    [walker converion engine of Text-Fabric](https://annotation.github.io/text-fabric/tf/convert/walker.html)
+    See `fusus.convert` for a description of the fields in the TSV files.
     &#34;&#34;&#34;
 
     stops = U.stops
-    nonLetter = U.nonLetter
-    nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
 
-    WORD_RE = re.compile(
-        fr&#34;&#34;&#34;
-        (
-            [^{nonLetterRange}]+
-        )
-        |
-        (
-            [{nonLetterRange}]+
-        )
-&#34;&#34;&#34;,
-        re.X,
-    )
     errors = collections.defaultdict(set)
 
     cur = [None, None, None, None]
@@ -411,7 +360,7 @@ def director(cv):
                     int(row[3]),
                     *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -419,7 +368,7 @@ def director(cv):
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)
@@ -473,58 +422,33 @@ def director(cv):
         for i in range(nSec):
             prev[i] = fields[i]
 
-        string = fields[-1]
-        parts = []
-        first = True
-        firstNonLetters = False
+        letters = fields[-2]
+        punc = fields[-1]
+        lettersp = Tr.asciiFromArabic(letters) if letters else &#34;&#34;
+        lettersn = Tr.latinFromArabic(letters) if letters else &#34;&#34;
+        letterst = Tr.standardFromArabic(letters) if letters else &#34;&#34;
+        punca = Tr.asciiFromArabic(punc) if punc else &#34;&#34;
 
-        for (letters, nonLetters) in WORD_RE.findall(string):
-            if first:
-                if nonLetters:
-                    parts.append([nonLetters, &#34;&#34;, &#34;&#34;])
-                    firstNonLetters = True
-                else:
-                    parts.append([&#34;&#34;, letters, &#34;&#34;])
-                first = False
-            elif firstNonLetters:
-                parts[-1][1] = letters
-                firstNonLetters = False
-            elif letters:
-                parts.append([&#34;&#34;, letters, &#34;&#34;])
-            else:
-                parts[-1][-1] = nonLetters
-        if parts:
-            parts[-1][-1] += &#34; &#34;
-
-        for (pre, text, post) in parts:
-            textp = Tr.asciiFromArabic(text)
-            textn = Tr.latinFromArabic(text)
-            textt = Tr.standardFromArabic(text)
-            s = cv.slot()
-            cv.feature(
-                s,
-                boxl=fields[boxL],
-                boxt=fields[boxL + 1],
-                boxr=fields[boxL + 2],
-                boxb=fields[boxL + 3],
-                text=text,
-                plain=textp,
-                nice=textn,
-                trans=textt,
-            )
-            if pre:
-                prea = Tr.asciiFromArabic(pre)
-                cv.feature(s, pre=pre, prea=prea)
-            if post:
-                posta = Tr.asciiFromArabic(post)
-                cv.feature(s, post=post, posta=posta)
-                if any(c in stops for c in post):
-                    cv.terminate(curSentence)
-                    curSentence = cv.node(&#34;sentence&#34;)
-                    nSentence += 1
-                    cv.feature(curSentence, n=nSentence)
-            if OCRED:
-                cv.feature(s, confidence=fields[-2])
+        s = cv.slot()
+        cv.feature(
+            s,
+            boxl=fields[boxL],
+            boxt=fields[boxL + 1],
+            boxr=fields[boxL + 2],
+            boxb=fields[boxL + 3],
+            letters=letters,
+            lettersp=lettersp,
+            lettersn=lettersn,
+            letterst=letterst,
+        )
+        cv.feature(s, punc=punc, punca=punca)
+        if any(c in stops for c in punc):
+            cv.terminate(curSentence)
+            curSentence = cv.node(&#34;sentence&#34;)
+            nSentence += 1
+            cv.feature(curSentence, n=nSentence)
+        if OCRED:
+            cv.feature(s, confidence=fields[-3])
 
     cv.terminate(curSentence)
 
@@ -559,7 +483,7 @@ def loadTf(outDir):
     if api:
         print(f&#34;max node = {api.F.otype.maxNode}&#34;)
         print(&#34;Frequencies of words&#34;)
-        for (word, n) in api.F.text.freqList()[0:20]:
+        for (word, n) in api.F.letters.freqList()[0:20]:
             print(f&#34;{n:&gt;6} x {word}&#34;)</code></pre>
 </details>
 </section>
@@ -578,7 +502,7 @@ def loadTf(outDir):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L263-L293" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L254-L284" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def convert(source, ocred, pages, versionTf):
     global pageNums
@@ -618,81 +542,24 @@ def loadTf(outDir):
 </code></dt>
 <dd>
 <div class="desc"><p>Read tsv data fields.</p>
-<p>Fields are integer valued, except for fields with names ending in $.</p>
-<p>If a row comes from the result of OCR we have the fields:</p>
-<pre><code>stripe block$ line left top right bottom confidence text$
-</code></pre>
-<p>We prepend the page number in this case, yielding</p>
-<pre><code>page stripe block$ line left top right bottom confidence text$
-</code></pre>
-<p>Otherwise we have:</p>
-<pre><code>page line column span direction$ left top right bottom text$
-</code></pre>
-<p>See <code><a title="fusus.lakhnawi.Lakhnawi.tsvPages" href="lakhnawi.html#fusus.lakhnawi.Lakhnawi.tsvPages">Lakhnawi.tsvPages()</a></code>.</p>
-<p>The block in an OCRed file is either <code>r</code> or <code>l</code> or nothing, it corresponds
-to material to the left and right of a vertical stroke.
-If there is no vertical stroke, there is just one block.</p>
-<p>The column in a non OCRed file is either <code>1</code> or <code>2</code> and comes
-from a line partitioned into two regions by means of white space.</p>
-<p>In both cases, the first 4 fields denote a sectional division in
-the words.</p></div>
+<p>This is a function that does the work as indicated in the
+<a href="https://annotation.github.io/text-fabric/tf/convert/walker.html">walker converion engine of Text-Fabric</a>
+See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> for a description of the fields in the TSV files.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L299-L509" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L290-L433" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def director(cv):
     &#34;&#34;&#34;Read tsv data fields.
 
-    Fields are integer valued, except for fields with names ending in $.
-
-    If a row comes from the result of OCR we have the fields:
-
-    ```
-    stripe block$ line left top right bottom confidence text$
-    ```
-
-    We prepend the page number in this case, yielding
-
-    ```
-    page stripe block$ line left top right bottom confidence text$
-    ```
-
-    Otherwise we have:
-
-    ```
-    page line column span direction$ left top right bottom text$
-    ```
-
-    See `fusus.lakhnawi.Lakhnawi.tsvPages`.
-
-    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
-    to material to the left and right of a vertical stroke.
-    If there is no vertical stroke, there is just one block.
-
-    The column in a non OCRed file is either `1` or `2` and comes
-    from a line partitioned into two regions by means of white space.
-
-    In both cases, the first 4 fields denote a sectional division in
-    the words.
+    This is a function that does the work as indicated in the
+    [walker converion engine of Text-Fabric](https://annotation.github.io/text-fabric/tf/convert/walker.html)
+    See `fusus.convert` for a description of the fields in the TSV files.
     &#34;&#34;&#34;
 
     stops = U.stops
-    nonLetter = U.nonLetter
-    nonLetterRange = re.escape(&#34;&#34;.join(sorted(nonLetter)))
 
-    WORD_RE = re.compile(
-        fr&#34;&#34;&#34;
-        (
-            [^{nonLetterRange}]+
-        )
-        |
-        (
-            [{nonLetterRange}]+
-        )
-&#34;&#34;&#34;,
-        re.X,
-    )
     errors = collections.defaultdict(set)
 
     cur = [None, None, None, None]
@@ -717,7 +584,7 @@ the words.</p></div>
                     int(row[3]),
                     *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -725,7 +592,7 @@ the words.</p></div>
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)
@@ -779,58 +646,33 @@ the words.</p></div>
         for i in range(nSec):
             prev[i] = fields[i]
 
-        string = fields[-1]
-        parts = []
-        first = True
-        firstNonLetters = False
+        letters = fields[-2]
+        punc = fields[-1]
+        lettersp = Tr.asciiFromArabic(letters) if letters else &#34;&#34;
+        lettersn = Tr.latinFromArabic(letters) if letters else &#34;&#34;
+        letterst = Tr.standardFromArabic(letters) if letters else &#34;&#34;
+        punca = Tr.asciiFromArabic(punc) if punc else &#34;&#34;
 
-        for (letters, nonLetters) in WORD_RE.findall(string):
-            if first:
-                if nonLetters:
-                    parts.append([nonLetters, &#34;&#34;, &#34;&#34;])
-                    firstNonLetters = True
-                else:
-                    parts.append([&#34;&#34;, letters, &#34;&#34;])
-                first = False
-            elif firstNonLetters:
-                parts[-1][1] = letters
-                firstNonLetters = False
-            elif letters:
-                parts.append([&#34;&#34;, letters, &#34;&#34;])
-            else:
-                parts[-1][-1] = nonLetters
-        if parts:
-            parts[-1][-1] += &#34; &#34;
-
-        for (pre, text, post) in parts:
-            textp = Tr.asciiFromArabic(text)
-            textn = Tr.latinFromArabic(text)
-            textt = Tr.standardFromArabic(text)
-            s = cv.slot()
-            cv.feature(
-                s,
-                boxl=fields[boxL],
-                boxt=fields[boxL + 1],
-                boxr=fields[boxL + 2],
-                boxb=fields[boxL + 3],
-                text=text,
-                plain=textp,
-                nice=textn,
-                trans=textt,
-            )
-            if pre:
-                prea = Tr.asciiFromArabic(pre)
-                cv.feature(s, pre=pre, prea=prea)
-            if post:
-                posta = Tr.asciiFromArabic(post)
-                cv.feature(s, post=post, posta=posta)
-                if any(c in stops for c in post):
-                    cv.terminate(curSentence)
-                    curSentence = cv.node(&#34;sentence&#34;)
-                    nSentence += 1
-                    cv.feature(curSentence, n=nSentence)
-            if OCRED:
-                cv.feature(s, confidence=fields[-2])
+        s = cv.slot()
+        cv.feature(
+            s,
+            boxl=fields[boxL],
+            boxt=fields[boxL + 1],
+            boxr=fields[boxL + 2],
+            boxb=fields[boxL + 3],
+            letters=letters,
+            lettersp=lettersp,
+            lettersn=lettersn,
+            letterst=letterst,
+        )
+        cv.feature(s, punc=punc, punca=punca)
+        if any(c in stops for c in punc):
+            cv.terminate(curSentence)
+            curSentence = cv.node(&#34;sentence&#34;)
+            nSentence += 1
+            cv.feature(curSentence, n=nSentence)
+        if OCRED:
+            cv.feature(s, confidence=fields[-3])
 
     cv.terminate(curSentence)
 
@@ -862,7 +704,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L47-L48" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L47-L48" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def generic(source):
     return {**GENERIC, **WORKS[source][&#34;meta&#34;]}</code></pre>
@@ -876,7 +718,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L206-L249" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L198-L240" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getToc(data):
     (start, end) = TOC_PAGES
@@ -898,9 +740,8 @@ the words.</p></div>
             if curLine:
                 lines.append(&#34;&#34;.join(curLine))
                 curLine = []
-            space = &#34;&#34;
 
-        curLine.append(f&#34;{space}{fields[-1]}&#34;)
+        curLine.append(f&#34;{fields[-2]}{fields[-1]}&#34;)
         prevLine = line
 
     if curLine:
@@ -932,7 +773,7 @@ the words.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/tfFromTsv.py#L515-L524" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/tfFromTsv.py#L439-L448" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTf(outDir):
     TF = Fabric(locations=[outDir])
@@ -942,7 +783,7 @@ the words.</p></div>
     if api:
         print(f&#34;max node = {api.F.otype.maxNode}&#34;)
         print(&#34;Frequencies of words&#34;)
-        for (word, n) in api.F.text.freqList()[0:20]:
+        for (word, n) in api.F.letters.freqList()[0:20]:
             print(f&#34;{n:&gt;6} x {word}&#34;)</code></pre>
 </details>
 </dd>

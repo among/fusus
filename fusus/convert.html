@@ -22,31 +22,61 @@
 <section id="section-intro">
 <p>Convenience methods to call conversions to and from tsv and to tf.</p>
 <p>The pipeline can read Arabic books in the form of page images,
-and returns structured data in the form of tab separated files.</p>
-<h1 id="books">Books</h1>
-<p>As far as the pipeline is concerned, the input of a book is a directory
-of page images. More precisely, it is a directory in which there is
-a subdirectory <code>in</code> having the page images.</p>
-<p>The books of the Fusus project are in the directory <code>ur</code> of this repo.</p>
-<p>There you find subdirectories corresponding to</p>
+and returns structured data in the form of a tab separated file (TSV).</p>
+<p>The PDF text extraction of the Lakhnawi file also produces a TSV file.</p>
+<p>Both kinds of TSV files can be converted furhter into Text-Fabric.</p>
+<h2 id="input">Input</h2>
+<p>See <code><a title="fusus.works" href="works.html">fusus.works</a></code> for how to specify the input for <em>fusus</em> operations.</p>
+<h2 id="tsv-output">TSV output</h2>
+<p>The TSV data from both the pipeline and the text extraction is one word per line.</p>
+<p>Fields are integer valued, except for fields with names ending in $.</p>
+<p>The fields of the pipeline results <code>(P)</code> are roughly the same as those of the
+text extraction results <code>(T)</code>:</p>
+<pre><code>(P) page stripe block$ line            left top right bottom confidence letters punc$
+(T) page line   column span direction$ left top right bottom            letters punc$
+</code></pre>
+<h3 id="divisions-p">Divisions <code>(P)</code></h3>
+<p>Each <em>page</em> is divided into <em>stripe</em>.
+Stripes are horizontal regions from the left edge to the right edge of the page/</p>
+<p>Each <em>stripe</em> is divided into <em>blocks</em>.
+Blocks are vertical parts inside a stripe, with a stroke in between.
+If there is no stroke, there is only one block in the stripe.
+There are at most two blocks in a stripe.</p>
+<p>Each <em>block</em> is divided into <em>lines</em>.</p>
+<p>See also <code><a title="fusus.layout" href="layout.html">fusus.layout</a></code>.</p>
+<p>Each line is divided into <em>words</em>.</p>
+<h3 id="divisions-t">Divisions <code>(T)</code></h3>
+<p>Each <em>page</em> is divided into <em>lines</em>.</p>
+<p>Each <em>line</em> is divided into <em>columns</em>
+(in case of hemistic verses, see <code>Lakhnawi.columns</code>).</p>
+<p>Each <em>column</em> is divided into <em>spans</em>.
+Span transitions occur precisely there where changes in writing direction occur.</p>
+<p>Each <em>span</em> is divided into <em>words</em>.</p>
+<h3 id="fields-tp">Fields <code>(TP)</code></h3>
+<p>Each word occupies exactly one line in the TSV file, with the following fields:</p>
 <ul>
-<li><strong>Affifi</strong> The Fusus Al Hikam in the Affifi edition.</li>
-<li><strong>Lakhnawi</strong> The Fusus Al Hikam in the Lakhnawi edition.
-The source is a textual PDF, not in the online repo, from which
-structured data is derived by means of a specific workflow,
-not the <em>pipeline</em>.</li>
-<li><strong>commentary Xxx</strong> Commentary books</li>
+<li><code>(TP)</code> <strong>page</strong> page number</li>
+<li><code>( P)</code> <strong>stripe</strong> stripe number within the page</li>
+<li><code>( P)</code> <strong>block</strong> (empty string or <code>r</code> or <code>l</code>)</li>
+<li><code>( P)</code> <strong>line</strong> line number within the block</li>
+<li><code>(T )</code> <strong>line</strong> line number within the page</li>
+<li><code>(T )</code> <strong>column</strong> column number within the line</li>
+<li><code>(T )</code> <strong>span</strong> span number within the column</li>
+<li><code>(T )</code> <strong>direction</strong> (<code>l</code> or <code>r</code>) writing direction of the span</li>
+<li><code>(TP)</code> <strong>left</strong> <em>x</em> coordinate of left boundary</li>
+<li><code>(TP)</code> <strong>top</strong> <em>y</em> coordinate of top boundary</li>
+<li><code>(TP)</code> <strong>right</strong> <em>x</em> coordinate of right boundary</li>
+<li><code>(TP)</code> <strong>bottom</strong> <em>y</em> coordinate of bottom boundary</li>
+<li><code>( P)</code> <strong>confidence</strong> measure of OCR confidence (0 .. 100) percent</li>
+<li><code>(TP)</code> <strong>letters</strong> letters of the word (possibly the empty string)</li>
+<li><code>(TP)</code> <strong>punc</strong> non-letters after the word</li>
 </ul>
-<p>When the pipeline runs, it produces additional directories
-containing intermediate results and output.</p>
-<p>For details, see <code><a title="fusus.works" href="works.html">fusus.works</a></code>, <code><a title="fusus.book" href="book.html">fusus.book</a></code>, and <code><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code>.</p>
-<p>All functions here make use of <code><a title="fusus.works" href="works.html">fusus.works</a></code>, which makes it possible to
-refer to known works by keywords.</p>
-<p>If you want to process other works, that is still possible,
-just provide directories where source keywords are expected.</p>
-<p>It is assumed that unknown works use the OCR pipeline.
-If that is not true, pass a parameter <code>ocred=False</code> to the function,
-or, on the command line, pass <code>noocr</code>.</p>
+<h3 id="example-p">Example <code>(P)</code></h3>
+<p>The start of the Affifi TSV:</p>
+<p><img alt="affifitsv" src="images/affifitsv.png"></p>
+<h3 id="example-t">Example <code>(T)</code></h3>
+<p>The start of the Lakhnawi TSV:</p>
+<p><img alt="lakhnawitsv" src="images/lakhnawitsv.png"></p>
 <h2 id="run">Run</h2>
 <p>You can run the pipeline on the known works inside the <em>ur</em> directory in this repo or
 on books that you provide yourself.</p>
@@ -76,7 +106,6 @@ The first time it loads, some extra computations will be performed, and
 a binary version of the tf files will be generated, which will be used for
 subsequent use by Text-Fabric.</p>
 <hr>
-<p>See also <code><a title="fusus.convert" href="#fusus.convert">fusus.convert</a></code>.</p>
 <h2 id="load-tsv">Load TSV</h2>
 <p>The function <code><a title="fusus.convert.loadTsv" href="#fusus.convert.loadTsv">loadTsv()</a></code> to load TSV data in memory.
 For known works, it will also convert the data types of the appropriate fields
@@ -84,44 +113,94 @@ to integer.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L0-L474" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L0-L525" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convenience methods to call conversions to and from tsv and to tf.
 
 The pipeline can read Arabic books in the form of page images,
-and returns structured data in the form of tab separated files.
+and returns structured data in the form of a tab separated file (TSV).
 
-# Books
+The PDF text extraction of the Lakhnawi file also produces a TSV file.
 
-As far as the pipeline is concerned, the input of a book is a directory
-of page images. More precisely, it is a directory in which there is
-a subdirectory `in` having the page images.
+Both kinds of TSV files can be converted furhter into Text-Fabric.
 
-The books of the Fusus project are in the directory `ur` of this repo.
+## Input
 
-There you find subdirectories corresponding to
+See `fusus.works` for how to specify the input for *fusus* operations.
 
-* **Affifi** The Fusus Al Hikam in the Affifi edition.
-* **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
-  The source is a textual PDF, not in the online repo, from which
-  structured data is derived by means of a specific workflow,
-  not the *pipeline*.
-* **commentary Xxx** Commentary books
+## TSV output
 
-When the pipeline runs, it produces additional directories
-containing intermediate results and output.
+The TSV data from both the pipeline and the text extraction is one word per line.
 
-For details, see `fusus.works`, `fusus.book`, and `fusus.lakhnawi`.
+Fields are integer valued, except for fields with names ending in $.
 
-All functions here make use of `fusus.works`, which makes it possible to
-refer to known works by keywords.
+The fields of the pipeline results `(P)` are roughly the same as those of the
+text extraction results `(T)`:
 
-If you want to process other works, that is still possible,
-just provide directories where source keywords are expected.
+```
+(P) page stripe block$ line            left top right bottom confidence letters punc$
+(T) page line   column span direction$ left top right bottom            letters punc$
+```
 
-It is assumed that unknown works use the OCR pipeline.
-If that is not true, pass a parameter `ocred=False` to the function,
-or, on the command line, pass `noocr`.
+### Divisions `(P)`
+
+Each *page* is divided into *stripe*.
+Stripes are horizontal regions from the left edge to the right edge of the page/
+
+Each *stripe* is divided into *blocks*.
+Blocks are vertical parts inside a stripe, with a stroke in between.
+If there is no stroke, there is only one block in the stripe.
+There are at most two blocks in a stripe.
+
+Each *block* is divided into *lines*.
+
+See also `fusus.layout`.
+
+Each line is divided into *words*.
+
+### Divisions `(T)`
+
+Each *page* is divided into *lines*.
+
+Each *line* is divided into *columns*
+(in case of hemistic verses, see `Lakhnawi.columns`).
+
+Each *column* is divided into *spans*.
+Span transitions occur precisely there where changes in writing direction occur.
+
+Each *span* is divided into *words*.
+
+### Fields `(TP)`
+
+Each word occupies exactly one line in the TSV file, with the following fields:
+
+* `(TP)` **page** page number
+* `( P)` **stripe** stripe number within the page
+* `( P)` **block** (empty string or `r` or `l`)
+* `( P)` **line** line number within the block
+* `(T )` **line** line number within the page
+* `(T )` **column** column number within the line
+* `(T )` **span** span number within the column
+* `(T )` **direction** (`l` or `r`) writing direction of the span
+* `(TP)` **left** *x* coordinate of left boundary
+* `(TP)` **top** *y* coordinate of top boundary
+* `(TP)` **right** *x* coordinate of right boundary
+* `(TP)` **bottom** *y* coordinate of bottom boundary
+* `( P)` **confidence** measure of OCR confidence (0 .. 100) percent
+* `(TP)` **letters** letters of the word (possibly the empty string)
+* `(TP)` **punc** non-letters after the word
+
+### Example `(P)`
+
+The start of the Affifi TSV:
+
+![affifitsv](images/affifitsv.png)
+
+### Example `(T)`
+
+The start of the Lakhnawi TSV:
+
+![lakhnawitsv](images/lakhnawitsv.png)
 
 ## Run
 
@@ -168,8 +247,6 @@ a binary version of the tf files will be generated, which will be used for
 subsequent use by Text-Fabric.
 
 ---
-
-See also `fusus.convert`.
 
 ## Load TSV
 
@@ -383,6 +460,9 @@ def loadTsv(source=None, ocred=None, pages=None):
     In case of a known work, this is known and does not have to be specified.
     Otherwise you have to pass it.
 
+    !!! caution &#34;word-based&#34;
+        This function can load the word-based TSV files, not the character based ones.
+
     Parameters
     ----------
     source: string, optional `None`
@@ -431,7 +511,7 @@ def loadTsv(source=None, ocred=None, pages=None):
                     int(row[3]),
                     *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -439,7 +519,7 @@ def loadTsv(source=None, ocred=None, pages=None):
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)
@@ -626,6 +706,10 @@ e.g. <code>fususa</code>, or <code>fususl</code>.</p>
 from the text extraction of a PDF.</p>
 <p>In case of a known work, this is known and does not have to be specified.
 Otherwise you have to pass it.</p>
+<div class="admonition caution">
+<p class="admonition-title">word-based</p>
+<p>This function can load the word-based TSV files, not the character based ones.</p>
+</div>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>source</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
@@ -653,7 +737,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L284-L359" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L332-L410" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Load a tsv file into memory.
@@ -668,6 +752,9 @@ If None, all pages will be taken.</dd>
 
     In case of a known work, this is known and does not have to be specified.
     Otherwise you have to pass it.
+
+    !!! caution &#34;word-based&#34;
+        This function can load the word-based TSV files, not the character based ones.
 
     Parameters
     ----------
@@ -717,7 +804,7 @@ If None, all pages will be taken.</dd>
                     int(row[3]),
                     *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -725,7 +812,7 @@ If None, all pages will be taken.</dd>
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)
@@ -742,7 +829,7 @@ If None, all pages will be taken.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L453-L471" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L504-L522" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def main():
     &#34;&#34;&#34;Perform tasks.
@@ -810,7 +897,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L150-L223" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L198-L271" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTf(
     versionTf=None,
@@ -922,7 +1009,7 @@ locations.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L226-L281" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L274-L329" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def makeTsv(source=None, ocred=None, pages=None):
     &#34;&#34;&#34;Make TSV data out of the source of a work.
@@ -1003,7 +1090,7 @@ which will be passed on to the rest of program.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/convert.py#L365-L450" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/convert.py#L416-L501" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def parseArgs(args):
     &#34;&#34;&#34;Parse arguments from the command line.
@@ -1104,11 +1191,17 @@ which will be passed on to the rest of program.</dd>
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#books">Books</a><ul>
-<li><a href="#run">Run</a></li>
-<li><a href="#load-tsv">Load TSV</a></li>
+<li><a href="#input">Input</a></li>
+<li><a href="#tsv-output">TSV output</a><ul>
+<li><a href="#divisions-p">Divisions (P)</a></li>
+<li><a href="#divisions-t">Divisions (T)</a></li>
+<li><a href="#fields-tp">Fields (TP)</a></li>
+<li><a href="#example-p">Example (P)</a></li>
+<li><a href="#example-t">Example (T)</a></li>
 </ul>
 </li>
+<li><a href="#run">Run</a></li>
+<li><a href="#load-tsv">Load TSV</a></li>
 </ul>
 </div>
 <ul id="index">

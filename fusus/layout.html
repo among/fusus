@@ -31,23 +31,22 @@ The footer consists of footnote bodies.
 All footers will be discarded.</p>
 <p><strong>body</strong>
 The body region consists of zero or more <em>stripes</em>.</p>
-<p><strong>stripe, column, block, line</strong>
+<p><strong>stripe, block, line</strong>
 A stripe is a horizontal region of the body.
-If some parts of the body have two columns and other parts have one column,
-we divide the body in stripes where each stripe has a fixed number of columns,
-and neighbouring stripes have a different number of columns.</p>
-<p>If the whole body has the same number of columns, we have just one stripe.</p>
+If some parts of the body have two blocks and other parts have one block,
+we divide the body in stripes where each stripe has a fixed number of blocks,
+and neighbouring stripes have a different number of blocks.</p>
+<p>If the whole body has the same number of blocks, we have just one stripe.</p>
 <p>The stripes are numbered 1, 2, 3, &hellip; from top to bottom.</p>
-<p>The column is the empty string if a stripe has just one column,
-otherwise it is <code>l</code> for the left column and <code>r</code> for the right column.</p>
-<p>We assume that all stripes on all pages have at most two columns.</p>
-<p>A column within a stripe is also called a <em>block</em>.</p>
+<p>The block is the empty string if a stripe has just one block,
+otherwise it is <code>l</code> for the left block and <code>r</code> for the right block.</p>
+<p>We assume that all stripes on all pages have at most two blocks.</p>
 <p>Blocks are divided into <em>lines</em>.
 The lines are numbered with the blocks that contain them.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L0-L817" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L0-L815" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Detect the page layout.
 
@@ -66,22 +65,20 @@ All footers will be discarded.
 **body**
 The body region consists of zero or more *stripes*.
 
-**stripe, column, block, line**
+**stripe, block, line**
 A stripe is a horizontal region of the body.
-If some parts of the body have two columns and other parts have one column,
-we divide the body in stripes where each stripe has a fixed number of columns,
-and neighbouring stripes have a different number of columns.
+If some parts of the body have two blocks and other parts have one block,
+we divide the body in stripes where each stripe has a fixed number of blocks,
+and neighbouring stripes have a different number of blocks.
 
-If the whole body has the same number of columns, we have just one stripe.
+If the whole body has the same number of blocks, we have just one stripe.
 
 The stripes are numbered 1, 2, 3, ... from top to bottom.
 
-The column is the empty string if a stripe has just one column,
-otherwise it is `l` for the left column and `r` for the right column.
+The block is the empty string if a stripe has just one block,
+otherwise it is `l` for the left block and `r` for the right block.
 
-We assume that all stripes on all pages have at most two columns.
-
-A column within a stripe is also called a *block*.
+We assume that all stripes on all pages have at most two blocks.
 
 Blocks are divided into *lines*.
 The lines are numbered with the blocks that contain them.
@@ -122,10 +119,10 @@ def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size
         The color of the letters
     stripe: integer
         The stripe number. Stripes are horizontal page-wide regions corresponding
-        to *vertical* column dividers.
+        to *vertical* block dividers.
     kind: string
-        Whether the block spans the whole page width (`&#34;&#34;`), is in the left column
-        (&#34;l&#34;) or in the right column (&#34;r&#34;).
+        Whether the block spans the whole page width (`&#34;&#34;`), is in the left block
+        (&#34;l&#34;) or in the right block (&#34;r&#34;).
     size: float
         The font-size of the letters.
 
@@ -156,7 +153,7 @@ def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size
 
 
 def addHStroke(
-    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+    img, isTop, i, block, thickness, top, left, right, letterColor, size=1.0
 ):
     &#34;&#34;&#34;Marks a detected horizontal stroke on an image.
 
@@ -172,8 +169,8 @@ def addHStroke(
         whether the stroke separates the top header from the rest of the page.
     i: integer
         The number of the stroke
-    column: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
-        The column in which the stroke is found
+    block: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
+        The block in which the stroke is found
     thickness: integer
         The thickness of the stroke as found on the image.
     top, left, right: integer
@@ -190,7 +187,7 @@ def addHStroke(
     &#34;&#34;&#34;
 
     weight = 3
-    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
+    colRep = f&#34;-{block}&#34; if block else &#34;&#34;
     text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
     offsetX = 60
     offsetY = 30 if isTop else -30 - 2 * thickness
@@ -213,7 +210,7 @@ def getStretches(C, info, stages, pageSize, horizontal, batch):
     &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
 
     Significant strokes are those that are not part of letters,
-    but ones that are used as separators, e.g. of footnotes and columns.
+    but ones that are used as separators, e.g. of footnotes and blocks.
 
     We single out 1-pixel wide lines longer than a small threshold
     in the appropriate direction, and blacken the rest.
@@ -457,7 +454,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     Returns
     -------
     dict
-        Blocks keyed by stripe number and column specification
+        Blocks keyed by stripe number and block specification
         (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
         The values form dicts themselves, with in particular the bounding box
         information under key `box` specified as four numbers:
@@ -629,7 +626,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     topCriterion = maxH / 6
     topXCriterion = maxH / 4
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (bL, bT, bR, bB) = data[&#34;box&#34;]
         x = data[&#34;sep&#34;]
         top = None
@@ -642,9 +639,9 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                 break
             for (x1, x2, thickness) in xs:
                 if x is not None:
-                    if column == &#34;l&#34; and x1 &gt;= x:
+                    if block == &#34;l&#34; and x1 &gt;= x:
                         continue
-                    if column == &#34;r&#34; and x2 &lt;= x:
+                    if block == &#34;r&#34; and x2 &lt;= x:
                         continue
                 isTop = stripe == 0 and (
                     len(stripes) == 1
@@ -662,7 +659,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                         layout,
                         isTop,
                         stripe,
-                        column,
+                        block,
                         thickness,
                         y,
                         x1,
@@ -724,11 +721,11 @@ def grayInterBlocks(C, stages, blocks):
 
     # overlay the space between blocks
 
-    for ((stripe, column), data) in sorted(blocks.items()):
+    for ((stripe, block), data) in sorted(blocks.items()):
         bT = data[&#34;box&#34;][1]
         bB = data[&#34;box&#34;][3]
         x = data[&#34;sep&#34;]
-        if column == &#34;&#34;:
+        if block == &#34;&#34;:
             if prevX is None:
                 pB = prevBB[0]
                 overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
@@ -743,26 +740,26 @@ def grayInterBlocks(C, stages, blocks):
                         overlay(layout, lf, pB, rt, bT, white, mColor)
             prevBB = [bB, bB]
             prevX = None
-        elif column == &#34;l&#34;:
+        elif block == &#34;l&#34;:
             pB = prevBB[0]
             if pB &lt; bT:
                 overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
             prevBB[0] = bB
             prevX = x
-        elif column == &#34;r&#34;:
+        elif block == &#34;r&#34;:
             pB = prevBB[1]
             if pB &lt; bT:
                 overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
             prevBB[1] = bB
             prevX = x
         if stripe == maxStripe:
-            if column == &#34;&#34;:
+            if block == &#34;&#34;:
                 if bB &lt; maxH:
                     overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
-            elif column == &#34;l&#34;:
+            elif block == &#34;l&#34;:
                 if bB &lt; maxH:
                     overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
-            elif column == &#34;r&#34;:
+            elif block == &#34;r&#34;:
                 if bB &lt; maxH:
                     overlay(
                         layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
@@ -774,7 +771,7 @@ def adjustVertical(
 ):
     &#34;&#34;&#34;Adjust the height of blocks.
 
-    When we determine the vertical sizes of blocks from the vertical column separators
+    When we determine the vertical sizes of blocks from the vertical block separators
     on the page, we may find that these separators are too short.
 
     We remedy this by finding the line divisision of the ink left and right from the
@@ -896,10 +893,10 @@ suitably w.r.t. the block.</p>
 <dd>The color of the letters</dd>
 <dt><strong><code>stripe</code></strong> :&ensp;<code>integer</code></dt>
 <dd>The stripe number. Stripes are horizontal page-wide regions corresponding
-to <em>vertical</em> column dividers.</dd>
+to <em>vertical</em> block dividers.</dd>
 <dt><strong><code>kind</code></strong> :&ensp;<code>string</code></dt>
-<dd>Whether the block spans the whole page width (<code>""</code>), is in the left column
-("l") or in the right column ("r").</dd>
+<dd>Whether the block spans the whole page width (<code>""</code>), is in the left block
+("l") or in the right block ("r").</dd>
 <dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
 <dd>The font-size of the letters.</dd>
 </dl>
@@ -911,7 +908,7 @@ to <em>vertical</em> column dividers.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L55-L104" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L53-L102" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size=1.0):
     &#34;&#34;&#34;Adds the name of a block of the page near the block.
@@ -932,10 +929,10 @@ to <em>vertical</em> column dividers.</dd>
         The color of the letters
     stripe: integer
         The stripe number. Stripes are horizontal page-wide regions corresponding
-        to *vertical* column dividers.
+        to *vertical* block dividers.
     kind: string
-        Whether the block spans the whole page width (`&#34;&#34;`), is in the left column
-        (&#34;l&#34;) or in the right column (&#34;r&#34;).
+        Whether the block spans the whole page width (`&#34;&#34;`), is in the left block
+        (&#34;l&#34;) or in the right block (&#34;r&#34;).
     size: float
         The font-size of the letters.
 
@@ -966,7 +963,7 @@ to <em>vertical</em> column dividers.</dd>
 </details>
 </dd>
 <dt id="fusus.layout.addHStroke"><code class="name flex">
-<span>def <span class="ident">addHStroke</span></span>(<span>img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0)</span>
+<span>def <span class="ident">addHStroke</span></span>(<span>img, isTop, i, block, thickness, top, left, right, letterColor, size=1.0)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Marks a detected horizontal stroke on an image.</p>
@@ -981,8 +978,8 @@ them a name.</p>
 <dd>whether the stroke separates the top header from the rest of the page.</dd>
 <dt><strong><code>i</code></strong> :&ensp;<code>integer</code></dt>
 <dd>The number of the stroke</dd>
-<dt><strong><code>column</code></strong> :&ensp;<code>string {"l", "r", ""}</code></dt>
-<dd>The column in which the stroke is found</dd>
+<dt><strong><code>block</code></strong> :&ensp;<code>string {"l", "r", ""}</code></dt>
+<dd>The block in which the stroke is found</dd>
 <dt><strong><code>thickness</code></strong> :&ensp;<code>integer</code></dt>
 <dd>The thickness of the stroke as found on the image.</dd>
 <dt><strong><code>top</code></strong>, <strong><code>left</code></strong>, <strong><code>right</code></strong> :&ensp;<code>integer</code></dt>
@@ -1000,10 +997,10 @@ them a name.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L107-L158" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L105-L156" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addHStroke(
-    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+    img, isTop, i, block, thickness, top, left, right, letterColor, size=1.0
 ):
     &#34;&#34;&#34;Marks a detected horizontal stroke on an image.
 
@@ -1019,8 +1016,8 @@ them a name.</p>
         whether the stroke separates the top header from the rest of the page.
     i: integer
         The number of the stroke
-    column: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
-        The column in which the stroke is found
+    block: string {&#34;l&#34;, &#34;r&#34;, &#34;&#34;}
+        The block in which the stroke is found
     thickness: integer
         The thickness of the stroke as found on the image.
     top, left, right: integer
@@ -1037,7 +1034,7 @@ them a name.</p>
     &#34;&#34;&#34;
 
     weight = 3
-    colRep = f&#34;-{column}&#34; if column else &#34;&#34;
+    colRep = f&#34;-{block}&#34; if block else &#34;&#34;
     text = f&#34;{&#39;T&#39; if isTop else &#39;B&#39;}{i}{colRep}&#34;
     offsetX = 60
     offsetY = 30 if isTop else -30 - 2 * thickness
@@ -1061,7 +1058,7 @@ them a name.</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Adjust the height of blocks.</p>
-<p>When we determine the vertical sizes of blocks from the vertical column separators
+<p>When we determine the vertical sizes of blocks from the vertical block separators
 on the page, we may find that these separators are too short.</p>
 <p>We remedy this by finding the line divisision of the ink left and right from the
 dividing line, and enlarging the blocks left and right so that they contain
@@ -1100,14 +1097,14 @@ span the whole page width are meant to be decreased.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L721-L818" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L719-L816" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def adjustVertical(
     C, info, blurred, pageH, left, right, yMin, yMinLee, yMax, yMaxLee, preferExtend
 ):
     &#34;&#34;&#34;Adjust the height of blocks.
 
-    When we determine the vertical sizes of blocks from the vertical column separators
+    When we determine the vertical sizes of blocks from the vertical block separators
     on the page, we may find that these separators are too short.
 
     We remedy this by finding the line divisision of the ink left and right from the
@@ -1243,7 +1240,7 @@ with the bounding box info after stripping the top and bottom material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L523-L639" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L521-L637" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     &#34;&#34;&#34;Trims regions above horizontal top lines and below bottom lines.
@@ -1303,7 +1300,7 @@ with the bounding box info after stripping the top and bottom material.</dd>
     topCriterion = maxH / 6
     topXCriterion = maxH / 4
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (bL, bT, bR, bB) = data[&#34;box&#34;]
         x = data[&#34;sep&#34;]
         top = None
@@ -1316,9 +1313,9 @@ with the bounding box info after stripping the top and bottom material.</dd>
                 break
             for (x1, x2, thickness) in xs:
                 if x is not None:
-                    if column == &#34;l&#34; and x1 &gt;= x:
+                    if block == &#34;l&#34; and x1 &gt;= x:
                         continue
-                    if column == &#34;r&#34; and x2 &lt;= x:
+                    if block == &#34;r&#34; and x2 &lt;= x:
                         continue
                 isTop = stripe == 0 and (
                     len(stripes) == 1
@@ -1336,7 +1333,7 @@ with the bounding box info after stripping the top and bottom material.</dd>
                         layout,
                         isTop,
                         stripe,
-                        column,
+                        block,
                         thickness,
                         y,
                         x1,
@@ -1402,7 +1399,7 @@ We do not grow boxes across significant horizontal strokes.</p>
 <dl>
 <dt><code>dict</code></dt>
 <dd>
-<p>Blocks keyed by stripe number and column specification
+<p>Blocks keyed by stripe number and block specification
 (one of <code>""</code>, <code>"l"</code>, <code>"r"</code>).
 The values form dicts themselves, with in particular the bounding box
 information under key <code>box</code> specified as four numbers:
@@ -1413,7 +1410,7 @@ left, top, right, bottom.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L369-L520" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L367-L518" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     &#34;&#34;&#34;Fine-tune stripes into blocks.
@@ -1455,7 +1452,7 @@ left, top, right, bottom.</p>
     Returns
     -------
     dict
-        Blocks keyed by stripe number and column specification
+        Blocks keyed by stripe number and block specification
         (one of `&#34;&#34;`, `&#34;l&#34;`, `&#34;r&#34;`).
         The values form dicts themselves, with in particular the bounding box
         information under key `box` specified as four numbers:
@@ -1575,7 +1572,7 @@ left, top, right, bottom.</p>
 <dd>
 <div class="desc"><p>Gets significant horizontal or vertical strokes.</p>
 <p>Significant strokes are those that are not part of letters,
-but ones that are used as separators, e.g. of footnotes and columns.</p>
+but ones that are used as separators, e.g. of footnotes and blocks.</p>
 <p>We single out 1-pixel wide lines longer than a small threshold
 in the appropriate direction, and blacken the rest.
 Then we blur in the perpendicular direction.
@@ -1614,13 +1611,13 @@ the cluster it is in.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L161-L308" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L159-L306" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStretches(C, info, stages, pageSize, horizontal, batch):
     &#34;&#34;&#34;Gets significant horizontal or vertical strokes.
 
     Significant strokes are those that are not part of letters,
-    but ones that are used as separators, e.g. of footnotes and columns.
+    but ones that are used as separators, e.g. of footnotes and blocks.
 
     We single out 1-pixel wide lines longer than a small threshold
     in the appropriate direction, and blacken the rest.
@@ -1804,7 +1801,7 @@ and <code>None</code> otherwise.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L311-L366" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L309-L364" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getStripes(stages, stretchesV):
     &#34;&#34;&#34;Infer horizontal stripes from a set of vertical bars.
@@ -1886,7 +1883,7 @@ with the band data.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/layout.py#L642-L718" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/layout.py#L640-L716" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def grayInterBlocks(C, stages, blocks):
     &#34;&#34;&#34;Overlay the space between blocks with gray.
@@ -1922,11 +1919,11 @@ with the band data.</dd>
 
     # overlay the space between blocks
 
-    for ((stripe, column), data) in sorted(blocks.items()):
+    for ((stripe, block), data) in sorted(blocks.items()):
         bT = data[&#34;box&#34;][1]
         bB = data[&#34;box&#34;][3]
         x = data[&#34;sep&#34;]
-        if column == &#34;&#34;:
+        if block == &#34;&#34;:
             if prevX is None:
                 pB = prevBB[0]
                 overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
@@ -1941,26 +1938,26 @@ with the band data.</dd>
                         overlay(layout, lf, pB, rt, bT, white, mColor)
             prevBB = [bB, bB]
             prevX = None
-        elif column == &#34;l&#34;:
+        elif block == &#34;l&#34;:
             pB = prevBB[0]
             if pB &lt; bT:
                 overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
             prevBB[0] = bB
             prevX = x
-        elif column == &#34;r&#34;:
+        elif block == &#34;r&#34;:
             pB = prevBB[1]
             if pB &lt; bT:
                 overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
             prevBB[1] = bB
             prevX = x
         if stripe == maxStripe:
-            if column == &#34;&#34;:
+            if block == &#34;&#34;:
                 if bB &lt; maxH:
                     overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
-            elif column == &#34;l&#34;:
+            elif block == &#34;l&#34;:
                 if bB &lt; maxH:
                     overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
-            elif column == &#34;r&#34;:
+            elif block == &#34;r&#34;:
                 if bB &lt; maxH:
                     overlay(
                         layout, bB, maxW - marginX, maxH, white, x + marginX, mColor

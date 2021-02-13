@@ -35,7 +35,7 @@ to filter the peaks into significant peaks.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L0-L505" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L0-L505" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Line detection
 
@@ -117,13 +117,13 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
 
     emptyBlocks = []
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (left, top, right, bottom) = data[&#34;inner&#34;]
 
         hasRegion = bottom &gt; top and right &gt; left
 
         if not hasRegion:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         imgOut = histogram if not batch else None
@@ -146,7 +146,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
                 overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
 
         if len(margins) != 2:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         data[&#34;inner&#34;] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
@@ -179,7 +179,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
             overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
 
         if not lines:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
 
     return emptyBlocks
 
@@ -560,7 +560,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L181-L182" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L181-L182" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def firstNonzero(arr, axis=None):
     return (arr != 0).argmax(axis=axis or 0)</code></pre>
@@ -574,7 +574,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L193-L228" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L193-L228" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getHist(C, imgIn, lineHeight):
     if lineHeight is None:
@@ -651,7 +651,7 @@ that turn out to be devoid of written material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L31-L145" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L31-L145" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
     &#34;&#34;&#34;Add line band data to all blocks based on histograms.
@@ -703,13 +703,13 @@ that turn out to be devoid of written material.</dd>
 
     emptyBlocks = []
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (left, top, right, bottom) = data[&#34;inner&#34;]
 
         hasRegion = bottom &gt; top and right &gt; left
 
         if not hasRegion:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         imgOut = histogram if not batch else None
@@ -732,7 +732,7 @@ that turn out to be devoid of written material.</dd>
                 overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
 
         if len(margins) != 2:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         data[&#34;inner&#34;] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
@@ -765,7 +765,7 @@ that turn out to be devoid of written material.</dd>
             overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
 
         if not lines:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
 
     return emptyBlocks</code></pre>
 </details>
@@ -793,7 +793,7 @@ that turn out to be devoid of written material.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L148-L178" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L148-L178" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkX(imgIn, left, top, right, bottom, imgOut=None):
     &#34;&#34;&#34;Make a horizontal histogram of an input region of interest.
@@ -868,7 +868,7 @@ generated by these calls.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L231-L506" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L231-L506" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None):
     &#34;&#34;&#34;Determine the line distribution in a block of text.
@@ -1156,7 +1156,7 @@ generated by these calls.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d9f8d99e307a5898c4faafbb536c361f70cac5f4/fusus/lines.py#L185-L190" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/lines.py#L185-L190" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def lastNonzero(arr, axis=None):
     ax = axis or 0
