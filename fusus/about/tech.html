@@ -332,7 +332,7 @@ portions from the PDF.</p>
 <p>The font report gave us a clue. Some characters are listed with a double unicode, and exactly
 those characters lead to duplicate occurrences.</p>
 <p>Here is an example:
-<img alt="double" src="images/double.png"></p>
+<img alt="double" src="../images/double.png"></p>
 <p>It turns out that both unicodes refer to the same character, one to the base form, and the other to
 the isolated form, which happen to be identical glyphs.
 This is true for all double characters that we have found in the font report file.</p>
@@ -376,8 +376,7 @@ we generate a white space in our text extract.</p>
 <p>Sometimes we encounter a very big space, namely in <em>hemistic</em> verse lines, which consist of
 wo parts, each centered on the left/right half of the page.</p>
 <p><img alt="hemistica" src="../images/hemistica.png"></p>
-<p>Such spaces we convert into tabs, which are translated to columns later on (so that they
-do not end up in the tab-separated files that hold the results).</p>
+<p>Such spaces we convert into em-spaces (unicode x2003), which are translated to columns later on.</p>
 <p><img alt="hemisticb" src="../images/hemisticb.png"></p>
 <p>Unfortunately, this does not give us all the word-separating white spaces!
 When we lower the threshold for detecting white space, we get unwanted spaces before we get enough
@@ -507,7 +506,7 @@ and register them in the WORKS dictionary.</p>
 position information (a bounding box: <em>left, top, right, bottom</em> coordinates), a <em>confidence</em>,
 and a <em>text</em>.</p>
 <p>If the data comes from the pipe line, we do not have the <em>column, span, direction</em> fields.
-These are regions within the line, based on the detection of tabs and the occurrence
+These are regions within the line, based on the detection of big spaces and the occurrence
 of unicode characters in ltr and rtl scripts.</p>
 <p>This is the start of the TSV for Affifi:</p>
 <p><img alt="affifitsv" src="../images/affifitsv.png"></p>
@@ -613,7 +612,7 @@ in Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/d8307a263d046831bee119111a3266a56a0502e2/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/dc3511b1905025aa81604afac2206880ca2ab085/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/tech.md
