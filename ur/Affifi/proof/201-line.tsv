@@ -1,5 +1,5 @@
-stripe	column	line	left	top	right	bottom
-0		1	1689	131	2075	207
+page	stripe	column	line	left	top	right	bottom
+0		1	1689	100	2075	207
 0		2	508	427	3213	597
 0		3	508	607	3213	774
 0		4	504	784	3213	946

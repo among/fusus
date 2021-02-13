@@ -28,6 +28,7 @@ from kraken.rpred import rpred
 
 from tf.core.helpers import unexpanduser
 
+from .char import UChar
 from .lib import DEFAULT_EXTENSION
 
 
@@ -254,9 +255,11 @@ def showConf(stage, results, label="notes"):
     display(HTML(html))
 
 
-class OCR:
+class OCR(UChar):
     def __init__(self, engine):
         """Sets up OCR with Kraken."""
+
+        super().__init__()
 
         self.engine = engine
         self.model = None
@@ -286,6 +289,8 @@ class OCR:
         if scan is None:
             return None
 
+        nonLetter = self.nonLetter
+
         model = self.ensureLoaded()
 
         blocks = page.blocks
@@ -297,7 +302,7 @@ class OCR:
         stages["line"] = ocrLines
         binary = pil2array(nlbin(array2pil(scan)))
 
-        for ((stripe, column), data) in blocks.items():
+        for ((stripe, block), data) in blocks.items():
             (left, top, right, bottom) = data["inner"]
             thisBinary = binary[top:bottom, left:right]
             lines = data["bands"]["main"]["lines"]
@@ -305,7 +310,7 @@ class OCR:
                 lln = ln + 1
                 roi = thisBinary[up : lo + 1]
                 (b, e, roi) = removeMargins(roi, keep=16)
-                ocrLines.append((stripe, column, lln, left + b, top + up, left + e, top + lo))
+                ocrLines.append((stripe, block, lln, left + b, top + up, left + e, top + lo))
                 (roiH, roiW) = roi.shape[0:2]
                 roi = array2pil(roi)
                 bounds = dict(boxes=([0, 0, roiW, roiH],), text_direction=RL)
@@ -332,24 +337,38 @@ class OCR:
                 if adaptedPreds:
                     adaptedPreds[-1][1][0] = 0
 
-                # divide into words
+                # divide into words, not only on spaces, but also on punctuation
 
-                curWord = []
+                curWord = [[], []]
+                inWord = True
 
                 for (c, (le, to, ri, bo), conf) in adaptedPreds:
                     offsetW = left + b
                     offsetH = top + up
                     pos = (le + offsetW, to + offsetH, ri + offsetW, bo + offsetH)
                     conf = int(round(conf * 100))
-                    ocrChars.append((stripe, column, lln, *pos, conf, c))
+                    ocrChars.append((stripe, block, lln, *pos, conf, c))
 
-                    if c == " " and curWord:
-                        ocrWords.append((stripe, column, lln, *addWord(curWord)))
-                        curWord = []
-                        continue
-                    curWord.append((c, pos, conf))
-                if curWord:
-                    ocrWords.append((stripe, column, lln, *addWord(curWord)))
+                    spaceSeen = c == " "
+                    changeWord = not inWord and c not in nonLetter
+                    element = (c, pos, conf)
+
+                    if spaceSeen:
+                        curWord[1].append(element)
+                    if spaceSeen or changeWord:
+                        if curWord[0] or curWord[1]:
+                            ocrWords.append((stripe, block, lln, *addWord(curWord)))
+                            curWord = [[], []]
+                            inWord = True
+                            continue
+
+                    if inWord:
+                        if c in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
+                    curWord[dest].append(element)
+                if curWord[0] or curWord[1]:
+                    ocrWords.append((stripe, block, lln, *addWord(curWord)))
 
         page.write(stage="line,word,char")
 
@@ -378,31 +397,34 @@ class OCR:
             .replace("«width»", g(right - left))
             .replace("«height»", g(bottom - top))
             .replace("«text»", f"{ln:>01}")
-            for (stripe, column, ln, left, top, right, bottom) in ocrLines
+            for (stripe, block, ln, left, top, right, bottom) in ocrLines
         )
 
         for stage in ("char", "word"):
             stageData = stages.get(stage, [])
-            boxesHtml = "".join(
-                TEMPLATE[stage]
-                .replace("«left»", g(left))
-                .replace("«top»", g(top))
-                .replace("«width»", g(right - left))
-                .replace("«height»", g(bottom - top))
-                .replace("«background»", getProofColor(conf))
-                .replace("«text»", text)
-                for (
-                    stripe,
-                    column,
-                    ln,
-                    left,
-                    top,
-                    right,
-                    bottom,
-                    conf,
-                    text,
-                ) in stageData
-            )
+            boxesHtml = []
+            for (
+                stripe,
+                block,
+                ln,
+                left,
+                top,
+                right,
+                bottom,
+                conf,
+                *rest,
+            ) in stageData:
+                boxesHtml.append(
+                    TEMPLATE[stage]
+                    .replace("«left»", g(left))
+                    .replace("«top»", g(top))
+                    .replace("«width»", g(right - left))
+                    .replace("«height»", g(bottom - top))
+                    .replace("«background»", getProofColor(conf))
+                    .replace("«text»", "".join(rest))
+                )
+
+            boxesHtml = "".join(boxesHtml)
             proofData = (
                 TEMPLATE["doc"]
                 .replace("«width»", g(w))
@@ -426,12 +448,14 @@ def removeMargins(img, keep=0):
     return (start, end, img[:, start:end])
 
 
-def addWord(curChars):
-    word = "".join(x[0] for x in curChars)
-    conf = int(round(sum(x[-1] for x in curChars) / len(curChars)))
-    left = min(x[1][0] for x in curChars)
-    top = min(x[1][1] for x in curChars)
-    right = max(x[1][2] for x in curChars)
-    bot = max(x[1][3] for x in curChars)
+def addWord(curWord):
+    letters = "".join(x[0] for x in curWord[0])
+    punc = "".join(x[0] for x in curWord[1])
+    allChars = curWord[0] + curWord[1]
+    conf = int(round(sum(x[-1] for x in allChars) / len(allChars)))
+    left = min(x[1][0] for x in allChars)
+    top = min(x[1][1] for x in allChars)
+    right = max(x[1][2] for x in allChars)
+    bot = max(x[1][3] for x in allChars)
 
-    return (left, top, right, bot, conf, word)
+    return (left, top, right, bot, conf, letters, punc)

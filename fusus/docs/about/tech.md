@@ -136,15 +136,15 @@ a false positive.
 
 **Discussion**
 
-Pages are usually divided into regions: header, middle, footer.
-There can be vertical divisions to, into columns.
+Pages are usually divided into horizontal regions: header, middle, footer.
+There can be vertical divisions too, into blocks.
 We detect such regions by spotting horizontal and vertical lines and dividing the page accordingly.
 
-A subtlety is that vertical stroke are often just an approximation: they do not exactly 
+A subtlety is that vertical strokes are often just an approximation: they do not exactly 
 correspond with the boundaries of the lines on the left and right of the stroke.
 
 We solve this by making a premature line division left and right, and adjusting the size of the
-left and right columns accordingly.
+left and right blocks accordingly.
 
 In this way we divide the page into blocks, which are the ultimate containers of lines.
 
@@ -284,7 +284,7 @@ and the confidences by which they have been recognized.
 We store this data in TSV files and we also make a version where we have combined
 the character data into word data.
 
-We also include columns for the page, block, and line information of the characters and words.
+We also include fields for the page, block, and line information of the characters and words.
 
 This enables us to compose *proofing* pages, which consist of HTML pages
 with the page image as background and the recognized characters/words at the proper fixed
@@ -595,7 +595,7 @@ Tab-Separated-Value files.
 **Discussion**
 
 Here we are at the stage where the results of the pipeline and those of the text extraction
-reach a common file format, with an almost identical column division.
+reach a common file format, with an almost identical field division.
 
 In order to streamline the orchestration of work we have registered the works that
 we have subjected to the pipeline and the text extraction.
@@ -616,6 +616,7 @@ and register them in the WORKS dictionary.
 
 **Code references**
 
+* `fusus.convert`
 * `fusus.convert.HELP`
 * `fusus.convert.makeTsv`
 * `fusus.convert.loadTsv`
@@ -710,11 +711,23 @@ and publish it in your own GitHub repo.
 Then other users can load the original dataset and your annotations in one go, and can compute with
 the combined result.
 
-When we convert the TSV to Text_Fabric we perform two extra steps:
+When we convert the TSV to Text-Fabric we perform an extra step:
 
-* separatation punctuation from words;
 * transliteration of Arabic text to various schemes;
   these schemes are now part of Text-Fabric.
+
+The resulting TF files are *versioned*.
+That is important, because enrichments that have been created by other parties need to refer
+to the exact dataset.
+Later, when new versions of the dataset have been made, enrichments may not be compatible with the
+new version. Then it is good to have the old version still around, for the sake of reproducibility.
+
+In Text-Fabric, the concept of
+[node mapping](https://annotation.github.io/text-fabric/tf/compose/nodemaps.html)
+is supported.
+We can map the nodes from a newer version to the nodes of an older version.
+With this mapping in hand, we can apply older enrichments to the new version, without doing
+all that enrichment work a new.
 
 !!! caution "Limited quality transliteration"
     Arabic transliteration involves knowledge of Arabic orthography, morphology and parsing.

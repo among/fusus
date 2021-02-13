@@ -1,39 +1,89 @@
 """Convenience methods to call conversions to and from tsv and to tf.
 
 The pipeline can read Arabic books in the form of page images,
-and returns structured data in the form of tab separated files.
+and returns structured data in the form of a tab separated file (TSV).
 
-# Books
+The PDF text extraction of the Lakhnawi file also produces a TSV file.
 
-As far as the pipeline is concerned, the input of a book is a directory
-of page images. More precisely, it is a directory in which there is
-a subdirectory `in` having the page images.
+Both kinds of TSV files can be converted furhter into Text-Fabric.
 
-The books of the Fusus project are in the directory `ur` of this repo.
+## Input
 
-There you find subdirectories corresponding to
+See `fusus.works` for how to specify the input for *fusus* operations.
 
-* **Affifi** The Fusus Al Hikam in the Affifi edition.
-* **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
-  The source is a textual PDF, not in the online repo, from which
-  structured data is derived by means of a specific workflow,
-  not the *pipeline*.
-* **commentary Xxx** Commentary books
+## TSV output
 
-When the pipeline runs, it produces additional directories
-containing intermediate results and output.
+The TSV data from both the pipeline and the text extraction is one word per line.
 
-For details, see `fusus.works`, `fusus.book`, and `fusus.lakhnawi`.
+Fields are integer valued, except for fields with names ending in $.
 
-All functions here make use of `fusus.works`, which makes it possible to
-refer to known works by keywords.
+The fields of the pipeline results `(P)` are roughly the same as those of the
+text extraction results `(T)`:
 
-If you want to process other works, that is still possible,
-just provide directories where source keywords are expected.
+```
+(P) page stripe block$ line            left top right bottom confidence letters punc$
+(T) page line   column span direction$ left top right bottom            letters punc$
+```
 
-It is assumed that unknown works use the OCR pipeline.
-If that is not true, pass a parameter `ocred=False` to the function,
-or, on the command line, pass `noocr`.
+### Divisions `(P)`
+
+Each *page* is divided into *stripe*.
+Stripes are horizontal regions from the left edge to the right edge of the page/
+
+Each *stripe* is divided into *blocks*.
+Blocks are vertical parts inside a stripe, with a stroke in between.
+If there is no stroke, there is only one block in the stripe.
+There are at most two blocks in a stripe.
+
+Each *block* is divided into *lines*.
+
+See also `fusus.layout`.
+
+Each line is divided into *words*.
+
+### Divisions `(T)`
+
+Each *page* is divided into *lines*.
+
+Each *line* is divided into *columns*
+(in case of hemistic verses, see `Lakhnawi.columns`).
+
+Each *column* is divided into *spans*.
+Span transitions occur precisely there where changes in writing direction occur.
+
+Each *span* is divided into *words*.
+
+### Fields `(TP)`
+
+Each word occupies exactly one line in the TSV file, with the following fields:
+
+* `(TP)` **page** page number
+* `( P)` **stripe** stripe number within the page
+* `( P)` **block** (empty string or `r` or `l`)
+* `( P)` **line** line number within the block
+* `(T )` **line** line number within the page
+* `(T )` **column** column number within the line
+* `(T )` **span** span number within the column
+* `(T )` **direction** (`l` or `r`) writing direction of the span
+* `(TP)` **left** *x* coordinate of left boundary
+* `(TP)` **top** *y* coordinate of top boundary
+* `(TP)` **right** *x* coordinate of right boundary
+* `(TP)` **bottom** *y* coordinate of bottom boundary
+* `( P)` **confidence** measure of OCR confidence (0 .. 100) percent
+* `(TP)` **letters** letters of the word (possibly the empty string)
+* `(TP)` **punc** non-letters after the word
+
+### Example `(P)`
+
+The start of the Affifi TSV:
+
+![affifitsv](images/affifitsv.png)
+
+### Example `(T)`
+
+The start of the Lakhnawi TSV:
+
+![lakhnawitsv](images/lakhnawitsv.png)
 
 ## Run
 
@@ -80,8 +130,6 @@ a binary version of the tf files will be generated, which will be used for
 subsequent use by Text-Fabric.
 
 ---
-
-See also `fusus.convert`.
 
 ## Load TSV
 
@@ -295,6 +343,9 @@ def loadTsv(source=None, ocred=None, pages=None):
     In case of a known work, this is known and does not have to be specified.
     Otherwise you have to pass it.
 
+    !!! caution "word-based"
+        This function can load the word-based TSV files, not the character based ones.
+
     Parameters
     ----------
     source: string, optional `None`
@@ -343,7 +394,7 @@ def loadTsv(source=None, ocred=None, pages=None):
                     int(row[3]),
                     *(None if c == "?" else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -351,7 +402,7 @@ def loadTsv(source=None, ocred=None, pages=None):
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == "?" else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)

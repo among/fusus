@@ -15,22 +15,20 @@ All footers will be discarded.
 **body**
 The body region consists of zero or more *stripes*.
 
-**stripe, column, block, line**
+**stripe, block, line**
 A stripe is a horizontal region of the body.
-If some parts of the body have two columns and other parts have one column,
-we divide the body in stripes where each stripe has a fixed number of columns,
-and neighbouring stripes have a different number of columns.
+If some parts of the body have two blocks and other parts have one block,
+we divide the body in stripes where each stripe has a fixed number of blocks,
+and neighbouring stripes have a different number of blocks.
 
-If the whole body has the same number of columns, we have just one stripe.
+If the whole body has the same number of blocks, we have just one stripe.
 
 The stripes are numbered 1, 2, 3, ... from top to bottom.
 
-The column is the empty string if a stripe has just one column,
-otherwise it is `l` for the left column and `r` for the right column.
+The block is the empty string if a stripe has just one block,
+otherwise it is `l` for the left block and `r` for the right block.
 
-We assume that all stripes on all pages have at most two columns.
-
-A column within a stripe is also called a *block*.
+We assume that all stripes on all pages have at most two blocks.
 
 Blocks are divided into *lines*.
 The lines are numbered with the blocks that contain them.
@@ -71,10 +69,10 @@ def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size
         The color of the letters
     stripe: integer
         The stripe number. Stripes are horizontal page-wide regions corresponding
-        to *vertical* column dividers.
+        to *vertical* block dividers.
     kind: string
-        Whether the block spans the whole page width (`""`), is in the left column
-        ("l") or in the right column ("r").
+        Whether the block spans the whole page width (`""`), is in the left block
+        ("l") or in the right block ("r").
     size: float
         The font-size of the letters.
 
@@ -105,7 +103,7 @@ def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size
 
 
 def addHStroke(
-    img, isTop, i, column, thickness, top, left, right, letterColor, size=1.0
+    img, isTop, i, block, thickness, top, left, right, letterColor, size=1.0
 ):
     """Marks a detected horizontal stroke on an image.
 
@@ -121,8 +119,8 @@ def addHStroke(
         whether the stroke separates the top header from the rest of the page.
     i: integer
         The number of the stroke
-    column: string {"l", "r", ""}
-        The column in which the stroke is found
+    block: string {"l", "r", ""}
+        The block in which the stroke is found
     thickness: integer
         The thickness of the stroke as found on the image.
     top, left, right: integer
@@ -139,7 +137,7 @@ def addHStroke(
     """
 
     weight = 3
-    colRep = f"-{column}" if column else ""
+    colRep = f"-{block}" if block else ""
     text = f"{'T' if isTop else 'B'}{i}{colRep}"
     offsetX = 60
     offsetY = 30 if isTop else -30 - 2 * thickness
@@ -162,7 +160,7 @@ def getStretches(C, info, stages, pageSize, horizontal, batch):
     """Gets significant horizontal or vertical strokes.
 
     Significant strokes are those that are not part of letters,
-    but ones that are used as separators, e.g. of footnotes and columns.
+    but ones that are used as separators, e.g. of footnotes and blocks.
 
     We single out 1-pixel wide lines longer than a small threshold
     in the appropriate direction, and blacken the rest.
@@ -406,7 +404,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     Returns
     -------
     dict
-        Blocks keyed by stripe number and column specification
+        Blocks keyed by stripe number and block specification
         (one of `""`, `"l"`, `"r"`).
         The values form dicts themselves, with in particular the bounding box
         information under key `box` specified as four numbers:
@@ -578,7 +576,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     topCriterion = maxH / 6
     topXCriterion = maxH / 4
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (bL, bT, bR, bB) = data["box"]
         x = data["sep"]
         top = None
@@ -591,9 +589,9 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                 break
             for (x1, x2, thickness) in xs:
                 if x is not None:
-                    if column == "l" and x1 >= x:
+                    if block == "l" and x1 >= x:
                         continue
-                    if column == "r" and x2 <= x:
+                    if block == "r" and x2 <= x:
                         continue
                 isTop = stripe == 0 and (
                     len(stripes) == 1
@@ -611,7 +609,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
                         layout,
                         isTop,
                         stripe,
-                        column,
+                        block,
                         thickness,
                         y,
                         x1,
@@ -673,11 +671,11 @@ def grayInterBlocks(C, stages, blocks):
 
     # overlay the space between blocks
 
-    for ((stripe, column), data) in sorted(blocks.items()):
+    for ((stripe, block), data) in sorted(blocks.items()):
         bT = data["box"][1]
         bB = data["box"][3]
         x = data["sep"]
-        if column == "":
+        if block == "":
             if prevX is None:
                 pB = prevBB[0]
                 overlay(layout, marginX, pB, maxW - marginX, bT, white, mColor)
@@ -692,26 +690,26 @@ def grayInterBlocks(C, stages, blocks):
                         overlay(layout, lf, pB, rt, bT, white, mColor)
             prevBB = [bB, bB]
             prevX = None
-        elif column == "l":
+        elif block == "l":
             pB = prevBB[0]
             if pB < bT:
                 overlay(layout, marginX, pB, x - marginX, bT, white, mColor)
             prevBB[0] = bB
             prevX = x
-        elif column == "r":
+        elif block == "r":
             pB = prevBB[1]
             if pB < bT:
                 overlay(layout, x + marginX, pB, maxW - marginX, bT, white, mColor)
             prevBB[1] = bB
             prevX = x
         if stripe == maxStripe:
-            if column == "":
+            if block == "":
                 if bB < maxH:
                     overlay(layout, marginX, bB, maxW - marginX, maxH, white, mColor)
-            elif column == "l":
+            elif block == "l":
                 if bB < maxH:
                     overlay(layout, marginX, bB, x - marginX, maxH, white, mColor)
-            elif column == "r":
+            elif block == "r":
                 if bB < maxH:
                     overlay(
                         layout, bB, maxW - marginX, maxH, white, x + marginX, mColor
@@ -723,7 +721,7 @@ def adjustVertical(
 ):
     """Adjust the height of blocks.
 
-    When we determine the vertical sizes of blocks from the vertical column separators
+    When we determine the vertical sizes of blocks from the vertical block separators
     on the page, we may find that these separators are too short.
 
     We remedy this by finding the line divisision of the ink left and right from the

@@ -1,4 +1,4 @@
-stripe	column	line	left	top	right	bottom	confidence	text
+page	stripe	block	line	left	top	right	bottom	confidence	letters
 1	l	1	987	765	1062	884	54	ت
 1	l	1	921	765	987	884	96	ك
 1	l	1	872	765	921	884	78	ك

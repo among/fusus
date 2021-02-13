@@ -1,4 +1,4 @@
-stripe	column	line	left	top	right	bottom	confidence	text
+page	stripe	column	line	left	top	right	bottom	confidence	letters
 0		1	1646	101	1752	201	100	 
 0		1	1716	101	1646	201	100	5
 0		1	1538	101	1715	201	100	 

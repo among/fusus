@@ -1,4 +1,4 @@
-stripe	column	line	left	top	right	bottom	confidence	text
+page	stripe	block	line	left	top	right	bottom	confidence	letters
 1	l	1	616	282	652	330	58	1
 1	l	1	638	282	616	330	98	3
 1	l	1	658	282	638	330	100	0

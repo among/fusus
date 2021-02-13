@@ -78,13 +78,13 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
 
     emptyBlocks = []
 
-    for ((stripe, column), data) in blocks.items():
+    for ((stripe, block), data) in blocks.items():
         (left, top, right, bottom) = data["inner"]
 
         hasRegion = bottom > top and right > left
 
         if not hasRegion:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         imgOut = histogram if not batch else None
@@ -107,7 +107,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
                 overlay(roiOutC, x1 + 2, 2, x2 - 2, normH - 2, white, mColor)
 
         if len(margins) != 2:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
             continue
 
         data["inner"] = (margins[0][1] + left, top, margins[1][0] + left, bottom)
@@ -140,7 +140,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
             overlay(roiOutC, 0, bottomWhite, normW, normH, white, mColor)
 
         if not lines:
-            emptyBlocks.append((stripe, column))
+            emptyBlocks.append((stripe, block))
 
     return emptyBlocks
 

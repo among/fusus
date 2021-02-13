@@ -50,10 +50,10 @@ def generic(source):
 
 otext = {}
 otext[None] = {
-    "fmt:text-orig-full": "{pre}{text}{post}",
-    "fmt:text-orig-plain": "{prea}{plain}{posta}",
-    "fmt:text-orig-nice": "{prea}{nice}{posta}",
-    "fmt:text-orig-trans": "{prea}{trans}{posta}",
+    "fmt:text-orig-full": "{letters}{punc}",
+    "fmt:text-orig-plain": "{lettersp}{punca}",
+    "fmt:text-orig-nice": "{lettersn}{punca}",
+    "fmt:text-orig-trans": "{letterst}{punca}",
 }
 otext[False] = {
     "sectionFeatures": "n,n,ln",
@@ -93,39 +93,31 @@ featureMeta[None] = {
         "description": "bottom y-coordinate of word",
         "format": "number",
     },
-    "nice": {
-        "description": "text string of a word in latin transcription (beta code)",
-        "format": "string, latin with diacritics",
-    },
-    "plain": {
-        "description": "text string of a word in ascii transcription (beta code)",
-        "format": "string, ascii",
-    },
-    "post": {
-        "description": "punctuation and/or space immediately after a word",
-        "format": "string",
-    },
-    "posta": {
-        "description": "punctuation and/or space immediately after a word",
-        "format": "string, ascii",
-    },
-    "pre": {
-        "description": "punctuation (but no whitespace) immediately before a word",
-        "format": "string",
-    },
-    "prea": {
-        "description": "punctuation (but no whitespace) immediately before a word",
-        "format": "string, ascii",
-    },
-    "text": {
+    "letters": {
         "description": "text string of a word without punctuation",
         "format": "string",
     },
-    "trans": {
+    "lettersn": {
+        "description": "text string of a word in latin transcription (beta code)",
+        "format": "string, latin with diacritics",
+    },
+    "lettersp": {
+        "description": "text string of a word in ascii transcription (beta code)",
+        "format": "string, ascii",
+    },
+    "letterst": {
         "description": (
             "text string of a word in romanized transcription" " (Library of Congress)"
         ),
         "format": "string, latin with diacritics",
+    },
+    "punc": {
+        "description": "punctuation and/or space immediately after a word",
+        "format": "string",
+    },
+    "punca": {
+        "description": "punctuation and/or space immediately after a word",
+        "format": "string, ascii",
     },
 }
 
@@ -223,9 +215,8 @@ def getToc(data):
             if curLine:
                 lines.append("".join(curLine))
                 curLine = []
-            space = ""
 
-        curLine.append(f"{space}{fields[-1]}")
+        curLine.append(f"{fields[-2]}{fields[-1]}")
         prevLine = line
 
     if curLine:
@@ -299,55 +290,13 @@ def convert(source, ocred, pages, versionTf):
 def director(cv):
     """Read tsv data fields.
 
-    Fields are integer valued, except for fields with names ending in $.
-
-    If a row comes from the result of OCR we have the fields:
-
-    ```
-    stripe block$ line left top right bottom confidence text$
-    ```
-
-    We prepend the page number in this case, yielding
-
-    ```
-    page stripe block$ line left top right bottom confidence text$
-    ```
-
-    Otherwise we have:
-
-    ```
-    page line column span direction$ left top right bottom text$
-    ```
-
-    See `fusus.lakhnawi.Lakhnawi.tsvPages`.
-
-    The block in an OCRed file is either `r` or `l` or nothing, it corresponds
-    to material to the left and right of a vertical stroke.
-    If there is no vertical stroke, there is just one block.
-
-    The column in a non OCRed file is either `1` or `2` and comes
-    from a line partitioned into two regions by means of white space.
-
-    In both cases, the first 4 fields denote a sectional division in
-    the words.
+    This is a function that does the work as indicated in the
+    [walker converion engine of Text-Fabric](https://annotation.github.io/text-fabric/tf/convert/walker.html)
+    See `fusus.convert` for a description of the fields in the TSV files.
     """
 
     stops = U.stops
-    nonLetter = U.nonLetter
-    nonLetterRange = re.escape("".join(sorted(nonLetter)))
 
-    WORD_RE = re.compile(
-        fr"""
-        (
-            [^{nonLetterRange}]+
-        )
-        |
-        (
-            [{nonLetterRange}]+
-        )
-""",
-        re.X,
-    )
     errors = collections.defaultdict(set)
 
     cur = [None, None, None, None]
@@ -372,7 +321,7 @@ def director(cv):
                     int(row[3]),
                     *(None if c == "?" else int(c) for c in row[4:8]),
                     int(row[8]),
-                    row[9],
+                    *row[9:11],
                 )
             else:
                 row = (
@@ -380,7 +329,7 @@ def director(cv):
                     *(int(c) for c in row[1:4]),
                     row[4],
                     *(None if c == "?" else int(c) for c in row[5:9]),
-                    row[9],
+                    *row[9:11],
                 )
 
             data.append(row)
@@ -434,58 +383,33 @@ def director(cv):
         for i in range(nSec):
             prev[i] = fields[i]
 
-        string = fields[-1]
-        parts = []
-        first = True
-        firstNonLetters = False
+        letters = fields[-2]
+        punc = fields[-1]
+        lettersp = Tr.asciiFromArabic(letters) if letters else ""
+        lettersn = Tr.latinFromArabic(letters) if letters else ""
+        letterst = Tr.standardFromArabic(letters) if letters else ""
+        punca = Tr.asciiFromArabic(punc) if punc else ""
 
-        for (letters, nonLetters) in WORD_RE.findall(string):
-            if first:
-                if nonLetters:
-                    parts.append([nonLetters, "", ""])
-                    firstNonLetters = True
-                else:
-                    parts.append(["", letters, ""])
-                first = False
-            elif firstNonLetters:
-                parts[-1][1] = letters
-                firstNonLetters = False
-            elif letters:
-                parts.append(["", letters, ""])
-            else:
-                parts[-1][-1] = nonLetters
-        if parts:
-            parts[-1][-1] += " "
-
-        for (pre, text, post) in parts:
-            textp = Tr.asciiFromArabic(text)
-            textn = Tr.latinFromArabic(text)
-            textt = Tr.standardFromArabic(text)
-            s = cv.slot()
-            cv.feature(
-                s,
-                boxl=fields[boxL],
-                boxt=fields[boxL + 1],
-                boxr=fields[boxL + 2],
-                boxb=fields[boxL + 3],
-                text=text,
-                plain=textp,
-                nice=textn,
-                trans=textt,
-            )
-            if pre:
-                prea = Tr.asciiFromArabic(pre)
-                cv.feature(s, pre=pre, prea=prea)
-            if post:
-                posta = Tr.asciiFromArabic(post)
-                cv.feature(s, post=post, posta=posta)
-                if any(c in stops for c in post):
-                    cv.terminate(curSentence)
-                    curSentence = cv.node("sentence")
-                    nSentence += 1
-                    cv.feature(curSentence, n=nSentence)
-            if OCRED:
-                cv.feature(s, confidence=fields[-2])
+        s = cv.slot()
+        cv.feature(
+            s,
+            boxl=fields[boxL],
+            boxt=fields[boxL + 1],
+            boxr=fields[boxL + 2],
+            boxb=fields[boxL + 3],
+            letters=letters,
+            lettersp=lettersp,
+            lettersn=lettersn,
+            letterst=letterst,
+        )
+        cv.feature(s, punc=punc, punca=punca)
+        if any(c in stops for c in punc):
+            cv.terminate(curSentence)
+            curSentence = cv.node("sentence")
+            nSentence += 1
+            cv.feature(curSentence, n=nSentence)
+        if OCRED:
+            cv.feature(s, confidence=fields[-3])
 
     cv.terminate(curSentence)
 
@@ -520,5 +444,5 @@ def loadTf(outDir):
     if api:
         print(f"max node = {api.F.otype.maxNode}")
         print("Frequencies of words")
-        for (word, n) in api.F.text.freqList()[0:20]:
+        for (word, n) in api.F.letters.freqList()[0:20]:
             print(f"{n:>6} x {word}")

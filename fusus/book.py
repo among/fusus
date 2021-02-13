@@ -560,13 +560,14 @@ class Book:
                 proofStage = f"proof{stage}"
                 thisPageRep = f"""<a href="{page.stagePath(proofStage)}">p{pg}</a>"""
                 isCharStage = stage == "char"
+                confI = -2 if isCharStage else -3
 
                 n = 0
                 totC = 0
                 (minC, maxC) = (100, 0)
 
                 for fields in stages[stage]:
-                    conf = int(fields[-2])
+                    conf = int(fields[confI])
                     totC += conf
                     if conf < minC:
                         minC = conf
@@ -674,7 +675,7 @@ class Book:
 
             if first:
                 headers = page.dataHeaders.get(stage, None)
-                header = "\t".join(str(column) for column in headers)
+                header = "\t".join(str(head) for head in headers)
 
                 f = open(path, "w")
                 f.write(f"{header}\n")
@@ -795,42 +796,42 @@ span.ln {
             stages = page.stages
             stage = "word"
 
-            (prevStripe, prevColumn, prevLine) = (None, None, None)
+            (prevStripe, prevBlock, prevLine) = (None, None, None)
             stripeMaterial = []
-            columnMaterial = []
+            blockMaterial = []
             lineMaterial = []
 
             for fields in stages[stage]:
-                (stripe, column, line) = fields[0:3]
+                (stripe, block, line) = fields[0:3]
                 if stripe != prevStripe:
                     if prevStripe is not None:
                         stripeMaterial.append("</div>")
                         pageMaterial.append("\n".join(stripeMaterial))
                         stripeMaterial = []
                     stripeMaterial.append(f"""<div class="stripe" stripe="{stripe}">""")
-                    prevColumn = None
-                if column != prevColumn:
-                    if prevColumn is not None:
-                        columnMaterial.append("</div>")
-                        stripeMaterial.append("\n".join(columnMaterial))
-                        columnMaterial = []
-                    columnMaterial.append(f"""<div class="c{column}">""")
+                    prevBlock = None
+                if block != prevBlock:
+                    if prevBlock is not None:
+                        blockMaterial.append("</div>")
+                        stripeMaterial.append("\n".join(blockMaterial))
+                        blockMaterial = []
+                    blockMaterial.append(f"""<div class="c{block}">""")
                     prevLine = None
                 if line != prevLine:
                     if prevLine is not None:
                         lineMaterial.append("</div>")
-                        columnMaterial.append(" ".join(lineMaterial))
+                        blockMaterial.append(" ".join(lineMaterial))
                         lineMaterial = []
                     lineMaterial.append(
                         f"""<div line="{line}"><span class="ln">{line}</span>"""
                     )
-                (prevStripe, prevColumn, prevLine) = (stripe, column, line)
+                (prevStripe, prevBlock, prevLine) = (stripe, block, line)
 
                 word = fields[-1]
                 lineMaterial.append(word)
 
-            columnMaterial.append(" ".join(lineMaterial))
-            stripeMaterial.append("\n".join(columnMaterial))
+            blockMaterial.append(" ".join(lineMaterial))
+            stripeMaterial.append("\n".join(blockMaterial))
             pageMaterial.append("\n".join(stripeMaterial))
             pageMaterial.append("</div>")
             body.append("\n".join(pageMaterial))

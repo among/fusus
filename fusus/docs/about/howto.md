@@ -76,6 +76,7 @@
 
 *Do data science with the results*
 
+* `fusus` Description of the TSV output of the pipeline and the PDF text extraction
 * [useTsv](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTsv.ipynb)
   Use the TSV output of the pipeline.
 * [useTf](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/useTf.ipynb)

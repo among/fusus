@@ -1,6 +1,9 @@
-stripe	column	line	left	top	right	bottom	confidence	text
-0		1	1848	131	1863	194	100	2
-0		1	1783	131	1848	194	100	2
+page	stripe	column	line	left	top	right	bottom	confidence	letters
+0		1	1767	99	1890	194	100	 
+0		1	1839	99	1767	194	100	1
+0		1	1911	99	1839	194	100	7
+0		1	1968	99	1912	194	100	 
+0		1	1657	99	1967	194	89	-
 0		2	2667	421	2690	576	99	ف
 0		2	2640	421	2668	576	100	م
 0		2	2596	421	2640	576	99	ا

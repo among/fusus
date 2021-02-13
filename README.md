@@ -37,9 +37,18 @@ This lays the foundations for:
 * perform intertextuality research between the ground work (the "Fusus" by Ibn Arabi)
   and its commentary books.
 
-# Authors
+## Authors
 
-This is work done by Cornelis van Lit and Dirk Roorda.
+*   [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/)
+*   [Dirk Roorda](https://www.annotation.nl)
+
+## Project
+
+Fusus has been funded by the IT Research Innovation Fund.
+
+It has been developed between 2020-03-01 and 2021-03-01
+
+# Docs
 
 There is more documentation about sources, the research project, and how to use
 this software in the

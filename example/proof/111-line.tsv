@@ -1,4 +1,4 @@
-stripe	column	line	left	top	right	bottom
+page	stripe	block	line	left	top	right	bottom
 1	l	1	309	765	1103	883
 1	l	2	267	893	1103	1510
 1	r	1	1132	765	1749	1113

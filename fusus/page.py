@@ -52,14 +52,15 @@ HEADERS = tuple(
     """
     page
     stripe
-    column
+    block
     line
     left
     top
     right
     bottom
     confidence
-    text
+    letters
+    punc
 """.strip().split()
 )
 DATA_TYPES = tuple(
@@ -72,6 +73,7 @@ DATA_TYPES = tuple(
     int
     int
     int
+    str
     str
 """.strip().split()
 )
@@ -116,8 +118,10 @@ class Page:
         self.boxed = boxed
         self.stages = {}
         self.blocks = {}
-        self.dataHeaders = dict(char=HEADERS, word=HEADERS, line=HEADERS[0:-2])
-        self.dataTypes = dict(char=DATA_TYPES, word=DATA_TYPES, line=DATA_TYPES[0:-2])
+        self.dataHeaders = dict(char=HEADERS[0:-1], word=HEADERS, line=HEADERS[0:-3])
+        self.dataTypes = dict(
+            char=DATA_TYPES[0:-1], word=DATA_TYPES, line=DATA_TYPES[0:-3]
+        )
 
         if minimal:
             self.stages = {}
@@ -226,7 +230,7 @@ class Page:
                         if s == "boxed" and mark is not None
                         else stageData
                     ).copy()
-                    for ((stripe, column), data) in blocks.items():
+                    for ((stripe, block), data) in blocks.items():
 
                         bands = data["bands"]
                         doBands = (
@@ -245,7 +249,7 @@ class Page:
                             else ""
                         )
                         headingInfo.append(
-                            f"<b>{stripe}{column}</b> {bandRep}{markRep}"
+                            f"<b>{stripe}{block}</b> {bandRep}{markRep}"
                         )
 
                         (leftB, topB, rightB, bottomB) = data["inner"]
@@ -302,7 +306,7 @@ class Page:
                                 connDegree,
                                 connectBorder,
                                 stripe,
-                                column,
+                                block,
                                 left,
                                 top,
                                 right,
@@ -406,7 +410,7 @@ class Page:
             Otherwise it is an iterable of stage names.
         perBlock: boolean, optional `False`
             If True, the stage output will be split into blocks and written
-            to disk separately. The stripe and column of a block are appended
+            to disk separately. The stripe and block are appended
             to the file name.
 
         Returns
@@ -433,8 +437,8 @@ class Page:
 
             if stageType == "image":
                 if perBlock:
-                    for ((stripe, column), data) in blocks.items():
-                        blockSpec = f"{stripe:02d}{column}"
+                    for ((stripe, block), data) in blocks.items():
+                        blockSpec = f"{stripe:02d}{block}"
                         (leftB, topB, rightB, bottomB) = data["inner"]
                         roi = stageData[topB:bottomB, leftB:rightB]
                         thisPath = self.stagePath(stage, inter=blockSpec)
@@ -485,7 +489,7 @@ class Page:
         """
 
         headers = self.dataHeaders.get(stage, None)
-        header = "\t".join(str(column) for column in headers) if headers else None
+        header = "\t".join(str(head) for head in headers) if headers else None
 
         if handle:
             if stage == "markData":
@@ -501,7 +505,7 @@ class Page:
             if header:
                 handle.write(f"{header}\n")
             handle.write(
-                "".join("\t".join(str(column) for column in row) + "\n" for row in data)
+                "".join("\t".join(str(field) for field in row) + "\n" for row in data)
                 if extension == "tsv"
                 else json.dumps(data)
                 if extension == "json"
@@ -644,18 +648,18 @@ class Page:
         self.empty = False
 
     def doLayout(self):
-        """Divide the page into stripes and the stripes into columns.
+        """Divide the page into stripes and the stripes into blocks.
 
-        We detect vertical strokes as columns separators and horizontal strokes
+        We detect vertical strokes as block separators and horizontal strokes
         as separators to split off top and bottom material.
 
-        A page may or may not be partially divided into columns.
+        A page may or may not be partially divided into blocks.
         Where there is a vertical stroke, we define a stripe: the
         horizontal band that contains the vertical stroke tightly and extends to
         the full with of the page.
 
-        Between the stripes corresponding to column separators we have stripes that
-        are not split into columns.
+        Between the stripes corresponding to block separators we have stripes that
+        are not split into blocks.
 
         The stripes will be numbered from top to bottom, starting at 1.
 
@@ -821,8 +825,8 @@ class Page:
         blocks = self.blocks
         markResults = {}
 
-        for ((stripe, column), data) in blocks.items():
-            if block is not None and block != (stripe, column):
+        for ((stripe, block), data) in blocks.items():
+            if block is not None and block != (stripe, block):
                 continue
             (leftB, topB, rightB, bottomB) = data["inner"]
             thisDemargined = demargined[topB:bottomB, leftB:rightB]
@@ -834,7 +838,7 @@ class Page:
 
             for (band, markData) in searchMarks.items():
                 if "bands" not in data:
-                    # error(f"No bands in {stripe}{column}")
+                    # error(f"No bands in {stripe}{block}")
                     continue
                 bandData = data["bands"][band]
                 lines = bandData["lines"]
@@ -929,7 +933,7 @@ class Page:
                                             connDegree,
                                             connectBorder,
                                             stripe,
-                                            column,
+                                            block,
                                             left,
                                             top,
                                             right,
@@ -970,7 +974,7 @@ class Page:
                                                     connDegree,
                                                     connectBorder,
                                                     stripe,
-                                                    column,
+                                                    block,
                                                     left,
                                                     top,
                                                     right,
@@ -992,7 +996,7 @@ class Page:
                     thisTop = max(0, theUpper - grace)
                     thisBottom = min(maxH, theLower + grace)
                     info(
-                        f"block {stripe}{column} line {line} BEFORE/AFTER cleaning\n",
+                        f"block {stripe}{block} line {line} BEFORE/AFTER cleaning\n",
                         tm=False,
                     )
                     roi = thisDemargined[thisTop:thisBottom]
@@ -1065,7 +1069,7 @@ class Page:
                     conn,
                     border,
                     stripe,
-                    column,
+                    block,
                     top,
                     bottom,
                     left,
@@ -1073,7 +1077,7 @@ class Page:
                 ) in sorted(entries):
                     indent(level=2)
                     wRep = "kept" if k else "wiped"
-                    block = f"{stripe}{column}"
+                    block = f"{stripe}{block}"
                     info(
                         f"{wRep:<5} [{block:>3}]"
                         f" tblr={top:>4} {bottom:>4} {left:>4} {right:>4},"

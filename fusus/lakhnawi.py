@@ -92,6 +92,7 @@ from .parameters import SOURCE_DIR, UR_DIR, ALL_PAGES, LINE_CLUSTER_FACTOR
 from .lib import DEFAULT_EXTENSION, pprint, parseNums
 from .char import (
     UChar,
+    EMSPACE,
     getSetFromDef,
     isAlefFinal,
     isArDigit,
@@ -175,6 +176,11 @@ div.phead {
 }
 
 
+.box {
+    border: 1pt solid #888888;
+    border-radius: 2pt;
+}
+
 .r {
     font-family: normal, sans-serif;
     font-size: 22pt;
@@ -230,7 +236,7 @@ p.r {
     font-weight: bold;
 }
 span.sp {
-    background-color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.5);
 }
 td.al {
     text-align: left ! important;
@@ -263,7 +269,7 @@ div.ch {
 div.chs {
     background-color: #ccffcc;
 }
-div.cht {
+div.chm {
     background-color: #44ff44;
 }
 div.sr {
@@ -396,7 +402,6 @@ e816
 e817
 e818
 e81d
-e821
 e823
 e824
 e825
@@ -449,6 +454,7 @@ e8fb
 e8fe
 """
 
+PRIVATE_TATWEEL = "\ue821"
 
 PRIVATE_FINAL_SPACE_CODES = """
     e898
@@ -747,7 +753,9 @@ COLOR = "color"
 FNRULE_WIDTH = 60
 """Width of the rule that separates body text from footnote text.
 """
-SPACE_THRESHOLD = 25
+
+# SPACE_THRESHOLD = 25
+SPACE_THRESHOLD = 10
 """Amount of separation between words.
 
 Character boxes this far apart imply that there is a white space between them.
@@ -769,7 +777,6 @@ class Lakhnawi(UChar):
         """
 
         super().__init__()
-        """A handle to the PDF document, after it has been read by *fitz*."""
 
         self.heights = {}
         """Heights of characters, indexed by page number."""
@@ -801,7 +808,7 @@ class Lakhnawi(UChar):
         """Column information, indexed by page and line number.
 
         Spaces that are significantly larger than a normal white space
-        are interpreted as a tab, and these are considered as column separators.
+        are interpreted as an emspace, and these are considered as column separators.
         We remember the character positions where this happens plus the amount
         of space in question.
 
@@ -848,7 +855,9 @@ class Lakhnawi(UChar):
         """Whether processing is still ok, i.e. no errors encountered."""
 
         self.getCharConfig()
+
         self.doc = fitz.open(SOURCE)
+        """A handle to the PDF document, after it has been read by *fitz*."""
 
     def close(self):
         """Close the PDF handle, offered by *fitz*."""
@@ -884,6 +893,7 @@ class Lakhnawi(UChar):
         self.privateDias = getSetFromDef(PRIVATE_DIAS_DEF)
         self.privateSpace = PRIVATE_SPACE
         self.nospacings |= self.privateDias
+        # self.nospacings.add(PRIVATE_TATWEEL)
         self.diacritics |= self.privateDias
         self.diacriticLike |= self.privateDias
         self.arabicLetters = self.arabic - self.privateDias
@@ -1011,7 +1021,7 @@ class Lakhnawi(UChar):
 
         We show the character itself and its name (if not a private-use one),
         its hexadecimal code, and we indicate by coloring the kind of
-        white space that the character represents (ordinary space or tab).
+        white space that the character represents (ordinary space or emspace).
 
         Parameters
         ----------
@@ -1045,7 +1055,9 @@ class Lakhnawi(UChar):
                 else f"""<span class="{"rc" if c in rls else "lc"}">{c}"""
             )
             cname = "" if c in puas else f"""<span class="c">{uName(c)}</span>"""
-            extra = "t" if c == "\t" else "s" if c == " " else ""
+            extra = (
+                "m" if c == EMSPACE else "s" if c == " " else ""
+            )
 
         return f"""
 <div class="ch{extra}">
@@ -1483,7 +1495,7 @@ class Lakhnawi(UChar):
                     rect = fnRule[RECT]
                     width = rect.x1 - rect.x0
                     if width > FNRULE_WIDTH:
-                        theseFnRules.add(int(round(rect.y0)))
+                        theseFnRules.add(int(round(rect.y1)))
 
             fnRules[pageNum] = tuple(sorted(theseFnRules))
             spaces[pageNum] = {}
@@ -1577,36 +1589,12 @@ class Lakhnawi(UChar):
     def tsvPages(self, pageNumSpec):
         """Outputs processed pages as tab-separated data.
 
+        See `fusus.convert` for the details of the output format.
+
         Uses
         `Lakhnawi.tsvLine()`.
         and `Lakhnawi.tsvHeadLine()`.
 
-        Here is the structure:
-
-        Each page is divided into lines.
-
-        Each line is divided into columns
-        (in case of hemistic verses, see `Lakhnawi.columns`).
-
-        Each column is divided into spans.
-        Span transitions occur precisely there where changes in writing direction
-        occur.
-
-        Each span is divided into words.
-
-        Each word occupies exactly one line in the TSV file,
-        with the following fields:
-
-        * **page** page number
-        * **line** line number within the page
-        * **column** column number within the line
-        * **span** span number within the column
-        * **direction** (`l` or `r`) writing direction of the span
-        * **left** *x* coordinate of left boundary
-        * **top** *y* coordinate of top boundary
-        * **right** *x* coordinate of right boundary
-        * **bottom** *y* coordinate of bottom boundary
-        * **text** text of the word
 
         Parameters
         ----------
@@ -1967,7 +1955,8 @@ class Lakhnawi(UChar):
     <th>top</th>
     <th>right</th>
     <th>bottom</th>
-    <th>word</th>
+    <th>letters</th>
+    <th>punc</th>
 </tr>
 """
         )
@@ -1982,7 +1971,7 @@ class Lakhnawi(UChar):
                 cols = pageLines[ln - 1]
                 for (cn, spans) in enumerate(cols):
                     for (sn, (dr, words)) in enumerate(spans):
-                        for (word, (le, to, ri, bo)) in words:
+                        for (letters, punc, (le, to, ri, bo)) in words:
                             html.append(
                                 f"""
 <tr>
@@ -1995,7 +1984,8 @@ class Lakhnawi(UChar):
     <td>{ptRep(to)}</td>
     <td>{ptRep(ri)}</td>
     <td>{ptRep(bo)}</td>
-    <td>{self.showString(word, asString=True)}</td>
+    <td>{self.showString(letters, asString=True)}</td>
+    <td>{self.showString(punc, asString=True)}</td>
 </tr>
 """
                             )
@@ -2079,12 +2069,13 @@ class Lakhnawi(UChar):
                     for col in line:
                         for span in col:
                             for word in span[1]:
-                                string = word[0]
-                                thesePuas = PUA_RE.findall(string)
+                                letters = word[0]
+                                punc = word[1]
+                                thesePuas = PUA_RE.findall(letters)
                                 for pua in thesePuas:
                                     charsOut[chr(int(pua, base=16))][pageNum] += 1
                                 if not onlyPuas:
-                                    rest = PUA_RE.sub("", string)
+                                    rest = PUA_RE.sub("", f"{letters}{punc}")
                                     for c in rest:
                                         if not (
                                             onlyPresentational
@@ -2170,17 +2161,17 @@ on {totalPages} {pageRep}</b></p>
             lineInfo = columns[pageNum]
             multiple = []
             for lNum in sorted(lineInfo):
-                (threshold, tabs) = lineInfo[lNum]
-                nTabs = len(tabs)
-                if threshold is not None and nTabs > 0:
-                    multiple.append((lNum, threshold, tabs))
+                (threshold, emspaces) = lineInfo[lNum]
+                nEmspaces = len(emspaces)
+                if threshold is not None and nEmspaces > 0:
+                    multiple.append((lNum, threshold, emspaces))
             if not len(multiple):
                 print(f"page {pageNum:>3} -")
             else:
                 print(f"page {pageNum:>3}:")
-                for (lNum, threshold, tabs) in multiple:
-                    nTabs = len(tabs)
-                    print(f"\t{lNum:>2}: {'- ' * (nTabs + 1)}")
+                for (lNum, threshold, emspaces) in multiple:
+                    nEmspaces = len(emspaces)
+                    print(f"\t{lNum:>2}: {'- ' * (nEmspaces + 1)}")
 
     def showSpacing(self, pageNumSpec, line=None):
         """Show where the spaces are.
@@ -2268,10 +2259,10 @@ on {totalPages} {pageRep}</b></p>
 
         def addChar():
             box = prevChar["bbox"]
-            yTop = box[1]
+            yBot = box[3]
 
             # skip chars below the footnote rule, if any
-            if fnRule is not None and yTop > fnRule:
+            if fnRule is not None and yBot > fnRule:
                 return
 
             c = prevChar["c"]
@@ -2649,7 +2640,7 @@ on {totalPages} {pageRep}</b></p>
                         else normalizeD(x)
                         if x in presentationalD
                         else x
-                    )
+                    ).strip()
                     space = " " if hasFinalSpace or x in punct else ""
                     if hasFinalSpace:
                         finalsApplied[x][pageNum] += 1
@@ -2701,7 +2692,7 @@ on {totalPages} {pageRep}</b></p>
         if chars:
             chars[-1][-3] = "end"
 
-        # change big spaces to tabs
+        # change big spaces to emspaces
 
         nSpaces = sum(1 for x in theseSpaces if x[2])
 
@@ -2720,7 +2711,7 @@ on {totalPages} {pageRep}</b></p>
                 if isSpace and after > threshold:
                     theseColumns[1].append((i, after))
                     char = chars[i]
-                    char[-1] = char[-1].rstrip(" ") + "\t"
+                    char[-1] = char[-1].rstrip(" ") + EMSPACE
 
         # remove space between alef and initial follower,
         # provided the alef is the single letter in its word.
@@ -2763,14 +2754,14 @@ on {totalPages} {pageRep}</b></p>
 
         # divide lines into columns
 
-        tabs = theseColumns[1]
-        tabPositions = {t[0] for t in tabs}
+        emspaces = theseColumns[1]
+        emspacePositions = {t[0] for t in emspaces}
 
         columnedChars = [[]]
         dest = columnedChars[-1]
 
         for (i, char) in enumerate(chars):
-            if i in tabPositions:
+            if i in emspacePositions:
                 if char[-1]:
                     dest.append(char)
                 columnedChars.append([])
@@ -2788,37 +2779,49 @@ on {totalPages} {pageRep}</b></p>
         # a line datum is a list of columns
         # a column is a list of spans
         # a span is a pair of a direction char ("l" or "r") plus a list of word data
-        # a word datum is a string plus a word boundary
-        # a word boundary is a (left, top, right, bottom) tuple
+        # a word datum is a string plus a word box
+        # a word box is a (left, top, right, bottom) tuple
 
         result = []
         text.setdefault(pageNum, []).append(result)
         prevDir = "r"
-        outChars = []
-        boundary = [None, None, None, None]
+
+        # we transform letters into chunks, where each chunk is a pair of
+        # word material
+        # punctuation material
+
+        outChars = [[], []]
+        inWord = True
+        box = [None, None, None, None]
 
         def addWord():
-            if outChars:
-                charsRep = "".join(outChars if prevDir == "r" else reversed(outChars))
+            if outChars[0] or outChars[1]:
+                wordCharsRep = "".join(
+                    outChars[0] if prevDir == "r" else reversed(outChars[0])
+                )
+                puncCharsRep = "".join(
+                    outChars[1] if prevDir == "r" else reversed(outChars[1])
+                )
                 lastSpan = None if len(result[-1]) == 0 else result[-1][-1]
+                element = (wordCharsRep, puncCharsRep, tuple(box))
                 if lastSpan is None or lastSpan[0] != prevDir:
-                    result[-1].append((prevDir, [(charsRep, tuple(boundary))]))
+                    result[-1].append((prevDir, [element]))
                 else:
-                    result[-1][-1][-1].append((charsRep, tuple(boundary)))
+                    result[-1][-1][-1].append(element)
 
-        def setBoundary(char):
+        def setBox(char):
             for (i, coor) in enumerate(char[0:4]):
                 if (
-                    (b := boundary[i]) is None
+                    (b := box[i]) is None
                     or (i < 2 and coor < b)
                     or (i >= 2 and coor > b)
                 ):
-                    boundary[i] = coor
+                    box[i] = coor
 
         for chars in columnedChars:
             result.append([])
-            outChars = []
-            boundary = [None, None, None, None]
+            outChars = [[], []]
+            box = [None, None, None, None]
 
             for char in chars:
                 c = char[-1]
@@ -2827,30 +2830,39 @@ on {totalPages} {pageRep}</b></p>
                     continue
 
                 for d in c:
-                    if d in {" ", "\t"}:
+                    spaceSeen = d in {" ", EMSPACE}
+                    changeWord = not inWord and d not in nonLetter
+
+                    if spaceSeen:
+                        outChars[1].append(d)
+                    if spaceSeen or changeWord:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[d] if changeWord else [], []]
+                        inWord = True
                         continue
 
                     thisDir = prevDir if d in neutrals else "r" if d in rls else "l"
 
                     if prevDir != thisDir:
                         addWord()
-                        boundary = [None, None, None, None]
-                        outChars = []
+                        box = [None, None, None, None]
+                        outChars = [[], []]
+                        inWord = True
                         prevDir = thisDir
 
+                    if inWord:
+                        if d in nonLetter:
+                            inWord = False
+                    dest = 0 if inWord else 1
                     rep = d
                     if d in puas:
-                        rep = f"""⌊{ord(d):>04x}⌋"""
-                    outChars.append(rep)
+                        rep = f"⌊{ord(d):>04x}⌋"
+                    outChars[dest].append(rep)
 
-                setBoundary(char)
+                setBox(char)
 
             addWord()
-
-        return result
 
     def plainLine(self, columns):
         """Outputs a processed line as plain text.
@@ -2872,7 +2884,9 @@ on {totalPages} {pageRep}</b></p>
         """
 
         return "\t".join(
-            " ".join(" ".join(word[0] for word in span[1]) for span in spans)
+            " ".join(
+                " ".join(f"{word[0]}{word[1]}" for word in span[1]) for span in spans
+            )
             for spans in columns
         )
 
@@ -2888,7 +2902,7 @@ on {totalPages} {pageRep}</b></p>
             A tab-separated line of field names.
         """
 
-        return "page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tword\n"
+        return "page\tline\tcolumn\tspan\tdirection\tleft\ttop\tright\tbottom\tletters\tpunc\n"
 
     def tsvLine(self, columns, pageNum, ln):
         """Outputs a processed line as lines of tab-separated fields for each word.
@@ -2915,7 +2929,7 @@ on {totalPages} {pageRep}</b></p>
         material = []
         for (cn, spans) in enumerate(columns):
             for (sn, (dr, words)) in enumerate(spans):
-                for (word, (le, to, ri, bo)) in words:
+                for (letters, punc, (le, to, ri, bo)) in words:
                     material.append(
                         (
                             "\t".join(
@@ -2930,7 +2944,8 @@ on {totalPages} {pageRep}</b></p>
                                     ptRep(to),
                                     ptRep(ri),
                                     ptRep(bo),
-                                    word,
+                                    letters,
+                                    punc,
                                 )
                             )
                         )
@@ -2980,21 +2995,20 @@ on {totalPages} {pageRep}</b></p>
             result.append(
                 f"""\t<td class="cols col{nCols}">""" if multi else """<p class="r">"""
             )
-            space = ""
 
             for (textDir, words) in spans:
                 result.append(f"""<span class="{textDir}">""")
                 for word in words:
-                    if space:
-                        result.append(
-                            """<span class="sp"> </span>""" if showSpaces else space
-                        )
-                    string = normalizeD(word[0])
-                    string = string.replace("⌊", """<span class="p">""").replace(
+                    letters = normalizeD(word[0])
+                    letters = letters.replace("⌊", """<span class="p">""").replace(
                         "⌋", "</span>"
                     )
-                    result.append(string)
-                    space = " "
+                    if showSpaces:
+                        letters = f"""<span class="box">{letters}</span>"""
+                    punc = word[1]
+                    if showSpaces:
+                        punc = punc.replace(" ", """<span class="sp"> </span>""")
+                    result.append(f"{letters}{punc}")
                 result.append("""</span>""")
 
             result.append("</td>\n" if multi else "</p>\n")

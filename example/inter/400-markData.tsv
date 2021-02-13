@@ -1,7 +1,1 @@
 band	seq	mark	kept	value	connectdegree	connectborder	top	bottom	left	right
-high	10	shadda.a.2	False	0.8280273	0.0	4	0		333	3804	355	3825
-mid	21	guillemetClose	False	0.82020515	0.0	4	0		2875	1425	2896	1456
-mid	21	guillemetClose	False	0.82299006	0.0	4	0		1960	1240	1981	1271
-mid	21	guillemetClose	False	0.8361449	0.0	4	0		2311	4762	2332	4793
-mid	21	guillemetClose	False	0.8401026	0.0	4	0		2673	883	2694	914
-mid	22	guillemetOpen	True	0.80313987	0.3333333333333333	4	0		1880	488	1901	517

@@ -10,11 +10,14 @@ e.g. *symbols*, *presentational characters*, *punctuation*,
 See `UChar` below.
 """
 
+import re
 from unicodedata import name as uname, normalize
 
 
 NFKC = "NFKC"
 NFKD = "NFKD"
+
+EMSPACE = "\u2003"
 
 PUA_RANGES = (("e000", "f8ff"),)
 
@@ -367,7 +370,8 @@ class UChar:
             so we have to unflip these characters.
         """
 
-        self.nonLetter = symbols | arabicSymbols | brackets
+        nonLetter = symbols | arabicSymbols | brackets
+        self.nonLetter = nonLetter
         """Characters that act as symbols.
 
         More precisely, these are the non letters that we may encounter in
@@ -410,5 +414,42 @@ class UChar:
 
         Characters marked as "FINAL" by Unicode are candidates, but not all of them
         have this behaviour.
-        Here is the exact set of characters after which we need to trigger a word boundary.
+        Here is the exact set of characters after which
+        we need to trigger a word boundary.
+        """
+
+        nonLetterRange = re.escape("".join(sorted(nonLetter)))
+
+        wordRe = re.compile(
+            fr"""
+            (
+                [^{nonLetterRange}]+
+            )
+            |
+            (
+                [{nonLetterRange}]+
+            )
+    """,
+            re.X,
+        )
+        self.wordRe = wordRe
+        """Regular expression that matches word stretches and non word stretches.
+
+        When we split strings up into words using spaces, we are left with
+        strings that contain letters and punctuation.
+        This pattern can be used to separate letters from non-letters in such strings.
+
+        Each time this pattern matches, you either get a string consisting of
+        stuff that fits in a word (letters, diacritics, etc.),
+        or stuff that does not fit in a word (punctuation, symbols, brackets, etc.).
+
+        The policy is to split each string first on space, and then chunk it into
+        chunks that are completely word-like or completely non-word-like.
+
+        We then partition this list of chunks into pairs consisting of a
+        word-like chunk followed by a non-word-like chunk.
+
+        If the first chunk is non-word-like, we insert an empty chunk before it.
+
+        If the last chunk is word-like, we insert an empty chunk after it.
         """

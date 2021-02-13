@@ -1,50 +1,43 @@
 """Registry of sources.
 
-The `fusus` package can work with source material in arbitrary locations.
+# Works
 
-However, there is also a notion of *known works* that *fusus* has been designed for.
+The books of the Fusus project are in the directory `ur` of this repo.
 
-This is the module where those works are registered.
+There you find subdirectories corresponding to
+
+* **Affifi** The Fusus Al Hikam in the Affifi edition.
+* **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
+  The source is a textual PDF, not in the online repo, from which
+  structured data is derived by means of a specific workflow,
+  not the *pipeline*.
+* **commentary Xxx** Commentary books
+
+These are the *known* works.
+They are registered in `WORKS` and assigned an acronym there.
 
 When new works become available, you can give them an acronym and register them here.
-See `WORKS`.
 
-At this moment, all known works reside in this repo, under subdirectory `ur`.
+All functions here and in `fusus.convert` make use of this registry,
+which makes it possible to refer to known works by acronyms.
 
-It is easy to run pipeline commands on known works.
-Functions that deal with works can be given the acronym as an argument,
-and then they know how to deal with its data:
+The `fusus` package can also work with source material in arbitrary locations.
 
-Then you can do
+If you want to process other works, that is still possible,
+just provide directories where source acronyms are expected.
 
-``` sh
-python3 -m fusus.convert tsv acro
-```
+As far as the pipeline is concerned, the input of a book is a directory
+of page images. More precisely, it is a directory in which there is
+a subdirectory `in` having the page images.
 
-This will run the OCR pipeline and deliver TSV data as result;
+When the pipeline runs, it produces additional directories
+containing intermediate results and output.
 
----
+For details, see `fusus.book`, and `fusus.lakhnawi`.
 
-``` sh
-python3 -m fusus.convert tf acro 7.3
-```
-
-This will convert the TSV data to TF and deliver the tf files in version 7.3
-
----
-
-``` sh
-python3 -m fusus.convert tf acro 7.3 loadonly
-```
-
-This will load the TF data in version 7.3.
-The first time it loads, some extra computations will be performed, and
-a binary version of the tf files will be generated, which will be used for
-subsequent use by Text-Fabric.
-
----
-
-See also `fusus.convert`.
+It is assumed that unknown works use the OCR pipeline.
+If that is not true, pass a parameter `ocred=False` to the function,
+or, on the command line, pass `noocr`.
 """
 
 import os
