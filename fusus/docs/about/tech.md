@@ -393,7 +393,7 @@ The font report gave us a clue. Some characters are listed with a double unicode
 those characters lead to duplicate occurrences.
 
 Here is an example:
-![double](images/double.png)
+![double](../images/double.png)
 
 It turns out that both unicodes refer to the same character, one to the base form, and the other to
 the isolated form, which happen to be identical glyphs.
@@ -459,8 +459,7 @@ wo parts, each centered on the left/right half of the page.
 
 ![hemistica](../images/hemistica.png)
 
-Such spaces we convert into tabs, which are translated to columns later on (so that they
-do not end up in the tab-separated files that hold the results).
+Such spaces we convert into em-spaces (unicode x2003), which are translated to columns later on.
 
 ![hemisticb](../images/hemisticb.png)
 
@@ -635,7 +634,7 @@ position information (a bounding box: *left, top, right, bottom* coordinates), a
 and a *text*.
 
 If the data comes from the pipe line, we do not have the *column, span, direction* fields.
-These are regions within the line, based on the detection of tabs and the occurrence
+These are regions within the line, based on the detection of big spaces and the occurrence
 of unicode characters in ltr and rtl scripts.
 
 This is the start of the TSV for Affifi:
