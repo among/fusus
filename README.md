@@ -9,8 +9,6 @@
 
 # Fusus
 
-**This is a fork from [among/fusus](https://github.com/among/fusus) for development purposes.**
-
 This is a workflow that transforms scanned pages into readable text.
 
 The pages come from several printed Arabic books from the past few centuries.
