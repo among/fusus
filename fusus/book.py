@@ -136,6 +136,9 @@ class Book:
             cd = os.path.expanduser(cd)
             os.chdir(cd)
 
+        if cd:
+            cd = f"{cd}/"
+
         self.cd = cd
 
         tm = Timestamp()
@@ -444,9 +447,9 @@ class Book:
         outDir = C.outDir
         cleanDir = C.cleanDir
         proofDir = C.proofDir
-        textDir = C.textDir
+        htmlDir = C.htmlDir
 
-        for d in (interDir, outDir, cleanDir, proofDir, textDir):
+        for d in (interDir, outDir, cleanDir, proofDir, htmlDir):
             if not os.path.exists(d):
                 os.makedirs(d, exist_ok=True)
 
@@ -519,8 +522,6 @@ class Book:
         indent = tm.indent
 
         cd = self.cd
-        if cd:
-            cd = f"{cd}/"
 
         allPages = self.allPages
 
@@ -698,8 +699,8 @@ class Book:
         else:
             info("Nothing written")
 
-    def plainText(self, pages=None):
-        """Get the plain text from the ocr output in one file
+    def htmlPages(self, pages=None):
+        """Get the text in html from the ocr output in one file
 
         pages: string | int, optional `None`
             Specification of pages to do. If absent or `None`: all pages.
@@ -719,10 +720,10 @@ class Book:
 
         C = self.C
         cd = self.cd
-        textDir = C.textDir
+        htmlDir = C.htmlDir
 
-        if not os.path.exists(textDir):
-            os.makedirs(textDir, exist_ok=True)
+        if not os.path.exists(htmlDir):
+            os.makedirs(htmlDir, exist_ok=True)
 
         allPages = self.allPages
 
@@ -735,7 +736,7 @@ class Book:
         page = None
 
         fileName = f"{pagesDesc}.html"
-        path = f"{textDir}/{fileName}"
+        path = f"{htmlDir}/{fileName}"
 
         doc = """\
 <html>
@@ -827,8 +828,9 @@ span.ln {
                     )
                 (prevStripe, prevBlock, prevLine) = (stripe, block, line)
 
-                word = fields[-1]
-                lineMaterial.append(word)
+                word = fields[-2]
+                punc = fields[-1]
+                lineMaterial.append(f"{word}{punc}")
 
             blockMaterial.append(" ".join(lineMaterial))
             stripeMaterial.append("\n".join(blockMaterial))

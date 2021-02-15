@@ -184,8 +184,6 @@ class Page:
         error = tm.error
         C = engine.C
         cd = engine.cd
-        if cd:
-            cd = f"{cd}/"
 
         stages = self.stages
         marks = engine.marks
@@ -216,7 +214,8 @@ class Page:
                 else:
                     display(
                         HTML(
-                            f"<hr>\n<div><b>{s}</b>: <i>{showPath} does not exist.</i></div>"
+                            f"<hr>\n<div><b>{s}</b>: "
+                            f"<i>{showPath} does not exist.</i></div>"
                         )
                     )
             else:
@@ -566,7 +565,7 @@ class Page:
                     for (i, x) in enumerate(fields)
                 )
                 data.append(fields)
-        elif extension == "tsv":
+        elif extension == "json":
             data = json.load(f)
         elif extension == "html":
             pass
