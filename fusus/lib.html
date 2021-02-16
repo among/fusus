@@ -1,0 +1,1982 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.lib API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.lib</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L0-L695" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">import os
+import io
+from itertools import chain, groupby
+from tempfile import NamedTemporaryFile
+import pprint as pp
+
+import numpy as np
+
+import PIL.Image
+from IPython.display import HTML, Image, display
+import cv2
+
+from tf.core.helpers import rangesFromList, specFromRanges, setFromSpec
+
+
+PP = pp.PrettyPrinter(indent=2)
+
+
+def pprint(x):
+    PP.pprint(x)
+
+
+def dh(html):
+    display(HTML(html))
+
+
+EXTENSIONS = set(
+    &#34;&#34;&#34;
+    jpeg
+    jpg
+    png
+    tif
+    tiff
+&#34;&#34;&#34;.strip().split()
+)
+&#34;&#34;&#34;Supported image file extensions.
+&#34;&#34;&#34;
+
+DEFAULT_EXTENSION = &#34;png&#34;
+
+
+FONT = cv2.FONT_HERSHEY_SIMPLEX
+
+NB_VIEWER = &#34;https://nbviewer.jupyter.org/github&#34;
+
+
+def parseNums(numSpec):
+    &#34;&#34;&#34;Parses a value as one or more numbers.
+
+    Parameters
+    ----------
+    numSpec: None | int | string | iterable
+        If `None` results in `None`.
+        If an `int`, it stands for that int.
+        If a `string`, it is allowed to be a comma separated list of
+        numbers or ranges, where a range is a lower bound and an upper bound
+        separated by a `-`.
+        If none of these, it should be an iterable of `int` values.
+
+        Examples:
+
+            50
+            &#34;50&#34;
+            &#34;50,70&#34;
+            &#34;50-70,91,92,300-350&#34;
+            (50, 70, 91, 92, 300)
+            [50, 70, 90]
+            range(300, 350)
+
+    Returns
+    -------
+    None | iterable of int
+        Depending on the value.
+    &#34;&#34;&#34;
+
+    return (
+        None
+        if not numSpec
+        else [numSpec]
+        if type(numSpec) is int
+        else setFromSpec(numSpec)
+        if type(numSpec) is str
+        else list(numSpec)
+    )
+
+
+def getNbLink(path, text):
+    if path.startswith(&#34;~/github&#34;):
+        components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
+        if not components:
+            return None
+
+        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
+        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
+        nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
+        if len(components) &lt;= 2:
+            return f&#34;{linkA}{nbPathA}{linkB}&#34;
+        else:
+            nbPathB = &#34;/&#34;.join(components[2:])
+            return f&#34;{linkA}{nbPathA}/blob/master/{nbPathB}{linkB}&#34;
+    return path
+
+
+def getNbPath(path):
+    if path.startswith(&#34;~/github&#34;):
+        components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
+        if not components:
+            return (False, path)
+
+        nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
+        if len(components) &lt;= 2:
+            return (True, nbPathA)
+        else:
+            nbPathB = &#34;/&#34;.join(components[2:])
+            return (True, f&#34;{nbPathA}/blob/master/{nbPathB}&#34;)
+    return (False, path)
+
+
+def tempFile():
+    &#34;&#34;&#34;Get a temporary file.
+    &#34;&#34;&#34;
+
+    return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)
+
+
+def imgElem(data):
+    &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
+    &#34;&#34;&#34;
+
+    return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;
+
+
+def PILFromArray(a):
+    return PIL.Image.fromarray(a)
+
+
+def arrayFromPIL(img):
+    return np.asarray(img)
+
+
+def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
+    &#34;&#34;&#34;Show one or more images.
+    &#34;&#34;&#34;
+
+    if type(a) in {list, tuple}:
+        ads = []
+        for ae in a:
+            ai = np.uint8(np.clip(ae, 0, 255))
+            f = io.BytesIO()
+            PIL.Image.fromarray(ae).save(f, fmt)
+            ad = Image(data=f.getvalue(), **kwargs)._repr_jpeg_()
+            ads.append(ad)
+        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(imgElem(ad) for ad in ads)}&lt;/div&gt;&#34;))
+    else:
+        ai = np.uint8(np.clip(a, 0, 255))
+        f = io.BytesIO()
+        PIL.Image.fromarray(ai).save(f, fmt)
+        display(Image(data=f.getvalue(), **kwargs))
+
+
+def writeImage(a, path, **kwargs):
+    &#34;&#34;&#34;Write an image to disk
+    &#34;&#34;&#34;
+
+    ai = np.uint8(np.clip(a, 0, 255))
+    with open(path, &#34;wb&#34;) as f:
+        PIL.Image.fromarray(ai).save(f)
+
+
+def overlay(img, left, top, right, bottom, srcColor, dstColor):
+    &#34;&#34;&#34;Colors a region of an image with care.
+
+    A selected region of an image can be given a uniform color,
+    where only pixels are changed that have an exact given color.
+
+    In this way you can replace all the white with gray, for example,
+    without wiping out existing non-white pixels.
+
+    Parameters
+    ----------
+    img: np array
+        The image to be overlain with a new color
+    (left, top, right, bottom): (int, int, int, int)
+        The region in the image to be colored
+    srcColor: RGB color
+        The color of the pixels that may be replaced.
+    dstColor:
+        The new color of the replaced pixels.
+    &#34;&#34;&#34;
+    if right &gt; left and bottom &gt; top:
+        roi = img[top:bottom, left:right]
+        roi[np.where((roi == list(srcColor)).all(axis=2))] = dstColor
+
+
+def splitext(f, withDot=True):
+    &#34;&#34;&#34;Splits a file name into its main part and its extension.
+
+    Parameters
+    ----------
+    f: string
+        The file name
+    withDot: boolean, optional `False`
+        If True, the `.` in the extension is considered part of the extension,
+        else the dot is stripped from it.
+
+    Returns
+    -------
+    tuple
+        The main part and the extension
+    &#34;&#34;&#34;
+
+    (bare, ext) = os.path.splitext(f)
+    if ext and not withDot:
+        ext = ext[1:]
+    return (bare, ext)
+
+
+def imageFileList(imDir):
+    &#34;&#34;&#34;Gets a sorted list of image files from a directory.
+
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    list
+        Alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
+    if not os.path.exists(imDir):
+        return []
+
+    imageFiles = []
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            (bare, ext) = splitext(name, withDot=False)
+
+            if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
+                imageFiles.append(name)
+    return sorted(imageFiles)
+
+
+def imageFileListSub(imDir):
+    &#34;&#34;&#34;Gets sorted lisst of image files from the subdirectories of a directory.
+
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    dict
+        Keyed by subdirectory names, valued by
+        alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
+    if not os.path.exists(imDir):
+        return {}
+    imageFiles = {}
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            if not name.startswith(&#34;.&#34;) and entry.is_dir():
+                imageFiles[name] = imageFileList(f&#34;{imDir}/{name}&#34;)
+    return imageFiles
+
+
+def pagesRep(source, asList=False):
+    &#34;&#34;&#34;Represents a set of pages as a string in a compact way or as a list.
+
+    Parameters
+    ----------
+    source: list
+        A list of file names, without directory, with extension
+    asList: boolean, optional `False`
+        Whether to return the result as a list of integers or as a compact string.
+
+    Returns
+    -------
+    list or string
+        Depending on `asList` a list of page numbers (integers) or a string
+        mentioning the page numbers, using intervals where possible.
+    &#34;&#34;&#34;
+    pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
+    return pages if asList else specFromRanges(rangesFromList(pages))
+
+
+def select(source, selection):
+    &#34;&#34;&#34;Choose items from a bunch of integers.
+
+    Parameters
+    ----------
+    source: iterable of int
+        The items to choose from
+    selection: iterable of int or string or `None`
+        If None, selects all items, otherwise specifies what numbers to select.
+        If a number is in the selection, but not in the source, it will not be selected.
+        The selection can be an integer or a compact string that specifies integers,
+        using ranges and commas.
+
+    Returns
+    -------
+    list
+        Sorted list of selected items
+    &#34;&#34;&#34;
+
+    if selection is None:
+        return sorted(source)
+
+    index = {int(splitext(f)[0].lstrip(&#34;0&#34;)): f for f in source}
+    universe = set(index)
+    if type(selection) is int:
+        return sorted(index[n] for n in {selection} &amp; universe)
+
+    minu = min(universe, default=0)
+    maxu = max(universe, default=0)
+    selected = set()
+    for rng in selection.split(&#34;,&#34;):
+        parts = rng.split(&#34;-&#34;)
+        if len(parts) == 2:
+            (lower, upper) = parts
+            lower = minu if lower == &#34;&#34; else int(lower)
+            upper = maxu if upper == &#34;&#34; else int(upper)
+        else:
+            lower = int(parts[0])
+            upper = lower
+        selected |= set(range(lower, upper + 1)) &amp; universe
+    return sorted(index[n] for n in selected)
+
+
+def cropBorders(img, tolerance=10):
+    &#34;&#34;&#34;Get the bounding box of the image without black borders, if any.
+
+    The image is white writing on black background.
+    The outer frame is white, if any.
+    We find the region within a white outer frame
+    by identifying all black pixels and computing a bounding box around it.
+
+    Thanks to
+    [stackoverflow](https://codereview.stackexchange.com/a/132933).
+
+    Parameters
+    ----------
+    img: numpy array
+        The image. We assume it is grayscale, and inverted.
+        For best results, it should be blurred before thresholding.
+    tolerance: integer
+        This parameter is the upper limit of what counts as black.
+
+    Returns
+    -------
+    int, int, int, int
+        The (x0, x1, y0, y1) of the crop region.
+        This will be used in `removeBorders` to whiten the margins outside it.
+    &#34;&#34;&#34;
+
+    # check whether image is completely non-black
+    # then we do not crop
+    if np.amin(img) &gt;= tolerance:
+        (imH, imW) = img.shape[0:2]
+        print(&#34;*&#34;, 0, imW, 0, imH)
+        return (0, imW, 0, imH)
+
+    # Mask of black pixels
+    mask = img &lt; tolerance
+
+    # Coordinates of black pixels.
+    coords = np.argwhere(mask)
+
+    # Bounding box of black pixels.
+    (y0, x0) = coords.min(axis=0)
+    (y1, x1) = coords.max(axis=0)
+
+    # Get the contents of the bounding box.
+    return (x0, x1, y0, y1)
+
+
+def removeBorders(img, crop, white):
+    &#34;&#34;&#34;Remove black borders around an image.
+
+    When an image has been unskewed, sharp triangle-shape strokes in the corners
+    may have been introduced.
+    Or it might be the result of scanning a page.
+
+    This function removes them by coloring all image borders with white.
+
+    The exact borders to be whitened are calculated by `cropBorders`.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    crop: (int, int, int, int)
+        the x1, x2, y1, y2 values which indicate the region
+        outside which the white may be applied
+    white: color
+        the exact white color with which we color the borders.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    (imH, imW) = img.shape[0:2]
+    (x0, x1, y0, y1) = crop
+
+    for rect in (
+        ((0, 0), (x0, imH)),
+        ((0, 0), (imW, y0)),
+        ((x1, 0), (imW, imH)),
+        ((0, y1), (imW, imH)),
+    ):
+        cv2.rectangle(img, *rect, white, -1)
+
+
+def parseStages(stage, allStages, sortedStages, error):
+    &#34;&#34;&#34;Parses a string that specifies stages.
+
+    Stages are steps in the image processing.
+    Each stage has an intermediate processing result.
+
+    Parameters
+    ----------
+    stage: string or None or iterable
+        If None: it means all stages.
+        If a string: the name of a stage.
+        If an iterable: the items must be names of stages.
+    allStages: tuple
+        Names of all stages.
+    sortedStages:
+        Sorted list of all stages.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The stages as parsed.
+    &#34;&#34;&#34;
+
+    doStages = (
+        allStages
+        if stage is None
+        else set()
+        if not stage
+        else set(stage.split(&#34;,&#34;))
+        if type(stage) is str
+        else set(stage)
+    )
+    illegalStages = doStages - allStages
+    if illegalStages:
+        error(f&#34;Will skip illegal stages: {&#39;, &#39;.join(sorted(illegalStages))}&#34;)
+
+    doStages = doStages - illegalStages
+
+    return tuple(s for s in sortedStages if s in doStages)
+
+
+def parseBands(band, allBands, error):
+    &#34;&#34;&#34;Parses a string that specifies bands.
+
+    Bands are horizontal rectangles defined with respect to lines.
+    They correspond with regions of interest where we try to find specific
+    marks, such as commas and accents.
+
+    Parameters
+    ----------
+    band: string or None or iterable
+        If None: it means all bands.
+        If a string: the name of a band.
+        If an iterable: the items must be names of bands.
+    allBands: tuple
+        Names of all bands.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The bands as parsed.
+    &#34;&#34;&#34;
+
+    sortedBands = sorted(allBands)
+    doBands = (
+        allBands
+        if band is None
+        else set(band.split(&#34;,&#34;))
+        if type(band) is str
+        else set(band)
+    )
+    illegalBands = doBands - allBands
+    if illegalBands:
+        error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
+
+    doBands -= illegalBands
+    return tuple(b for b in sortedBands if b in doBands)
+
+
+def parseMarks(mark, allMarks, bands, error):
+    &#34;&#34;&#34;Parses a string that specifies Marks.
+
+    Marks are strokes that we need to find on the page in order to remove them.
+    They are organized in bands: the regions of interest with respect to the lines
+    where we expect them to occur.
+
+    Parameters
+    ----------
+    mark: string or None or iterable
+        If None: it means all marks.
+        If a string: the name of a mark.
+        If an iterable: the items must be names of marks.
+    allMarks: tuple
+        Names of all marks.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The marks as parsed.
+    &#34;&#34;&#34;
+
+    markIndex = {}
+    for (band, bandMarks) in allMarks.items():
+        for m in bandMarks:
+            markIndex.setdefault(m, set()).add(band)
+
+    doMarks = (
+        set()
+        if mark is None
+        else set(chain.from_iterable(allMarks.get(band, ()) for band in bands))
+        if mark == &#34;&#34;
+        else set(mark.split(&#34;,&#34;))
+        if type(mark) is str
+        else set(mark)
+    )
+    illegalMarks = doMarks - set(markIndex)
+    if illegalMarks:
+        error(f&#34;Will skip illegal marks: {&#39;, &#39;.join(sorted(illegalMarks))}&#34;)
+
+    doMarks -= illegalMarks
+    return doMarks
+
+
+def findRuns(x):
+    &#34;&#34;&#34;Find runs of consecutive items in an array.
+
+    Credits:
+    [Alistair Miles](https://gist.github.com/alimanfoo/c5977e87111abe8127453b21204c1065)
+    &#34;&#34;&#34;
+
+    # ensure array
+    x = np.asanyarray(x)
+    if x.ndim != 1:
+        raise ValueError(&#34;only 1D array supported&#34;)
+    n = x.shape[0]
+
+    # handle empty array
+    if n == 0:
+        return np.array([]), np.array([]), np.array([])
+
+    else:
+        # find run starts
+        loc_run_start = np.empty(n, dtype=bool)
+        loc_run_start[0] = True
+        np.not_equal(x[:-1], x[1:], out=loc_run_start[1:])
+        run_starts = np.nonzero(loc_run_start)[0]
+
+        # find run values
+        run_values = x[loc_run_start]
+
+        # find run lengths
+        run_lengths = np.diff(np.append(run_starts, n))
+
+        return run_values, run_starts, run_lengths
+
+
+def applyBandOffset(C, height, bandName, lines, inter=False):
+    &#34;&#34;&#34;Produce bands from a list of lines.
+
+    Bands are defined relative to lines by means of offsets of the top
+    and bottom heights of the lines.
+
+    Bands may also be interlinear: defined between the bottom of one line and the top
+    of the next line.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    height:
+        The height of the page or block
+    bandName: string
+        The name of the bands
+    lines: tuple
+        The lines relative to which the bands have to be determined.
+        Lines are given as a tuple of tuples of top and bottom heights.
+    inter: boolean, optional `False`
+        Whether the bands are relative the lines, or relative the interlinear spaces.
+
+    Returns
+    -------
+    tuple
+        For each line the band named bandName specified by top and bottom heights.
+    &#34;&#34;&#34;
+
+    offsetBand = C.offsetBand
+
+    (top, bottom) = offsetBand[bandName]
+
+    def offset(x, off):
+        x += off
+        return 0 if x &lt; 0 else height if x &gt; height else x
+
+    return tuple(
+        (offset(up, top), offset(lo, bottom))
+        for (up, lo) in (
+            zip((x[1] for x in lines), (x[0] for x in lines[1:])) if inter else lines
+        )
+    )
+
+
+def getMargins(hist, width, threshold):
+    &#34;&#34;&#34;Get margins from a histogram.
+
+    The margins of a histogram are the coordinates where the histogram reaches a
+    threshold for the first time and for the last time.
+
+    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
+    above the threshold, and (0, maxW) otherwise.
+
+
+    Parameters
+    ----------
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    &#34;&#34;&#34;
+    chunks = [
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
+        if key &gt;= threshold
+    ]
+    w = len(hist)
+    return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)
+
+
+def pureAverage(data, supplied):
+    &#34;&#34;&#34;Get the average of a list of values after removing the outliers.
+
+    It is used for calcaluting lineheights from a sequence of distances between
+    histogram peaks.
+    In practice, some peaks are missing due to short line lengths, and that
+    causes some abnormal peak distances which we want to remove.
+
+    Parameters
+    ----------
+    data: np array
+        The list of values whose average we compute.
+
+    supplied: integer
+        Value to return if there is no data.
+    &#34;&#34;&#34;
+
+    if data.size == 0:
+        return supplied
+    elif data.size == 1:
+        return int(round(data[0]))
+
+    # remove outliers
+    m = 2.0
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    pure = data[s &lt; m]
+    if len(pure) == 0:
+        return supplied
+    elif pure.size == 1:
+        return int(round(pure[0]))
+    return int(round(np.average(pure)))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="fusus.lib.EXTENSIONS"><code class="name">var <span class="ident">EXTENSIONS</span></code></dt>
+<dd>
+<div class="desc"><p>Supported image file extensions.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.lib.PILFromArray"><code class="name flex">
+<span>def <span class="ident">PILFromArray</span></span>(<span>a)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L135-L136" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def PILFromArray(a):
+    return PIL.Image.fromarray(a)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.applyBandOffset"><code class="name flex">
+<span>def <span class="ident">applyBandOffset</span></span>(<span>C, height, bandName, lines, inter=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Produce bands from a list of lines.</p>
+<p>Bands are defined relative to lines by means of offsets of the top
+and bottom heights of the lines.</p>
+<p>Bands may also be interlinear: defined between the bottom of one line and the top
+of the next line.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>object</code></dt>
+<dd>Configuration settings</dd>
+<dt>height:</dt>
+<dt>The height of the page or block</dt>
+<dt><strong><code>bandName</code></strong> :&ensp;<code>string</code></dt>
+<dd>The name of the bands</dd>
+<dt><strong><code>lines</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The lines relative to which the bands have to be determined.
+Lines are given as a tuple of tuples of top and bottom heights.</dd>
+<dt><strong><code>inter</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether the bands are relative the lines, or relative the interlinear spaces.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>For each line the band named bandName specified by top and bottom heights.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L591-L633" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def applyBandOffset(C, height, bandName, lines, inter=False):
+    &#34;&#34;&#34;Produce bands from a list of lines.
+
+    Bands are defined relative to lines by means of offsets of the top
+    and bottom heights of the lines.
+
+    Bands may also be interlinear: defined between the bottom of one line and the top
+    of the next line.
+
+    Parameters
+    ----------
+    C: object
+        Configuration settings
+    height:
+        The height of the page or block
+    bandName: string
+        The name of the bands
+    lines: tuple
+        The lines relative to which the bands have to be determined.
+        Lines are given as a tuple of tuples of top and bottom heights.
+    inter: boolean, optional `False`
+        Whether the bands are relative the lines, or relative the interlinear spaces.
+
+    Returns
+    -------
+    tuple
+        For each line the band named bandName specified by top and bottom heights.
+    &#34;&#34;&#34;
+
+    offsetBand = C.offsetBand
+
+    (top, bottom) = offsetBand[bandName]
+
+    def offset(x, off):
+        x += off
+        return 0 if x &lt; 0 else height if x &gt; height else x
+
+    return tuple(
+        (offset(up, top), offset(lo, bottom))
+        for (up, lo) in (
+            zip((x[1] for x in lines), (x[0] for x in lines[1:])) if inter else lines
+        )
+    )</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.arrayFromPIL"><code class="name flex">
+<span>def <span class="ident">arrayFromPIL</span></span>(<span>img)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L139-L140" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def arrayFromPIL(img):
+    return np.asarray(img)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.cropBorders"><code class="name flex">
+<span>def <span class="ident">cropBorders</span></span>(<span>img, tolerance=10)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the bounding box of the image without black borders, if any.</p>
+<p>The image is white writing on black background.
+The outer frame is white, if any.
+We find the region within a white outer frame
+by identifying all black pixels and computing a bounding box around it.</p>
+<p>Thanks to
+<a href="https://codereview.stackexchange.com/a/132933">stackoverflow</a>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>numpy array</code></dt>
+<dd>The image. We assume it is grayscale, and inverted.
+For best results, it should be blurred before thresholding.</dd>
+<dt><strong><code>tolerance</code></strong> :&ensp;<code>integer</code></dt>
+<dd>This parameter is the upper limit of what counts as black.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int, int, int, int</code></dt>
+<dd>The (x0, x1, y0, y1) of the crop region.
+This will be used in <code><a title="fusus.lib.removeBorders" href="#fusus.lib.removeBorders">removeBorders()</a></code> to whiten the margins outside it.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L343-L387" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def cropBorders(img, tolerance=10):
+    &#34;&#34;&#34;Get the bounding box of the image without black borders, if any.
+
+    The image is white writing on black background.
+    The outer frame is white, if any.
+    We find the region within a white outer frame
+    by identifying all black pixels and computing a bounding box around it.
+
+    Thanks to
+    [stackoverflow](https://codereview.stackexchange.com/a/132933).
+
+    Parameters
+    ----------
+    img: numpy array
+        The image. We assume it is grayscale, and inverted.
+        For best results, it should be blurred before thresholding.
+    tolerance: integer
+        This parameter is the upper limit of what counts as black.
+
+    Returns
+    -------
+    int, int, int, int
+        The (x0, x1, y0, y1) of the crop region.
+        This will be used in `removeBorders` to whiten the margins outside it.
+    &#34;&#34;&#34;
+
+    # check whether image is completely non-black
+    # then we do not crop
+    if np.amin(img) &gt;= tolerance:
+        (imH, imW) = img.shape[0:2]
+        print(&#34;*&#34;, 0, imW, 0, imH)
+        return (0, imW, 0, imH)
+
+    # Mask of black pixels
+    mask = img &lt; tolerance
+
+    # Coordinates of black pixels.
+    coords = np.argwhere(mask)
+
+    # Bounding box of black pixels.
+    (y0, x0) = coords.min(axis=0)
+    (y1, x1) = coords.max(axis=0)
+
+    # Get the contents of the bounding box.
+    return (x0, x1, y0, y1)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.dh"><code class="name flex">
+<span>def <span class="ident">dh</span></span>(<span>html)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L23-L24" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def dh(html):
+    display(HTML(html))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.findRuns"><code class="name flex">
+<span>def <span class="ident">findRuns</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Find runs of consecutive items in an array.</p>
+<p>Credits:
+<a href="https://gist.github.com/alimanfoo/c5977e87111abe8127453b21204c1065">Alistair Miles</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L558-L588" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def findRuns(x):
+    &#34;&#34;&#34;Find runs of consecutive items in an array.
+
+    Credits:
+    [Alistair Miles](https://gist.github.com/alimanfoo/c5977e87111abe8127453b21204c1065)
+    &#34;&#34;&#34;
+
+    # ensure array
+    x = np.asanyarray(x)
+    if x.ndim != 1:
+        raise ValueError(&#34;only 1D array supported&#34;)
+    n = x.shape[0]
+
+    # handle empty array
+    if n == 0:
+        return np.array([]), np.array([]), np.array([])
+
+    else:
+        # find run starts
+        loc_run_start = np.empty(n, dtype=bool)
+        loc_run_start[0] = True
+        np.not_equal(x[:-1], x[1:], out=loc_run_start[1:])
+        run_starts = np.nonzero(loc_run_start)[0]
+
+        # find run values
+        run_values = x[loc_run_start]
+
+        # find run lengths
+        run_lengths = np.diff(np.append(run_starts, n))
+
+        return run_values, run_starts, run_lengths</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.getMargins"><code class="name flex">
+<span>def <span class="ident">getMargins</span></span>(<span>hist, width, threshold)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get margins from a histogram.</p>
+<p>The margins of a histogram are the coordinates where the histogram reaches a
+threshold for the first time and for the last time.</p>
+<p>We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
+above the threshold, and (0, maxW) otherwise.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>hist</code></strong> :&ensp;<code>[int]</code></dt>
+<dd>Source array of pixel values</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum index of the source array</dd>
+<dt><strong><code>threshold</code></strong> :&ensp;<code>int</code></dt>
+<dd>Value below which pixels count as zero</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L636-L661" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getMargins(hist, width, threshold):
+    &#34;&#34;&#34;Get margins from a histogram.
+
+    The margins of a histogram are the coordinates where the histogram reaches a
+    threshold for the first time and for the last time.
+
+    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
+    above the threshold, and (0, maxW) otherwise.
+
+
+    Parameters
+    ----------
+    hist: [int]
+        Source array of pixel values
+    width: int
+        Maximum index of the source array
+    threshold: int
+        Value below which pixels count as zero
+    &#34;&#34;&#34;
+    chunks = [
+        [i for (i, value) in it]
+        for (key, it) in groupby(enumerate(hist), key=lambda x: x[1] &gt;= threshold)
+        if key &gt;= threshold
+    ]
+    w = len(hist)
+    return ((0, chunks[0][0]), (chunks[-1][-1], w)) if chunks else ((0, w),)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.getNbLink"><code class="name flex">
+<span>def <span class="ident">getNbLink</span></span>(<span>path, text)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L87-L102" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getNbLink(path, text):
+    if path.startswith(&#34;~/github&#34;):
+        components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
+        if not components:
+            return None
+
+        linkA = &#39;&lt;a target=&#34;_blank&#34; href=&#34;&#39;
+        linkB = f&#39;&#34;&gt;{text}&lt;/a&gt;&#39;
+        nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
+        if len(components) &lt;= 2:
+            return f&#34;{linkA}{nbPathA}{linkB}&#34;
+        else:
+            nbPathB = &#34;/&#34;.join(components[2:])
+            return f&#34;{linkA}{nbPathA}/blob/master/{nbPathB}{linkB}&#34;
+    return path</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.getNbPath"><code class="name flex">
+<span>def <span class="ident">getNbPath</span></span>(<span>path)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L105-L118" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getNbPath(path):
+    if path.startswith(&#34;~/github&#34;):
+        components = path.rstrip(&#34;/&#34;).split(&#34;/&#34;)[2:]
+        if not components:
+            return (False, path)
+
+        nbPathA = f&#34;{NB_VIEWER}/&#34; + &#34;/&#34;.join(components[0:2])
+
+        if len(components) &lt;= 2:
+            return (True, nbPathA)
+        else:
+            nbPathB = &#34;/&#34;.join(components[2:])
+            return (True, f&#34;{nbPathA}/blob/master/{nbPathB}&#34;)
+    return (False, path)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.imageFileList"><code class="name flex">
+<span>def <span class="ident">imageFileList</span></span>(<span>imDir)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets a sorted list of image files from a directory.</p>
+<p>Only files having an image extension (defined in <code><a title="fusus.lib.EXTENSIONS" href="#fusus.lib.EXTENSIONS">EXTENSIONS</a></code>)
+are listed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>imDir</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the image directory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Alphabetically sorted list of file names (without directory, with extension)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L220-L248" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def imageFileList(imDir):
+    &#34;&#34;&#34;Gets a sorted list of image files from a directory.
+
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    list
+        Alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
+    if not os.path.exists(imDir):
+        return []
+
+    imageFiles = []
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            (bare, ext) = splitext(name, withDot=False)
+
+            if not name.startswith(&#34;.&#34;) and entry.is_file() and ext in EXTENSIONS:
+                imageFiles.append(name)
+    return sorted(imageFiles)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.imageFileListSub"><code class="name flex">
+<span>def <span class="ident">imageFileListSub</span></span>(<span>imDir)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets sorted lisst of image files from the subdirectories of a directory.</p>
+<p>Only files having an image extension (defined in <code><a title="fusus.lib.EXTENSIONS" href="#fusus.lib.EXTENSIONS">EXTENSIONS</a></code>)
+are listed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>imDir</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the image directory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Keyed by subdirectory names, valued by
+alphabetically sorted list of file names (without directory, with extension)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L251-L277" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def imageFileListSub(imDir):
+    &#34;&#34;&#34;Gets sorted lisst of image files from the subdirectories of a directory.
+
+    Only files having an image extension (defined in `EXTENSIONS`)
+    are listed.
+
+    Parameters
+    ----------
+    imDir: string
+        Path to the image directory
+
+    Returns
+    -------
+    dict
+        Keyed by subdirectory names, valued by
+        alphabetically sorted list of file names (without directory, with extension)
+    &#34;&#34;&#34;
+
+    if not os.path.exists(imDir):
+        return {}
+    imageFiles = {}
+    with os.scandir(imDir) as it:
+        for entry in it:
+            name = entry.name
+            if not name.startswith(&#34;.&#34;) and entry.is_dir():
+                imageFiles[name] = imageFileList(f&#34;{imDir}/{name}&#34;)
+    return imageFiles</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.imgElem"><code class="name flex">
+<span>def <span class="ident">imgElem</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Produce an image with its data packaged into a HTML <img> element.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L128-L132" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def imgElem(data):
+    &#34;&#34;&#34;Produce an image with its data packaged into a HTML &lt;img&gt; element.
+    &#34;&#34;&#34;
+
+    return f&#34;&#34;&#34;&lt;img src=&#34;data:image/jpeg;base64,{data}&#34;&gt;&#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.overlay"><code class="name flex">
+<span>def <span class="ident">overlay</span></span>(<span>img, left, top, right, bottom, srcColor, dstColor)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Colors a region of an image with care.</p>
+<p>A selected region of an image can be given a uniform color,
+where only pixels are changed that have an exact given color.</p>
+<p>In this way you can replace all the white with gray, for example,
+without wiping out existing non-white pixels.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>np array</code></dt>
+<dd>The image to be overlain with a new color</dd>
+<dt>(left, top, right, bottom): (int, int, int, int)</dt>
+<dt>The region in the image to be colored</dt>
+<dt><strong><code>srcColor</code></strong> :&ensp;<code>RGB color</code></dt>
+<dd>The color of the pixels that may be replaced.</dd>
+</dl>
+<p>dstColor:
+The new color of the replaced pixels.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L172-L194" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def overlay(img, left, top, right, bottom, srcColor, dstColor):
+    &#34;&#34;&#34;Colors a region of an image with care.
+
+    A selected region of an image can be given a uniform color,
+    where only pixels are changed that have an exact given color.
+
+    In this way you can replace all the white with gray, for example,
+    without wiping out existing non-white pixels.
+
+    Parameters
+    ----------
+    img: np array
+        The image to be overlain with a new color
+    (left, top, right, bottom): (int, int, int, int)
+        The region in the image to be colored
+    srcColor: RGB color
+        The color of the pixels that may be replaced.
+    dstColor:
+        The new color of the replaced pixels.
+    &#34;&#34;&#34;
+    if right &gt; left and bottom &gt; top:
+        roi = img[top:bottom, left:right]
+        roi[np.where((roi == list(srcColor)).all(axis=2))] = dstColor</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.pagesRep"><code class="name flex">
+<span>def <span class="ident">pagesRep</span></span>(<span>source, asList=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents a set of pages as a string in a compact way or as a list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of file names, without directory, with extension</dd>
+<dt><strong><code>asList</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to return the result as a list of integers or as a compact string.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> or <code>string</code></dt>
+<dd>Depending on <code>asList</code> a list of page numbers (integers) or a string
+mentioning the page numbers, using intervals where possible.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L280-L297" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def pagesRep(source, asList=False):
+    &#34;&#34;&#34;Represents a set of pages as a string in a compact way or as a list.
+
+    Parameters
+    ----------
+    source: list
+        A list of file names, without directory, with extension
+    asList: boolean, optional `False`
+        Whether to return the result as a list of integers or as a compact string.
+
+    Returns
+    -------
+    list or string
+        Depending on `asList` a list of page numbers (integers) or a string
+        mentioning the page numbers, using intervals where possible.
+    &#34;&#34;&#34;
+    pages = [int(splitext(f)[0].lstrip(&#34;0&#34;)) for f in source]
+    return pages if asList else specFromRanges(rangesFromList(pages))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.parseBands"><code class="name flex">
+<span>def <span class="ident">parseBands</span></span>(<span>band, allBands, error)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses a string that specifies bands.</p>
+<p>Bands are horizontal rectangles defined with respect to lines.
+They correspond with regions of interest where we try to find specific
+marks, such as commas and accents.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>band</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all bands.
+If a string: the name of a band.
+If an iterable: the items must be names of bands.</dd>
+<dt><strong><code>allBands</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all bands.</dd>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The bands as parsed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L472-L509" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseBands(band, allBands, error):
+    &#34;&#34;&#34;Parses a string that specifies bands.
+
+    Bands are horizontal rectangles defined with respect to lines.
+    They correspond with regions of interest where we try to find specific
+    marks, such as commas and accents.
+
+    Parameters
+    ----------
+    band: string or None or iterable
+        If None: it means all bands.
+        If a string: the name of a band.
+        If an iterable: the items must be names of bands.
+    allBands: tuple
+        Names of all bands.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The bands as parsed.
+    &#34;&#34;&#34;
+
+    sortedBands = sorted(allBands)
+    doBands = (
+        allBands
+        if band is None
+        else set(band.split(&#34;,&#34;))
+        if type(band) is str
+        else set(band)
+    )
+    illegalBands = doBands - allBands
+    if illegalBands:
+        error(f&#34;Will skip illegal bands: {&#39;, &#39;.join(sorted(illegalBands))}&#34;)
+
+    doBands -= illegalBands
+    return tuple(b for b in sortedBands if b in doBands)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.parseMarks"><code class="name flex">
+<span>def <span class="ident">parseMarks</span></span>(<span>mark, allMarks, bands, error)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses a string that specifies Marks.</p>
+<p>Marks are strokes that we need to find on the page in order to remove them.
+They are organized in bands: the regions of interest with respect to the lines
+where we expect them to occur.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mark</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all marks.
+If a string: the name of a mark.
+If an iterable: the items must be names of marks.</dd>
+<dt><strong><code>allMarks</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all marks.</dd>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The marks as parsed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L512-L555" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseMarks(mark, allMarks, bands, error):
+    &#34;&#34;&#34;Parses a string that specifies Marks.
+
+    Marks are strokes that we need to find on the page in order to remove them.
+    They are organized in bands: the regions of interest with respect to the lines
+    where we expect them to occur.
+
+    Parameters
+    ----------
+    mark: string or None or iterable
+        If None: it means all marks.
+        If a string: the name of a mark.
+        If an iterable: the items must be names of marks.
+    allMarks: tuple
+        Names of all marks.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The marks as parsed.
+    &#34;&#34;&#34;
+
+    markIndex = {}
+    for (band, bandMarks) in allMarks.items():
+        for m in bandMarks:
+            markIndex.setdefault(m, set()).add(band)
+
+    doMarks = (
+        set()
+        if mark is None
+        else set(chain.from_iterable(allMarks.get(band, ()) for band in bands))
+        if mark == &#34;&#34;
+        else set(mark.split(&#34;,&#34;))
+        if type(mark) is str
+        else set(mark)
+    )
+    illegalMarks = doMarks - set(markIndex)
+    if illegalMarks:
+        error(f&#34;Will skip illegal marks: {&#39;, &#39;.join(sorted(illegalMarks))}&#34;)
+
+    doMarks -= illegalMarks
+    return doMarks</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.parseNums"><code class="name flex">
+<span>def <span class="ident">parseNums</span></span>(<span>numSpec)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses a value as one or more numbers.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>numSpec</code></strong> :&ensp;<code>None | int | string | iterable</code></dt>
+<dd>
+<p>If <code>None</code> results in <code>None</code>.
+If an <code>int</code>, it stands for that int.
+If a <code>string</code>, it is allowed to be a comma separated list of
+numbers or ranges, where a range is a lower bound and an upper bound
+separated by a <code>-</code>.
+If none of these, it should be an iterable of <code>int</code> values.</p>
+<p>Examples:</p>
+<pre><code>50
+"50"
+"50,70"
+"50-70,91,92,300-350"
+(50, 70, 91, 92, 300)
+[50, 70, 90]
+range(300, 350)
+</code></pre>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None | iterable</code> of <code>int</code></dt>
+<dd>Depending on the value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L47-L84" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseNums(numSpec):
+    &#34;&#34;&#34;Parses a value as one or more numbers.
+
+    Parameters
+    ----------
+    numSpec: None | int | string | iterable
+        If `None` results in `None`.
+        If an `int`, it stands for that int.
+        If a `string`, it is allowed to be a comma separated list of
+        numbers or ranges, where a range is a lower bound and an upper bound
+        separated by a `-`.
+        If none of these, it should be an iterable of `int` values.
+
+        Examples:
+
+            50
+            &#34;50&#34;
+            &#34;50,70&#34;
+            &#34;50-70,91,92,300-350&#34;
+            (50, 70, 91, 92, 300)
+            [50, 70, 90]
+            range(300, 350)
+
+    Returns
+    -------
+    None | iterable of int
+        Depending on the value.
+    &#34;&#34;&#34;
+
+    return (
+        None
+        if not numSpec
+        else [numSpec]
+        if type(numSpec) is int
+        else setFromSpec(numSpec)
+        if type(numSpec) is str
+        else list(numSpec)
+    )</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.parseStages"><code class="name flex">
+<span>def <span class="ident">parseStages</span></span>(<span>stage, allStages, sortedStages, error)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses a string that specifies stages.</p>
+<p>Stages are steps in the image processing.
+Each stage has an intermediate processing result.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stage</code></strong> :&ensp;<code>string</code> or <code>None</code> or <code>iterable</code></dt>
+<dd>If None: it means all stages.
+If a string: the name of a stage.
+If an iterable: the items must be names of stages.</dd>
+<dt><strong><code>allStages</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Names of all stages.</dd>
+<dt>sortedStages:</dt>
+<dt>Sorted list of all stages.</dt>
+<dt><strong><code>error</code></strong> :&ensp;<code>function</code></dt>
+<dd>Method to write error messages.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The stages as parsed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L429-L469" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseStages(stage, allStages, sortedStages, error):
+    &#34;&#34;&#34;Parses a string that specifies stages.
+
+    Stages are steps in the image processing.
+    Each stage has an intermediate processing result.
+
+    Parameters
+    ----------
+    stage: string or None or iterable
+        If None: it means all stages.
+        If a string: the name of a stage.
+        If an iterable: the items must be names of stages.
+    allStages: tuple
+        Names of all stages.
+    sortedStages:
+        Sorted list of all stages.
+    error: function
+        Method to write error messages.
+
+    Returns
+    -------
+    tuple
+        The stages as parsed.
+    &#34;&#34;&#34;
+
+    doStages = (
+        allStages
+        if stage is None
+        else set()
+        if not stage
+        else set(stage.split(&#34;,&#34;))
+        if type(stage) is str
+        else set(stage)
+    )
+    illegalStages = doStages - allStages
+    if illegalStages:
+        error(f&#34;Will skip illegal stages: {&#39;, &#39;.join(sorted(illegalStages))}&#34;)
+
+    doStages = doStages - illegalStages
+
+    return tuple(s for s in sortedStages if s in doStages)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.pprint"><code class="name flex">
+<span>def <span class="ident">pprint</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L19-L20" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def pprint(x):
+    PP.pprint(x)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.pureAverage"><code class="name flex">
+<span>def <span class="ident">pureAverage</span></span>(<span>data, supplied)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the average of a list of values after removing the outliers.</p>
+<p>It is used for calcaluting lineheights from a sequence of distances between
+histogram peaks.
+In practice, some peaks are missing due to short line lengths, and that
+causes some abnormal peak distances which we want to remove.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>np array</code></dt>
+<dd>The list of values whose average we compute.</dd>
+<dt><strong><code>supplied</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Value to return if there is no data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L664-L696" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def pureAverage(data, supplied):
+    &#34;&#34;&#34;Get the average of a list of values after removing the outliers.
+
+    It is used for calcaluting lineheights from a sequence of distances between
+    histogram peaks.
+    In practice, some peaks are missing due to short line lengths, and that
+    causes some abnormal peak distances which we want to remove.
+
+    Parameters
+    ----------
+    data: np array
+        The list of values whose average we compute.
+
+    supplied: integer
+        Value to return if there is no data.
+    &#34;&#34;&#34;
+
+    if data.size == 0:
+        return supplied
+    elif data.size == 1:
+        return int(round(data[0]))
+
+    # remove outliers
+    m = 2.0
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d / mdev if mdev else 0.0
+    pure = data[s &lt; m]
+    if len(pure) == 0:
+        return supplied
+    elif pure.size == 1:
+        return int(round(pure[0]))
+    return int(round(np.average(pure)))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.removeBorders"><code class="name flex">
+<span>def <span class="ident">removeBorders</span></span>(<span>img, crop, white)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove black borders around an image.</p>
+<p>When an image has been unskewed, sharp triangle-shape strokes in the corners
+may have been introduced.
+Or it might be the result of scanning a page.</p>
+<p>This function removes them by coloring all image borders with white.</p>
+<p>The exact borders to be whitened are calculated by <code><a title="fusus.lib.cropBorders" href="#fusus.lib.cropBorders">cropBorders()</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>img</code></strong> :&ensp;<code>image as np array</code></dt>
+<dd>the image to operate on</dd>
+<dt><strong><code>crop</code></strong> :&ensp;<code>(int, int, int, int)</code></dt>
+<dd>the x1, x2, y1, y2 values which indicate the region
+outside which the white may be applied</dd>
+<dt><strong><code>white</code></strong> :&ensp;<code>color</code></dt>
+<dd>the exact white color with which we color the borders.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>The source image receives a modification.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L390-L426" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def removeBorders(img, crop, white):
+    &#34;&#34;&#34;Remove black borders around an image.
+
+    When an image has been unskewed, sharp triangle-shape strokes in the corners
+    may have been introduced.
+    Or it might be the result of scanning a page.
+
+    This function removes them by coloring all image borders with white.
+
+    The exact borders to be whitened are calculated by `cropBorders`.
+
+    Parameters
+    ----------
+    img: image as np array
+        the image to operate on
+    crop: (int, int, int, int)
+        the x1, x2, y1, y2 values which indicate the region
+        outside which the white may be applied
+    white: color
+        the exact white color with which we color the borders.
+
+    Returns
+    -------
+    None
+        The source image receives a modification.
+    &#34;&#34;&#34;
+
+    (imH, imW) = img.shape[0:2]
+    (x0, x1, y0, y1) = crop
+
+    for rect in (
+        ((0, 0), (x0, imH)),
+        ((0, 0), (imW, y0)),
+        ((x1, 0), (imW, imH)),
+        ((0, y1), (imW, imH)),
+    ):
+        cv2.rectangle(img, *rect, white, -1)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.select"><code class="name flex">
+<span>def <span class="ident">select</span></span>(<span>source, selection)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Choose items from a bunch of integers.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>iterable</code> of <code>int</code></dt>
+<dd>The items to choose from</dd>
+<dt><strong><code>selection</code></strong> :&ensp;<code>iterable</code> of <code>int</code> or <code>string</code> or <code>None</code></dt>
+<dd>If None, selects all items, otherwise specifies what numbers to select.
+If a number is in the selection, but not in the source, it will not be selected.
+The selection can be an integer or a compact string that specifies integers,
+using ranges and commas.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Sorted list of selected items</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L300-L340" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def select(source, selection):
+    &#34;&#34;&#34;Choose items from a bunch of integers.
+
+    Parameters
+    ----------
+    source: iterable of int
+        The items to choose from
+    selection: iterable of int or string or `None`
+        If None, selects all items, otherwise specifies what numbers to select.
+        If a number is in the selection, but not in the source, it will not be selected.
+        The selection can be an integer or a compact string that specifies integers,
+        using ranges and commas.
+
+    Returns
+    -------
+    list
+        Sorted list of selected items
+    &#34;&#34;&#34;
+
+    if selection is None:
+        return sorted(source)
+
+    index = {int(splitext(f)[0].lstrip(&#34;0&#34;)): f for f in source}
+    universe = set(index)
+    if type(selection) is int:
+        return sorted(index[n] for n in {selection} &amp; universe)
+
+    minu = min(universe, default=0)
+    maxu = max(universe, default=0)
+    selected = set()
+    for rng in selection.split(&#34;,&#34;):
+        parts = rng.split(&#34;-&#34;)
+        if len(parts) == 2:
+            (lower, upper) = parts
+            lower = minu if lower == &#34;&#34; else int(lower)
+            upper = maxu if upper == &#34;&#34; else int(upper)
+        else:
+            lower = int(parts[0])
+            upper = lower
+        selected |= set(range(lower, upper + 1)) &amp; universe
+    return sorted(index[n] for n in selected)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.showImage"><code class="name flex">
+<span>def <span class="ident">showImage</span></span>(<span>a, fmt='jpeg', **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Show one or more images.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L143-L160" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def showImage(a, fmt=&#34;jpeg&#34;, **kwargs):
+    &#34;&#34;&#34;Show one or more images.
+    &#34;&#34;&#34;
+
+    if type(a) in {list, tuple}:
+        ads = []
+        for ae in a:
+            ai = np.uint8(np.clip(ae, 0, 255))
+            f = io.BytesIO()
+            PIL.Image.fromarray(ae).save(f, fmt)
+            ad = Image(data=f.getvalue(), **kwargs)._repr_jpeg_()
+            ads.append(ad)
+        display(HTML(f&#34;&lt;div&gt;{&#39;&#39;.join(imgElem(ad) for ad in ads)}&lt;/div&gt;&#34;))
+    else:
+        ai = np.uint8(np.clip(a, 0, 255))
+        f = io.BytesIO()
+        PIL.Image.fromarray(ai).save(f, fmt)
+        display(Image(data=f.getvalue(), **kwargs))</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.splitext"><code class="name flex">
+<span>def <span class="ident">splitext</span></span>(<span>f, withDot=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Splits a file name into its main part and its extension.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>f</code></strong> :&ensp;<code>string</code></dt>
+<dd>The file name</dd>
+<dt><strong><code>withDot</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, the <code>.</code> in the extension is considered part of the extension,
+else the dot is stripped from it.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The main part and the extension</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L197-L217" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def splitext(f, withDot=True):
+    &#34;&#34;&#34;Splits a file name into its main part and its extension.
+
+    Parameters
+    ----------
+    f: string
+        The file name
+    withDot: boolean, optional `False`
+        If True, the `.` in the extension is considered part of the extension,
+        else the dot is stripped from it.
+
+    Returns
+    -------
+    tuple
+        The main part and the extension
+    &#34;&#34;&#34;
+
+    (bare, ext) = os.path.splitext(f)
+    if ext and not withDot:
+        ext = ext[1:]
+    return (bare, ext)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.tempFile"><code class="name flex">
+<span>def <span class="ident">tempFile</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a temporary file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L121-L125" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def tempFile():
+    &#34;&#34;&#34;Get a temporary file.
+    &#34;&#34;&#34;
+
+    return NamedTemporaryFile(mode=&#34;w&#34;, dir=&#34;.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.lib.writeImage"><code class="name flex">
+<span>def <span class="ident">writeImage</span></span>(<span>a, path, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write an image to disk</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/lib.py#L163-L169" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def writeImage(a, path, **kwargs):
+    &#34;&#34;&#34;Write an image to disk
+    &#34;&#34;&#34;
+
+    ai = np.uint8(np.clip(a, 0, 255))
+    with open(path, &#34;wb&#34;) as f:
+        PIL.Image.fromarray(ai).save(f)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../fusus/images/fusus-small.png"></a></p>
+<p><a href="../fusus/index.html">fusus home</a> -
+<a href="../fusus/about/howto.html">HowTo</a>
+<a href="https://github.com/among/fusus" title="GitHub repo"><img src="../tf/images/GitHub_Logo.png" alt="GitHub" width="50"></a></p>
+</p>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="fusus.lib.EXTENSIONS" href="#fusus.lib.EXTENSIONS">EXTENSIONS</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="fusus.lib.PILFromArray" href="#fusus.lib.PILFromArray">PILFromArray</a></code></li>
+<li><code><a title="fusus.lib.applyBandOffset" href="#fusus.lib.applyBandOffset">applyBandOffset</a></code></li>
+<li><code><a title="fusus.lib.arrayFromPIL" href="#fusus.lib.arrayFromPIL">arrayFromPIL</a></code></li>
+<li><code><a title="fusus.lib.cropBorders" href="#fusus.lib.cropBorders">cropBorders</a></code></li>
+<li><code><a title="fusus.lib.dh" href="#fusus.lib.dh">dh</a></code></li>
+<li><code><a title="fusus.lib.findRuns" href="#fusus.lib.findRuns">findRuns</a></code></li>
+<li><code><a title="fusus.lib.getMargins" href="#fusus.lib.getMargins">getMargins</a></code></li>
+<li><code><a title="fusus.lib.getNbLink" href="#fusus.lib.getNbLink">getNbLink</a></code></li>
+<li><code><a title="fusus.lib.getNbPath" href="#fusus.lib.getNbPath">getNbPath</a></code></li>
+<li><code><a title="fusus.lib.imageFileList" href="#fusus.lib.imageFileList">imageFileList</a></code></li>
+<li><code><a title="fusus.lib.imageFileListSub" href="#fusus.lib.imageFileListSub">imageFileListSub</a></code></li>
+<li><code><a title="fusus.lib.imgElem" href="#fusus.lib.imgElem">imgElem</a></code></li>
+<li><code><a title="fusus.lib.overlay" href="#fusus.lib.overlay">overlay</a></code></li>
+<li><code><a title="fusus.lib.pagesRep" href="#fusus.lib.pagesRep">pagesRep</a></code></li>
+<li><code><a title="fusus.lib.parseBands" href="#fusus.lib.parseBands">parseBands</a></code></li>
+<li><code><a title="fusus.lib.parseMarks" href="#fusus.lib.parseMarks">parseMarks</a></code></li>
+<li><code><a title="fusus.lib.parseNums" href="#fusus.lib.parseNums">parseNums</a></code></li>
+<li><code><a title="fusus.lib.parseStages" href="#fusus.lib.parseStages">parseStages</a></code></li>
+<li><code><a title="fusus.lib.pprint" href="#fusus.lib.pprint">pprint</a></code></li>
+<li><code><a title="fusus.lib.pureAverage" href="#fusus.lib.pureAverage">pureAverage</a></code></li>
+<li><code><a title="fusus.lib.removeBorders" href="#fusus.lib.removeBorders">removeBorders</a></code></li>
+<li><code><a title="fusus.lib.select" href="#fusus.lib.select">select</a></code></li>
+<li><code><a title="fusus.lib.showImage" href="#fusus.lib.showImage">showImage</a></code></li>
+<li><code><a title="fusus.lib.splitext" href="#fusus.lib.splitext">splitext</a></code></li>
+<li><code><a title="fusus.lib.tempFile" href="#fusus.lib.tempFile">tempFile</a></code></li>
+<li><code><a title="fusus.lib.writeImage" href="#fusus.lib.writeImage">writeImage</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../fusus/images/dans.png" width="200" alt="DANS"></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

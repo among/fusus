@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.convert API documentation</title>
+<meta name="description" content="Convenience methods to call conversions to and from tsv and to tf …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.convert</code></h1>
+</header>
+<section id="section-intro">
+<p>Convenience methods to call conversions to and from tsv and to tf.</p>
+<p>The pipeline can read Arabic books in the form of page images,
+and returns structured data in the form of a tab separated file (TSV).</p>
+<p>The PDF text extraction of the Lakhnawi file also produces a TSV file.</p>
+<p>Both kinds of TSV files can be converted furhter into Text-Fabric.</p>
+<h2 id="input">Input</h2>
+<p>See <code><a title="fusus.works" href="works.html">fusus.works</a></code> for how to specify the input for <em>fusus</em> operations.</p>
+<h2 id="tsv-output">TSV output</h2>
+<p>The TSV data from both the pipeline and the text extraction is one word per line.</p>
+<p>Fields are integer valued, except for fields with names ending in $.</p>
+<p>The fields of the pipeline results <code>(P)</code> are roughly the same as those of the
+text extraction results <code>(T)</code>:</p>
+<pre><code>(P) page stripe block$ line            left top right bottom confidence letters punc$
+(T) page line   column span direction$ left top right bottom            letters punc$
+</code></pre>
+<h3 id="divisions-p">Divisions <code>(P)</code></h3>
+<p>Each <em>page</em> is divided into <em>stripe</em>.
+Stripes are horizontal regions from the left edge to the right edge of the page/</p>
+<p>Each <em>stripe</em> is divided into <em>blocks</em>.
+Blocks are vertical parts inside a stripe, with a stroke in between.
+If there is no stroke, there is only one block in the stripe.
+There are at most two blocks in a stripe.</p>
+<p>Each <em>block</em> is divided into <em>lines</em>.</p>
+<p>See also <code><a title="fusus.layout" href="layout.html">fusus.layout</a></code>.</p>
+<p>Each line is divided into <em>words</em>.</p>
+<h3 id="divisions-t">Divisions <code>(T)</code></h3>
+<p>Each <em>page</em> is divided into <em>lines</em>.</p>
+<p>Each <em>line</em> is divided into <em>columns</em>
+(in case of hemistic verses, see <code>Lakhnawi.columns</code>).</p>
+<p>Each <em>column</em> is divided into <em>spans</em>.
+Span transitions occur precisely there where changes in writing direction occur.</p>
+<p>Each <em>span</em> is divided into <em>words</em>.</p>
+<h3 id="fields-tp">Fields <code>(TP)</code></h3>
+<p>Each word occupies exactly one line in the TSV file, with the following fields:</p>
+<ul>
+<li><code>(TP)</code> <strong>page</strong> page number</li>
+<li><code>( P)</code> <strong>stripe</strong> stripe number within the page</li>
+<li><code>( P)</code> <strong>block</strong> (empty string or <code>r</code> or <code>l</code>)</li>
+<li><code>( P)</code> <strong>line</strong> line number within the block</li>
+<li><code>(T )</code> <strong>line</strong> line number within the page</li>
+<li><code>(T )</code> <strong>column</strong> column number within the line</li>
+<li><code>(T )</code> <strong>span</strong> span number within the column</li>
+<li><code>(T )</code> <strong>direction</strong> (<code>l</code> or <code>r</code>) writing direction of the span</li>
+<li><code>(TP)</code> <strong>left</strong> <em>x</em> coordinate of left boundary</li>
+<li><code>(TP)</code> <strong>top</strong> <em>y</em> coordinate of top boundary</li>
+<li><code>(TP)</code> <strong>right</strong> <em>x</em> coordinate of right boundary</li>
+<li><code>(TP)</code> <strong>bottom</strong> <em>y</em> coordinate of bottom boundary</li>
+<li><code>( P)</code> <strong>confidence</strong> measure of OCR confidence (0 .. 100) percent</li>
+<li><code>(TP)</code> <strong>letters</strong> letters of the word (possibly the empty string)</li>
+<li><code>(TP)</code> <strong>punc</strong> non-letters after the word</li>
+</ul>
+<h3 id="example-p">Example <code>(P)</code></h3>
+<p>The start of the Affifi TSV:</p>
+<p><img alt="affifitsv" src="images/affifitsv.png"></p>
+<h3 id="example-t">Example <code>(T)</code></h3>
+<p>The start of the Lakhnawi TSV:</p>
+<p><img alt="lakhnawitsv" src="images/lakhnawitsv.png"></p>
+<h2 id="run">Run</h2>
+<p>You can run the pipeline on the known works inside the <em>ur</em> directory in this repo or
+on books that you provide yourself.</p>
+<p>This script supports one-liners on the command line
+to execute the pipeline and various conversion processes.</p>
+<p>See
+<code><a title="fusus.convert.HELP" href="#fusus.convert.HELP">HELP</a></code>.</p>
+<p>Here are concrete commands for known works:</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tsv fususa
+python3 -m fusus.convert tsv fususl
+</code></pre>
+<p>This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+and deliver TSV data as result;</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tf fususa 0.5
+python3 -m fusus.convert tf fususl 0.5
+</code></pre>
+<p>This will convert the TSV data to TF and deliver the tf files in version 0.5,
+for the Affifi and Lakhnawi editions resepctively.</p>
+<hr>
+<pre><code class="language-sh">python3 -m fusus.convert tf fususa 0.5 loadonly
+python3 -m fusus.convert tf fususl 0.5 loadonly
+</code></pre>
+<p>This will load the TF data in version 0.5.
+The first time it loads, some extra computations will be performed, and
+a binary version of the tf files will be generated, which will be used for
+subsequent use by Text-Fabric.</p>
+<hr>
+<h2 id="load-tsv">Load TSV</h2>
+<p>The function <code><a title="fusus.convert.loadTsv" href="#fusus.convert.loadTsv">loadTsv()</a></code> to load TSV data in memory.
+For known works, it will also convert the data types of the appropriate fields
+to integer.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L0-L525" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Convenience methods to call conversions to and from tsv and to tf.
+
+The pipeline can read Arabic books in the form of page images,
+and returns structured data in the form of a tab separated file (TSV).
+
+The PDF text extraction of the Lakhnawi file also produces a TSV file.
+
+Both kinds of TSV files can be converted furhter into Text-Fabric.
+
+## Input
+
+See `fusus.works` for how to specify the input for *fusus* operations.
+
+## TSV output
+
+The TSV data from both the pipeline and the text extraction is one word per line.
+
+Fields are integer valued, except for fields with names ending in $.
+
+The fields of the pipeline results `(P)` are roughly the same as those of the
+text extraction results `(T)`:
+
+```
+(P) page stripe block$ line            left top right bottom confidence letters punc$
+(T) page line   column span direction$ left top right bottom            letters punc$
+```
+
+### Divisions `(P)`
+
+Each *page* is divided into *stripe*.
+Stripes are horizontal regions from the left edge to the right edge of the page/
+
+Each *stripe* is divided into *blocks*.
+Blocks are vertical parts inside a stripe, with a stroke in between.
+If there is no stroke, there is only one block in the stripe.
+There are at most two blocks in a stripe.
+
+Each *block* is divided into *lines*.
+
+See also `fusus.layout`.
+
+Each line is divided into *words*.
+
+### Divisions `(T)`
+
+Each *page* is divided into *lines*.
+
+Each *line* is divided into *columns*
+(in case of hemistic verses, see `Lakhnawi.columns`).
+
+Each *column* is divided into *spans*.
+Span transitions occur precisely there where changes in writing direction occur.
+
+Each *span* is divided into *words*.
+
+### Fields `(TP)`
+
+Each word occupies exactly one line in the TSV file, with the following fields:
+
+* `(TP)` **page** page number
+* `( P)` **stripe** stripe number within the page
+* `( P)` **block** (empty string or `r` or `l`)
+* `( P)` **line** line number within the block
+* `(T )` **line** line number within the page
+* `(T )` **column** column number within the line
+* `(T )` **span** span number within the column
+* `(T )` **direction** (`l` or `r`) writing direction of the span
+* `(TP)` **left** *x* coordinate of left boundary
+* `(TP)` **top** *y* coordinate of top boundary
+* `(TP)` **right** *x* coordinate of right boundary
+* `(TP)` **bottom** *y* coordinate of bottom boundary
+* `( P)` **confidence** measure of OCR confidence (0 .. 100) percent
+* `(TP)` **letters** letters of the word (possibly the empty string)
+* `(TP)` **punc** non-letters after the word
+
+### Example `(P)`
+
+The start of the Affifi TSV:
+
+![affifitsv](images/affifitsv.png)
+
+### Example `(T)`
+
+The start of the Lakhnawi TSV:
+
+![lakhnawitsv](images/lakhnawitsv.png)
+
+## Run
+
+You can run the pipeline on the known works inside the *ur* directory in this repo or
+on books that you provide yourself.
+
+This script supports one-liners on the command line
+to execute the pipeline and various conversion processes.
+
+See  `fusus.convert.HELP`.
+
+Here are concrete commands for known works:
+
+---
+
+``` sh
+python3 -m fusus.convert tsv fususa
+python3 -m fusus.convert tsv fususl
+```
+
+This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+and deliver TSV data as result;
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5
+python3 -m fusus.convert tf fususl 0.5
+```
+
+This will convert the TSV data to TF and deliver the tf files in version 0.5,
+for the Affifi and Lakhnawi editions resepctively.
+
+---
+
+``` sh
+python3 -m fusus.convert tf fususa 0.5 loadonly
+python3 -m fusus.convert tf fususl 0.5 loadonly
+```
+
+This will load the TF data in version 0.5.
+The first time it loads, some extra computations will be performed, and
+a binary version of the tf files will be generated, which will be used for
+subsequent use by Text-Fabric.
+
+---
+
+## Load TSV
+
+The function `loadTsv` to load TSV data in memory.
+For known works, it will also convert the data types of the appropriate fields
+to integer.
+
+&#34;&#34;&#34;
+
+import sys
+import re
+
+from tf.core.helpers import unexpanduser
+
+from .works import getFile, getWorkDir, getTfDest
+from .lib import parseNums
+from .book import Book
+from .lakhnawi import Lakhnawi
+from .tfFromTsv import convert, loadTf
+
+
+__pdoc__ = {}
+
+HELP = &#34;&#34;&#34;
+Convert tsv data files to TF and optionally loads the TF.
+
+python3 -m fusus.convert --help
+python3 -m fusus.convert tsv source ocr|noocr pages
+python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
+
+--help: print this text and exit
+
+source      : a work (given as keyword or as path to its work directory)
+              Examples:
+                fususl (Fusus Al Hikam in Lakhnawi edition)
+                fususa (Fusus Al Hikam in Affifi edition)
+                any commentary by its keyword
+                ~/github/myorg/myrepo/mydata
+                mydir/mysubdir
+
+pages       : page specification, only process these pages; default: all pages
+              Examples:
+                50
+                50,70
+                50-70,91,92,300-350
+
+ocr         : assume the work is in the OCR pipeline
+noocr       : assume the work is not in the OCR pipeline
+              (it is then a text extract from a pdf)
+
+For tf only:
+
+versiontf   : loads the generated TF; if missing this step is not performed
+              Examples:
+                0.4
+                3.7.2
+
+load        : loads the generated TF; if missing this step is not performed
+loadOnly    : does not generate TF; loads previously generated TF
+&#34;&#34;&#34;
+&#34;&#34;&#34;Help&#34;&#34;&#34;
+
+__pdoc__[&#34;HELP&#34;] = f&#34;``` text\n{HELP}\n```&#34;
+
+
+def makeTf(
+    versionTf=None,
+    source=None,
+    ocred=None,
+    pages=None,
+    load=False,
+    loadOnly=False,
+):
+    &#34;&#34;&#34;Make Text-Fabric data out of the TSV data of a work.
+
+    The work is specified either by the name of a known work
+    (e.g. `fususa`, `fususl`)
+    or by specifying the work directory.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    Parameters
+    ----------
+    versionTf: string
+        A version number for the TF to be generated, e.g. `0.3`.
+        Have a look in the fusus tf subdirectory, and see which version already exists,
+        and then choose a higher version if you do not want to overwrite the existing
+        version.
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or else the path to directory of the work.
+    ocred: string
+        Whether the tsv is made by the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+    load: boolean, optional `False`
+        If TF generation has succeeded, load the tf files for the first time.
+        This will trigger a one-time precomputation step.
+    loadOnly: boolean, optional `False`
+        Skip TF generation, assume the TF is already in place, and load it.
+        This might trigger a one-time precomputation step.
+
+    Returns
+    -------
+    nothing
+        It will run the appripriate pipeline and generate tf in the appropriate
+        locations.
+    &#34;&#34;&#34;
+
+    doLoad = load or loadOnly
+    doConvert = not loadOnly
+
+    print(&#34;TSV to TF converter for the Fusus project&#34;)
+    print(f&#34;TF  target version = {versionTf}&#34;)
+
+    good = True
+
+    print(f&#34;===== SOURCE {source} =====&#34;)
+
+    if doConvert:
+        if not convert(source, ocred, pages, versionTf):
+            good = False
+
+    if good:
+        if doLoad:
+            dest = getTfDest(source, versionTf)
+            if dest is None:
+                good = False
+            else:
+                loadTf(dest)
+
+    return good
+
+
+def makeTsv(source=None, ocred=None, pages=None):
+    &#34;&#34;&#34;Make TSV data out of the source of a work.
+
+    The work is specified either by the name of a known work
+    (e.g. `fususa`, `fususl`)
+    or by specifying the work directory.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    Parameters
+    ----------
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or the path to directory of the work.
+    ocred: string
+        Whether the tsv is made by the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+
+    Returns
+    -------
+    nothing
+        It will run the appripriate pipeline and generate tsv in the appropriate
+        locations.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, ocred)
+    if workDir is None:
+        return
+
+    ocrRep = &#34;with OCR&#34; if ocred else &#34;no OCR&#34;
+
+    print(f&#34;Making TSV data from {unexpanduser(workDir)} ({ocrRep})&#34;)
+
+    if ocred:
+        B = Book(cd=workDir)
+        B.process(pages=pages)
+        B.exportTsv(pages=pages)
+    else:
+        Lw = Lakhnawi()
+
+        print(&#34;Reading PDF&#34;)
+        Lw.getPages(pages)
+
+        print(&#34;\nExporting TSV&#34;)
+        Lw.tsvPages(pages)
+
+        print(&#34;Closing&#34;)
+        Lw.close()
+
+
+def loadTsv(source=None, ocred=None, pages=None):
+    &#34;&#34;&#34;Load a tsv file into memory.
+
+    The tsv file either comes from a known work or is specified by a path.
+
+    If it comes from a known work, you only have to pass the key of that work,
+    e.g. `fususa`, or `fususl`.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    !!! caution &#34;word-based&#34;
+        This function can load the word-based TSV files, not the character based ones.
+
+    Parameters
+    ----------
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or the path to the tsv file.
+    ocred: string
+        Whether the tsv file comes from the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+
+    Returns
+    -------
+    tuple
+        Two members:
+
+        * head: a tuple of field names
+        * rows: a tuple of data rows, where each row is a tuple of its fields
+    &#34;&#34;&#34;
+
+    (sourceFile, ocred) = getFile(source, ocred)
+    if sourceFile is None:
+        return ((), ())
+
+    pageNums = parseNums(pages)
+
+    data = []
+
+    print(f&#34;Loading TSV data from {unexpanduser(sourceFile)}&#34;)
+    with open(sourceFile) as fh:
+        head = tuple(next(fh).rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+
+        for line in fh:
+            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+            page = int(row[0])
+            if pageNums is not None and page not in pages:
+                continue
+
+            if ocred:
+                row = (
+                    page,
+                    int(row[1]),
+                    row[2],
+                    int(row[3]),
+                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
+                    int(row[8]),
+                    *row[9:11],
+                )
+            else:
+                row = (
+                    page,
+                    *(int(c) for c in row[1:4]),
+                    row[4],
+                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
+                    *row[9:11],
+                )
+
+            data.append(row)
+
+    return (head, tuple(data))
+
+
+# MAIN
+
+
+def parseArgs(args):
+    &#34;&#34;&#34;Parse arguments from the command line.
+
+    Performs sanity checks.
+
+    Parameters
+    ----------
+    args: list
+        All command line arguments.
+        The full command is stripped from what `sys.argv` yields.
+
+    Returns
+    -------
+    passed: dict
+        The interpreted values of the command line arguments,
+        which will be passed on to the rest of program.
+    &#34;&#34;&#34;
+
+    passed = dict(
+        command=None,
+        source=None,
+        ocred=None,
+        pages=None,
+        load=None,
+        loadOnly=None,
+        versionTf=None,
+    )
+    good = True
+
+    NUMS = re.compile(r&#34;^[0-9][0-9,-]*$&#34;)
+
+    def setArg(name, value):
+        nonlocal good
+
+        if passed[name] is None:
+            passed[name] = value
+        else:
+            print(f&#34;Repeated: `{value}` for {name}&#34;)
+            good = False
+
+    for arg in args:
+        if arg in {&#34;tf&#34;, &#34;tsv&#34;}:
+            setArg(&#34;command&#34;, arg)
+        elif arg == &#34;load&#34;:
+            setArg(&#34;load&#34;, True)
+        elif arg == &#34;loadonly&#34;:
+            setArg(&#34;loadOnly&#34;, True)
+        elif arg == &#34;ocr&#34;:
+            setArg(&#34;ocred&#34;, True)
+        elif arg == &#34;noocr&#34;:
+            setArg(&#34;ocred&#34;, False)
+        elif &#34;.&#34; in arg:
+            setArg(&#34;versionTf&#34;, arg)
+        elif NUMS.match(arg):
+            setArg(&#34;pages&#34;, arg)
+        elif arg == &#34;--help&#34;:
+            print(HELP)
+            good = None
+        else:
+            setArg(&#34;source&#34;, arg)
+
+    if good:
+        if passed[&#34;command&#34;] is None:
+            print(&#34;No command specified (tf or tsv)&#34;)
+            good = False
+        if passed[&#34;source&#34;] is None:
+            print(
+                &#34;No source specified (fususl, fususa, commentary_name, directory_path)&#34;
+            )
+            good = False
+        if passed[&#34;command&#34;] == &#34;tf&#34;:
+            if passed[&#34;versionTf&#34;] is None:
+                print(&#34;No TF version specified (e.g. 0.3)&#34;)
+                good = False
+            if passed[&#34;load&#34;] is None:
+                passed[&#34;load&#34;] = False
+            if passed[&#34;loadOnly&#34;] is None:
+                passed[&#34;loadOnly&#34;] = False
+        else:
+            for name in (&#34;versionTf&#34;, &#34;load&#34;, &#34;loadOnly&#34;):
+                if passed[name] is not None:
+                    print(f&#34;Illegal argument `{passed[name]}` for {name}&#34;)
+                    good = False
+                del passed[name]
+
+    return (good, passed)
+
+
+def main():
+    &#34;&#34;&#34;Perform tasks.
+
+    See `HELP`.
+    &#34;&#34;&#34;
+
+    args = () if len(sys.argv) == 1 else tuple(sys.argv[1:])
+    (good, passed) = parseArgs(args)
+    if not good:
+        return good is None
+
+    kwargs = {k: v for (k, v) in passed.items() if k != &#34;command&#34;}
+
+    if passed[&#34;command&#34;] == &#34;tsv&#34;:
+        print(&#34;TSV to TF converter for the Fusus project&#34;)
+        return makeTsv(**kwargs)
+    elif passed[&#34;command&#34;] == &#34;tf&#34;:
+        print(f&#34;TF  target version = {passed[&#39;versionTf&#39;]}&#34;)
+        return makeTf(**kwargs)
+
+
+if __name__ == &#34;__main__&#34;:
+    sys.exit(0 if main() else 1)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="fusus.convert.HELP"><code class="name">var <span class="ident">HELP</span></code></dt>
+<dd>
+<div class="desc"><pre><code class="language-text">
+Convert tsv data files to TF and optionally loads the TF.
+
+python3 -m fusus.convert --help
+python3 -m fusus.convert tsv source ocr|noocr pages
+python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
+
+--help: print this text and exit
+
+source      : a work (given as keyword or as path to its work directory)
+              Examples:
+                fususl (Fusus Al Hikam in Lakhnawi edition)
+                fususa (Fusus Al Hikam in Affifi edition)
+                any commentary by its keyword
+                ~/github/myorg/myrepo/mydata
+                mydir/mysubdir
+
+pages       : page specification, only process these pages; default: all pages
+              Examples:
+                50
+                50,70
+                50-70,91,92,300-350
+
+ocr         : assume the work is in the OCR pipeline
+noocr       : assume the work is not in the OCR pipeline
+              (it is then a text extract from a pdf)
+
+For tf only:
+
+versiontf   : loads the generated TF; if missing this step is not performed
+              Examples:
+                0.4
+                3.7.2
+
+load        : loads the generated TF; if missing this step is not performed
+loadOnly    : does not generate TF; loads previously generated TF
+
+</code></pre></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.convert.loadTsv"><code class="name flex">
+<span>def <span class="ident">loadTsv</span></span>(<span>source=None, ocred=None, pages=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load a tsv file into memory.</p>
+<p>The tsv file either comes from a known work or is specified by a path.</p>
+<p>If it comes from a known work, you only have to pass the key of that work,
+e.g. <code>fususa</code>, or <code>fususl</code>.</p>
+<p>The function needs to know whether the tsv comes out of an OCR process or
+from the text extraction of a PDF.</p>
+<p>In case of a known work, this is known and does not have to be specified.
+Otherwise you have to pass it.</p>
+<div class="admonition caution">
+<p class="admonition-title">word-based</p>
+<p>This function can load the word-based TSV files, not the character based ones.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>The key of a known work, see <code><a title="fusus.works.WORKS" href="works.html#fusus.works.WORKS">WORKS</a></code>.
+Or the path to the tsv file.</dd>
+<dt><strong><code>ocred</code></strong> :&ensp;<code>string</code></dt>
+<dd>Whether the tsv file comes from the OCR pipeline.
+Not needed in case of a known work.</dd>
+<dt><strong><code>pages</code></strong> :&ensp;<code>string|int</code>, optional <code>None</code></dt>
+<dd>A specification of zero or more page numbers (see <code><a title="fusus.lib.parseNums" href="lib.html#fusus.lib.parseNums">parseNums()</a></code>).
+Only rows belonging to selected pages will be extracted.
+If None, all pages will be taken.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>
+<p>Two members:</p>
+<ul>
+<li>head: a tuple of field names</li>
+<li>rows: a tuple of data rows, where each row is a tuple of its fields</li>
+</ul>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L332-L410" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def loadTsv(source=None, ocred=None, pages=None):
+    &#34;&#34;&#34;Load a tsv file into memory.
+
+    The tsv file either comes from a known work or is specified by a path.
+
+    If it comes from a known work, you only have to pass the key of that work,
+    e.g. `fususa`, or `fususl`.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    !!! caution &#34;word-based&#34;
+        This function can load the word-based TSV files, not the character based ones.
+
+    Parameters
+    ----------
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or the path to the tsv file.
+    ocred: string
+        Whether the tsv file comes from the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+
+    Returns
+    -------
+    tuple
+        Two members:
+
+        * head: a tuple of field names
+        * rows: a tuple of data rows, where each row is a tuple of its fields
+    &#34;&#34;&#34;
+
+    (sourceFile, ocred) = getFile(source, ocred)
+    if sourceFile is None:
+        return ((), ())
+
+    pageNums = parseNums(pages)
+
+    data = []
+
+    print(f&#34;Loading TSV data from {unexpanduser(sourceFile)}&#34;)
+    with open(sourceFile) as fh:
+        head = tuple(next(fh).rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+
+        for line in fh:
+            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
+            page = int(row[0])
+            if pageNums is not None and page not in pages:
+                continue
+
+            if ocred:
+                row = (
+                    page,
+                    int(row[1]),
+                    row[2],
+                    int(row[3]),
+                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
+                    int(row[8]),
+                    *row[9:11],
+                )
+            else:
+                row = (
+                    page,
+                    *(int(c) for c in row[1:4]),
+                    row[4],
+                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
+                    *row[9:11],
+                )
+
+            data.append(row)
+
+    return (head, tuple(data))</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Perform tasks.</p>
+<p>See <code><a title="fusus.convert.HELP" href="#fusus.convert.HELP">HELP</a></code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L504-L522" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;Perform tasks.
+
+    See `HELP`.
+    &#34;&#34;&#34;
+
+    args = () if len(sys.argv) == 1 else tuple(sys.argv[1:])
+    (good, passed) = parseArgs(args)
+    if not good:
+        return good is None
+
+    kwargs = {k: v for (k, v) in passed.items() if k != &#34;command&#34;}
+
+    if passed[&#34;command&#34;] == &#34;tsv&#34;:
+        print(&#34;TSV to TF converter for the Fusus project&#34;)
+        return makeTsv(**kwargs)
+    elif passed[&#34;command&#34;] == &#34;tf&#34;:
+        print(f&#34;TF  target version = {passed[&#39;versionTf&#39;]}&#34;)
+        return makeTf(**kwargs)</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.makeTf"><code class="name flex">
+<span>def <span class="ident">makeTf</span></span>(<span>versionTf=None, source=None, ocred=None, pages=None, load=False, loadOnly=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Make Text-Fabric data out of the TSV data of a work.</p>
+<p>The work is specified either by the name of a known work
+(e.g. <code>fususa</code>, <code>fususl</code>)
+or by specifying the work directory.</p>
+<p>The function needs to know whether the tsv comes out of an OCR process or
+from the text extraction of a PDF.</p>
+<p>In case of a known work, this is known and does not have to be specified.
+Otherwise you have to pass it.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>versionTf</code></strong> :&ensp;<code>string</code></dt>
+<dd>A version number for the TF to be generated, e.g. <code>0.3</code>.
+Have a look in the fusus tf subdirectory, and see which version already exists,
+and then choose a higher version if you do not want to overwrite the existing
+version.</dd>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>The key of a known work, see <code><a title="fusus.works.WORKS" href="works.html#fusus.works.WORKS">WORKS</a></code>.
+Or else the path to directory of the work.</dd>
+<dt><strong><code>ocred</code></strong> :&ensp;<code>string</code></dt>
+<dd>Whether the tsv is made by the OCR pipeline.
+Not needed in case of a known work.</dd>
+<dt><strong><code>pages</code></strong> :&ensp;<code>string|int</code>, optional <code>None</code></dt>
+<dd>A specification of zero or more page numbers (see <code><a title="fusus.lib.parseNums" href="lib.html#fusus.lib.parseNums">parseNums()</a></code>).
+Only rows belonging to selected pages will be extracted.
+If None, all pages will be taken.</dd>
+<dt><strong><code>load</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If TF generation has succeeded, load the tf files for the first time.
+This will trigger a one-time precomputation step.</dd>
+<dt><strong><code>loadOnly</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Skip TF generation, assume the TF is already in place, and load it.
+This might trigger a one-time precomputation step.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>nothing</code></dt>
+<dd>It will run the appripriate pipeline and generate tf in the appropriate
+locations.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L198-L271" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def makeTf(
+    versionTf=None,
+    source=None,
+    ocred=None,
+    pages=None,
+    load=False,
+    loadOnly=False,
+):
+    &#34;&#34;&#34;Make Text-Fabric data out of the TSV data of a work.
+
+    The work is specified either by the name of a known work
+    (e.g. `fususa`, `fususl`)
+    or by specifying the work directory.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    Parameters
+    ----------
+    versionTf: string
+        A version number for the TF to be generated, e.g. `0.3`.
+        Have a look in the fusus tf subdirectory, and see which version already exists,
+        and then choose a higher version if you do not want to overwrite the existing
+        version.
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or else the path to directory of the work.
+    ocred: string
+        Whether the tsv is made by the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+    load: boolean, optional `False`
+        If TF generation has succeeded, load the tf files for the first time.
+        This will trigger a one-time precomputation step.
+    loadOnly: boolean, optional `False`
+        Skip TF generation, assume the TF is already in place, and load it.
+        This might trigger a one-time precomputation step.
+
+    Returns
+    -------
+    nothing
+        It will run the appripriate pipeline and generate tf in the appropriate
+        locations.
+    &#34;&#34;&#34;
+
+    doLoad = load or loadOnly
+    doConvert = not loadOnly
+
+    print(&#34;TSV to TF converter for the Fusus project&#34;)
+    print(f&#34;TF  target version = {versionTf}&#34;)
+
+    good = True
+
+    print(f&#34;===== SOURCE {source} =====&#34;)
+
+    if doConvert:
+        if not convert(source, ocred, pages, versionTf):
+            good = False
+
+    if good:
+        if doLoad:
+            dest = getTfDest(source, versionTf)
+            if dest is None:
+                good = False
+            else:
+                loadTf(dest)
+
+    return good</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.makeTsv"><code class="name flex">
+<span>def <span class="ident">makeTsv</span></span>(<span>source=None, ocred=None, pages=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Make TSV data out of the source of a work.</p>
+<p>The work is specified either by the name of a known work
+(e.g. <code>fususa</code>, <code>fususl</code>)
+or by specifying the work directory.</p>
+<p>The function needs to know whether the tsv comes out of an OCR process or
+from the text extraction of a PDF.</p>
+<p>In case of a known work, this is known and does not have to be specified.
+Otherwise you have to pass it.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>The key of a known work, see <code><a title="fusus.works.WORKS" href="works.html#fusus.works.WORKS">WORKS</a></code>.
+Or the path to directory of the work.</dd>
+<dt><strong><code>ocred</code></strong> :&ensp;<code>string</code></dt>
+<dd>Whether the tsv is made by the OCR pipeline.
+Not needed in case of a known work.</dd>
+<dt><strong><code>pages</code></strong> :&ensp;<code>string|int</code>, optional <code>None</code></dt>
+<dd>A specification of zero or more page numbers (see <code><a title="fusus.lib.parseNums" href="lib.html#fusus.lib.parseNums">parseNums()</a></code>).
+Only rows belonging to selected pages will be extracted.
+If None, all pages will be taken.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>nothing</code></dt>
+<dd>It will run the appripriate pipeline and generate tsv in the appropriate
+locations.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L274-L329" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def makeTsv(source=None, ocred=None, pages=None):
+    &#34;&#34;&#34;Make TSV data out of the source of a work.
+
+    The work is specified either by the name of a known work
+    (e.g. `fususa`, `fususl`)
+    or by specifying the work directory.
+
+    The function needs to know whether the tsv comes out of an OCR process or
+    from the text extraction of a PDF.
+
+    In case of a known work, this is known and does not have to be specified.
+    Otherwise you have to pass it.
+
+    Parameters
+    ----------
+    source: string, optional `None`
+        The key of a known work, see `fusus.works.WORKS`.
+        Or the path to directory of the work.
+    ocred: string
+        Whether the tsv is made by the OCR pipeline.
+        Not needed in case of a known work.
+    pages: string|int, optional `None`
+        A specification of zero or more page numbers (see `fusus.lib.parseNums`).
+        Only rows belonging to selected pages will be extracted.
+        If None, all pages will be taken.
+
+    Returns
+    -------
+    nothing
+        It will run the appripriate pipeline and generate tsv in the appropriate
+        locations.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, ocred)
+    if workDir is None:
+        return
+
+    ocrRep = &#34;with OCR&#34; if ocred else &#34;no OCR&#34;
+
+    print(f&#34;Making TSV data from {unexpanduser(workDir)} ({ocrRep})&#34;)
+
+    if ocred:
+        B = Book(cd=workDir)
+        B.process(pages=pages)
+        B.exportTsv(pages=pages)
+    else:
+        Lw = Lakhnawi()
+
+        print(&#34;Reading PDF&#34;)
+        Lw.getPages(pages)
+
+        print(&#34;\nExporting TSV&#34;)
+        Lw.tsvPages(pages)
+
+        print(&#34;Closing&#34;)
+        Lw.close()</code></pre>
+</details>
+</dd>
+<dt id="fusus.convert.parseArgs"><code class="name flex">
+<span>def <span class="ident">parseArgs</span></span>(<span>args)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse arguments from the command line.</p>
+<p>Performs sanity checks.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>args</code></strong> :&ensp;<code>list</code></dt>
+<dd>All command line arguments.
+The full command is stripped from what <code>sys.argv</code> yields.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>passed</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The interpreted values of the command line arguments,
+which will be passed on to the rest of program.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/convert.py#L416-L501" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def parseArgs(args):
+    &#34;&#34;&#34;Parse arguments from the command line.
+
+    Performs sanity checks.
+
+    Parameters
+    ----------
+    args: list
+        All command line arguments.
+        The full command is stripped from what `sys.argv` yields.
+
+    Returns
+    -------
+    passed: dict
+        The interpreted values of the command line arguments,
+        which will be passed on to the rest of program.
+    &#34;&#34;&#34;
+
+    passed = dict(
+        command=None,
+        source=None,
+        ocred=None,
+        pages=None,
+        load=None,
+        loadOnly=None,
+        versionTf=None,
+    )
+    good = True
+
+    NUMS = re.compile(r&#34;^[0-9][0-9,-]*$&#34;)
+
+    def setArg(name, value):
+        nonlocal good
+
+        if passed[name] is None:
+            passed[name] = value
+        else:
+            print(f&#34;Repeated: `{value}` for {name}&#34;)
+            good = False
+
+    for arg in args:
+        if arg in {&#34;tf&#34;, &#34;tsv&#34;}:
+            setArg(&#34;command&#34;, arg)
+        elif arg == &#34;load&#34;:
+            setArg(&#34;load&#34;, True)
+        elif arg == &#34;loadonly&#34;:
+            setArg(&#34;loadOnly&#34;, True)
+        elif arg == &#34;ocr&#34;:
+            setArg(&#34;ocred&#34;, True)
+        elif arg == &#34;noocr&#34;:
+            setArg(&#34;ocred&#34;, False)
+        elif &#34;.&#34; in arg:
+            setArg(&#34;versionTf&#34;, arg)
+        elif NUMS.match(arg):
+            setArg(&#34;pages&#34;, arg)
+        elif arg == &#34;--help&#34;:
+            print(HELP)
+            good = None
+        else:
+            setArg(&#34;source&#34;, arg)
+
+    if good:
+        if passed[&#34;command&#34;] is None:
+            print(&#34;No command specified (tf or tsv)&#34;)
+            good = False
+        if passed[&#34;source&#34;] is None:
+            print(
+                &#34;No source specified (fususl, fususa, commentary_name, directory_path)&#34;
+            )
+            good = False
+        if passed[&#34;command&#34;] == &#34;tf&#34;:
+            if passed[&#34;versionTf&#34;] is None:
+                print(&#34;No TF version specified (e.g. 0.3)&#34;)
+                good = False
+            if passed[&#34;load&#34;] is None:
+                passed[&#34;load&#34;] = False
+            if passed[&#34;loadOnly&#34;] is None:
+                passed[&#34;loadOnly&#34;] = False
+        else:
+            for name in (&#34;versionTf&#34;, &#34;load&#34;, &#34;loadOnly&#34;):
+                if passed[name] is not None:
+                    print(f&#34;Illegal argument `{passed[name]}` for {name}&#34;)
+                    good = False
+                del passed[name]
+
+    return (good, passed)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../fusus/images/fusus-small.png"></a></p>
+<p><a href="../fusus/index.html">fusus home</a> -
+<a href="../fusus/about/howto.html">HowTo</a>
+<a href="https://github.com/among/fusus" title="GitHub repo"><img src="../tf/images/GitHub_Logo.png" alt="GitHub" width="50"></a></p>
+</p>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#input">Input</a></li>
+<li><a href="#tsv-output">TSV output</a><ul>
+<li><a href="#divisions-p">Divisions (P)</a></li>
+<li><a href="#divisions-t">Divisions (T)</a></li>
+<li><a href="#fields-tp">Fields (TP)</a></li>
+<li><a href="#example-p">Example (P)</a></li>
+<li><a href="#example-t">Example (T)</a></li>
+</ul>
+</li>
+<li><a href="#run">Run</a></li>
+<li><a href="#load-tsv">Load TSV</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="fusus.convert.HELP" href="#fusus.convert.HELP">HELP</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.convert.loadTsv" href="#fusus.convert.loadTsv">loadTsv</a></code></li>
+<li><code><a title="fusus.convert.main" href="#fusus.convert.main">main</a></code></li>
+<li><code><a title="fusus.convert.makeTf" href="#fusus.convert.makeTf">makeTf</a></code></li>
+<li><code><a title="fusus.convert.makeTsv" href="#fusus.convert.makeTsv">makeTsv</a></code></li>
+<li><code><a title="fusus.convert.parseArgs" href="#fusus.convert.parseArgs">parseArgs</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../fusus/images/dans.png" width="200" alt="DANS"></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

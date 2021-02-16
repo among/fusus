@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.works API documentation</title>
+<meta name="description" content="Registry of sources …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.works</code></h1>
+</header>
+<section id="section-intro">
+<p>Registry of sources.</p>
+<h1 id="works">Works</h1>
+<p>The books of the Fusus project are in the directory <code>ur</code> of this repo.</p>
+<p>There you find subdirectories corresponding to</p>
+<ul>
+<li><strong>Affifi</strong> The Fusus Al Hikam in the Affifi edition.</li>
+<li><strong>Lakhnawi</strong> The Fusus Al Hikam in the Lakhnawi edition.
+The source is a textual PDF, not in the online repo, from which
+structured data is derived by means of a specific workflow,
+not the <em>pipeline</em>.</li>
+<li><strong>commentary Xxx</strong> Commentary books</li>
+</ul>
+<p>These are the <em>known</em> works.
+They are registered in <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code> and assigned an acronym there.</p>
+<p>When new works become available, you can give them an acronym and register them here.</p>
+<p>All functions here and in <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> make use of this registry,
+which makes it possible to refer to known works by acronyms.</p>
+<p>The <code><a title="fusus" href="index.html">fusus</a></code> package can also work with source material in arbitrary locations.</p>
+<p>If you want to process other works, that is still possible,
+just provide directories where source acronyms are expected.</p>
+<p>As far as the pipeline is concerned, the input of a book is a directory
+of page images. More precisely, it is a directory in which there is
+a subdirectory <code>in</code> having the page images.</p>
+<p>When the pipeline runs, it produces additional directories
+containing intermediate results and output.</p>
+<p>For details, see <code><a title="fusus.book" href="book.html">fusus.book</a></code>, and <code><a title="fusus.lakhnawi" href="lakhnawi.html">fusus.lakhnawi</a></code>.</p>
+<p>It is assumed that unknown works use the OCR pipeline.
+If that is not true, pass a parameter <code>ocred=False</code> to the function,
+or, on the command line, pass <code>noocr</code>.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/works.py#L0-L262" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Registry of sources.
+
+# Works
+
+The books of the Fusus project are in the directory `ur` of this repo.
+
+There you find subdirectories corresponding to
+
+* **Affifi** The Fusus Al Hikam in the Affifi edition.
+* **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
+  The source is a textual PDF, not in the online repo, from which
+  structured data is derived by means of a specific workflow,
+  not the *pipeline*.
+* **commentary Xxx** Commentary books
+
+These are the *known* works.
+They are registered in `WORKS` and assigned an acronym there.
+
+When new works become available, you can give them an acronym and register them here.
+
+All functions here and in `fusus.convert` make use of this registry,
+which makes it possible to refer to known works by acronyms.
+
+The `fusus` package can also work with source material in arbitrary locations.
+
+If you want to process other works, that is still possible,
+just provide directories where source acronyms are expected.
+
+As far as the pipeline is concerned, the input of a book is a directory
+of page images. More precisely, it is a directory in which there is
+a subdirectory `in` having the page images.
+
+When the pipeline runs, it produces additional directories
+containing intermediate results and output.
+
+For details, see `fusus.book`, and `fusus.lakhnawi`.
+
+It is assumed that unknown works use the OCR pipeline.
+If that is not true, pass a parameter `ocred=False` to the function,
+or, on the command line, pass `noocr`.
+&#34;&#34;&#34;
+
+import os
+
+from tf.core.helpers import unexpanduser
+
+
+BASE = os.path.expanduser(&#34;~/github/among/fusus&#34;)
+&#34;&#34;&#34;Base directory for the data files.
+
+Currently this is the fusus repo itself.
+But it could be set to different places,
+if we want to separate the fusus code from the fusus data.
+
+You might consider to make it configurable, and pass it to
+the `fusus.book.Book` and `fusus.lakhnawi.Lakhnawi` objects.
+&#34;&#34;&#34;
+
+WORKS = dict(
+    fususl=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Lakhnawi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Lakhnawi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/Lakhnawi&#34;,
+        toc=True,
+        ocred=False,
+    ),
+    fususa=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Affifi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Affifi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/Affifi&#34;,
+        toc=False,
+        ocred=True,
+    ),
+)
+&#34;&#34;&#34;Metadata of works in the pipeline.
+
+Here are the main works and the commentaries.
+
+They are given a keyword, and under that keyword are these fields:
+
+* **meta** metadata in the form of key value pairs
+  that will be copied into Text-Fabric tf files;
+* **source** specification of
+  * **dir** directory of the work,
+  * **file** the TSV data file within that directory;
+* **dest** directory of the Text-Fabric data of this work;
+* **toc** whether the work has a table of contents;
+  this is only relevant for the Lakhnawi edition,
+  which has a table of contents that requires special processing.
+  This processing is hard coded.
+  So it will not work for other works with a table of contents.
+* **ocred** whether the work is the outcome of an OCR process;
+  this is only false for the Lakhnawi edition,
+  which is the result of a custom text extraction of a PDF.
+  This text extraction is hard coded.
+  So it will not work for other works that reside in a textual PDF.
+
+!!! hint &#34;fususa&#34;
+    The Affifi page images are in the `in` subdirectory of its work
+    directory as specified in `WORKS`.
+
+!!! caution &#34;fususl&#34;
+    The Lakhnawi PDF does not reside in this repo.
+    You have to obtain a copy by mailing to
+    [Cornelis van Lit](mailto:l.w.c.vanlit@uu.nl) and place it
+    in your repo clone as `_local/source/Lakhnawi/Lakhnawi.pdf`.
+
+!!! hint &#34;commentaries&#34;
+    Adding commentaries involves the following steps:
+
+    * give a nice acronym to the commentary
+    * add an entry in the source registry, keyed by that acronym
+    * fill in the details
+    * place the page image files in the `in` subdirectory
+      that you specified under `source` and then `dir`.
+&#34;&#34;&#34;
+
+
+def getWorkDir(source, ocred):
+    &#34;&#34;&#34;Resolve a work location, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    ocred: boolean or None
+        Whether the work is in the OCR pipeline.
+        For known works this is known, but it can be overriden.
+        For unknown works it must be specified, and if not, `True`
+        is assumend.
+
+    Returns
+    -------
+        (string | None, boolean | None)
+        If the work is known and exists, or unknown and exists,
+        its working directory is returned.
+        If `givenOcr` is `None`, and the work is known, its
+        ocr status is returned, otherwise None.
+    &#34;&#34;&#34;
+    if source not in WORKS:
+        source = os.path.expanduser(source)
+        if os.path.exists(source):
+            if ocred is None:
+                print(&#34;Assume that {unexpanduser(source)} is OCRed&#34;)
+                ocred = True
+            return (source, ocred)
+        else:
+            if &#34;/&#34; in source:
+                print(f&#34;Source file `{unexpanduser(source)}` does not exist.&#34;)
+            else:
+                print(f&#34;Unknown work `{source}`&#34;)
+            return (None, ocred)
+
+    workInfo = WORKS[source]
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (None, ocred)
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;dir&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a directory in its source&#34;)
+        return None
+
+    directory = sourceInfo[&#34;dir&#34;]
+    return (f&#34;{BASE}/{directory}&#34;, workInfo.get(&#34;ocred&#34;, ocred))
+
+
+def getFile(source, ocred):
+    &#34;&#34;&#34;Resolve a work data file location, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    ocred: boolean or None
+        Whether the work is in the OCR pipeline.
+        For known works this is known, but it can be overriden.
+        For unknown works it must be specified, and if not, `True`
+        is assumend.
+
+    Returns
+    -------
+        (string | None, boolean | None)
+        If the work is known and exists, or unknown and exists,
+        its (tsv) data file is returned.
+        If `givenOcr` is `None`, and the work is known, its
+        ocr status is returned, otherwise None.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, ocred)
+    if workDir is None:
+        return (None, ocred)
+
+    workInfo = WORKS.get(source, None)
+    if workInfo is None:
+        return (workDir, ocred)
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (workDir, ocred)
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;file&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a file in its source&#34;)
+        return (workDir, ocred)
+
+    fileName = sourceInfo[&#34;file&#34;]
+
+    return (f&#34;{workDir}/{fileName}&#34;, ocred)
+
+
+def getTfDest(source, versionTf):
+    &#34;&#34;&#34;Resolve a work tf directory, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    versionTf: string
+        The version of the TF data.
+        This directory does not have to exist.
+
+    Returns
+    -------
+        string | None
+        If the work is known and exists, or unknown and exists,
+        its versioned tf data directory is returned.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, None)
+    if workDir is None:
+        return None
+    if versionTf is None:
+        print(&#34;Missing TF version&#34;)
+        return None
+    workInfo = WORKS[source]
+    return f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{versionTf}&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="fusus.works.BASE"><code class="name">var <span class="ident">BASE</span></code></dt>
+<dd>
+<div class="desc"><p>Base directory for the data files.</p>
+<p>Currently this is the fusus repo itself.
+But it could be set to different places,
+if we want to separate the fusus code from the fusus data.</p>
+<p>You might consider to make it configurable, and pass it to
+the <code><a title="fusus.book.Book" href="book.html#fusus.book.Book">Book</a></code> and <code><a title="fusus.lakhnawi.Lakhnawi" href="lakhnawi.html#fusus.lakhnawi.Lakhnawi">Lakhnawi</a></code> objects.</p></div>
+</dd>
+<dt id="fusus.works.WORKS"><code class="name">var <span class="ident">WORKS</span></code></dt>
+<dd>
+<div class="desc"><p>Metadata of works in the pipeline.</p>
+<p>Here are the main works and the commentaries.</p>
+<p>They are given a keyword, and under that keyword are these fields:</p>
+<ul>
+<li><strong>meta</strong> metadata in the form of key value pairs
+that will be copied into Text-Fabric tf files;</li>
+<li><strong>source</strong> specification of</li>
+<li><strong>dir</strong> directory of the work,</li>
+<li><strong>file</strong> the TSV data file within that directory;</li>
+<li><strong>dest</strong> directory of the Text-Fabric data of this work;</li>
+<li><strong>toc</strong> whether the work has a table of contents;
+this is only relevant for the Lakhnawi edition,
+which has a table of contents that requires special processing.
+This processing is hard coded.
+So it will not work for other works with a table of contents.</li>
+<li><strong>ocred</strong> whether the work is the outcome of an OCR process;
+this is only false for the Lakhnawi edition,
+which is the result of a custom text extraction of a PDF.
+This text extraction is hard coded.
+So it will not work for other works that reside in a textual PDF.</li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">fususa</p>
+<p>The Affifi page images are in the <code>in</code> subdirectory of its work
+directory as specified in <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code>.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">fususl</p>
+<p>The Lakhnawi PDF does not reside in this repo.
+You have to obtain a copy by mailing to
+<a href="mailto:l.w.c.vanlit@uu.nl">Cornelis van Lit</a> and place it
+in your repo clone as <code>_local/source/Lakhnawi/Lakhnawi.pdf</code>.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">commentaries</p>
+<p>Adding commentaries involves the following steps:</p>
+<ul>
+<li>give a nice acronym to the commentary</li>
+<li>add an entry in the source registry, keyed by that acronym</li>
+<li>fill in the details</li>
+<li>place the page image files in the <code>in</code> subdirectory
+that you specified under <code>source</code> and then <code>dir</code>.</li>
+</ul>
+</div></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.works.getFile"><code class="name flex">
+<span>def <span class="ident">getFile</span></span>(<span>source, ocred)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resolve a work data file location, given by key of directory.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code></dt>
+<dd>Key in the <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code> dictionary (<em>known work)</em>,
+or directory in the file system (<em>unknown work</em>).</dd>
+<dt><strong><code>ocred</code></strong> :&ensp;<code>boolean</code> or <code>None</code></dt>
+<dd>Whether the work is in the OCR pipeline.
+For known works this is known, but it can be overriden.
+For unknown works it must be specified, and if not, <code>True</code>
+is assumend.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>(string | None, boolean | None)
+If the work is known and exists, or unknown and exists,
+its (tsv) data file is returned.
+If &lt;code&gt;givenOcr&lt;/code&gt; is &lt;code&gt;None&lt;/code&gt;, and the work is known, its
+ocr status is returned, otherwise None.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/works.py#L191-L234" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getFile(source, ocred):
+    &#34;&#34;&#34;Resolve a work data file location, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    ocred: boolean or None
+        Whether the work is in the OCR pipeline.
+        For known works this is known, but it can be overriden.
+        For unknown works it must be specified, and if not, `True`
+        is assumend.
+
+    Returns
+    -------
+        (string | None, boolean | None)
+        If the work is known and exists, or unknown and exists,
+        its (tsv) data file is returned.
+        If `givenOcr` is `None`, and the work is known, its
+        ocr status is returned, otherwise None.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, ocred)
+    if workDir is None:
+        return (None, ocred)
+
+    workInfo = WORKS.get(source, None)
+    if workInfo is None:
+        return (workDir, ocred)
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (workDir, ocred)
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;file&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a file in its source&#34;)
+        return (workDir, ocred)
+
+    fileName = sourceInfo[&#34;file&#34;]
+
+    return (f&#34;{workDir}/{fileName}&#34;, ocred)</code></pre>
+</details>
+</dd>
+<dt id="fusus.works.getTfDest"><code class="name flex">
+<span>def <span class="ident">getTfDest</span></span>(<span>source, versionTf)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resolve a work tf directory, given by key of directory.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code></dt>
+<dd>Key in the <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code> dictionary (<em>known work)</em>,
+or directory in the file system (<em>unknown work</em>).</dd>
+<dt><strong><code>versionTf</code></strong> :&ensp;<code>string</code></dt>
+<dd>The version of the TF data.
+This directory does not have to exist.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>string | None
+If the work is known and exists, or unknown and exists,
+its versioned tf data directory is returned.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/works.py#L237-L263" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getTfDest(source, versionTf):
+    &#34;&#34;&#34;Resolve a work tf directory, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    versionTf: string
+        The version of the TF data.
+        This directory does not have to exist.
+
+    Returns
+    -------
+        string | None
+        If the work is known and exists, or unknown and exists,
+        its versioned tf data directory is returned.
+    &#34;&#34;&#34;
+
+    (workDir, ocred) = getWorkDir(source, None)
+    if workDir is None:
+        return None
+    if versionTf is None:
+        print(&#34;Missing TF version&#34;)
+        return None
+    workInfo = WORKS[source]
+    return f&#34;{BASE}/{workInfo[&#39;dest&#39;]}/{versionTf}&#34;</code></pre>
+</details>
+</dd>
+<dt id="fusus.works.getWorkDir"><code class="name flex">
+<span>def <span class="ident">getWorkDir</span></span>(<span>source, ocred)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resolve a work location, given by key of directory.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>source</code></strong> :&ensp;<code>string</code></dt>
+<dd>Key in the <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code> dictionary (<em>known work)</em>,
+or directory in the file system (<em>unknown work</em>).</dd>
+<dt><strong><code>ocred</code></strong> :&ensp;<code>boolean</code> or <code>None</code></dt>
+<dd>Whether the work is in the OCR pipeline.
+For known works this is known, but it can be overriden.
+For unknown works it must be specified, and if not, <code>True</code>
+is assumend.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>(string | None, boolean | None)
+If the work is known and exists, or unknown and exists,
+its working directory is returned.
+If &lt;code&gt;givenOcr&lt;/code&gt; is &lt;code&gt;None&lt;/code&gt;, and the work is known, its
+ocr status is returned, otherwise None.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/works.py#L139-L188" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def getWorkDir(source, ocred):
+    &#34;&#34;&#34;Resolve a work location, given by key of directory.
+
+    Parameters
+    ----------
+    source: string
+        Key in the `WORKS` dictionary (*known work)*,
+        or directory in the file system (*unknown work*).
+    ocred: boolean or None
+        Whether the work is in the OCR pipeline.
+        For known works this is known, but it can be overriden.
+        For unknown works it must be specified, and if not, `True`
+        is assumend.
+
+    Returns
+    -------
+        (string | None, boolean | None)
+        If the work is known and exists, or unknown and exists,
+        its working directory is returned.
+        If `givenOcr` is `None`, and the work is known, its
+        ocr status is returned, otherwise None.
+    &#34;&#34;&#34;
+    if source not in WORKS:
+        source = os.path.expanduser(source)
+        if os.path.exists(source):
+            if ocred is None:
+                print(&#34;Assume that {unexpanduser(source)} is OCRed&#34;)
+                ocred = True
+            return (source, ocred)
+        else:
+            if &#34;/&#34; in source:
+                print(f&#34;Source file `{unexpanduser(source)}` does not exist.&#34;)
+            else:
+                print(f&#34;Unknown work `{source}`&#34;)
+            return (None, ocred)
+
+    workInfo = WORKS[source]
+
+    if &#34;source&#34; not in workInfo:
+        print(f&#34;{source} does not specify a source&#34;)
+        return (None, ocred)
+
+    sourceInfo = workInfo[&#34;source&#34;]
+
+    if &#34;dir&#34; not in sourceInfo:
+        print(f&#34;{source} does not specify a directory in its source&#34;)
+        return None
+
+    directory = sourceInfo[&#34;dir&#34;]
+    return (f&#34;{BASE}/{directory}&#34;, workInfo.get(&#34;ocred&#34;, ocred))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../fusus/images/fusus-small.png"></a></p>
+<p><a href="../fusus/index.html">fusus home</a> -
+<a href="../fusus/about/howto.html">HowTo</a>
+<a href="https://github.com/among/fusus" title="GitHub repo"><img src="../tf/images/GitHub_Logo.png" alt="GitHub" width="50"></a></p>
+</p>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#works">Works</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="fusus.works.BASE" href="#fusus.works.BASE">BASE</a></code></li>
+<li><code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.works.getFile" href="#fusus.works.getFile">getFile</a></code></li>
+<li><code><a title="fusus.works.getTfDest" href="#fusus.works.getTfDest">getTfDest</a></code></li>
+<li><code><a title="fusus.works.getWorkDir" href="#fusus.works.getWorkDir">getWorkDir</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../fusus/images/dans.png" width="200" alt="DANS"></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

@@ -1,0 +1,2683 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>fusus.book API documentation</title>
+<meta name="description" content="Book workflow …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fusus.book</code></h1>
+</header>
+<section id="section-intro">
+<p>Book workflow</p>
+<p>We will transform scanned pages of a book into Unicode text
+following a number of processing steps.</p>
+<h2 id="the-express-way">The express way</h2>
+<p>In the terminal, <code>cd</code> to a book directory (see below) and run</p>
+<pre><code>python3 -m fusus.book
+</code></pre>
+<p>This will process all scanned pages with default settings.</p>
+<h2 id="with-more-control-and-feedback">With more control and feedback</h2>
+<p>Copy the notebook <code>example/do.ipynb</code> into a book directory (see below).
+Run cells in the notebook, and see
+<a href="https://github.com/among/fusus/blob/master/example/doExample.ipynb">doExample</a>
+to learn by example how you can configure the processing parameters
+and control the processing of pages.</p>
+<h2 id="book-directory">Book directory</h2>
+<p>A book directory should have subdirectories at the outset:</p>
+<ul>
+<li><code>in</code>
+Contains image files (scans at 1800 x2700 pixels approximately);</li>
+<li><code>marks</code> (optional)
+Contains subdirectories with little rectangles copied from the scans
+and saved in individual files at the same resolution.</li>
+</ul>
+<h3 id="marks">Marks</h3>
+<p>Marks are spots that will be wiped clean wherever they are found.</p>
+<p>They are organized in <em>bands</em> which are sets of horizontal strokes on the page,
+relative to the individual lines.</p>
+<p>Marks will only be searched for within the bands they belong to, in order to
+avoid false positives.</p>
+<p>The <code>marks</code> directory may contain the following bands:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>kind</th>
+<th>items</th>
+<th>remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>high</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the upper band of a line</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the lower band of a line</td>
+</tr>
+<tr>
+<td><code>mid</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the central, narrow band of a line, with lots of ink</td>
+</tr>
+<tr>
+<td><code><a title="fusus.book.main" href="#fusus.book.main">main()</a></code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>in the band where nearly all the letter material is</td>
+</tr>
+<tr>
+<td><code>broad</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>as <code><a title="fusus.book.main" href="#fusus.book.main">main()</a></code>, but a bit broader</td>
+</tr>
+<tr>
+<td><code>inter</code></td>
+<td>marks</td>
+<td>arbitrary images</td>
+<td>between the lines</td>
+</tr>
+</tbody>
+</table>
+<p>When fusus reads the marks, it will crop all white borders from it and
+surround the result with a fixed small white border.</p>
+<p>So you do not have to be very precise in trimming the mark templates.</p>
+<p>After running the pipeline, the following subdirectories may have been produced:</p>
+<ul>
+<li><code>inter</code>
+Intermediate files, such as page images with histograms displayed in it,
+or data files with information on the marks that have been encountered and wiped;</li>
+<li><code>clean</code>
+Cleaned page block images, input for OCR processing.</li>
+<li><code>out</code>
+Output (= final results). Tab separated files with one row per word.</li>
+<li><code>proof</code>
+Aids to assess the quality of the output.
+Tab separated files with one row per character.
+Normalized input images. Overlay HTML files with OCR results,
+coloured by confidence, both on character basis and on word basis.</li>
+<li><code>text</code>
+Plain HTML rendering of the full, recognized text with page and line
+indicators. Used for reading the results by human eyes.</li>
+</ul>
+<p>!!! caution "Block information" If the layout algorithm has
+divided the page into blocks, the information of the blocks resides in the
+page object and is not currently stored on disk.</p>
+<pre><code>This information is needed after OCR to shift the coordinates with respect to
+the blocks 9this is what comes out of the OCR) to coordinates with respect
+to the page.
+
+That means you cannot initialize the pipeline with the clean block images as sole
+input. You have to start with layout detection.
+</code></pre>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L0-L873" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Book workflow
+
+We will transform scanned pages of a book into Unicode text
+following a number of processing steps.
+
+## The express way
+
+In the terminal, `cd` to a book directory (see below) and run
+
+```
+python3 -m fusus.book
+```
+
+This will process all scanned pages with default settings.
+
+## With more control and feedback
+
+Copy the notebook `example/do.ipynb` into a book directory (see below).
+Run cells in the notebook, and see
+[doExample](https://github.com/among/fusus/blob/master/example/doExample.ipynb)
+to learn by example how you can configure the processing parameters
+and control the processing of pages.
+
+## Book directory
+
+A book directory should have subdirectories at the outset:
+
+*   `in`
+    Contains image files (scans at 1800 x2700 pixels approximately);
+*   `marks` (optional)
+    Contains subdirectories with little rectangles copied from the scans
+    and saved in individual files at the same resolution.
+
+### Marks
+
+Marks are spots that will be wiped clean wherever they are found.
+
+They are organized in *bands* which are sets of horizontal strokes on the page,
+relative to the individual lines.
+
+Marks will only be searched for within the bands they belong to, in order to
+avoid false positives.
+
+The `marks` directory may contain the following bands:
+
+name | kind | items | remarks
+--- | --- | --- | ---
+`high` | marks | arbitrary images | in the upper band of a line
+`low` | marks | arbitrary images | in the lower band of a line
+`mid` | marks | arbitrary images | in the central, narrow band of a line, with lots of ink
+`main` | marks | arbitrary images | in the band where nearly all the letter material is
+`broad` | marks | arbitrary images | as `main`, but a bit broader
+`inter` | marks | arbitrary images | between the lines
+
+When fusus reads the marks, it will crop all white borders from it and
+surround the result with a fixed small white border.
+
+So you do not have to be very precise in trimming the mark templates.
+
+After running the pipeline, the following subdirectories may have been produced:
+
+*   `inter`
+    Intermediate files, such as page images with histograms displayed in it,
+    or data files with information on the marks that have been encountered and wiped;
+*   `clean`
+    Cleaned page block images, input for OCR processing.
+*   `out`
+    Output (= final results). Tab separated files with one row per word.
+*   `proof`
+    Aids to assess the quality of the output.
+    Tab separated files with one row per character.
+    Normalized input images. Overlay HTML files with OCR results,
+    coloured by confidence, both on character basis and on word basis.
+*   `text`
+    Plain HTML rendering of the full, recognized text with page and line
+    indicators. Used for reading the results by human eyes.
+
+!!! caution &#34;Block information&#34; If the layout algorithm has
+    divided the page into blocks, the information of the blocks resides in the
+    page object and is not currently stored on disk.
+
+    This information is needed after OCR to shift the coordinates with respect to
+    the blocks 9this is what comes out of the OCR) to coordinates with respect
+    to the page.
+
+    That means you cannot initialize the pipeline with the clean block images as sole
+    input. You have to start with layout detection.
+&#34;&#34;&#34;
+
+import sys
+import os
+import collections
+
+import cv2
+
+from tf.core.timestamp import Timestamp
+from tf.core.helpers import unexpanduser
+
+from .parameters import Config, ALL_PAGES
+from .lib import (
+    imageFileList,
+    imageFileListSub,
+    pagesRep,
+    select,
+    showImage,
+    splitext,
+    getNbPath,
+    getNbLink,
+    dh,
+)
+from .clean import reborder
+from .page import Page
+from .ocr import OCR, showConf, getProofColor
+
+
+class Book:
+    def __init__(self, cd=None, **params):
+        &#34;&#34;&#34;Engine for book conversion.
+
+        Parameters
+        ----------
+        cd: string, optional
+            If passed, performs a change directory to the directory specified.
+            Else the whole book processing takes place in the current directory.
+            You can use `~` to denote your home directory.
+        params: dict, optional
+            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+
+            They will be in effect when running the workflow, until
+            a `Book.configure` action will modify them.
+        &#34;&#34;&#34;
+
+        if cd is None:
+            cd = &#34;&#34;
+        else:
+            cd = os.path.expanduser(cd)
+            os.chdir(cd)
+
+        if cd:
+            cd = f&#34;{cd}/&#34;
+
+        self.cd = cd
+
+        tm = Timestamp()
+        self.tm = tm
+        self.C = Config(tm, **params)
+        self._applySettings()
+        self.OCR = OCR(self)
+
+    def _applySettings(self):
+        &#34;&#34;&#34;After a settings update, recompute derived settings.&#34;&#34;&#34;
+
+        C = self.C
+        whit = C.whiteGRS
+        markParams = C.markParams
+        tm = self.tm
+        error = tm.error
+
+        self.marks = {}
+        marks = self.marks
+        offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
+        self.offsetBand = offsetBand
+
+        files = imageFileListSub(C.marksDir)
+
+        seq = 0
+
+        for (band, images) in files.items():
+            for f in images:
+                tweakDict = {}
+                bare = splitext(f)[0]
+                parts = bare.rsplit(&#34;(&#34;, 1)
+                if len(parts) &gt; 1:
+                    bare = parts[0]
+                    tweaks = parts[1][0:-1].split(&#34;,&#34;)
+                    for tweak in tweaks:
+                        if &#34;=&#34; not in tweak:
+                            error(f&#34;Malformed image parameter for {bare}: {tweak}&#34;)
+                            continue
+                        (k, v) = tweak.split(&#34;=&#34;, 1)
+                        if k not in markParams:
+                            error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
+                            continue
+                        try:
+                            tweakDict[k] = int(v) if k == &#34;bw&#34; else float(v)
+                        except Exception:
+                            error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
+
+                full = f&#34;{C.marksDir}/{band}/{f}&#34;
+                image = cv2.imread(full)
+                gray = reborder(
+                    cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 4, whit, crop=True
+                )
+
+                seq += 1
+                marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
+                dest = marks[band][bare]
+                for (k, kLong) in markParams.items():
+                    dest[kLong] = tweakDict.get(k, getattr(C, kLong))
+
+        self.allPages = imageFileList(C.inDir)
+        self.allPagesDesc = pagesRep(self.allPages)
+        self.allPagesList = pagesRep(self.allPages, asList=True)
+
+    def info(self, msg):
+        tm = self.tm
+        info = tm.info
+        info(msg)
+
+    def warning(self, msg):
+        tm = self.tm
+        warning = tm.warning
+        warning(msg)
+
+    def error(self, msg):
+        tm = self.tm
+        error = tm.error
+        error(msg)
+
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        The signature is the same as `fusus.parameters.Config.configure`.
+        &#34;&#34;&#34;
+
+        self.C.configure(reset=reset, **params)
+        self._applySettings()
+
+    def showSettings(self, params=None):
+        &#34;&#34;&#34;Display settings.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+
+            The current values of given parameters will be displayed.
+            The values that you give each of the `params` here is not used,
+            only their names. It is recommended to pass `None` as values:
+
+            `B.showSettings(blurX=None, blurY=None)`
+        &#34;&#34;&#34;
+        self.C.show(params=params)
+
+    def availableBands(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        info(&#34;Available bands and their offsets&#34;, tm=False)
+        for (band, offset) in sorted(self.offsetBand.items()):
+            bandRep = f&#34;«{band}»&#34;
+            info(
+                f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False
+            )
+
+    def availableMarks(self, band=None, mark=None):
+        &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+        Parameters
+        ----------
+        band: string, optional `None`
+            Show only marks in this band. If `None`, show marks in all bands.
+        mark: string, optional `None`
+            Show only marks in with this name. If `None`, show marks with any name.
+        &#34;&#34;&#34;
+
+        C = self.C
+        grey = C.greyGRS
+        tm = self.tm
+        info = tm.info
+        marks = self.marks
+
+        info(&#34;Marks and their settings&#34;, tm=False)
+        for (bnd, markItems) in sorted(marks.items()):
+            if band is not None and band != bnd:
+                continue
+            bandRep = f&#34;[{bnd}]&#34;
+            info(f&#34;\tband {bandRep}&#34;, tm=False)
+            for (mrk, markInfo) in sorted(markItems.items()):
+                if mark is not None and mark != mrk:
+                    continue
+                markRep = f&#34;«{mrk}»&#34;
+                seq = markInfo[&#34;seq&#34;]
+                acc = markInfo[&#34;accuracy&#34;]
+                bw = markInfo[&#34;connectBorder&#34;]
+                r = markInfo[&#34;connectRatio&#34;]
+                info(
+                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;,
+                    tm=False,
+                )
+                markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+                showImage(markImage)
+
+    def availablePages(self):
+        &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+        pagesDesc = self.allPagesDesc
+
+        info(f&#34;{len(allPages)} pages: {pagesDesc}&#34;)
+
+    def _doPage(
+        self,
+        f,
+        batch=False,
+        boxed=True,
+        quiet=False,
+        doOcr=True,
+        uptoLayout=False,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;Process a single page.
+
+        Executes all processing steps for a single page.
+
+        Parameters
+        ----------
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of stroke separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
+
+        Returns
+        -------
+        A `fusus.page.Page` object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        # baseLevel = 1 if batch else 0
+        baseLevel = 1
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+
+        bare = splitext(f)[0]
+
+        if not batch:
+            info(f&#34;Processing {bare}&#34;)
+
+        page = Page(self, f, batch=batch, boxed=boxed, **kwargs)
+        if batch or not page.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            page.doNormalize()
+            if page.empty:
+                return page
+
+            if not batch:
+                info(&#34;layout&#34;)
+            page.doLayout()
+            if not uptoLayout:
+                if not batch:
+                    info(&#34;cleaning&#34;)
+                page.cleaning(showKept=not batch or boxed)
+                if not page.empty and doOcr:
+                    if not batch:
+                        info(&#34;ocr&#34;)
+                    page.ocring()
+
+        tm.silentOff()
+
+        return page
+
+    def process(
+        self,
+        pages=None,
+        batch=True,
+        quiet=True,
+        boxed=False,
+        doOcr=True,
+        uptoLayout=False,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;Process directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+        batch: boolean, optional `True`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of stroke separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
+
+        Returns
+        -------
+        A `fusus.page.Page` object for the last page processed,
+        which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        allPages = self.allPages
+
+        tm.silentOff()
+
+        indent(reset=True)
+
+        C = self.C
+        interDir = C.interDir
+        outDir = C.outDir
+        cleanDir = C.cleanDir
+        proofDir = C.proofDir
+        htmlDir = C.htmlDir
+
+        for d in (interDir, outDir, cleanDir, proofDir, htmlDir):
+            if not os.path.exists(d):
+                os.makedirs(d, exist_ok=True)
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start batch processing images&#34;)
+        page = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = self._doPage(
+                imFile,
+                batch=batch,
+                boxed=boxed,
+                quiet=quiet,
+                doOcr=doOcr,
+                uptoLayout=uptoLayout,
+                **kwargs,
+            )
+            if not page.empty:
+                page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
+                if uptoLayout:
+                    info(f&#34;{msg}&#34;)
+                else:
+                    if not batch:
+                        page.write(stage=&#34;markData&#34;)
+                    if boxed:
+                        page.write(stage=&#34;boxed&#34;)
+                    info(f&#34;{msg}&#34;)
+        indent(level=0)
+        info(&#34;all done&#34;)
+
+        return page  # the last page processed
+
+    def stageDir(self, stage):
+        C = self.C
+        (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[stage]
+        trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
+        trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
+        return (getattr(C, stageDir or &#34;interDir&#34;), trail, stageExt)
+
+    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
+        &#34;&#34;&#34;Measure the reported quality of the ocr processing.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        showStats: boolean, optional `True`
+            Compute and show quality statistics
+
+        updateProofs: boolean, optional `False`
+            If true, regenerate all proofing pages.
+            This is desriable if you have tweaked the coloring of OCR results
+            depending on the confidence.
+            The OCR itself does not have to be performed again for this.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        cd = self.cd
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start measuring ocr quality of these images&#34;)
+        if updateProofs:
+            info(&#34;  end regenrating proof files&#34;)
+
+        page = None
+
+        results = dict(char=[], word=[])
+        resultsChar = collections.defaultdict(list)
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=(&#34;normalized,line,&#34; if updateProofs else &#34;&#34;) + &#34;word,char&#34;)
+            if page.empty:
+                continue
+
+            if updateProofs:
+                page.proofing()
+
+            if not showStats:
+                continue
+
+            stages = page.stages
+            pg = page.bare
+            pageRep = f&#34;p{pg}&#34;
+
+            for stage in (&#34;word&#34;, &#34;char&#34;):
+                proofStage = f&#34;proof{stage}&#34;
+                thisPageRep = f&#34;&#34;&#34;&lt;a href=&#34;{page.stagePath(proofStage)}&#34;&gt;p{pg}&lt;/a&gt;&#34;&#34;&#34;
+                isCharStage = stage == &#34;char&#34;
+                confI = -2 if isCharStage else -3
+
+                n = 0
+                totC = 0
+                (minC, maxC) = (100, 0)
+
+                for fields in stages[stage]:
+                    conf = int(fields[confI])
+                    totC += conf
+                    if conf &lt; minC:
+                        minC = conf
+                    if conf &gt; maxC:
+                        maxC = conf
+                    n += 1
+                    if isCharStage:
+                        c = fields[-1]
+                        resultsChar[c].append((pageRep, conf))
+                if n &gt; 0:
+                    results[stage].append((thisPageRep, n, minC, maxC, totC, &#34;&#34;))
+
+        if not showStats:
+            indent(level=0)
+            info(&#34;all done&#34;)
+            return
+
+        for stage in (&#34;word&#34;, &#34;char&#34;):
+            stageResults = results[stage]
+            if not len(stageResults):
+                continue
+            grandN = sum(r[1] for r in stageResults)
+            grandMin = min(r[2] for r in stageResults)
+            grandMax = max(r[3] for r in stageResults)
+            grandTot = sum(r[4] for r in stageResults)
+
+            toShow = [
+                (&#34;overall&#34;, grandN, grandMin, grandMax, grandTot, &#34;&#34;)
+            ] + stageResults
+
+            info(f&#34;{stage}-confidences of OCR results for {len(stageResults)} pages&#34;)
+            showConf(stage, toShow)
+
+        info(f&#34;by-char-confidences of OCR results for {len(resultsChar)} characters&#34;)
+        resultsCollected = []
+        (sDir, sTrail, sExt) = self.stageDir(&#34;proofchar&#34;)
+        showPath = unexpanduser(f&#34;{cd}{sDir}&#34;)
+        (isLink, nbLink) = getNbPath(showPath)
+        for c in sorted(resultsChar):
+            occs = sorted(resultsChar[c], key=lambda x: x[1])
+            elem = &#34;a&#34; if isLink else &#34;span&#34;
+            href = nbLink if isLink else None
+            worstExamples = []
+            for x in occs[0:20]:
+                href = (
+                    f&#39;&#39;&#39;href=&#34;{nbLink}/{x[0][1:]}{sTrail}.{sExt}&#34;&#39;&#39;&#39; if isLink else &#34;&#34;
+                )
+                worstExamples.append(
+                    f&#34;&#34;&#34;
+&lt;{elem}
+    style=&#34;background-color: {getProofColor(x[1])};&#34;
+    title=&#34;{showPath}/{x[0][1:]}{sTrail}.{sExt}&#34;
+    {href}
+&gt;{x[0]}&lt;/{elem}&gt;
+&#34;&#34;&#34;
+                )
+            worstExamples = &#34; &#34;.join(worstExamples)
+            nOccs = len(occs)
+            minC = min(r[1] for r in occs)
+            maxC = max(r[1] for r in occs)
+            totC = sum(r[1] for r in occs)
+            resultsCollected.append((f&#34;⌊{c}⌋&#34;, nOccs, minC, maxC, totC, worstExamples))
+        showConf(stage, resultsCollected, label=&#34;worst results&#34;)
+
+        indent(level=0)
+        info(&#34;all done&#34;)
+
+    def exportTsv(self, pages=None):
+        &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10`
+            (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the working directory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing single TSV file of these pages&#34;)
+
+        path = f&#34;{pagesFile}.tsv&#34;
+
+        first = True
+        f = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            page = Page(self, imFile, minimal=True)
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            if first:
+                headers = page.dataHeaders.get(stage, None)
+                header = &#34;\t&#34;.join(str(head) for head in headers)
+
+                f = open(path, &#34;w&#34;)
+                f.write(f&#34;{header}\n&#34;)
+
+                first = False
+
+            pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+            page.read(stage=stage)
+
+            data = stages[stage]
+            if not data:
+                continue
+
+            for fields in stages[stage]:
+                f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+        if f:
+            info(f&#34;written to {path}&#34;)
+            f.close()
+        else:
+            info(&#34;Nothing written&#34;)
+
+    def htmlPages(self, pages=None):
+        &#34;&#34;&#34;Get the text in html from the ocr output in one file
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the `text` subdirectory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        C = self.C
+        cd = self.cd
+        htmlDir = C.htmlDir
+
+        if not os.path.exists(htmlDir):
+            os.makedirs(htmlDir, exist_ok=True)
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing plain text of these pages&#34;)
+
+        page = None
+
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{htmlDir}/{fileName}&#34;
+
+        doc = &#34;&#34;&#34;\
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34;/&gt;
+&lt;style&gt;
+body {
+  font-size: x-large;
+  text-align: right;
+  direction: rtl;
+}
+div.page {
+  text-align: right;
+}
+div.stripe {
+  display: flex;
+  flex-flow: row nowrap;
+}
+div.c, div.cl, div.cr {
+  text-align: right;
+}
+h3 {
+  text-align: right;
+}
+span.ln {
+  font-style: italic;
+  font-size: small;
+  vertical-align: super;
+  text-align: right;
+}
+&lt;/style&gt;
+  &lt;/head&gt;
+«body»
+&lt;/body&gt;
+&lt;/html&gt;
+&#34;&#34;&#34;
+        body = []
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            pageMaterial = []
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=&#34;word&#34;)
+            pg = page.bare.lstrip(&#34;0&#34;)
+            if pg == &#34;&#34;:
+                pg = &#34;0&#34;
+            pg = int(pg)
+            pageRep = f&#34;p{pg:&gt;03}&#34;
+            pageMaterial.append(f&#34;&#34;&#34;&lt;div page=&#34;{pageRep}&#34;&gt;&lt;h3&gt;{pg}&lt;/h3&gt;&#34;&#34;&#34;)
+
+            if page.empty:
+                pageMaterial.append(&#34;&#34;&#34;&lt;/div&gt;&#34;&#34;&#34;)
+                body.append(&#34;\n&#34;.join(pageMaterial))
+                continue
+
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            (prevStripe, prevBlock, prevLine) = (None, None, None)
+            stripeMaterial = []
+            blockMaterial = []
+            lineMaterial = []
+
+            for fields in stages[stage]:
+                (stripe, block, line) = fields[0:3]
+                if stripe != prevStripe:
+                    if prevStripe is not None:
+                        stripeMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+                        stripeMaterial = []
+                    stripeMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;stripe&#34; stripe=&#34;{stripe}&#34;&gt;&#34;&#34;&#34;)
+                    prevBlock = None
+                if block != prevBlock:
+                    if prevBlock is not None:
+                        blockMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+                        blockMaterial = []
+                    blockMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;c{block}&#34;&gt;&#34;&#34;&#34;)
+                    prevLine = None
+                if line != prevLine:
+                    if prevLine is not None:
+                        lineMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        blockMaterial.append(&#34; &#34;.join(lineMaterial))
+                        lineMaterial = []
+                    lineMaterial.append(
+                        f&#34;&#34;&#34;&lt;div line=&#34;{line}&#34;&gt;&lt;span class=&#34;ln&#34;&gt;{line}&lt;/span&gt;&#34;&#34;&#34;
+                    )
+                (prevStripe, prevBlock, prevLine) = (stripe, block, line)
+
+                word = fields[-2]
+                punc = fields[-1]
+                lineMaterial.append(f&#34;{word}{punc}&#34;)
+
+            blockMaterial.append(&#34; &#34;.join(lineMaterial))
+            stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+            pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+            pageMaterial.append(&#34;&lt;/div&gt;&#34;)
+            body.append(&#34;\n&#34;.join(pageMaterial))
+
+        indent(level=0)
+        with open(path, &#34;w&#34;) as f:
+            f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
+        info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)
+
+
+def main():
+    &#34;&#34;&#34;Process a whole book with default settings.
+
+    Go to the book directory and say
+
+    ```
+    python3 -m fusus.book [pages]
+    ```
+
+    where `pages` is an optional string specifying ranges
+    of pages as in `Book.process`
+    &#34;&#34;&#34;
+
+    pages = None
+    if len(sys.argv) &gt; 1:
+        pages = sys.argv[1]
+    B = Book()
+    B.process(pages=pages)
+
+
+if __name__ == &#34;__main__&#34;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fusus.book.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Process a whole book with default settings.</p>
+<p>Go to the book directory and say</p>
+<pre><code>python3 -m fusus.book [pages]
+</code></pre>
+<p>where <code>pages</code> is an optional string specifying ranges
+of pages as in <code><a title="fusus.book.Book.process" href="#fusus.book.Book.process">Book.process()</a></code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L853-L870" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;Process a whole book with default settings.
+
+    Go to the book directory and say
+
+    ```
+    python3 -m fusus.book [pages]
+    ```
+
+    where `pages` is an optional string specifying ranges
+    of pages as in `Book.process`
+    &#34;&#34;&#34;
+
+    pages = None
+    if len(sys.argv) &gt; 1:
+        pages = sys.argv[1]
+    B = Book()
+    B.process(pages=pages)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="fusus.book.Book"><code class="flex name class">
+<span>class <span class="ident">Book</span></span>
+<span>(</span><span>cd=None, **params)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Engine for book conversion.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cd</code></strong> :&ensp;<code>string</code>, optional</dt>
+<dd>If passed, performs a change directory to the directory specified.
+Else the whole book processing takes place in the current directory.
+You can use <code>~</code> to denote your home directory.</dd>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Any number of customizable settings from <code><a title="fusus.parameters.SETTINGS" href="parameters.html#fusus.parameters.SETTINGS">SETTINGS</a></code>.</p>
+<p>They will be in effect when running the workflow, until
+a <code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">Book.configure()</a></code> action will modify them.</p>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L116-L850" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">class Book:
+    def __init__(self, cd=None, **params):
+        &#34;&#34;&#34;Engine for book conversion.
+
+        Parameters
+        ----------
+        cd: string, optional
+            If passed, performs a change directory to the directory specified.
+            Else the whole book processing takes place in the current directory.
+            You can use `~` to denote your home directory.
+        params: dict, optional
+            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+
+            They will be in effect when running the workflow, until
+            a `Book.configure` action will modify them.
+        &#34;&#34;&#34;
+
+        if cd is None:
+            cd = &#34;&#34;
+        else:
+            cd = os.path.expanduser(cd)
+            os.chdir(cd)
+
+        if cd:
+            cd = f&#34;{cd}/&#34;
+
+        self.cd = cd
+
+        tm = Timestamp()
+        self.tm = tm
+        self.C = Config(tm, **params)
+        self._applySettings()
+        self.OCR = OCR(self)
+
+    def _applySettings(self):
+        &#34;&#34;&#34;After a settings update, recompute derived settings.&#34;&#34;&#34;
+
+        C = self.C
+        whit = C.whiteGRS
+        markParams = C.markParams
+        tm = self.tm
+        error = tm.error
+
+        self.marks = {}
+        marks = self.marks
+        offsetBand = {band: offset for (band, offset) in C.offsetBand.items()}
+        self.offsetBand = offsetBand
+
+        files = imageFileListSub(C.marksDir)
+
+        seq = 0
+
+        for (band, images) in files.items():
+            for f in images:
+                tweakDict = {}
+                bare = splitext(f)[0]
+                parts = bare.rsplit(&#34;(&#34;, 1)
+                if len(parts) &gt; 1:
+                    bare = parts[0]
+                    tweaks = parts[1][0:-1].split(&#34;,&#34;)
+                    for tweak in tweaks:
+                        if &#34;=&#34; not in tweak:
+                            error(f&#34;Malformed image parameter for {bare}: {tweak}&#34;)
+                            continue
+                        (k, v) = tweak.split(&#34;=&#34;, 1)
+                        if k not in markParams:
+                            error(f&#34;Unknown image parameter for {bare}: {k} in {k}={v}&#34;)
+                            continue
+                        try:
+                            tweakDict[k] = int(v) if k == &#34;bw&#34; else float(v)
+                        except Exception:
+                            error(f&#34;Unknown image parameter for {bare}: {v} in {k}={v}&#34;)
+
+                full = f&#34;{C.marksDir}/{band}/{f}&#34;
+                image = cv2.imread(full)
+                gray = reborder(
+                    cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 4, whit, crop=True
+                )
+
+                seq += 1
+                marks.setdefault(band, {})[bare] = dict(gray=gray, seq=seq)
+                dest = marks[band][bare]
+                for (k, kLong) in markParams.items():
+                    dest[kLong] = tweakDict.get(k, getattr(C, kLong))
+
+        self.allPages = imageFileList(C.inDir)
+        self.allPagesDesc = pagesRep(self.allPages)
+        self.allPagesList = pagesRep(self.allPages, asList=True)
+
+    def info(self, msg):
+        tm = self.tm
+        info = tm.info
+        info(msg)
+
+    def warning(self, msg):
+        tm = self.tm
+        warning = tm.warning
+        warning(msg)
+
+    def error(self, msg):
+        tm = self.tm
+        error = tm.error
+        error(msg)
+
+    def configure(self, reset=False, **params):
+        &#34;&#34;&#34;Updates current settings based on new values.
+
+        The signature is the same as `fusus.parameters.Config.configure`.
+        &#34;&#34;&#34;
+
+        self.C.configure(reset=reset, **params)
+        self._applySettings()
+
+    def showSettings(self, params=None):
+        &#34;&#34;&#34;Display settings.
+
+        Parameters
+        ----------
+        params: dict, optional
+            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+
+            The current values of given parameters will be displayed.
+            The values that you give each of the `params` here is not used,
+            only their names. It is recommended to pass `None` as values:
+
+            `B.showSettings(blurX=None, blurY=None)`
+        &#34;&#34;&#34;
+        self.C.show(params=params)
+
+    def availableBands(self):
+        &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        info(&#34;Available bands and their offsets&#34;, tm=False)
+        for (band, offset) in sorted(self.offsetBand.items()):
+            bandRep = f&#34;«{band}»&#34;
+            info(
+                f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False
+            )
+
+    def availableMarks(self, band=None, mark=None):
+        &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+        Parameters
+        ----------
+        band: string, optional `None`
+            Show only marks in this band. If `None`, show marks in all bands.
+        mark: string, optional `None`
+            Show only marks in with this name. If `None`, show marks with any name.
+        &#34;&#34;&#34;
+
+        C = self.C
+        grey = C.greyGRS
+        tm = self.tm
+        info = tm.info
+        marks = self.marks
+
+        info(&#34;Marks and their settings&#34;, tm=False)
+        for (bnd, markItems) in sorted(marks.items()):
+            if band is not None and band != bnd:
+                continue
+            bandRep = f&#34;[{bnd}]&#34;
+            info(f&#34;\tband {bandRep}&#34;, tm=False)
+            for (mrk, markInfo) in sorted(markItems.items()):
+                if mark is not None and mark != mrk:
+                    continue
+                markRep = f&#34;«{mrk}»&#34;
+                seq = markInfo[&#34;seq&#34;]
+                acc = markInfo[&#34;accuracy&#34;]
+                bw = markInfo[&#34;connectBorder&#34;]
+                r = markInfo[&#34;connectRatio&#34;]
+                info(
+                    f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;,
+                    tm=False,
+                )
+                markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+                showImage(markImage)
+
+    def availablePages(self):
+        &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+        pagesDesc = self.allPagesDesc
+
+        info(f&#34;{len(allPages)} pages: {pagesDesc}&#34;)
+
+    def _doPage(
+        self,
+        f,
+        batch=False,
+        boxed=True,
+        quiet=False,
+        doOcr=True,
+        uptoLayout=False,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;Process a single page.
+
+        Executes all processing steps for a single page.
+
+        Parameters
+        ----------
+        f: string
+            The file name of the scanned page with extension, without directory
+        batch: boolean, optional `False`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `True`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `False`
+            Whether to suppress warnings and the display of stroke separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
+
+        Returns
+        -------
+        A `fusus.page.Page` object, which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+        if quiet:
+            tm.silentOn(deep=True)
+        else:
+            tm.silentOff()
+
+        # baseLevel = 1 if batch else 0
+        baseLevel = 1
+        subLevel = baseLevel + 1
+        indent(level=baseLevel, reset=True)
+
+        bare = splitext(f)[0]
+
+        if not batch:
+            info(f&#34;Processing {bare}&#34;)
+
+        page = Page(self, f, batch=batch, boxed=boxed, **kwargs)
+        if batch or not page.empty:
+            if not batch:
+                indent(level=subLevel, reset=True)
+                info(&#34;normalizing&#34;)
+            page.doNormalize()
+            if page.empty:
+                return page
+
+            if not batch:
+                info(&#34;layout&#34;)
+            page.doLayout()
+            if not uptoLayout:
+                if not batch:
+                    info(&#34;cleaning&#34;)
+                page.cleaning(showKept=not batch or boxed)
+                if not page.empty and doOcr:
+                    if not batch:
+                        info(&#34;ocr&#34;)
+                    page.ocring()
+
+        tm.silentOff()
+
+        return page
+
+    def process(
+        self,
+        pages=None,
+        batch=True,
+        quiet=True,
+        boxed=False,
+        doOcr=True,
+        uptoLayout=False,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;Process directory of images.
+
+        Executes all processing steps for all images.
+
+        Parameters
+        ----------
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+        batch: boolean, optional `True`
+            Whether to run in batch mode.
+            In batch mode everything is geared to the final output.
+            Less intermediate results are computed and stored.
+            Less feedback happens on the console.
+        boxed: boolean, optional `False`
+            If in batch mode, produce also images that display the cleaned marks
+            in boxes.
+        quiet: boolean, optional `True`
+            Whether to suppress warnings and the display of stroke separators.
+        doOcr: boolean, optional `True`
+            Whether to perform OCR processing
+        uptoLayout: boolean, optional `False`
+            Whether to stop after doing layout
+
+        Returns
+        -------
+        A `fusus.page.Page` object for the last page processed,
+        which is the handle for further
+        inspection of what has happened during processing.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        allPages = self.allPages
+
+        tm.silentOff()
+
+        indent(reset=True)
+
+        C = self.C
+        interDir = C.interDir
+        outDir = C.outDir
+        cleanDir = C.cleanDir
+        proofDir = C.proofDir
+        htmlDir = C.htmlDir
+
+        for d in (interDir, outDir, cleanDir, proofDir, htmlDir):
+            if not os.path.exists(d):
+                os.makedirs(d, exist_ok=True)
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start batch processing images&#34;)
+        page = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = self._doPage(
+                imFile,
+                batch=batch,
+                boxed=boxed,
+                quiet=quiet,
+                doOcr=doOcr,
+                uptoLayout=uptoLayout,
+                **kwargs,
+            )
+            if not page.empty:
+                page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
+                if uptoLayout:
+                    info(f&#34;{msg}&#34;)
+                else:
+                    if not batch:
+                        page.write(stage=&#34;markData&#34;)
+                    if boxed:
+                        page.write(stage=&#34;boxed&#34;)
+                    info(f&#34;{msg}&#34;)
+        indent(level=0)
+        info(&#34;all done&#34;)
+
+        return page  # the last page processed
+
+    def stageDir(self, stage):
+        C = self.C
+        (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[stage]
+        trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
+        trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
+        return (getattr(C, stageDir or &#34;interDir&#34;), trail, stageExt)
+
+    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
+        &#34;&#34;&#34;Measure the reported quality of the ocr processing.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        showStats: boolean, optional `True`
+            Compute and show quality statistics
+
+        updateProofs: boolean, optional `False`
+            If true, regenerate all proofing pages.
+            This is desriable if you have tweaked the coloring of OCR results
+            depending on the confidence.
+            The OCR itself does not have to be performed again for this.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        cd = self.cd
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start measuring ocr quality of these images&#34;)
+        if updateProofs:
+            info(&#34;  end regenrating proof files&#34;)
+
+        page = None
+
+        results = dict(char=[], word=[])
+        resultsChar = collections.defaultdict(list)
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=(&#34;normalized,line,&#34; if updateProofs else &#34;&#34;) + &#34;word,char&#34;)
+            if page.empty:
+                continue
+
+            if updateProofs:
+                page.proofing()
+
+            if not showStats:
+                continue
+
+            stages = page.stages
+            pg = page.bare
+            pageRep = f&#34;p{pg}&#34;
+
+            for stage in (&#34;word&#34;, &#34;char&#34;):
+                proofStage = f&#34;proof{stage}&#34;
+                thisPageRep = f&#34;&#34;&#34;&lt;a href=&#34;{page.stagePath(proofStage)}&#34;&gt;p{pg}&lt;/a&gt;&#34;&#34;&#34;
+                isCharStage = stage == &#34;char&#34;
+                confI = -2 if isCharStage else -3
+
+                n = 0
+                totC = 0
+                (minC, maxC) = (100, 0)
+
+                for fields in stages[stage]:
+                    conf = int(fields[confI])
+                    totC += conf
+                    if conf &lt; minC:
+                        minC = conf
+                    if conf &gt; maxC:
+                        maxC = conf
+                    n += 1
+                    if isCharStage:
+                        c = fields[-1]
+                        resultsChar[c].append((pageRep, conf))
+                if n &gt; 0:
+                    results[stage].append((thisPageRep, n, minC, maxC, totC, &#34;&#34;))
+
+        if not showStats:
+            indent(level=0)
+            info(&#34;all done&#34;)
+            return
+
+        for stage in (&#34;word&#34;, &#34;char&#34;):
+            stageResults = results[stage]
+            if not len(stageResults):
+                continue
+            grandN = sum(r[1] for r in stageResults)
+            grandMin = min(r[2] for r in stageResults)
+            grandMax = max(r[3] for r in stageResults)
+            grandTot = sum(r[4] for r in stageResults)
+
+            toShow = [
+                (&#34;overall&#34;, grandN, grandMin, grandMax, grandTot, &#34;&#34;)
+            ] + stageResults
+
+            info(f&#34;{stage}-confidences of OCR results for {len(stageResults)} pages&#34;)
+            showConf(stage, toShow)
+
+        info(f&#34;by-char-confidences of OCR results for {len(resultsChar)} characters&#34;)
+        resultsCollected = []
+        (sDir, sTrail, sExt) = self.stageDir(&#34;proofchar&#34;)
+        showPath = unexpanduser(f&#34;{cd}{sDir}&#34;)
+        (isLink, nbLink) = getNbPath(showPath)
+        for c in sorted(resultsChar):
+            occs = sorted(resultsChar[c], key=lambda x: x[1])
+            elem = &#34;a&#34; if isLink else &#34;span&#34;
+            href = nbLink if isLink else None
+            worstExamples = []
+            for x in occs[0:20]:
+                href = (
+                    f&#39;&#39;&#39;href=&#34;{nbLink}/{x[0][1:]}{sTrail}.{sExt}&#34;&#39;&#39;&#39; if isLink else &#34;&#34;
+                )
+                worstExamples.append(
+                    f&#34;&#34;&#34;
+&lt;{elem}
+    style=&#34;background-color: {getProofColor(x[1])};&#34;
+    title=&#34;{showPath}/{x[0][1:]}{sTrail}.{sExt}&#34;
+    {href}
+&gt;{x[0]}&lt;/{elem}&gt;
+&#34;&#34;&#34;
+                )
+            worstExamples = &#34; &#34;.join(worstExamples)
+            nOccs = len(occs)
+            minC = min(r[1] for r in occs)
+            maxC = max(r[1] for r in occs)
+            totC = sum(r[1] for r in occs)
+            resultsCollected.append((f&#34;⌊{c}⌋&#34;, nOccs, minC, maxC, totC, worstExamples))
+        showConf(stage, resultsCollected, label=&#34;worst results&#34;)
+
+        indent(level=0)
+        info(&#34;all done&#34;)
+
+    def exportTsv(self, pages=None):
+        &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10`
+            (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the working directory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing single TSV file of these pages&#34;)
+
+        path = f&#34;{pagesFile}.tsv&#34;
+
+        first = True
+        f = None
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            page = Page(self, imFile, minimal=True)
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            if first:
+                headers = page.dataHeaders.get(stage, None)
+                header = &#34;\t&#34;.join(str(head) for head in headers)
+
+                f = open(path, &#34;w&#34;)
+                f.write(f&#34;{header}\n&#34;)
+
+                first = False
+
+            pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+            page.read(stage=stage)
+
+            data = stages[stage]
+            if not data:
+                continue
+
+            for fields in stages[stage]:
+                f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+        if f:
+            info(f&#34;written to {path}&#34;)
+            f.close()
+        else:
+            info(&#34;Nothing written&#34;)
+
+    def htmlPages(self, pages=None):
+        &#34;&#34;&#34;Get the text in html from the ocr output in one file
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the `text` subdirectory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        C = self.C
+        cd = self.cd
+        htmlDir = C.htmlDir
+
+        if not os.path.exists(htmlDir):
+            os.makedirs(htmlDir, exist_ok=True)
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing plain text of these pages&#34;)
+
+        page = None
+
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{htmlDir}/{fileName}&#34;
+
+        doc = &#34;&#34;&#34;\
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34;/&gt;
+&lt;style&gt;
+body {
+  font-size: x-large;
+  text-align: right;
+  direction: rtl;
+}
+div.page {
+  text-align: right;
+}
+div.stripe {
+  display: flex;
+  flex-flow: row nowrap;
+}
+div.c, div.cl, div.cr {
+  text-align: right;
+}
+h3 {
+  text-align: right;
+}
+span.ln {
+  font-style: italic;
+  font-size: small;
+  vertical-align: super;
+  text-align: right;
+}
+&lt;/style&gt;
+  &lt;/head&gt;
+«body»
+&lt;/body&gt;
+&lt;/html&gt;
+&#34;&#34;&#34;
+        body = []
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            pageMaterial = []
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=&#34;word&#34;)
+            pg = page.bare.lstrip(&#34;0&#34;)
+            if pg == &#34;&#34;:
+                pg = &#34;0&#34;
+            pg = int(pg)
+            pageRep = f&#34;p{pg:&gt;03}&#34;
+            pageMaterial.append(f&#34;&#34;&#34;&lt;div page=&#34;{pageRep}&#34;&gt;&lt;h3&gt;{pg}&lt;/h3&gt;&#34;&#34;&#34;)
+
+            if page.empty:
+                pageMaterial.append(&#34;&#34;&#34;&lt;/div&gt;&#34;&#34;&#34;)
+                body.append(&#34;\n&#34;.join(pageMaterial))
+                continue
+
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            (prevStripe, prevBlock, prevLine) = (None, None, None)
+            stripeMaterial = []
+            blockMaterial = []
+            lineMaterial = []
+
+            for fields in stages[stage]:
+                (stripe, block, line) = fields[0:3]
+                if stripe != prevStripe:
+                    if prevStripe is not None:
+                        stripeMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+                        stripeMaterial = []
+                    stripeMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;stripe&#34; stripe=&#34;{stripe}&#34;&gt;&#34;&#34;&#34;)
+                    prevBlock = None
+                if block != prevBlock:
+                    if prevBlock is not None:
+                        blockMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+                        blockMaterial = []
+                    blockMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;c{block}&#34;&gt;&#34;&#34;&#34;)
+                    prevLine = None
+                if line != prevLine:
+                    if prevLine is not None:
+                        lineMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        blockMaterial.append(&#34; &#34;.join(lineMaterial))
+                        lineMaterial = []
+                    lineMaterial.append(
+                        f&#34;&#34;&#34;&lt;div line=&#34;{line}&#34;&gt;&lt;span class=&#34;ln&#34;&gt;{line}&lt;/span&gt;&#34;&#34;&#34;
+                    )
+                (prevStripe, prevBlock, prevLine) = (stripe, block, line)
+
+                word = fields[-2]
+                punc = fields[-1]
+                lineMaterial.append(f&#34;{word}{punc}&#34;)
+
+            blockMaterial.append(&#34; &#34;.join(lineMaterial))
+            stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+            pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+            pageMaterial.append(&#34;&lt;/div&gt;&#34;)
+            body.append(&#34;\n&#34;.join(pageMaterial))
+
+        indent(level=0)
+        with open(path, &#34;w&#34;) as f:
+            f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
+        info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="fusus.book.Book.availableBands"><code class="name flex">
+<span>def <span class="ident">availableBands</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the characteristics of all defined <em>bands</em>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L245-L256" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def availableBands(self):
+    &#34;&#34;&#34;Display the characteristics of all defined *bands*.&#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    info(&#34;Available bands and their offsets&#34;, tm=False)
+    for (band, offset) in sorted(self.offsetBand.items()):
+        bandRep = f&#34;«{band}»&#34;
+        info(
+            f&#34;\t{bandRep:&lt;10}: top={offset[0]:&gt;4}, bottom={offset[1]:&gt;4}&#34;, tm=False
+        )</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.availableMarks"><code class="name flex">
+<span>def <span class="ident">availableMarks</span></span>(<span>self, band=None, mark=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the characteristics of defined <em>marks</em>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>band</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>Show only marks in this band. If <code>None</code>, show marks in all bands.</dd>
+<dt><strong><code>mark</code></strong> :&ensp;<code>string</code>, optional <code>None</code></dt>
+<dd>Show only marks in with this name. If <code>None</code>, show marks with any name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L258-L294" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def availableMarks(self, band=None, mark=None):
+    &#34;&#34;&#34;Display the characteristics of defined *marks*.
+
+    Parameters
+    ----------
+    band: string, optional `None`
+        Show only marks in this band. If `None`, show marks in all bands.
+    mark: string, optional `None`
+        Show only marks in with this name. If `None`, show marks with any name.
+    &#34;&#34;&#34;
+
+    C = self.C
+    grey = C.greyGRS
+    tm = self.tm
+    info = tm.info
+    marks = self.marks
+
+    info(&#34;Marks and their settings&#34;, tm=False)
+    for (bnd, markItems) in sorted(marks.items()):
+        if band is not None and band != bnd:
+            continue
+        bandRep = f&#34;[{bnd}]&#34;
+        info(f&#34;\tband {bandRep}&#34;, tm=False)
+        for (mrk, markInfo) in sorted(markItems.items()):
+            if mark is not None and mark != mrk:
+                continue
+            markRep = f&#34;«{mrk}»&#34;
+            seq = markInfo[&#34;seq&#34;]
+            acc = markInfo[&#34;accuracy&#34;]
+            bw = markInfo[&#34;connectBorder&#34;]
+            r = markInfo[&#34;connectRatio&#34;]
+            info(
+                f&#34;\t\t{seq:&gt;3}: {markRep:&lt;20} acc={acc}, bw={bw}, r={r}&#34;,
+                tm=False,
+            )
+            markImage = reborder(markInfo[&#34;gray&#34;], 2, grey)
+            showImage(markImage)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.availablePages"><code class="name flex">
+<span>def <span class="ident">availablePages</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display the amount and page numbers of all pages.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L296-L305" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def availablePages(self):
+    &#34;&#34;&#34;Display the amount and page numbers of all pages.&#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    allPages = self.allPages
+    pagesDesc = self.allPagesDesc
+
+    info(f&#34;{len(allPages)} pages: {pagesDesc}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.configure"><code class="name flex">
+<span>def <span class="ident">configure</span></span>(<span>self, reset=False, **params)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates current settings based on new values.</p>
+<p>The signature is the same as <code><a title="fusus.parameters.Config.configure" href="parameters.html#fusus.parameters.Config.configure">Config.configure()</a></code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L220-L227" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def configure(self, reset=False, **params):
+    &#34;&#34;&#34;Updates current settings based on new values.
+
+    The signature is the same as `fusus.parameters.Config.configure`.
+    &#34;&#34;&#34;
+
+    self.C.configure(reset=reset, **params)
+    self._applySettings()</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.error"><code class="name flex">
+<span>def <span class="ident">error</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L215-L218" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def error(self, msg):
+    tm = self.tm
+    error = tm.error
+    error(msg)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.exportTsv"><code class="name flex">
+<span>def <span class="ident">exportTsv</span></span>(<span>self, pages=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Combine the tsv data per page to one big tsv file.</p>
+<p>pages: string | int, optional <code>None</code>
+Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code>
+(from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</p>
+<p>The output is written to the working directory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L639-L700" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def exportTsv(self, pages=None):
+    &#34;&#34;&#34;Combine the tsv data per page to one big tsv file.
+
+    pages: string | int, optional `None`
+        Specification of pages to do. If absent or `None`: all pages.
+        If an int, do only that page.
+        Otherwise it must be a comma separated string of (ranges of) page numbers.
+        Half ranges are also allowed: `-10`
+        (from beginning up to and including `10`)
+        and `10-` (from 10 till end).
+        E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+        No spaces allowed.
+
+    The output is written to the working directory.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+
+    allPages = self.allPages
+
+    imageFiles = select(allPages, pages)
+    pagesFile = ALL_PAGES if pages is None else pagesRep(imageFiles)
+    pagesDesc = pagesRep(imageFiles)
+    info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+    info(&#34;Start producing single TSV file of these pages&#34;)
+
+    path = f&#34;{pagesFile}.tsv&#34;
+
+    first = True
+    f = None
+
+    for (i, imFile) in enumerate(sorted(imageFiles)):
+        page = Page(self, imFile, minimal=True)
+        stages = page.stages
+        stage = &#34;word&#34;
+
+        if first:
+            headers = page.dataHeaders.get(stage, None)
+            header = &#34;\t&#34;.join(str(head) for head in headers)
+
+            f = open(path, &#34;w&#34;)
+            f.write(f&#34;{header}\n&#34;)
+
+            first = False
+
+        pageNum = int(page.bare.lstrip(&#34;0&#34;) or &#34;0&#34;)
+        page.read(stage=stage)
+
+        data = stages[stage]
+        if not data:
+            continue
+
+        for fields in stages[stage]:
+            f.write(f&#34;{pageNum}\t&#34; + &#34;\t&#34;.join(str(f) for f in fields) + &#34;\n&#34;)
+
+    if f:
+        info(f&#34;written to {path}&#34;)
+        f.close()
+    else:
+        info(&#34;Nothing written&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.htmlPages"><code class="name flex">
+<span>def <span class="ident">htmlPages</span></span>(<span>self, pages=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the text in html from the ocr output in one file</p>
+<p>pages: string | int, optional <code>None</code>
+Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code> (from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</p>
+<p>The output is written to the <code>text</code> subdirectory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L702-L850" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">    def htmlPages(self, pages=None):
+        &#34;&#34;&#34;Get the text in html from the ocr output in one file
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        The output is written to the `text` subdirectory.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        C = self.C
+        cd = self.cd
+        htmlDir = C.htmlDir
+
+        if not os.path.exists(htmlDir):
+            os.makedirs(htmlDir, exist_ok=True)
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start producing plain text of these pages&#34;)
+
+        page = None
+
+        fileName = f&#34;{pagesDesc}.html&#34;
+        path = f&#34;{htmlDir}/{fileName}&#34;
+
+        doc = &#34;&#34;&#34;\
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34;/&gt;
+&lt;style&gt;
+body {
+  font-size: x-large;
+  text-align: right;
+  direction: rtl;
+}
+div.page {
+  text-align: right;
+}
+div.stripe {
+  display: flex;
+  flex-flow: row nowrap;
+}
+div.c, div.cl, div.cr {
+  text-align: right;
+}
+h3 {
+  text-align: right;
+}
+span.ln {
+  font-style: italic;
+  font-size: small;
+  vertical-align: super;
+  text-align: right;
+}
+&lt;/style&gt;
+  &lt;/head&gt;
+«body»
+&lt;/body&gt;
+&lt;/html&gt;
+&#34;&#34;&#34;
+        body = []
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            pageMaterial = []
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=&#34;word&#34;)
+            pg = page.bare.lstrip(&#34;0&#34;)
+            if pg == &#34;&#34;:
+                pg = &#34;0&#34;
+            pg = int(pg)
+            pageRep = f&#34;p{pg:&gt;03}&#34;
+            pageMaterial.append(f&#34;&#34;&#34;&lt;div page=&#34;{pageRep}&#34;&gt;&lt;h3&gt;{pg}&lt;/h3&gt;&#34;&#34;&#34;)
+
+            if page.empty:
+                pageMaterial.append(&#34;&#34;&#34;&lt;/div&gt;&#34;&#34;&#34;)
+                body.append(&#34;\n&#34;.join(pageMaterial))
+                continue
+
+            stages = page.stages
+            stage = &#34;word&#34;
+
+            (prevStripe, prevBlock, prevLine) = (None, None, None)
+            stripeMaterial = []
+            blockMaterial = []
+            lineMaterial = []
+
+            for fields in stages[stage]:
+                (stripe, block, line) = fields[0:3]
+                if stripe != prevStripe:
+                    if prevStripe is not None:
+                        stripeMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+                        stripeMaterial = []
+                    stripeMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;stripe&#34; stripe=&#34;{stripe}&#34;&gt;&#34;&#34;&#34;)
+                    prevBlock = None
+                if block != prevBlock:
+                    if prevBlock is not None:
+                        blockMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+                        blockMaterial = []
+                    blockMaterial.append(f&#34;&#34;&#34;&lt;div class=&#34;c{block}&#34;&gt;&#34;&#34;&#34;)
+                    prevLine = None
+                if line != prevLine:
+                    if prevLine is not None:
+                        lineMaterial.append(&#34;&lt;/div&gt;&#34;)
+                        blockMaterial.append(&#34; &#34;.join(lineMaterial))
+                        lineMaterial = []
+                    lineMaterial.append(
+                        f&#34;&#34;&#34;&lt;div line=&#34;{line}&#34;&gt;&lt;span class=&#34;ln&#34;&gt;{line}&lt;/span&gt;&#34;&#34;&#34;
+                    )
+                (prevStripe, prevBlock, prevLine) = (stripe, block, line)
+
+                word = fields[-2]
+                punc = fields[-1]
+                lineMaterial.append(f&#34;{word}{punc}&#34;)
+
+            blockMaterial.append(&#34; &#34;.join(lineMaterial))
+            stripeMaterial.append(&#34;\n&#34;.join(blockMaterial))
+            pageMaterial.append(&#34;\n&#34;.join(stripeMaterial))
+            pageMaterial.append(&#34;&lt;/div&gt;&#34;)
+            body.append(&#34;\n&#34;.join(pageMaterial))
+
+        indent(level=0)
+        with open(path, &#34;w&#34;) as f:
+            f.write(doc.replace(&#34;«body»&#34;, &#34;\n&#34;.join(body)))
+        info(f&#34;written to {path}&#34;)
+        showPath = unexpanduser(f&#34;{cd}{path}&#34;)
+        nbLink = getNbLink(showPath, fileName)
+        if nbLink is None:
+            dh(showPath)
+        else:
+            dh(f&#34;&#34;&#34;{nbLink} (local file: {showPath})&#34;&#34;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.info"><code class="name flex">
+<span>def <span class="ident">info</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L205-L208" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def info(self, msg):
+    tm = self.tm
+    info = tm.info
+    info(msg)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.measureQuality"><code class="name flex">
+<span>def <span class="ident">measureQuality</span></span>(<span>self, pages=None, showStats=True, updateProofs=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Measure the reported quality of the ocr processing.</p>
+<p>pages: string | int, optional <code>None</code>
+Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code> (from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</p>
+<p>showStats: boolean, optional <code>True</code>
+Compute and show quality statistics</p>
+<p>updateProofs: boolean, optional <code>False</code>
+If true, regenerate all proofing pages.
+This is desriable if you have tweaked the coloring of OCR results
+depending on the confidence.
+The OCR itself does not have to be performed again for this.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L498-L637" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">    def measureQuality(self, pages=None, showStats=True, updateProofs=False):
+        &#34;&#34;&#34;Measure the reported quality of the ocr processing.
+
+        pages: string | int, optional `None`
+            Specification of pages to do. If absent or `None`: all pages.
+            If an int, do only that page.
+            Otherwise it must be a comma separated string of (ranges of) page numbers.
+            Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+            and `10-` (from 10 till end).
+            E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+            No spaces allowed.
+
+        showStats: boolean, optional `True`
+            Compute and show quality statistics
+
+        updateProofs: boolean, optional `False`
+            If true, regenerate all proofing pages.
+            This is desriable if you have tweaked the coloring of OCR results
+            depending on the confidence.
+            The OCR itself does not have to be performed again for this.
+        &#34;&#34;&#34;
+
+        tm = self.tm
+        info = tm.info
+        indent = tm.indent
+
+        cd = self.cd
+
+        allPages = self.allPages
+
+        imageFiles = select(allPages, pages)
+        pagesDesc = pagesRep(imageFiles)
+        info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+        info(&#34;Start measuring ocr quality of these images&#34;)
+        if updateProofs:
+            info(&#34;  end regenrating proof files&#34;)
+
+        page = None
+
+        results = dict(char=[], word=[])
+        resultsChar = collections.defaultdict(list)
+
+        for (i, imFile) in enumerate(sorted(imageFiles)):
+            indent(level=1, reset=True)
+            msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+            info(f&#34;{msg}\r&#34;, nl=False)
+            page = Page(self, imFile, minimal=True)
+            page.read(stage=(&#34;normalized,line,&#34; if updateProofs else &#34;&#34;) + &#34;word,char&#34;)
+            if page.empty:
+                continue
+
+            if updateProofs:
+                page.proofing()
+
+            if not showStats:
+                continue
+
+            stages = page.stages
+            pg = page.bare
+            pageRep = f&#34;p{pg}&#34;
+
+            for stage in (&#34;word&#34;, &#34;char&#34;):
+                proofStage = f&#34;proof{stage}&#34;
+                thisPageRep = f&#34;&#34;&#34;&lt;a href=&#34;{page.stagePath(proofStage)}&#34;&gt;p{pg}&lt;/a&gt;&#34;&#34;&#34;
+                isCharStage = stage == &#34;char&#34;
+                confI = -2 if isCharStage else -3
+
+                n = 0
+                totC = 0
+                (minC, maxC) = (100, 0)
+
+                for fields in stages[stage]:
+                    conf = int(fields[confI])
+                    totC += conf
+                    if conf &lt; minC:
+                        minC = conf
+                    if conf &gt; maxC:
+                        maxC = conf
+                    n += 1
+                    if isCharStage:
+                        c = fields[-1]
+                        resultsChar[c].append((pageRep, conf))
+                if n &gt; 0:
+                    results[stage].append((thisPageRep, n, minC, maxC, totC, &#34;&#34;))
+
+        if not showStats:
+            indent(level=0)
+            info(&#34;all done&#34;)
+            return
+
+        for stage in (&#34;word&#34;, &#34;char&#34;):
+            stageResults = results[stage]
+            if not len(stageResults):
+                continue
+            grandN = sum(r[1] for r in stageResults)
+            grandMin = min(r[2] for r in stageResults)
+            grandMax = max(r[3] for r in stageResults)
+            grandTot = sum(r[4] for r in stageResults)
+
+            toShow = [
+                (&#34;overall&#34;, grandN, grandMin, grandMax, grandTot, &#34;&#34;)
+            ] + stageResults
+
+            info(f&#34;{stage}-confidences of OCR results for {len(stageResults)} pages&#34;)
+            showConf(stage, toShow)
+
+        info(f&#34;by-char-confidences of OCR results for {len(resultsChar)} characters&#34;)
+        resultsCollected = []
+        (sDir, sTrail, sExt) = self.stageDir(&#34;proofchar&#34;)
+        showPath = unexpanduser(f&#34;{cd}{sDir}&#34;)
+        (isLink, nbLink) = getNbPath(showPath)
+        for c in sorted(resultsChar):
+            occs = sorted(resultsChar[c], key=lambda x: x[1])
+            elem = &#34;a&#34; if isLink else &#34;span&#34;
+            href = nbLink if isLink else None
+            worstExamples = []
+            for x in occs[0:20]:
+                href = (
+                    f&#39;&#39;&#39;href=&#34;{nbLink}/{x[0][1:]}{sTrail}.{sExt}&#34;&#39;&#39;&#39; if isLink else &#34;&#34;
+                )
+                worstExamples.append(
+                    f&#34;&#34;&#34;
+&lt;{elem}
+    style=&#34;background-color: {getProofColor(x[1])};&#34;
+    title=&#34;{showPath}/{x[0][1:]}{sTrail}.{sExt}&#34;
+    {href}
+&gt;{x[0]}&lt;/{elem}&gt;
+&#34;&#34;&#34;
+                )
+            worstExamples = &#34; &#34;.join(worstExamples)
+            nOccs = len(occs)
+            minC = min(r[1] for r in occs)
+            maxC = max(r[1] for r in occs)
+            totC = sum(r[1] for r in occs)
+            resultsCollected.append((f&#34;⌊{c}⌋&#34;, nOccs, minC, maxC, totC, worstExamples))
+        showConf(stage, resultsCollected, label=&#34;worst results&#34;)
+
+        indent(level=0)
+        info(&#34;all done&#34;)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.process"><code class="name flex">
+<span>def <span class="ident">process</span></span>(<span>self, pages=None, batch=True, quiet=True, boxed=False, doOcr=True, uptoLayout=False, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Process directory of images.</p>
+<p>Executes all processing steps for all images.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pages</code></strong> :&ensp;<code>string | int</code>, optional <code>None</code></dt>
+<dd>Specification of pages to do. If absent or <code>None</code>: all pages.
+If an int, do only that page.
+Otherwise it must be a comma separated string of (ranges of) page numbers.
+Half ranges are also allowed: <code>-10</code> (from beginning up to and including <code>10</code>)
+and <code>10-</code> (from 10 till end).
+E.g. <code>1</code> and <code>5-7</code> and <code>2-5,8-10</code>, and <code>-10,15-20,30-</code>.
+No spaces allowed.</dd>
+<dt><strong><code>batch</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to run in batch mode.
+In batch mode everything is geared to the final output.
+Less intermediate results are computed and stored.
+Less feedback happens on the console.</dd>
+<dt><strong><code>boxed</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If in batch mode, produce also images that display the cleaned marks
+in boxes.</dd>
+<dt><strong><code>quiet</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to suppress warnings and the display of stroke separators.</dd>
+<dt><strong><code>doOcr</code></strong> :&ensp;<code>boolean</code>, optional <code>True</code></dt>
+<dd>Whether to perform OCR processing</dd>
+<dt><strong><code>uptoLayout</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>Whether to stop after doing layout</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt>A <code><a title="fusus.page.Page" href="page.html#fusus.page.Page">Page</a></code> object for the last page processed,</dt>
+<dt><code>which is the handle for further</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>inspection of what has happened during processing.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L389-L489" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def process(
+    self,
+    pages=None,
+    batch=True,
+    quiet=True,
+    boxed=False,
+    doOcr=True,
+    uptoLayout=False,
+    **kwargs,
+):
+    &#34;&#34;&#34;Process directory of images.
+
+    Executes all processing steps for all images.
+
+    Parameters
+    ----------
+    pages: string | int, optional `None`
+        Specification of pages to do. If absent or `None`: all pages.
+        If an int, do only that page.
+        Otherwise it must be a comma separated string of (ranges of) page numbers.
+        Half ranges are also allowed: `-10` (from beginning up to and including `10`)
+        and `10-` (from 10 till end).
+        E.g. `1` and `5-7` and `2-5,8-10`, and `-10,15-20,30-`.
+        No spaces allowed.
+    batch: boolean, optional `True`
+        Whether to run in batch mode.
+        In batch mode everything is geared to the final output.
+        Less intermediate results are computed and stored.
+        Less feedback happens on the console.
+    boxed: boolean, optional `False`
+        If in batch mode, produce also images that display the cleaned marks
+        in boxes.
+    quiet: boolean, optional `True`
+        Whether to suppress warnings and the display of stroke separators.
+    doOcr: boolean, optional `True`
+        Whether to perform OCR processing
+    uptoLayout: boolean, optional `False`
+        Whether to stop after doing layout
+
+    Returns
+    -------
+    A `fusus.page.Page` object for the last page processed,
+    which is the handle for further
+    inspection of what has happened during processing.
+    &#34;&#34;&#34;
+
+    tm = self.tm
+    info = tm.info
+    indent = tm.indent
+
+    allPages = self.allPages
+
+    tm.silentOff()
+
+    indent(reset=True)
+
+    C = self.C
+    interDir = C.interDir
+    outDir = C.outDir
+    cleanDir = C.cleanDir
+    proofDir = C.proofDir
+    htmlDir = C.htmlDir
+
+    for d in (interDir, outDir, cleanDir, proofDir, htmlDir):
+        if not os.path.exists(d):
+            os.makedirs(d, exist_ok=True)
+
+    imageFiles = select(allPages, pages)
+    pagesDesc = pagesRep(imageFiles)
+    info(f&#34;Batch of {len(imageFiles)} pages: {pagesDesc}&#34;)
+
+    info(&#34;Start batch processing images&#34;)
+    page = None
+
+    for (i, imFile) in enumerate(sorted(imageFiles)):
+        indent(level=1, reset=True)
+        msg = f&#34;{i + 1:&gt;5} {imFile:&lt;40}&#34;
+        info(f&#34;{msg}\r&#34;, nl=False)
+        page = self._doPage(
+            imFile,
+            batch=batch,
+            boxed=boxed,
+            quiet=quiet,
+            doOcr=doOcr,
+            uptoLayout=uptoLayout,
+            **kwargs,
+        )
+        if not page.empty:
+            page.write(stage=&#34;normalized,histogram,clean&#34;, perBlock=False)
+            if uptoLayout:
+                info(f&#34;{msg}&#34;)
+            else:
+                if not batch:
+                    page.write(stage=&#34;markData&#34;)
+                if boxed:
+                    page.write(stage=&#34;boxed&#34;)
+                info(f&#34;{msg}&#34;)
+    indent(level=0)
+    info(&#34;all done&#34;)
+
+    return page  # the last page processed</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.showSettings"><code class="name flex">
+<span>def <span class="ident">showSettings</span></span>(<span>self, params=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display settings.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Any number of customizable settings from <code><a title="fusus.parameters.SETTINGS" href="parameters.html#fusus.parameters.SETTINGS">SETTINGS</a></code>.</p>
+<p>The current values of given parameters will be displayed.
+The values that you give each of the <code>params</code> here is not used,
+only their names. It is recommended to pass <code>None</code> as values:</p>
+<p><code>B.showSettings(blurX=None, blurY=None)</code></p>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L229-L243" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def showSettings(self, params=None):
+    &#34;&#34;&#34;Display settings.
+
+    Parameters
+    ----------
+    params: dict, optional
+        Any number of customizable settings from `fusus.parameters.SETTINGS`.
+
+        The current values of given parameters will be displayed.
+        The values that you give each of the `params` here is not used,
+        only their names. It is recommended to pass `None` as values:
+
+        `B.showSettings(blurX=None, blurY=None)`
+    &#34;&#34;&#34;
+    self.C.show(params=params)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.stageDir"><code class="name flex">
+<span>def <span class="ident">stageDir</span></span>(<span>self, stage)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L491-L496" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def stageDir(self, stage):
+    C = self.C
+    (stageType, stageColor, stageExt, stageDir, stagePart) = C.stages[stage]
+    trail = stage if stagePart is None else &#34;&#34; if not stagePart else stagePart
+    trail = &#34;&#34; if not trail else f&#34;-{trail}&#34;
+    return (getattr(C, stageDir or &#34;interDir&#34;), trail, stageExt)</code></pre>
+</details>
+</dd>
+<dt id="fusus.book.Book.warning"><code class="name flex">
+<span>def <span class="ident">warning</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/42469b0b9ce39745db937349d4507a7eedaa7ac7/fusus/book.py#L210-L213" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def warning(self, msg):
+    tm = self.tm
+    warning = tm.warning
+    warning(msg)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<p><a href="https://github.com/among" title="among Digital Manuscripts on GitHub"><img src="../fusus/images/fusus-small.png"></a></p>
+<p><a href="../fusus/index.html">fusus home</a> -
+<a href="../fusus/about/howto.html">HowTo</a>
+<a href="https://github.com/among/fusus" title="GitHub repo"><img src="../tf/images/GitHub_Logo.png" alt="GitHub" width="50"></a></p>
+</p>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#the-express-way">The express way</a></li>
+<li><a href="#with-more-control-and-feedback">With more control and feedback</a></li>
+<li><a href="#book-directory">Book directory</a><ul>
+<li><a href="#marks">Marks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fusus" href="index.html">fusus</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fusus.book.main" href="#fusus.book.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fusus.book.Book" href="#fusus.book.Book">Book</a></code></h4>
+<ul class="two-column">
+<li><code><a title="fusus.book.Book.availableBands" href="#fusus.book.Book.availableBands">availableBands</a></code></li>
+<li><code><a title="fusus.book.Book.availableMarks" href="#fusus.book.Book.availableMarks">availableMarks</a></code></li>
+<li><code><a title="fusus.book.Book.availablePages" href="#fusus.book.Book.availablePages">availablePages</a></code></li>
+<li><code><a title="fusus.book.Book.configure" href="#fusus.book.Book.configure">configure</a></code></li>
+<li><code><a title="fusus.book.Book.error" href="#fusus.book.Book.error">error</a></code></li>
+<li><code><a title="fusus.book.Book.exportTsv" href="#fusus.book.Book.exportTsv">exportTsv</a></code></li>
+<li><code><a title="fusus.book.Book.htmlPages" href="#fusus.book.Book.htmlPages">htmlPages</a></code></li>
+<li><code><a title="fusus.book.Book.info" href="#fusus.book.Book.info">info</a></code></li>
+<li><code><a title="fusus.book.Book.measureQuality" href="#fusus.book.Book.measureQuality">measureQuality</a></code></li>
+<li><code><a title="fusus.book.Book.process" href="#fusus.book.Book.process">process</a></code></li>
+<li><code><a title="fusus.book.Book.showSettings" href="#fusus.book.Book.showSettings">showSettings</a></code></li>
+<li><code><a title="fusus.book.Book.stageDir" href="#fusus.book.Book.stageDir">stageDir</a></code></li>
+<li><code><a title="fusus.book.Book.warning" href="#fusus.book.Book.warning">warning</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<a href="https://digitalorientalist.com/about-cornelis-van-lit/">Cornelis van Lit</a>
+<a href="https://pure.knaw.nl/portal/en/persons/dirk-roorda">Dirk Roorda</a>
+<a href="https://www.dans.knaw.nl"><img alt="DANS" src="../fusus/images/dans.png" width="200" alt="DANS"></a>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
