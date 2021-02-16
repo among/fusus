@@ -6,6 +6,7 @@
 </div>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309884.svg)](https://doi.org/10.5281/zenodo.4309884)
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/among/fusus/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/among/fusus)
 
 # Fusus
 
