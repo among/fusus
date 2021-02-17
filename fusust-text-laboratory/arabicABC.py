@@ -1,4 +1,5 @@
-
+QURANCLOSE = '﴾'
+QURANOPEN = '﴿'
 COMMA = '\u060C'
 SEMICOLON = '\u061B'
 QUESTION = '\u061F'
