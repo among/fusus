@@ -53,4 +53,4 @@ It has been developed between 2020-03-01 and 2021-03-01
 
 There is more documentation about sources, the research project, and how to use
 this software in the
-[docs](https://among.github.io/fusus/).
+[docs](https://among.github.io/fusus/fusus).
