@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about.rationale API documentation</title>
-<meta name="description" content="Rationale …" />
+<title>fusus.about.transcriptionl API documentation</title>
+<meta name="description" content="Lakhnawi transcription …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,28 +17,217 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.rationale</code></h1>
+<h1 class="title">Module <code>fusus.about.transcriptionl</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="rationale">Rationale</h1>
-<p>We skectch the academic background of this project.</p>
-<p>Medieval Arabic texts, especially those from intellectual history
-(philosophy, natural theology, theoretical mysticism) are sorely underrepresented
-in current digital text databases (such as al-Maktaba al-Shamela and Noorlib).
-There are, however, many (critical or not so critical) editions available of these texts.
-We therefore wanted to advance the use of printed editions to automatically create digital texts.</p>
-<p>Commentary writing is the practice of taking an earlier text and interspersing it with additional text.
-A commentary tradition is the standardization of such a practice on a given earlier text.
-This phenomenon is widely perceived in late medieval and early modern Islamic intellectual history.
-Ibn Arabi’s Fusus al-hikam is an example of such a source text, on which dozens, perhaps hundreds,
-of commentaries were written through the centuries.</p>
+<h1 id="lakhnawi-transcription">Lakhnawi transcription</h1>
+<p>The Text-Fabric data is derived from the Lakhnawi PDF by reverse engineering.
+The PDF is a textual PDF with an unusual usage of fonts to obtain desired effects with
+ligatures and diacritics.</p>
+<h1 id="divisions">Divisions</h1>
+<p>The text is divided into the following chunks</p>
+<h2 id="piece">Piece</h2>
+<p><strong>Section level 1</strong></p>
+<p>Logical unit, corresponding to the main division of the work: <em>bezel</em>.
+(The title of the work is: <em>bezels</em> of wisdom.)</p>
+<p>Some pieces are in fact introductory chapters, and not the <em>bezels</em> of the
+main work.</p>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>sequence number of a piece, starting with 1</td>
+</tr>
+<tr>
+<td><code>np</code></td>
+<td>int</td>
+<td>sequence number of a proper content piece, i.e. a <em>bezel</em></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>str</td>
+<td>title of a piece</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page">Page</h2>
+<p><strong>Section level 2</strong></p>
+<p>Physical unit: a printed page.</p>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>sequence number of a page, starting with 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="line">Line</h2>
+<p><strong>Section level 3</strong></p>
+<p>Physical unit: a printed line within a page.</p>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>sequence number of a page, starting with 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="column">Column</h2>
+<p>Logical/physical unit: a column within a line.</p>
+<p>Note that the page is not divided into columns.
+Some lines are divided into columns in
+hemistic poems. See <code><a title="fusus.lakhnawi.Lakhnawi.columns" href="../lakhnawi.html#fusus.lakhnawi.Lakhnawi.columns">Lakhnawi.columns</a></code>.</p>
+<h2 id="span">Span</h2>
+<p>Logical/physical unit: a strectch of text with the same writing direction.
+Whenever the writing direction reverses, a new span is started.</p>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>sequence number of a span within a column or line</td>
+</tr>
+<tr>
+<td><code>dir</code></td>
+<td>str</td>
+<td>writing direction of a span; either <code>r</code> or <code>l</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sentence">Sentence</h2>
+<p>Logical unit: a sentence, defined by the full-stop marker.
+Whenever the writing direction reverses, a new span is started.</p>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>int</td>
+<td>sequence number of a span within a column or line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="word">Word</h2>
+<p>Logical/physical unit: individual words in as far they are separated
+by whitespace.</p>
+<div class="admonition caution">
+<p class="admonition-title">Imperfect whitespace detection</p>
+<p>We do not guarantee that whitespace has been detected
+perfectly.
+So we do miss word boundaries on the one hand, and we
+have spurious word boundaries on the other hand.</p>
+</div>
+<p><strong>Features</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boxl</code></td>
+<td>int</td>
+<td>left x-coordinate of the bounding box of a word</td>
+</tr>
+<tr>
+<td><code>boxt</code></td>
+<td>int</td>
+<td>top y-coordinate of the bounding box of a word</td>
+</tr>
+<tr>
+<td><code>boxr</code></td>
+<td>int</td>
+<td>right x-coordinate of the bounding box of a word</td>
+</tr>
+<tr>
+<td><code>boxb</code></td>
+<td>int</td>
+<td>bottom y-coordinate of the bounding box of a word</td>
+</tr>
+<tr>
+<td><code>letters</code></td>
+<td>str</td>
+<td>the text of a word in Arabic, unicode, without punctuation</td>
+</tr>
+<tr>
+<td><code>lettersn</code></td>
+<td>str</td>
+<td>the text of a word in beta code, latin + diacritics</td>
+</tr>
+<tr>
+<td><code>lettersp</code></td>
+<td>str</td>
+<td>the text of a word in beta code, ascii</td>
+</tr>
+<tr>
+<td><code>letterst</code></td>
+<td>str</td>
+<td>the text of a word in romanized transcription</td>
+</tr>
+<tr>
+<td><code>punc</code></td>
+<td>str</td>
+<td>the punctuation and/or space immediately after a word in Arabic, unicode</td>
+</tr>
+<tr>
+<td><code>punca</code></td>
+<td>str</td>
+<td>the punctuation and/or space immediately after a word in ascii</td>
+</tr>
+</tbody>
+</table>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/about/rationale.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/about/transcriptionl.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-.. include:: ../docs/about/rationale.md
+.. include:: ../docs/about/transcriptionl.md
 &#34;&#34;&#34;</code></pre>
 </details>
 </section>
@@ -60,7 +249,17 @@ of commentaries were written through the centuries.</p>
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#rationale">Rationale</a></li>
+<li><a href="#lakhnawi-transcription">Lakhnawi transcription</a></li>
+<li><a href="#divisions">Divisions</a><ul>
+<li><a href="#piece">Piece</a></li>
+<li><a href="#page">Page</a></li>
+<li><a href="#line">Line</a></li>
+<li><a href="#column">Column</a></li>
+<li><a href="#span">Span</a></li>
+<li><a href="#sentence">Sentence</a></li>
+<li><a href="#word">Word</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <ul id="index">
