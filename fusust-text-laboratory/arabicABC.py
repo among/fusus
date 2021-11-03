@@ -120,11 +120,24 @@ HAMZAT = (HAMZA, WAW_HAMZA, YEH_HAMZA, HAMZA_ABOVE, HAMZA_BELOW,
 ALEFAT = (ALEF, ALEF_MADDA, ALEF_HAMZA_ABOVE,
           ALEF_HAMZA_BELOW, ALEF_WASLA, ALEF_MAKSURA, SMALL_ALEF,
           )
-WEAK = (ALEF, WAW, YEH, ALEF_MAKSURA)
-YEHLIKE = (YEH, YEH_HAMZA, ALEF_MAKSURA, SMALL_YEH)
 
+
+WEAK = (ALEF, WAW, YEH, ALEF_MAKSURA)
+
+
+YEHLIKE = (YEH, YEH_HAMZA, ALEF_MAKSURA, SMALL_YEH)
 WAWLIKE = (WAW, WAW_HAMZA, SMALL_WAW)
 TEHLIKE = (TEH, TEH_MARBUTA)
+
+BEHLIKE = (BEH, TEH, THEH, NOON)
+JEEMLIKE = (JEEM, HAH, KHAH)
+DALLIKE = (DAL, THAL)
+REHLIKE = (REH, ZAIN)
+SEENLIKE = (SEEN, SHEEN)
+SADLIKE = (SAD, DAD)
+TAHLIKE = (TAH, ZAH)
+AINLIKE = (AIN, GHAIN)
+FEHLIKE = (FEH, QAF)
 
 SMALL = (SMALL_ALEF, SMALL_WAW, SMALL_YEH)
 MOON = (HAMZA, ALEF_MADDA, ALEF_HAMZA_ABOVE, ALEF_HAMZA_BELOW,
@@ -426,3 +439,52 @@ QURAN_SURAS = {
 'الأنبيا'
 :21
 }
+
+def normalize(word):
+    sanitized = word
+    tobedeleted = [TATWEEL]
+    for letter in tobedeleted:
+        sanitized = sanitized.replace(letter,"")
+    for diacritic in TASHKEEL:
+        sanitized = sanitized.replace(diacritic,"")
+    foreign = "0123456789,./?;:-_=+"
+    for character in foreign:
+        sanitized = sanitized.replace(character,"")
+    sanitized= sanitized.replace(ALEF+HAMZA_BELOW,ALEF_HAMZA_BELOW)
+    sanitized= sanitized.replace(ALEF+HAMZA_ABOVE,ALEF_HAMZA_ABOVE)
+    sanitized= sanitized.replace(WAW+HAMZA_ABOVE,WAW_HAMZA)
+    sanitized= sanitized.replace(YEH+HAMZA_ABOVE,YEH_HAMZA)
+    sanitized= sanitized.replace(ALEF+MADDA_ABOVE,ALEF_MADDA)
+    return sanitized
+
+def rasm(word):
+    sanitized = word
+    for a in ALEFAT:
+        # alef_maksura occurs here, and also in 'yehlike'
+        sanitized = sanitized.replace(a,ALEF)
+    for a in BEHLIKE:
+        sanitized = sanitized.replace(a,BEH)
+    for a in JEEMLIKE:
+        sanitized = sanitized.replace(a,HAH)
+    for a in DALLIKE:
+        sanitized = sanitized.replace(a,DAL)
+    for a in REHLIKE:
+        sanitized = sanitized.replace(a,REH)
+    for a in SEENLIKE:
+        sanitized = sanitized.replace(a,SEEN)
+    for a in SADLIKE:
+        sanitized = sanitized.replace(a,SAD)
+    for a in TAHLIKE:
+        sanitized = sanitized.replace(a,TAH)
+    for a in AINLIKE:
+        sanitized = sanitized.replace(a,AIN)
+    for a in FEHLIKE:
+        sanitized = sanitized.replace(a,FEH)
+    for a in WAWLIKE:
+        sanitized = sanitized.replace(a,WAW)
+    for a in YEHLIKE:
+        sanitized = sanitized.replace(a,YEH)
+    if len(sanitized) > 2 and (sanitized[0] == WAW or sanitized[0] == BEH):
+        sanitized = sanitized[1:]
+    return sanitized
+        
