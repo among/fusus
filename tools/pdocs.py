@@ -207,8 +207,9 @@ def pdoc3(pkg):
     # console("Move docs into place")
     # run(f"mv {SITE}/{pkg}/* {SITE}", shell=True)
     # rmtree(f"{SITE}/{pkg}")
-    console("Copy over the images")
+    console("Copy over the images and assets")
     copytree(f"{pkg}/docs/images", f"{SITE}/{pkg}/images", dirs_exist_ok=True)
+    copytree(f"{pkg}/docs/assets", f"{SITE}/{pkg}/assets", dirs_exist_ok=True)
 
     # a link from the old docs url to the new one
     copyfile(f"{pkg}/docs/index.html", f"{SITE}/index.html")

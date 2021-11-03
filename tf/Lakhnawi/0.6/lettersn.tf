@@ -1,0 +1,57157 @@
+@node
+@author=Ibn Arabi
+@converters=Cornelis van Lit, Dirk Roorda (Text-Fabric)
+@description=text string of a word in latin transcription (beta code)
+@editor=Lakhnawi
+@format=string, latin with diacritics
+@institute=Univ Utrecht NL/DANS
+@language=ara
+@name=fusus
+@period=1165-1240
+@project=Fusus
+@published=pdf, personal communication
+@researcher=Cornelis van Lit
+@sourceFormat=CSV (tab-separated)
+@title=Fusus Al Hikam
+@valueType=str
+@writtenBy=Text-Fabric
+@dateWritten=2021-11-02T14:05:27Z
+
+fṣwṣ
+ālḥkm
+tālyf
+ālšyḫ
+ālākbrwālkbryt
+ālāḥm
+mḥyy
+āldyn
+mḥmdbn
+ālʿrby
+ḳdsāāllhsruh
+ālmtwfásnŧ
+836h
+
+ḳ
+āẓāmādn
+āāY
+ālwY
+byrwt4341h
+3102m
+yṭlb
+mn
+dār
+ālnšr
+klāws
+šfārtzbrlyn
+ǧmyʿ
+ālḥḳwḳ
+mḥfwẓŧ
+ālṭbʿŧ
+ālāwláã
+4102m
+bismi
+āllhi
+ālrauḥamãni
+ālrauḥiymi
+ḳāl
+ālšyḫ
+ālākbr
+fy
+dywānh
+trǧmān
+ālāšwāḳ
+ 
+āaḥabaābu
+ḳalabiy
+āayana
+huma
+biallhi
+ḳuwluw
+āayana
+huma
+kamaā
+raāayatu
+ṭayafahuma
+fahala
+turiyniy
+ʿayanahum
+fakama
+wakama
+āaṭalubuhum
+wakama
+saāalatu
+bayanahuma
+ḥatauáã
+āaminatu
+bayanahuma
+wamaā
+āaminatu
+bayanahuma
+laʿalau
+saʿadiy
+ḥaāʾluⁿ
+bayana
+ālnauwaáã
+wa
+bayanahuma
+litanaʿama
+ālʿayanu
+bihima
+falaā
+āaḳuwla
+āayana
+huma
+āláã
+āstāḏy
+ʿṯmān
+yḥyáã
+rḥmh
+āllh
+ālfhrst
+1
+nmāḏǧ
+bʿḍ
+ālṣfḥāt
+mn
+mḫṭwṭ
+ḳwnyŧ
+3391
+ā
+2
+ʿnwān
+ktāb
+fṣwṣ
+ālḥkm
+wḫṣwṣ
+ālklm
+6
+3
+ḫṭbŧ
+ktāb
+fṣwṣ
+ālḥkm
+wḫṣwṣ
+ālklm
+8
+4
+1
+fṣu
+ḥkmŧ
+ālãhyuŧ
+fy
+klmŧ
+ādmyuŧ
+41
+5
+2
+fṣu
+ḥkmŧ
+nafaṯiyauŧ
+fy
+klmŧ
+šiyṯiyuŧ
+23
+6
+3
+fṣu
+ḥkmŧ
+subuuwḥiyuŧ
+fy
+klmŧ
+nwḥyuŧ
+25
+7
+4
+fṣu
+ḥkmŧ
+ḳuduuwsiyuŧ
+fy
+klmŧ
+ādrysyuŧ
+17
+8
+5
+fṣu
+ḥkmŧ
+muhayamiyuŧ
+fy
+klmŧ
+ābrāhymyuŧ
+48
+9
+6
+fṣu
+ḥkmŧ
+ḥaḳiyuŧ
+fy
+klmŧ
+āsḥāḳyuŧ
+59
+01
+ 
+7
+fṣu
+ḥkmŧ
+ʿaliyauŧ
+fy
+klmŧ
+āsmāʿylyuŧ
+111
+11
+ 
+8
+fṣu
+ḥkmŧ
+ruwḥyuŧ
+fy
+klmŧ
+yʿḳwbyuŧ
+121
+21
+ 
+9
+fṣu
+ḥkmŧ
+nwryuŧ
+fy
+klmŧ
+ywsfyuŧ
+ 031
+31
+ 
+01
+ fṣu
+ḥkmŧ
+āḥdyuŧ
+fy
+klmŧ
+hwdyuŧ
+741
+41
+ 
+11
+ fṣu
+ḥkmŧ
+fātḥyuŧ
+fy
+klmŧ
+ṣālḥyuŧ
+661
+51
+ 
+21
+ fṣu
+ḥkmŧ
+ḳlbyuŧ
+fy
+klmŧ
+šʿybyuŧ
+371
+61
+ 
+31
+ fṣu
+ḥkmŧ
+malakiyuŧ
+fy
+klmŧ
+lwṭyuŧ
+981
+71
+ 
+41
+ fṣu
+ḥkmŧ
+ḳadariyuŧ
+fy
+klmŧ
+ʿuzyryuŧ
+891
+81
+ 
+51
+ fṣu
+ḥkmŧ
+nbwyuŧ
+fy
+klmŧ
+ʿyswyuŧ
+112
+91
+ 
+61
+ fṣu
+ḥkmŧ
+rḥmānyuŧ
+fy
+klmŧ
+slymānyuŧ
+242
+02
+ 
+71
+ fṣu
+ḥkmŧ
+wǧwdyuŧ
+fy
+klmŧ
+dāwdyuŧ
+262
+12
+ 
+81
+ fṣu
+ḥkmŧ
+nafasiyuŧ
+fy
+klmŧ
+ywnsyuŧ
+872
+22
+ 
+91
+ fṣu
+ḥkmŧ
+ġybyuŧ
+fy
+klmŧ
+āyuwbyuŧ
+782
+32
+ 
+02
+ fṣu
+ḥkmŧ
+ǧlālyuŧ
+fy
+klmŧ
+yaḥayawiyauŧ
+692
+42
+ 
+12
+ fṣu
+ḥkmŧ
+mā
+lkyuŧ
+fy
+klmŧ
+zkryuāwyuŧ
+103
+52
+ 
+22
+ fṣu
+ḥkmŧ
+āynāsyuŧ
+fy
+klmŧ
+ālyāsyuŧ
+113
+62
+ 
+32
+ fṣu
+ḥkmŧ
+āḥsānyuŧ
+fy
+klmŧ
+lḳmānyuŧ
+423
+72
+ 
+42
+ fṣu
+ḥkmŧ
+āmāmyuŧ
+fy
+klmŧ
+hārwnyuŧ
+133
+82
+ 
+52
+ fṣu
+ḥkmŧ
+ʿulwyuŧ
+fy
+klmŧ
+mwswyuŧ
+243
+92
+ 
+62
+ fṣu
+ḥkmŧ
+ṣmdyuŧ
+fy
+klmŧ
+ḫāldyuŧ
+ 273
+03
+ 
+72
+ fṣu
+ḥkmŧ
+frdyuŧ
+fy
+klmŧ
+mḥmdyuŧ
+573
+43
+ ālmlḥḳāt
+804
+53
+ mlḥḳ
+1
+ tʿlyḳāt
+dāḫl
+ālmḫṭwṭ
+904
+63
+ mlḥḳ
+2
+ tḥḳyḳ
+fy
+msālŧ
+ālḏbyḥ
+124
+73
+ mlḥḳ
+3
+ tḥḳyḳ
+fy
+ḫāld
+bn
+snān
+624
+83
+ mlḥḳ
+4
+ tḫryǧ
+ḥdyṯ
+āltḥwl
+334
+
+1wǧh
+kitaābu
+fuṣuwṣi
+ālḥikami
+waḫuṣuwṣi
+ālkalimi
+āʾinašaāʾu
+sayiudinaā
+wašayḫinaā
+ ālāʾimaāmi
+ālʿaālimi
+ālrauāsiḫi
+ ālfaradi
+ālmuḥaḳauḳi
+muḥayiy
+ālmilauŧi
+waāldiuyni
+āabiy
+ʿabdi
+āllhi
+muḥamaudi
+bani
+ʿalayiu
+bani
+ālʿarabiyiu
+ālṭauāʾiyiu
+ālḥaātimiyiu
+ālāanadalusiyiu
+
+065
+
+ 836h
+ raḍiya
+āllhu
+ʿanahu
+waāaraḍaāhu
+ 
+riwaāyaŧu
+ṣadari
+āldiuyni
+muḥamaudi
+bani
+āʾisaḥaāḳa
+bani
+muḥamaudiⁿ
+ālḳuwnawiyiu
+
+706
+
+376h
+ ʿaniuy
+ 
+ḳaraāa
+ʿalayau
+hãḏaā
+ālkitaāba
+mina
+āawaulihi
+āʾilaáã
+āḫirihi
+ālwaliyuu
+ālʿaārifu
+ālmuḥaḳauḳu
+ālmaš
+aruwḥu
+ālṣada
+ru
+ālm
+unawauru
+ālḏauātu
+muḥamau
+du
+banu
+āʾisaḥaāḳa
+bani
+muḥ
+amaudiⁿ
+ālḳuwnawiyuu
+maāliku
+hãḏaā
+ālkitaābi
+ waāuḏina
+lahu
+fiy
+ālḥadiyṯi
+bihi
+ʿaniuy
+ 
+wakataba
+munašiʾhu
+muḥamaudu
+banu
+ālʿarabiyiu
+ fiy
+ʿaša
+ri
+ǧumaādaáã
+ālāuwlaáã
+sanaŧa
+ṯalaāṯiyna
+wasitiumiāáʾaŧiⁿ
+
+036h
+ 
+
+1ẓhr
+bisami
+āllhi
+ālrauḥamãni
+ālrauḥiymi
+waʿalayhi
+āatawakaulu
+wabihi
+āastaʿiynu
+waṣalauáã
+āllhu
+ʿalaáã
+muḥamaudiⁿ
+waālihi
+ 
+rabiu
+yasiura
+watamiuma
+ 
+ḳaāla
+sayiudunaā
+wašayaḫunaā
+ālāʾimaāmu
+ālʿaālimu
+ālrauāsiḫu
+ ālfaradu
+ālmuḥaḳauḳu
+ 
+muḥayiy
+ālmilauŧi
+waāldiuyani
+ āabuw
+ʿabadi
+āllhi
+ muḥamaudu
+banu
+ʿaliyiⁿu
+ālʿarabiyuu
+ālṭauāʾiyuu
+ālḥaātimiyuu
+ālāanadalusiyuu
+ raḍiya
+āllhu
+ʿanahu
+ 
+
+ḫuṭabaŧu
+ālmuʾliufi
+ālḥ
+amadu
+lilhi
+muna
+ziuli
+ālḥikami
+ʿal
+aáã
+ḳul
+uwbi
+ālka
+limi
+biāa
+ḥadiyauŧi
+ālṭau
+riyḳi
+ālāamami
+
+mina
+ālmaḳaāmi
+ālāaḳadami
+waāʾini
+aḫatalafati
+ālniuḥalu
+waālmilalu
+liaḫatilaāfi
+ālāumami
+ 
+waṣalauáã
+āllhu
+ʿalaáã
+mumidiu
+ālhimami
+ 
+mina
+ḫazaāʾini
+ālǧuwdi
+waālkarami
+ 
+biālḳiyli
+ālāaḳawami
+ 
+muḥamaudiⁿ
+waʿalaáã
+ālihi
+wasalauma
+ 
+āamauā
+baʿadu
+ 
+faāʾiniuy
+raāayatu
+rasuwla
+āllhi
+ṣalauáã
+āllhu
+ʿalayahi
+
+wa
+ālihi
+ wasalauma
+fiy
+mubašiuraŧiⁿ
+āuriytuhaā
+fiy
+ālʿašari
+ālāuḫari
+mina
+ālmuḥaraumi
+sanaŧa
+sabaʿiⁿ
+waʿišariyna
+wastiumiāáʾaŧiⁿ
+
+726
+h
+bimaḥaruwsaŧi
+dimašaḳa
+ wabiyidihi
+ṣalauáã
+āllhu
+ʿalayhi
+
+wa
+ālihi
+ wasalauma
+kitaābuⁿ
+ 
+faḳaāla
+liy
+ 
+hãḏaā
+kitaābu
+fuṣuwṣi
+ālḥikami
+ ḫuḏahu
+waaḫaruǧa
+bihi
+āʾilaáã
+ālnauāsi
+yanatafiʿuwna
+bihi
+ 
+faḳulatu
+ 
+ālsaumaʿa
+waālṭauāʿaŧa
+lilhi
+walirasuwlihi
+waāuwliy
+ālāamari
+minauā
+ kamaā
+āumiranaā
+ 
+faḥaḳauḳatu
+ālāumaniyauŧa
+ waāaḫalaṣatu
+ālniu
+yauŧa
+ waǧaraudatu
+ālḳ
+aṣada
+waālhimauŧa
+āʾilaáã
+āʾiba
+raāzi
+hãḏaā
+ālki
+taābi
+kamaā
+ḥadauhu
+liy
+rasuwlu
+āllhi
+ṣalauáã
+āll
+hu
+ʿalayhi
+wasalauma
+mina
+ġayri
+ziyaādaŧiⁿ
+walaā
+nuḳaṣaāniⁿ
+ 
+wasaāalatu
+āllha
+āana
+yaǧaʿalaniy
+fiyhi
+wafiy
+ǧamiyaʿi
+āaḥawaāliy
+mina
+ʿibaādihi
+ālauḏiyna
+laysa
+lilš
+auyaṭ
+aāni
+ʿalayahima
+sulaṭaānuⁿ
+ 
+waāana
+yaḫ
+uṣaun
+iy
+fiy
+ǧamiy
+ʿi
+maā
+yarḳumuhu
+
+ban
+aāniy
+ wayanaṭiḳu
+bihi
+lisaāniy
+ 
+wayanaṭ
+awiy
+ʿalay
+hi
+ǧan
+aāniy
+ 
+biā
+lāʾilaḳaā
+ʾi
+āls
+uubuuw
+ḥiy
+waālnauf
+aṯi
+ālruuwḥiy
+fiy
+ālruuwʿi
+ālnaufasiy
+biāltauāyiyadi
+ālaʿatiṣaāmiy
+ 
+ḥatauáã
+āakuwna
+mutaraǧimaⁿā
+laā
+mutaḥakiumaⁿā
+ 
+liyataḥaḳauḳa
+mana
+yaḳifu
+ʿalayahi
+mina
+āahali
+āllhi
+ āaṣaḥaābi
+ālḳuluwbi
+ āanauhu
+mina
+maḳaāmi
+āltauḳadiyasi
+ālmunazauhi
+ʿani
+ālāaġaraāḍi
+ālnaufasiyauŧi
+ālautiy
+yadaḫuluhaā
+āltaulabiysu
+ 
+waāaraǧuw
+āana
+yakuwna
+ālḥaḳuu
+taʿaāaláã
+lamauā
+samiʿa
+duʿaāʾiy
+ ḳada
+āaǧaāba
+
+2wǧh
+nidaāʾiy
+ famaā
+āulaḳiy
+āʾilauā
+maā
+yulaḳaáã
+āʾilyau
+ walaā
+āunaziulu
+fiy
+hãḏaā
+ālmasaṭuwri
+āʾilauā
+maā
+yunazalu
+bihi
+ʿalayau
+ walasatu
+binabiyiⁿu
+walaā
+rasuwliⁿ
+ walãkiniuy
+waāriṯuⁿ
+ waliāḫiratiy
+ḥaāriṯuⁿ
+ 
+
+mǧzwʾ
+ālḫfyf
+1
+famina
+āllhi
+faasamaʿuwaā
+waāaʾiláã
+āllhi
+faāraǧiʿuwaā
+2
+faāʾiḏaā
+samiʿatuma
+maā
+āatayatuma
+bihi
+ faʿuwaā
+3
+ṯumau
+biālfahami
+faṣiuluwaā
+muǧamala
+ālḳawli
+waaǧamaʿuwaā
+4
+ṯumau
+munuuwā
+bihi
+ʿalaáã
+ṭaālibiyahi
+laā
+tamanaʿuwaā
+5
+hãḏihi
+ālrauḥamaŧu
+ālautiy
+wasiʿatakumu
+fawasiuʿuwā
+wamina
+āllhi
+āaraǧuwa
+āana
+āakuwana
+mimauna
+āuyauda
+fataāayauda
+ 
+waāuyauda
+waḳuyiuda
+biālšauraʿi
+ālmuḥamaudiyiu
+ālmuṭahauri
+fataḳayauda
+waḳuyiuda
+ waḥašaranaā
+fiy
+zumaratihi
+ kamaā
+ǧaʿalanaā
+mina
+āumautihi
+ 
+faāawaulu
+maā
+āalḳaāhu
+ālmaāliku
+ʿalaáã
+ālʿabdi
+mina
+ḏãlika
+ 
+
+bḳyŧ
+ālnuṣ
+ālmkmulŧ
+lhḏh
+ālṣufḥŧ
+fy
+ālṣufḥŧ
+āltuālyŧ
+
+1
+faṣuu
+ḥikamaŧiⁿ
+āʾilãhiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+ādamiyauŧiⁿ
+lamauā
+šaāʾa
+ālḥaḳuu
+subaḥaānahu
+mina
+ḥayaṯu
+āasamaāʾhu
+ālḥusanaáã
+ālautiy
+laā
+yabaluġuhaā
+ālāʾiḥaṣaāʾu
+āana
+yaraáã
+āaʿayaānahaā
+ waāʾina
+šiʾta
+ḳulata
+ āana
+yaraáã
+ʿayanahu
+fiy
+kawniⁿ
+ǧaāmiʿiⁿ
+yaḥaṣuru
+ālāamara
+likawnihi
+mutauṣifaⁿā
+biālwuǧuwdi
+ wayaẓaharu
+bihi
+siruuhu
+āʾilayhi
+ 
+faāʾinau
+ruʾyaŧa
+ālšauyʾi
+nafasahu
+binafasihi
+ maāhiya
+miṯala
+ruʾyatihi
+nafasahu
+fiy
+āamariⁿ
+āḫara
+ 
+yaku
+wanu
+lahu
+kaālmirāŧi
+ faāʾinauhu
+taẓ
+aharu
+lahu
+nafasuhu
+fiy
+ṣuwraŧiⁿ
+yuʿaṭiyahaā
+ālmaḥaluu
+ālmanaẓuw
+ru
+fiyahi
+ mimauā
+lama
+yakuna
+yaẓaharu
+lahu
+mina
+ġayri
+wuǧuwdi
+hãḏaā
+ālmaḥaliu
+ walaā
+taǧaliuyhi
+lahu
+ 
+waḳada
+kaāna
+ālḥaḳuu
+āawaǧada
+ālʿaālama
+kulauhu
+wuǧuwda
+šabaḥiⁿ
+musawauáaⁿ
+ 
+laā
+ruwḥa
+fiyhi
+ 
+fakaāna
+kamirāŧiⁿ
+ġayari
+maǧaluwauŧiⁿ
+ wamina
+šaāni
+ālḥukami
+ālāʾilãhiyiu
+
+āanauhu
+maā
+sawau
+áã
+maḥaliⁿuā
+āʾilauā
+walaā
+budau
+āana
+yaḳabala
+ruwḥaⁿā
+āʾilãhiyiⁿuā
+ʿabaura
+ʿanhu
+biālnaufaḫi
+fiyahi
+ wamaā
+huwa
+āʾilauā
+ḥuṣuwlu
+ālasatiʿadaādi
+mina
+tilaka
+ālṣuuwraŧi
+ālmusawauāŧi
+
+2ẓhr
+ liḳabuwli
+ālfayḍi
+ālmutaǧaliuy
+āldauāʾimi
+ālauḏiy
+lama
+yazala
+walaā
+yazaālu
+ 
+wamaā
+baḳiya
+āʾilauā
+ḳaābiluⁿ
+ waālḳaābilu
+laā
+yakuwnu
+āʾilauā
+mina
+fayḍihi
+ālāaḳadasi
+ 
+faālāamaru
+kuluuhu
+
+ minahu
+
+ abatidaāʾuhu
+waanatihaāʾuhu
+
+ 
+waāʾilayhi
+yuraǧaʿu
+ālāamaru
+kuluuhu
+
+hwd
+
+ 321
+ 
+ kamaā
+abatadaāa
+minahu
+ 
+faḳataḍaáã
+ālāamarua
+ǧalaāʾa
+mirāŧi
+ālʿaālami
+ fakaāna
+ādamu
+ʿayna
+ǧalaāʾi
+tilaka
+ālmirāŧi
+ 
+waruwḥa
+tilaka
+ālṣuuwraŧi
+ 
+wakaānati
+ālmalaāʾikaŧu
+mina
+baʿaḍi
+ḳuwaáã
+tilaka
+ālṣuuwraŧi
+ālautiy
+hiya
+ṣuwraŧu
+ālʿaālami
+ālmuʿabauri
+ʿanahu
+fiy
+aṣaṭilaāḥi
+ālḳawmi
+biālāʾinasaāni
+ālkabiyari
+ 
+fakaānati
+ālmalaāʾikaŧu
+lahu
+kaālḳuwaáã
+ālruuwḥaāniyauŧi
+waālḥisiyauŧi
+ālautiy
+fiy
+ālnaušaāaŧi
+ālāʾinasaāniyauŧi
+ 
+wa
+kuluu
+ḳuwauŧiⁿ
+min
+ahaā
+maḥaǧ
+uwbaŧuⁿ
+binaf
+asih
+aā
+ laā
+ta
+raáã
+āafaḍala
+mina
+ḏaātihaā
+ waāanau
+fiy
+haā
+
+fiymaā
+tazaʿumu
+
+ ālāahaliyauŧa
+likuliu
+manaṣibiⁿ
+ʿaāliⁿ
+ wamanazilaŧiⁿ
+rafiyʿaŧiⁿ
+ʿinada
+āllhi
+ limaā
+ʿinadahaā
+mina
+ālǧamaʿiyauŧi
+ālāʾilãhiyauŧi
+ 
+bayana
+maā
+yaraǧiʿu
+mina
+ḏãlika
+āʾilaáã
+ālǧanaābi
+ālāʾilãhiyiu
+ waāʾilaáã
+ǧaānibi
+ḥaḳiyaḳaŧi
+ālḥaḳaāʾiḳi
+ wafiy
+ālnaušaāaŧi
+ālḥaāmilaŧi
+lihãḏihi
+ālāawṣaāfi
+āʾilaáã
+maātaḳataḍiyhi
+ālṭaubiyʿaŧu
+lilakuliu
+ālautiy
+ḥaṣarata
+ḳawaābila
+ālʿaālami
+kuliuhi
+ āaʿalaāhu
+waāasafalihu
+ 
+wahãḏaā
+laā
+yaʿarifuhu
+ʿaḳaluⁿ
+ biṭariyḳi
+naẓariⁿ
+fi
+ka
+riyiⁿu
+ bala
+hãḏaā
+ālfanuu
+mina
+ālāʾidaraāki
+laā
+yaku
+wnu
+āʾilauā
+ʿana
+kašafiⁿ
+āiⁿlãh
+iyiⁿu
+
+ min
+ahu
+
+ yuʿarafu
+maā
+āaṣalu
+ṣuwari
+ālʿaā
+lami
+ālḳ
+aābil
+aŧi
+liāarawaāḥihi
+ fas
+amauáã
+hãḏaā
+ālm
+aḏakuwra
+āʾinasaānaⁿā
+waḫaliyfaŧaⁿ
+ faāamauā
+āʾinasaāniyaut
+uhu
+faliʿumuwmi
+naša
+āatihi
+ 
+waḥaṣ
+arihi
+ālḥaḳaāʾiḳa
+kulauhaā
+ wahuwa
+lilaḥaḳiu
+bim
+anazilaŧi
+āʾinasaāni
+ālʿayni
+mina
+ālʿayni
+ālauḏiy
+bihi
+yakuwnu
+ālnauẓaru
+ wahuwa
+ālmuʿabauru
+ʿanahu
+biālbaṣari
+ 
+falihãḏaā
+sumiuya
+āʾinasaānaⁿā
+ faāʾinauhu
+bihi
+naẓara
+ālḥaḳuu
+āʾilaáã
+ḫalaḳihi
+faraḥimahuma
+ 
+fahuwa
+ālāʾinas
+aānu
+ālḥaādiṯu
+ālāazaliyuu
+ waālnašaʾu
+āldauāʾimu
+ālāabadiyuu
+ waālkalimaŧu
+ālfaāṣilaŧu
+ālǧaāmiʿaŧu
+ fatamau
+ālʿaālamu
+biwuǧuwadihi
+ 
+fahuwa
+mina
+ālʿaālami
+kafaṣiu
+ālḫaātami
+mina
+ālḫaātami
+ huwa
+maḥaluu
+ālnauḳaši
+ waālʿalaāmaŧu
+ 
+ālautiy
+bihaā
+yaḫatimu
+ālmaliku
+ʿalaáã
+ḫizaānatihi
+ wasamauāhu
+ḫaliyfaŧaⁿ
+mina
+āaǧali
+hãḏaā
+ 
+laāanauhu
+taʿaālaáã
+ālḥaāfiẓu
+ḫal
+aḳahu
+kamaā
+yaḥafaẓu
+ālḫatamu
+
+3wǧh
+ ālḫaza
+āʾina
+ famaā
+daāma
+ḫatamu
+ālm
+aliki
+ʿal
+ayhaā
+ laā
+yaǧa
+suru
+āaḥaduⁿ
+ʿalaáã
+fataḥihaā
+āʾilauā
+biāʾiḏanihi
+ fa
+asataḫa
+lafahu
+fiy
+ḥifaẓi
+ālʿaālami
+ falaā
+yazaālu
+ālʿaālamu
+maḥafuwẓaⁿā
+ maā
+daāma
+fiyhi
+hãḏaā
+ālāʾinasaānu
+ālkaāmilu
+ 
+āalaā
+taraāhu
+āʾiḏaā
+zaāla
+ wafukau
+mina
+ḫi
+zaānaŧi
+ālduunayaā
+ lama
+yabaḳa
+fiyh
+aā
+maā
+aḫatazanahu
+ālḥaḳuu
+fiyhaā
+ waḫaraǧa
+maā
+kaāna
+fiyhaā
+ waalataḥaḳa
+baʿaḍuhu
+bibaʿaḍihi
+ 
+waanataḳala
+ālāamaru
+āʾilaáã
+ālāḫiraŧi
+ fakaāna
+ḫatamaⁿā
+ʿalaáã
+ḫizaānaŧi
+ālāḫiraŧi
+ḫatamaⁿā
+āabadiyiⁿuā
+ 
+faẓahara
+ǧamiyʿu
+maā
+fiy
+ālṣuuwraŧi
+ālāʾilãhiyauŧi
+mina
+ālāasamaāʾi
+fiy
+hãḏihi
+ālnaušaāaŧi
+ālāʾinas
+aāniyauŧi
+ faḥaāzata
+rutabaŧa
+ālāʾiḥaāṭaŧi
+waālǧamaʿi
+ bihãḏaā
+ālwuǧuwdi
+ wabihi
+ḳaāmati
+ālḥuǧauŧu
+lilhi
+taʿaālaáã
+ʿalaáã
+ālmalaāʾikaŧi
+ 
+fataḥafauẓa
+ faḳada
+waʿaẓaka
+āllhu
+biġayarika
+ waanaẓura
+mina
+āayana
+āutiya
+ʿalaáã
+mana
+āutiya
+ʿalayhi
+ faāʾinau
+ālmalaāʾikaŧa
+lama
+taḳifa
+maʿa
+maā
+tuʿaṭiyhi
+našaāaŧu
+hãḏaā
+ālḫaliyfaŧi
+ walaā
+waḳafata
+maʿa
+maā
+taḳataḍiyhi
+ḥaḍaraŧu
+ālḥaḳiu
+mina
+ālʿibaādaŧi
+ālḏauātiyauŧi
+ 
+faāʾinauhu
+maā
+yaʿa
+rifu
+āaḥaduⁿ
+mina
+ālḥaḳiu
+āʾilauā
+maā
+tuʿ
+aṭiyhi
+ḏaātuhu
+
+ wala
+ysa
+lilama
+la
+āʾikaŧi
+ǧam
+aʿiyauŧu
+ādama
+ 
+walaā
+waḳafata
+maʿa
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ālautiy
+taḫuṣuuhaā
+ wasabauḥati
+ālḥaḳau
+bihaā
+waḳadausatahu
+ wamaā
+ʿalimata
+āanau
+lilhi
+āasamaā
+ʾaⁿ
+ maā
+waṣala
+ʿil
+amuhaā
+āʾilay
+haā
+ fam
+aā
+sabauḥatahu
+bihaā
+walaā
+ḳadausatahu
+ faġalaba
+ʿalayhaā
+maā
+ḏakaranaāhu
+ waḥakama
+ʿalayhaā
+hãḏaā
+ālḥaālu
+ faḳaālata
+
+ mina
+ḥayṯu
+ālnaušaāŧu
+
+ 
+ 
+āataǧaʿalu
+fiyhaā
+mana
+yufasidu
+fiyhaā
+ 
+swrŧ
+ālbḳrŧ
+
+ 03
+ 
+walayasa
+āʾilauā
+āln
+iuzaāʿu
+wahuwa
+ʿaynu
+maā
+waḳaʿa
+minahuma
+ famaā
+ḳaāluw
+hu
+fiy
+ḥaḳiu
+ādama
+ huwa
+ʿaynu
+maāhuma
+fiyhi
+maʿa
+ālḥaḳiu
+ 
+falawlaā
+āanau
+našaāatahuma
+tuʿaṭiy
+ḏãlika
+ maā
+ḳaāluwā
+fiy
+ḥaḳiu
+ādama
+maā
+ḳaāluwhu
+ wahuma
+laā
+yašaʿ
+uruwna
+ falaw
+ʿa
+rafuwā
+nufuwasahuma
+laʿalimuwā
+ walawa
+ʿalimuwā
+lʿuṣimuwā
+ ṯumaau
+lama
+yaḳifuwā
+maʿa
+āltauǧariyḥi
+ ḥatauáã
+zaāduwā
+fiy
+āldauʿawaáã
+bimaā
+huma
+ʿalayhi
+mina
+āltauḳadiysi
+waāltausabiyḥi
+ 
+waʿinada
+ādama
+mina
+ālāasamaāʾi
+ālāʾilãhiy
+auŧi
+maā
+lama
+takuni
+ālm
+alaāʾika
+ŧu
+ʿal
+ayahaā
+ 
+3ẓh
+r
+famaā
+sabauḥata
+rabauhaā
+bihaā
+ walaā
+ḳadausatahu
+ʿanahaā
+taḳadayasa
+ādama
+watasabiyaḥahu
+ 
+fawaṣafa
+ālḥaḳuu
+lanaā
+maā
+ǧa
+raáã
+linaḳifa
+ʿinadahu
+ wanataʿalauma
+ālāadaba
+maʿa
+āllhi
+taʿaālaáã
+ 
+falaā
+nadauʿiya
+
+ maā
+āanaā
+mu
+ḥaḳauḳuⁿ
+bihi
+waḥaā
+wiⁿ
+ʿal
+ayhi
+
+ biālt
+auḳayiy
+di
+ fa
+kayfa
+āana
+nuṭaliḳa
+fiy
+āldauʿawaáã
+ fanaʿumau
+bihaā
+maā
+laysa
+liy
+biḥaāliⁿ
+ 
+walaā
+āanaā
+minhu
+ʿalaáã
+ʿilamiⁿ
+fanufataḍaḥu
+
+fahãḏaā
+āltauʿariyafu
+ālāʾilãhiyuu
+mimauā
+āadauba
+ālḥaḳuu
+bihi
+ʿibaādahu
+ālāudabaāʾa
+ālāumanaāʾa
+ālḫulafaāʾa
+ 
+ṯumau
+naraǧiʿu
+āʾiláã
+ālḥikamaŧi
+fanaḳuwlu
+ 
+aʿalama
+āanau
+ālāumuwra
+ālkuliuyauŧa
+
+ waāʾina
+lama
+yakuna
+lahaā
+wuǧuwduⁿ
+fiy
+ʿaynihaā
+
+fahiya
+maʿaḳuwlaŧuⁿ
+maʿaluwmaŧuⁿ
+bilaā
+šakiⁿu
+fiy
+ālḏiuhani
+ fahiya
+baāṭinaŧuⁿ
+laā
+tuzaālu
+ʿani
+ālwuǧuwdi
+ālʿayniyiu
+ walahaā
+ālḥukamu
+waālāaṯaru
+fiy
+kuliu
+maā
+lahu
+wǧuwduⁿ
+ʿayniyuⁿu
+ bala
+huwa
+ʿaynuhaā
+laā
+ġayruhaā
+ āaʿaniy
+ āaʿayaāna
+ālmawaǧuwdaāti
+ālʿayaniyauŧi
+ 
+walama
+tazula
+ʿana
+kawnaih
+aā
+maʿaḳuwlaŧaⁿ
+fiy
+nafasih
+aā
+fahiya
+ālẓauā
+hi
+raŧu
+mina
+ḥay
+ṯu
+āaʿayaānu
+ālmawǧuwdaāti
+ kamaā
+hiya
+ālbaāṭinaŧu
+mina
+ḥayṯu
+maʿaḳuwliyautuhaā
+ 
+faasatinaādu
+kuliu
+mawǧuwdiⁿ
+ʿayniyiⁿu
+lihãḏihi
+ālāumuwri
+ālkuliuyauŧi
+ālautiy
+laā
+yumakinu
+rafaʿuhaā
+ʿani
+ālʿaḳali
+ walaā
+yumakinu
+wuǧuwduhaā
+fiy
+ālʿayni
+wuǧuwdaⁿā
+tazuwlu
+bihi
+ʿana
+āana
+takuwna
+maʿaḳuwlaŧaⁿ
+ 
+wasawaāʾuⁿ
+kaāna
+ḏãlika
+ālmawǧuwdu
+ālʿayaniyuu
+mawʾaḳautaⁿā
+āawa
+ġayra
+muwʾaḳautiⁿ
+ nisabaŧu
+ālmuwʾaḳauti
+waġayri
+ālmuwʾaḳauti
+āʾilaáã
+hãḏaā
+ālāamari
+ālkuliuyiu
+ālmaʿaḳuwli
+nisabaŧuⁿ
+waāḥidaŧuⁿ
+ 
+ġayra
+āanau
+hãḏaā
+ālāamara
+ālkuliuyau
+yaraǧiʿu
+āʾilayhi
+ḥukamuⁿ
+mina
+ālmawǧuwdaāti
+ālʿayniyauŧi
+biḥasabi
+maā
+taṭalubuhu
+ḥaḳaāʾiḳu
+tilaka
+ālmawaǧuwdaāti
+ālʿayniyauŧi
+ kanisabaŧi
+ālʿilami
+āʾilaáã
+ālʿaālimi
+ waālḥayaāŧi
+āʾilaáã
+ālḥayiu
+ faālḥayaāŧu
+ḥaḳiyḳaŧuⁿ
+maʿaḳuwlaŧuⁿ
+ waālʿilamu
+ḥaḳiyḳaŧuⁿ
+maʿaḳuwlaŧuⁿ
+mutamayuizaŧuⁿ
+ʿani
+ālḥ
+ayaāŧi
+ kam
+aā
+hiya
+ālḥay
+aāŧu
+mut
+ama
+yuizaŧuⁿ
+ʿan
+ahu
+ ṯumau
+naḳuwlu
+fiy
+ālḥaḳiu
+taʿaālaáã
+ 
+āʾinau
+lahu
+ʿilamaⁿā
+waḥayaāŧaⁿ
+ fah
+uwa
+ālḥayuu
+ālʿaālimu
+ wanaḳuwlu
+fiy
+ālmaliki
+ āʾinau
+lahu
+ḥayaā
+ŧaⁿ
+waʿilamaⁿā
+ 
+fahuwa
+ālḥayuu
+ālʿaālimu
+ wanaḳuwlu
+fiy
+ālāʾinasaāni
+ āʾinau
+lahu
+ḥayaāŧaⁿ
+waʿilamaⁿā
+ fahuwa
+ālḥayuu
+ālʿ
+aālimu
+ 
+waḥaḳiyḳaŧu
+ālʿilami
+waāḥidaŧuⁿ
+ waḥaḳiyḳaŧu
+ālḥayaāŧi
+waāḥidaŧuⁿ
+ wanisabatuhaā
+āʾilaáã
+ālʿaālim
+wālḥayiu
+nisabaŧuⁿ
+waāḥidaŧuⁿ
+ 
+4wǧh
+ wanaḳuwlu
+fiy
+ʿilami
+ālḥaḳiu
+ āʾinauhu
+ḳadiymuⁿ
+ wafiy
+ʿilami
+ālāʾinasaāni
+ 
+āʾinauhu
+muḥadaṯuⁿ
+ faanaẓura
+maā
+āaḥadaṯatahu
+ālāʾiḍaāfaŧu
+mina
+ālḥukami
+fiy
+hãḏihi
+ālḥaḳiyḳaŧi
+ālmaʿaḳuwlaŧi
+ 
+waanaẓura
+āʾilaáã
+hãḏaā
+ālaratibaāṭi
+bayna
+ālmaʿ
+aḳuwlaāti
+waālmawaǧuw
+daāti
+ālʿayniyauŧi
+ fakamaā
+ḥakama
+ālʿilamu
+ʿalaáã
+mana
+ḳaāma
+bihi
+āana
+yuḳaālu
+fiyhi
+ 
+ʿaālimuⁿ
+ ḥakama
+ālmawaṣuwfu
+bihi
+ʿalaáã
+ālʿilami
+biāanauhu
+ḥaādiṯuⁿ
+fiy
+ḥaḳiu
+ālḥaādiṯi
+ ḳadymuⁿ
+fiy
+ḥaḳiu
+ālḳadiymi
+ faṣaāra
+kuluu
+waāḥidiⁿ
+maḥakuwmaⁿā
+bihi
+ maḥakuwmaⁿā
+ʿalayhi
+ 
+wamaʿaluwmuⁿ
+āanau
+hãḏihi
+ālāumwra
+ālkuliuyauŧa
+
+ waāʾina
+kaānata
+maʿaḳuwlaŧaⁿ
+
+ faāʾinauhaā
+maʿaduwmaŧu
+ālʿayni
+ mawaǧuwdaŧu
+ālḥukami
+ kamaā
+hiya
+maḥakuwmuⁿ
+ʿalayhaā
+āʾiḏaā
+nusibata
+āʾiláã
+ālmawǧuwdi
+ālʿayniyiu
+ 
+fataḳabalu
+ālḥukma
+fiy
+ālāaʿayaāni
+ālmawaǧuwdaŧi
+ walaā
+taḳabalu
+āltaufaṣiyla
+ walaā
+āltaǧaziuy
+ faāʾinau
+ḏãlika
+muḥaāluⁿ
+ʿalayhaā
+ faāʾinauhaā
+biḏaātihaā
+fiy
+kuliu
+mawaṣuwfiⁿ
+bihaā
+ 
+kaālāʾinasaā
+niyauŧi
+fiy
+kuliu
+šaḫaṣiⁿ
+ šaḫaṣuⁿ
+mina
+hãḏaā
+ālnauwʿi
+ālḫaāṣiu
+ lama
+yatafaṣaula
+walama
+yataʿadauda
+bitaʿaduudi
+ālāašaḫaāṣi
+ walaā
+bariḥata
+maʿaḳuwlaŧaⁿ
+ 
+waāʾiḏaā
+kaāna
+ālaratibaāṭu
+bayna
+mana
+lahu
+wuǧuwduⁿ
+ʿayniyuⁿu
+ wabayna
+mana
+laysa
+lahu
+wuǧuwduⁿ
+ʿayniyuⁿu
+ ḳada
+ṯabata
+
+ wahiya
+nisabuⁿ
+ʿadamiyauŧuⁿ
+
+ faaratibaāṭu
+ālmawaǧuwdaāti
+baʿaḍihaā
+bibaʿaḍiⁿ
+āaḳarabu
+āana
+yuʿaḳal
+liāanauhu
+ʿalaáã
+kuliu
+ḥaāliⁿ
+baynahaā
+ǧaāmiʿuⁿ
+ wahuwa
+ālwuǧuwdu
+ālʿayniyuu
+ 
+wahunaā
+ka
+ famaā
+ṯamau
+ǧaāmiʿuⁿ
+ waḳada
+wuǧida
+ālaratibaā
+ṭu
+biʿadami
+ālǧ
+aāmiʿi
+ fab
+iālǧ
+aāmiʿi
+āaḳawaáã
+waāaḥaḳuu
+ 
+walaā
+šakau
+āanau
+ālmuḥadaṯa
+ḳada
+ṯabata
+ḥuduwṯuhu
+waafatiḳaāruhu
+āʾilaáã
+muḥadiṯiⁿ
+āaḥadaṯahu
+liāʾimakaānihi
+linafasihi
+ fawuǧuwduhu
+mina
+ġayarihi
+ fahuwa
+yaratab
+iṭu
+bihi
+aratibaāṭa
+afatiḳaāriⁿ
+ walaā
+budau
+āana
+yakuwna
+ālmus
+atanadu
+āʾilayhi
+waāǧiba
+āluwǧwdi
+liḏaātihi
+ġani
+yiⁿuā
+fiy
+wuǧuwdihi
+binafas
+ihi
+ ġayra
+mufataḳ
+iriⁿ
+ 
+wahuwa
+ālauḏiy
+āaʿaṭaáã
+ālwuǧuwda
+biḏaātihi
+lihãḏaā
+ālḥaādiṯi
+ faanatasaba
+āʾilayahi
+ walamauā
+aḳataḍaāhu
+liḏaātihi
+kaāna
+waāǧibaⁿā
+bihi
+ 
+walamauā
+kaāna
+asatinaāduhu
+āʾilaáã
+mana
+
+4ẓhr
+ ẓahara
+ʿanhu
+liḏaātihi
+ aḳataḍaáã
+āana
+yakuwna
+ʿalaáã
+ṣuwratihi
+fiymaā
+yunas
+abu
+āʾilayhi
+mina
+kuliu
+šayaʾiⁿ
+mini
+asamiⁿ
+waṣifaŧiⁿ
+maā
+ʿadaā
+ālwuǧuwba
+ālḏauātiyau
+ faāʾinau
+ḏãlika
+laā
+yaṣiḥuu
+fiy
+ālḥaādiṯi
+ waāʾina
+kaāna
+waāǧiba
+ālwuǧuwdi
+ walãkina
+wuǧuwbuhu
+biġayrihi
+liā
+binafasihi
+ 
+ṯumau
+litaʿalama
+āanauhu
+lamauā
+kaāna
+ālāamaru
+ʿalaáã
+maā
+ḳulanaāhu
+min
+ẓuhuwrihi
+taṣawauratahu
+ āaḥaālanaā
+taʿaālaáã
+fiy
+ālʿilami
+bihi
+ʿalaáã
+ālnauẓari
+fiy
+ālḥaādiṯi
+ waḏa
+kara
+āanauhu
+āaraānaā
+āyaātihi
+fiyhi
+ 
+faasatada
+lalanaā
+binaā
+ʿalayhi
+ famaā
+waṣafanaāhu
+biwaṣafiⁿ
+āʾilauā
+kunauā
+naḥanu
+ḏãlika
+ālwaṣafa
+ 
+āʾilauā
+ālwuǧuwba
+ālḫaāṣau
+ālḏauātiyau
+ 
+falamauā
+ʿalimanaāhu
+binaā
+waminauā
+ nasabanaā
+āʾilayhi
+kulau
+maā
+nasabanaāhu
+āʾilaynaā
+ wabiḏãlika
+waradati
+ālāʾiḫabaāraātu
+ālāʾilãhiyauŧu
+ʿalaáã
+āalasinaŧi
+āltauraāǧimi
+āʾilaynaā
+ 
+fawaṣafa
+nafasahu
+lanaā
+binaā
+ faāʾiḏaā
+šahidanaāhu
+ šahidanaā
+nufuwsanaā
+ waāʾiḏaā
+šahidanaā
+ šahida
+nafasahu
+ 
+walaā
+našukuu
+āanauā
+kaṯiyruwna
+biālšauḫaṣi
+waālnauwaʿi
+ waāanauā
+
+ wiāna
+kunauā
+ʿalaáã
+ḥaḳiyaḳaŧiⁿ
+waāḥidaŧiⁿ
+taǧamaʿunaā
+ 
+ fanaʿalamu
+ḳaṭaʿaⁿā
+āana
+ṯamau
+faāriḳaⁿā
+bihi
+tamayauzati
+ālāašaḫaāṣu
+baʿaḍuhaā
+ʿana
+baʿaḍiⁿ
+ walawalaā
+ḏãlika
+maā
+kaānati
+ālkaṯaraŧu
+fiy
+ālwaāḥidi
+ 
+fakaḏãlika
+āayaḍ
+aⁿā
+ waāʾina
+waṣafanaā
+hu
+bimaā
+waṣafa
+nafasahu
+mina
+ǧamiy
+ʿi
+ālwuǧuw
+hi
+falaā
+budau
+mina
+faāriḳiⁿ
+ 
+walaysa
+āʾilauā
+afatiḳaāranaā
+āʾilayhi
+fiy
+ālwuǧuwdi
+ watawaḳuufa
+wuǧuwdinaā
+ʿalayhi
+ laāʾimakaāninaā
+waġinaāhu
+ʿana
+miṯali
+maā
+afataḳaranaā
+āʾilayhi
+ 
+fabihãḏaā
+ṣaḥau
+lahu
+ālāazalu
+waālḳidamu
+ālauḏiy
+anatafata
+ʿanahu
+ālāawauliyauŧu
+ālautiy
+lahaā
+afatitaāḥu
+ālwuǧuwdi
+ʿana
+ʿadamiⁿ
+ falaā
+yunasabu
+āʾilayhi
+maʿa
+kawnihi
+
+ālāawaula
+ walihãḏaā
+ḳiyla
+fiyhi
+
+ālāḫiru
+ falawa
+kaānata
+āawauliy
+autuhu
+āawauliyauŧa
+wuǧuwdi
+āltauḳayiyadi
+ lama
+yaṣiḥu
+āana
+yakuwna
+ālāḫiru
+lilamuḳayaudi
+ lāanauhu
+laā
+āḫira
+lil
+amumakini
+ liāanau
+ālmumakinaāti
+ġayru
+mutanaāhiyaŧiⁿ
+ falaā
+āḫira
+lahaā
+ 
+waāʾinaumaā
+kaāna
+āḫiraⁿā
+liruǧuwʿi
+ālāamari
+kuliuhu
+āʾilayhi
+ baʿada
+nisabaŧi
+ḏãlika
+āʾilaynaā
+ fahuwa
+ālāḫiru
+fiy
+ʿayni
+āawauliyautihi
+ waālāawaulu
+fiy
+ʿayni
+āḫiriyautihi
+ 
+ṯumau
+litaʿalama
+āanau
+ālḥaḳau
+waṣafa
+nafasahu
+biāanauhu
+ẓaāhiruⁿ
+
+5wǧh
+ baāṭinuⁿ
+ faāawaǧada
+ālʿaālama
+ ʿaālama
+ġayabiⁿ
+wašahaādaŧiⁿ
+ linudarika
+ālbaāṭina
+biġayabinaā
+ waālẓauāhira
+bišahaādatinaā
+ 
+wawaṣafa
+nafasahu
+biālriuḍaā
+waālġaḍabi
+ 
+waāawaǧada
+ālʿaālama
+ḏaā
+ḫawafiⁿ
+waraǧaāʾiⁿ
+ fanaḫaāfu
+ġaḍabahu
+ wanaraǧuw
+riḍaāhu
+ 
+wawaṣafa
+nafasahu
+biāanauhu
+ǧamiyluⁿ
+ waḏuw
+ǧalaāliⁿ
+ faāawaǧadanaā
+ʿalaáã
+hayabaŧiⁿ
+waāunasiⁿ
+ 
+wahãkaḏaā
+ǧamiyʿu
+maā
+yunasabu
+āʾilayhi
+taʿaālaáã
+ wayusamauáã
+bihi
+ 
+faʿabaura
+ʿana
+haātayni
+ālṣiufatayni
+bi
+ālyadayni
+ āllautayni
+tawaǧauhataā
+minahu
+ʿalaáã
+ḫalaḳi
+ālāʾinasaāni
+ālkaāmili
+ likawnihi
+ālǧaāmʿa
+liḥaḳaāʾiḳi
+ālʿaālami
+wamufaradaātihi
+ 
+faālʿaālamu
+šahaādaŧuⁿ
+ waālḫaliyfaŧu
+ġayabuⁿ
+ walihãḏaā
+yuḥaǧabu
+ālsuulaṭaānu
+ 
+wawaṣafa
+ālḥaḳuu
+nafasahu
+biālḥuǧubi
+ālẓ
+uulamaāniyauŧi
+
+ wahiya
+ālāaǧas
+aāmu
+ālṭ
+aubiyʿiy
+auŧu
+
+waālnuuwriyauŧi
+ wahiya
+ālāarawaāḥu
+āllauṭiyfaŧu
+ 
+waālʿaālamu
+bayna
+kaṯiyfiⁿ
+walaṭiyafiⁿ
+ wahuwa
+ʿaynu
+ālḥiǧaābi
+ʿalaáã
+nafasihi
+ 
+falaā
+yudaraku
+ālḥaḳuu
+āʾidaraākahu
+nafasahu
+ falaā
+yazaālu
+fiy
+ḥiǧaābiⁿ
+laā
+yurafaʿu
+ maʿa
+ʿilamihi
+biāanauhu
+mutamayiuzuⁿ
+ʿana
+muwǧidih
+biafatiḳaārihi
+ walãkina
+laā
+ḥaẓau
+lahu
+fiy
+wuǧuwbi
+ālwuǧuwdi
+ālḏauātiyiu
+ālauḏiy
+liwuǧuwdi
+ālḥaḳiu
+ falaā
+yudarikuhu
+āabadaⁿā
+ falaā
+yazaālu
+ālḥaḳuu
+mina
+hãḏihi
+ālḥaḳiyḳaŧi
+ġayra
+maʿaluwmiⁿ
+ ʿilama
+ḏawaḳiⁿ
+wašuhuwdiⁿ
+ liāanauhu
+laā
+ḳidama
+lilaḥaādiṯi
+fiy
+ḏãlika
+ 
+famaā
+ǧam
+aʿa
+āllhu
+lādama
+bayna
+yada
+yahi
+āʾilauā
+taš
+ariyfaⁿā
+ walihãḏaā
+ḳaāla
+liāʾibaliysa
+
+ 
+maā
+manaʿaka
+āana
+tasaǧuda
+limaā
+ḫalaḳatu
+biyadaáau
+ 
+swrŧ
+ṣ
+ 57
+ wamaā
+huwa
+āʾilauā
+ʿaynu
+ǧamaʿihi
+bayna
+ālṣuuwratayni
+ ṣuwraŧi
+ālʿaālami
+ waṣuwraŧi
+ālḥaḳiu
+ wahumaā
+yadaā
+ālḥaḳiu
+ 
+waāʾibaliysu
+ǧuzaʾuⁿ
+mina
+ālʿaālami
+lama
+taḥaṣula
+lahu
+hãḏihi
+ālǧamaʿiyauŧu
+ 
+walihãḏaā
+kaāna
+ādamu
+ḫaliyfaŧaⁿ
+ faāʾina
+lama
+yakuna
+ẓaāhiraⁿā
+biṣuwraŧi
+mani
+asataḫalafahu
+fiymaā
+asataḫalafahu
+fiyhi
+ fam
+aā
+huwa
+ḫal
+iyf
+aŧuⁿ
+ waāʾina
+lama
+yaku
+na
+fiyhi
+ǧamiyʿu
+maā
+taṭalubuhu
+ālrau
+ʿaāyaā
+ālaut
+iy
+asatuḫalifa
+ʿalayhaā
+
+ liāanau
+asatin
+aādahaā
+āʾilayhi
+
+ falaā
+budau
+āana
+yaḳuwma
+biǧamiyʿi
+maā
+taḥataāǧu
+āʾilayhi
+ waāʾilauā
+ falaysa
+biḫaliyfaŧiⁿ
+ʿalayhima
+ 
+famaā
+ṣaḥauti
+ālḫilaāfaŧu
+āʾilauā
+lilaāʾinasaāni
+ālkaāmili
+ 
+faāanašaāa
+ṣuw
+ratahu
+ālẓauāhiraŧa
+mina
+ḥaḳaā
+ʾiḳi
+ālʿ
+aālami
+
+ waṣawaurahu
+ waāanaša
+āa
+ṣuwratahu
+ālb
+aāṭinaŧa
+ʿalaáã
+ṣuwratihi
+taʿaālaáã
+ 
+walḏãlika
+
+5ẓhr
+ ḳaāla
+fiyhi
+ 
+ kunatu
+samaʿahu
+wabaṣarah
+ 
+maā
+ḳaāla
+ 
+kunatu
+ʿaynahu
+waāuḏunahu
+ fafarauḳa
+bayna
+ālṣuuwratayni
+ 
+wahãkaḏaā
+huwa
+fiy
+kuliu
+mawǧuwdiⁿ
+mina
+ālʿaālami
+biḳadari
+maā
+taṭalubuhu
+ḥaḳiyḳaŧu
+ḏãlika
+ālmawǧuwdi
+ 
+lãkina
+laysa
+laāaḥadiⁿ
+maǧamuwʿu
+maā
+lilaḫaliyfaŧi
+ 
+famaā
+faāza
+āʾilauā
+biālmaǧamuwʿi
+ 
+walawlaā
+sarayaānu
+ālḥ
+aḳiu
+fiy
+ālmawaǧuwdaāti
+biā
+lṣuuwraŧi
+ maā
+kaāna
+lilaʿaālami
+wuǧuwduⁿ
+ kamaā
+āanauhu
+lawlaā
+tilaka
+ālḥaḳaāʾiḳu
+ālmaʿaḳuwlaŧu
+ālkuliuyauŧu
+maā
+ẓahara
+ḥukamuⁿ
+fiy
+ālmawaǧuwdaāti
+ālʿayaniyauŧi
+ 
+wamina
+hãḏihi
+ālḥaḳiyaḳaŧi
+kaāna
+ālafatiḳaāru
+mina
+ālʿaālami
+āʾilaáã
+ālḥaḳiu
+fiy
+wuǧuwdihi
+ 
+
+ālbsyṭ
+1
+faālkuluu
+mufataḳruⁿ
+maā
+ālkuluu
+musataġaniⁿ
+hãḏaā
+huwa
+ālḥaḳuu
+ḳada
+ḳulanaāhu
+laā
+nakaniy
+2
+faāʾina
+ḏa
+karata
+ġaniyiⁿuā
+laā
+afatiḳaāra
+bihi
+faḳada
+ʿalimata
+ālauḏiy
+biḳawlinaā
+naʿaniy
+3
+faālkuluu
+biālkuliu
+marabuwṭuⁿ
+falaysa
+lahu
+ʿanahu
+anafiṣaāluⁿ
+ḫuḏuwā
+maā
+ḳulatuhu
+ʿaniuy
+faḳada
+ʿalimata
+ḥikamaŧa
+našaāaŧi
+ǧasadi
+ādama
+ āaʿaniy
+ ṣuwratahu
+ālẓauāhiraŧa
+ 
+waḳada
+ʿalimata
+našaāaŧa
+ruwḥi
+ādama
+ āaʿaniy
+ ṣuwratahu
+ālbaāṭinaŧa
+ fahuwa
+ālḥaḳuu
+ālḫalaḳu
+ 
+waḳada
+ʿalimata
+našaāaŧa
+rutabatihi
+ wahiya
+ālmaǧamuwʿu
+ālauḏiy
+bihi
+asataḥaḳau
+ālḫilaāfaŧa
+ 
+faāādamu
+huwa
+ālnaufasu
+ālwaāḥidaŧu
+ālautiy
+ḫuliḳa
+minahaā
+hãḏaā
+ālnauwaʿu
+ālāʾinasaāniyuu
+ 
+wahuwa
+ḳawaluhu
+ 
+yãāāayuuhaā
+alnauāsu
+atauḳuwā
+rabaukumu
+alauḏiá
+ḫalaḳakuma
+mina
+nafasiⁿ
+waāḥidaŧiⁿ
+waḫalaḳa
+minahaā
+zawǧahaā
+wabaṯau
+minahumaā
+riǧaālaⁿā
+kaṯiyraⁿā
+wanisaāāʾaⁿ
+ 
+swrŧ
+ālnsāʾ
+
+ 1
+faḳawluhu
+ 
+atauḳuwā
+rabaukuma
+ 
+swrŧ
+ālnsāʾ
+
+ 1
+aǧaʿaluwā
+maā
+ẓahara
+minakuma
+ wiḳaāyaŧaⁿ
+lirabaukuma
+ waaǧaʿaluwā
+maā
+baṭana
+minakuma
+
+ wahuwa
+rabuukuma
+
+ wiḳaā
+yaŧaⁿ
+lakuma
+ faāʾinau
+ālāama
+ra
+ḏamuⁿu
+waḥamaduⁿ
+
+ fakuwnuwā
+wiḳaāyatahu
+fiy
+ālḏaumi
+ waaǧaʿaluwhu
+wiḳaāyatakuma
+fiy
+ālḥamadi
+ takuwnuwā
+āudabaāʾa
+ʿaālimiyna
+ 
+ṯumau
+āʾinauhu
+taʿaālaáã
+āaṭalaʿahu
+ʿal
+aáã
+maā
+āawdaʿa
+fiyhi
+ waǧaʿ
+ala
+ḏãlika
+fiy
+ḳabaḍatay
+ahi
+ ālḳabaḍaŧu
+ālwaāḥidaŧu
+fiyhaā
+ālʿaālamu
+ waālḳabaḍaŧu
+ālāuḫaraáã
+ ādamu
+wbanuwhu
+ wbayauna
+maraātibahuma
+fiyhi
+ 
+ḳaāla
+raḍiya
+āllhu
+ʿanahu
+ walamauā
+āaṭalaʿaniy
+āllhu
+
+ fiy
+siriuy
+
+ ʿalaáã
+maā
+āawadaʿa
+fiyau
+hãḏa
+āālāʾimaā
+mi
+ālwaālidi
+ālā
+ka
+bari
+ ǧaʿalatu
+fiya
+hãḏaā
+ālkitaābi
+min
+ahu
+maā
+ḥudau
+liy
+ 
+laā
+maā
+wḳafatu
+ʿalayahi
+ faāʾinau
+ḏãlika
+laā
+yasaʿuhu
+kitaābuⁿ
+
+6wǧh
+ walaā
+ālʿaālamu
+ālmawaǧuwdu
+ālāna
+ 
+famim
+auā
+šah
+idtuhu
+mimauā
+nuwdiʿuhu
+fiy
+hãḏa
+āālkitaābi
+ kama
+āḥadauhu
+liy
+rasuw
+lu
+āllhi
+ṣal
+auáã
+āllhu
+ʿalayahi
+wasalauma
+ 
+
+1
+ḥikamaŧuⁿ
+āʾilãhiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+ādamiyauŧiⁿ
+ wahuwa
+hãḏaā
+ālbaābu
+ 
+
+2
+ṯumau
+ḥikamaŧuⁿ
+nafaṯiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+šiyaṯiyauŧiⁿ
+ 
+
+3
+ṯumau
+ḥikamaŧuⁿ
+subuuwḥiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+nuwḥiyauŧiⁿ
+ 
+
+4
+ṯumau
+ḥikamaŧuⁿ
+ḳuduuwsiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+āʾidariysiyauŧiⁿ
+ 
+
+5
+ṯumau
+ḥikamaŧuⁿ
+muhayamiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+āʾibaraāhiyamiyauŧiⁿ
+ 
+
+6
+ṯumau
+ḥikamaŧuⁿ
+ḥaḳiuyiuŧuⁿ
+fiy
+kalimaŧiⁿ
+āʾisaḥaāḳiyauŧiⁿ
+ 
+
+7
+ṯumau
+ḥikamaŧuⁿ
+ʿaliyauŧuⁿ
+fiy
+kalimaŧiⁿ
+āʾisamaāʿiyaliyauŧiⁿ
+ 
+
+8
+ṯumau
+ḥikamaŧuⁿ
+ruwḥiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+yaʿaḳuwbiyauŧiⁿ
+ 
+
+9
+ṯumau
+ḥikamaŧuⁿ
+nuwriyauŧuⁿ
+fiy
+kalimaŧiⁿ
+yuwsufiyauŧiⁿ
+ 
+
+01
+ ṯumau
+ḥikamaŧuⁿ
+āaḥadiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+huwdiyauŧiⁿ
+ 
+
+11
+ ṯumau
+ḥikamaŧuⁿ
+faātiḥiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+ṣaāliḥiyauŧiⁿ
+ 
+
+21
+ ṯumau
+ḥikamaŧuⁿ
+ḳalabiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+šuʿayabiyauŧiⁿ
+ 
+
+31
+ ṯumau
+ḥikamaŧuⁿ
+malakiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+luwṭiyauŧiⁿ
+ 
+
+41
+ ṯumau
+ḥikamaŧuⁿ
+ḳadariyauŧuⁿ
+fiy
+kalimaŧiⁿ
+ʿuzayariyauŧiⁿ
+ 
+
+51
+ ṯumau
+ḥikamaŧuⁿ
+nabawiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+ʿiysawiyauŧiⁿ
+ 
+
+61
+ ṯumau
+ḥikamaŧuⁿ
+raḥamaāniyauŧuⁿ
+fiy
+kalimaŧiⁿ
+sulayamaāniyauŧiⁿ
+ 
+
+71
+ ṯumau
+ḥikamaŧuⁿ
+wuǧuwdiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+daāwudiyauŧiⁿ
+ 
+
+81
+ ṯumau
+ḥikamaŧuⁿ
+nafasiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+yuwnusiyauŧiⁿ
+ 
+
+91
+ ṯumau
+ḥikamaŧuⁿ
+ġayabiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+āyuuwbiyauŧiⁿ
+ 
+
+02
+ ṯumau
+ḥikamaŧuⁿ
+ǧalaāliyauŧuⁿ
+fiy
+kalimaŧiⁿ
+yaḥayawiyauŧiⁿ
+ 
+
+12
+ ṯumau
+ḥikamaŧuⁿ
+maālikiyuŧuⁿ
+fiy
+kalimaŧiⁿ
+za
+kariyauāwiyauŧiⁿ
+ 
+
+22
+ ṯumau
+ḥikamaŧuⁿ
+āʾiyanaāsiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+āʾilayaāsiyauŧiⁿ
+ 
+
+32
+ ṯumau
+ḥikamaŧuⁿ
+āʾiḥasaāniyauŧuⁿ
+fiy
+kalimaŧiⁿ
+luḳamaāniyauŧiⁿ
+ 
+
+42
+ ṯumau
+ḥikamaŧuⁿ
+āʾimaāmiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+haāruwniyauŧiⁿ
+ 
+
+52
+ ṯumau
+ḥikamaŧuⁿ
+ʿulawiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+muwsawiyauŧiⁿ
+ 
+
+62
+ ṯumau
+ḥikamaŧuⁿ
+ṣamadiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+ḫaālidiyauŧiⁿ
+ 
+
+72
+ ṯumau
+ḥikamaŧuⁿ
+faradiyauŧuⁿ
+kuliyauŧuⁿ
+fiy
+kalimaŧiⁿ
+muḥamaudiyauŧiⁿ
+ 
+wafaṣuu
+kuliu
+ḥika
+maŧiⁿ
+ ālkal
+imaŧu
+ālautiy
+nusibata
+āʾilay
+haā
+ faaḳa
+taṣartu
+ʿalaáã
+maā
+ḏakaratuhu
+mina
+hãḏihi
+ālḥikami
+ fiy
+hãḏaā
+ālkitaābi
+ ʿalaáã
+ḥadiu
+maā
+ṯabata
+fiy
+āumiu
+ālkitaābi
+ 
+faamat
+aṯalatu
+maā
+rusima
+liy
+ wawaḳaf
+atu
+ʿinda
+maā
+ḥudau
+liy
+ walawa
+rumatu
+ziyaā
+daŧaⁿ
+ʿalaáã
+ḏãlika
+maā
+asataṭaʿatu
+ faāʾinau
+ālḥaḍaraŧa
+tamanaʿu
+ḏãlika
+ waāllhu
+ālmuwafiuḳu
+laā
+rabau
+ġayrahu
+ 
+
+6ẓhr
+wamina
+ḏãlika
+ 
+
+bḳyŧ
+ālnuṣ
+mkmulŧ
+lhḏh
+ālṣufḥŧ
+fy
+ālṣufḥŧ
+āltuālyŧ
+
+2
+ḥikamaŧuⁿ
+nafaṯiyauŧuⁿ
+fiy
+kalimaŧiⁿ
+šiyaṯiyauŧiⁿ
+aʿalama
+āanau
+ālʿaṭaā
+yaā
+waālmin
+aḥa
+ālẓauāhiraŧa
+fiy
+ālkawni
+
+ ʿalaáã
+āayadiy
+ālʿ
+ibaādi
+waʿalaáã
+ġayari
+āayadiyhima
+
+ ʿalaáã
+ḳisamayani
+ minahaā
+ maātakuwnu
+ʿaṭaāyaā
+ḏaātiyauŧaⁿ
+waʿaṭaāyaā
+āasam
+aāʾiyauŧaⁿ
+ 
+watatamayauzu
+ʿinada
+āahali
+ālāaḏawaāḳi
+ 
+kamaā
+āanau
+minahaā
+maātakuwnu
+ʿana
+suʾāliⁿ
+fiy
+muʿayauniⁿ
+ waʿana
+suʾāliⁿ
+ġayari
+muʿayauniⁿ
+ 
+waminahaā
+ maālaā
+yakuwnu
+ʿana
+suʾāliⁿ
+ sawaāʾuⁿ
+kaānata
+ālāuʿaṭiyaŧu
+ḏaātiyauŧaⁿ
+āawa
+āasamaāʾiyauŧaⁿ
+ 
+faālmuʿ
+ayaunu
+kam
+ana
+yaḳuwlu
+ 
+yaā
+rabiu
+āaʿaṭ
+iniy
+kaḏa
+ā
+fay
+uʿa
+yiunu
+āamaraⁿā
+maā
+ laā
+yaḫaṭu
+ru
+lahu
+siwaāhu
+ waġayru
+ālmuʿayauni
+kamana
+yaḳ
+uwlu
+ 
+yaā
+rabiu
+āaʿaṭiniy
+maātaʿal
+amu
+fiyhi
+maṣalaḥatiy
+ 
+mina
+ġayri
+taʿayiyaniⁿ
+likuliu
+ǧuzaʾiⁿ
+mina
+ḏaātiya
+ 
+mina
+laṭiyfiⁿ
+wakaṯiyfiⁿ
+ 
+waālsauāʾiluwna
+ṣinafaāni
+ ṣinafuⁿ
+baʿaṯahu
+ʿalaáã
+ālsuuwʾaāli
+ālasatiʿaǧaālu
+ālṭaubiyʿiyuu
+ faāʾinau
+ālāʾinasaāna
+ḫuliḳa
+ʿaǧuwlaⁿā
+ 
+waālṣiunafu
+ālāḫaru
+baʿaṯahu
+ʿalaáã
+ālsuuwʾaāli
+ lamauā
+ʿalima
+āana
+ṯamau
+āumuwraⁿā
+ʿinda
+āllhi
+ḳada
+sab
+aḳa
+ālʿ
+ilamu
+bāa
+nauhā
+laā
+tunaā
+lu
+āʾilauā
+baʿ
+ada
+suwʾa
+āliⁿ
+ fan
+aḳuwlu
+ fal
+aʿalau
+maā
+nasāaluhu
+subaḥaānahu
+yakuwnu
+mina
+hãḏaā
+ālḳ
+abiyli
+ fasuwʾa
+āluhu
+aḥatiyaāṭuⁿ
+limaā
+huwa
+ālāuma
+ru
+ʿalayhi
+mina
+ālāʾimaka
+āni
+ wahuwa
+laā
+yaʿalamu
+maā
+fiy
+ʿilami
+āllhi
+ walaā
+maā
+yuʿṭiyhi
+asatiʿadaāduh
+fiy
+ālḳabuwli
+ liāanauhu
+mina
+āaġamaḍi
+ālmaʿaluwmaāti
+ ālwuḳuwfu
+fiy
+kuliu
+zamaāniⁿ
+faradiⁿ
+ʿalaáã
+asatiʿadaādi
+ālšauḫaṣi
+fiy
+ḏãlika
+ālzaumaāni
+ 
+walawlaā
+maā
+āaʿaṭaāhu
+ālasatiʿadaādu
+ ālsuuwʾaāla
+maā
+saāala
+ 
+faġaāyaŧu
+āahali
+ālḥuḍuwri
+ālauḏiyna
+laā
+yaʿalamuwna
+miṯala
+hãḏaā
+ āna
+yaʿalamuwhu
+fiy
+ālzaumaāni
+ālauḏiy
+yakuwnuwna
+fiyhi
+ faāʾinauhama
+liḥuḍuwrihima
+yaʿalamuwna
+maāāaʿaṭaāhumu
+ālḥaḳuu
+fiy
+ḏãlika
+ālzaumaāni
+ waāanauhuma
+maāḳabilwhu
+āʾilauā
+biālasatiʿadaādi
+ 
+wahuma
+ṣinafaāni
+ ṣinafuⁿ
+yaʿalamuwna
+mina
+ḳabuwlihima
+asatiʿadaādahuma
+ waṣinafuⁿ
+yaʿalam
+uwna
+mina
+asatiʿadaādihima
+maā
+yaḳabaluwnahu
+ 
+hãḏaā
+āatamuu
+maā
+yakuwnu
+fiy
+maʿarifaŧi
+ālasatiʿadaādi
+ fiy
+hãḏaā
+ālṣiunafi
+ 
+wamina
+hãḏaā
+ālṣiunafi
+man
+yasaāalu
+laā
+lilaasatiʿaǧaāli
+walaā
+lilaāʾimakaāni
+ waāʾinaumaā
+yasāalu
+amatiṯaālaⁿā
+liāamari
+āllhi
+fiy
+ḳawlihi
+taʿaālaáã
+ 
+adaʿuwniáā
+āasatiǧiba
+lakuma
+ 
+swrŧ
+ġāfr
+
+ 06
+ fahuwa
+ālʿabadu
+ālmaḥaḍu
+ 
+walay
+sa
+lihãḏā
+āldauāʿiy
+him
+auŧuⁿ
+mataʿaliuḳiŧuⁿ
+
+7wǧh
+ fiy
+maā
+saāala
+fiyhi
+min
+muʿ
+ayauniⁿ
+āawa
+ġayri
+muʿayauniⁿ
+ waāʾinaumaā
+himautuhu
+fiy
+amatiṯaāli
+āawaāmiri
+sayiudihi
+ 
+faāʾiḏaā
+aḳataḍaáã
+ālḥaālu
+ālsuuwʾaāla
+ saāala
+ʿubuwdiyauŧaⁿ
+ waāʾiḏaā
+aḳataḍaáã
+āltaufawiyḍa
+waālsaukuwta
+ sakata
+ 
+faḳ
+adi
+abatuliya
+āayuuwbu
+waġayaruhu
+ wamaāsaāaluwā
+rafaʿa
+maāabatalaāhumu
+āllhu
+bihi
+
+ ṯumau
+āḳataḍaáã
+lahumu
+ālḥaālu
+fiy
+zamaāniⁿ
+āḫara
+ āana
+yasaāaluwā
+rafaʿa
+ḏãlika
+faarfaʿahu
+āllhu
+ʿanahuma
+ 
+waāltauʿaǧiylu
+biālmasaʾwli
+fiyhi
+waālāʾibaṭaāʾu
+lilaḳadari
+ālmuʿayauni
+lahu
+ʿinda
+āllhi
+ 
+faāʾiḏaā
+waāfaḳa
+ālsuuwʾa
+ālu
+ālwaḳata
+āasa
+raʿa
+biā
+lāʾiǧaābaŧi
+ waāʾiḏaā
+ta
+āaḫaura
+ālwaḳatu
+
+ āʾimauā
+fiy
+ālduunayaā
+waāʾimauā
+ālaáã
+ālāḫiraŧi
+
+ taāaḫaurati
+ālāʾiǧaābaŧu
+ āay
+ ālmasaʾwlu
+fiyhi
+laā
+ālāʾiǧaābaŧu
+ālautiy
+hiya
+labauyaka
+mina
+āllhi
+ faāfahama
+hãḏaā
+ 
+waāamauā
+ālḳisamu
+ālṯauāniy
+wahuwa
+ḳawlunaā
+ 
+waminahaā
+maā
+laā
+yakuwnu
+ʿani
+ālsuuʾāli
+ faālauḏiy
+yaku
+wnu
+ʿana
+suʾāliⁿ
+ faāʾinaumaā
+āuriyda
+biā
+lsuuʾāli
+ālt
+aulafuuẓu
+bihi
+ faāʾinauhu
+fiy
+nafasi
+ālāamari
+laā
+budau
+mina
+suʾāliⁿ
+ āʾimauā
+biāllaufaẓi
+ āawa
+biālḥaāli
+ āawa
+biālasatiʿadaādi
+ 
+kamaā
+āanauhu
+laā
+yaṣiḥuu
+ḥamaduⁿ
+muṭalaḳuⁿ
+ḳaṭuu
+ āʾilauā
+fiy
+āllaufaẓi
+ waāamauā
+fiy
+ālmaʿanaáã
+ falaā
+budau
+āana
+yuḳayiudahu
+ālḥ
+aālu
+ faā
+lauḏiy
+ya
+baʿaṯu
+ka
+ʿalaáã
+ḥamadi
+āllhi
+huwa
+ālmuḳayiudu
+laka
+biasami
+fiʿaliⁿ
+āawa
+biasami
+tanaziyahiⁿ
+ 
+waālasatiʿadaādu
+mina
+ālʿabadi
+laā
+yašaʿaru
+bihi
+ṣaāḥibuh
+ wayašaʿuru
+biālḥaāli
+ liāanauhu
+yaʿalmu
+ālbaāʿiṯa
+ wahuwa
+ālḥaālu
+ faālasatiʿadaādu
+āaḫafaáã
+sawʾuāliⁿ
+ 
+waāʾinaumaā
+yamanaʿu
+haʾ
+laāʾi
+mina
+ālsuuʾāli
+ ʿil
+muhum
+bāanau
+lilhi
+fiyh
+ima
+saā
+biḳaŧa
+ḳaḍ
+aāʾiⁿ
+ fah
+uma
+ḳada
+hayauāuwaā
+maḥalauhuma
+liḳabuwli
+maā
+yaridu
+minhu
+ waḳada
+ġaābuwā
+ʿana
+nufuwsihima
+waāaġaraāḍihima
+ 
+wamina
+hãʾ
+laāʾi
+mana
+yaʿalamu
+āanau
+ʿilama
+āllhi
+bihi
+fiy
+ǧamiyʿi
+āaḥawaālihi
+ huwa
+maā
+kaāna
+ʿal
+ayhi
+fiy
+ḥaāli
+ṯubuwti
+ʿaynihi
+ ḳabala
+wuǧuwdihaā
+ wayaʿalamu
+āanau
+ālḥaḳau
+laā
+yuʿaṭiyhi
+āʾilauā
+maāāaʿaṭaāhu
+ʿayanuhu
+mina
+ālʿilami
+bihi
+ wahuwa
+maā
+kaāna
+ʿalayhi
+fiy
+ḥaāli
+ṯubuwtihi
+ fayaʿal
+amu
+ʿilama
+āll
+hi
+bihi
+ mina
+āayana
+ḥaṣala
+ wamaā
+ṯamau
+ṣin
+afuⁿ
+mina
+āahali
+āllhi
+āaʿal
+aáã
+waāa
+kašafu
+mina
+hãḏaā
+ālṣiu
+nafi
+ fahumu
+ālwaāḳifuwna
+ʿalaáã
+siriu
+ālḳadari
+ 
+wahuma
+ʿalaáã
+ḳisamayani
+ minahuma
+man
+yaʿalmu
+ḏãlika
+muǧamalaⁿā
+ 
+7ẓhr
+ waminahuma
+man
+yaʿalamuhu
+mufaṣaulaⁿā
+ waālauḏiy
+yaʿalamuhu
+mufaṣaulaⁿā
+āaʿalaáã
+waāatamuu
+mina
+ālauḏiy
+yaʿalamuhu
+muǧamalaⁿā
+ 
+faāʾinauhu
+yaʿal
+amu
+maāfiy
+ʿilami
+āll
+hi
+fiyhi
+ āʾimauā
+bi
+āʾiʿalaāmi
+āllhi
+āʾiyauā
+hu
+ bimaā
+āaʿaṭaāhu
+ʿaya
+nuhu
+mina
+ālʿ
+ilami
+bihi
+ 
+waāʾimauā
+āana
+yaka
+šifa
+lahu
+ʿana
+ʿaynihi
+ālṯ
+auābitaŧi
+ waanatiḳaā
+laāti
+ālāaḥa
+waāli
+ʿalayh
+aā
+āʾilaáã
+maā
+laā
+yatan
+aāhaáã
+wahuwa
+āaʿalaáã
+ faāʾinauhu
+yakuwnu
+fiy
+ʿilamihi
+binafasihi
+bimana
+zi
+laŧi
+ʿilami
+āllhi
+bihi
+ liāanau
+ālāaḫaḏa
+mina
+maʿadaniⁿ
+waāḥidiⁿ
+ 
+āiⁿlauā
+āanauhu
+mina
+ǧihaŧi
+ālʿabadi
+ʿinaāyaŧuⁿ
+mina
+āllhi
+sabaḳata
+lahu
+ hiya
+mina
+ǧumalaŧi
+āaḥawaāli
+ʿayanihi
+ yaʿarifuhaā
+ṣaāḥibu
+hãḏaā
+ālka
+šafi
+āʾiḏaā
+āaṭalaʿahu
+āllhu
+ʿal
+aáã
+ḏãlika
+
+ āaáa
+ ʿalaáã
+āaḥawaāli
+ʿaynihi
+
+ faāʾinauhu
+
+layasa
+fiy
+wusaʿi
+ālmaḫaluwḳi
+āʾiḏaā
+āaṭalaʿ
+ahu
+āll
+hu
+ʿalaáã
+āaḥawaāli
+ʿayn
+ihi
+ālṯauābitaŧi
+ālautiy
+taḳaʿu
+ṣuwraŧu
+ālwuǧuw
+di
+ʿalayhaā
+ āana
+yaṭauliʿa
+fiy
+hãḏihi
+ālḥaāli
+ʿalaáã
+aṭiula
+āʿi
+ālḥaḳiu
+ʿalaáã
+hãḏihi
+ālāaʿayaāni
+ālṯ
+auābitaŧi
+fiy
+ḥaā
+li
+ʿada
+mihaā
+ liāanauhaā
+nisabuⁿ
+ḏaātiyauŧuⁿ
+laā
+ṣuwraŧa
+lahaā
+ 
+fabih
+ãḏaā
+ālḳada
+ri
+naḳuwlu
+āʾinau
+ālʿinaāyaŧa
+ālāʾilãhiyauŧa
+sab
+aḳata
+lihãḏaā
+ālʿ
+abadi
+bih
+ãḏihi
+ālmu
+saāwaāŧi
+fiy
+āʾifaādaŧi
+ālʿilami
+ 
+wamina
+hunaā
+naḳuwlu
+ 
+āllhu
+ 
+ḥatauáã
+naʿalama
+ 
+ swrŧ
+mḥmd
+
+ 13
+ wahiya
+kalimaŧuⁿ
+muḥaḳaḳauŧu
+ālmaʿanaáã
+ maāhiya
+kamaā
+yatawahaumuhu
+mana
+layasa
+lahu
+hãḏaā
+ālmašarabu
+ 
+waġaāyaŧu
+ālmunaziuhi
+āana
+ǧaʿala
+ḏãlika
+ālḥuduwṯa
+fiy
+ālʿilami
+lilatauʿaluuḳi
+wahuwa
+āaʿalaáã
+waǧahiⁿ
+yakuwnu
+lilamutakaliuma
+biʿaḳalihi
+fiy
+hãḏihi
+ālmasaāalaŧi
+ lawlaā
+āanauhu
+āaṯabata
+ālʿilama
+zaāʾidaⁿā
+ʿalaáã
+ālḏauāti
+ faǧaʿala
+ālt
+auʿaluuḳa
+lahu
+laā
+lilḏauāti
+ wabih
+ãḏaā
+anafaṣala
+ʿani
+ālmuḥaḳauḳi
+mina
+āahali
+āll
+hi
+ṣaāḥibi
+ālkašafi
+waālwuǧuwdi
+ 
+ṯumau
+naraǧiʿu
+āʾilaáã
+ālāuʿaṭiyaāti
+ fanaḳuwlu
+āʾinau
+ālāuʿaṭiyaāti
+āʾimauā
+ḏaātiyauŧuⁿ
+āaw
+āasamaāʾiyauŧuⁿ
+ 
+faāamauā
+ālminaḥu
+waālhibaātu
+waālʿaṭaāyaā
+ālḏauātiyauŧu
+falaā
+takuwnu
+āabadaⁿā
+āʾilauā
+ʿana
+taǧaliⁿ
+āʾilãhiyiⁿu
+ 
+waālt
+auǧal
+iuy
+mina
+ālḏau
+āti
+laā
+yakuwnu
+āabadaⁿā
+āʾilauā
+biṣuwraŧi
+asatiʿ
+adaādi
+ālmutaǧalauáã
+lahu
+
+ġayru
+ḏãlika
+laā
+yakuwnu
+ faāʾiḏaⁿā
+ālmutaǧalauáã
+lahu
+maā
+raāaáã
+siwaáã
+ṣuwritihu
+fiy
+mirāŧi
+ālḥaḳiu
+ 
+wa
+maāraāaáã
+ālḥaḳau
+walaā
+yumakinu
+āana
+yaraāhu
+ maʿa
+ʿilamihi
+
+8wǧh
+ āanauhu
+maāraāaáã
+ṣuwratahu
+āʾilauā
+fiy
+hi
+ kaā
+lmi
+rāŧi
+fiy
+ālšauāhidi
+ āʾiḏaā
+raāayta
+ālṣuuwara
+fiyhaā
+laā
+ta
+raāhaā
+ maʿa
+ʿilamika
+āanauka
+maā
+raāayata
+ālṣuuwara
+ āaw
+ṣuwrataka
+āʾilauā
+fiyhaā
+ 
+faāabaraza
+āllhu
+ḏãlika
+miṯaālaⁿā
+naṣabahu
+litaǧaliuyhi
+ālḏauātiyiu
+liyaʿalama
+ālmutaǧalauáã
+lahu
+maā
+rāhu
+ 
+wamaā
+ṯamau
+miṯaāluⁿ
+āaḳarabu
+walaā
+āašabahu
+biālruuʾyaŧi
+waāltauǧaliuy
+mina
+hãḏaā
+ waaǧahada
+fiy
+nafasika
+ʿindamaā
+taraáã
+ālṣuuwraŧa
+fiy
+ālmirāŧi
+ āana
+taraáã
+ǧirama
+ālmirāŧi
+ laā
+taraāhu
+āabadaⁿā
+ālbatauŧa
+ ḥatauáã
+āʾinau
+baʿaḍa
+mana
+āadaraka
+miṯala
+hãḏaā
+fiy
+ṣuwri
+ālmaraāʾya
+ ḏahaba
+āʾilaáã
+āanau
+ālṣuuwraŧa
+ālmaraʾiyauŧa
+bayna
+baṣari
+ālrauāʾiy
+ wabayna
+ālmirāŧi
+ 
+hãḏaā
+āaʿaẓamu
+maā
+ḳada
+ra
+ʿalayhi
+mina
+ālʿil
+mi
+ waālāama
+ru
+kamaā
+ḳul
+anaāhu
+ waḏahabanaā
+āʾilayhi
+ waḳada
+bay
+aunauā
+hãḏaā
+fiy
+ālfutuwḥaāti
+ālmakiuyauŧi
+ 
+waāʾiḏaā
+ḏuḳata
+hãḏaā
+ ḏuḳata
+ālġaāyaŧa
+ālautiy
+layasa
+fawḳahaā
+ġaāyaŧuⁿ
+fiy
+ḥaḳiu
+ālmaḫaluwḳi
+ 
+falaā
+taṭ
+amaʿa
+ walaā
+tutaʿiba
+nafas
+aka
+fiy
+ān
+taraḳaáã
+fiy
+āaʿalaáã
+mina
+hãḏaā
+āldau
+raǧi
+ famaā
+huwa
+ṯamau
+āaṣalaⁿā
+ wamaā
+baʿadahu
+āʾilauā
+ālʿadamu
+ālmaḥaḍu
+ 
+fahuwa
+mirātuka
+fiy
+ruʾyatika
+
+nafas
+aka
+waāanata
+mir
+ātuhu
+fiy
+ruʾyat
+ihi
+āasamaāʾahu
+ waẓuhuw
+ra
+āaḥakaāmihaā
+ 
+walayasata
+siwaáã
+ʿayanihi
+ 
+faaḫatalaṭa
+ālāamaru
+waanabahama
+ fam
+inauā
+mana
+ǧahi
+la
+fiy
+ʿilamihi
+ faḳaāla
+ 
+waālʿaǧazu
+ʿana
+daraki
+ālāʾidaraāki
+āʾidaraākuⁿ
+ waminauā
+mana
+ʿalima
+ falama
+yaḳula
+miṯala
+hãḏaā
+ wahuwa
+āaʿalaáã
+ālḳawli
+ 
+bala
+āaʿaṭaāhu
+ālʿilamu
+ālsuukuwta
+ maā
+āaʿaṭaāhu
+ālʿaǧazu
+ 
+wahãḏaā
+huwa
+āaʿalaáã
+ʿaālimiⁿ
+biāllhi
+ walaysa
+hãḏaā
+ālʿilamu
+āʾilauā
+liḫaātami
+ālruusuli
+ waḫaātami
+ālāawaliyaāʾi
+ 
+wamaāyarāhu
+āaḥaduⁿ
+mina
+ālāanabiyaāʾi
+ waālruusuli
+āʾilauā
+mina
+mišakaāŧi
+ālrausuwli
+ālḫatami
+ 
+walaāyaraāhu
+āaḥaduⁿ
+mina
+ālāawaliyaāʾi
+mina
+mišakaāŧi
+ālwaliyiu
+ālḫaātima
+
+ ḥatauáã
+āʾinau
+ālruusula
+laā
+yarawnahu
+mataáã
+raāawhu
+
+ āʾilauā
+mina
+mišakaāŧi
+ḫaātimi
+ālāawliyaāʾi
+ 
+faāʾinau
+ālriusaālaŧa
+waālnuubuwauŧa
+
+ āaʿaniy
+ nubuwauŧa
+āltaušariyaʿi
+warisaālatahu
+
+ tanaḳaṭiʿaāni
+ 
+waālwilaāyaŧu
+laātanaḳaṭiʿu
+āabadaⁿā
+ 
+faālmurasaluwna
+min
+kawnihima
+āawaliyaāʾa
+laā
+yarawna
+maā
+ḏakaranaāhu
+āʾilauā
+mina
+mišakaāŧi
+ḫaātimi
+ālāawliyaāʾi
+ fakayfa
+mana
+duwnahuma
+mina
+ālāawliyaāʾi
+ 
+
+8ẓhr
+ waāʾina
+kaāna
+ḫaātamu
+ālāawliyaāʾi
+taābiʿaⁿā
+fiy
+ālḥukami
+limaā
+ǧaāʾahu
+bihi
+ḫaātamu
+ālruusuli
+mina
+āltauša
+riyʿi
+ faḏãlika
+laā
+yaḳada
+ḥu
+fiy
+maḳ
+aāmihi
+ walaā
+yunaā
+ḳiḍu
+maāḏahabanaā
+āʾilayhi
+ faāʾinauhu
+min
+waǧahiⁿ
+yakuwnu
+āanazala
+ kamaā
+āanauhu
+mina
+waǧahiⁿ
+yakuwnu
+āaʿalaáã
+ waḳada
+ẓahara
+fiy
+ẓaāhiri
+šaraʿinaā
+maā
+yuwʾayaudu
+maā
+ḏahab
+anaā
+āʾilayhi
+fiy
+faḍali
+ʿuma
+ra
+fiy
+āusaāraáã
+badariⁿ
+biālḥukami
+fiyh
+ima
+ 
+wafiy
+taābiyri
+ālnauḫali
+ 
+famaā
+yalazamu
+ālkaāmila
+āana
+yakuwna
+lahu
+āltauḳaduumu
+fiy
+kuliu
+šayʾiⁿ
+ wafiy
+kuliu
+maratabaŧiⁿ
+ 
+waāʾinaumaā
+naẓara
+ālriuǧaālu
+āʾilaáã
+āltauḳaduumi
+fiy
+rutabi
+ālʿilami
+biāllhi
+ hunaālika
+maṭalabuhuma
+ 
+waāamauā
+ḥawaādaṯu
+ālāa
+kawaāni
+ falaā
+taʿaluuḳa
+liḫawaāṭirihima
+bihaā
+ fataḥaḳauḳa
+maā
+ḏakaranaāhu
+ 
+walamauā
+maṯaula
+ālnaubiyuu
+ṣalauáã
+āllhu
+ʿalyahi
+wasalauma
+ālnuubuwauŧa
+biālḥa
+āʾiṭi
+mina
+āllaubini
+ waḳada
+kamula
+siwa
+áã
+mawaḍiʿi
+lab
+inaŧiⁿ
+ fakaāna
+ṣalauáã
+āllhu
+ʿal
+yahi
+wasal
+auma
+tilaka
+āllaub
+inaŧa
+ ġay
+ara
+āanauhu
+ṣalauáã
+āllhu
+ʿalyhi
+wasalauma
+laā
+yaraāhaā
+āʾilauā
+kamaā
+ḳaāla
+ 
+lab
+inaŧaⁿ
+waāḥidaŧaⁿ
+ waāamauā
+ḫaātamu
+ālāawaliyaāʾi
+ 
+falaā
+budau
+lahu
+mina
+haḏihi
+ālruuʾyaā
+ fa
+yaraáã
+maā
+maṯaulahu
+bihi
+rasuw
+lu
+āllhi
+ṣalauá
+āllhu
+ʿalyahi
+wasalauma
+ 
+wayaraáã
+fiy
+ālḥaāʾiṭi
+mawaḍiʿa
+labinatayani
+ waāllaubinu
+mina
+ḏahabiⁿ
+wafiḍauŧiⁿ
+ fayaraáã
+āllaubinatayani
+āllautayani
+yanaḳuṣu
+ālḥaā
+ʾiṭu
+ʿanah
+umaā
+wayakamulu
+bihim
+aā
+labinaŧa
+fiḍauŧiⁿ
+walabinaŧa
+ḏahabiⁿ
+ falaā
+budau
+āana
+yaraáã
+nafasahu
+tanaṭabiʿu
+fiy
+mawaḍiʿi
+taynika
+āllaubinatayani
+ fayakuwnu
+ḫaātamu
+ālāawaliyaāʾi
+taynika
+āllaubinatayana
+ fayakamulu
+ālḥaāʾiṭu
+ 
+waālsaubabu
+ālmuw
+ǧibu
+lika
+wanihi
+yaraāhaā
+lab
+inatay
+ani
+ āanauhu
+taābiʿuⁿ
+lišaraʿi
+ḫaātami
+ālruusuli
+fiy
+ālẓauāhiri
+ wahuwa
+mawaḍiʿu
+āllaubinaŧi
+ālf
+iḍiuyauŧi
+ wahuwa
+ẓaāhiruhu
+ wamaāyatabaʿuhu
+fiyhi
+mina
+ālāaḥakaāmi
+ 
+kamaā
+huwa
+āaḫaḏa
+ʿana
+āllhi
+fiy
+ālsiu
+riu
+ maāhuwa
+biālṣuuw
+raŧi
+ālẓauā
+hiraŧi
+mutaubiʿuⁿ
+fiyahi
+liāanauhu
+yaraáã
+ālāamara
+ʿalaáã
+maā
+huwa
+ʿalayahi
+ falaā
+budau
+āana
+yaraāhu
+hãkaḏaā
+ wahuwa
+mawaḍiʿu
+āllaub
+inaŧi
+ālḏauhabiyauŧi
+fiy
+ālbauāṭini
+ faāʾinauhu
+āaḫaḏa
+mina
+ālmaʿadani
+ālauḏiy
+yaāḫuḏu
+minahu
+ālmalaku
+ālauḏiy
+yuwḥiya
+bihi
+āʾilaáã
+ālrausuwli
+ faāʾina
+fahimata
+maāāašaratu
+bihi
+ faḳada
+ḥaṣala
+laka
+ālʿilmu
+ālnauāfiʿu
+ 
+fakuluu
+nabiyiⁿu
+mina
+ladu
+na
+ādama
+
+9wǧh
+ āʾilaáã
+āḫiri
+nabayiⁿu
+maā
+min
+ahuma
+āaḥaduⁿ
+yaāḫuḏu
+āʾilauā
+mina
+miša
+kaā
+ŧi
+ḫaātami
+ālnaub
+ayiuyana
+ waāʾina
+taāaḫaura
+wuǧuwdu
+ṭiy
+anatihi
+ faāʾi
+nauhu
+biḥaḳiyaḳ
+atihi
+mawa
+ǧuwduⁿ
+ wahuwa
+ḳawluhu
+ 
+kunatu
+nab
+iyiⁿuā
+ waādamu
+bayana
+ālmaā
+ʾi
+wālṭiu
+yani
+
+ waġayaruhu
+mina
+ālāanabiyaāʾi
+maā
+kaāna
+nab
+iyiⁿuā
+āʾilauā
+ḥiyana
+buʿiṯa
+ 
+wakaḏãlika
+ḫaātamu
+ālāawaliyaāʾi
+ kaāna
+waliyiⁿuā
+waādamu
+bayana
+ālmaāʾi
+wālṭiuyani
+ waġayaruhu
+mina
+ālāawaliyaāʾi
+maā
+kaāna
+waliyiⁿuā
+āʾilauā
+baʿada
+taḥaṣiyalihi
+šaraāʾiṭa
+ālwilaāyaŧi
+mina
+ālāaḫalaāḳi
+ālāʾilãhiyauŧi
+fiy
+ālatiuṣaāfi
+bihaā
+mina
+kawni
+āllhi
+tasamauáã
+bi
+ālwaliyiu
+ālḥamiyadi
+ 
+faḫaātamu
+ālruusuli
+mina
+ḥayaṯu
+
+wilaāyatuhu
+ nisabatuhu
+maʿa
+ālḫatami
+lilawilaāyaŧi
+nisabaŧu
+ālāanabayiāʾi
+waālruusuli
+maʿahu
+ 
+faāʾinauhu
+ālwaliyuu
+ālrausuwlu
+ālnaubiyuu
+ waḫaātamu
+ālāawaliyaāʾi
+ālwalayuu
+ālwaāriṯu
+ālāḫiḏu
+ʿani
+ālāaṣali
+ālmušaāhidu
+lilamaraātibi
+ 
+wahuwa
+ḥasanaŧuⁿ
+mina
+ḥas
+anaāti
+ḫaātami
+ālruu
+suli
+ muḥ
+amaudiⁿ
+ṣal
+auáã
+āll
+hu
+ʿalay
+ahi
+wasalauma
+muḳadaumi
+ālǧamaāʿaŧi
+ wasayiudu
+waladi
+ādama
+fiy
+fataḥi
+baābi
+ālšaufaāʿaŧi
+ 
+faʿayauna
+ḥālaⁿā
+ḫaāṣiⁿuā
+ maāʿamauma
+ 
+wafiy
+hãḏaā
+ālḥaāli
+ālḫaāṣiu
+taḳadauma
+ʿalaáã
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ faāʾinau
+
+ālrauḥamãni
+ 
+maāšafaʿa
+ʿinada
+
+ālmunataḳ
+imi
+ fiy
+āahali
+ālbalaāʾi
+ āʾilauā
+baʿada
+šafaā
+ʿaŧi
+ālšauāfiʿiyana
+ faf
+aāza
+muḥamauduⁿ
+ṣalauáã
+āllhu
+ʿalayahi
+wasalauma
+biāls
+iuyaādaŧi
+fiy
+hãḏa
+āālmaḳaāmi
+ālḫaāṣiu
+ famana
+fahima
+ālmaraātibai
+waālmaḳaāmaāti
+ lama
+yaʿasura
+ʿalayhi
+ḳabuwlu
+miṯali
+hãḏaā
+ālkalaāmi
+ 
+waāamauā
+ālminaḥu
+ālāasamaāʾiyauŧu
+ faaʿalama
+āanau
+manaḥa
+āllhi
+taʿaālaáã
+ḫalaḳahu
+raḥamaŧaⁿ
+minahu
+bihima
+ 
+wahiya
+kulauhaā
+mina
+ālāasamaāʾi
+ faāʾimauā
+raḥamaŧuⁿ
+ḫaā
+liṣaŧuⁿ
+ kālṭauyiubi
+mina
+ālriuzaḳi
+ālaulaḏiyḏi
+fiy
+ālduunayaā
+ālḫaāliṣi
+yawma
+ālḳiyaāmaŧi
+ wayuʿaṭiy
+ḏãlika
+ālasamu
+
+ālrauḥamãnu
+ fahuwa
+ʿaṭaāʾuⁿ
+raḥamaāniyuⁿu
+ waāʾimauā
+raḥamaŧuⁿ
+mumataziǧaŧu
+ kšurabi
+āldauwaāʾi
+ālkarihi
+ālauḏiy
+yaʿaḳubu
+šurabuhu
+ālrauāḥaŧa
+ wahuwa
+ʿaṭaāʾuⁿ
+āʾilãhiyiu
+ faāʾinau
+ālʿaṭaāʾa
+ālāʾilãhiyau
+ laā
+yatamakaunu
+āʾiṭalaāaḳu
+ʿaṭaāʾihi
+minahu
+mina
+ġayri
+āana
+yakuwna
+ʿalaáã
+yadi
+saādiniⁿ
+mina
+sadanaŧi
+ālāasamaāʾi
+ 
+fataāraŧaⁿ
+yuʿaṭiy
+āllhu
+ālʿabada
+ʿalaáã
+yadayi
+
+ālrauḥamãni
+ 
+fayaḫaluṣu
+ālʿaṭaāʾu
+mina
+ālšauwabi
+ālauḏiy
+laā
+yulaāʾimu
+ālṭaubaʿa
+fiy
+ālwaḳata
+
+9ẓhr
+ āawa
+laā
+yuniylu
+ālġaraḍa
+wamaā
+āašabaha
+ḏãlika
+ 
+wataāraŧaⁿ
+yuʿaṭiy
+āllhu
+ʿalaáã
+yadayi
+
+ālwaāsiʿi
+ fayaʿumuu
+ 
+āawa
+ʿalaáã
+yidayi
+
+ālḥakiyami
+ fayanaẓuru
+fiy
+ālāaṣalaḥi
+fiy
+ālwaḳati
+ 
+āawa
+ʿalaáã
+yadi
+
+ālwaāhibi
+ fayuʿaṭiy
+liy
+unaʿima
+ laā
+yakuwnu
+maʿa
+
+ālwaāhibi
+ takaliyafu
+ālmuʿaṭiy
+lahu
+biʿiwaḍiⁿ
+ʿalaáã
+ḏãlika
+min
+šukariⁿ
+āawa
+ʿamaliⁿ
+ 
+āawa
+ʿalaáã
+yadi
+
+ālǧabauāri
+ fayanaẓuru
+fiy
+ālmawaṭini
+wamaā
+yasataḥiḳuuhu
+ 
+āawa
+ʿalaáã
+yadi
+
+ālġafauāri
+ fayanaẓuru
+ālmaḥalau
+ wamaā
+huwa
+ʿalayahi
+ faāʾina
+kaāna
+ʿalaáã
+ḥaāliⁿ
+yasataḥiḳuu
+ālʿuḳuwbaŧa
+fayasaturuhu
+ʿanahaā
+ āawa
+ʿalaáã
+ḥaāliⁿ
+laā
+yasataḥiḳuu
+ālʿuḳuwbaŧa
+fayasaturuhu
+ʿana
+ḥaāliⁿ
+yasataḥiḳuu
+ālʿuḳuwbaŧa
+ fayusamauáã
+
+maʿaṣuwmaⁿā
+ wa
+muʿatanáaⁿ
+bih
+i
+ wa
+maḥafuwẓaⁿā
+ 
+waġayaru
+ḏãlika
+mimauā
+yušaākilu
+hãḏaā
+ālnauwʿa
+ 
+waālmuʿaṭiy
+huwa
+āllhu
+mina
+ḥayaṯu
+maāhuwa
+ḫaāzinuⁿ
+limaā
+ʿinadahu
+fiy
+ḫaizaāʾinihi
+ famaā
+yuḫariǧuhu
+
+āʾilauā
+biḳadariⁿ
+maʿaluwamiⁿ
+ 
+sw
+rŧ
+ālḥ
+ǧr
+
+ 12
+ ʿalaáã
+yadayi
+asamiⁿ
+ḫaāṣiⁿu
+biḏãlika
+ālāamari
+ 
+fa
+āaʿaṭaáã
+kulau
+šayaʾiⁿ
+ḫalaḳ
+ahu
+ 
+ swrŧ
+ṭãh
+ã
+ 05
+ ʿalaáã
+yadayi
+ālasami
+
+ālʿ
+adali
+waāʾiḫawaānihi
+ 
+waāasamaāʾu
+āllhi
+waāʾina
+kaānata
+laā
+tatanaāhaáã
+ liāanauhaā
+tuʿalimu
+bimaā
+yakuwnu
+ʿanahaā
+
+ wamaā
+yakuwnu
+ʿanhaā
+ġayru
+mut
+anaāhiⁿ
+ waāʾina
+kaānata
+taraǧiʿu
+āʾilaáã
+āuṣuwliⁿ
+mutanaāhiyaŧiⁿ
+
+ hiya
+āumuuhaātu
+ālāasamaāʾi
+āawa
+ḥaḍaraātu
+ālāasamaāʾi
+ 
+waʿalaáã
+ālḥaḳiyaḳaŧi
+famaā
+ṯamau
+āʾilauā
+ḥaḳiyḳaŧuⁿ
+waāḥidaŧuⁿ
+ taḳabalu
+ǧamiyaʿa
+hãḏihi
+ālniusabi
+waālāʾiḍaāfaāti
+ālautiá
+yukanauáã
+ʿanahaā
+biālāasamaāʾi
+ālāʾilãhiyauŧi
+ 
+waālḥaḳiyaḳaŧu
+tuʿaṭiy
+āana
+yakuwna
+likuliu
+asamiⁿ
+yaẓaharu
+
+ āʾilaáã
+maālaā
+yatanaāhaáã
+
+ḥaḳiyḳaŧaⁿ
+yatamayauzu
+bihaā
+ʿana
+asamiⁿ
+āḫara
+ tilaka
+ālḥaḳiyḳaŧu
+ālautiá
+bihaā
+yatamayiuzu
+hiáa
+ālasamu
+ʿaynuhu
+ laā
+maāyaḳaʿu
+fiyhi
+ālašatiraāku
+ 
+kamaā
+āanau
+ālāuʿaṭiyaāti
+tatam
+ayauzu
+kulau
+āuʿaṭiy
+aŧiⁿ
+ʿana
+ġayrihaā
+bišaḫaṣiyaut
+ihaā
+ waāʾina
+kaānata
+min
+āaṣaliⁿ
+waāḥidiⁿ
+ famaʿaluwmuⁿ
+āanau
+hãḏihi
+maāhiya
+hãḏihi
+ālāuḫaraáã
+ wasababu
+ḏãlika
+tamayuuzu
+ālāasamaāʾi
+ 
+famaā
+fiy
+ālḥaḍaraŧi
+ālāʾilãhiyauŧi
+laatiusaāʿihaā
+šayʾuⁿ
+yatakaraura
+āaṣalaⁿā
+ hãḏaā
+huwa
+ālḥaḳuu
+ālauḏiy
+yuʿawaulu
+ʿalayhi
+ 
+wahãḏaā
+ālʿilamu
+kaāna
+ʿilamu
+šiyṯiⁿ
+
+ ʿalayhi
+ālsaulaāmu
+
+ waruwḥuhu
+huwa
+ālmumiduu
+likuliu
+mana
+yatakalauma
+fiy
+miṯali
+hãḏaā
+mina
+ālāarawaāḥi
+maā
+ʿadaā
+ruwḥi
+ālḫat
+ami
+ faāʾi
+nauhu
+laā
+taātiyhi
+ālmaādauŧu
+āʾilauā
+mina
+āllhi
+ laā
+mina
+ruwḥiⁿ
+mina
+ālāarawaāḥi
+ bala
+mina
+ruwaḥihi
+
+11
+wǧh
+ tukawiunu
+ālmaādauŧu
+liǧamiyaʿi
+ālāarawaāḥi
+ 
+waāʾina
+kaāna
+laā
+yaʿaḳilu
+mina
+nafasihi
+fiy
+zamaā
+ni
+tara
+kiyabi
+ǧasadihi
+ālʿunaṣuriyiu
+ fahuwa
+mina
+ḥayaṯu
+ḥaḳ
+iyaḳatuhu
+warutaba
+tuhu
+ʿaālimuⁿ
+biḏ
+ãlika
+kuliuhi
+biʿay
+anihi
+ mina
+ḥayaṯu
+maāhuwa
+ǧaāhiluⁿ
+bihi
+ mina
+ǧihaŧi
+tara
+kiyabihi
+ālʿunaṣuriyiu
+ 
+fahuwa
+ālʿaālimu
+ālǧaāhilu
+ fayaḳabalu
+ālatiuṣaāfa
+biālāaḍadaādi
+ kamaā
+ḳabila
+ālāaṣalu
+ālatiuṣaāfa
+biḏãlika
+ ka
+ālǧaliyali
+ wa
+ka
+ālẓauāhiri
+ wa
+ālbaāṭini
+ wa
+ālāawauli
+ 
+wa
+ālāḫiri
+ 
+wahuwa
+ʿaynuhu
+walaysa
+ġayrahu
+fayaʿalamu
+laā
+yaʿalamu
+ wayadariy
+laā
+yadiriy
+ wayašahadu
+laā
+yašahadu
+ 
+wabihãḏaā
+ālʿilamu
+sumiuya
+
+šiyaṯuⁿ
+ liāanau
+maʿanaāhu
+ 
+hibaŧu
+āllhi
+ 
+fabiyadihi
+mifataāḥu
+ālʿaṭaāyaā
+ʿalaáã
+aḫatilaāfi
+āaṣanaāfihaā
+wanisabihaā
+ 
+faāʾinau
+āllha
+wahabahu
+liādama
+āawaula
+maāwahabahu
+ 
+wamaā
+wahabahu
+āʾilauā
+minhu
+ liāanau
+ālwalada
+siruu
+āabiyhi
+ faminahu
+ḫaraǧa
+āʾilayhi
+waʿaāda
+ 
+famaā
+ātaāhu
+ġariybuⁿ
+limana
+ʿaḳila
+ʿani
+āllhi
+ 
+wkuluu
+ʿaṭaāʾiⁿ
+fiy
+ālkawni
+ʿalaáã
+hãḏaā
+ālmaǧaraáã
+ 
+famaā
+fiy
+āaḥadiⁿ
+mina
+āllh
+šayaʾu
+ wamaāfiy
+āaḥadiⁿ
+mina
+siwaáã
+nafasihi
+šayaʾuⁿ
+ waāʾina
+tanawauʿata
+ʿalayahi
+ālṣuuwari
+ 
+wamaā
+kuluu
+āaḥadiⁿ
+yaʿarifu
+hãḏaā
+ waāʾinau
+ālāamara
+ʿalaáã
+ḏãlika
+ āʾilauā
+āḥaāduⁿ
+mina
+āahali
+āllhi
+ 
+faāʾiḏaā
+raāyata
+man
+yaʿarifu
+ḏãlika
+faaʿatamida
+ʿalayahi
+ 
+faḏãlika
+huwa
+ʿayanu
+ṣafaāʾi
+ḫulaāṣaŧi
+ḫaāṣauŧi
+ālḫaāṣauŧi
+mina
+ʿumuwami
+āahali
+āllhi
+ 
+faāayuu
+ṣaāḥibi
+kašafiⁿ
+šaāhada
+ṣuwraŧaⁿ
+tulaḳaáã
+āʾilayahi
+maā
+lama
+yakuna
+ʿinadahu
+mina
+ālmaʿaārifi
+watam
+anaḥuhu
+maālama
+yakuna
+ḳab
+ala
+ḏãlika
+fiy
+yadihi
+ fatilaka
+ālṣuuwaraŧu
+ʿay
+anuhu
+laā
+ġayaruhu
+ 
+famina
+šaǧaraŧi
+nafasihi
+ǧanaáã
+ṯamaraŧa
+ʿilamihi
+ 
+kaālṣuuwaraŧi
+ālẓauāhiraŧi
+minahu
+fiy
+muḳaābalaŧi
+ālǧisami
+ālṣaḳiyali
+layasa
+ġayarahu
+ āʾilauā
+āanau
+ālmaḥalau
+āawa
+ālḥaḍaraŧa
+ālautiy
+raāaáã
+fiyahaā
+ṣuwaraŧu
+nafas
+ihi
+tulaḳiy
+āʾilayahi
+bitaḳaluubiⁿ
+
+mina
+waǧahiⁿ
+biḥaḳiyaḳaŧi
+tilaka
+ālḥaḍaraŧi
+ 
+kamaā
+yaẓaharu
+ālkabiyru
+fiy
+ālmirāŧi
+ālṣauġiyraŧi
+ṣaġiyraⁿā
+ waālmusataṭiylaŧu
+musataṭiylaⁿā
+ 
+waālmutaḥariu
+kaŧu
+mutaḥariu
+kaⁿā
+ waḳada
+tuʿaṭiyhi
+anatikaāsu
+ṣuwaratihi
+mina
+ḥaḍaraŧiⁿ
+ḫaāṣauŧiⁿ
+ 
+waḳada
+tuʿaṭiyahi
+ʿayana
+maā
+yaẓ
+aharu
+minahaā
+ fay
+uḳaābilu
+ālyamiyanu
+minahaā
+ ālyamiyana
+mina
+ālrauāʾiy
+ 
+waḳada
+yuḳaā
+bilu
+
+01
+ẓhr
+ ālyamiy
+anu
+ ālyas
+aāra
+ wahuwa
+ālġaā
+libu
+fiy
+ālmaarāyaā
+bimanazilaŧi
+ālʿaādaŧi
+fiy
+ālʿumuwami
+ 
+wabiḫaraḳi
+ālʿaādaŧi
+yuḳaābilu
+ālyamiyanu
+ālyamiyana
+wayaẓaharu
+ālanatikaāsu
+ 
+wahãḏa
+ākuluuhu
+mina
+āuʿaṭ
+iyaāti
+ḥaḳiyaḳaŧi
+ālḥaḍa
+raŧi
+ālmutaǧaliuy
+fiy
+haā
+ ālautiy
+āanazalana
+āhaā
+manazi
+laŧa
+ālmaarāyaā
+ 
+famana
+ʿarafa
+asatiʿadaādahu
+ ʿarafa
+ḳabuwlahu
+ wamaā
+kuluu
+mana
+ʿarafa
+ḳabuwlahu
+ yaʿarifu
+asatiʿadaādahu
+ āʾilauā
+baʿada
+ālḳabuwli
+ waāʾina
+kaāna
+yaʿarifuhu
+muǧamalaⁿā
+ 
+āʾilauā
+āanau
+baʿaḍa
+āahali
+ālnauẓari
+mina
+āaṣaḥaā
+bi
+ālʿuḳu
+wli
+ālḍaʿiyfa
+ŧi
+yarawna
+āanau
+āllha
+ lamauā
+ṯabata
+ʿinadahuma
+āanauhu
+faʿ
+auāluⁿ
+limaā
+yašaāʾu
+ ǧawauzuwā
+ʿalaáã
+āllhi
+maā
+yun
+aāḳiḍu
+ālḥika
+maŧa
+ wamaā
+huwa
+ālāamaru
+ʿalayhi
+fiy
+nafasihi
+ 
+walihãḏaā
+ʿadla
+baʿaḍu
+ālnuuẓauāri
+āʾilaáã
+nafayi
+ālāʾimakaāni
+ waāʾiṯabaāti
+ālwuǧuwbi
+biālḏauāti
+wabiālġayri
+ 
+waālmuḥaḳiuḳu
+
+āw
+ waālmuḥaḳauḳu
+ yuṯabitu
+ālāʾimakaāna
+wayaʿarifu
+ḥaḍaratahu
+ waālmumakinu
+maā
+huwa
+ālmumakinu
+ wamina
+āayana
+huwa
+mumaki
+nuⁿ
+ wahuwa
+biʿayanihi
+waāǧibuⁿ
+biālġayari
+ wamina
+āayana
+ṣaḥau
+ʿalayhi
+asamu
+
+ālġayri
+ ālauḏiy
+āḳataḍaáã
+lahu
+ālwuⁿǧuwbi
+ walaā
+yaʿalamu
+hãḏaā
+āltfaṣuuyl
+āʾilauā
+ālʿuⁿlamaāʾu
+biāllhi
+ḫaāṣauŧaⁿ
+ 
+waʿalaáã
+ḳadami
+šiy
+ṯiⁿ
+yakuwanu
+āḫiru
+mawaluwdiⁿ
+yuwladu
+mina
+hãḏaā
+ālnauwʿi
+ālāʾinasaāniyiu
+ wahuwa
+ḥaāmilu
+āasara
+ārihi
+ walaysa
+baʿada
+hu
+waladuⁿ
+fiy
+hãḏaā
+ālnauw
+ʿi
+ fahuwa
+ḫaā
+tamu
+ālāawlaādi
+ watuw
+ladu
+maʿahu
+āuḫatuⁿ
+lahu
+fataḫaruǧu
+ḳabalahu
+ wayaḫaruǧu
+baʿadahaā
+ yakuwnu
+raāsuhu
+ʿinda
+riǧalayahaā
+ wayakuwnu
+mawaliduhu
+biālṣiuyni
+waluġatuhu
+luġaŧu
+baladihi
+ wayasariy
+ālʿuḳamu
+fiy
+ālriuǧaāli
+waālniusaāʾi
+fayakaṯuru
+ālniukaāḥu
+mina
+ġayari
+wilaādaŧiⁿ
+ wayadaʿuwhuma
+āʾilaáã
+āllhi
+ falaā
+yuǧaābu
+faāʾiḏaā
+ḳabaḍahu
+āllhu
+waḳabaḍa
+muʾminiy
+zamaānihi
+ baḳiya
+mana
+baḳiya
+miṯala
+ālbahaāʾimi
+ laā
+yuḥiluuwna
+ḥalaālaⁿā
+ walaā
+yuḥ
+ariumuw
+na
+ḥaraāmaⁿā
+ yataṣaraufuwna
+biḥukami
+ālṭaubiy
+ʿaŧi
+šahawaŧaⁿ
+muǧaraudaŧaⁿ
+ʿani
+ālʿaḳ
+ali
+waālšauraʿi
+faʿalayhima
+taḳuwmu
+ālsauāʿiŧu
+ 
+
+3
+faṣuu
+ḥikamaŧiⁿ
+subuuwḥiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+nuwḥiyauŧiⁿ
+aʿalama
+āanau
+āltaunaziyha
+ʿinada
+āahali
+ālḥaḳaāʾiḳi
+fiy
+ālǧanaābi
+ālāãʾilhiyiu
+ʿaynu
+āltauḥadiydi
+waāltauḳayiydi
+ faālmunaziuhu
+āʾimauā
+ǧaāhiluⁿ
+waāʾimauā
+ṣaāḥibu
+suwʾi
+āadabiⁿ
+ 
+walãkina
+āʾiḏaā
+āaṭalaḳaāhu
+
+11
+wǧh
+ waḳaālaā
+bihi
+ faālḳaāʾilu
+biālšauraāʾiʿi
+ālmuʾminu
+āʾiḏaā
+nazauha
+wawaḳafa
+ʿinada
+āltaunaziyihi
+walama
+yara
+ġayra
+ḏãlika
+faḳada
+āasaāʾa
+ālāadaba
+ waāakaḏaba
+ālḥaḳau
+ waālruusuli
+ṣalawaātu
+āllhi
+ʿalay
+ahima
+ wahuwa
+laāyašaʿu
+ru
+ wayataḫayiulu
+āanauhu
+fiy
+ālḥaāṣili
+wahuwa
+fiy
+ālfaāʾiti
+ wahuwa
+kamana
+āmana
+bibaʿaḍiⁿ
+wa
+kafara
+bibaʿaḍiⁿ
+ 
+walaāsiyaumaā
+waḳada
+ʿalima
+āanau
+āalas
+inaŧa
+ālšauraāʾiʿi
+ālāʾilãhiyauŧi
+āʾiḏaā
+naṭ
+aḳata
+fiy
+ālḥaḳiu
+taʿ
+aālaáã
+bimaā
+naṭaḳata
+bihi
+āʾinaumaā
+ǧaāʾata
+bihi
+fiy
+ālʿumuwmi
+ʿalaáã
+ālmafahuwmi
+ālāawauli
+ waʿalaáã
+ālḫuṣuwṣi
+ʿalaáã
+kuliu
+mafahuwmiⁿ
+yufahamu
+mina
+wuǧuwhi
+ḏãlika
+āllaufaẓi
+biāayiu
+lisaāniⁿ
+kaāna
+fiy
+waḍaʿi
+ḏãlika
+ālliusaāni
+ 
+faāʾinau
+lilaḥaḳiu
+fiy
+kuliu
+ḫalaḳiⁿ
+ẓuhuwraⁿā
+ 
+fahuwa
+ālẓauāhiru
+fiy
+kuliu
+mafahuwmiⁿ
+ wahuwa
+ālbaāṭinu
+ʿana
+kuliu
+fahamiⁿ
+ āʾilauā
+ʿana
+fahami
+man
+ḳaāla
+āʾinau
+ālʿaālama
+ṣuwratuhu
+wahuwiyautahu
+ 
+wahuwa
+ālasamu
+ālẓauāhiru
+ kamaā
+āanauhu
+biālmaʿanaáã
+ruwḥu
+maā
+ẓahara
+fahuwa
+ālbaāṭinu
+ 
+fanisabatuhu
+limaā
+ẓahara
+mina
+ṣuwari
+ālʿaālami
+nisabaŧu
+ālruuwḥi
+ālmudabiuri
+lilaṣuuwraŧi
+ 
+fayuʾḫaḏu
+fiy
+ḥadiu
+ālāʾinasaāni
+maṯalaⁿā
+baāṭinahu
+waẓaāhirahu
+ wakaḏãlika
+kuluu
+maḥadiwdiⁿ
+ 
+faālḥaḳuu
+maḥadiwduⁿ
+bikuliu
+ḥadiⁿu
+ 
+waṣuwaru
+ālʿaālami
+laā
+tanaḍabiṭu
+walaāyuḥaāṭu
+bihaā
+walaā
+tuʿ
+alamu
+ḥuduwdu
+kuliu
+ṣuwraŧiⁿ
+minahaā
+ 
+āʾilauā
+ʿalaáã
+ḳadari
+maāḥaṣala
+likuliu
+ʿaālamiⁿ
+mina
+ṣuwariⁿ
+ fakaḏãlika
+yuǧahalu
+ḥaduu
+ālḥaḳiu
+faāʾinauhu
+laā
+yuʿalamu
+ḥaduuhu
+āʾilauā
+biʿilamii
+ḥadiu
+kuliu
+ṣuwraŧiⁿ
+ wahaḏā
+muḥaāluⁿ
+ḥuṣuwluhu
+ faḥaduu
+ālḥaḳiu
+muḥaāluⁿ
+ 
+wakaḏãlika
+mana
+šabauhahu
+wamaānazauhahu
+faḳada
+ḳayaudahu
+waḥadaudahu
+wamaāʿarafahu
+ waman
+ǧamaʿa
+fiy
+maʿarifatihi
+bayna
+āltaunaziyhi
+waāltaušabiyhi
+wawaṣafahu
+biālwaṣafayni
+ʿalaáã
+ālāʾiǧamaāli
+
+ liāanauhu
+yasataḥiylu
+ḏãlika
+ʿalaáã
+āltfaṣuuyli
+liʿadami
+ālāʾiḥaāṭaŧi
+bimaā
+fiy
+ālʿaālami
+mina
+ālṣuuwari
+
+faḳada
+ʿarafahu
+muǧamalaⁿ
+ā
+ laā
+ʿal
+aáã
+āltfaṣuuyli
+
+ kamaā
+ʿarafa
+nafas
+ahu
+muǧamalaⁿā
+laā
+ʿalaáã
+āltfaṣiyli
+ 
+waliḏãlika
+rabaṭa
+ālnaubiyuu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+maʿarifaŧa
+ālḥaḳiu
+bimaʿarifaŧi
+ālnaufasi
+faḳaāla
+ 
+mana
+ʿarafa
+nafasahu
+ʿarafa
+rabauhu
+ 
+waḳaāla
+ 
+sanuriyahima
+ʾa
+āyaãtinaā
+fiy
+ālāafaāḳi
+ 
+ swrŧ
+fṣlt
+
+ 35
+ wahuwa
+maāḫaraǧa
+ʿanaka
+
+wafiáā
+āanafusihima
+ 
+ swrŧ
+fṣlt
+
+ 35
+ wahuwa
+ʿayanuka
+ḥatauáã
+yatabayauna
+lahuma
+
+ swrŧ
+fṣl
+t
+ 35
+ āay
+ āln
+auāẓiru
+
+āanauhu
+ālḥ
+aḳuu
+ 
+ sw
+rŧ
+fṣlt
+
+ 35
+ 
+11
+ẓhr
+ mina
+ḥayṯu
+āʾinauka
+ṣuwratuhu
+wahuwa
+ruwḥuka
+ 
+faāanata
+lahu
+kaālṣuuwraŧi
+ālǧisamiyauŧi
+laka
+ wahuwa
+laka
+kaālruuwḥi
+ālmudabauri
+liṣuwraŧi
+ǧasadika
+ 
+waālḥaduu
+yašamalu
+ālẓauāhira
+waālbaāṭina
+minaka
+ faāʾinau
+ālṣuuwraŧa
+ālbaāḳiyaŧa
+āʾiḏaā
+zaāla
+ʿanahaā
+ālruuwḥu
+ālmudabauru
+lahaā
+lama
+yab
+aḳa
+āʾinas
+aānaⁿā
+ walãkina
+yuḳaālu
+fiyhaā
+āʾinauhaā
+ṣuwraŧuⁿ
+tušabihu
+ṣuwraŧa
+ālāʾinasaāni
+ falaā
+faraḳa
+baynihaā
+wabayna
+ṣuwraŧiⁿ
+mina
+ḫašabiⁿ
+āaw
+ḥiǧ
+aāraŧiⁿ
+ walaāyuṭalaḳu
+
+ʿal
+ayh
+aā
+asamu
+ālāʾinasaāni
+āʾilauā
+biālmaǧaāzi
+ laā
+biālḥaḳiyḳaŧi
+ 
+waṣuwaru
+ālʿaālami
+laāyumakinu
+zawaālu
+ālḥaḳiu
+ʿanahaā
+āaṣalaⁿā
+ 
+faḥaduu
+ālāuluwhiyauŧi
+lahu
+biālḥaḳiyḳ
+aŧi
+ laā
+biālmaǧaāzi
+ kamaā
+huwa
+ḥaduu
+ālāʾinasaāni
+āʾiḏaā
+kaāna
+ḥayauā
+ 
+wa
+kamaā
+āanau
+ẓaāhira
+ṣuwraŧi
+ālāʾinasaāni
+tuṯaniy
+bilisaānihaā
+ʿalaáã
+ruwḥihaā
+wanafasihaā
+ 
+waālmudabauru
+lahaā
+ 
+kaḏãlika
+ǧaʿala
+āllhu
+ṣuwraŧa
+ālʿaālami
+tusabiuḥu
+biḥamadihi
+walãkina
+laāyafaḳahu
+tasabiyḥahuma
+ 
+liāanauā
+laā
+nuḥiyṭu
+bimaā
+fiy
+ālʿaālami
+mina
+ālṣuuwari
+ 
+faālkuluu
+āalasinaŧu
+ālḥaḳiu
+naā
+ṭiḳ
+aŧuⁿ
+biālṯaunaāʾi
+ʿalaáã
+ālḥaḳau
+ waliḏãlika
+ḳaāla
+ 
+alḥamadu
+lilhi
+rabiu
+ālʿãlamiyna
+ 
+swrŧ
+ālfātḥŧ
+ 2
+āay
+ āʾilayhi
+turaǧaʿu
+ʿawaāḳibu
+ālṯaunaāʾi
+ fahuwa
+ālmuṯaniy
+waālmuṯanaáã
+ʿalayhi
+ 
+
+ālṭwyl
+1
+faāʾina
+ḳulata
+biāltaunaziyahi
+kunata
+muḳayiudaⁿā
+waāʾina
+ḳulata
+biāltaušabiyahi
+kunata
+muḥadiudaⁿā
+2
+waāʾina
+ḳulata
+biālāamarayani
+kunata
+musadiudaⁿā
+wa
+kunata
+āʾimiāmaⁿā
+fiy
+ālmaʿaārifi
+sayiudaⁿā
+3
+famana
+ḳaāla
+biālāʾišafaāʿi
+kaāna
+mušariu
+kaⁿā
+wamana
+ḳaāla
+biālāʾifaraādi
+kaāna
+muwaḥiudaⁿā
+4
+faāʾiyauāka
+waāltaušabiyahu
+āʾina
+kunata
+ṯaāniyaⁿā
+waāʾiyauāka
+waāltaunaziyahu
+āʾina
+kunata
+mufariudaⁿā
+5
+famaā
+āanata
+hu
+bal
+āanata
+hu
+wataraāhu
+fiy
+ʿayani
+ālāumuwri
+musariuḥaⁿā
+wamuḳayiudaⁿā
+ḳaāla
+taʿaālaáã
+ 
+layasa
+kamiṯalihi
+šayʾuⁿ
+ 
+swrŧ
+ālšwrá
+
+ 11
+ fanazauha
+ 
+wahuwa
+als
+aumiyaʿu
+albaṣi
+yaru
+ 
+sw
+rŧ
+ālšw
+rá
+
+ 11
+ fašabauha
+ ḳaā
+la
+taʿaālaáã
+
+ 
+layasa
+kam
+iṯalihi
+šayʾuⁿ
+
+swrŧ
+ālšw
+rá
+
+ 11
+ fašabauha
+waṯanauáã
+ 
+wahuwa
+ālsaumiyaʿu
+ālbaṣiyaru
+ 
+swrŧ
+ālš
+wrá
+
+ 11
+fanazauha
+waāafarada
+ 
+law
+āanau
+nuw
+ḥaⁿā
+ǧamaʿa
+liḳ
+awmihi
+bayna
+āldaʿawatayni
+laāaǧaābuwhu
+ fadaʿaāhuma
+
+ǧihaāraⁿā
+ 
+swrŧ
+nw
+ḥ
+ 8
+ ṯumau
+daʿaāhuma
+
+āʾisaraāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 9
+ ṯumau
+ḳaāla
+lahuma
+ 
+asataġafiruwaā
+rabaukama
+āʾinauhu
+kaāna
+ġafauāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 01
+ 
+21
+wǧh
+ waḳaā
+la
+daʿawa
+tu
+ḳawamiá
+layalaⁿ
+ā
+wanahaāraⁿā
+falama
+yazidahuma
+duʿaāāʾáā
+āʾilauā
+firaāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 5
+6
+ 
+waḏa
+kara
+ʿana
+ḳawmihi
+āanauhuma
+taṣaāmamuwā
+ʿana
+daʿawatihi
+liʿilamihima
+bimaā
+yaǧibu
+ʿalayh
+ima
+mina
+āʾiǧaābaŧi
+daʿawatihi
+ 
+faʿ
+alima
+ālʿulamaāʾu
+biāll
+hi
+maā
+āašaāra
+āʾilay
+hi
+nuwḥuⁿ
+ʿalayhi
+ālsaulaāmu
+fiy
+ḥaḳiu
+ḳawmihi
+mina
+ālṯaunaā
+ʾi
+ʿalayhima
+bilisaāni
+ālḏaumiu
+ 
+waʿalima
+āanauh
+uma
+āʾinaumaā
+lama
+yuǧiybuwā
+daʿawa
+tahu
+limaā
+fiyh
+aā
+mina
+ālfuraḳaāni
+ waālāamaur
+ḳarānuⁿ
+laā
+furaḳaānuⁿ
+ 
+wamana
+āuḳiyama
+fiy
+ālḳurān
+ laāyuṣaġiy
+āʾilaáã
+ālfurḳaāni
+ waāʾina
+kaāna
+fiyhi
+ 
+faāʾinau
+ālḳ
+urāna
+ya
+taḍa
+maunu
+ālfur
+ḳaā
+na
+ waālf
+urḳaānu
+laāyataḍamaunu
+ālḳurāna
+ walihãḏaā
+maāaḫat
+aṣau
+biālḳurāni
+āʾilauā
+muḥamauduⁿ
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ wahãḏihi
+ālāumauŧu
+ālautiy
+hiya
+
+ḫayra
+āumauŧiⁿ
+āuḫariǧata
+lil
+nauāsi
+ 
+swrŧ
+ālbḳrŧ
+
+ 011
+ fa
+layasa
+kamiṯalihi
+šayʾuⁿ
+ 
+swrŧ
+ālš
+wráã
+
+ 
+11
+ faǧamaʿa
+ālāamara
+
+āw
+ faǧumiʿa
+ālāamaru
+ fiy
+āamari
+waāḥidiⁿ
+ 
+falaw
+āanau
+nuwḥaⁿā
+yaātiy
+bimiṯali
+haḏihi
+ālāyaŧi
+lafaẓaⁿā
+āaǧaābuwhu
+ faāʾinauhu
+šabauha
+wanazauha
+fiy
+āyaŧiⁿ
+waāḥidaŧiⁿ
+ bala
+fiy
+niṣafi
+āyaŧiⁿ
+ 
+wanuwḥuⁿ
+daʿaā
+ḳawmaha
+
+layalaⁿā
+ 
+swrŧ
+nwḥ
+
+ 5
+mina
+ḥayṯu
+ʿuḳuwluhuma
+waruwḥaāniyautuh
+uma
+faāʾinauh
+aā
+ġaybuⁿ
+ 
+wanahaā
+raⁿā
+ 
+swrŧ
+nw
+ḥ
+ 5
+daʿaāhuma
+āayaḍaⁿā
+mina
+ḥay
+ṯu
+ẓaāhiru
+ṣuwarihima
+wǧuṯaṯihima
+ 
+wamaāǧamaʿa
+fiy
+āldauʿawaŧi
+miṯala
+ 
+layasa
+kamiṯalihi
+šayʾuⁿ
+ 
+swrŧ
+ālšwráã
+
+ 11
+fanafarata
+bawaāṭinuhuma
+lihãḏaā
+ālfurḳaāni
+ fazaādahum
+firaāraⁿā
+ 
+ṯumau
+ḳaāla
+ʿana
+nafasihi
+āanauhu
+daʿaāhuma
+layaġafira
+lahuma
+ laā
+liyakašifa
+lahuma
+ wafahimuwā
+ḏãlika
+minahu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ liḏãlika
+
+ǧaʿaluwaā
+āaṣaãbiʿahuma
+fiáā
+ʾaāḏaānihima
+waasataġašawaā
+ṯiyaābahuma
+
+ 
+swrŧ
+nw
+ḥ
+ 7
+wahãḏihi
+kul
+uuhaā
+ṣuw
+raŧu
+ālsautari
+ālautiy
+daʿaā
+huma
+āʾilayhaā
+ faāaǧaābuwā
+daʿawatahu
+biālfiʿali
+ laā
+bilabauyka
+ 
+fafiy
+
+layasa
+kamiṯal
+ihi
+šaá
+ʾuⁿ
+ 
+swrŧ
+ālšw
+rá
+
+ 11
+ āʾiṯabaātu
+ālmiṯali
+wanafayuhu
+ walih
+ãḏaā
+ḳaāla
+ʿana
+naf
+asihi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalau
+ma
+āanauhu
+āuwtiya
+ǧawa
+āmiʿu
+ālkalimi
+ fam
+aā
+daʿaā
+muḥamauduⁿ
+ḳawmahu
+laylaⁿā
+wanahaāraⁿā
+ bala
+daʿaāhuma
+laylaⁿā
+fiy
+nahaāriⁿ
+ wanahaāraⁿā
+fiy
+layliⁿ
+ 
+faḳ
+aāla
+nuwḥuⁿ
+fiy
+ḥikamatihi
+liḳ
+awmihi
+ 
+yurasili
+alsaumaāāʾa
+ʿalayakuma
+midaraāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 11
+ wahiya
+ālmaʿaārifu
+ālʿaḳaliyauŧu
+fiy
+ālmaʿaāniy
+ waālnauẓaru
+ālaʿatibaāriyuu
+ 
+
+wayumadi
+dakuma
+biāamawãliⁿ
+ 
+sw
+rŧ
+nwḥ
+
+ 21
+ āay
+ bimaā
+yamiylu
+bikuma
+āʾilay
+hi
+ faāʾiḏaā
+maāla
+bikuma
+āʾilayhi
+ raāaytuma
+ṣuwratakum
+fiyhi
+ 
+famana
+
+taḫayaula
+min
+akuma
+āanauhu
+rāhu
+ famaā
+ʿara
+fa
+ wamana
+ʿarafa
+minakuma
+āanauhu
+raāaáã
+nafasahu
+ 
+fahuwa
+ālʿaārifu
+ 
+21
+ẓhr
+ falihãḏaā
+anaḳasama
+ālnauāsu
+āʾilaáã
+ġayri
+ʿaālimiⁿ
+ waʿaāliⁿm
+ 
+wawaladuhu
+wahuwa
+maāāanataǧahu
+lahuma
+naẓaruhuma
+ālfikariyuu
+ waālāamaru
+mawaḳuwfuⁿ
+ʿilamuhu
+ʿalaáã
+ālmušaāhadaŧi
+ baʿiyduⁿ
+ʿana
+nataāʾiǧi
+ālfikari
+ 
+āʾilauā
+ḫasaāraⁿā
+ 
+
+swrŧ
+nwḥ
+
+ 12
+ 
+
+fam
+aā
+rabiḥata
+tiǧaãratuhuma
+ 
+sw
+rŧ
+ālbḳ
+rŧ
+ 61
+ fazaāla
+ʿanah
+uma
+maākaāna
+fiy
+āayadiyhima
+ 
+mimauā
+kaānuwā
+yataḫayauluwna
+āanauhu
+milakuⁿ
+lahuma
+ wahuwa
+fiy
+ālmuḥamaudiyauyna
+ 
+
+waāanafiḳuwā
+mimauā
+ǧaʿalakuma
+musataḫalafiyana
+fiyahi
+ 
+swrŧ
+ālḥdyd
+
+ 7
+wafiy
+nuwḥiⁿ
+
+āalauā
+tatauḫiḏuwā
+mina
+duwaniá
+wa
+kiyalaⁿā
+ 
+swrŧ
+ālāsrāʾ
+
+ 2
+faāaṯabata
+ālmulaka
+lahuma
+waāliwikaālaŧa
+lilhi
+fiyhi
+ fahuma
+musataḫalafuwna
+fiyhima
+ faālmulaku
+lilhi
+ 
+wahuwa
+wa
+kiyluhuma
+ faālmulaku
+lahm
+waḏãlika
+mulaku
+ālasatiḫalaāfi
+ 
+wabihãḏaā
+kaāna
+ālḥḳuu
+maālika
+ālmulaki
+ kamaā
+ḳaāla
+āltiuramiḏiyuu
+ 
+
+wamakaruwaā
+makaraⁿā
+kubauāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 22
+ liāanau
+āldauʿawaŧa
+āʾilaáã
+āllhi
+makaruⁿ
+biā
+lmadʿuwiu
+ liāanauhu
+maāʿudi
+ma
+mina
+ālbidaāyaŧi
+ fiyudʿaáã
+āʾilaáã
+ālġ
+aāyaŧi
+ 
+āudaʿuwa
+āʾilaáã
+āllhi
+ 
+swrŧ
+yw
+sf
+
+ 801
+ fahãḏaā
+ʿaynu
+ālmakari
+ 
+ʿal
+aáã
+baṣiyariŧiⁿ
+sw
+rŧ
+ywsf
+
+ 801
+ fanabauha
+āanau
+ālāamara
+lahu
+kulauhu
+ faāǧaābuwhu
+makaraⁿā
+kamaā
+daʿaāhuma
+ 
+faǧaāʾa
+ālmuḥ
+amaudi
+yuu
+waʿalima
+āanau
+āldauʿawa
+ŧa
+āʾilaáã
+āllhi
+ maā
+hiya
+mina
+ḥayṯu
+huwiyautuhu
+ waāʾinaumaā
+hiya
+mina
+ḥayṯu
+āasamaāʾhu
+faḳaāla
+ 
+yawma
+naḥaš
+uru
+almu
+tauḳa
+yana
+āʾilaáã
+alrauḥamãni
+wafadaⁿā
+ 
+sw
+rŧ
+mr
+ym
+
+ 58
+ faǧaāʾa
+biḥarafi
+ālġaāyaŧi
+ waḳaranahaā
+biālasami
+ faʿara
+fan
+aā
+āanau
+ālʿaā
+lama
+kaāna
+taḥata
+ḥiyṭaŧi
+asamiⁿ
+āʾilãhiyiⁿu
+ 
+āawaǧaba
+ʿalayhima
+āana
+yakuwnuwā
+mutauḳiyna
+ 
+faḳaāluwā
+fiy
+makarihima
+ 
+laātaḏarunau
+ʾaālihatakuma
+walaā
+taḏarunau
+wadiⁿuā
+walaā
+suwaāʿaⁿā
+walaāyaġuwaṯa
+wayaʿuwaḳa
+wanasaraⁿā
+ 
+swrŧ
+nw
+ḥ
+ 32
+ faāʾinauhuma
+āʾiḏaā
+tara
+kuwhuma
+ ǧahiluwā
+mani
+ālḥaḳiu
+ʿalaáã
+ḳadari
+maātara
+kuwā
+mina
+hãʾlaāʾi
+ faāʾinau
+lilaḥaḳiu
+
+ fiy
+kuliu
+maʿa
+buwdiⁿ
+
+ waǧahaⁿā
+yaʿarifuhu
+mana
+ʿarafahu
+ wayaǧahaluhu
+mana
+ǧahilahu
+ 
+fiy
+ālmuḥamaudi
+yauyna
+
+ 
+waḳaḍaáã
+rabuuka
+āalauā
+taʿabuduwāā
+āʾilauāā
+āʾiyauāhu
+ 
+sw
+rŧ
+ālāsr
+áã
+
+ 32
+āaya
+ ḥakama
+ faālʿaālimu
+yaʿ
+alamu
+mana
+ʿub
+ida
+wfiy
+āayiu
+ṣuwraŧiⁿ
+ẓah
+ara
+ḥat
+uáã
+ʿubida
+ 
+waāanau
+āltaufariyḳa
+waālkaṯaraŧa
+kaā
+lāaʿaḍ
+aāʾi
+fiy
+ālṣuuwraŧi
+ālmaḥasuwsaŧi
+ wa
+kaālḳuwaáã
+ālmaʿanawiyauŧi
+fiy
+ālṣuuwraŧi
+ālruuwḥaāniyauŧi
+ 
+famaā
+ʿubida
+ġayaru
+āllhi
+fiy
+kuliu
+maʿabuwdiⁿ
+ 
+faālāadanaáã
+man
+taḫayaula
+fiyhi
+ālāuluwhiyauŧa
+ falawlaā
+hãḏaā
+āltauḫayuulu
+maāʿubida
+ālḥaǧaru
+walaāġayaruhu
+ 
+walihãḏaā
+ḳaāla
+ 
+ḳula
+samuuwahuma
+ 
+swrŧ
+ālrʿd
+
+ 33
+ falaw
+samauwahuma
+lasamauwhuma
+ḥaǧaraⁿ
+āwašaǧ
+araⁿā
+wakaw
+ka
+baⁿā
+ walaw
+ḳiy
+la
+lahuma
+
+ 
+mana
+ʿabada
+tuma
+
+laḳ
+aāluw
+ā
+āʾilãh
+aⁿā
+ maā
+kaānuwā
+yaḳuwluwna
+ 
+āllha
+ walaā
+ 
+ālāʾilãha
+ 
+waālāaʿalaáã
+maātaḫayaula
+ bala
+ḳaāla
+ 
+hãḏaā
+maǧalaáaⁿ
+āʾilãhiyuⁿu
+ yanabaġiy
+taʿaẓiymuhu
+falaā
+yaḳataṣiru
+ 
+faālāadanaáã
+ṣaā
+ḥibu
+
+31
+wǧh
+
+ ālt
+auḫa
+yuuli
+yaḳuw
+lu
+ 
+maā
+naʿ
+abuduhuma
+āʾilauā
+layuḳa
+riubuwanaāā
+āʾilaáã
+āllhi
+zulaf
+aáãā
+ 
+swrŧ
+ālz
+mr
+
+ 3
+waālāaʿalaáã
+ālʿaā
+limu
+yaḳ
+uwlu
+ āʾinauma
+ā
+āʾilãhu
+kuma
+āʾilãhuⁿ
+waāḥiduⁿ
+falahu
+āasalimuwaā
+ 
+swrŧ
+ālḥǧ
+
+ 43
+ ḥayṯu
+ẓahara
+ 
+
+wabašiuri
+ālmuḫabitiyana
+ 
+swrŧ
+ālḥǧ
+
+ 43
+ ālauḏiyna
+ḫabata
+naāru
+ṭabiyaʿatihima
+ 
+faḳaāluwā
+ 
+āʾilãhaⁿā
+ walama
+yaḳuwluwā
+ 
+ṭabiyʿaŧaⁿ
+ 
+
+waḳada
+āaḍaluuwaā
+kaṯiyaraⁿā
+ 
+swrŧ
+nwḥ
+
+ 42
+ āaya
+ ḥayauruwhuma
+fiy
+taʿadaādi
+ālwaāḥidi
+kaālwuǧuwhi
+waālniusabi
+ 
+
+walaātazidi
+alẓauãlimiyana
+ 
+swrŧ
+nwḥ
+
+ 42
+ liāanafusihima
+ 
+almuṣaṭafiyana
+ālauḏiyna
+āuwriṯuwā
+ālkitaāba
+āawaula
+ālṯaulaāṯaŧi
+faḳadaumahu
+ʿalaáã
+ālmuḳataṣidi
+waālsauābiḳi
+ 
+ 
+
+āʾilauā
+ḍalaãlaⁿā
+ 
+swrŧ
+nwḥ
+
+ 42
+ āʾilauā
+ḥayaraŧaⁿ
+ 
+ālmuḥamaudiyuu
+ 
+zidaniy
+fiyaka
+taḥayuuraⁿā
+ 
+
+kalaumaāā
+āaḍaāāʾa
+lahuma
+mašawaā
+fiyahi
+waāʾiḏaāā
+āaẓalama
+ʿalayahima
+ḳaāmuwaā
+ 
+swrŧ
+ālbḳrŧ
+
+ 02
+ 
+faālḥaāʾiru
+lahu
+āldauwru
+ waālḥarakaŧu
+āldauwriyauŧu
+ḥawla
+ālḳuṭabi
+falaā
+yabaraḥu
+minahu
+ 
+waṣaāḥibu
+ālṭauriyḳi
+ālm
+usataṭiyli
+maāʾiluⁿ
+ ḫaāriǧuⁿ
+ʿani
+ālmaḳaṣuwdi
+ ṭaālibuⁿ
+maāhuwa
+fiyhi
+ṣaāḥibu
+ḫayaāliⁿ
+āʾilayahi
+ġaāyatuhu
+ falahu
+
+mina
+ wa
+
+āʾilaáã
+ wamaābayanahumaā
+ waṣaāḥibu
+ālḥarakaŧi
+āldauwariyauŧi
+laā
+badaʾa
+ 
+fayulazimahu
+
+mina
+ wlaāġāyŧa
+fayaḥakuma
+ʿalayhi
+
+āʾilaáã
+ 
+falahu
+ālwuǧuwdu
+ālāatamiu
+ wahuwa
+ālmuʾtaáã
+ǧawaāmiʿu
+ālkalimi
+waālḥikami
+ 
+
+mimauā
+ḫaṭiyāáʾaãtihima
+ 
+swrŧ
+nwḥ
+
+ 52
+ fahiya
+ālautiy
+ḫaṭauta
+bihima
+ faġariḳuwā
+fiy
+biḥaāri
+ālʿilami
+biāllhi
+wahuwa
+ālḥayaraŧu
+ 
+
+faāudaḫaluwaā
+naāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 52
+ fiy
+ʿayani
+ālmaāʾi
+ 
+fiy
+ālmuḥamaudiyiyna
+ 
+waāḏaā
+ālbiḥaāru
+suǧiurata
+ 
+sw
+rŧ
+āltkwyr
+
+ 6
+saǧaurata
+āltaunuwra
+āʾiḏaā
+āawaḳadatahu
+ 
+
+falama
+yaǧiduwaā
+lahuma
+mina
+duwani
+āllhi
+āanaṣaāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 52
+ fakaāna
+āllhu
+ʿayna
+āanaṣaārihima
+ fahalakuwā
+fiyhi
+āʾilaáã
+ālāabadi
+ 
+fal
+aw
+āaḫara
+ǧah
+um
+āʾilaáã
+ālsiuyafi
+
+ siyafi
+ālṭaubiyʿaŧi
+
+ lanazala
+bihima
+ʿana
+hãḏihi
+āldauraǧaŧi
+ālraufiyʿaŧi
+ 
+waāʾina
+kaāna
+ālkuluu
+lilhi
+wabiāllhi
+ bala
+huwa
+āllhu
+ 
+ḳāala
+nuwḥuⁿ
+ 
+rabiu
+ maāḳaāla
+ 
+āʾilãhiyiu
+ faāʾinau
+ālraubau
+lahu
+ālṯuubuwtu
+ waālāʾilãhu
+yatan
+awauʿu
+bāilāasam
+aāʾi
+ fahuwa
+
+kuluu
+yawamiⁿ
+fiy
+šaāniⁿ
+ 
+āḳtb
+ās
+mn
+sw
+rŧ
+ālrḥmn
+
+ 92
+ faāraāda
+biālraubiu
+ṯubuwta
+āltaulawiyni
+āʾiḏa
+laāyaṣiḥuu
+āʾilauā
+huwa
+ 
+
+laātaḏara
+ʿalaáã
+alāaraḍi
+ 
+swrŧ
+nwḥ
+
+ 62
+ yadaʿuw
+ʿalayhima
+āana
+yaṣiyruwā
+fiy
+baṭanihaā
+ 
+ālmuḥamaudiyuu
+ 
+lawa
+duliuyatuma
+biḥ
+abaliⁿ
+lahabaṭa
+ʿalaáã
+āllhi
+ 
+
+lahu
+maāfiy
+alsaumãwãti
+wamaā
+fiy
+alāaraḍi
+waāʾiḏaā
+dufinata
+fiyhaā
+ faāanata
+fiyhaā
+wahiya
+ẓarafuka
+ 
+
+wafiyahaā
+nuʿiyadu
+kuma
+waminahaā
+nuḫariǧukuma
+taāraŧaⁿ
+āuḫaraáã
+ 
+swrŧ
+ṭãh
+ã
+ 55
+liaḫatilaāfi
+ālwuǧuwhi
+ 
+mina
+alkaāfiriyana
+ 
+swrŧ
+nwḥ
+
+ 62
+ ālauḏiyna
+
+asataġašawaā
+ṯiyaābahama
+ 
+swrŧ
+nwḥ
+
+ 7
+wa
+ǧaʿaluwā
+āaṣaãbiʿahuma
+fiáā
+ʾaāḏaānihima
+ 
+swrŧ
+nwḥ
+
+ 7
+31
+ẓhr
+ ṭalabaⁿā
+lilasautari
+ liāanauhu
+daʿaāhuma
+layġafiru
+lahama
+ wālġafaru
+ālsautaru
+ 
+
+dayauāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 62
+ āaḥadaⁿā
+ ḥatauáã
+taʿumau
+ālmanafaʿaŧu
+kamaā
+ʿamauti
+āldaʿawŧu
+ 
+
+āʾinauka
+āʾina
+taḏarahuma
+ āaya
+ tadaʿuhuma
+watataru
+kuhuma
+
+yuḍiliuwā
+ʿibaādaka
+ 
+swrŧ
+nwḥ
+
+ 72
+ āay
+ yuḥayiuruwhuma
+ fayuḫariǧuwhuma
+mina
+ālʿubuwdiyauŧi
+āʾilaáã
+maāfiyhima
+mina
+āasaraāri
+ālruubuwbiyauŧi
+ 
+fayanaẓuruwna
+āanafusahuma
+āarabaābaⁿā
+baʿadamaā
+kaānuwā
+ʿinada
+nufuwsihima
+ʿabiydaⁿā
+ 
+fahuma
+ālʿabiydu
+ālāarabaābi
+ 
+
+walaā
+yaliduwaā
+ āay
+ maāyunatiǧuwna
+ walaāyuẓahiruwna
+
+āʾilauā
+faāǧiraⁿā
+ 
+swrŧ
+nwḥ
+
+ 
+72
+ āy
+ muẓahiraⁿā
+maā
+satara
+ 
+
+kafauāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 72
+ āy
+ saātiraⁿā
+maāẓahara
+baʿada
+ẓuhuwrihi
+ 
+fyuẓahiruwna
+maāsutira
+ṯumau
+yasaturuwnahu
+baʿada
+ẓuhuwrihi
+ fayaḥaāru
+ālnauāẓiru
+walaāyaʿarifu
+ḳaṣada
+ālfaāǧiri
+fiy
+fuǧuwrihi
+ walaā
+ālkaāfiri
+fiy
+kufarihi
+ waālšauḫaṣu
+waāḥiduⁿ
+ 
+
+rabiu
+aġafira
+liá
+ 
+swrŧ
+nwḥ
+
+ 82
+ āay
+ asaturaniy
+ waasatura
+mina
+āaǧaliy
+ 
+fayuǧahalu
+maḳaāmiy
+waḳadariy
+kamaā
+ǧuhila
+ḳadaruka
+fiy
+ḳawlika
+ 
+wamaāḳadaruwā
+āllha
+ḥaḳau
+ḳadarihi
+ 
+swrŧ
+ālānʿām
+
+ 19
+ 
+
+waliwãlidaáau
+ 
+swrŧ
+nwḥ
+
+ 82
+ mana
+kunatu
+natiyǧaŧaⁿ
+ʿanahumaā
+ wahumaā
+ ālʿaḳalu
+waālṭaubiyʿaŧu
+ 
+
+walimana
+daḫala
+bayatiá
+ 
+swrŧ
+nwḥ
+
+ 82
+ āay
+ ḳalabiy
+ 
+
+muʾminaⁿā
+ 
+swrŧ
+nwḥ
+
+ 82
+ muṣadiuḳaⁿā
+bimaā
+yakuwnu
+fiyhi
+mina
+ālāʾiḫabaāraāti
+ālāʾilãhiyauŧi
+ wahuwa
+
+maāḥadauṯata
+bihi
+āanfusahaā
+ 
+
+walilamuʾminiy
+ana
+ 
+swrŧ
+nw
+ḥ
+ 82
+ mina
+ālʿuḳuwli
+
+waalmuʾminaãtu
+ 
+swrŧ
+nw
+ḥ
+ 
+82
+ mina
+ālnuufuwsi
+ 
+
+walaātazidi
+alẓauãlimiyana
+
+sw
+rŧ
+nwḥ
+
+ 82
+ mina
+ālẓuulumaāti
+āy
+ āahala
+ālġaybi
+ālmukatanifiyana
+ḫalafa
+ālḥuǧubi
+ālẓulamaāniyauŧi
+ 
+āʾilauātabaāraⁿā
+ 
+swrŧ
+nwḥ
+
+ 82
+ āay
+ 
+halaākaⁿā
+ falaā
+yaʿarifuwna
+nufuwsahuma
+lišuhuwdihima
+waǧha
+ālḥaḳiu
+duwnahuma
+ 
+fiy
+ālmuḥamaudiyiyina
+ 
+kuluu
+šayaʾiⁿ
+haāliⁿkuⁿ
+āʾilauā
+waǧahahu
+ 
+swrŧ
+ālḳṣṣ
+
+ 88
+waāltaubaāru
+ālhalaāku
+ 
+wamana
+āaraāda
+āana
+yaḳifa
+ʿalaáã
+āasaraāri
+nuwḥiⁿ
+ faʿalayhi
+biālruuḳiy
+fiy
+falaki
+yuwḥiⁿ
+ 
+wahuwa
+fiy
+
+āltaunazuulaātu
+ālmawṣiliyauŧi
+ lanaā
+ 
+
+4
+faṣuu
+ḥikamaŧiⁿ
+ḳuduuwsiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āʾidariyasiyauŧiⁿ
+ālʿuluwuu
+nisabataāni
+ ʿuluwuu
+makaāniⁿ
+waʿuluwuu
+makaānaŧiⁿ
+ faʿuluwuu
+ālmakaāni
+ 
+warafaʿanaãhu
+makaānaⁿā
+ʿalayiⁿuā
+ 
+swrŧ
+mrym
+
+ 75
+ 
+waāaʿalaáã
+ālāamakinaŧi
+ālmakaāna
+ālauḏiy
+taduwru
+ʿalayhi
+raḥaáã
+ʿaālami
+ālāafala
+āki
+wahuwa
+falaku
+ālšaumasi
+ wafiyhi
+maḳaāmu
+ruwḥaāniyiuŧi
+āʾidariyasa
+ 
+wataḥat
+aha
+sabaʿaŧu
+āafalaākiⁿ
+ wafawḳahu
+sabaʿaŧu
+āafalaākiⁿ
+wahuwa
+ālḫaā
+misa
+ʿaš
+ara
+ faālauḏi
+yfawḳahu
+falaku
+ālāaḥamari
+ 
+wafalaku
+ālmušatariy
+ 
+41
+wǧh
+ wafalaku
+kayawaāna
+ 
+wafalaku
+ālmanaāzili
+ 
+wālfalaku
+ālāṭalasu
+ falaku
+ālburuwǧi
+ 
+wafalaku
+ālkurasiyiu
+ wafalaku
+ālʿaraši
+ 
+waālauḏiy
+duwnahu
+ falaku
+ālzuuharaŧi
+ wafalaku
+ālkaātibi
+ 
+wafalaku
+ālḳamari
+ waāukaraŧu
+ālāaṯiyri
+ 
+waāukaraŧu
+ālhawaāʾi
+ waāukaraŧu
+ālmaāʾi
+ waāukaraŧu
+āltuuraābi
+ 
+famina
+ḥayṯa
+huwa
+ḳuṭabu
+ālāafalaāki
+huwa
+rafiyʿu
+ālmakaāni
+ 
+waāamauā
+ʿuluwuu
+ālmakaānaŧi
+fahuwa
+lanaā
+ āaʿaniy
+ ālmuḥamaudiyiyna
+ 
+ḳaāla
+taʿaālaáã
+ 
+waāanatuma
+alāaʿalawna
+waallhu
+maʿakuma
+ 
+sw
+rŧ
+mḥmd
+
+ 53
+ fiy
+hãḏaā
+ālʿuluwiu
+ wahuwa
+yataʿaālaáã
+ʿani
+ālmakaāni
+laā
+ʿani
+ālmakaānaŧi
+ 
+walamauā
+ḫaāfata
+nufuwsu
+ālʿumauāli
+minauā
+āatabaʿa
+ālmaʿiyauŧa
+biḳawlihi
+ 
+walana
+yatirakuma
+āaʿamaãlakuma
+ 
+swrŧ
+mḥmd
+
+ 53
+ faālʿamalu
+yuṭalubu
+ālmakaāna
+ waālʿilamu
+yuṭalubu
+ālmakaānaŧa
+ faǧamaʿa
+lanaā
+bayna
+ālriufaʿatayni
+ ʿuluwuu
+ālmakaāni
+biālʿamali
+ waʿuluwuu
+ālmakaānaŧi
+biālʿilami
+ 
+ṯumau
+ḳaāla
+tanaziyahaⁿā
+lilaašatiraāki
+biālmaʿayauŧi
+ 
+sabiuḥi
+asama
+rabauka
+ālāaʿalaáã
+ 
+ālāʿl
+áã
+
+
+ 1
+ ʿana
+hãḏaā
+ālašatiraāki
+ālmaʿanawiyiu
+ 
+wamina
+āaʿaǧabi
+ālāumuwri
+kawni
+ālāʾinasaāni
+āaʿalaáã
+ālmawǧuwdaāti
+ āaʿaniy
+ ālāʾinasaāna
+ālkāmla
+ wamaā
+nusiba
+āʾilayhi
+ālʿul
+uwuu
+āʾilauā
+biā
+ltaubiʿiyauŧi
+ āʾimauā
+āʾilaáã
+ālma
+kaāni
+ waāʾimauā
+āʾilaáã
+ālmakaā
+naŧi
+ 
+wahiya
+ālmanazilaŧu
+ 
+famaā
+kaāna
+ʿuluwuuhu
+liḏaātihi
+ fahuwa
+ālʿaliyuu
+biʿuluwiu
+ālmakaāni
+waālmakaānaŧi
+ fāalʿuluwuu
+lahumaā
+ 
+faʿuluwuu
+ālmakaāni
+ ka
+alrauḥamãni
+ʿalaáã
+alʿaraši
+asatawaáã
+ 
+swrŧ
+ṭãh
+ã
+ 5
+ wahuwa
+āaʿalaáã
+ālāamaākini
+ waʿuluwuu
+ālmakaānaŧi
+ 
+kulau
+šayaʾiⁿ
+haālikuⁿ
+āʾilauā
+waǧahahu
+ 
+swrŧ
+ālḳṣṣ
+
+ 88
+ wa
+āʾilay
+hi
+yuraǧaʿu
+ālāamaru
+kuluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ 
+āaāʾilãhuⁿ
+maʿa
+āllhi
+ 
+swrŧ
+ālnml
+
+ 06
+ 
+walamauā
+ḳaāla
+āllhu
+taʿaālaáã
+ 
+warafaʿanaãhu
+makaānaⁿā
+ʿaliyiⁿuā
+ 
+swrŧ
+mrym
+
+ 75
+ faǧaʿala
+
+ʿaliyiⁿuā
+ naʿataⁿā
+lilamakaāni
+ 
+
+waāʾiḏa
+ḳaāla
+rabuuka
+lilam
+alaāãʾikŧi
+āʾiniuá
+ǧaāʿiluⁿ
+fiá
+alāaraḍi
+ḫaliyfaŧaⁿ
+ 
+swrŧ
+ālb
+ḳrŧ
+ 
+03
+ fahãḏaā
+ʿuluwuu
+ālmakaānaŧi
+ waḳaāla
+fiy
+ālmalaāʾikaŧi
+ 
+āasatakabarata
+āama
+kunatu
+mina
+alʿaāliyna
+ 
+swrŧ
+ṣā
+
+ 57
+ faǧaʿala
+ālʿ
+uluwau
+lilamala
+āʾikaŧi
+falaw
+kaāna
+likawnihima
+malaāʾikaŧaⁿ
+ladaḫala
+ālmalaāʾikaŧu
+kuluuhuma
+fiy
+hãḏaā
+ālʿuluwiu
+ falamauā
+lama
+yaʿumu
+ maʿa
+ašatiraākihima
+fiy
+ḥadiu
+ālmal
+akiyauŧi
+ 
+ʿarafanaā
+āanau
+hãḏa
+āʿuluwau
+ālmaka
+ānaŧi
+ʿinada
+āllhi
+ wakaḏãlika
+ālḫ
+ulafaāʾu
+mina
+ālnauāsi
+ 
+lawkaān
+ʿul
+uwuuhuma
+biālḫilaāfaŧi
+ʿul
+uwiⁿuā
+ḏaātiyiⁿuā
+lakaān
+likuliu
+āʾinas
+aāniⁿ
+ falm
+auā
+lama
+yaʿ
+umu
+ ʿarafanaā
+āanau
+ḏãlika
+ālʿuluwau
+lilamakaānaŧi
+ 
+wamina
+āasamaāʾihi
+ālḥusanaáã
+
+ālʿaliyuu
+ ʿalaáã
+mana
+ wamaā
+ṯamau
+āʾilauā
+huwa
+ fahuwa
+ālʿaliyuu
+liḏaātihi
+ 
+āaw
+ʿana
+maāḏaā
+ wamaā
+huwa
+āʾilauāhuwa
+ faʿuluwuuhu
+linafasiihi
+ 
+
+41
+ẓh
+r
+wahuwa
+mina
+ḥayṯu
+ālwuǧuwdu
+ʿaynu
+ālmawǧuwdaāti
+ faā
+lmusamauáã
+muḥada
+ṯaātuⁿ
+hiya
+ālʿ
+aliyauŧu
+liḏa
+ātihaā
+ walaysata
+āʾilauā
+huwa
+ fahuwa
+ālʿal
+iyuu
+ laāʿuluwau
+āʾiḍaāfaŧiⁿ
+ liāanau
+ālāaʿay
+aāna
+
+ālautiy
+lah
+aā
+ālʿa
+da
+mu
+
+ ālṯ
+auābitaŧa
+fiyhi
+ maā
+šamauta
+raāʾiḥ
+aŧaⁿ
+min
+ālwuǧuw
+di
+ fah
+iya
+ʿalaáã
+ḥaā
+lihaā
+ 
+maʿa
+taʿadaādi
+ālṣuuwari
+fiy
+ālmawǧuwdaāti
+ 
+waālʿaynu
+waāḥidaŧuⁿ
+ mina
+ālmaǧamuwʿi
+fiy
+ālmaǧamuwʿi
+ 
+fawuǧuwdu
+ālkaṯaraŧi
+fiy
+ālāasamaāiʾ
+wahiya
+ālniusabu
+ wahiya
+āumuwruⁿ
+ʿadamiyauŧuⁿ
+ 
+walaysa
+āʾilauā
+ālʿayna
+ ālauḏiy
+huwa
+ālḏauātu
+ 
+fahuwa
+ālʿalayuu
+linafasihi
+ laā
+biālāʾiḍaāfaŧi
+ famaā
+fiy
+ālʿaālami
+mina
+hãḏihi
+ālḥayṯiyauŧi
+ʿuluwuu
+āʾiḍaāfaŧiⁿ
+ 
+lãkina
+ālwuǧuwhu
+ālwuǧuwdiyauŧu
+mutafaāḍilaŧuⁿ
+ faʿuluwuu
+ālāʾiḍaāfaŧi
+mawǧuwduⁿ
+fiy
+ālʿayni
+ālwaāḥidaŧi
+ mina
+ḥayṯu
+ālwuǧuwhu
+ālkaṯiyraŧu
+ 
+liḏãlika
+naḳuwlu
+fiyhi
+ 
+huwa
+laā
+huwa
+ āanata
+laā
+āanata
+ 
+ḳaāla
+ālḫ
+arauāzu
+
+ wahuwa
+waǧahuⁿ
+mina
+wuǧuwhi
+ālḥaḳiu
+walisaā
+nuⁿ
+mina
+āalasini
+tihi
+yan
+aṭiḳu
+ʿana
+nafasihi
+
+ biāanau
+āllha
+laā
+yuʿarafu
+āʾilauā
+baǧamaʿihi
+bayna
+ālāaḍadaādi
+fiy
+ālḥukami
+ʿalayhi
+bihaā
+ 
+fahuw
+ālāawaulu
+waālāḫiru
+ waālẓauāhiru
+waālbaāṭinu
+ fahuwa
+ʿaynu
+maāẓahara
+ wahuwa
+ʿaynu
+maābaṭana
+ fiy
+ḥaāli
+ẓuhuwrihi
+ wamaā
+ṯamau
+mana
+yara
+āhu
+ġayruhu
+ wamaā
+ṯamau
+mana
+yabaṭunu
+ʿan
+hu
+ fah
+uwa
+ẓaāhiruⁿ
+linafasiha
+ 
+baāṭinuⁿ
+ʿanhu
+ waālmusamauáã
+āabaā
+saʿiydiⁿ
+ālḫarauāzi
+ waġayra
+ḏãlika
+mina
+āasamaāʾi
+ālmuḥadaṯaāti
+ 
+fayaḳuw
+lu
+ālbaāṭinu
+ 
+laā
+ āʾiḏaā
+ḳaāla
+ālẓauāhiru
+ 
+āanaā
+ wayaḳuwlu
+ālẓauāhiru
+ 
+laā
+ āʾiḏaā
+ḳaāla
+ālbaāṭinu
+ 
+āanaā
+ wahãḏaā
+fiy
+kuliu
+ḍidiⁿu
+ 
+waālmutakaliumu
+waāḥiduⁿ
+wahuwa
+ʿaynu
+ālsauāmiʿi
+ 
+yaḳuwlu
+ālnaubiyuu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalaumi
+ 
+wamaāḥadauṯata
+bihi
+āanafusahaā
+ 
+fahiya
+ālmuḥadiuṯaŧu
+ālsauāmiʿaŧu
+ḥadiyṯahaā
+ ālʿaālimaŧu
+bimaā
+ḥadṯauta
+bihi
+nafasahaā
+ waālʿaynu
+waāḥidaŧuⁿ
+waaḫatalafati
+ālāaḥakaāmu
+ walaāsabiyla
+āʾiláã
+ǧahali
+miṯali
+hãḏaā
+faāʾinauhu
+yaʿalamuhu
+kuluu
+āʾinasaāniⁿ
+mina
+nafasihi
+ 
+wahuwa
+ṣuwraŧu
+ālḥaḳiu
+ 
+faaḫatalaṭati
+ālāumuwru
+ waẓaharati
+ālāaʿadaādu
+biālwaāḥidi
+ fiy
+ālmaraātibi
+ālmaʿaluwmaŧi
+ 
+faāawǧada
+ālwaāḥidu
+ālʿadada
+ wfaṣaula
+ālʿadadu
+ālwaāḥida
+ 
+wamaāẓahara
+ḥukamu
+ālʿadadi
+āʾilauā
+biālmaʿaduwdi
+ waālmaʿaduwdu
+ minhu
+ʿadamuⁿ
+ waminahu
+wuǧuwduⁿ
+ 
+faḳada
+yuʿadamu
+ālšauyʾu
+min
+ḥayṯu
+ālḥisuu
+ wahuwa
+mawǧuwduⁿ
+mina
+ḥayṯu
+ālʿaḳalu
+ 
+falaā
+budau
+mina
+ʿadadiⁿ
+wamaʿaduwdiⁿ
+ walaābudau
+mina
+waāḥidiⁿ
+yunašiyʾu
+ḏãlika
+ fayunašaāu
+bisababihi
+ 
+
+51
+wǧh
+ faāna
+kaāna
+kuluu
+maratabaŧiⁿ
+mina
+ālʿadadi
+ḥaḳiyḳaŧaⁿ
+waāḥidaŧaⁿ
+
+ kaāltiusaʿaŧi
+maṯalaⁿā
+waālʿašaraŧi
+āʾiláã
+āadanáã
+ āaw
+āʾiláã
+āakaṯara
+ āʾiláã
+ġayri
+nihaāyiŧiⁿ
+
+ 
+fa
+maāhiya
+maǧamuwʿuⁿ
+ 
+walaāyan
+afakuu
+ʿan
+ahaā
+asamu
+ǧamaʿi
+ālāḥaā
+di
+ faāʾinau
+ālaṯanayni
+ḥaḳayḳaŧuⁿ
+waāḥidaŧuⁿ
+ 
+waālṯaulaāṯaŧu
+ḥaḳiyḳaŧuⁿ
+waāḥidaŧuⁿ
+ 
+baāliġaⁿā
+maābalaġata
+hãḏihi
+ālmaraātiba
+ 
+waāʾina
+kaānata
+waāḥidaŧaⁿ
+famaā
+ʿaynuⁿ
+waāḥidaŧuⁿ
+miⁿnahunau
+ʿayna
+maābaḳiya
+ 
+faālǧamaʿu
+yaāḫuḏuhaā
+ fayaḳuwlu
+ 
+bihaā
+minahaā
+ wayaḥakumu
+
+bihaā
+ʿalayhaā
+ 
+ḳada
+ẓahara
+fiy
+hãḏaā
+ālḳawli
+ʿišaruwna
+maratabaŧaⁿ
+ faḳada
+daḫalahaā
+āltaura
+kiybu
+ 
+famaā
+tanafakuu
+tuṯabitu
+ʿayna
+maāhuwa
+manafiyuⁿu
+ʿinadaka
+liḏaātihi
+ 
+wamana
+ʿarafa
+maāḳarauranaāhu
+fiy
+ālāaʿadaādi
+ waāanau
+nafayahaā
+ʿaynu
+ṯabatihaā
+ ʿalima
+āanau
+ālḥaḳau
+ālmunazauha
+huwa
+ālḫalaḳu
+ālmušabauhu
+ waāʾina
+kaāna
+ḳada
+tamayauza
+ālḫalaḳu
+mina
+ālḫaāliḳi
+ 
+faālāamaru
+ ālḫaāliḳu
+ālmaḫaluwḳu
+ waālāamaru
+ ālmaḫaluwḳu
+ālḫaāliḳu
+ 
+kuluu
+ḏãlika
+mina
+ʿayniⁿ
+waāḥidaŧiⁿ
+ laā
+ 
+bala
+huwa
+ālʿaynu
+ālwaāḥidaŧu
+ wahuwa
+ālʿuyuwnu
+ālkaṯiyraŧu
+ 
+faanaẓura
+maāḏaā
+taráã
+ḳaāla
+yāãāabati
+afaʿala
+maātuʾmaru
+ 
+ālṣāfāt
+
+ 201
+ 
+waālwaladu
+ʿaynu
+āabiyhi
+famaā
+raāaáã
+yaḏabaḥu
+siwaáã
+nafasahu
+ 
+wafadaāhu
+
+biḏibaḥiⁿ
+ʿaẓiymiⁿ
+ 
+ālṣāfāt
+
+ 701
+ 
+faẓahara
+biṣuwraŧi
+kabašiⁿ
+mana
+ẓahara
+biṣuwraŧi
+āʾinasaāniⁿ
+ 
+waẓahara
+biṣuwraŧi
+waladiⁿ
+laā
+ bala
+biḥukami
+waladiⁿ
+ mana
+huwa
+ʿayanu
+ālwaālidi
+ 
+
+waḫalaḳa
+minah
+aā
+zawaǧah
+aā
+ 
+āln
+sāʾ
+
+ 1
+ famaā
+nakaḥa
+siwaáã
+naf
+asahu
+ faminhu
+ālṣauāḥibaŧu
+waālwaladu
+ waālāamaru
+waāḥiduⁿ
+fiy
+ālʿadadi
+ 
+famina
+ālṭaubiyʿaŧi
+wamina
+ālẓauāhiri
+minhaā
+ wamaāraāyanaāhaā
+naḳaṣata
+bimaā
+ẓahara
+minahaā
+ walaā
+zaādata
+biʿadami
+maāẓahara
+ wamaā
+ālauḏiy
+ẓahara
+ġayruhaā
+ wamaāhiya
+ʿaynu
+maāẓahara
+ liaḫatilaāfi
+ālṣuwari
+biālḥukami
+ʿalayhaā
+ fahãḏaā
+baāriduⁿ
+yaā
+bisuⁿ
+ wahãḏaā
+ḥaāruⁿu
+yaābisuⁿ
+ faǧamaʿa
+biālyabasi
+ 
+waāabaāna
+biġayri
+ḏãlika
+ 
+waālǧaāmiʿu
+ālṭaubiyʿaŧu
+ laā
+bala
+ālʿaynu
+ālṭaubiyʿaŧu
+ 
+faʿaālamu
+ālṭaubiyʿaŧi
+ṣuwaruⁿ
+fiy
+mirāŧi
+waāḥidaŧiⁿ
+ laā
+bala
+ṣuwraŧuⁿ
+waāḥidaŧuⁿ
+fiy
+maraāʾiⁿ
+muḫatalifaŧiⁿ
+ 
+famaā
+ṯamau
+āʾilauā
+ḥayraŧuⁿ
+litafaruuḳi
+ālnauẓari
+ 
+waman
+ʿarafa
+maāḳulanaāhu
+lama
+yaḥaru
+ waāʾina
+kaāna
+fiy
+maziydi
+ʿilamiⁿ
+ falaysa
+āʾilauā
+mina
+ḥukami
+ālmaḥaliu
+ waālmaḥaluu
+ʿaynu
+ālʿayni
+ālṯauābitaŧi
+ 
+fiy
+haā
+yatanawauʿu
+ālḥaḳuu
+fiy
+ālmaǧalaáã
+ fatatanawauʿu
+ālāaḥakaā
+mu
+ʿalay
+hi
+ fayaḳa
+balu
+kulau
+ḥukamiⁿ
+
+51
+ẓhr
+ wamaāyaḥakumu
+ʿalayhi
+āʾilauā
+ʿaynu
+maātaǧlauáã
+fiyhi
+ maāṯamau
+āʾilauā
+hãḏaā
+ 
+
+ālbsyṭ
+1
+faālḥaḳuu
+ḫalaḳuⁿ
+bihãḏaā
+ālwaǧhi
+faāʿatabiruwā
+walayasa
+ḫalaḳaⁿā
+biḏaāka
+ālwaǧhi
+faādau
+kiruwā
+2
+mana
+yadari
+maā
+ḳulatu
+lama
+tuḫaḏala
+baṣiyaratuhu
+walaysa
+yadriyhi
+āʾilauā
+mana
+lahu
+baṣaru
+3
+ǧamiuʿa
+wafariuḳa
+faāʾinau
+ālʿayna
+waāḥidaŧuⁿ
+wahiya
+ālkaṯiyraŧu
+laā
+tubaḳiy
+walaā
+taḏaru
+faālʿ
+aliyuu
+linafasihi
+huwa
+ālauḏiy
+yakuwnu
+lahu
+ālkamaālu
+ālauḏiy
+yasat
+aġari
+ḳu
+bihi
+ǧamiy
+ʿa
+ālāumuw
+ri
+ālwuǧuwdiyauŧi
+ waālniusabi
+ālʿadamiyauŧi
+biḥayṯu
+laāyumakinu
+āana
+yafuwtahu
+naʿatuⁿ
+minahaā
+ wasawa
+āʾuⁿ
+kaānata
+maḥamuwdaŧaⁿ
+ʿurafaⁿā
+waʿaḳalaⁿāwašaraʿaⁿā
+ āaw
+maḏamuwmaŧaⁿ
+ʿurfaⁿā
+waʿaḳalaⁿāwašaraʿaⁿā
+ 
+walaysa
+ḏãlika
+āʾilauā
+limusamauáã
+
+allhi
+ ḫaāṣauŧaⁿ
+ waāamauā
+ġayru
+musamauáã
+
+allhi
+ ḫaāṣauŧaⁿ
+ 
+mimauā
+huwa
+maǧalaáaⁿ
+lahu
+āaw
+ṣuwraŧuⁿ
+fiyhi
+ faāʾina
+kaāna
+maǧalaáaⁿ
+lahu
+fayaḳaʿu
+āltaufaāḍulu
+
+ laābudau
+mina
+ḏãlika
+
+ bayna
+maǧalaáaⁿ
+wamaǧalaáaⁿ
+ waāʾina
+kaāna
+ṣuwraŧaⁿ
+fiyhi
+ falitilaka
+ālṣuuwraŧi
+ʿaynu
+ālkamaāli
+ālḏauātiyiu
+ liāanauhaā
+ʿaynu
+maā
+ẓaharata
+fiyhi
+ 
+faā
+lauḏiy
+limusam
+auáã
+
+allhi
+ huwa
+ālauḏiy
+litilaka
+ālṣ
+uuwraŧi
+ walaāyuḳaā
+lu
+hiya
+huwa
+ walaāhiya
+ġayruhu
+ 
+waḳada
+āašaāra
+āabuw
+ālḳaāsimu
+banu
+ḳasiyiⁿu
+fiy
+ḫalaʿih
+āʾiláã
+hãḏaā
+biḳawlihi
+ āanau
+kulau
+āsamiⁿ
+āʾilãhiyiⁿu
+yatasamauáã
+biǧamiyʿi
+ālāasamaā
+ʾi
+ālāʾilãhiyauŧi
+wayunaʿatu
+bihaā
+ waḏãlika
+hunaāka
+āanau
+kulau
+āsamiⁿ
+yaduluu
+ʿaláã
+ālḏauāti
+waʿláã
+ālmaʿanáã
+ālauḏiy
+siyḳa
+lahu
+wayaṭalubuhu
+ famina
+ḥayṯu
+dilaālatuhu
+ʿaláã
+ālḏauāti
+ lahu
+ǧam
+iyʿu
+ālāasamaā
+ʾi
+ wamina
+ḥayṯu
+dilaālatuhu
+ʿaláã
+ālmaʿan
+áã
+ ālauḏiy
+yanaf
+aridu
+bihi
+ yat
+amayiuzu
+ʿana
+ġayri
+hi
+kaā
+lraubiu
+ waālḫ
+aāliḳi
+ waālmuṣawiuri
+ āʾiláã
+ġayri
+ḏãlika
+ faālasamu
+ālmusam
+auáã
+mina
+ḥay
+ṯu
+ālḏauātu
+ waālasamu
+ġayru
+ālmusam
+auáã
+mina
+ḥay
+ṯu
+maāyaḫ
+ataṣuu
+bihi
+mina
+ālmaʿanáã
+ālauḏiy
+siyḳa
+lahu
+ 
+faāʾi
+ḏaā
+fah
+imata
+āanau
+
+ālʿaliyau
+
+ maāḏakarnaāhu
+ ʿal
+imata
+āanauhu
+lay
+sa
+ʿuluwau
+ālm
+akaāna
+ walaāʿuluwau
+ālmakaānaŧi
+ faāʾinau
+ʿuluwau
+ālmakaānaŧi
+yaḫataṣhu
+biwulaāŧi
+ālāamari
+ kaālsuulaṭaāni
+ waālḥukauāmi
+ 
+waālwuzaraāʾi
+ waālḳuḍaāŧi
+ 
+wakuluu
+ḏiy
+manaṣabiⁿ
+sawaāʾuⁿ
+kaānata
+fiyhi
+āahaliyauŧu
+ḏãlika
+ālmanaṣibi
+ āaw
+lama
+yakuna
+ waālʿuluwuu
+biālṣiufaāti
+laysa
+kaḏãlika
+ 
+faāʾi
+nauhu
+ḳada
+yakuwnu
+āaʿal
+ama
+ālnauāsi
+yataḥakaumu
+fiyhi
+mana
+lahu
+
+61
+wǧh
+ manaṣ
+ibu
+āltauḥakuumi
+ 
+waāʾina
+kaāna
+āaǧahala
+ālnauāsi
+ fahãḏaā
+ʿaliyuⁿu
+biālmakaānaŧi
+biḥukami
+āltaubaʿi
+ maāhuwa
+ʿaliyuⁿu
+fiy
+nafasihi
+ faāʾiḏaā
+ʿuzila
+zaālata
+rifaʿatuhu
+ waālʿaālimu
+laysa
+kaḏãlika
+ 
+
+5
+faṣuu
+ḥikamaŧiⁿ
+muhayamiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āʾibaraāhiyamiyauŧiⁿ
+āʾinaumaā
+sumiuya
+ḫaliylaⁿā
+litaḫaluulihi
+waḥaṣarihi
+ǧamiyʿa
+mā
+atauṣafata
+bihi
+ālḏauātu
+ālāʾilãhiyauŧu
+ ḳāla
+ālšauāʿiru
+ 
+ālḫfyf
+wataḫalaulata
+masalaka
+ālruuwḥi
+miniuy
+wabihi
+sumiuya
+ālḫaliylu
+ḫaliylaā
+kamaā
+yataḫalaulu
+āllauwnu
+ālmutalawauna
+ fyulawiunu
+ālʿaraḍa
+baḥayṯu
+ǧawharuhu
+maāhuwa
+kaālmakaānia
+waālmutamakauni
+ 
+āaw
+litaḫ
+aluuli
+ālḥaḳiu
+wuǧuw
+da
+ṣuwraŧi
+āʾibraāhiyma
+ wakuluu
+ḥukamiⁿ
+yaṣiḥuu
+mina
+ḏãlika
+ faāʾinau
+likuliu
+ḥukamiⁿ
+mawṭinaⁿā
+yaẓaharu
+bihi
+ laāyataʿadauāhu
+ 
+āalaā
+taráã
+ālḥaḳau
+yaẓaharu
+biṣifaāti
+ālmuḥadaṯaāti
+ waāaḫabara
+biḏãlika
+ʿana
+nafasihi
+ 
+wabiṣafaāti
+ālnauḳaṣi
+ wabiṣifaāti
+ālḏaumiu
+ 
+āalaā
+taráã
+ālmaḫaluw
+ḳa
+yaẓaharu
+biṣ
+ifaāti
+ālḥ
+aḳiu
+ mina
+āawaulihaā
+āʾiláã
+āḫirihaā
+ wakuluuh
+aā
+ḥaḳuⁿu
+lahu
+ 
+kamaā
+hiya
+ṣifaātu
+ālmuḥadaṯaāti
+ḥaḳuⁿu
+llḥaḳiu
+ 
+ālḥamadu
+lilhi
+ faraǧaʿata
+āʾilayhi
+ʿawaāḳibu
+ālṯaunaāʾu
+mina
+kuliu
+ḥaāmidiⁿ
+wamaḥamuw
+diⁿ
+ 
+waāʾilayhi
+yurǧaʿu
+alāamaru
+kuluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ faʿamau
+maā
+ḏumau
+waḥumida
+ wamaāṯamau
+ālauā
+maḥamuⁿwduⁿ
+āawmaḏamuwmuⁿ
+ 
+aʿalama
+ānauhu
+maātaḫalaula
+šayʾuⁿ
+šayáʾaⁿā
+āʾilauā
+kaāna
+maḥamuwlaⁿā
+fiyhi
+ faālmutaḫaliulu
+ asamu
+faāʿiliⁿ
+maḥ
+aǧuwbuⁿ
+baālmutaḫalauli
+ asamu
+mafaʿ
+uwliⁿ
+ faāsamu
+ālmafa
+ʿuwli
+hwa
+ālẓauāhiru
+ waasmu
+ālfaāʿiali
+huwa
+ālbaāṭinu
+ālmasatuwru
+ wahuwa
+ġiḏaāʾuⁿ
+lahu
+ kaālmaāʾi
+yataḫalaulu
+ālṣuuwfaŧa
+fatarabuwa
+bihi
+watatausiʿu
+ faāʾina
+kaāna
+ālḥ
+aḳuu
+huwa
+ālẓauāhiru
+ faālḫ
+alaḳu
+masatuwruⁿ
+fiy
+hi
+ fayakuwna
+ālḫalaḳu
+ǧamiyʿa
+āasamiāʾi
+ālḥaḳiu
+ samaʿahu
+wabaṣarahu
+ waǧamiyʿa
+nisabihi
+waāʾidaraākaātihi
+ 
+waāʾina
+kaā
+na
+ālḫal
+aḳu
+huwa
+ālẓ
+auāhiru
+ faā
+lḥaḳuu
+masat
+uwruⁿ
+baāṭinuⁿ
+fiy
+hi
+ faālḥ
+aḳuu
+samaʿu
+ālḫalaḳi
+wabṣaruhu
+wayaduhu
+wariǧaluhu
+ waǧamiyʿu
+ḳawaāhu
+ kamaā
+warada
+fiy
+ālḫabari
+ālṣauḥiyḥi
+ 
+ṯumau
+āʾinau
+ālḏauāta
+law
+taʿarauta
+ʿana
+hãḏihi
+ālniusabi
+lama
+takuna
+āʾilãhaⁿā
+ 
+wahãḏihi
+ālniusabu
+āaḥadaṯatahaā
+āaʿayaānunaā
+ fanaḥanu
+ǧaʿalanaāhu
+bimaā
+liāuluwhiyautinaā
+āʾilãhaⁿā
+ 
+falaā
+yuʿarafu
+ḥatauáã
+nuʿarafa
+ ḳaāla
+ʿalayhi
+ālsaulaāmu
+
+ 
+mana
+ʿarafa
+nafasahu
+ʿarafa
+rabauhu
+ 
+61
+ẓhr
+ wahuwa
+āaʿalamu
+ālḫalaḳi
+biāllhi
+ 
+faāʾinau
+baʿaḍa
+ālḥukamaāʾi
+ waābaā
+ḥaāmidiⁿ
+ adauʿuw
+āāʾinauhu
+yaʿa
+rifu
+āllha
+mina
+ġayri
+naẓariⁿ
+fiy
+ālʿaālami
+ wahãḏaā
+ġalaṭuⁿ
+ 
+naʿamuⁿ
+ tuʿarafu
+ḏaātuⁿ
+ḳadiymaŧuⁿ
+āazaliyauŧuⁿ
+ laāyuʿ
+arafu
+āanauhaā
+āʾilãhuⁿ
+ ḥatauáã
+yuʿarafa
+ālmaāluwhu
+ 
+fahuwa
+āldauliylu
+ʿalayhi
+ 
+ṯumau
+baʿada
+hãḏaā
+fiy
+ṯaāniy
+ḥaāliⁿ
+yuʿaṭiyaka
+ālkašafu
+ āanau
+ālḥaḳau
+nafasahu
+kaāna
+ʿayna
+āldauliyli
+ʿaláã
+nafasihi
+ waʿaláã
+āuluwhatihi
+ 
+waāanau
+ālʿaālama
+laysa
+āʾilauā
+taǧaliuyahi
+ fiy
+ṣuwari
+āaʿayaānihima
+ālṯauābitaŧi
+ālautiy
+yasataḥiylu
+wuǧuwduhaā
+biduwnihi
+ 
+waāanauhu
+yatanawauʿu
+
+āw
+ yutanawauʿu
+ wyataṣawauru
+
+āw
+ yutaṣawauru
+ biḥasabi
+ḥaḳaāʾiḳi
+hãḏihi
+ālāaʿayaāni
+waāḥawaālihaā
+ 
+wahãḏaā
+baʿada
+ālʿilami
+bihi
+minauā
+ānauhu
+āʾilãhuⁿ
+lanaā
+ 
+ṯumau
+yaātiy
+ālkašafu
+ālāḫaru
+ fayuẓahiru
+
+āw
+ fayaẓahiru
+ laka
+ṣuwaranaā
+fiyahi
+fayaẓaharu
+baʿḍunaā
+libaʿḍiⁿ
+ fiy
+ālḥaḳiu
+ fayaʿarifu
+baʿaḍunaā
+baʿaḍaⁿā
+ wayatamayiuzu
+baʿaḍunaā
+ʿana
+baʿaḍiⁿ
+ 
+faminauā
+mana
+yaʿrifu
+āanau
+fiy
+ālḥaḳiu
+ waḳaʿata
+hãḏihi
+ālm
+aʿarifaŧu
+lanaā
+binaā
+ waminauā
+mana
+yaǧahalu
+ālḥaḍaraŧa
+ālautiy
+waḳaʿata
+fiyhaā
+hãḏihii
+ālmaʿarifaŧu
+binaā
+ 
+āaʿuwḏu
+biāllhi
+āana
+āakuwna
+mina
+alǧaãhiliyna
+ 
+swrŧ
+ālbḳrŧ
+
+ 76
+wabiālkašafayani
+maʿaⁿā
+maāyaḥakumu
+ʿalaynaā
+āʾilauā
+binaā
+ 
+laā
+ bala
+naḥanu
+naḥakumu
+ʿalaynaā
+binaā
+ walãkina
+fiyhi
+ 
+waliḏãlika
+ḳaāla
+ 
+faliluãhi
+alḥuǧauŧu
+albaãliġaŧu
+ 
+swrŧ
+ālānʿām
+
+ 941
+ yaʿaniy
+ʿaláã
+ālmaḥaǧuwbiyna
+ āʾiḏaā
+ḳaāluwā
+lilaḥaḳiu
+ 
+lima
+faʿalata
+binaā
+kaḏaā
+wakaḏaā
+ mamauā
+laā
+yuwaāfiḳu
+āaġaraāḍahuma
+ fa
+yukašafu
+ lahuma
+
+ʿana
+saāḳiⁿ
+ 
+swrŧ
+ālḳlm
+
+ 24
+ 
+ 
+wahuwa
+ālāamaru
+ālauḏiy
+kašafahu
+ālʿaārifuwna
+hunaā
+ fayarawna
+āanau
+ālḥaḳau
+maā
+faʿala
+bihima
+maāadauʿuwhu
+āanauhu
+fiʿaluhu
+ waāanau
+ḏãlika
+minahuma
+ faāʾinauhu
+maā
+ʿalaumahuma
+ālauā
+ʿalaáã
+maāhuma
+ʿalayhi
+ 
+fatanadaḥiḍu
+ḥuǧautuhuma
+watabaḳaáã
+ālḥuǧauŧu
+lilhi
+ālbaāliġaŧu
+ 
+faāʾina
+ḳul
+ata
+ famaā
+faāʾidaŧu
+ḳaw
+lihi
+ 
+falawa
+šaāāʾa
+lahadaáãkuma
+āaǧamaʿiyna
+ 
+sw
+rŧ
+ālānʿ
+ām
+
+ 941
+ ḳulanaā
+ 
+lawa
+šaāʾa
+ 
+lawa
+ ḥarafu
+amatinaāʿi
+ālamatinaāʿi
+ famaā
+šaāʾa
+āʾilauā
+maāhuwa
+ālāamaru
+ʿalayhi
+ walãkina
+ʿaynu
+ālmumakini
+ḳaābiluⁿ
+lilašauyʾi
+wanaḳiy
+ḍihi
+ fiy
+ḥuka
+mi
+daliy
+li
+ālʿaḳali
+ waāayuu
+ālḥukamayni
+ālmaʿaḳuwlayni
+waḳaʿa
+ ḏãlika
+huwa
+ālauḏi
+ykaāna
+ʿalayhi
+ālmumakina
+fiy
+ḥaāli
+ṯubuwtihi
+ 
+wamaʿanaáã
+
+lahadaáãkuma
+ labayauna
+lakuma
+ wamaā
+kuluu
+mumaki
+niⁿ
+mina
+ālʿaālami
+ fat
+aḥa
+āllhu
+ʿayna
+baṣiyratihi
+ lāʾidaraāki
+ālāamara
+fiy
+nafasihi
+ ʿaláã
+maāhuwa
+ʿalayhi
+ faminahuma
+ālʿaālimu
+waālǧaāhilu
+ 
+
+71
+wǧh
+ famaā
+šaāʾa
+ famaā
+hadaāhuma
+āaǧamaʿiyna
+ walaāyašaāʾu
+ 
+wakaḏãlika
+
+āʾina
+yašaā
+ fahala
+yašaāʾu
+ hãḏaā
+maā
+laāyakuwnu
+ 
+famašiyáʾatuhu
+āaḥadiyauŧu
+āltauʿaluuḳi
+ wahiya
+nisabaŧuⁿ
+taābiʿaŧuⁿ
+lilaʿilami
+ waālʿilamu
+nisabaŧuⁿ
+taābiʿaŧuⁿ
+lilama
+ʿaluwmi
+ waālmaʿa
+luwmu
+āanata
+waāaḥawaāluka
+
+ fal
+aysa
+lilaʿilami
+āaṯaruⁿ
+fiy
+ālmaʿal
+uwmi
+ bala
+lilamaʿ
+aluwmi
+āaṯaruⁿ
+fiy
+ālʿaālimi
+ fayuʿaṭiyhi
+mina
+nafasihi
+ maāhuwa
+ʿalayhi
+fiy
+ʿaynihi
+ 
+waāʾinaumaā
+warada
+ālḫiṭaābu
+ālāʾilãhiyuu
+biḥasabi
+maā
+tawaāṭaāa
+ʿalayhi
+ālmuḫaāṭabuwna
+ wamaā
+āaʿaṭaāhu
+ālnauẓaru
+ālʿaḳaliyuu
+ maāwarada
+ālḫi
+ṭaābu
+ʿaláã
+maāyuʿṭiyhi
+ālkašafu
+ waliḏãlika
+kaṯura
+ālmuʾminuwna
+ waḳalau
+ālʿaārifuwna
+āaṣaḥaābu
+ālkušuwfi
+ 
+
+wamaā
+minauāā
+āʾilauā
+lahu
+maḳaāmuⁿ
+maʿaluwuⁿm
+ 
+swrŧ
+ālṣāfāt
+
+ 461
+ 
+wahuwa
+maā
+kunata
+bhi
+fiy
+ṯubuwtika
+ ẓaharata
+bihi
+fiy
+wuǧuwadika
+ 
+hãḏaā
+āʾina
+ṯabata
+āanau
+laka
+wuǧuwdaⁿā
+ 
+faāʾina
+ṯabata
+āanau
+ālwuǧuwda
+lilaḥaḳiu
+ laā
+laka
+ faālḥukamu
+laka
+balaā
+šakiⁿu
+fiy
+wuǧuwdi
+ālḥaḳiu
+ 
+waāʾina
+ṯabata
+āanauka
+ālmawǧuwdu
+ faālḥukamu
+laka
+bilaā
+šakiⁿu
+ 
+waāʾina
+kaā
+na
+ālḥaā
+kimu
+ālḥaḳuu
+ 
+falaysa
+lahu
+āʾilauā
+āʾifaāḍaŧu
+ālwuǧuwdi
+ʿalayka
+ 
+waālḥuka
+mu
+laka
+ʿalayka
+ 
+falaā
+taḥamada
+āʾilauā
+nafasaka
+ walaā
+taḏumau
+āʾilauā
+nafasaka
+ 
+wamaāyabaḳaáã
+lilaḥaḳiu
+āʾilauā
+ḥamadu
+āʾifaāḍaŧi
+ālwuǧuwdi
+ liāanau
+ḏãlika
+lahu
+ laā
+laka
+ 
+faāanata
+ġiḏaāʾhu
+biālāaḥakaāmi
+ wahuwa
+ġiḏaāʾka
+biālwuǧuwdi
+ 
+fataʿayauna
+ʿalayhi
+maā
+taʿayauna
+ʿalayka
+ 
+faalāamaru
+minhu
+āʾilayka
+ waminka
+āʾilayhi
+ 
+ġayra
+ānauka
+tusamauáã
+mukalaufaⁿā
+ 
+ wmā
+
+kalaufaka
+
+ āʾilauā
+bimaā
+ḳulata
+lahu
+ 
+kaliufaniy
+biḥaālika
+wabimaā
+āanata
+ʿalayahi
+ walaātusamauáã
+mukalaufaⁿā
+ asamu
+mafaʿuwliⁿ
+ 
+
+maǧazuwʾu
+ālwaāfiri
+1
+fayaḥamaduniy
+waāaḥamaduhu
+wayaʿabuduniy
+waāaʿabuduhu
+2
+fafiy
+ḥaāliⁿ
+āuḳariubuhu
+wafiy
+ālāaʿayaāni
+āaǧaḥaduhu
+3
+fayaʿarifuniy
+waāunakiruhu
+waāaʿarifuhu
+faāašahaduhu
+4
+faāʾiniuá
+biālġinaáã
+waāanaā
+āusaāʿiduhu
+waāusaʿiduhu
+5
+liḏaāka
+ālḥaḳuu
+āawaǧadaniy
+faāaʿalamuhu
+faāuwǧiduhu
+6
+biḏaā
+ǧaāʾa
+ālḥadiyṯu
+lanaā
+waḥuḳiuḳa
+fiyau
+maḳaṣiduhu
+
+71
+ẓhr
+ walamauā
+kaāna
+lilaḫaliyli
+hãḏihi
+ālmaratabaŧu
+ ālautiy
+bihaā
+sumiuya
+ḫaliylaⁿā
+ 
+liḏãlika
+sunau
+ālḳiráã
+ waǧaʿalahu
+abanu
+masaraauŧa
+maʿa
+miykaāʾiyla
+lilaāarazaāḳi
+ wabiālāarazaāḳi
+yakuwnu
+taġaḏiuy
+ālmarazuwḳiyna
+ faāʾiḏaā
+taḫalaula
+ālriuzaḳu
+ḏaāta
+ālmarazuwḳi
+ baḥayṯu
+laā
+yabaḳáã
+fiyhi
+šayʾuⁿ
+āʾilauā
+taḫalaulahu
+ faāʾinau
+ālġiḏaāʾa
+yasriy
+fiy
+ǧamiyʿi
+āaǧazaāʾi
+ālmutaġaḏiiuy
+kuliuhaā
+ 
+wamaā
+hunaālika
+āaǧazaāʾuⁿ
+ falaā
+budau
+āana
+yataḫalaula
+ǧamiyʿa
+ālmaḳaāmaāti
+ālāʾilãhiyauŧi
+ ālmuʿabauri
+ʿanahaā
+biālāasamaāʾi
+fataẓaharu
+bihaā
+ḏaātuhu
+ ǧalau
+waʿalaā
+ 
+
+maǧazuwʾu
+ālwaāfiri
+1
+fanaḥanu
+lahu
+kamaā
+ṯabatata
+āadilautunaā
+wanaḥanu
+lanaā
+2
+walayasa
+lahu
+siwaáã
+kawaniy
+fanaḥanu
+lahu
+kanaḥanu
+binaā
+3
+ 
+faliy
+waǧahaāni
+ 
+huwa
+ wa
+āanaā
+ walayasa
+lahu
+āanaā
+biāanaā
+4
+ 
+walãkina
+fiyau
+maẓaharuhu
+fanaḥanu
+lahu
+kamiṯali
+āʾinauā
+
+waallhu
+yaḳuwlu
+alḥaḳuu
+wahuwa
+yahadiá
+alsaubiyla
+ 
+swrŧ
+ālāḥzāb
+
+ 4
+
+6
+faṣuu
+ḥikamaŧiⁿ
+ḥaḳiuyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āʾisaḥaāḳiyauŧiⁿ
+
+ālṭwyl
+1
+fidaāʾu
+nabiyiⁿu
+ḏabaḥu
+ḏibaḥiⁿ
+liḳurbaāniⁿ
+waāayana
+ṯuwāǧu
+ālkbaši
+mina
+nuwsi
+āʾinasaāni
+2
+waʿaẓaumahu
+āllhu
+ālʿaẓiymu
+ʿinaāyaŧaⁿ
+binaā
+āaw
+bihi
+laā
+āadari
+mina
+āyiu
+miyzaāni
+3
+walaā
+šakau
+āanau
+ālbudana
+āaʿaẓamu
+ḳiymaŧaⁿ
+waḳada
+nazalata
+ʿana
+ḏabaḥi
+kabašiⁿ
+liḳurabaāni
+5
+fayaā
+layata
+šiʿariy
+kayfa
+naāba
+biḏaātihi
+šuḫayaṣu
+kubayašiⁿ
+ʿana
+ḫaliyfaŧi
+raḥamaāni
+6
+āalama
+tadari
+āanau
+ālāamara
+fiyhi
+murataubuⁿ
+wafaāʾuⁿ
+liāarabaāḥiⁿ
+wanaḳaṣuⁿ
+liḫusaraāni
+7
+falaā
+ḫalaḳa
+āaʿalaáã
+mian
+ǧamaādiⁿ
+wabaʿadahu
+nabaātuⁿ
+ʿalaáã
+ḳadariⁿ
+yakuwnu
+waāawazaāni
+8
+waḏuw
+ālḥisiu
+baʿada
+ālnaubati
+waālkuluu
+ʿaārifuⁿ
+biḫalauāḳihi
+kašafāaⁿ
+waāʾiyaḍaāḥi
+brhāni
+9
+waāamauā
+ālmusamauáã
+
+ādamaⁿā
+ famuḳayauduⁿ
+baʿaḳaliⁿ
+wafikariⁿ
+āawa
+ḳilaādaŧi
+āʾiyamaāni
+01
+ baḏaā
+ḳaāla
+sahaluⁿ
+wālmuḥaḳiauḳu
+miṯalunaā
+laāanauā
+waāʾiyauāhuma
+bimanazili
+āʾiḥasaāni
+11
+ famana
+šahida
+ālāamara
+ālauḏiy
+ḳada
+šahidatuhu
+yaḳuwlu
+biḳawliy
+fiy
+ḫafaāʾiⁿ
+waāʾiʿalaāni
+
+81
+wǧh
+ 21
+ walaā
+talatafita
+ḳawlaⁿā
+yuḫaālifu
+ḳawlanaā
+walaā
+tabaḏuri
+ālsaumaraā
+fiy
+āaraḍi
+ʿumayaāni
+31
+ humu
+ālṣuumuu
+waālbukamu
+ālauḏiyna
+āataáã
+bihima
+liāasamaāʿinaā
+ālmaʿaṣuwmu
+fiy
+naṣiu
+ḳurāni
+āuⁿʿalama
+āayaudanaā
+āllhu
+waāʾiyauāka
+ āanau
+āʾibaraāhiyma
+ālḫaliyla
+ḳaāla
+liabanihi
+ 
+āʾiniuáā
+āaraáã
+fiy
+ālmanaāmi
+āaniuáā
+āaḏabaḥuka
+ 
+sw
+rŧ
+ālṣ
+āfā
+t
+ 201
+ waālmanaāmu
+ḥaḍaraŧu
+ālḫayaāli
+ falama
+yuʿabiurahaā
+ 
+wa
+kaāna
+kabašuⁿ
+ẓahara
+fiy
+ṣuwraŧi
+abani
+āʾibaraāhiyma
+fiy
+ālmanaāmi
+ faṣadauḳa
+āʾibaraāhiymu
+ālruuʾyaā
+fafadaāhu
+rabuuhu
+ mina
+wahami
+āʾibaraāhiyma
+ biālḏiaubaḥi
+ālʿaẓiymi
+ ālauḏiy
+huwa
+taʿabiyru
+ruʾyaāhu
+ʿinada
+āllhi
+ wahuwa
+laā
+yašaʿuru
+ 
+faāltauǧaliuy
+ālṣuuwriyuu
+fiy
+ḥaḍaraŧi
+ālḫayaāli
+ muḥataāǧuⁿ
+āʾiláã
+ʿilamiⁿ
+āḫara
+bihi
+yudaraku
+maāāaraāda
+āllhu
+bitilaka
+ālṣuuwraŧi
+ 
+āalaā
+taráã
+kayfa
+ḳaāla
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+liāabiá
+bakariⁿ
+fiⁿy
+taʿ
+abiyrihi
+ālruuʾyaā
+
+ 
+āaṣabata
+baʿaḍaⁿā
+waāaḫaṭaāta
+baʿaḍaⁿā
+ fasaāalahu
+āabuw
+bakariⁿ
+āana
+yuʿriufahu
+maāāaṣaāba
+fiyhi
+wamaāāaḫaṭaāa
+ falama
+yafaʿala
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+waḳaāla
+āllhu
+taʿaāláã
+liāʾibaraāhiyma
+ʿalayhi
+ālsaulaāmu
+ḥiyna
+naādaāhu
+
+ 
+āan
+yaāãā
+āʾibarãhiymu
+ḳada
+ṣadauḳata
+ālruuʾyaāā
+ 
+swrŧ
+ālṣāfāt
+
+ 401
+
+ 501
+
+wamaāḳaāla
+lahu
+ 
+ṣadaḳata
+fiy
+ālruuʾyaā
+ āʾinauhu
+abanuka
+ liāanauhu
+maāʿabarahaā
+ 
+balu
+āaḫaḏa
+biẓaāhiri
+maāraāáã
+ waālruuʾyaā
+taṭalubu
+āltauʿabiyra
+ 
+waliḏãlika
+ḳaāla
+ālʿaziyzu
+ 
+āʾina
+kunatum
+lilaruuʾyaā
+taʿaburuwna
+ 
+swrŧ
+ywsf
+
+ 34
+ 
+wamaʿanaáã
+āltauʿabiyri
+ ālǧawaāzu
+mina
+ṣuwraŧi
+maārāhu
+āʾiláã
+āamariⁿ
+āḫara
+ 
+fakaānati
+ālbaḳaru
+ siniyna
+fiy
+ālmaḥali
+waālḫiṣabi
+ falaw
+ṣadaḳa
+fiy
+ālruuʾyaā
+ 
+laḏabaḥa
+abanahu
+ 
+waāʾinaumaā
+ṣadauḳa
+ālruuʾyaā
+fiy
+āanau
+ḏãlika
+ʿaynu
+waladihi
+ wamaā
+kaāna
+ʿinada
+āllh
+āʾilauā
+ālḏiubaḥu
+ālʿaẓiymu
+fiy
+ṣuwraŧi
+waladihi
+ 
+fafadaāhu
+limaā
+waḳaʿa
+fiy
+ḏihani
+āʾibaraāhiyma
+ʿalayhi
+ālsaulaāmu
+ 
+maā
+huwa
+fidaāʾuⁿ
+fiy
+nafasi
+ālāamari
+ʿinada
+āllhi
+ 
+faṣawaura
+ālḥisuu
+ālḏiubaḥa
+ 
+waṣawaura
+ālḫayaālu
+abna
+āʾibaraāhiyma
+ʿalayhi
+ālsaulaāmu
+ 
+falaw
+raāáã
+ālkabaša
+fiy
+ālḫayaāli
+laʿabaurahu
+biabanihi
+ āaw
+biāamariⁿ
+āḫara
+ 
+ṯumau
+ḳaāla
+ 
+āʾinau
+hãḏaā
+lahuwa
+ālbalaāãʾ
+ 
+swrŧ
+ālṣāfāt
+
+ 601
+ āaá
+ ālaḫatibaāru
+ 
+
+almu
+biynu
+ āay
+ ālẓauā
+hiru
+ yaʿaniy
+
+ ālaḫat
+ibaāru
+fiy
+ālʿi
+lami
+ hala
+yaʿalamu
+maā
+yaḳ
+ataḍiyhi
+maw
+ṭinu
+ālruuʾyaā
+mina
+āltauʿabiyri
+
+81
+ẓhr
+ āama
+laā
+ laāanauhu
+yaʿalamu
+āanau
+mawṭina
+ālḫayaāli
+yaṭalubu
+āltauʿabiyra
+ faġafala
+famaā
+wafauáã
+ālmawṭina
+ḥaḳauhu
+ wṣadauḳa
+ālruuʾyaā
+lihãḏaā
+ālsaubabi
+ 
+kamaā
+faʿala
+baḳiyuu
+banu
+maḫaladiⁿ
+ālāʾimaāmu
+ṣaāḥibu
+ālmusanadi
+ 
+samiʿa
+fiy
+ālḫabari
+ālauḏiy
+ṯabata
+ʿinadahu
+ āanauhu
+
+ ʿalayhi
+ālsaulaāmu
+
+ ḳaāla
+ 
+mana
+raāniy
+fiy
+ālnauwmi
+ faḳada
+rāniy
+fiy
+ālyaḳiẓaŧi
+ faāʾinau
+ālšauyaṭaāna
+laā
+yatamaṯaulu
+ʿaláã
+ṣuwratiy
+ 
+farāhu
+baḳiyuu
+banu
+maḫaladiⁿ
+ wasaḳaā
+hu
+ālnaubiyu
+ṣalauáã
+āllhu
+ʿalay
+hi
+wasal
+auma
+fiy
+hãḏihi
+ālruuʾyaā
+labanaⁿā
+ faṣadauḳa
+baḳiyuu
+banu
+maḫaladiⁿ
+ruʾyaāhu
+ faasataḳaāʾa
+ faḳaāʾa
+labanaⁿā
+ walaw
+ʿabaura
+ruʾyaāhu
+lakaāna
+ḏãlika
+āllaubanu
+ʿilamaⁿā
+ 
+faḥa
+ramahu
+āllhu
+ʿilam
+aⁿā
+kaṯiyraⁿ
+āʿaláã
+ḳadari
+maāšariba
+ āalaā
+tar
+áã
+rasuwla
+āllhi
+ṣalauáã
+āll
+hu
+ʿal
+ayhi
+wasalauma
+ āutiya
+fiy
+ālmanaāmi
+biḳadaḥi
+labaniⁿ
+ ḳaāla
+ 
+fašaribatuhu
+ḥatauáã
+ḫaraǧa
+ālriuyuu
+mina
+āaẓiāfiriy
+ ṯumau
+āaʿaṭaytu
+faḍaliy
+ʿumara
+ ḳiyla
+ maāāawaulatahu
+yaārasuwla
+āllhi
+ ḳaāla
+ 
+
+ālʿilamu
+
+ wamaātarakahu
+labanaⁿā
+ʿalaáã
+ṣuw
+raŧi
+maā
+rāhu
+ liʿil
+amihi
+bima
+wṭini
+ālruu
+ʾyaā
+ wamaā
+taḳa
+taḍiy
+mina
+āltauʿabiyri
+ 
+waḳada
+ʿal
+ima
+āanau
+ṣuwraŧa
+ālnaubaáiu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ālautiy
+šaāhadahaā
+ālḥ
+isuu
+āʾinauhaā
+fiy
+ālmadiynaŧi
+madafuwnaŧuⁿ
+ waāanau
+ṣuwraŧa
+ruwḥihi
+walaṭiyfatihi
+ maāšaāhadahaā
+āaḥaduⁿ
+mina
+āaḥadiⁿ
+walaā
+mina
+nafasihi
+ 
+kuluu
+ruwḥiⁿ
+bihãḏihi
+ālmaṯaābaŧi
+ 
+fayataǧ
+asaudu
+lahu
+ruwḥu
+ālnaubi
+áiu
+fiy
+ālm
+anaāmi
+biṣuwraŧi
+ǧasadi
+hi
+kam
+aā
+maāta
+ʿalayhi
+ laā
+yaḫ
+arimu
+minahu
+šayáʾaⁿā
+ fahuwa
+muḥamauduⁿ
+ʿalayhi
+ālsaulaāmu
+ ālmaraʾiyuu
+mina
+ḥayṯu
+ruwḥuhu
+ fiy
+ṣuwraŧiⁿ
+ǧasadi
+yauŧiⁿ
+tušab
+ihu
+ālmada
+fuw
+naŧa
+ laā
+yum
+akinu
+liš
+ayṭaā
+niⁿ
+āana
+yataṣawau
+ra
+biṣuwraŧi
+ǧasadi
+hi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ ʿiṣamaŧaⁿ
+mina
+āllhi
+fiy
+ḥaḳiu
+ālrauāʾiya
+ 
+walihãḏaā
+mana
+rāhu
+bihãḏihi
+ālṣuuwraŧi
+yaāḫuḏu
+ʿanahu
+ǧamiyʿa
+maāyaāmuruhu
+bihi
+ āaw
+yanahaāhu
+ āaw
+yuḫabiruhu
+ kamaā
+kaāna
+yaāḫuḏu
+ʿanahu
+fiy
+ālḥayaāŧi
+ālduunayaā
+mina
+ālāaḥakaāmi
+ʿaláã
+ḥasabi
+maāyakuwnu
+minahu
+āllaufaẓu
+āldauāluu
+ʿalayhi
+mina
+naṣiⁿu
+ āaw
+ẓaāhiriⁿ
+ āaw
+muǧamaliⁿ
+ āaw
+maā
+kaāna
+ 
+faāʾina
+āaʿaṭaāhu
+šay
+áʾaⁿā
+ faānau
+ḏãlika
+ālš
+auyʾa
+huwa
+ālauḏiy
+yadaḫuluhu
+āltauʿ
+abiyru
+ faāʾi
+na
+ḫaraǧa
+fy
+ālḥisiu
+kamaā
+kaāna
+fiy
+ālḫayaāli
+ fatilaka
+ruʾyaā
+laā
+taʿabiyra
+lahaā
+ wabihãḏaā
+ālḳadari
+waʿalayhi
+aʿatamada
+āʾibaraāhiymu
+
+91
+wǧh
+ ālḫaliylu
+ʿalayhi
+ālsaulaāmu
+ wabaḳiyuu
+banu
+maḫaladiⁿ
+ 
+walamauā
+kaāna
+lilaruuʾyaā
+hãḏaāni
+ālwaǧahaāni
+ waʿalaumanaā
+āllhu
+fiymaā
+faʿala
+biāʾibaraāhiyma
+ 
+wamaāḳaāla
+lahu
+ālāadabu
+ limaā
+yuʿaṭiyhi
+maḳāmu
+ālnuubuwauŧi
+ ʿalim
+anaā
+fiy
+ruʾyatinaā
+ālḥaḳau
+taʿaāláã
+fiy
+ṣuwraŧiⁿ
+yaruduuhaā
+āldauliy
+lu
+ālʿaḳ
+aliyuu
+āana
+naʿabura
+til
+aka
+ālṣuuw
+raŧa
+biālḥaḳiu
+ālmašaru
+wʿi
+ āʾimauā
+
+fiy
+ḥaḳiu
+ḥaā
+li
+ālrauāʾiya
+ āaw
+ālmaka
+āni
+ālauḏiy
+rāhu
+fiy
+hi
+ āaw
+humaā
+maʿaⁿā
+ faāʾina
+lama
+yaruduhaā
+āldauliy
+lu
+ālʿaḳaliyuu
+ āabaḳayanaāhaā
+ʿaláã
+maāraāaynaāhaā
+kamaā
+naráã
+ālḥaḳau
+fiy
+ālāḫiraŧi
+sawaāʾuⁿ
+ 
+
+ālṭwyl
+1
+falilawaāḥidi
+ālrauḥamãni
+fiy
+kuliu
+mawṭiniⁿ
+mina
+ālṣuuwari
+maāyaḫafaáã
+wamaāhuwa
+ẓaāhiru
+2
+faāʾina
+ḳulata
+ 
+hãḏaā
+ālḥaḳuu
+ḳada
+taku
+ṣaādiḳaⁿā
+waāʾina
+ḳulata
+ 
+āamaruⁿ
+āḫaru
+ āanata
+ʿaābiru
+3
+wamaāḥukamuhu
+fiy
+mawṭiniⁿ
+duwna
+mawṭiniⁿ
+walãkinauhu
+biālḥaḳiu
+lilaḫalaḳi
+saāfiru
+4
+āʾiḏaā
+maātaǧalauáã
+lilaʿuyuwni
+taruduuhu
+ʿuḳuwluⁿ
+biburhaāniⁿ
+ʿalayhi
+tuṯaābiru
+5
+wayuḳabalu
+fiy
+maǧalaáã
+ālʿuḳuwli
+wify
+ālauḏiy
+yusamauáã
+ḫayaālaⁿā
+waālṣauḥiyḥu
+ālnauwaāẓiru
+yaḳuwlu
+āabuw
+yaziyda
+fiy
+hãḏaā
+ālmaḳaāmi
+ 
+law
+āanau
+ālʿaraša
+wamaāḥawaāhu
+ maāáʾaŧa
+āalafi
+āalafi
+marauŧiⁿ
+ fiy
+zaāwiyaŧiⁿ
+mina
+zawaāyaā
+ḳalabi
+ālʿaārifi
+ maāāaḥasau
+bihaā
+ 
+wahãḏaā
+wusaʿu
+āabiy
+yaziyda
+fiy
+ʿaālami
+ālāaǧasaāmi
+ 
+bala
+āaḳuwlu
+ law
+ānau
+maālaā
+yatanaāhaáã
+wuǧuwduhu
+ yaḳadiru
+anatihaāʾu
+wuǧuwdihi
+ maʿa
+ālʿayni
+ālmuwǧidaŧi
+lahu
+ fiy
+zaāwiyaŧiⁿ
+mina
+zawaāyaā
+ḳalabi
+ālʿaārifi
+ maāāaḥasau
+biḏãlika
+fiy
+ʿilamihi
+ 
+faāʾinauhu
+ḳada
+ṯabata
+āanau
+ālḳalaba
+wasiʿa
+ālḥaḳau
+ wamaʿa
+ḏãlika
+maāatauṣafa
+biālriuy
+ falaw
+amatalaāa
+aratawáã
+ 
+waḳda
+ḳaāla
+ḏãlika
+āabuw
+yaziyda
+ 
+walaḳada
+nabauhanaā
+ʿaláã
+hãḏaā
+ālmaḳaāmi
+biḳawlinaā
+ 
+
+ālsryʿ
+1
+yaāḫaāliḳa
+ālāašayaāʾi
+fiy
+nafasihi
+āanata
+limaā
+taḫaluḳuh
+ǧaāmʿu
+2
+taḫaluḳu
+maālaā
+yanatihiy
+kawnuhu
+fiy
+ka
+faāanata
+ālḍayiuḳu
+ālwaāsiʿu
+3
+law
+āanau
+maāḳada
+ḫalaḳa
+āllhu
+maā
+laāḥa
+biḳalabiy
+faǧaruhu
+ālsauāṭiʿu
+4
+mana
+wasiʿa
+ālḥaḳuu
+famaā
+ḍaāḳa
+ʿana
+ḫalaḳiⁿ
+fakayfa
+ālāamaru
+yaāsaāmiʿu
+biālwahami
+yaḫaluḳu
+kuluu
+āʾinasaāniⁿ
+fiy
+ḳuwauŧi
+ḫayaālihi
+ maālaā
+wuǧuwda
+lahu
+āʾilauā
+fiyhaā
+ wahãḏaā
+huwa
+ālāamaru
+ālʿaāmuu
+ 
+
+91
+ẓhr
+ waālʿaārifu
+yaḫaluḳu
+biālhimauŧi
+maāyakuwnu
+lahu
+wuǧuwduⁿ
+mina
+ḫaāriǧi
+maḥaliu
+ālhimauŧi
+ 
+walãkina
+laā
+tazaālu
+ālh
+imauŧu
+taḥafaẓuhu
+ walaā
+yaʾwduhaā
+ḥifaẓ
+uhu
+ āay
+ ḥifaẓu
+maāḫalaḳ
+atahu
+
+ 
+famat
+áã
+ṭaraāa
+ʿal
+áã
+ālʿaā
+rifi
+ġaf
+alaŧuⁿ
+ʿan
+ḥif
+aẓi
+maāḫalaḳa
+ʿudima
+ḏãlika
+ālm
+aḫa
+luw
+ḳu
+ āʾilauā
+āana
+yakuw
+na
+ālʿaārifu
+ḳada
+ḍabaṭa
+ǧamiyʿa
+ālḥaḍaraāti
+ wahuwa
+laā
+yaġafalu
+muṭalaḳaⁿā
+ bala
+laā
+budau
+lihu
+mina
+ḥaḍara
+ŧiⁿ
+yašahaduhaā
+ faāʾiḏaā
+ḫal
+aḳa
+ālʿaā
+rifu
+bihimautihi
+maāḫalaḳa
+ walahu
+hãḏihi
+ālāʾiḥaā
+ṭaŧu
+ ẓahara
+ḏãlika
+ālḫalaḳu
+biṣuwratihi
+fiy
+kuliu
+ḥaḍaraŧiⁿ
+ waṣaārata
+ālṣuuwaru
+taḥafaẓu
+baʿaḍahaā
+baʿaḍaⁿā
+ 
+faāʾiḏaā
+ġafala
+ālʿaārifu
+ʿana
+ḥaḍaraŧiⁿ
+maā
+ āaw
+ʿan
+ḥaḍaraātiⁿ
+ wahuwa
+šaāhidu
+ḥaḍaraŧiⁿ
+maā
+mina
+ālḥaḍarāti
+ ḥaāfiẓuⁿ
+limaā
+fiyhaā
+mina
+ṣwrŧi
+ḫalaḳihi
+ anaḥafaẓata
+ǧamiyʿu
+ālṣuuwari
+ 
+biḥifaẓihi
+tilaka
+ālṣuuwraŧa
+ālwaāḥidaŧa
+fiy
+ālḥaḍaraŧi
+ālautiy
+maāġafala
+ʿanahaā
+ 
+liāanau
+ālġafalaŧa
+mā
+taʿumuu
+ḳaṭuu
+ laā
+fiy
+ālʿumuwmi
+walaā
+fiy
+ālḫuṣuwṣi
+ 
+waḳada
+āawḍaḥatu
+hunaā
+siriⁿuā
+lama
+yazala
+āahalu
+āllhi
+yaġaāruwna
+
+ ʿaláã
+miṯali
+hãḏaā
+
+āana
+yaẓahara
+ 
+limaā
+fyh
+mina
+radiu
+daʿawaāhuma
+āanauhuma
+ālḥaḳuu
+ faāʾinau
+ālḥaḳau
+laā
+yaġafalu
+ waālʿab
+adu
+laā
+budau
+lahu
+āana
+yaġafala
+ʿana
+šayʾiⁿ
+duwna
+šayʾiⁿ
+ famina
+ḥayṯu
+ālḥifaẓu
+limaā
+ḫuliḳa
+lahu
+ āana
+yaḳuwla
+ 
+
+āanaā
+ālḥaḳuu
+ walãkina
+maāḥifaẓuhu
+lahaā
+ḥifaẓa
+ālḥaḳiu
+ waḳada
+bayaunaā
+ālfaraḳa
+ 
+wamina
+ḥayṯu
+mā
+ġafala
+ʿana
+ṣuwraŧiⁿ
+maā
+waḥaḍaratihaā
+ 
+faḳada
+tamayauza
+ālʿabadu
+mina
+ālḥaḳiu
+ walaā
+budau
+āana
+yatamayauza
+maʿa
+baḳaāʾi
+ālḥifaẓi
+liǧamiyʿi
+ālṣuuwari
+ biḥifaẓihi
+ṣuwraŧaⁿ
+waāḥidaŧaⁿ
+minahaā
+fiy
+ālḥaḍaraŧi
+ ālautiy
+maā
+ġafala
+ʿanahaā
+ fahãḏaā
+ḥifaẓuⁿ
+biāltauḍamuuni
+ 
+waḥafiẓa
+ālḥaḳau
+maāḫalaḳa
+laysa
+kaḏãlika
+ bala
+ḥifaẓuhu
+likuliu
+ṣuwraŧiⁿ
+ʿaláã
+āltauʿayiyna
+ 
+wahãḏi
+hi
+masaāalaŧuⁿ
+āuḫabiratu
+āanauhu
+maā
+saṭa
+rahaā
+āaḥaduⁿ
+fiy
+kit
+aābiⁿ
+ laā
+āanaā
+walaā
+ġay
+riy
+ āʾilauā
+fiy
+hãḏaā
+ālkitaābi
+ fahiya
+yatiymaŧu
+ālwaḳati
+ fariydatuhu
+ faāʾiyauāka
+āana
+taġafulu
+ʿanahaā
+ 
+faāʾinau
+tilaka
+ālḥaḍaraŧa
+ālautiy
+tubaḳiy
+laka
+ālḥuḍuwra
+fiyhaā
+maʿ
+ālṣuuwraŧi
+ maṯaluhaā
+maṯalu
+ālkitaābi
+ālauḏi
+yḳaāla
+āllhu
+fiyhi
+ 
+maā
+farau
+ṭanaā
+fiy
+alkita
+ãbi
+mina
+šaáʾiⁿ
+ 
+sw
+rŧ
+ālānʿām
+
+ 
+83
+ 
+fahuwa
+ālǧaāmiʿu
+lilwaāḳiʿi
+waġayri
+ālwaāḳiʿi
+ 
+02
+wǧh
+walaā
+yaʿarifu
+maāḳulanaāhu
+āʾilauā
+mana
+kaāna
+ḳrānaⁿā
+fiy
+nafasihi
+ 
+faāʾinau
+ālmutauḳiya
+
+āllha
+yaǧaʿalu
+lahu
+furaḳaānaⁿā
+ 
+swrŧ
+ālānfāl
+
+ 92
+ 
+wahuwa
+miṯalu
+maāḏakaranaāhu
+fiy
+hãḏihi
+ālmasaāalaŧi
+ fiymaā
+yatamayauzu
+bihi
+ālʿabadu
+min
+ālraubiu
+ 
+wahãḏaā
+ālfuraḳaānu
+āarafaʿu
+furaḳaāniⁿ
+ 
+
+ālṭwyl
+1
+fawaḳataⁿā
+yakuwnu
+ālʿabadu
+rbiⁿuā
+balaā
+šakiⁿu
+wawaḳataⁿā
+yakuwnu
+ālʿabadu
+ʿabadaⁿā
+bilaā
+āʾifaki
+2
+faāʾina
+kaāna
+ʿabadaⁿā
+kaāna
+bālḥḳ
+wāsiʿaⁿā
+waāʾina
+kaāna
+rbiⁿuā
+kaāna
+fiy
+ʿiyašaŧiⁿ
+ḍanaki
+3
+famina
+kawnihi
+ʿabadaⁿā
+yaráã
+ʿayna
+nafasihi
+watatausiʿu
+ālāmaālu
+minahu
+bilaā
+šakiu
+4
+wamina
+kawnihi
+rabiⁿuā
+yaráã
+ālḫalaḳa
+kulauhu
+yuṭaālibuhu
+mina
+ḥaḍaraŧi
+ālmulaki
+wālmilaki
+5
+wayaʿaǧazu
+ʿamauā
+ṭaālabuwhu
+biḏaātihi
+liḏaā
+tara
+baʿaḍa
+ālʿaārifiyna
+bihi
+yabakiy
+6
+fakuna
+ʿabada
+rabiⁿu
+ laā
+takuna
+rabau
+ʿibadihi
+fataḏahaba
+biāltauʿaliyḳi
+fiy
+ālnauāri
+waālsaubaki
+
+7
+faṣuu
+ḥikamaŧiⁿ
+ʿaliyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āʾisamaāʿiyaliyauŧiⁿ
+aʿalama
+āanau
+musamauáã
+
+āllhi
+ āaḥadiyuⁿu
+biālḏauāti
+ kuluⁿu
+biālāasamaāʾi
+ 
+wakuluu
+mawǧuwdiⁿ
+famaā
+lahu
+mina
+āllhi
+āʾilauā
+rabuuhu
+ḫaāṣauŧaⁿ
+ yasataḥiylu
+āana
+yakuwna
+lahu
+ālkuluu
+ 
+waāamauā
+ālāaḥadiyauŧu
+ālāʾilãhiyauŧu
+ famaā
+liwaāḥidiⁿ
+fiyhaā
+ḳadamuⁿ
+ liāanauhu
+laā
+yuḳaālu
+liwaāḥidiⁿ
+minahaā
+šayʾuⁿ
+ waliāḫara
+minahaā
+šayʾuⁿ
+ liāanauhaā
+laā
+taḳabalu
+āltaubaʿiyḍa
+ 
+faāaḥadayautuhu
+maǧamuwʿu
+kuliuhi
+biālḳuwauŧi
+ 
+waālsauʿiydu
+mana
+kaāna
+ʿinada
+rabauhi
+maraḍiyiⁿuā
+ wamaā
+ṯamau
+āʾilauā
+mana
+huwa
+maraḍiyuⁿu
+ʿinada
+rabauhi
+ 
+liāanauhu
+ālauḏiy
+yubaḳiy
+ʿalayhi
+rubuwbiyautahu
+ fahuwa
+ʿindahu
+maraḍiyuⁿu
+ fahuwa
+saʿiyduⁿ
+ 
+walihãḏaā
+ḳaāla
+sah
+aluⁿ
+ 
+āʾinau
+lilarubuwbiy
+auŧi
+siriⁿuā
+wahuwa
+āanata
+ 
+ yuḫaāṭibu
+kulau
+ʿayniⁿ
+
+
+law
+ẓahara
+labaṭalati
+ālruubuwbiyauŧu
+ 
+faāadaḫala
+ʿalayhi
+
+law
+ wahuwa
+ḥarafu
+amatinaāʿi
+ālamatinaāʿi
+ 
+wahuwa
+laā
+yaẓah
+aru
+ falaā
+tab
+aṭulu
+ālruubuw
+biyauŧu
+ liāanauhu
+laā
+wuǧuw
+da
+liʿayniⁿ
+āʾilauā
+bira
+bauhi
+ 
+waālʿaynu
+mawǧuwdaŧuⁿ
+daāʾimaⁿā
+ faālruubuwbiyauŧu
+laā
+tabaṭulu
+daāʾimaⁿā
+ 
+wa
+kuluu
+maraḍiyiⁿu
+maḥabuwbuⁿ
+ wakuluu
+maāyafaʿalu
+ālmaḥabuwbu
+maḥabuwbuⁿ
+ 
+fakuluuhu
+maraḍiyuⁿu
+ liāanauhu
+laā
+fiʿala
+lilaʿayni
+ bali
+ālfiʿalu
+lirabauhaā
+fiyhaā
+ faāṭamaāanauti
+ālʿaynu
+āana
+yuḍaā
+fa
+āʾilayh
+aā
+fiʿ
+aluⁿ
+ 
+02
+ẓhr
+ fkaā
+nata
+
+rāaḍiy
+aŧaⁿ
+ bima
+āyaẓaharu
+fiyhaā
+waʿanah
+aā
+ mina
+āafaʿaāli
+rabauhaā
+ 
+maraḍiyauŧaⁿ
+
+til
+aka
+ālāafaʿaā
+lu
+ liāanau
+kulau
+faāʿiliⁿ
+waṣaāniʿiⁿ
+raāḍiⁿ
+ʿana
+fiʿalihi
+waṣanaʿatihi
+ faāʾinauhu
+wafauáã
+fiʿalahu
+waṣanaʿatahu
+ḥaḳau
+maāhiya
+ʿalayhi
+ 
+
+āaʿaṭaáã
+kulau
+šaáʾiⁿ
+ḫalaḳahu
+ṯumau
+hada
+áã
+ 
+sw
+rŧ
+ṭãh
+ã
+ 05
+ āay
+ bayauna
+āanauhu
+āaʿaṭáã
+kulau
+šayʾiⁿ
+ḫalaḳahu
+ falaā
+yaḳabalu
+ālnauḳaṣa
+walaā
+ālziuyaādaŧa
+ 
+fakaāna
+āʾisamaāʿiylu
+biʿuṯuwrihi
+ʿaláã
+maā
+ḏakaranaāhu
+ʿinda
+rabauhi
+maraḍiyiⁿuā
+ 
+wakaḏaā
+kuluu
+mawǧuwdiⁿ
+ʿinda
+rabauhi
+maraḍiyuⁿu
+ walaā
+yalazamu
+āʾiḏaā
+kaāna
+kuluu
+mawǧuwdiⁿ
+ʿinda
+rabauhi
+maraḍiyiⁿuā
+
+ ʿaláã
+maā
+bayauniāhu
+
+ āana
+yakuwna
+maraḍiyiⁿuā
+ʿinda
+rabiu
+ʿabadiⁿ
+āḫara
+ liāanauhu
+maā
+āaḫaḏa
+ālruubuwbiyauŧa
+āʾilauā
+mina
+kuliⁿu
+ laā
+mina
+waāḥidiⁿ
+ 
+famaā
+taʿayauna
+lahu
+mina
+ālkuliu
+āʾilauā
+maāyunaāsibuhu
+fahuwa
+rabuuhu
+ 
+walaā
+yaāḫuḏuhu
+āaḥaduⁿ
+mina
+ḥayṯu
+āaḥadiyautuhu
+ 
+walihãḏaā
+muniʿa
+āahalu
+āllhi
+āltauǧaliuy
+fiy
+ālāaḥadiyauŧi
+ 
+faāʾinauka
+āʾina
+
+naẓaratahu
+ bihi
+ fahuwa
+ālnauāẓiru
+nafasahu
+ famaā
+zaāla
+naāẓiraⁿā
+nafasahu
+binafasihi
+ 
+waāʾina
+
+naẓaratahu
+ bika
+fazaālati
+ālāaḥadiyauŧu
+bika
+ 
+waāʾina
+
+naẓaratahu
+ bihi
+wabika
+fazaālati
+ālāaḥadiyauŧu
+āayaḍaⁿā
+ liāanau
+ḍamiyra
+
+āltauāʾi
+ fiy
+
+naẓaratahu
+ maā
+huwa
+ʿaynu
+ālmanaẓuwri
+ falaā
+budau
+mina
+wuǧuwdi
+nisabaŧiⁿ
+maā
+ aḳataḍata
+āamarayani
+ 
+naāẓiraⁿā
+wamanaẓ
+uwraⁿā
+ faz
+ālati
+ālāaḥadiyauŧu
+ waāna
+kaāna
+lm
+yara
+āʾilauā
+nafas
+ahu
+bin
+afasihi
+ wamaʿa
+luwmuⁿ
+āanauhu
+fiy
+hãḏaā
+ālwaṣafi
+naāẓiruⁿ
+manaẓuwruⁿ
+ faālmaraḍiyuu
+laā
+yaṣiḥuu
+āana
+yakuwna
+marḍiyiⁿuā
+muṭalaḳaⁿā
+ 
+āʾilauā
+āʾiḏaā
+kaāna
+ǧamiyʿu
+maā
+yaẓaharu
+bihi
+mina
+fiʿli
+ālrauāḍiy
+fiyhi
+ 
+fafaḍaula
+āʾisamaāʿiylu
+ġayrahu
+mina
+ālāaʿayaāni
+ bimaā
+naʿatahu
+ālḥaḳuu
+bihi
+ mina
+kawnihi
+ʿinada
+rabauhi
+maraḍiyiⁿuā
+wakaḏãlika
+kuliu
+nafasiⁿ
+muṭamaʾinauŧiⁿ
+ ḳiyla
+lahaā
+araǧiʿiyā
+āʾilaáã
+rabauki
+ 
+sw
+rŧ
+ālfǧr
+
+ 
+82
+ famaā
+āamarahaā
+āana
+taraǧaʿa
+āʾilauā
+āʾiláã
+rabauhaā
+ ālauḏiy
+daʿaāhaā
+ faʿarafatahu
+mina
+ālkuliu
+ 
+
+raāḍiyaŧaⁿ
+maraḍiyauŧaⁿ
+faadaḫuliá
+fiya
+ʿibãdiá
+ 
+sw
+rŧ
+ālfǧr
+
+ 82
+
+ 92
+ mina
+ḥayṯu
+maā
+lahuma
+hãḏaā
+ālmaḳaām
+u
+faālʿibaādu
+ālmaḏakuwruwna
+hunaā
+ kuluu
+ʿabadiⁿ
+ʿarafa
+rabauhu
+taʿaāláã
+ 
+waaḳataṣara
+ʿalayhi
+ walama
+yanaẓurah
+āʾiláã
+rabiⁿu
+ġayrihi
+ maʿa
+āaḥadiyauŧi
+ālʿayni
+ laā
+budau
+mina
+ḏãlika
+ 
+
+waadaḫuliá
+ǧanautiá
+ 
+swrŧ
+ālfǧr
+
+ 92
+ ālautiy
+hiya
+sitariy
+ 
+walaysata
+ǧanautiy
+siwaāka
+ faāanata
+tasaturuniy
+biḏaātika
+ 
+falaā
+āuʿarafu
+āʾilauā
+bika
+ kamaā
+āanauka
+laā
+takuwnu
+āʾilauā
+biy
+ 
+famana
+ʿarafaka
+
+12
+wǧh
+ ʿarafaniy
+ waāanaā
+laā
+āaʿarifu
+ faāanata
+laā
+taʿarifu
+ 
+faāʾiḏaā
+daḫalata
+ǧanautahu
+ daḫalata
+nafasaka
+ fataʿarifu
+nafasaka
+maʿarifaŧaⁿ
+āuḫaraáã
+ ġayra
+ālmaʿarifaŧi
+ālautiy
+ʿarafatahaā
+ḥiyna
+ʿarafata
+rbauka
+ bimaʿarifatika
+āʾiyauāhaā
+ fatakuwna
+ṣaāḥiba
+maʿarifatayni
+
+ maʿarifaŧuⁿ
+bihi
+ mina
+ḥayṯu
+āanata
+ wamaʿarifaŧuⁿ
+bihi
+bika
+ 
+mina
+ḥayaṯu
+huwa
+ laā
+mina
+ḥayṯu
+āanata
+ 
+
+muḫalauʿu
+ālbsyṭ
+1
+faāanata
+ʿabaduⁿ
+waāanata
+rabuⁿu
+limana
+lahu
+fiyhi
+āanata
+ʿabadu
+2
+waāanata
+rabuⁿu
+waāanata
+ʿabaduⁿ
+limana
+lahu
+fiy
+ālḫiṭaābi
+ʿahadu
+3
+fakuluu
+ʿaḳadiⁿ
+ʿalayhi
+šaḫaṣuⁿ
+yuḥiluuhu
+mana
+siwaāhu
+ʿaḳadu
+fara
+ḍiya
+āllhu
+ʿana
+ʿabiy
+dihi
+ fahuma
+maraḍiyuuw
+na
+ waraḍuwā
+ʿanhu
+fah
+uwa
+maraḍiyuⁿu
+ fataḳaā
+balata
+ālḥaḍarataāni
+taḳaābula
+ālāamaṯaāli
+ waālāamaṯaālu
+āaḍadaāduⁿ
+ liāanau
+ālmaṯalayani
+ḥaḳiyḳaŧuⁿ
+laā
+yaǧatamiʿaāni
+āʾiḏa
+laā
+yatamayauzaāni
+ 
+wamaā
+ṯamau
+āʾilauā
+matamayiuzuⁿ
+ famaā
+ṯamau
+miṯaluⁿ
+ famaā
+fiy
+ālwuǧuwdi
+miṯaluⁿ
+ famaā
+fiy
+ālwuǧuwdi
+ḍiduⁿu
+ faāʾinau
+ālwuǧuwda
+ḥaḳiyḳaŧuⁿ
+waāḥidaŧuⁿ
+ waālšauyʾu
+laā
+yuḍaāduu
+nafasahu
+ 
+
+ālṭwyl
+1
+falama
+yabaḳa
+āʾilauā
+ālḥaḳuu
+ lama
+yabaḳa
+kaāʾinuⁿ
+famaā
+ṯamau
+mawṣuwluⁿ
+ wamaā
+ṯamau
+baāʾinu
+2
+baḏaā
+ǧaāʾa
+burahaānu
+ālʿiyaāni
+ famaā
+āaraáã
+biʿayanayau
+āʾilauā
+ʿaynahu
+āʾiḏa
+āuʿaāyinu
+
+ḏãlika
+lman
+ḫašiáa
+rabauhu
+ 
+swrŧ
+ālbynŧ
+
+ 8
+āan
+yakwnahu
+liʿilamihi
+biāltamayiyzi
+ 
+dalaunaā
+ʿaláã
+ḏãlika
+ǧahalu
+āaʿayaāniⁿ
+fiy
+ālwuǧuwdi
+bimaā
+āanaā
+bihi
+ʿaālimuⁿ
+ 
+faḳada
+waḳaʿa
+āltaumayiyzu
+bayna
+ālʿabiydi
+ faḳada
+waḳaʿa
+āāltaumayiyzu
+bayna
+ālāarabaābi
+ 
+walaw
+lama
+yaḳaʿa
+āltamayiyzu
+ lafusiura
+ālasamu
+ālwaāḥidu
+ālāʾilãhiyuu
+ mina
+ǧamiyʿi
+wuǧuwhihi
+ 
+bimaā
+yufasauru
+bihi
+ālāḫaru
+ wa
+ālmuʿizuu
+ laā
+yfasauru
+bitafasiyri
+
+ālmuḏiliu
+ āʾiláã
+miṯali
+ḏãlika
+ 
+lãkinauhu
+huwa
+min
+waǧahi
+ālāaḥadiyauŧi
+ kamaā
+taḳuwlu
+fiy
+kuliu
+asamiⁿ
+ āʾinauhu
+daliyluⁿ
+ʿaláã
+ālḏauāti
+ waʿaláã
+ḥaḳiyḳatihi
+mina
+ḥayṯu
+huwa
+ faālmusamauáã
+waāḥiduⁿ
+ fa
+ālmuʿizuu
+ huwa
+
+ālm
+uḏiluu
+ mina
+ḥayṯu
+ālmusamauáã
+
+ w
+ālmuʿizuu
+ laysa
+
+ālmuḏilau
+ mina
+ḥayṯu
+nafasuhu
+waḥaḳiyḳatuhu
+ faāʾinau
+ālmafahuwma
+yaḫatalifu
+fiy
+ālfahami
+ fiy
+kuliu
+waāḥidiⁿ
+minahumaā
+ 
+
+maǧazuwʾ
+ālwāfr
+
+12
+ẓhr
+1
+falaā
+tanaẓura
+āʾiláã
+ālḥaḳiu
+watuʿariyahi
+ʿani
+ālḫalaḳi
+2
+walaā
+tanaẓura
+āʾiláã
+ālḫalaḳi
+watakasuwhu
+siwáã
+ālḥaḳiu
+3
+wanaziuhahu
+wašabiuhahu
+waḳuma
+fiy
+maḳaʿadi
+ālṣiudaḳi
+4
+wakuna
+fiy
+ālǧamaʿi
+āʾina
+šiyta
+waāʾina
+šiyta
+fafiy
+ālfaraḳi
+5
+taḥuza
+biālkuliu
+āʾina
+kuluⁿu
+tabadauáã
+ḳaṣabi
+ālsaubaḳi
+6
+falaā
+tafanaáã
+walaā
+tabaḳaáã
+walaā
+tufaniy
+walaā
+tubaḳiy
+7
+walaā
+yulaḳaáã
+ʿalayka
+ālwaḥayu
+fiy
+ġayriⁿ
+walaā
+tulaḳiy
+ālṯ
+aunaāʾu
+biṣi
+da
+ḳi
+ālwaʿadi
+ 
+laā
+biṣidaḳi
+ālwaʿiydi
+ waālḥaḍaraŧu
+ālāʾilãhiy
+auŧu
+taṭalubu
+ālṯaunaā
+ʾa
+ālmaḥamuwda
+biālḏauāti
+ fayuṯaniy
+ʿalayhaā
+biṣidḳa
+ālwaʿadi
+ laā
+biṣidaḳi
+ālwaʿiydi
+ bala
+biāltauǧaāwuzi
+ 
+falaā
+taḥasabanau
+āllha
+muḫalifa
+waʿadihi
+rusulahu
+ 
+swrŧ
+ābrāhym
+
+ 74
+ lama
+yaḳula
+ 
+wawaʿiydihi
+ bala
+ḳaāla
+ 
+wanataǧaāwazu
+ʿana
+sayiuáʾaātihima
+ 
+swrŧ
+ālāḥḳāf
+
+ 61
+maʿa
+āanauhu
+tawaʿauda
+ʿaláã
+ḏãlika
+ 
+faāaṯanaáã
+ʿaláã
+āʾisamaāʿiy
+la
+biāanauhu
+
+kaāna
+ṣaādiḳa
+ālwa
+ʿadi
+
+swrŧ
+mr
+ym
+
+ 45
+ waḳada
+zaāla
+ālāʾimakaānu
+fiy
+ḥaḳiu
+ālḥaḳiu
+ limaā
+fiyhi
+mina
+ṭalabi
+ālmriuǧiḥi
+ 
+
+ālṭwyl
+1
+falama
+yabaḳa
+āʾilauā
+ṣaādiḳa
+ālwaʿadi
+waḥadahu
+wamaā
+liwaʿiydi
+ālḥaḳiu
+ʿayanuⁿ
+tuʿaāyinu
+2
+waāʾina
+daḫaluwā
+daāra
+ālšauḳaāʾi
+faāʾinauhuma
+ʿaláã
+laḏauŧiⁿ
+fiyhaā
+naʿiymuⁿ
+mubaāyinu
+3
+naʿiyma
+ǧinaāni
+ālḫuladi
+faālāamaru
+waāḥiduⁿ
+wabayanahumaā
+ʿinada
+āltauǧaliuy
+tabaāyinu
+4
+yusamauáã
+ʿaḏaābaⁿā
+mina
+ʿuḏuwbaŧi
+ṭaʿamihi
+waḏaāka
+lahu
+kaālḳišari
+waālḳišaru
+ṣaāyinu
+
+8
+faṣuu
+ḥikamaŧiⁿ
+rawaḥiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+yaʿaḳuwbiyauŧiⁿ
+āldiuynu
+diynaā
+ni
+ diynuⁿ
+ʿin
+da
+āllhi
+ waʿinda
+mana
+ʿa
+raufahu
+ālḥ
+aḳuu
+taʿaā
+laáã
+ wamana
+ʿaraufahu
+ 
+mana
+ʿaraufahu
+ālḥaḳuu
+ wadiynuⁿ
+ʿinda
+ālḫalaḳi
+ waḳad
+aʿatabarahu
+āllhu
+ 
+faāldiuynu
+ālauḏiy
+ʿinda
+āllhi
+huwa
+ālauḏiy
+aṣaṭ
+afaāhu
+āllhu
+ waāaʿaṭ
+aāhu
+ālruutabaŧa
+ālʿa
+liyauŧa
+ʿal
+aáã
+diyni
+ālḫ
+alaḳi
+ faḳaāla
+taʿaā
+laáã
+ 
+22
+wǧh
+ 
+wawaṣauáã
+bihaāā
+āʾibarãhiymu
+baniyhi
+wayaʿaḳuwbu
+ya
+ãban
+iyau
+āʾinau
+allha
+aṣaṭafaáã
+lakum
+aldiuyana
+falaā
+tamuwatunau
+āʾilauā
+waāanatuma
+musal
+imuwna
+ 
+swrŧ
+ālb
+ḳr
+ŧ
+ 
+231
+ āay
+ munaḳaāduwna
+āʾilayhi
+ 
+waǧaāʾa
+
+āldiuynu
+ biālāalifi
+waāllauāmi
+liltiuʿariyfi
+waālʿahadi
+ fahuwa
+diynuⁿ
+maʿaluwmuⁿ
+maʿaruwfuⁿ
+ wahuwa
+ḳawluhu
+taʿaālaáã
+ 
+āʾinau
+aldiuyana
+ʿinada
+allhi
+alāʾisalaãmu
+ 
+swrŧ
+āl
+ʿmrān
+
+ 
+91
+ wahuwa
+ālanaḳiyaādu
+ fāldiuynu
+ʿibaāraŧuⁿ
+ʿana
+anaḳiyaādika
+ waālauḏiy
+min
+ʿindi
+āllhi
+huwa
+ālšauraʿu
+ ālauḏiy
+anaḳadata
+āanata
+āʾilayhi
+ 
+faāldiuynu
+ālanaḳiyaādu
+ waālnauāmuwsu
+huwa
+ālšauraʿu
+ālauḏiy
+šaraʿahu
+āllhu
+taʿaālaáã
+ famani
+atauṣafa
+biālanaḳiyaādi
+limaā
+šaraʿahu
+āllhu
+lahu
+ faḏãlika
+ālauḏiy
+ḳaāma
+biāldiuyni
+ waāaḳaāmahu
+āay
+ 
+āanašaāahu
+ kamaā
+tuḳiymu
+ālṣaulaāŧa
+ faālʿabadu
+huwa
+ālmunašiyʾu
+liladiuyni
+ waālḥaḳuu
+huwa
+ālwaāḍiʿu
+lilāaḥakaāmi
+ faālanaḳiyaādu
+ʿaynu
+fiʿalika
+ 
+faāldiuynu
+mina
+fiʿalika
+ famaā
+saʿidata
+āʾilauā
+bamaā
+kaāna
+minaka
+ 
+faka
+maā
+āaṯab
+ata
+āls
+auʿaādaŧa
+laka
+ maā
+kaāna
+fiʿaluka
+kaḏãlika
+ maāāaṯabata
+ālāasamaāʾa
+ālāʾilãhiyauŧa
+āʾilauā
+āafaʿaāluhu
+ wahiya
+āanta
+ wahiya
+ālmuḥadaṯaātu
+ 
+fabiāāṯaārihi
+sumiyau
+āʾilãhaⁿā
+ wabāāṯaārika
+sumiuyta
+saʿiydaⁿā
+
+ 
+faāanazalaka
+taʿaālaáã
+manazilatahu
+ āʾiḏaā
+āaḳamata
+āldiuyna
+ waanaḳadata
+āʾilaáã
+maāšaraʿahu
+laka
+ 
+wasaāabasiṭu
+fiy
+ḏãlika
+āʾina
+šaāʾa
+āllhu
+maātaḳaʿu
+bihi
+ālfaāʾidaŧu
+ baʿada
+āana
+nubayiuna
+āldiuyna
+ālauḏiy
+ʿinda
+ālḫalaḳi
+ ālauḏiy
+aʿatabarahu
+āllhu
+ 
+faāldiuynu
+kuluuhu
+lilhi
+ wa
+kuluuhu
+minaka
+laā
+minahu
+ āʾilauā
+biḥukami
+ālāaṣaālaŧi
+ 
+ḳaā
+la
+taʿ
+aālaáã
+ 
+warahabaāniyauŧaⁿ
+abatadaʿuwahaā
+ 
+swrŧ
+ālḥ
+dyd
+
+ 72
+ wahiya
+ālnauwaāmiysu
+ālḥukamiyauŧu
+ālautiy
+lama
+yaǧiyʾ
+ālrausuwlu
+ālmaʿaluwmu
+bihaā
+
+ fiy
+ālʿaāmauŧi
+
+ mina
+ʿinadi
+āllhi
+ biālṭauriyḳaŧi
+ālḫaāṣauŧi
+ālmaʿaluwmaŧi
+fiy
+ālʿurafi
+ 
+falamauā
+waāfaḳati
+ālḥikamaŧu
+waālmaṣalaḥaŧu
+ālẓauāhiraŧu
+fiyhaā
+ ālḥukama
+ālāʾilã
+hiyau
+fiy
+ālmaḳaṣ
+uwdi
+biālwaḍaʿi
+ālmaš
+ruwʿi
+ālāʾilãh
+iyiu
+ aʿat
+abara
+haā
+āllhu
+aʿatibaāra
+maāšaraʿahu
+mina
+ʿinadihi
+taʿaālaáã
+wamaā
+katabahaā
+āllhu
+ʿalayhima
+ 
+walamauā
+fataḥa
+āllhu
+baynahu
+wabayna
+ḳuluwbihima
+baāba
+ālʿinaāyaŧi
+waālrauḥamaŧi
+mina
+ḥayṯu
+laā
+yašaʿaruwna
+ ǧaʿala
+fiy
+ḳuluwbihima
+taʿaẓiyma
+maāšaraʿuwhu
+
+ yaṭalubuwna
+biḏãlika
+riḍawaāna
+āllhi
+
+ ʿalaáã
+ġayri
+ālṭauriyḳaŧi
+ālnaubawiyauŧi
+ālmaʿaruwfaŧi
+biāltauʿariyfi
+ālāʾilãhiyiu
+ 
+faḳaāla
+ 
+famaā
+raʿawahaā
+ 
+swrŧ
+ālḥdyd
+
+ 72
+ 
+22
+ẓhr
+ hãʾlaāʾi
+ālauḏiyna
+šarauʿuwhaā
+ wašarauʿatu
+lahum
+
+ḥaḳau
+riʿaāyatihaā
+ 
+swrŧ
+ālḥdyd
+
+ 72
+ 
+āʾilauā
+abatiġaāāʾa
+riḍawãni
+āllhi
+ 
+swrŧ
+ālḥdyd
+
+ 72
+ 
+wakaḏãlika
+aʿataḳaduwā
+
+faáʾaātaynaā
+alauḏiyna
+ʾa
+āmanuwā
+ 
+swrŧ
+ālḥdyd
+
+ 72
+ bihaā
+
+minahuma
+āaǧarahuma
+wakaṯiy
+aruⁿ
+minahuma
+
+sw
+rŧ
+ālḥdyd
+
+ 72
+ āay
+ mina
+hãʾlaāʾi
+ālauḏiyna
+šaraʿa
+fiyhima
+hãḏihi
+ālʿibaādaŧu
+
+faãsiḳuwna
+ 
+swrŧ
+ālḥdyd
+
+ 72
+ āay
+ ḫaāriǧuwna
+ʿana
+ālanaḳ
+iyaādi
+āʾilayahaā
+ waālḳiyaāmi
+biḥaḳiuhaā
+ wamana
+lama
+yanaḳada
+āʾilayahaā
+ lama
+yanaḳada
+āiʾilayahi
+mušariuʿuhu
+bimaā
+yuraḍiyahi
+ 
+lãkina
+ālāamaru
+yaḳataḍiy
+ālanaḳiyaādu
+ 
+wabayaānuhu
+ āanau
+ālamuka
+laufa
+āʾimauā
+mun
+aḳaāduⁿ
+biālmuwaāfaḳaŧi
+ waāʾimauā
+muḫaālifuⁿ
+ faālmuwaāfiḳu
+ālm
+uṭiyaʿu
+laā
+kalaāma
+fiyhi
+libayaāniihi
+ waāamauā
+ālmuḫ
+aālifu
+faāʾinauhu
+yaṭal
+ubu
+
+ biḫilaāfihi
+ālḥaākima
+ʿalayhi
+
+mina
+āllhi
+āaḥada
+āamarayani
+ āʾimauā
+āltauǧaāwzu
+waālʿafawu
+ waāʾimauā
+ālāaḫaḏu
+ʿalaáã
+ḏãlika
+ walaā
+budau
+mina
+āaḥadihimaā
+
+lāanau
+ālāama
+ra
+ḥaḳuⁿu
+fiy
+nafas
+ihi
+ faʿal
+aáã
+kuliu
+ḥaā
+liⁿ
+ḳada
+ṣaḥau
+anaḳiy
+aādu
+ālaḥaḳiu
+āʾilaáã
+ʿabadihi
+liāafʿaālihi
+ wamaā
+huwa
+ʿalayhi
+mina
+ālḥaāli
+ 
+faālḥaālu
+huwa
+ālmuwʾaṯiuru
+ 
+famina
+hunaā
+kaāna
+āldiuyanu
+ǧazaāʾaⁿ
+ āaya
+ muʿaāwaḍaŧaⁿ
+ bimaā
+yasuruu
+āw
+bimaā
+laā
+yasuruu
+ 
+fabimaā
+yasuruu
+
+raḍiya
+āllhu
+ʿanahuma
+waraḍuwā
+ʿanahu
+ hãḏaā
+ǧazaāʾuⁿ
+bimaā
+yasuruu
+
+wamana
+yaẓal
+ima
+minakuma
+nuḏiḳahu
+ʿaḏaābaⁿā
+kabiyaraⁿā
+ 
+swrŧ
+ālf
+rḳān
+
+ 91
+ hãḏa
+āǧazaāʾuⁿ
+bim
+aā
+laā
+yasuruu
+
+wanataǧaāwazu
+ʿana
+sayiuáʾaātihima
+ 
+swrŧ
+ālāḥḳāf
+
+ 61
+ hãḏaā
+ǧazaāʾuⁿ
+ 
+faṣaḥau
+āanau
+āldiuyana
+huwa
+ālǧazaāʾu
+ wakamaā
+āanau
+āldiuyana
+huwa
+ālāʾisalaāmu
+ waālāʾisalaāmu
+ʿayanu
+ālanaḳiyaādi
+ faḳada
+anaḳaāda
+āʾilaáã
+maā
+yasuruu
+ waāʾilaáã
+maā
+laā
+yasuruu
+ wahuwa
+ālǧazaāʾu
+ 
+hãḏaā
+lisaānu
+ālẓauāhiri
+fiy
+hãḏaā
+ālbaābi
+ 
+waāmauā
+siruuhu
+wabaāṭinuhu
+faāʾinauhu
+taǧaliⁿu
+fiy
+mirāŧi
+wuǧuwadi
+ālḥaḳiu
+ falaā
+yaʿuwadu
+ʿalaáã
+ālamumaki
+naāti
+mina
+ālḥaḳiu
+ āʾilauā
+maā
+tuʿaṭiya
+hi
+ḏawaātuh
+uma
+fiy
+āaḥawa
+ālihaā
+ faāʾi
+nau
+lihuma
+fiy
+kuliu
+ḥaāliⁿ
+ṣuwaraŧaⁿ
+ fataḫatalifu
+ṣuwaruhuma
+liaḫatilaāfi
+āaḥawaālihima
+ fayaḫatalifu
+āltauǧaliuy
+laḫatilaāfi
+ālḥaāli
+ fay
+aḳaʿu
+ālāaṯaru
+fiy
+ālʿabadi
+biḥasabi
+maā
+yakuwanu
+ famaā
+āaʿaṭaāhu
+ālḫayra
+siwāhu
+ walaā
+āaʿaṭaāhu
+ḍidau
+ālḫayri
+ġayruhu
+ bala
+huwa
+mun
+aʿiumu
+ḏaātihi
+wamuʿaḏiubuhaā
+ falaā
+yaḏumaunau
+āʾilauā
+nafas
+ahu
+ walaā
+yaḥamadanau
+āʾilaā
+nafasahu
+
+fliluãhi
+alḥuǧauŧu
+albaãliġa
+ŧu
+
+swrŧ
+ālānʿā
+m
+ 941
+ fiy
+ʿilam
+ihi
+bih
+ima
+ āʾiḏi
+ālʿilamu
+yatabaʿu
+ālmaʿaluwma
+ 
+ṯumau
+ālsiuru
+ālauḏi
+yfawḳa
+hãḏaā
+fiy
+miṯli
+hãḏihi
+ālmasaāalaŧi
+āanau
+ālmumakina
+āti
+ʿalaáã
+āaṣalihaā
+mina
+ālʿadami
+walayasa
+wuǧuwaduⁿ
+āʾilauā
+wuǧuwada
+ālaḥaḳiu
+ biṣuwari
+āaḥawaāli
+maā
+hiya
+ʿalayhi
+
+32
+wǧh
+ ālmumakinaātu
+fiy
+āanafusihaā
+wāaʿayaānihaā
+ faḳada
+ʿalimata
+mana
+yalataḏuu
+wamana
+yataāalaumu
+ 
+wamaā
+yaʿaḳubu
+kulau
+ḥaāliⁿ
+mina
+ālāaḥawaāli
+ 
+wabihi
+sumiuya
+ʿuḳuwabaŧaⁿ
+waʿiḳaābaⁿā
+ 
+wahuwa
+saā
+ʾiġuⁿ
+fiy
+ālḫayri
+waālšauriu
+ ġayra
+āanau
+ālʿurafa
+samauāhu
+fiy
+ālḫayri
+ṯawaābaⁿā
+ wafiy
+ālšauriu
+ ʿiḳaābaⁿā
+ 
+wabihãḏa
+āsumiuya
+āaw
+šuriḥa
+āldiuynu
+biālʿaādaŧi
+ lāanauhu
+
+ʿaāda
+ʿalay
+hi
+maā
+yaḳ
+ataḍiy
+hi
+wayaṭalubuhu
+ḥaāluhu
+ faāldiuynu
+ālʿaādaŧu
+ 
+ḳaāla
+ālšauāʿiru
+ 
+
+ālṭwyl
+kadiynika
+mina
+āumiu
+alḥuwayariṯi
+ḳabalahaā
+āay
+ ʿaādatuka
+ wamaʿaḳuw
+lu
+ālʿaā
+daŧi
+āana
+yaʿuwda
+ālāamru
+biʿaynihi
+āʾilaáã
+ḥaālihi
+ wahãḏa
+ālaysa
+ṯamau
+ faāʾinau
+ālʿaādaŧa
+takaraāruⁿ
+ 
+lãkinau
+ālʿ
+aādaŧa
+ḥaḳiyaḳaŧuⁿ
+maʿaḳuwlaŧuⁿ
+ waāltauš
+aābuhu
+fiy
+ālṣuuwari
+mawaǧuwduⁿ
+ fan
+aḥanu
+naʿalamu
+āanau
+zaydaⁿ
+āʿaynu
+ʿamarwiⁿ
+ fiy
+ālāʾinasaāniyauŧi
+ wamaā
+ʿaādati
+ālāʾinasaāniyauŧu
+ āʾiḏa
+law
+ʿaādata
+takaṯaurata
+ 
+wahiya
+ḥaḳiyḳ
+aŧuⁿ
+waāḥidaŧuⁿ
+ waālwaāḥidu
+laā
+yatakaṯauru
+fiy
+nafasihi
+ wanaʿalamu
+āanau
+zaydaⁿ
+ālaysa
+ʿayna
+ʿamariⁿw
+ fiy
+ālšauḫaṣiyauŧi
+ fašaḫaṣu
+zaydiⁿ
+laysa
+šaḫaṣa
+ʿamariⁿw
+ maʿa
+taḥaḳiyḳi
+wuǧuwdi
+ālšauḫaṣiyauŧi
+bimaā
+hiya
+šaḫaṣiyauŧuⁿ
+fiy
+ālaṯanayani
+ fanaḳuwlu
+fiy
+ālḥisiu
+ʿaādata
+lihãḏaā
+ālšaubahi
+ wanaḳuwlu
+fiy
+ālḥukami
+ālṣauḥiyḥi
+ lama
+taʿuda
+ 
+famaā
+ṯamau
+ʿaādaŧuⁿ
+biwaǧahiⁿ
+ waṯamau
+ʿaādaŧuⁿ
+biwaǧahiⁿ
+ kamaā
+āanau
+ṯamau
+ǧazaāʾuⁿ
+biwaǧhiⁿ
+ wamaā
+ṯamau
+ǧazaāʾuⁿ
+biwaǧahiⁿ
+ faāʾinau
+ālǧ
+azaāʾa
+āayḍaⁿā
+ḥaāluⁿ
+fiy
+ālmumakini
+ mina
+āaḥawaāli
+ālmumakini
+ wahãḏihi
+masaāa
+laŧuⁿ
+āaġaf
+alahaā
+ʿulamaāʾu
+hãḏa
+āālšau
+āni
+ āay
+ āaġafaluwā
+āyaḍaāḥahaā
+ʿalaáã
+maāyanab
+aġiya
+ 
+liāanauhuma
+ǧahiluwahaā
+ faāʾinauhaā
+mina
+siriu
+ālḳadari
+ālmutaḥakiumi
+fiy
+ālḫalaāʾiḳi
+ 
+waaʿlama
+āanauhu
+kamaā
+yuḳaālu
+fiy
+ālṭaubiybi
+āʾinauhu
+ḫaādimu
+ālṭaubiyʿaŧi
+ kaḏãlika
+yuḳaālu
+fiy
+ālruusuli
+waālwaraṯaŧi
+āʾinauhuma
+ḫaādimuwā
+ālāamri
+ālāʾilãhiyiu
+fiy
+ālʿumuw
+mi
+ wahuma
+fiy
+nafasi
+ālāamari
+ḫaādimuwā
+āaḥawa
+āli
+ālamumaki
+naāti
+ waḫidamatuhuma
+mina
+ǧumalaŧi
+āaḥawaālihima
+ ālautiy
+huma
+ʿalayhaā
+fiy
+ḥaāli
+ṯubuwti
+āaʿayaāinihima
+ 
+faānaẓura
+maāāaʿaǧaba
+hãḏaā
+ 
+āʾilauā
+āanau
+ālḫaādima
+ālmaṭaluwba
+hunaā
+ āʾinaumaā
+huwa
+waāḳifuⁿ
+ʿinada
+marusuwmi
+maḫaduwmihi
+ āʾimauā
+biā
+lḥaāli
+āaw
+biālḳawli
+ faāʾinau
+ālṭaubiyba
+āʾiniumaā
+yaṣi
+ḥuu
+āana
+yuḳaāla
+fiy
+hi
+ḫaā
+dimu
+ālṭaubiyʿaŧi
+ law
+mašaáã
+biḥukami
+ālmusaāʿadaŧi
+lahaā
+ faāʾinau
+ālṭaubiyʿaŧa
+
+32
+ẓhr
+ ḳada
+āaʿaṭata
+fiy
+ǧisami
+ālmariyḍi
+mizaāǧaⁿā
+ḫaāṣiⁿuā
+ bihi
+sumiáau
+mryḍaⁿā
+ falaw
+saāʿadahaā
+ālṭaubiybu
+ḫidamaŧaⁿ
+ lazaāda
+fiy
+kimiyauŧi
+ālmaraḍi
+bihaā
+āayḍaⁿā
+ waāʾinaumaā
+yardaʿuhaā
+ṭalabaⁿā
+lilṣiḥauŧi
+ waālṣiuḥaŧu
+mina
+ālṭaubiyʿaŧi
+āayḍaⁿā
+ biāʾinašaā
+ʾi
+mizaāǧiⁿ
+āḫa
+ra
+ yuḫ
+aālifu
+hãḏaā
+ālmizaāǧa
+ faāʾi
+ḏana
+laysa
+ālṭaub
+iybu
+biḫaādimiⁿ
+lilṭabiyʿaŧi
+ 
+waāʾinaumaā
+huwa
+ḫaādimuⁿ
+lahaā
+mina
+ḥayṯu
+āanauhu
+laā
+yuṣaliḥu
+ǧisama
+ālmariyḍi
+ walaā
+yuġuyauru
+ḏaāka
+ālmiza
+āǧa
+āʾilauā
+biālṭaubiyʿaŧi
+āayḍaⁿā
+ faf
+iy
+ḥaḳiuh
+aā
+yasaʿaáã
+mina
+waǧahiⁿ
+ḫaāṣiⁿu
+ġayri
+ʿaāmiⁿu
+ 
+lāanau
+ālʿumuwma
+laā
+yaṣi
+ḥuu
+fiy
+miṯali
+hãḏihi
+ālm
+asaāa
+laŧi
+ faālṭaubiybu
+ḫaādimuⁿ
+laā
+ḫaādimuⁿ
+ āaʿaniá
+ 
+lilṭaubiyʿaŧi
+ 
+kaḏ
+ãlika
+ālruusulu
+waālwaraṯaŧu
+fiy
+ḫidamaŧi
+ālḥaḳiu
+ waālḥ
+aḳuu
+ʿal
+aáã
+waǧahayani
+fiy
+ālḥ
+ukami
+fiy
+āaḥawaāli
+ālamukalaufiy
+ana
+ fayuǧariy
+ālāamara
+mina
+ālʿabadi
+biḥasabi
+maā
+taḳataḍiyhi
+āʾiraādaŧu
+ālḥaḳiu
+ watataʿalauḳu
+āʾiraādaŧu
+ālḥaḳiu
+bihi
+ biḥasabi
+maāyaḳataḍiy
+bihi
+ʿilamu
+ālḥaḳiu
+
+ wayat
+aʿalauḳu
+ʿilamu
+ālḥaḳiu
+bihi
+ʿalaáã
+ḥasabi
+maā
+āaʿaṭaāhu
+ālmaʿaluwmu
+mina
+ḏaātihi
+ 
+famaā
+ẓahara
+āʾilauā
+biṣuwratihi
+ 
+fiālrausuwlu
+waālwaāriṯu
+ḫaādimu
+ālāamari
+ālāʾilãhiyiu
+biālāʾiriādaŧi
+ laā
+ḫaādima
+ālāʾiraādaŧi
+ 
+fahuwa
+yaruduu
+ʿalayhi
+bihi
+ 
+ṭalabaⁿā
+lisaʿāadaŧi
+ālmukalaufi
+ falaw
+ḫadama
+ālāʾiraādaŧa
+ālāʾilãhiyiuŧa
+ 
+maānaṣaḥa
+ wamaānaṣaḥa
+āʾilauā
+bihaā
+ āaʿniy
+ biālāʾiraādaŧi
+ 
+faālrausuwlu
+waālwaāriṯu
+ ṭabiybuⁿ
+āuḫaraāwiyuⁿu
+lilnufuwsi
+ munaḳaāduⁿ
+lāamari
+āllhi
+ḥiyna
+āamarahu
+ 
+fayanaẓuru
+fiy
+āamarihi
+taʿaālaáã
+ wayanaẓuru
+fiy
+āʾiraādatihi
+taʿaālaáã
+ fayaraāhu
+ḳada
+āamarahu
+bimaā
+yuḫaālifu
+āʾiraādatahu
+ walaā
+yakuwnu
+āʾilauā
+maā
+yuriydu
+ walihãḏaā
+kaāna
+ālāamaru
+ faāaraāda
+ālāamara
+fawaḳaʿa
+ wamaāāaraāda
+wuḳuwʿa
+maāāamara
+bihi
+biālamaāmuwri
+ falama
+yaḳaʿa
+mina
+ālamaāmuwri
+ fasumiuáa
+ muḫaālafaŧaⁿ
+wamaʿaṣiyaŧaⁿ
+ 
+faālrau
+suw
+lu
+mub
+iliuġuⁿ
+ walihãḏa
+āḳaāla
+ 
+ šayaub
+ataniy
+huwduⁿ
+waāaḫawaātuhaā
+
+ limaā
+taḥawi
+yʿal
+ayhi
+mina
+ḳawlihi
+
+faāsataḳima
+kamaāā
+āumirata
+ fašayaubatahu
+
+kamaāā
+āumirata
+ 
+swrŧ
+hwd
+
+ 211
+ 
+faāʾinauhu
+laā
+yadariy
+hala
+āumira
+bimaā
+yuwaāfiḳu
+ālāʾiraādaŧa
+fayaḳaʿu
+ āawa
+bimaā
+yuḫaālifu
+ālāʾiraādaŧa
+falaā
+yaḳaʿu
+ 
+walaā
+yaʿarifu
+āaḥaduⁿ
+ḥukama
+ālāʾirādaŧi
+ āʾilauā
+baʿada
+wuḳuwʿi
+ālmurādi
+ āʾilauā
+mana
+kašafa
+āllhu
+ʿana
+baṣiyaratihi
+ faāadaraka
+āaʿayaāna
+ālmumakinaāti
+ fiy
+ḥaāla
+ṯubuwitihaā
+ʿalaáã
+maāhiy
+ʿalayhi
+ 
+fayaḥakumu
+ʿinada
+ḏãlika
+bimaā
+yaraāhu
+
+ wahãḏaā
+
+42
+wǧh
+ ḳada
+yakuwnu
+liāḥaādi
+ālnauāsi
+ fiy
+āawaḳaātiⁿ
+laā
+yakuwnu
+musataṣaḥabaⁿā
+ 
+ḳaāla
+ 
+maāā
+āadariá
+maāyufaʿalu
+biá
+walaā
+bikuma
+swrŧ
+ālāḥḳ
+āf
+
+ 9
+ faṣarauḥa
+biālḥiǧaābi
+ walaysa
+ālmaḳaṣuwdu
+āʾilauā
+āana
+yaṭauliʿa
+fiy
+āamariⁿ
+ḫaāṣiⁿu
+ laāġayra
+ 
+
+9
+faṣuu
+ḥikamaŧiⁿ
+nuwriyauŧiⁿ
+fiy
+kalimaŧiⁿ
+yuwsufiyauŧiⁿ
+hãḏihi
+ālḥikamaŧu
+ālnuuwiriuyauŧu
+anabisaāṭu
+nuwrihaā
+ʿalaáã
+ḥaḍaraŧi
+ālḫayaāli
+ 
+wahuwa
+āawaulu
+mabaādiyʾi
+ālwaḥayi
+ālāʾilãhiyiu
+fiiy
+āahali
+ālʿinaāyaŧi
+ 
+taḳ
+uwlu
+ʿaāʾišaŧu
+raḍiya
+āllhu
+ʿan
+ahaā
+
+ 
+āawaulu
+maā
+budiyʾa
+bihi
+rasuw
+lu
+āllhi
+ṣal
+auáã
+āll
+hu
+ʿal
+ayhi
+wasalauma
+mina
+ālwa
+ḥayi
+ālruuʾyaā
+ālṣau
+ādiḳaŧu
+
+ fakaāna
+laā
+yaraáã
+ruʾyaā
+āʾilauā
+ḫara
+ǧata
+miṯala
+falaḳi
+ālṣuubaḥi
+ 
+taḳuwlu
+ 
+laā
+ḫafaāʾa
+bihaā
+ 
+ waāʾilaáã
+hunaā
+balaġa
+ʿil
+amuh
+aā
+laā
+ġayru
+
+
+wakaānata
+ālmudauŧu
+lahu
+fiiy
+ḏãlika
+sitauŧa
+āašahuriⁿ
+ ṯumau
+ǧaāʾahu
+ālmalaku
+ wamaā
+ʿalimata
+āanau
+rasuwla
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ḳada
+ḳaāla
+
+āʾinau
+ālnauāsa
+niyaāmuⁿ
+faāʾiḏaā
+maātuwā
+anatabahuwā
+ 
+wa
+kuluu
+maā
+yuraáã
+fiiy
+ḥaāli
+ālnauwami
+ fahuwa
+mina
+ḏãlika
+ālḳabiyli
+ waāʾina
+aḫatalafati
+ālāaḥawaālu
+ 
+famaḍaáã
+ḳaiwluhaā
+ 
+sitauŧa
+āašahuriⁿ
+ bala
+ʿum
+aruhu
+kuluuhu
+fiiy
+ālduunay
+aā
+bitil
+aka
+ālmaṯaābaŧi
+ āʾinaumaā
+huwa
+manaāmuⁿ
+fiy
+minaāmiⁿ
+ 
+wakuluu
+maā
+warada
+mina
+hãḏaā
+ālḳabiyli
+ fahuwa
+ālamusamauáã
+
+ʿaālamu
+ālḫayaāli
+ 
+walihãḏaā
+yuʿabauru
+āay
+ ālāamaru
+ālauḏiy
+huwa
+fiy
+nafasihi
+ʿalaáã
+ṣuwraŧi
+kaḏaā
+ ẓahara
+fiy
+ṣuwraŧiⁿ
+ġay
+rihaā
+
+ fay
+aǧuw
+zu
+ālʿ
+aābiru
+minu
+hãḏi
+hi
+ālṣuuw
+raŧi
+ālautiy
+āabaṣa
+rahaā
+ālnauāʾimu
+āʾilaáã
+ṣuwraŧi
+maāhuwa
+ālāamaru
+ʿalayhi
+ āʾina
+āaṣaāba
+ kaẓuhuwri
+ālʿilami
+fiy
+ṣuwraŧi
+āllaubani
+ faʿabaura
+fiy
+āltauāwiyli
+mina
+ṣuwraŧi
+āllaubani
+āʾilaáã
+ṣuwraŧi
+ālʿilami
+ fataāawaula
+ āay
+ḳaāla
+ mā
+ālu
+hãḏihi
+ālṣuuwraŧi
+āllaubaniyauŧi
+āʾilaáã
+ṣuwraŧi
+ālʿilami
+ 
+ṯumau
+āʾinauhu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+kaāna
+āʾiḏaā
+āuwḥiya
+āʾilayhi
+āaḫaḏa
+ʿana
+ālm
+aḥasuwasaāti
+ālmuʿataādaŧi
+fasuǧiuya
+waġaāba
+ʿana
+ālḥaāḍiriyna
+ʿinadahu
+ faāʾiḏaā
+suriuya
+ʿanahu
+ rudau
+ 
+famaā
+āadarakahu
+āʾilauā
+fiy
+ḥaḍaraŧi
+ālḫayaāli
+ āʾilauā
+āanauhu
+laā
+yusamauáã
+naāʾimaⁿā
+ 
+wakaḏãlika
+āʾiḏaā
+tamaṯaula
+lahu
+ālm
+alaku
+raǧulaⁿ
+ā
+ faḏãlika
+mina
+ḥaḍaraŧi
+ālḫay
+aāli
+ faāʾinauhu
+laysa
+bira
+ǧuliⁿ
+ waāʾinaum
+aā
+huwa
+malakuⁿ
+ fadaḫala
+fiy
+ṣuwraŧi
+āʾinasaā
+niⁿ
+ faʿ
+aba
+rahu
+ālnauā
+ẓiru
+ālʿ
+aārifu
+ḥat
+auáã
+waṣala
+
+42
+ẓhr
+ āʾilaáã
+ṣuwratihi
+ālḥaḳiyḳiyauŧi
+ faḳaāla
+ 
+hãḏaā
+ǧibariylu
+āataākuma
+yuʿaliumakuma
+diynakumu
+ waḳada
+ḳaāla
+lahuma
+ 
+ruduuwuā
+ʿalaáã
+ālrauǧuli
+ fasamauāhu
+bi
+ālrauǧuli
+ mina
+āaǧali
+ālṣuuwraŧi
+ālautiy
+ẓahara
+lahuma
+fiiyhaā
+ ṯumau
+ḳaāla
+ 
+hãḏaā
+ǧibariylu
+
+ faāʿatab
+ara
+ālṣ
+uuwraŧa
+ālautiy
+maāālu
+hãḏa
+āālrauǧuli
+ālmutaḫ
+ayauli
+āʾilayhaā
+
+ wahuwa
+ṣaādaḳuⁿ
+fiy
+ālmaḳaā
+latayni
+ ṣidaḳu
+lil
+ʿayani
+fiy
+ālʿayani
+ālḥisiuyauŧi
+ waṣidaḳuⁿ
+fiy
+āanau
+hãḏaā
+ǧibariyla
+ faāʾinauhu
+ǧibariylu
+bilaā
+šaukiⁿu
+ 
+waḳaāla
+yuwasufu
+ʿalayahi
+ālsaulaāmu
+
+ 
+āʾiniuá
+raāayatu
+āaḥada
+ʿašara
+kawakabaⁿā
+waalšaumasa
+waalḳamara
+raāayatuhuma
+liy
+sãǧidiyana
+ 
+swrŧ
+ywsf
+
+ 4
+faraāaáã
+āʾiḫawatahu
+fiy
+ṣuwraŧi
+ālkawaākibi
+ waraāaáã
+āabaāhu
+waḫaālatahu
+fiy
+ṣuwraŧi
+ālšaumasi
+wālḳamari
+ hãḏaā
+mna
+ǧihaŧi
+yuwasufa
+ 
+walawa
+kaāna
+mina
+ǧihaŧi
+ālmaraʾiyiu
+ lakaāna
+ẓuhuwru
+āʾiḫawatihi
+fiiy
+ṣuwari
+ālkawaākibi
+ 
+waẓuh
+uwru
+āabiyahi
+waḫaālatihu
+fiy
+ṣuwraŧi
+ālšaumasi
+wālḳamari
+ muraādaⁿā
+lahuma
+ falamauā
+lama
+yakuna
+lihuma
+ʿilamuⁿ
+bimaā
+raāhu
+yuwsufa
+ kaāna
+ālāʾidaāraku
+mina
+yuwsufa
+fiy
+ḫazaānaŧi
+ḫayaālihi
+ waʿalima
+ḏãlika
+yaʿaḳuwbu
+ḥiyna
+ḳaṣauhaā
+ʿalayhi
+ faḳaāla
+ 
+yaãbunayau
+laā
+taḳaṣuṣa
+ruʾayaāka
+ʿalaáāã
+āʾiḫawatika
+faiyakiyaduwaā
+laka
+ 
+swrŧ
+ywsf
+
+ 5
+ṯumau
+barauāa
+baniyhi
+ʿana
+ḏãlika
+ālkaydi
+ waāalaḥaḳahu
+biālšauyṭaāni
+ walaysa
+āalauā
+ʿayna
+ālkaydi
+ 
+faḳaāla
+ 
+āʾinau
+ālšauyaṭaãna
+lilāʾinasãni
+ʿaduwuⁿu
+mubiyanuⁿ
+ 
+swrŧ
+ywsf
+
+ 5
+ āay
+ ẓaāhiru
+ālʿadaāwaŧi
+ 
+ṯumau
+ḳaāla
+yuwsufu
+baʿada
+ḏãlika
+fiy
+āḫiri
+ālāamri
+ 
+hãḏaā
+taāwiyalu
+ruʾayaãya
+mina
+ḳabalu
+ḳada
+ǧaʿal
+ahaā
+rabauá
+ḥaḳiⁿuā
+ 
+swrŧ
+yw
+sf
+
+ 001
+ āay
+ āaẓaharahaā
+fiy
+ālḥisiu
+baʿada
+maā
+kaānata
+fiy
+ṣuwraŧi
+ālḫayaāli
+ faḳaāla
+lahu
+ālnaubiyuu
+muḥamauduⁿ
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+ālnauāsu
+niyaāmuⁿ
+ 
+fkaāna
+ḳawalu
+yuwsufa
+ 
+ḳada
+ǧaʿalahaā
+rabauá
+ḥaḳiⁿuā
+ 
+swrŧ
+ywsf
+
+ 001
+ bimanazilaŧi
+mana
+raāaáã
+fiy
+nawmihi
+āanauhu
+ḳada
+asatay
+ḳaẓa
+mina
+ruʾyaā
+raāhaā
+ṯumau
+ʿabaurahaā
+ walama
+yaʿalama
+āanauhu
+fiy
+ālnauwmi
+ʿaynuhu
+maā
+bariḥa
+ 
+faāʾiḏaā
+asatay
+ḳaẓa
+yaḳ
+uwlu
+ 
+raāaytu
+kaḏaā
+ waraāaytu
+kaāa
+niuy
+asatay
+ḳaẓ
+atu
+ waāawaulat
+uhaā
+bikaḏaā
+ 
+hãḏaā
+miṯalu
+ḏãlika
+ 
+faanaẓu
+ra
+kama
+bayna
+āʾidaraāki
+muḥamaudiⁿ
+ṣalauáã
+āllhu
+ʿalayahi
+wasalauma
+ wabayna
+āʾidaraāki
+yuwsufa
+ʿalayhi
+ālsaulaāmu
+fiy
+āḫiri
+āamarihi
+ḥiyana
+ḳaāla
+ 
+hãḏaā
+taāwiyalu
+ruʾayaãya
+mina
+ḳabalu
+ḳada
+ǧaʿalahaā
+rabauá
+ḥaḳiⁿuā
+ 
+sw
+rŧ
+yw
+sf
+
+ 001
+ 
+52
+wǧh
+ maʿanaāhu
+ ḥisiⁿuā
+āay
+ maḥasuwsaⁿā
+ wamaā
+kaāna
+ālauā
+maḥasuwsaⁿā
+ faāʾinau
+ālḫayaāla
+laā
+yuʿaṭiy
+āabadaⁿā
+āʾilauā
+ālmaḥasuwasaāti
+ ġayaru
+ḏãlika
+laysa
+lahu
+ faanaẓura
+maā
+āašarafa
+ʿilama
+waraṯaŧi
+muḥamaudiⁿ
+ṣalauáã
+āllhu
+ʿalayahi
+wasalauma
+ 
+wasaāabasiṭu
+mina
+ālḳawli
+fiy
+hãḏihi
+ālḥaḍaraŧi
+bilisaāni
+yuwsufa
+ālmuḥamaudiyiu
+maāāanaḳaṣatu
+ʿalayhi
+āʾina
+šaāʾa
+āllhu
+taʿaālaáã
+ 
+fanaḳuwalu
+ aʿalama
+āana
+ālamaḳuwla
+ʿalayhi
+
+siwaáã
+ālḥaḳiu
+ āawa
+musamauáã
+
+ālʿaālami
+ huwa
+biālniusabaŧi
+āʾilaáã
+ālḥaḳiu
+kaālẓiuliu
+lilšauḫaṣi
+ fahuwa
+ẓiluu
+āllhi
+ 
+fahuwa
+ʿaynu
+nisabaŧi
+ālwuǧuwdi
+āʾilaáã
+ālʿaālami
+ lāanau
+ālẓiulau
+mawaǧuwduⁿ
+bilaā
+šakiⁿu
+fiy
+ālḥisiu
+ 
+walãkina
+āʾiḏaā
+kaā
+na
+ṯamau
+mana
+yaẓ
+aharu
+fiy
+hi
+ḏãlika
+ālẓiuluu
+ḥat
+auáã
+law
+ḳadaurata
+ʿada
+ma
+mana
+yaẓaha
+ru
+fiyhi
+ḏãlika
+ālẓiuluu
+ kaāna
+ālẓiuluu
+maʿaḳuwlaⁿā
+ġayra
+mawǧuwdiⁿ
+fiy
+ālḥisiu
+ bal
+yakuwnu
+biālḳuwauŧi
+fiy
+ḏaāti
+ālšauḫaṣi
+ālmanasuwbi
+āʾilayhi
+ālẓiuluu
+ 
+famaḥaluu
+ẓuhuwri
+hãḏaā
+ālẓiuliu
+ālāʾilãhiyiu
+ālmusamauáã
+biālʿaālami
+āʾiniumaā
+huwa
+āaʿayaānu
+ālmumaki
+naāti
+ʿalayhaā
+amatadau
+hãḏaā
+ālẓiuluu
+ fayudaraku
+mina
+hãḏaā
+ālẓiuliu
+biḥ
+asabi
+maāamat
+adau
+ʿalayhi
+mina
+wuǧuwdi
+hãḏihi
+ālḏauāti
+ 
+walãkina
+biasami
+hi
+
+ālnuuwri
+ waḳaʿa
+ālāʾidaraāku
+ waamatadau
+hãḏaā
+ālẓiuluu
+ʿalaáã
+āaʿayaāni
+ālmumakinaāti
+fiy
+ṣuwraŧi
+ālġaybi
+ālamaǧahuwali
+ 
+āalaā
+taraáã
+ālẓiulaāla
+taḍaribu
+āʾilaáã
+ālsauwaādi
+tušiyru
+āʾilaáã
+maā
+fiyhaā
+mina
+ālḫafaāʾi
+libuʿadi
+ālmunaāsabaŧi
+baynahaā
+wabayna
+āašaḫaāṣi
+mana
+hiya
+ẓiluⁿu
+lahu
+ 
+waāʾina
+kaāna
+ālšauḫaṣu
+āabayaḍa
+faẓiluuhu
+bihãḏihi
+ālmaṯaābaŧi
+ āalaā
+taraáã
+ālǧibaāla
+āʾiḏaā
+baʿudata
+ʿana
+baṣari
+ālnauāẓiri
+taẓaharu
+sawdaāʾa
+ waḳada
+takuwnu
+fiy
+āaʿyaānihaā
+ʿalaáã
+ġayri
+imaāyudarikuhaā
+ālḥisuu
+mina
+āllauwniyauŧi
+ walaysa
+ṯamau
+ʿilauŧuⁿ
+āʾilauā
+ālbuʿdu
+ wakazuraḳaŧi
+ālsaumaāʾi
+ 
+fahãḏaā
+maāāanataǧahu
+ālbuʿdu
+fiy
+ālḥisiu
+fiy
+ālāaǧasaāmi
+ġayri
+ālnauyiuraŧi
+ 
+wa
+kaḏãlika
+āaʿayaānu
+ālmumatalakaāti
+ laysata
+nayiuraŧaⁿ
+ lāanauhaā
+maʿaduwmaŧuⁿ
+ waāʾini
+ātauṣafata
+biālṯuubuwti
+ lãkina
+lama
+tatauṣifa
+biālwuǧuwdi
+ āʾiḏa
+ālwuǧuwdu
+nuwruⁿ
+ 
+ġayara
+āanau
+ālāaǧasaāma
+ālnauyiraŧa
+yuʿaṭiy
+fiyhaā
+ālbuʿadu
+fiy
+ālḥisiu
+ṣiġaraⁿā
+ fahãḏaā
+taāṯiyruⁿ
+āḫaruⁿ
+llbuʿdi
+ falaā
+yudarikuhaā
+ālḥisuu
+āʾilauā
+ṣaġiyraŧa
+ālḥaǧami
+ wahiya
+fiy
+āaʿyaānihaā
+kabiyraŧuⁿ
+ʿana
+ḏãlika
+ālḳadari
+ waāakaṯaru
+kamiuyauātiⁿ
+kamaā
+yuʿalamu
+biāldauliyli
+āanau
+ālšaumasa
+miṯalu
+ālāaraḍi
+
+52
+ẓhr
+ fiy
+ālǧirami
+maāáʾaŧuⁿ
+wasitiuyna
+warubʿaⁿā
+wṯumana
+marauŧiⁿ
+ wahiya
+fiy
+ālḥisiu
+ʿalaáã
+ḳadari
+ǧirami
+āltuurasi
+maṯalaⁿā
+ fahãḏaā
+āaṯaru
+ālbuʿadi
+āayḍaⁿā
+ 
+famaā
+yuʿalamu
+mina
+ālʿaālami
+āʾilauā
+ḳadara
+maāyuʿ
+alamu
+mina
+ālẓiulaāli
+ wayuǧahalu
+mina
+ālḥaḳiu
+ʿalaáã
+ḳadari
+maāyuǧahalu
+mina
+ālšauḫaṣi
+ālauḏiy
+ʿanhu
+kaāna
+ḏãlika
+ālẓiuluu
+ 
+famina
+ḥayṯu
+huwa
+ẓiluⁿu
+lahu
+yuʿalamu
+ wamina
+ḥayṯu
+maā
+
+yuǧa
+halu
+maā
+fiy
+ḏaāti
+ḏãlika
+ālẓiuliu
+ mina
+ṣuwraŧi
+šaḫaṣi
+mani
+amatadau
+ʿanhu
+yuǧahalu
+mina
+ālḥaḳiu
+ 
+faliḏ
+ãlika
+naḳ
+uwalu
+ āʾinau
+ālḥ
+aḳau
+maʿaluw
+muⁿ
+lan
+aā
+mina
+waǧahiⁿ
+ maǧahuwaluⁿ
+lanaā
+mina
+waǧahiⁿ
+
+ 
+āalama
+ta
+ra
+āʾilaáã
+rabauka
+kayafa
+madau
+alẓiulau
+walawa
+šaāāʾa
+liǧaʿalahu
+saākinaⁿā
+ 
+swrŧ
+ālfrḳān
+
+ 54
+ āay
+ 
+yakuwnu
+fiyhi
+biālḳuwauŧi
+ 
+naḳuw
+lu
+ maā
+kaāna
+ālḥ
+aḳuu
+liyat
+aǧal
+auáã
+lil
+amumakinaā
+ti
+ ḥat
+auáã
+yaẓahara
+ālẓiuluu
+ fa
+yaku
+wnu
+kamaā
+baḳiya
+mina
+ālmumakinaāti
+ālautiy
+maāẓahara
+lahaā
+ʿaynuⁿ
+fiy
+ālwuǧuwdi
+ 
+
+ṯumau
+ǧaʿalanaā
+alšaumasa
+ʿalayahi
+daliyalaⁿā
+ 
+swrŧ
+ālfrḳān
+
+ 54
+ wahuwa
+asamuhu
+
+ālnuuwaru
+ ālauḏiy
+ḳulanaāhu
+ wayašahadu
+lahu
+ālḥisuu
+ faāʾinau
+ālẓ
+iulaāla
+laā
+yakuwanu
+lahaā
+ʿay
+anuⁿ
+biʿadami
+ālnuuwri
+ 
+
+ṯumau
+ḳabaḍan
+aãhu
+āʾilayanaā
+ḳabaḍaⁿā
+yasiyaraⁿā
+ 
+sw
+rŧ
+ālfrḳān
+
+ 64
+ waāʾinaumaā
+ḳabaḍahu
+āʾilay
+hi
+lāanauhu
+ẓiluuhu
+ faminahu
+ẓahara
+
+waāʾilayahi
+yuraǧaʿu
+alāamaru
+kuluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ fahuwa
+huwa
+ laā
+ġayaruhu
+ 
+fakuluu
+maānudarikuhu
+fahuwa
+wuǧuwdu
+ālḥaḳiu
+fiy
+āaʿyaāni
+ālmumakinaāti
+ famina
+ḥayṯu
+huwiyauŧu
+ālḥaḳiu
+ huwa
+wuǧuwduhu
+ wamina
+ḥayṯu
+aḫatilaāfu
+ālṣuuwari
+fiiyahi
+ huwa
+āaʿyaānu
+ālamumakinaāti
+ 
+fakamaā
+laā
+yazuwlu
+ʿanhu
+biaḫatilaāfi
+ālṣuuwari
+asamu
+
+ālẓiuliu
+ kaḏãlika
+laā
+yazuwlu
+ʿanahu
+biaḫatila
+āfi
+ālṣuuwari
+asamu
+
+ālʿaā
+limi
+ āaw
+asamu
+
+siwa
+áã
+ālḥaḳiu
+
+famina
+ḥay
+ṯu
+āaḥadiyauŧu
+kawnihi
+ẓiliⁿu
+ā
+ huwa
+ālḥ
+aḳuu
+ liāanauhu
+ālwaāḥidu
+ālāaḥadu
+
+ wamina
+ḥayṯu
+kaṯ
+araŧu
+ālṣuuwari
+huwa
+ālʿ
+aālamu
+ 
+fatafaṭauna
+wataḥaḳauḳa
+maāāawaḍaḥatuhu
+laka
+ 
+waāḏaā
+kaāna
+ālāamaru
+ʿal
+aáã
+maā
+ḏakara
+tuhu
+ laka
+ faālʿaālamu
+mutawa
+haumuⁿ
+maālahu
+wuǧuwduⁿ
+ḥaḳiyḳiyuⁿu
+
+ 
+wahãḏaā
+maʿanaáã
+ālḫayaāli
+ āay
+ ḫuyiula
+laka
+āanauhu
+āamaruⁿ
+zaāʾiduⁿ
+ḳaāʾimuⁿ
+binafasihi
+ ḫaāriǧuⁿ
+ʿani
+ālḥaḳiu
+ walaysa
+kaḏãlika
+fiy
+nafasi
+ālāamar
+ 
+āalaā
+taraāhu
+fiy
+ālḥisiu
+mutauṣilaⁿā
+biālšauḫaṣi
+ālauḏiy
+amatadau
+ʿanahu
+ yasataḥiyalu
+ʿalayhi
+ālanafikaāku
+ʿana
+ḏãlika
+ālatiuṣaāli
+ liāanauhu
+yasataḥiylu
+ʿalaáã
+ālšauyʾi
+ālanafikaāku
+ʿana
+ḏaātihi
+ 
+faaʿarifa
+ʿaynaka
+ wamana
+āanata
+ wamaā
+huwiyautuka
+ wmaā
+nisabatuka
+āʾilaáã
+ālḥaḳiu
+ wabimaā
+āanata
+ḥaḳuⁿu
+ wabimaā
+āanata
+ʿaālamuⁿ
+ wasiwaáaⁿ
+ waġayaruⁿ
+ wamaā
+šaākala
+hãḏihi
+ālāalafaāẓu
+ 
+wfiy
+hãḏaā
+yatafaāḍalu
+ālʿulamaāʾu
+ faʿaālimuⁿ
+waāaʿalamu
+ 
+faālḥaḳuu
+biālniusabaŧi
+āʾilaáã
+ẓiliⁿu
+ḫaāṣiⁿu
+
+62
+wǧh
+ ṣaġiyruⁿ
+wakabiyruⁿ
+ 
+waṣaāfiⁿ
+waāaṣafaáã
+ kaālnuuw
+ri
+biāln
+iusabaŧi
+āʾilaáã
+ḥiǧ
+aābihi
+ʿani
+ālnauā
+ẓiri
+biā
+lzuuǧaāǧi
+yatalawaunu
+bilawnihi
+ wafiy
+nafasi
+ālāamari
+laā
+lawna
+lahu
+ walãkina
+hãkaḏaā
+turaāhu
+ 
+ḍaraba
+miṯaāliⁿ
+liḥaḳiyḳatika
+birabauka
+ 
+faāʾina
+ḳulata
+ 
+āʾin
+ālnuuwra
+āaḫaḍaru
+ liḫuḍaraŧi
+ālzuuǧaāǧi
+ṣadaḳata
+ wašaāhiduka
+ālḥisuu
+ 
+waāna
+ḳulata
+ 
+āʾinauhu
+layasa
+biāaḫaḍara
+walaā
+ḏiy
+lawniⁿ
+ kamaā
+āaʿṭaāhu
+laka
+āldauliylu
+ṣadaḳata
+ wšaāhiduka
+ālnauẓaru
+ālʿaḳaliyuu
+ālṣauḥiyaḥu
+ 
+fhãḏaā
+nuwruⁿ
+mumataduⁿu
+ʿana
+ẓiliⁿu
+ wahuwa
+ʿayanu
+ālzuuǧaāǧi
+fahuwa
+ẓiluⁿ
+nuwariyuⁿu
+liṣafaāʾihi
+ 
+kaḏãlika
+ālmutaḥḳiuḳu
+minauā
+biā
+lḥ
+aḳiu
+ taẓaharu
+ṣuwaraŧu
+ālḥaḳiu
+fiy
+hi
+āakaṯara
+mim
+auā
+taẓaharu
+fiy
+ġayrihi
+ 
+faminauā
+mana
+yakuwnu
+ālḥaḳuu
+samaʿahu
+wabaṣarahu
+waǧamayʿa
+ḳuwaāhu
+waǧawaāriḥahu
+biʿalaāmaātiⁿ
+ḳada
+āaʿaṭaāhaā
+ālšauraʿu
+ālauḏiy
+yuḫabiru
+ʿana
+ālḥaḳiu
+ wamaʿa
+hãḏaā
+ʿaynu
+ālẓiuliu
+mawaǧuwaduⁿ
+ faāʾinau
+ālḍaumiyara
+mina
+
+samaʿ
+uhu
+ yaʿ
+uwdu
+ʿalayhi
+ waġayruhu
+mina
+ālʿabiydi
+laysa
+kaḏãlika
+ fanisabaŧu
+hãḏaā
+ālʿabdi
+ āaḳarabu
+āʾilaáã
+wuǧuwdi
+ālḥaḳiu
+ 
+mina
+nisabaŧi
+ġayrihi
+mina
+ālʿabiydi
+ 
+waāʾiḏaā
+kaāna
+ālāamaru
+ʿalaáã
+maāḳarauranaāhu
+ 
+faʿalama
+āanauka
+ḫayaāluⁿ
+ waǧamiyʿu
+maātudarikuhu
+mimauā
+taḳuwlu
+fiyhi
+ 
+laysa
+āanaā
+ 
+ḫayaāluⁿ
+ 
+faālwuǧuwdu
+kuluuhu
+ḫayaāluⁿ
+fiy
+ḫayaāliⁿ
+ waālwuǧuwdu
+ālḥaḳuu
+āʾinaumaā
+huwa
+āllhu
+ḫaāṣaŧaⁿ
+ mina
+ḥayṯu
+ḏaātuhu
+waʿaynuhu
+ laā
+mina
+ḥayṯu
+āasamaāʾuhu
+ 
+lāanau
+āasamaāʾahu
+lahaā
+madaluwalaāni
+ ālmadaluwlu
+ālwaāḥidu
+ʿaynuhu
+ wahuwa
+ʿaynu
+ālmusamauáã
+ 
+waālmadaluwlu
+ālāḫaru
+maā
+yaduluu
+mimauā
+yanafaṣilu
+ālasamu
+bihi
+ʿana
+hãḏaā
+ālasami
+ālāḫari
+wayatamayauzu
+ 
+faāayna
+
+ālġafuwaru
+ mina
+
+ālẓauāhiri
+ wamina
+
+ālbaāṭini
+ waāayna
+
+ālāawaulu
+ mina
+ālāḫiri
+ faḳ
+ada
+baā
+na
+laka
+bima
+āhuwa
+kuluu
+asamiⁿ
+ʿaynu
+alasami
+ālāḫa
+ri
+ wabim
+aā
+huwa
+ġayru
+ālasami
+ālāḫari
+ fabimaā
+huwa
+ʿaynuhu
+huwa
+ālḥaḳuu
+ wabimaā
+hawa
+ġayruhu
+ huwa
+ālḥaḳuu
+ālmutaḫay
+aulu
+ ālauḏiy
+kunauā
+biṣadadihi
+ 
+fasubaḥaāna
+mana
+lama
+yakuna
+ʿalayhi
+daliyluⁿ
+ siwaáã
+nafasihi
+ walaāṯabata
+kawnuhu
+āʾilauā
+biʿaynihi
+ 
+famaā
+fiy
+ālkawni
+āʾilauā
+maā
+dalauta
+ʿalayhi
+ālāaḥadiyauŧu
+ wamaāfiy
+ālḫayaāli
+āʾilauā
+maā
+dalauta
+ʿalayhi
+ālkaṯaraŧu
+ 
+famana
+waḳafa
+maʿa
+ālkaṯaraŧi
+kaāna
+maʿa
+ālʿaālami
+ wamaʿa
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ waāasamaāʾi
+ālʿaālami
+ 
+wamana
+waḳafa
+maʿa
+ālāaḥadiyauŧi
+ 
+kaāna
+maʿa
+ālḥaḳiu
+ mina
+ḥayaṯu
+ḏaātuhu
+ālġaniyauŧu
+ʿani
+ālʿaālamiyna
+ 
+waāʾiḏaā
+kaānata
+ġaniyauŧaⁿ
+ʿani
+ālʿaālamiyna
+fahuwa
+ʿaynu
+ġinaāhaā
+ʿana
+nisabaŧi
+
+62
+ẓhr
+ālāasamaāʾi
+lahaā
+
+lāanau
+ālāasamaāʾa
+lahaā
+kamaā
+tadu
+luu
+ʿalay
+haā
+ taduluu
+ʿalaáã
+musa
+mauyaātiⁿ
+āuḫara
+tuḥaḳ
+iuḳu
+ḏãlika
+āaṯaruhaā
+ 
+
+ḳula
+huwa
+allhu
+āaḥaduⁿ
+ 
+sw
+rŧ
+ālāḫlāṣ
+
+ 1
+mina
+ḥayaṯu
+ʿayan
+uhu
+ 
+all
+hu
+ālṣaumadu
+
+sw
+rŧ
+ālāḫlāṣ
+
+ 2
+mina
+ḥay
+aṯu
+asatin
+aādunaā
+āʾilayahi
+ 
+lama
+yal
+ida
+ 
+sw
+rŧ
+ālāḫlāṣ
+
+ 3
+mina
+ḥaya
+ṯu
+huwi
+yaut
+uhu
+i
+wanaḥanu
+ 
+walama
+yuwalada
+ 
+swrŧ
+ālāḫlāṣ
+
+ 3
+kaḏ
+ãlika
+ 
+walama
+yakuna
+lahu
+kufuwaⁿā
+āaḥaduⁿ
+ 
+swrŧ
+ālāḫlāṣ
+
+ 4
+kḏãlika
+ 
+fahãḏaā
+naʿatuhu
+ faāafarada
+ḏaātahu
+biḳawlihi
+ 
+allhu
+āaḥaduⁿ
+ 
+swrŧ
+ālāḫlāṣ
+
+ 1
+waẓaharati
+ālkaṯaraŧu
+binuʿuwtihi
+ālmaʿaluwamaŧi
+ʿinadnaā
+ fanaḥanu
+nalidu
+wanuwladu
+ wanaḥanuⁿ
+nasatanidu
+āʾilayhi
+ wanaḥanu
+āakafaā
+ʾuⁿ
+ baʿaḍun
+aā
+libaʿaḍiⁿ
+ wahãḏaā
+ālwaāḥidu
+mun
+azauhuⁿ
+ʿana
+hãḏihi
+āln
+uuʿuwti
+ fahuwa
+ġaniyuⁿu
+ʿanahaā
+ 
+kamaā
+huwa
+ġaniyuⁿu
+ʿanauā
+ 
+wamaā
+lilaḥaḳiu
+nasabuⁿ
+āʾilauā
+hãḏihi
+ālsuuwaraŧi
+ suwaraŧu
+ālāʾiḫalaāṣi
+ wafiiy
+ḏãlika
+nazalata
+ 
+faāaḥadiyauŧu
+āllhi
+mina
+ḥayaṯu
+ālāasmaāʾu
+ālāʾilãhiyauŧu
+ālautiy
+taṭalubunaā
+ āaḥadiyauŧu
+ālkaṯaraŧi
+ 
+waāaḥadiyauŧu
+āllhi
+mina
+ḥay
+ṯu
+ālġinaáã
+ʿanauā
+ waʿani
+ālāasamaāʾi
+ āaḥadiyauŧu
+ālʿay
+ani
+ wakilaāhumaā
+yuṭalaḳu
+ʿalayhi
+asamu
+
+ālāaḥadi
+ faāʿlama
+ḏãlika
+ 
+famaā
+āawaǧada
+ālḥaḳuu
+ālẓ
+iulaāla
+ waǧaʿalahaā
+saāǧidaŧaⁿ
+mutafayiuáʾaŧaⁿ
+ʿani
+ālšium
+aāli
+wālyamiyni
+ 
+āʾilauā
+dalaāʾila
+laka
+ʿalayka
+waʿalayhi
+ litaʿarifa
+mana
+āanata
+ wamaānisabatuka
+āʾilayhi
+ wamaānisabatuhu
+āʾilayka
+ 
+ḥatauáã
+taʿalama
+mina
+āayna
+ āawa
+mina
+āayiu
+ḥaḳiyḳaŧiⁿ
+āʾilãhiyauŧiⁿ
+atauṣafa
+maāsiwaáã
+āllhi
+biālfaḳari
+ālkuuliuyiu
+āʾilaáã
+āllhi
+ wabiālfaḳari
+ālniusabiyiu
+biafatiḳaāri
+baʿaḍihi
+āʾilaáã
+baʿaḍiⁿ
+ 
+waḥat
+auáã
+taʿalama
+mina
+āayna
+ āawa
+mina
+āayiu
+ḥaḳiyḳaŧiⁿ
+atauṣa
+fa
+ālḥ
+aḳuu
+biālġin
+aáã
+ʿani
+ālnauāsi
+ 
+waālġ
+inaáã
+ʿani
+ālʿ
+aālam
+iyna
+ watauṣafa
+ālʿaālamu
+biālġ
+inaáã
+āay
+ biġinaáã
+baʿaḍ
+ihi
+ʿana
+baʿ
+aḍiⁿ
+ mina
+waǧhiⁿ
+maā
+huwa
+ʿaynu
+maā
+afataḳara
+āʾilaáã
+baʿaḍihi
+bihi
+ 
+faāʾinau
+ālʿaālama
+mufataḳiruⁿ
+āʾilaáã
+ālāasabaā
+bi
+bila
+āšakiⁿu
+afatiḳ
+aāraⁿā
+ḏaātiyiⁿuā
+ waāaʿaẓ
+amu
+ālāasabaābi
+lahu
+sab
+abiyauŧu
+ālḥaḳiu
+ walaā
+sababiyauŧa
+lilaḥ
+aḳiu
+yafataḳ
+iru
+ālʿaālamu
+āʾilayhaā
+ siwa
+áã
+ālāasamaāʾi
+ālāʾilãhiyau
+ŧi
+
+waālāasamaāʾu
+ālāʾilãhiyauŧu
+kuluu
+asamiⁿ
+yafataḳiru
+ālʿaālamu
+āʾilayhi
+mina
+ʿaālamiⁿ
+miṯalihi
+
+ āawa
+ʿayni
+ālḥaḳiu
+fahuwa
+āllhu
+laā
+ġayaru
+hu
+ wiliḏãlika
+ḳaāla
+ 
+yaāāayuuhaā
+alnauāsu
+āanatumu
+alfuḳaraāʾu
+āʾilaáã
+āll
+hi
+waāllhu
+hawa
+alġ
+anayuu
+alḥamiyadu
+ 
+sw
+rŧ
+fāṭr
+
+ 51
+ wamaʿaluwamuⁿ
+āanau
+lanaā
+afat
+iḳaā
+raⁿā
+mina
+baʿaḍinaā
+libaʿaḍinaā
+ 
+faāasamaāʾunaā
+āasamaāʾuⁿ
+lilhi
+taʿaālaáã
+ āʾiḏ
+āʾilayhi
+ālafatiḳaāru
+bilaā
+šakiⁿu
+ 
+waāaʿayaānunaā
+fiy
+nafasi
+ālāamari
+ẓiluuhu
+laā
+ġayruhu
+ fahuwa
+huwiyautunaā
+ laā
+huwiyautunaā
+ waḳada
+
+72
+wǧh
+ mahaudanaā
+laka
+ālsaubiyala
+ faānaẓura
+ 
+
+01
+ 
+faṣuu
+ḥikamaŧiⁿ
+āaḥadiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+huwadiyauŧiⁿ
+
+ālraumalu
+1
+āʾinau
+lilhi
+ālṣiuraāṭa
+ālmusataḳiyama
+ẓaāhiruⁿ
+ġayra
+ḫafayiⁿu
+fiy
+ālʿumuwma
+2
+fiy
+kabiyriⁿ
+waṣaġiyriⁿ
+ʿaynuhu
+waǧahuwliⁿ
+biāumuwriⁿ
+waʿaliyma
+3
+walahãḏaā
+wasiʿata
+raḥamatuhu
+kulau
+šayʾiⁿ
+mina
+ḥaḳiyriⁿ
+waʿaẓiyma
+
+maā
+mina
+daāābauŧiⁿ
+āʾilauā
+huwa
+ʾaāḫiḏuⁿ
+binaāṣiyatihaāā
+āʾinau
+rabauá
+ʿalaáã
+ṣira
+ãṭiⁿ
+musataḳiymiⁿ
+
+swrŧ
+hwd
+
+ 65
+ 
+fakuluu
+maāšiⁿ
+faʿalaáã
+ṣiraāṭi
+ālrau
+biu
+ālmusataḳiymi
+fahuma
+
+ġayru
+maġaḍuwbiⁿ
+ʿalayhima
+ 
+mina
+hãḏaā
+ālwaǧhi
+
+walaā
+ḍaāliuyna
+ 
+āḳtbās
+mn
+swrŧ
+ālfātḥŧ
+
+ 7
+fakamaā
+kaāna
+ālḍaulaālu
+ʿaāriḍaⁿā
+kaḏãlika
+ālġaḍabu
+ālāʾilãhiyuu
+ʿaāriḍuⁿ
+ waālmaāālu
+āʾiláã
+ālrauḥamaŧi
+ālautiy
+wasiʿata
+kalau
+šayʾiⁿ
+ 
+wahiya
+ālsauābiḳaŧu
+ 
+wakuluu
+maāswaáã
+ālḥaḳiu
+daābauŧuⁿ
+ faāʾinauhu
+ḏuw
+ruwḥiⁿ
+ 
+wamaā
+ṯamau
+mana
+yadubuu
+binafasihi
+ waāʾinaumaā
+yadubuu
+biġayrihi
+ fahuwa
+yadubuu
+biḥukami
+āltaubaʿiyauŧi
+lilauḏiy
+huwa
+ʿaláã
+ālṣauraāṭi
+ālmusataḳiymi
+ 
+faāʾinauhu
+laā
+yakuwnu
+ṣiraāṭaⁿā
+āʾilauā
+biālmašayiu
+ʿalayhi
+ 
+
+maǧazuwʾu
+ālwāfr
+1
+āʾiḏaā
+daāna
+laka
+ālḫalaḳu
+faḳada
+daāna
+laka
+ālḥaḳuu
+2
+waāʾina
+daāna
+laka
+ālḥaḳuu
+faḳada
+laā
+yatabaʿu
+ālḫalaḳu
+3
+faḥaḳiuḳa
+ḳawlanaā
+fiyhi
+faḳawliy
+kuluuhu
+ālḥaḳuu
+4
+famaā
+fiy
+ālkawni
+mawaǧuwduⁿ
+taraāhu
+maālahu
+nuṭaḳu
+5
+wamaāḫalaḳuⁿ
+taraāhu
+ālʿaynu
+āʾilauā
+ʿaynuhu
+ḥaḳuu
+6
+walãkina
+muwdaʿuⁿ
+fiyhi
+lihãḏaā
+ṣuwaruhu
+ḥuḳuu
+aʿalama
+āanau
+ālʿuluwma
+ālāʾilãhiyauŧa
+ālḏuwḳiyauŧa
+ālḥaāṣilaŧa
+lāahali
+āllhi
+muḫatalifaŧuⁿ
+biaḫatilaāfi
+ālḳuwaáã
+ālḥaāṣilaŧi
+minhaā
+maʿa
+kawnihaā
+taraǧiʿu
+āʾilaáã
+ʿayniⁿ
+waāḥidaŧiⁿ
+ 
+faāʾi
+nau
+āllha
+taʿ
+aālaáã
+yaḳuw
+lu
+ 
+kunatu
+sam
+aʿahu
+ālauḏiy
+yasama
+ʿu
+bihi
+wabaṣarahu
+ālauḏi
+yyabaṣ
+uru
+bihi
+wayadahu
+āltiy
+yabaṭišu
+bihaā
+wariǧalahu
+āltiy
+yasaʿaáã
+bihaā
+ 
+faḏakara
+āanau
+huwiyautahu
+hiya
+
+ʿaynu
+ālǧawaāriḥi
+ālaut
+iy
+hiya
+ʿaynu
+ālʿabdi
+ faālahuwiyauŧu
+waāḥidaŧuⁿ
+waālǧawaāriḥu
+muḫatalifaŧ
+uⁿ
+walikuliu
+ǧaāriḥaŧiⁿ
+ʿilamuⁿ
+mina
+ʿuluwmi
+ālāaḏawaāḳi
+yaḫuṣuuhaā
+
+72
+ẓhr
+ mina
+ʿayaniⁿ
+waāḥidaŧiⁿ
+ taḫatalifu
+biaḫatilaāfi
+ālǧawaāriḥi
+ kaālmaāʾi
+ḥaḳiyḳaŧuⁿ
+waāḥidaŧuⁿ
+ taḫatalifu
+fiy
+ālṭauʿami
+biaḫatilaāfi
+ālbiḳaāʿi
+ faminahu
+
+ʿaḏabuⁿ
+furaātuⁿ
+ 
+swrŧ
+ālfrḳān
+
+ 35
+ swrŧ
+fāṭr
+
+ 21
+ waminahu
+
+milaḥuⁿ
+āuǧaāǧuⁿ
+ 
+swrŧ
+ālfrḳān
+
+ 35
+ swrŧ
+fā
+ṭr
+
+ 21
+ wahuwa
+maāʾuⁿ
+fiy
+ǧamiyʿi
+ālāaḥawaāli
+ laā
+yataġayauru
+ʿana
+ḥaḳiyḳatihi
+ waāʾina
+aḫatalafata
+ṭuʿuwmuhu
+ 
+wahãḏihi
+ālḥikamaŧu
+mina
+ʿilami
+ālāaraǧuli
+ wahuwa
+ḳawluhu
+taʿaālaáã
+ 
+fiy
+alāu
+kuli
+ 
+swrŧ
+ālrʿd
+
+ 4
+limana
+āaḳaāma
+ kutubahu
+ 
+wamina
+taḥati
+āaraǧulihima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 66
+ 
+faā
+nau
+ālṭauriyiḳa
+ālauḏiy
+huwa
+ālṣiuraāṭu
+ huwa
+lilsuuluwki
+ʿalayhi
+ waālmašayi
+fiyhi
+ waālsauʿayu
+laā
+yakuwnu
+āʾilauā
+biālāaraǧuli
+ 
+falaā
+yunatiǧu
+hãḏaā
+ālšuuhuwda
+
+ fiy
+āaḫaḏi
+ālnauwaāṣiy
+biyadi
+mana
+huwa
+ʿalaáã
+ṣiraāṭiⁿ
+musataḳiymiⁿ
+
+ āʾilauā
+hãḏaā
+ālfanuu
+ālḫaāṣuu
+mina
+ʿuluwmi
+ālāaḏawaāḳi
+ 
+fayasuwaḳu
+alm
+uǧarimiyana
+ 
+swrŧ
+mrym
+
+ 68
+ wahuma
+ālauḏiyna
+asataḥaḳuuwā
+ālmaḳ
+aāma
+ālauḏiy
+saāḳahuma
+āʾilay
+hi
+biriyḥi
+āldaubuwri
+ālautiy
+āahalakahuma
+ʿana
+nufuwsahuma
+bihaā
+ fahuwa
+yaāḫuḏu
+binawaāṣiyhima
+wālriuyḥu
+yasuwḳuhuma
+
+ wahiy
+ʿaynu
+ālāahawaāʾi
+ālaut
+iy
+kaā
+nawā
+ʿalayhaā
+
+ āiʾilaáã
+ǧahanauma
+ wahiya
+ālbuʿ
+adu
+ālauḏiy
+kaānawā
+yatawahaumuwnahu
+ 
+falamau
+āsaāḳahama
+āʾilaáã
+ḏãlika
+ālma
+wa
+ṭini
+ḥaṣa
+luwā
+fiy
+ʿayni
+ālḳura
+bi
+ faza
+āla
+ālbuʿadu
+ fazaāla
+musamauáã
+ǧahanauma
+fiy
+ḥaḳiuhima
+ faf
+aāzuwā
+bin
+aʿiymi
+ālḳu
+rabi
+ mina
+ǧihaŧi
+ālasatiḥaḳaāḳi
+lāanauh
+uma
+muǧarimuwna
+ 
+famaā
+āaʿaṭaāhuma
+hãḏaā
+ālmaḳa
+āma
+ālḏauwḳiyau
+āllauḏiyḏa
+ mina
+ǧihaŧi
+ālm
+inauŧi
+ waāʾinaum
+aā
+āaḫaḏuwhu
+bimaā
+asataḥaḳautahu
+ḥaḳaāʾiḳuhuma
+mina
+āaʿamaālihima
+ālautiy
+kaānawā
+ʿalayhaā
+ wakaānawā
+fiy
+ālsauʿayi
+fiy
+āaʿamaālihima
+ʿalaáã
+ṣiraāṭi
+ālraubiu
+ālmusataḳiymi
+ liāanau
+nawaāṣiyhima
+kaānata
+biyadi
+mana
+lahu
+hãḏihi
+ālṣiufaŧu
+ 
+famaā
+mašawā
+binufuwsihima
+ waāʾinaumaā
+mašawā
+biḥukami
+ālǧabri
+ āʾilaáã
+āana
+waṣaluwā
+āʾilaáã
+ʿayni
+ālḳurbi
+ 
+wanaḥanu
+āaḳarabu
+āʾilayhi
+minakuma
+walãkina
+laā
+tubaṣiruwana
+ 
+swrŧ
+ālwāḳʿŧ
+
+ 58
+waāʾinaumaā
+huwa
+yubaṣiru
+ faāʾinauhu
+makašuwfu
+ālġiṭaāʾi
+
+fabaṣaruhu
+ḥadiyduⁿ
+ 
+ āḳtbās
+mn
+swrŧ
+ḳ
+
+ 22
+ 
+wamaā
+ḫaṣau
+mayiutaⁿā
+mina
+mayiutiⁿ
+āay
+ maā
+ḫaṣau
+saʿiydaⁿā
+fiy
+ālʿurafi
+mina
+šaḳiyiⁿu
+
+wanaḥanu
+āaḳarabu
+āʾilayahi
+mina
+ḥabali
+alwariyadi
+ 
+swrŧ
+ḳā
+
+ 61
+ wamaā
+ḫaṣau
+āʾinasaānaⁿā
+mina
+āʾinasaāniⁿ
+ 
+faālḳurabi
+ālāʾilã
+hiyiu
+mina
+ālʿabadi
+laā
+ḫafaāʾa
+bihi
+fiy
+ālāʾiḫabaāri
+ālāʾilãhiyiu
+ falaā
+ḳuraba
+āaḳara
+bu
+mina
+āana
+takuwna
+huwiyautuhu
+ʿayana
+āaʿaḍaāʾi
+ālʿabdi
+waḳuwaāhu
+ walay
+sa
+ālʿabdu
+siwaáã
+hãḏihi
+ālāaʿaḍaāʾi
+waālḳuwaáã
+ fahuwa
+ḥaḳuⁿu
+mašahuwduⁿ
+
+82
+wǧh
+ fiy
+ḫalaḳiⁿ
+mutawahaumiⁿ
+ 
+faālḫalaḳu
+maʿaḳuwluⁿ
+ waālḥaḳuu
+maḥ
+asuwsuⁿ
+mšhwduⁿ
+ ʿin
+da
+ālm
+uʾminiyna
+waāahali
+ālkašafi
+waālwuǧuwadi
+ 
+wamaāʿadaā
+hãḏayni
+ālṣiunfayni
+ faālḥaḳuu
+ʿindahuma
+maʿaḳuwluⁿ
+ waālḫalaḳu
+mašahuwduⁿ
+ fahuma
+bimanazilaŧi
+ālmaāʾi
+
+ālmilaḥi
+ālāuǧaāǧi
+ 
+ āšārŧ
+āláã
+swrŧ
+ālfrḳān
+
+ 35
+ swrŧ
+fāṭr
+
+ 21
+ 
+waālṭ
+auāʾifaŧu
+ālāawlaáã
+bimanzi
+laŧi
+ālma
+āʾi
+
+ālʿ
+aḏbi
+ālfuru
+ātu
+ ālsauāʾiġi
+lišaāribihi
+ 
+ āšā
+rŧ
+āláã
+swrŧ
+ālfrḳān
+
+ 35
+ swrŧ
+fāṭr
+
+ 21
+ 
+faā
+lnauāsu
+ʿalaáã
+ḳisamayni
+ mina
+ālnauāsi
+mana
+yamaš
+iy
+ʿal
+aáã
+ṭariyḳiⁿ
+yaʿarifuh
+aā
+ wayaʿarifu
+ġaāyatahaā
+ fahiya
+fiy
+ḥaḳiuhi
+ṣiraāṭuⁿ
+mstḳymuⁿ
+ wamina
+ālnauāsi
+mana
+yamšiy
+ʿalaáã
+ṭariyḳiⁿ
+yaǧahaluhaā
+ walaāa
+yaʿrifu
+ġaāyatahaā
+ wahiy
+ʿaynu
+ālṭauriyḳi
+ālautiy
+ʿarafahaā
+ālṣiunafu
+ālāḫaru
+ 
+faā
+lʿ
+aārifu
+yadʿuw
+āʾilaáã
+āllh
+ʿalaáã
+baṣiyraŧiⁿ
+ waġayri
+ālʿaārifi
+yadʿuw
+āʾilaáã
+āllh
+ʿalaáã
+āltauḳalyidi
+waālǧahaālaŧi
+ 
+fahãḏaā
+ʿilamuⁿ
+ḫaāṣuⁿu
+yaātiy
+mina
+āasafali
+saāfiliyna
+ lānau
+ālāaraǧula
+hiya
+ālsuufalu
+mina
+ālšauḫaṣi
+ waāasafalu
+minhaā
+maātaḥatahaā
+ walaysa
+āʾilauā
+ālṭauriyḳa
+ 
+famana
+ʿarafa
+ālḥaḳau
+ʿayna
+ālṭauriyḳi
+ ʿarafa
+ālāamara
+ʿalaáã
+maāhuwa
+ʿalayhi
+ faāʾinau
+fiyhi
+ǧalau
+waʿalaā
+tasaluku
+wtusāfiru
+ 
+āʾiḏa
+laā
+maʿaluwma
+āʾilauā
+huwa
+ wahuwa
+ʿaynu
+ālsauāliki
+waālmusaāfiri
+ falaā
+ʿaālima
+āʾilauā
+huwa
+ 
+famana
+āanata
+ 
+faaʿarifa
+ḥaḳiyḳataka
+wṭriyḳataka
+ faḳada
+baāna
+laka
+ālāmaru
+ʿalaáã
+lisaāni
+āltauraǧumaāni
+
+ āna
+fahimata
+
+ wahuwa
+lisaānu
+ḥaḳiⁿu
+ falaā
+yafahamuhu
+āʾilauā
+mana
+fahamuhu
+ḥaḳuⁿu
+ faāʾinau
+lilḥaḳiu
+nisabaⁿā
+kaṯiyraŧaⁿ
+ wawuǧuwhaⁿā
+muḫatalifaŧaⁿ
+ 
+āalaā
+taraáã
+ʿaādaⁿā
+ḳawama
+huwdiⁿ
+kayfa
+
+ḳaāluwā
+hãḏaā
+ʿaāriḍuⁿ
+mumaṭirunaā
+ 
+swrŧ
+ālāḥḳ
+āf
+
+ 42
+ faẓanuuwā
+ḫayraⁿā
+biāllh
+ wahuwa
+ʿinda
+ẓaniu
+ʿabdihi
+bihi
+ 
+faāaḍaraba
+lahuma
+ālḥaḳuu
+ʿana
+hãḏaā
+ālḳawli
+ faāaḫabarahuma
+bimaā
+huwa
+āataumu
+waāaʿlaá
+fiy
+ālḳura
+bi
+ faāʾinauhu
+āʾiḏaā
+āamaṭ
+arahuma
+faḏ
+ãlika
+ḥaẓuu
+ālāaraḍi
+ wasaḳayu
+ālḥabauŧi
+ famaā
+yaṣil
+uwna
+āiʾilaáã
+natiyaǧaŧi
+ḏãlika
+ālmaṭari
+āʾilauā
+ʿana
+buʿdiⁿ
+ faḳaāla
+lahuma
+ 
+bala
+huwa
+maā
+asataʿ
+aǧal
+atuma
+bihi
+riyaḥuⁿ
+fiyh
+aā
+ʿaḏaābuⁿ
+āaliymuⁿ
+ 
+swrŧ
+ālāḥḳāf
+
+ 42
+ faǧaʿala
+ālriuyḥa
+āʾišaāraŧaⁿ
+āʾilaáã
+maā
+fiyhaā
+mina
+ālrauāḥaŧi
+lahuma
+ faāʾinau
+bihãḏihi
+ālriuyḥi
+āaraāḥahuma
+mina
+hãḏihi
+ālhayaākili
+ālmuẓalimaŧi
+waālmasaāliki
+ālwaʿiraŧi
+waālsudufi
+ālmudalahimauŧi
+ wafiy
+hãḏihi
+ālriuyḥi
+ʿaḏaābuⁿ
+ āay
+ āamaruⁿ
+yas
+ataʿaḏi
+buwnahu
+āʾiḏaā
+ḏaāḳuwhu
+ āʾilauā
+āanauhu
+yuwǧiʿuhuma
+lfurḳaŧi
+ālmaāluwfi
+ fabaāšarahuma
+ālʿaḏaābu
+
+82
+ẓhr
+fakaāna
+ālāamaru
+āʾilayhima
+āaḳaraba
+mimauā
+taḫayauluwhu
+ fadamaurata
+
+kulau
+šayʾiⁿ
+baāamari
+rabuhaā
+faāaṣabaḥuwaā
+ 
+swrŧ
+ālāḥḳāf
+
+ 52
+ laā
+turaáã
+āalauā
+masaākinuhuma
+ wahiya
+ǧuṯaṯuhuma
+ālautiy
+ʿamauratahaā
+āarawaāḥuhuma
+ālḥaḳiuyauŧu
+ fazaālata
+ḥaḳiyauŧu
+hãḏihi
+ālniusabaŧi
+ālḫaāṣauŧi
+ wabaḳiyata
+ʿalaáã
+hayaākilihima
+ālḥayaāŧu
+ālḫaāṣauŧu
+bihima
+mina
+ālḥaḳiu
+ ālautiy
+tanaṭiḳu
+bihaā
+ālǧuluwdu
+waālāayadiy
+waālāaraǧulu
+ waʿaḏabaātu
+ālāasawaāṭi
+waālāafaḫaāḏi
+ 
+waḳada
+warada
+āln
+auṣu
+ālāʾilihayuu
+bih
+ãḏaā
+kul
+iuhi
+ āʾilauā
+āanauhu
+taʿaālaáã
+waṣafa
+nafas
+ahu
+biālġa
+yaraŧi
+wamina
+ġayaratihi
+
+ḥarauma
+alfawãḥiša
+ 
+āḳtbās
+mn
+swrŧ
+ālāʿrāf
+
+ 33
+ 
+wlys
+ālfuḥašu
+āʾilauā
+maāẓahara
+ waāamauā
+fuḥašu
+maābaṭana
+ fahuwa
+limana
+ẓahara
+luhu
+ falamauā
+ḥarauma
+ālfawaāḥiša
+ manaʿa
+āana
+tuʿarafa
+ḥaḳiyḳaŧu
+maāḏakaranaāhu
+ wahiya
+āanauhu
+ʿaynu
+ālāašayaāʾi
+ 
+fasatarahaā
+biālġayaraŧi
+ wahuwa
+āanata
+ mina
+ālġayri
+ 
+faālġayru
+yaḳuwlu
+ ālsaumaʿu
+samaʿu
+zayadiⁿ
+ waālʿaārifu
+yaḳuwlu
+ ālsaumaʿu
+ʿaynu
+ālḥaḳiu
+ 
+wahãkaḏaā
+maābaḳiya
+mina
+ālḳuwaáã
+waālāaʿaḍaāʾi
+ 
+famaā
+kuluu
+āaḥadiⁿ
+ʿarafa
+ālḥaḳau
+ fatafaāḍala
+ālnauāsu
+watamayaauzati
+ālmaraātibu
+ fabaāna
+ālfaāḍilu
+waālmafaḍuwalu
+ 
+waʿal
+ama
+āanauhu
+lamauā
+āaṭalaʿ
+aniy
+ālḥaḳuu
+waāašah
+adaniy
+āaʿayaāna
+rusilihi
+
+ʿal
+ayh
+imu
+āls
+aulaāmu
+waāanabiyaāʾihi
+kuliuhima
+ālbaušariyauyana
+mina
+ādama
+āʾilaáã
+muḥ
+amaudiⁿ
+ṣalaáã
+āllhu
+ʿalay
+hi
+waʿal
+ayhima
+āaǧamaʿiyana
+ 
+fiá
+mašahadiⁿ
+āuḳimatu
+fiyhi
+biḳuraṭubaŧa
+sanaŧa
+sitiⁿu
+waṯamaāniyana
+waḫamasamaāáʾaŧa
+
+685h
+ 
+maākalaumaniy
+āaḥaduⁿ
+mina
+tilaka
+ālṭauāʾifaŧi
+āʾilauā
+huwduⁿ
+ʿalayhi
+ālsaulaāmu
+ faāʾinauhu
+āaḫabaraniy
+bisababi
+ǧamaʿiyautihima
+ 
+waraāyatuhu
+raǧulaⁿā
+ḍaḫ
+amaⁿā
+fiy
+āl
+riuǧaāli
+ ḥasana
+ālṣuuw
+raŧi
+ laṭiyfa
+ālmuḥaāwaraŧi
+ʿaārifaⁿā
+biā
+lāumuwri
+ kaāšifaⁿā
+lahaā
+ wadaliy
+liy
+ʿalaáã
+kašaf
+ihi
+lahaā
+ḳawluhu
+ 
+maā
+mina
+daāābauŧiⁿ
+āʾilauā
+huwa
+ʾaāḫiḏuⁿ
+binaāṣiyatihaāā
+āʾinau
+rabauy
+ʿalaáã
+ṣirãṭiⁿ
+musataḳiyamiⁿ
+ 
+swrŧ
+hwd
+
+ 65
+ 
+waāayuu
+bišaāraŧiⁿ
+lilḫalaḳi
+āaʿaẓamu
+mina
+hãḏihi
+ ṯumau
+mina
+amatinaāni
+āllhi
+ʿalaynaā
+ āana
+āawaṣala
+āʾilaynaā
+hãḏihi
+ālmaḳaālaŧa
+ʿanhu
+fiy
+ālḳurāni
+ 
+ṯumau
+tamaumahaā
+ālǧa
+āmiʿu
+lilakuliu
+muḥamaudu
+ṣalaáã
+āllhu
+ʿalayhi
+wasalauma
+ bimaā
+āaḫabara
+bihi
+ʿani
+ālḥaḳiu
+ biāanauhu
+ʿaynu
+ālsaumaʿi
+waālb
+aṣari
+waālyadi
+waālriuǧali
+waāll
+iusaāni
+ āay
+ huwa
+ʿaynu
+ālḥawaāsiu
+waālḳuwaáã
+ālruuwḥaāniyauŧi
+ āaḳarabu
+mina
+ālḥawaāsiu
+ faa
+katafaáã
+biālāabaʿadi
+ālmaḥaduwdi
+ ʿani
+ālāaḳarabi
+ālmaǧahuwli
+ālḥaduu
+ 
+fataraǧama
+ālḥaḳuu
+lanaā
+ʿana
+nabiyiuhi
+huwdiⁿ
+maḳaālatahu
+liḳawmihi
+ buš
+araáã
+lanaā
+
+92
+wǧh
+ watara
+ǧama
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ʿani
+āllhi
+maḳaālatahu
+bušaraáã
+ fakamula
+ālʿilamu
+fiy
+ṣuduwri
+ālauḏiyna
+āuwtuwā
+ālʿilama
+ 
+wamaā
+yaǧaḥadu
+biáʾaāyaãtinaā
+āʾilauā
+ālkaãfiruwana
+ 
+swrŧ
+ālʿnkbwt
+
+ 74
+ faāʾinauhuma
+yasaturuwnahaā
+ waāʾina
+ʿarafuwhaā
+ḥasadaⁿā
+minahuma
+wanafaāsaŧaⁿ
+waẓulamaⁿā
+ 
+wamaā
+raāayanaā
+ḳaṭuu
+mina
+ʿandi
+āllhi
+fiy
+ḥaḳauhi
+taʿaālaáã
+fiy
+āyaŧiⁿ
+āanazalahaā
+āaw
+āʾiḫab
+aāriⁿ
+ʿanhu
+āawṣalahu
+āʾilaynaā
+fiymaā
+yurǧaʿu
+āʾilayhi
+āʾilauā
+biāltauḥadiydi
+ tanaziyhaⁿā
+kaāna
+āaw
+ġayra
+tanaziyhiⁿ
+ 
+
+āawauluhu
+ālʿamaāʾu
+ālauḏiy
+maāfawḳahu
+hawa
+āʾuⁿ
+ 
+wamaātaḥatahu
+hawaāʾuⁿ
+ faka
+āna
+ālḥaḳuu
+fiy
+hi
+ḳabala
+āana
+yaḫaluḳa
+ālḫalaḳa
+ ṯumau
+ḏa
+kara
+āanauhu
+
+asatawaáã
+ʿalaáã
+ālʿarši
+ fahãḏaā
+āayḍaⁿā
+taḥadiyduⁿ
+ 
+ṯumau
+ḏakara
+āanauhu
+yanazilu
+āʾilaáã
+ālsaumaāʾi
+ālduunayaā
+ 
+fahãḏaā
+taḥadiyduⁿ
+ 
+ṯumau
+ḏakara
+āanauhu
+fiy
+ālsaumaāʾi
+ waāanauhu
+fiy
+ālāaraḍi
+ 
+waāanauhu
+maʿanaā
+āayanamaā
+kunauā
+ 
+āʾilaáã
+āana
+āaḫabaranaā
+āanauhu
+ʿaynunaā
+ wanaḥanu
+maḥaduwduwna
+ 
+famaā
+waṣafa
+nafa
+sah
+āʾilauā
+biālḥadiu
+ waḳawluhu
+ 
+lay
+sa
+kamiṯal
+ihi
+šaá
+ʾuⁿ
+ 
+sw
+rŧ
+ālšwráã
+
+ 
+11
+ ḥaduⁿu
+āayḍaⁿā
+ āʾina
+āaḫaḏanaā
+ālkaāfa
+zaāʾidŧaⁿ
+liġayri
+ālṣiufaŧi
+ 
+wamana
+tamayauza
+ʿani
+ālmaḥaduwdi
+fahuwa
+maḥaduwduⁿ
+ bikawnihi
+laysa
+ʿayna
+hãḏaā
+ālmaḥaduwdi
+ 
+faālāʾiṭalaāḳu
+ʿani
+āltauḳayiydi
+taḳayiyduⁿ
+ waālmuṭalḳu
+muḳayauduⁿ
+biālāʾiṭalaāḳi
+ lamana
+fahima
+ 
+waāʾina
+ǧaʿalanaā
+ālkaāfa
+lilṣiufaŧi
+ faḳada
+ḥadaudanaāhu
+ 
+waāʾina
+āḫaḏanaā
+
+laysa
+kamiṯalihi
+šaáʾuⁿ
+ 
+swrŧ
+ālšwráã
+
+ 11
+ ʿalaáã
+nafayi
+ālmiṯali
+ 
+taḥ
+aḳauḳanaā
+biālm
+afah
+uwmi
+ wabiālāʾiḫabaāri
+ālṣauḥiyḥi
+ āanauhu
+ʿaynu
+ālāašay
+aāʾi
+ waālāašayaāʾu
+maḥadu
+wdaŧuⁿ
+ 
+waāʾina
+aḫatalafata
+ḥuduwduhaā
+ fahuwa
+maḥadu
+wduⁿ
+biḥadiu
+kuliu
+maḥadu
+wdiⁿ
+ famaā
+yuḥ
+aduu
+šayʾuⁿ
+āʾilauā
+wahuwa
+ḥaduⁿu
+lilḥaḳiu
+ fahuwa
+ālsauāriy
+fiy
+musamauáã
+ālmaḫaluwaḳaāti
+waālmubadaʿaāti
+ 
+walaw
+lama
+yakuna
+ālāamaruⁿ
+kaḏãlika
+ maāṣaḥau
+ālwuǧuwdu
+ fahuwa
+ʿaynu
+ālwuǧuwdi
+ 
+fahuwa
+
+ʿalaáã
+kuliu
+šaáʾiⁿ
+ḥafiyaẓuⁿ
+ 
+swrŧ
+hwd
+
+ 75
+ biḏaātihi
+ walaāyawʾuduhu
+ḥifaẓu
+šayʾiⁿ
+ 
+faḥifaẓuhu
+taʿaālaáã
+lilāšyaāʾi
+kuliuhaā
+ ḥifaẓuhu
+liṣuwaratihi
+ 
+āana
+yakuwna
+ālšayaʾu
+ġayra
+ṣuwaratihi
+ walaā
+yaṣiḥuu
+ālauā
+hãḏaā
+ 
+fahuwa
+ālšauāhidu
+mina
+ālšauāhidi
+ waālmašahuwdu
+mina
+ālmašahuwudi
+ 
+faālʿaālamu
+ṣuwratuhu
+ wahuwa
+ruwḥu
+ālʿaālami
+ ālmudabauru
+lahu
+ fahuwu
+ālāʾinasaānu
+ālkabiyru
+ 
+
+maǧazuwʾu
+ālḫfyf
+1
+fahuwa
+ālkawnu
+kuluuhu
+wahuwa
+ālwaāḥidu
+ālauḏiy
+
+92
+ẓhr
+2
+ḳaāma
+kawniy
+bikawnihi
+waliḏaā
+ḳulatu
+yaġataḏiy
+3
+fawuǧuwdiy
+ġiḏaāʾuhu
+wabihi
+naḥanu
+naḥataḏiy
+4
+fabihi
+minhu
+āʾina
+naẓara
+ta
+bawaǧahi
+taʿawuuḏiy
+walhãḏaā
+ālkarabi
+tanafausa
+ fanasaba
+ālnaufasa
+āʾilaáã
+ālrauḥamãni
+ liāanauhu
+raḥima
+bihi
+maā
+ṭalabatahu
+ālniusabu
+ālāʾilãhiyauŧu
+mina
+āʾiyǧaādi
+ṣuwari
+ālʿaālami
+ālautiy
+ḳulanaā
+hiy
+ẓaāhiru
+ālḥaḳau
+ 
+āʾiḏa
+huwa
+ālẓauāhiru
+wahuwa
+biāṭinuhaā
+ āʾiḏa
+huwa
+ālbaāṭinu
+wahuwa
+ālāawaulu
+ āʾiḏa
+kaāna
+walaā
+hiya
+ 
+wahuwa
+ālāḫiru
+ āʾiḏa
+kaāna
+ʿaynuhaā
+ʿinada
+ẓuhuwrihaā
+ 
+faālāḫiru
+ʿaynu
+ālẓauāhiri
+ waālbaāṭinu
+ʿaynu
+ālāawauli
+ 
+wahuwa
+biku
+liiu
+šaya
+ʾiⁿ
+ʿalay
+amuⁿ
+ 
+sw
+rŧ
+ālbḳrŧ
+
+ 92
+ lāanauhu
+binafasihi
+ʿalayamuⁿ
+ 
+falamauā
+āawaǧada
+ālṣuuwara
+fiy
+ālnaufasi
+waẓahara
+sulaṭaānu
+ālniusabi
+ālamuʿabauri
+ʿanahaā
+biālāasamaāʾi
+ 
+ṣaḥau
+ālnaus
+abu
+ālāʾilãhiyuu
+lil
+aʿaālami
+ faā
+nat
+asabuw
+āāʾiliy
+hi
+taʿ
+aālaáã
+faḳaāla
+ 
+ālyawama
+āaḍaʿu
+nasabakuma
+waāarafaʿu
+nasabiy
+ āay
+ āḫuḏu
+ʿankuma
+anatisaābakuma
+āláã
+āanafusikuma
+ 
+waāaruduukuma
+āʾiláã
+anatisaābikuma
+āʾilyau
+ 
+āayana
+ālamutau
+ḳuwana
+ āaya
+ ālauḏiyna
+atauḫ
+aḏuwaā
+āllha
+wiḳaāyaŧaⁿ
+ fakaāna
+ālḥaḳuu
+ẓaāhirahuma
+
+āay
+ 
+ʿayna
+ṣuwarihima
+ālẓauāhiraŧi
+ wahuwa
+āaʿaẓamu
+ālnauāsi
+ waāaḥaḳuuhu
+waāaḳwaāhu
+ʿinda
+ālǧamiyʿi
+ 
+waḳada
+yakuwnu
+ālmutauḳiy
+ mana
+ǧaʿala
+nafasahu
+wiḳaāyaŧaⁿ
+lilḥ
+aḳiu
+biṣ
+uwratihi
+ āʾiḏa
+huwayauŧu
+ālḥaḳiu
+ḳuwaáã
+ālʿabadi
+ faǧaʿala
+musamauáã
+ālʿabadi
+wiḳaāyaŧaⁿ
+limusamauáã
+ālḥaḳiu
+
+ ʿalaáã
+ālšuuhuwdi
+
+ḥatauáã
+yatamayauza
+ālʿaālimu
+mina
+ġayri
+ālʿaālimi
+ 
+
+ḳula
+hala
+yasatawiy
+alauḏiyana
+yaʿalamuwana
+waalauḏiyana
+laā
+yaʿalamuwana
+āʾinaumaā
+yataḏakauru
+āuwaluwaā
+ālāalabaãbi
+ 
+swrŧ
+ālzuumar
+
+ 9
+ wahuma
+ālnauāẓiruwna
+fiy
+lubiu
+ālšayʾi
+ ālauḏiy
+huwa
+ālmaṭaluwabu
+mina
+ālšauyʾi
+ famaā
+sabaḳa
+muḳaṣiuruⁿ
+muǧidiⁿuā
+ kḏãlika
+laā
+yumaāṯilu
+āaǧiyruⁿ
+ʿabadaⁿā
+ 
+waāʾiḏaā
+kaāna
+ālḥaḳuu
+wiḳaāyaŧaⁿ
+lilaʿabdi
+biwaǧhiⁿ
+ waālʿabdu
+wiḳaāyaŧaⁿ
+lilḥaḳiu
+biwaǧhiⁿ
+ 
+faḳula
+fiy
+ālkawni
+maā
+šiʾta
+ 
+āʾina
+šiʾta
+ ḳlta
+ 
+huwa
+ālḫalaḳu
+ 
+waāʾina
+šiʾta
+ ḳlta
+ 
+huwa
+ālḥaḳuu
+ 
+waāʾina
+šiʾta
+ ḳlta
+ 
+huwa
+ālḥaḳuu
+ālḫalaḳu
+ 
+waāʾina
+šiʾta
+ ḳlta
+ 
+laā
+ḥaḳuⁿu
+mina
+kuliu
+waǧhiⁿ
+ walaā
+ḫalaḳuⁿ
+mina
+kuliu
+waǧhiⁿ
+ 
+waāʾina
+šiʾta
+ ḳlta
+ 
+biālḥayaraŧi
+fiy
+ḏãlika
+ 
+
+03
+wǧh
+ faḳada
+baānati
+ālmaṭaālibu
+bitaʿayiynika
+ālmaraātiba
+ walawlaā
+āltauḥadiydu
+maāāaḫabarati
+ālruusulu
+bitaḥawuuli
+ālḥaḳiu
+fiy
+ālṣuuwari
+ 
+walaā
+waṣafatahu
+biḫalaʿi
+ālṣuuwari
+ʿana
+nafasihi
+ 
+
+ālmutaḳaāribu
+1
+falaā
+tanaẓuru
+ālʿaynu
+āʾilauā
+āʾilayhi
+walaā
+yaḳaʿu
+ālḥukamu
+āʾilauā
+ʿalayhi
+2
+fanaḥanu
+lahu
+wabihi
+fiy
+yadayhi
+wafiy
+kuliu
+ḥaāliⁿ
+faāʾinauā
+ladayhi
+lhãḏaā
+yunakauru
+wayuʿaraufu
+ wayunazauhu
+wayuwṣafu
+ 
+famana
+raāaáã
+ālḥaḳau
+minhu
+fiyhi
+biʿaynihi
+ faḏãlika
+ālʿaārifu
+ 
+wamana
+raāaáã
+ālḥaḳau
+minhu
+fiyhi
+biʿayni
+nafasihi
+ faḏãlika
+ġayru
+ālʿaārifi
+ 
+wamana
+lama
+yara
+ālḥaḳau
+minhu
+ walaāfiyhi
+ waanataẓara
+āana
+yaraāhu
+biʿayni
+nafasihi
+ faḏãlika
+ālǧaāhilu
+ 
+wabiālǧumalaŧi
+falaā
+budau
+likuliu
+šaḫaṣiⁿ
+miina
+ʿaḳiydaŧiⁿ
+fiá
+rabauhi
+ yaraǧiʿu
+bihaā
+āʾilayhi
+ 
+wayaṭalubuhu
+fiyhaā
+ faāʾiḏaā
+taǧalauáã
+lahu
+ālḥaḳuu
+fiyhaā
+ʿarafahu
+waāaḳarau
+bihi
+ waāʾina
+taǧalauáã
+lahu
+fiy
+ġay
+rihaā
+nakirahu
+wtaʿawau
+ḏa
+minahu
+ waāasaāʾa
+ālāadaba
+ʿalayhi
+
+ fiy
+naf
+asi
+ālāamari
+
+ wahuwa
+ʿinada
+nafasihi
+āanauhu
+ḳada
+taāadauba
+maʿahu
+ 
+falaā
+yaʿataḳidu
+muʿataḳiduⁿ
+āʾilãhaⁿā
+ āʾilauā
+bimaā
+ǧaʿala
+fiy
+nafasihi
+ 
+faālāʾilãhu
+fiá
+ālaʿatiḳaādaāti
+biālǧaʿali
+ famaā
+raāawaā
+āʾilauā
+nufuwsahuma
+ wamaā
+ǧaʿaluwā
+fiyhaā
+ 
+faanaẓura
+maraātiba
+ālnauāsi
+fiy
+ālʿilami
+biāllhi
+ huwu
+ʿaynu
+maraātibihima
+fiy
+ālruuʾyaŧi
+yawma
+ālḳiyaāmaŧi
+ 
+waḳada
+āaʿalamatuka
+biālsaubabi
+ālmuwiǧibi
+lḏãlika
+ 
+faāʾiyauāka
+āan
+tataḳayauda
+biʿaḳadiⁿ
+maḫaṣuwṣiⁿ
+ watakafura
+bimaāsiwaāhu
+ fayafuwtuka
+ḫayaruⁿ
+kaṯiyruⁿ
+ bala
+yafuwtuka
+ālʿiilamu
+biālāamari
+ʿalaáã
+maāhuwa
+ʿalayhi
+ 
+fakuna
+fiy
+nafasika
+hayuwlaáã
+liṣuwari
+ālmuʿataḳadaāti
+kuliuhaā
+ faāʾinau
+ālāʾilãha
+taʿaālaáã
+āawasaʿu
+waāaʿaẓamu
+āana
+yaḥaṣurahu
+ʿaḳaduⁿ
+duwana
+ʿaḳ
+adiⁿ
+ faāʾinauhu
+yaḳuwlu
+ 
+faāayan
+amaā
+tuwaluuwā
+faṯamau
+waǧhu
+allhi
+swrŧ
+ālbḳrŧ
+
+ 511
+ wamaāḏakara
+āaynaⁿā
+mina
+āayniⁿ
+ 
+waḏakara
+āana
+ṯamau
+waǧhu
+āllhi
+ wawaǧhu
+ālšauyʾi
+ḥaḳiyḳatuhu
+ 
+fan
+abauha
+bihãḏaā
+ḳuluwba
+ālʿaālimiyna
+liáʾalauā
+tašaġalah
+uma
+ālʿawa
+āriḍu
+fiy
+ālḥay
+aāŧi
+ālduunyaā
+ ʿani
+asatiḥaḍaāri
+miṯli
+hãḏaā
+ 
+faāʾinauhu
+laā
+yadariy
+ālʿabadu
+fiy
+āaya
+nafasiⁿ
+yuḳabaḍu
+ faḳada
+yuḳab
+aḍu
+fiy
+waḳati
+ġafalaŧiⁿ
+ 
+falaā
+yasatawiy
+maʿa
+mana
+ḳubiḍa
+ʿalaáã
+ḥuḍuwriⁿ
+ 
+ṯumau
+āʾinau
+ālʿab
+da
+ālkaā
+mila
+maʿa
+ʿilm
+ih
+bih
+ãḏaā
+
+ yalzamu
+fiy
+ālṣuuw
+raŧi
+ālẓauāhiraŧi
+waālḥaāli
+ālmuḳayaudaŧi
+
+ āltauwaǧuuhi
+biā
+lṣaula
+āŧi
+āʾilaáã
+šaṭ
+ari
+ālmas
+aǧidi
+ālḥaraāmi
+
+03
+ẓh
+r
+wayaʿ
+ataḳidu
+āanau
+āllha
+fiy
+ḳibalatihi
+ ḥaāla
+ṣalaātihi
+ 
+wahuwa
+baʿaḍu
+maraātibi
+waǧhi
+ālḥ
+aḳiu
+mina
+
+āayanam
+aā
+tuwa
+lauwā
+faṯ
+amau
+waǧahu
+āllhi
+ 
+swrŧ
+ālbḳrŧ
+
+ 511
+ fašaṭaru
+ālmasaǧidi
+ālḥaraāmi
+minhaā
+ fafiyhi
+waǧhu
+āllhi
+ 
+walãkina
+laā
+taḳula
+ huwa
+hunaā
+faḳaṭa
+
+ bala
+ḳifa
+ʿinada
+maā
+āadarakata
+ waalzami
+ālāadaba
+fiy
+ālasatiḳabaāli
+šaṭara
+ālmasaǧidi
+ālḥaraāmi
+ waalzama
+ālāadaba
+fiy
+ʿadami
+ḥaṣari
+ālwaǧhi
+fiy
+tilaka
+ālāayaniy
+auŧi
+ālḫaāṣauŧi
+ bala
+hiya
+mina
+ǧumalaŧi
+āayaniy
+auāti
+
+maā
+
+ta
+walauáã
+
+swrŧ
+āln
+sāʾ
+
+ 
+511
+ mutawaliⁿu
+āʾilayhaā
+ 
+faḳada
+baāna
+laka
+ʿani
+āllhi
+āanauhu
+fiy
+āayaniyauŧi
+kuliu
+wiǧhaŧiⁿ
+ 
+wamaā
+ṯamau
+āʾilauā
+ālaʿatiḳaādaātu
+ faālkuluu
+muṣiybuⁿ
+ 
+wakuluu
+muṣiybiⁿ
+maāǧuwruⁿ
+ wakuluu
+maāǧuwriⁿ
+saʿiyduⁿ
+ wakuluu
+saʿiydiⁿ
+maraḍiyuⁿu
+ʿanhu
+ waāʾina
+šaḳiiya
+zamaānaⁿā
+maā
+fiy
+āldauāri
+ālāḫiraŧi
+ faḳada
+mariḍa
+wataāalauma
+āahulu
+ālʿinaāyaŧi
+maʿa
+ʿilaminaā
+biāanauhuma
+suʿadaāʾu
+ āahalu
+ḥaḳiⁿu
+fiy
+ālḥayaāŧi
+ālduunayaā
+ 
+famina
+ʿibaādi
+āllhi
+mana
+tudarikuhuma
+tilaka
+ālālaāmu
+fiy
+ālḥayaāŧi
+ālāuḫaraáã
+fiy
+daāriⁿ
+tusamauáã
+ǧahanauma
+ 
+wamaʿa
+hãḏaā
+laā
+yaḳaṭaʿu
+āaḥaduⁿ
+mina
+āahali
+ālʿilami
+
+ ālauḏiyna
+kašaf
+uwā
+ālāamara
+ʿalaáã
+maāhawa
+ʿalayahi
+
+ āanauhu
+laāyakuwnu
+lahuma
+fiy
+tilaka
+āldauāri
+naʿaymuⁿ
+ḫaāṣuⁿu
+bihima
+ āʾimauā
+bafaḳadi
+āalamiⁿ
+kaānuwā
+yaǧiduwnahu
+ faaratafaʿa
+ʿanahuma
+ 
+fayakuwnu
+naʿiy
+mahuma
+raāḥatuhuma
+ʿana
+wiǧadaāni
+ḏãlika
+ālāalami
+ āawa
+yakuwnu
+naʿiy
+muⁿ
+musataḳiluⁿu
+zaāʾiduⁿ
+kanaʿiyami
+āahali
+ālǧinaāni
+fiy
+ālǧinaāni
+ waāllhu
+āaʿlamu
+ 
+
+11
+ 
+faṣuu
+ḥikamaŧiⁿ
+futuwḥiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+ṣaāliḥiyauŧiⁿ
+
+ālwaāfiru
+1
+mina
+ālāyaāti
+āyaātu
+ālaurkaāʾiba
+waḏãlika
+liaḫatilaāfiⁿ
+fiy
+ālmaḏaāhiba
+2
+fiminahuma
+ḳaāʾimuwna
+bihaā
+biḥaḳiⁿu
+waminahuma
+ḳaāṭiʿuwna
+bihaā
+ālsaubaāsiba
+3
+faāamauā
+ālḳaāʾimuwna
+faāahalu
+ʿayaniⁿ
+waāanau
+ālḳaāṭiʿiyna
+humu
+ālǧanaāʾiba
+4
+wa
+kuluⁿu
+minahumu
+taātiyhi
+minhu
+futuwḥu
+ġuyuwbihi
+mina
+kuliu
+ǧaāniba
+aʿlama
+
+ wafauḳaka
+āllhu
+
+ āanau
+ālāamara
+mabaniyuⁿu
+fiy
+nafasihi
+ʿalaáã
+ālfaradiyauŧi
+ 
+walahaā
+āltauṯaliyṯu
+ fahiya
+mina
+ālṯalaāṯaŧi
+faṣaāʿidaⁿā
+ faālṯalaāṯaŧu
+āawaulu
+ālāafaraādi
+ waʿana
+hãḏihi
+ālḥaḍaraŧi
+ālāʾilãhiyauŧi
+wuǧida
+ālʿaālamu
+ 
+faḳaāl
+taʿaālaáã
+ 
+āʾinaumaā
+ḳawa
+lunaā
+lišayʾiⁿ
+āʾiḏāā
+āaradanaãhu
+āana
+naḳuwala
+lahu
+kuna
+fayakuwanu
+ 
+sw
+rŧ
+ālnḥl
+
+ 04
+ fahãḏihi
+ḏaātuⁿ
+ ḏaātu
+āʾiraādaŧiⁿ
+waḳawliⁿ
+ falawlaā
+hãḏihi
+ālḏauātu
+waāʾiraādatuhaā
+
+wahiya
+nisabaŧu
+āltauwaǧuhi
+biāltauḫaṣiyṣi
+
+13
+wǧh
+ litakawiyni
+āamariⁿ
+
+ maā
+tamau
+ḳawluhu
+ʿinada
+hãḏaā
+āltauwaǧuhi
+ 
+kuna
+ lḏãlika
+ālšauyʾi
+ maā
+kaāna
+ḏãlika
+ālšauyʾu
+ 
+ṯumau
+ẓaharata
+ālfaradiyauŧu
+ālṯulaāṯiyauŧu
+āayḍaⁿā
+fiy
+ḏãlika
+ālšauyʾi
+ 
+wabihaā
+mina
+ǧihatihi
+ṣaḥau
+takawiynuhu
+ waatiuṣaāfuhu
+biālwuǧuwdi
+ wahiya
+šayaʾiyautuhu
+wasamaāʿuhu
+waamatiṯaāluhu
+āamara
+mukawiunihi
+biālāʾiyǧaādi
+ 
+faḳaābala
+ṯalaāṯaŧaⁿ
+biṯalaāṯaŧiⁿ
+ ḏaātuhu
+ālṯauābitaŧu
+fiy
+ḥaāli
+ʿadamihaā
+fiy
+muwaāzanaŧi
+ḏaāti
+muwaǧidi
+haā
+ wasamaāʿuhu
+fiy
+muwaāzanaŧi
+āʾiraādaŧi
+muw
+ǧidihi
+ waḳabuwluhu
+biālamatiṯ
+aāli
+limaā
+āamarahu
+bihi
+mina
+āltaukawiyni
+fiy
+muwaāzanaŧi
+ḳawlihi
+ 
+kuna
+ fakaāna
+huwa
+ 
+fanasaba
+āltaukawiyna
+āʾilayhi
+ falawlaā
+āanauhu
+fiy
+ḳuwautihi
+āltaukwiynu
+mina
+nafasihi
+
+ ʿinada
+hãḏaā
+ālḳawli
+
+ maā
+takawauna
+ 
+famaā
+āawaǧada
+hãḏaā
+ālšauy
+ʾa
+baʿda
+āana
+lama
+yaku
+na
+
+ ʿinada
+ālāamari
+biāltaukawiyni
+
+ āʾilauā
+nafasuhu
+ 
+faāaṯabata
+ālḥaḳuu
+taʿaā
+laáã
+āanau
+ālt
+aukawiyna
+lilš
+auyʾi
+nafasihi
+laā
+lilḥaḳiu
+ waālauḏiy
+lilaḥaḳiu
+fiyhi
+āamaruhu
+ḫaāṣauŧaⁿ
+ 
+wakaḏaā
+āaḫabara
+ʿana
+nafasihu
+fiy
+ḳawlihi
+ 
+āʾinaumaāā
+āamaruhu
+āʾiḏaāā
+āaraāda
+šayaáʾaⁿā
+āana
+yaḳuwala
+lahu
+kuna
+fayakuwnu
+ 
+swrŧ
+yãsā
+
+ 28
+ fanasaba
+āltaukawiyna
+linafasi
+ālšauyʾi
+ʿana
+āamari
+āllhi
+ 
+whuwa
+ālṣauādiḳu
+fiy
+ḳawlihi
+ wahãḏaā
+huwa
+ālmaʿaḳuwlu
+fiy
+nafasi
+ālāamari
+ kamaā
+yaḳuwlu
+ālāmiru
+
+ ālauḏiy
+yuḫaāfu
+falaā
+yuʿaṣaáã
+
+ liʿabdihi
+ 
+ḳuma
+ fayaḳuwmu
+ālʿabdu
+amatiṯaālaⁿā
+liāamari
+sayiudihi
+ fal
+aysa
+lil
+sauyiudi
+fiy
+ḳiyaā
+mi
+hãḏaā
+ālʿabdi
+siwa
+áã
+āamarihi
+lahu
+biālḳiy
+aāmi
+ waālḳiyaāmu
+mina
+fiʿali
+ālʿabdi
+ laā
+mina
+fiʿali
+ālsauyiudi
+ 
+faḳaāma
+āaṣalu
+āltaukawiyni
+ʿalaáã
+āltauṯaliyṯi
+ āay
+ mina
+ālṯaulaāṯaŧi
+ mina
+ālǧaānibayni
+ mina
+ǧaānibi
+ālḥaḳiu
+ wamina
+ǧaānibi
+ālḫalaḳi
+ 
+ṯumau
+sa
+raáã
+ḏãlika
+fiy
+āʾiyǧaādi
+ālmaʿaā
+niy
+biālāadilauŧi
+ falaābudau
+mina
+āldauliyli
+āana
+yakuwna
+murakaubaⁿā
+mina
+ṯala
+āṯaŧiⁿ
+ ʿalaáã
+niẓaāmiⁿ
+maḫaṣuwaṣiⁿ
+ wašaraṭiⁿ
+maḫaṣuwa
+ṣiⁿ
+ waḥiyanaʾiḏiⁿ
+yunatiǧu
+ 
+laābudau
+mina
+ḏãlika
+ 
+wahuwa
+āana
+yura
+kiuba
+ālnauāẓru
+daliylahu
+mina
+muḳadiumatayni
+ kuluu
+muḳadiumaŧiⁿ
+taḥawiy
+ʿalaáã
+mufaradayni
+ fayakuwnu
+āarabaʿaŧaⁿ
+ waāḥiduⁿ
+mina
+hãḏihi
+ālāarabaʿaŧi
+yata
+karauru
+fiy
+ālmuḳadiumatayni
+liyarabiṭa
+āʾiḥadaāhumaā
+biālāuḫaraáã
+ kaālniukaāḥi
+ 
+fayakuw
+nṯlaāṯŧaⁿ
+laā
+ġayru
+ litakaraāri
+ālwaāḥidi
+fiyh
+imaā
+ fayaku
+wnu
+ālmaṭal
+uwabu
+ āʾiḏaā
+waḳaʿa
+hãḏaā
+āltauratiyabu
+
+ ʿalaáã
+hãḏaā
+ālwaǧhi
+ālmaḫaṣuwṣi
+
+ wahuwa
+rabaṭu
+āʾiḥadaáã
+ālmuḳadiumatayani
+biālāuḫaraáã
+ bitakaraāri
+ḏãlika
+ālwaǧhi
+ālmufaradi
+ ālauḏiy
+bihi
+ṣaḥau
+āltauṯaliyaṯu
+ 
+wālšauraṭu
+ālmaḫaṣuwaṣu
+āana
+yakuwna
+ālḥukamu
+āaʿamau
+mina
+ālʿilauŧi
+
+13
+ẓhr
+ āaw
+musaāwiyaⁿā
+lahaā
+ waḥiyanaʾaiḏiⁿ
+yaṣaduḳu
+ waāʾina
+lama
+yakuna
+kaḏãlika
+ faāʾinauhu
+yunatiǧu
+natiyaǧaŧaⁿ
+ġayra
+ṣaādiḳaŧiⁿ
+ 
+wahãḏaā
+mawaǧuwduⁿ
+fiy
+ālʿaālami
+ miṯalu
+āʾiḍaāfaŧi
+ālāafaʿaāli
+āʾilaáã
+ālʿabdi
+ muʿarauāŧaⁿ
+ʿana
+nisabatihaā
+āʾilaáã
+āllhi
+ āawa
+āʾiḍaāfaŧu
+āltaukawiyni
+ālauḏiy
+naḥanu
+biṣadadihi
+āʾilaáã
+āllhi
+muṭalaḳaⁿā
+ 
+waālḥaḳuu
+maā
+āaḍaāfahu
+āʾilauā
+āʾilaáã
+ālšauyʾi
+ālauḏiy
+ḳiyla
+lahu
+ 
+kuna
+ 
+wamiṯaāluhu
+āʾiḏaā
+āaradanaā
+āana
+nadulaau
+āanau
+wuǧuwda
+ālʿaālami
+ʿana
+sababiⁿ
+ 
+fanaḳuwala
+ kuluu
+ḥaādiṯiⁿ
+falahu
+sababuⁿ
+ famaʿnaáã
+ālḥaādiṯi
+waālsaubabi
+ 
+ṯumau
+naḳuwalu
+fiy
+ālamuḳadiumaŧi
+ālāuḫaraá
+ waālʿaālamu
+ḥaādiṯu
+ 
+fatakaraura
+ālaḥaādiṯu
+fiy
+ālamuḳadiumatayn
+ 
+waālṯauāliṯu
+ḳawlunaā
+ ālʿaālamu
+ 
+faāanataǧa
+āanau
+ālʿaālama
+lahu
+sababuⁿ
+ 
+waẓahara
+fiy
+ālnautiyaǧaŧi
+maā
+ḏu
+kira
+fiy
+ālmḳudimaŧi
+ālwaāḥidaŧi
+ wahuwa
+ālsaubabu
+ faālwaǧhu
+ālḫaāṣuu
+huwa
+takraār
+ālḥaādiṯi
+ 
+waālšaurṭu
+ālḫaāṣuu
+ʿumuwmu
+ālʿilauŧi
+ liāanau
+ālʿilauŧa
+fiy
+wuǧuwdi
+ālḥaādiṯi
+ ālsaubabu
+ 
+wahuwa
+ʿaāmuⁿ
+fiy
+ḥuduwṯi
+ālʿaālami
+ʿani
+āllhi
+ 
+āaʿaniy
+ ālḥukama
+ fayaḥakumu
+ʿalaáã
+kuluu
+ḥaādiṯiⁿ
+āana
+lahu
+sababaⁿā
+ sawaāʾuⁿ
+kaāna
+ḏãlika
+ālsaubabu
+musaāwiyaⁿā
+lilḥukami
+ āawa
+yakuwnu
+ālḥukmu
+āaʿamau
+minhu
+ fayadaḫulu
+taḥata
+ḥukamihi
+ 
+fataṣaduḳu
+ālnautiyaǧaŧu
+ 
+fhãḏaā
+āayaḍaⁿā
+ḳada
+ẓahara
+ḥukamu
+āltauṯaliyaṯi
+ 
+fiy
+āʾiyǧaādi
+ālmaʿaāniy
+ālautiy
+tuḳatanaṣu
+biālāadilauŧ
+ 
+faāaṣalu
+ālkawni
+āltauṯaliyṯu
+ walhãḏaā
+kaānata
+ḥikamaŧu
+ṣaāliḥiⁿ
+ʿalayahi
+ālsaulaāmu
+ālautiy
+āaẓahar
+āllhu
+fiy
+taāḫiyri
+āaḫaḏi
+ḳawmihi
+ṯalaāṯaŧa
+āayauāmiⁿ
+ 
+waʿadaⁿā
+ 
+ġayra
+makaḏuwbiⁿ
+
+swrŧ
+hwd
+
+ 56
+ 
+faāanataǧa
+ṣidaḳaⁿā
+wahuwa
+ālṣauyḥaŧu
+ālty
+āahalakahuma
+bihaā
+ 
+faāaṣabaḥuwaā
+fiy
+daārihima
+ǧaãṯimiyana
+ 
+swrŧ
+hwd
+
+ 76
+ 
+faāawaulu
+yawmiⁿ
+mina
+ālṯaulaāṯaŧi
+ aṣafa
+rauta
+wuǧuw
+hu
+ālḳawmi
+ wafiy
+ālṯauāniy
+aḥam
+arauta
+ wafiy
+ālṯauāliṯi
+asawadauta
+ falamauā
+kamulati
+ālṯaulaāṯaŧu
+ ṣaḥau
+ālasatiʿadaādu
+ faẓahara
+kawnu
+ālfasaādi
+fiyahima
+ fasumiuya
+ḏãlika
+ālẓuhuwaru
+halaākaⁿā
+ 
+fakaāna
+aṣafiraāru
+wuǧuwhi
+ālāašaḳiyaāʾi
+ fiy
+muwaāzanaŧi
+wuǧuwahi
+ālsuuʿadaāʾi
+ fiy
+ḳawlihi
+taʿaālaáã
+ 
+wuǧuwahi
+yawamaʾiḏiⁿ
+musafiraŧuⁿ
+ 
+swrŧ
+ʿbs
+
+ 83
+ mina
+ālsuufuwri
+ wahuwa
+ālẓuuhuwaru
+ 
+kamaā
+kaāna
+ālaṣafira
+āru
+fiy
+āawauli
+yaw
+miⁿ
+ ẓuh
+uwru
+ʿalaāmaŧi
+ālšauḳaāʾi
+fiy
+ḳawmi
+ṣaāliḥiⁿ
+ ṯumau
+ǧaāʾa
+fiy
+muwaāzanaŧi
+ālaḥamiraāri
+ālḳaāʾimi
+bihima
+ ḳaw
+luhu
+taʿaālaáã
+fiy
+ālsuuʿadaāʾi
+ 
+ḍaāḥikaŧuⁿ
+
+sw
+rŧ
+ʿbs
+
+ 93
+ faāʾinau
+ālḍiuḥika
+mina
+ālāasabaābi
+ālmuwaliudaŧi
+laḥamiraāri
+ālwuǧuwhi
+ fahiya
+fiy
+ālsuuʿadaāʾi
+aḥamiraāru
+ālwaǧanaāti
+ 
+ṯumau
+ǧaʿala
+fiy
+muwaāzanaŧi
+taġayiyri
+
+23
+wǧh
+ bašraŧi
+ālāašaḳiyaāʾi
+biālsauwaādi
+ ḳawluhu
+taʿ
+aālaáã
+ 
+musatab
+aširaŧuⁿ
+ 
+sw
+rŧ
+ʿb
+s
+ 93
+ wahuwa
+maā
+āaṯaurahu
+āls
+uuruwru
+fiy
+bašaratihima
+ kamaā
+āaṯaura
+ālsauwaādu
+fiy
+bašaraŧi
+ālāašaḳiyaāʾi
+ 
+walhãḏaā
+ḳaāla
+fiy
+ālfariyḳayni
+biā
+lbušaraáã
+ āaya
+ yaḳuwlu
+lahuma
+ḳawlaⁿā
+yuwʾa
+ṯiuru
+fiy
+bašratihima
+ 
+fayaʿdilu
+bihaā
+āʾilaáã
+lawniⁿ
+lama
+takuna
+ālbašaraŧu
+tatauṣifu
+bihi
+ḳabala
+hãḏaā
+ faḳaāla
+fiy
+ḥaḳau
+ālsuuʿadaāʾi
+ 
+yubašiuruhuma
+rabuuhuma
+biraḥamaŧiⁿ
+minahu
+wariḍawãniⁿ
+ 
+āltwbŧ
+
+ 12
+ waḳaāla
+fiy
+ḥaḳiu
+ālāašaḳiyaāʾiⁿi
+ 
+fabašiurahuma
+biʿaḏaābiⁿ
+āaliymiⁿ
+ 
+āltwbŧ
+
+ 43
+ 
+faāaṯau
+ra
+fiy
+bašaraŧa
+kuliu
+ṭaā
+ʾifaŧiⁿ
+maā
+ḥaṣala
+fiy
+nufuwsihima
+mina
+āaṯari
+hãḏaā
+ālkala
+āmi
+ 
+famaā
+ẓahara
+ʿalayhima
+fiy
+ẓaāhirihima
+āʾilauā
+ḥukamu
+maāasataḳarau
+fiy
+bawaāṭinihim
+mina
+ālmafahuwmi
+ 
+famaā
+āaṯaura
+fiyhima
+siwaāhuma
+ kamaā
+lama
+yakuna
+āltaukawiynu
+āʾilauā
+minahuma
+ 
+faliluãhi
+ālḥuǧauŧu
+ālbaãliġaŧ
+ 
+swrŧ
+ālānʿām
+
+ 941
+ 
+famana
+fahima
+hãḏihi
+ālḥikamaŧa
+ waḳaraurahaā
+fiy
+nafasihi
+ waǧaʿalahaā
+mašahuwdaŧaⁿ
+lahu
+ āaraāḥa
+nafasahu
+mina
+āltauʿaluuḳi
+biġayrihi
+ waʿalima
+āanauhu
+laā
+yuʾtaáã
+ʿalayhi
+biḫayriⁿ
+walaā
+bišariⁿu
+ āʾilauā
+minhu
+ 
+waāaʿniy
+biālḫayri
+ maāyuwaāfiḳu
+ġaraḍahu
+ wayulaāʾimu
+ṭabʿahu
+wamizaāǧahu
+ 
+wāʿny
+bālšr
+ maālaā
+yuwaāfiḳu
+ġaraḍahu
+ walaā
+yulaāʾimu
+ṭabʿahu
+walaā
+mizaāǧahu
+ 
+wayuḳiymu
+ṣaāḥibu
+hãḏaā
+ālšuuhuwdi
+ maʿaāḏiyra
+ālmawǧuwdaāti
+kulauhaā
+ʿanhuma
+ waāʾina
+lama
+yaʿtaḏiruwā
+ wayaʿalamu
+āanauhu
+minhu
+kaāna
+kluu
+maāhuwa
+fiyhi
+
+ kamaā
+ḏakaranaāhu
+āawaulaⁿā
+fiy
+āanau
+ālʿilama
+
+ taābiʿuⁿ
+lilamaʿaluwami
+ fayaḳuwlu
+linafasihi
+āʾiḏaā
+ǧaāʾahu
+maālaā
+yawuāfiḳu
+ġaraḍahu
+ 
+yadaāka
+āawkataā
+wafuwka
+nafaḫa
+ 
+waallhu
+yuḳuwalu
+alḥ
+aḳuu
+wahuwu
+yahadiⁿ
+áals
+aubiy
+ala
+ 
+sw
+rŧ
+ālāḥzāb
+
+ 4
+
+21
+ 
+faṣuu
+ḥikamaŧiⁿ
+ḳalabiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+šuʿayabiyauŧiⁿ
+aʿalama
+āanau
+ālḳalaba
+
+ āaʿaniy
+ḳalaba
+ālʿaārifi
+biāllhi
+
+ huwa
+mina
+raḥamaŧi
+āll
+hi
+ wahuwa
+āawasaʿu
+minahaā
+ faāʾinauhu
+wasiʿa
+ālḥaḳau
+ǧalau
+ǧalaāluhu
+ waraḥamatuhu
+laā
+tasaʿahu
+ 
+hãḏaā
+lisaānu
+ʿumuwmiⁿ
+mina
+baābi
+ālāʾišaāraŧi
+ faāʾinau
+ālḥaḳau
+raāḥimuⁿ
+laysa
+bimaraḥuwmiⁿ
+ falaā
+ḥukama
+lilarauḥamaŧi
+fiyhi
+ 
+waāamauā
+ālāʾišaāraŧu
+mina
+lisaāni
+ālḫuṣuwṣi
+ faāʾinau
+āllha
+waṣafa
+nafasah
+biālnaufasi
+wahuwa
+mina
+āltaunafiysi
+ 
+waāanau
+ālāasamaāʾa
+ālāʾilãhiyauŧa
+ʿaynu
+ālmusam
+auáã
+ walay
+sa
+āʾilauā
+huwa
+ waāanauhaā
+ṭaālibaŧuⁿ
+maā
+tuʿaṭiyhi
+mina
+ālḥaḳaāʾiḳi
+ walayasata
+ālḥaḳaāʾiḳu
+ālautiy
+taṭalubuhaā
+ālāasamaāʾu
+āʾilauā
+ālʿaālama
+ faālāuluwhaŧu
+taṭlubu
+ālmaāluwha
+ 
+23
+ẓh
+r
+waālruubuwbiyauŧu
+taṭal
+ubu
+ālmarabuwba
+ waāʾilauā
+falaā
+ʿayna
+lahaā
+āʾilauā
+bihi
+ 
+wuǧuwdaⁿā
+wataḳadiyraⁿā
+ 
+waālḥaḳuu
+mina
+ḥayṯu
+ḏaātuhu
+ ġanayuⁿu
+ʿani
+ālʿaālamiyna
+ waālruubuwbiyauŧu
+maālahaā
+hãḏaā
+ālḥukamu
+ 
+fabaḳiya
+ālāamaru
+bayna
+maātaṭalubuhu
+ālruubuwbiyauŧu
+wabayna
+maātasataḥiḳuuhu
+ālḏauātu
+ mina
+ālġinaáã
+ʿani
+ālʿaālami
+ walaysati
+ālruubuwbiyauŧu
+ʿaláã
+ālḥaḳiyḳaŧi
+waālanaṣaāfi
+ āʾilauā
+ʿaynu
+hãḏihi
+ālḏauāti
+ 
+falamauā
+taʿaāraḍa
+ālāamaru
+ biḥukami
+ālniusabi
+ warada
+fiy
+ālḫabari
+maā
+waṣafa
+ālḥaḳuu
+bihi
+nafasah
+ mina
+ālšaufaḳaŧi
+ʿaláã
+ʿibaādihi
+ 
+faāawaulu
+maā
+nafausa
+ʿani
+ālruubuwbiyauŧi
+binafasihi
+ālmanasuwbi
+āʾiláã
+ālrauḥamãni
+biāʾiyaǧaādihi
+ālʿaālama
+ālauḏiy
+taṭalubuhu
+ālruubuwbiyauŧu
+biḥaḳiyḳatihaā
+ waǧamiyʿu
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ 
+fayaṯabutu
+mina
+hãḏaā
+ālwaǧhi
+āanau
+raḥamatahu
+wasiʿata
+kulau
+šayʾiⁿ
+ 
+fawasiʿata
+ālḥaḳau
+ 
+fahiya
+āawasaʿu
+mina
+ālḳalabi
+ āaw
+musaāwiyaŧuⁿ
+lahu
+fiy
+ālsiuʿaŧi
+ hãḏaā
+maḍaáã
+ 
+ṯumau
+litaʿalama
+āanau
+ālḥaḳau
+taʿaālaáã
+kamaā
+ṯabata
+fiy
+ālṣauḥiyḥi
+yataḥawaulu
+fiy
+ālṣuuwari
+ʿinda
+āltauǧaliuy
+ waāanau
+ālḥaḳau
+taʿaāláã
+āʾiḏaā
+wasiʿahu
+ālḳalabu
+ laā
+yasaʿu
+maʿahu
+ġayaruhu
+mina
+ālmaḫaluwḳaāti
+ fakaāanauhu
+yamalaʾhu
+ 
+wamaʿanaáã
+hãḏaā
+āanauh
+āʾiḏaā
+naẓ
+ara
+āʾiláã
+ālḥ
+aḳiu
+ʿinada
+taǧaliuyhi
+lahu
+ laā
+yumaki
+nu
+āana
+yanaẓ
+ura
+maʿahu
+āʾiláã
+ġayrihi
+ 
+waḳalabu
+ālʿaārifi
+mina
+ālsiuʿaŧi
+kamaā
+ḳaāla
+āabuw
+yaziyadi
+ālbisaṭaāmiy
+ 
+law
+āanau
+ālʿaraša
+wamaāḥawaāhu
+maāáʾaŧa
+āalafi
+lafi
+marauŧiⁿ
+fiy
+zaāwiyaŧiⁿ
+mina
+zawaāyaā
+ḳalabi
+ālʿaārifi
+ maā
+āaḥasau
+bihi
+ 
+waḳaāla
+ālǧunaydu
+
+fiy
+hãḏaā
+ālmaʿan
+aáã
+ 
+āʾinau
+ālmuḥada
+ṯa
+āʾiḏaā
+ḳu
+rina
+biā
+lḳadi
+ymi
+lama
+yab
+aḳa
+lahu
+āaṯaruⁿ
+ waḳalabuⁿ
+yasaʿu
+ālḳadiyma
+ kayfa
+yaḥisuu
+biālmuḥadaṯi
+mawǧuwdaⁿā
+ 
+waāʾiḏaā
+kaāna
+ālḥaḳuu
+yatanawauʿu
+taǧal
+iuyhi
+fiy
+ālṣuuwari
+ fab
+iālḍauruwraŧi
+yatausiʿu
+ālḳalabu
+wayaḍiy
+ḳu
+biḥas
+abi
+ālṣuuwraŧi
+ālautiy
+yaḳ
+aʿu
+fiyhaā
+āltauǧaliuy
+ālāʾilãhiyuu
+ faāʾinauhu
+laā
+yafaḍulu
+mina
+ālḳalabi
+šayʾuⁿ
+ʿana
+ṣuwraŧi
+maā
+yaḳaʿu
+fiyhaā
+āltauǧaliuy
+ faāʾinau
+ālḳalaba
+mina
+ālʿaārifi
+āaw
+ālāʾinasaāni
+ālkaāmili
+ bimanazilaŧi
+maḥaliu
+faṣiu
+ālḫaātami
+mina
+ālḫaātami
+ laā
+yafaḍulu
+ bala
+yakuwnu
+ʿaláã
+ḳadarihi
+wašakalihi
+mina
+ālāʾisatidaāraŧi
+ āʾina
+kaāna
+ālfaṣuu
+musatadiyraⁿā
+ āaw
+mina
+āltaurabiyʿi
+ 
+waāltausadiysi
+ waāltauṯamiyni
+ waġayri
+ḏãlika
+mina
+ālāašakaāli
+
+33
+wǧh
+ āʾina
+kaāna
+ālfaṣuu
+murabauʿaⁿā
+ āaw
+musadausaⁿā
+ āaw
+muṯamaunaⁿā
+ āaw
+maā
+kaāna
+mina
+ālāašakaā
+li
+ faāʾinau
+maḥa
+lauhu
+mina
+ālḫaātami
+yakuwnu
+miṯalahu
+laā
+ġayra
+ 
+wahãḏaā
+ʿakasu
+maā
+tušiyru
+āʾilayhi
+ālṭauāʾifaŧu
+ min
+āanau
+ālḥaḳau
+yataǧalauáã
+ʿalaáã
+ḳadari
+asatiʿadaādi
+ālʿabadi
+ 
+wahãḏaā
+laysa
+kaḏãlika
+ faāʾinau
+ālʿ
+abada
+yaẓaharu
+lilaḥaḳiu
+ʿalaáã
+ḳadari
+ālṣuuwraŧi
+ālautiy
+yataǧal
+auáã
+lahu
+fiyhaā
+ālḥaḳuu
+ 
+wataḥariyru
+hãḏi
+hi
+ālmas
+aāalaŧi
+
+ āanau
+lilhi
+taǧaliuyayani
+
+ taǧaliuy
+ġaybiⁿ
+ wataǧaliuy
+šah
+aādaŧiⁿ
+ famina
+taǧaliuy
+ālġaybi
+yuʿaṭaáã
+ālasatiʿadaādu
+ ālauḏiy
+yakuwnu
+ʿalayhi
+ālḳalabu
+ wahuwa
+āltauǧaliuy
+ālḏauātiyuu
+ ālauḏiy
+ālġaybu
+ḥaḳiyḳatuhu
+ wahuwa
+ālhuwiyauŧu
+ālautiy
+yasataḥiḳuuhaā
+biḳawlihi
+ʿana
+nafasihi
+ 
+
+huwa
+ falaā
+yazaālu
+
+huwa
+ lahu
+daāʾimaⁿā
+āabadaⁿā
+ 
+faāʾiḏaā
+ḥaṣala
+lahu
+
+ āaʿaniy
+lilaḳalabi
+
+ hãḏaā
+ālasatiʿadaādu
+ taǧalauáã
+lahu
+āltauǧaliuy
+ālšauhuwdiyuu
+fiy
+ālšauhaādaŧi
+ farāhu
+faẓahara
+biṣuwraŧiⁿ
+maā
+ taǧalauáã
+lahu
+kamaā
+ḏakaranaāhu
+ fahuwa
+taʿaālaáã
+āaʿaṭaāhu
+ālasatiʿadaāda
+biḳawlihi
+ 
+āaʿaṭaáã
+kulau
+šayʾiⁿ
+ḫalaḳahu
+ 
+sw
+rŧ
+ṭãh
+ã
+ 05
+ 
+ṯumau
+rafaʿa
+ālḥiǧaā
+ba
+bayanahu
+wabayna
+ʿabadihi
+ farāhu
+fiy
+ṣuw
+raŧi
+muʿataḳadihi
+ fahuwa
+ʿaynu
+aʿatiḳaādihi
+ 
+falaā
+yašahadu
+ālḳalaba
+walaā
+ālʿayna
+āabadaⁿā
+āʾilauā
+ṣuwraŧa
+muʿataḳadihi
+fiy
+ālḥaḳiu
+ 
+faālḥaḳuu
+ālauḏiy
+fiy
+ālmuʿataḳadi
+ huwa
+ālauḏiy
+wasiʿa
+ālḳalaba
+ṣuwratahu
+ wahuwa
+ālauḏiy
+yataǧalauáã
+lahu
+fayaʿarifahu
+ falaā
+taráã
+ālʿaynu
+āʾilauā
+ālḥaḳau
+ālaʿatiḳaādiyau
+ 
+walaā
+ḫafaāʾa
+bitanawuuʿi
+ālaʿatiḳaādaāti
+ 
+famana
+ḳayaudahu
+āanakarahu
+fiy
+ġayri
+maā
+ḳayaudahu
+bihi
+ waāaḳarau
+bihi
+fiymaā
+ḳayaudahu
+bihi
+ āʾiḏaā
+taǧalauáã
+ 
+waman
+āaṭlaḳahu
+ʿani
+āltauḳayiyadi
+lama
+yunakirahu
+ waāaḳarau
+lahu
+fiy
+kuliu
+ṣuwraŧiⁿ
+yataḥawaulu
+fiyhaā
+ 
+wayuʿaṭiyhi
+mina
+nafasihi
+ḳadara
+ṣuwraŧi
+maātaǧalauáã
+lahu
+fiyhaā
+āʾilaáã
+maālaā
+yatanaāhaáã
+ faāʾinau
+ṣuwari
+āltauǧaliuy
+maālahaā
+nihaāyaŧuⁿ
+taḳifu
+ʿinadahaā
+ 
+wa
+kaḏãlika
+ālʿilamu
+biāllhi
+ maālahu
+ġaāyaŧuⁿ
+fiy
+ālʿ
+aārifiyna
+taḳifu
+ʿin
+adahaā
+bala
+huwa
+ālʿ
+aārifu
+fiy
+kuliu
+zamaāniⁿ
+yaṭalubu
+ālziuyaādaŧa
+mina
+ālʿilami
+bihi
+ 
+rabiu
+zidaniá
+ʿilamaⁿā
+ 
+rabiu
+zidaniá
+ʿilamaⁿā
+ 
+rabiu
+zidaniá
+ʿilamaⁿā
+ 
+swrŧ
+ṭãh
+ã
+ 411
+ faālāamaru
+laā
+yatanaāhaáã
+mina
+ālṭaurafayni
+ 
+hãḏaā
+āʾiḏaā
+ḳulata
+ 
+ḥaḳuⁿ
+waḫalaḳuⁿ
+ faāʾiḏaā
+naẓarata
+fiy
+ḳawlihi
+ 
+kunatu
+riǧalahu
+ālautiy
+yas
+aʿaáãi
+bhaā
+ wayada
+hu
+ālautiy
+yabaṭušu
+bihaā
+ walisaānahu
+ālauḏiy
+yatakalaumu
+bihi
+ āʾilaáã
+ġiyri
+ḏãlika
+mina
+ālḳuwaáã
+wamaḥaāliuhaā
+ālautiy
+hiya
+ālāaʿaḍaāʾu
+ lama
+tufariuḳa
+ 
+faḳ
+ulata
+ 
+ālāamaru
+ḥaḳuⁿu
+kuluuhu
+ 
+33
+ẓhr
+ āaw
+ḫalaḳuⁿ
+kuluuhu
+ fahuwa
+ḫal
+aḳuⁿ
+bin
+isabaŧiⁿ
+ wahuwa
+ḥaḳuⁿu
+binisabaŧiⁿ
+ waālʿaynu
+waāḥidaŧuⁿ
+ faʿaynu
+ṣuwraŧi
+maātaǧalauáã
+ ʿaynu
+ṣuwraŧi
+mana
+ḳabila
+ḏãlika
+āltuǧaliuy
+ fahuwa
+ālmutaǧaliuy
+waālmutaǧalauáã
+lahu
+ 
+faanaẓura
+maāāaʿaǧaba
+āamara
+āllhi
+ mina
+ḥayṯu
+huwiyautuhu
+ wamina
+ḥayṯu
+nisabatuhu
+āʾilaáã
+ālʿaālami
+ fiy
+ḥaḳaāʾiḳi
+āasamaāʾihi
+ālḥusanaáã
+ 
+
+maǧazuwʾu
+ālwaāfiri
+1
+famana
+ṯamau
+wamaā
+ṯamau
+waʿayanu
+ṯamau
+huwa
+ṯamauha
+2
+famana
+ḳada
+ʿamauhu
+ḫaṣauha
+wamana
+ḳada
+ḫaṣauhu
+ʿamauha
+3
+famaā
+ʿayanuⁿ
+siwaáã
+ʿayaniⁿ
+fanuwaruⁿ
+ʿayanuhu
+ẓulamaha
+4
+famana
+yaġafalu
+ʿana
+haḏaā
+yaǧida
+fiy
+nafasihi
+ġumauha
+5
+walaā
+yaʿarifu
+maā
+ḳulanaā
+siwaá
+ʿabadiⁿ
+lahu
+himauha
+
+āʾinau
+fiy
+ḏãlika
+liḏikaraáã
+limana
+kaāna
+lahu
+ḳalabuⁿ
+ 
+swrŧ
+ḳā
+
+ 73
+ litaḳaluubihi
+fiy
+āanawa
+āʿi
+ālṣuuwa
+ri
+waālṣiufaāti
+ walama
+yaḳula
+lim
+ana
+kaāna
+lahu
+ʿaḳ
+aluⁿ
+ faāʾinau
+ālʿaḳala
+ḳayduⁿ
+
+ fayaḥ
+aṣuru
+ālāamara
+fiy
+naʿatiⁿ
+waāḥidiⁿ
+ waālḥaḳiyḳaŧu
+taābaáã
+ālḥaṣara
+fiy
+nafasi
+ālāamri
+ 
+famaā
+huwa
+ḏikaraáã
+limana
+kaāna
+lahu
+ʿaḳ
+aluⁿ
+ 
+wahuma
+āaṣaḥaā
+bu
+ālaʿatiḳaādaāti
+ālauḏi
+yna
+yukafiuru
+baʿaḍuhuma
+baʿaḍ
+aⁿā
+ wayalaʿanu
+baʿaḍuhuma
+baʿ
+aḍaⁿā
+
+wamaā
+lahuma
+mina
+naãṣiriyna
+ 
+swrŧ
+āl
+ʿmrān
+
+ 22
+ faāʾinau
+āʾilãha
+ālmuʿataḳadi
+maālahu
+ḥukmuⁿ
+fiy
+āʾilãhi
+ālmuʿataḳadi
+ālāḫari
+ 
+faṣaāḥibu
+ālaʿatiḳaādi
+yaḏubuu
+ʿanhu
+ āay
+ ʿani
+ālāamari
+ālauḏiy
+aʿataḳadahu
+fiy
+āʾilãhihi
+ 
+wayanaṣuruhu
+ waḏãlika
+ālauḏiy
+fiy
+aʿatiḳaādihi
+laā
+yanaṣuruhu
+ 
+fal
+ihãḏaā
+laā
+yakuwnu
+lahu
+āaṯa
+ruⁿ
+fiy
+aʿat
+iḳaādi
+ālmunaāziʿi
+lahu
+ walaā
+ālmuna
+āzaʿa
+maālahu
+nuṣa
+ra
+ŧuⁿ
+mina
+āʾilãhihi
+ālauḏiy
+fiy
+aʿatiḳaādihi
+fa
+maā
+lahuma
+mina
+naãṣiriyna
+ 
+swrŧ
+āl
+ʿmrān
+
+ 22
+ 
+fanafiáã
+ālḥḳuu
+ālnuuṣaraŧa
+ʿana
+ālihaŧi
+ālaʿatiḳaādaāti
+ ʿalaáã
+anafiraādi
+kuliu
+muʿataḳadiⁿ
+ʿalaáã
+ḥidatihi
+ 
+waālmanaṣuwru
+ālmaǧamuwʿu
+ waālnauāṣiru
+ālmaǧamuwʿu
+ 
+faālḥaḳuu
+ʿinda
+ālʿaārifi
+huwa
+ālmaʿaruwfu
+ālauḏiy
+laā
+yunakaru
+ 
+faāahalu
+ālmaʿaruwfi
+fiy
+ālduunayaā
+ huma
+āahalu
+ālmaʿaruwfi
+fiy
+ālāḫiraŧi
+ 
+falihãḏaā
+ḳaāla
+ 
+limana
+kaāna
+lahu
+ḳalabuⁿ
+ 
+swrŧ
+ḳ
+ 73
+ 
+faʿulima
+taḳ
+aliybu
+ālḥaḳiu
+fiy
+ālṣuuwari
+ bitaḳaliybihi
+fiy
+ālāašakaāli
+ famina
+nafasihi
+ʿarafa
+nafasahu
+ 
+walaysata
+nafasuhu
+biġay
+riⁿ
+lihuwiyauŧi
+ālḥaḳiu
+ walaā
+šayaʾa
+mina
+ālkawni
+
+43
+wǧh
+ mimauā
+huwa
+kaāʾinuⁿ
+wayakuw
+nu
+biġay
+riⁿ
+lihuwiyauŧi
+ālḥ
+aḳiu
+ bala
+huwa
+ʿaynu
+ālhuwi
+yauŧi
+ fahuwa
+ālʿaārifu
+waālʿaā
+limu
+waālmuḳiruu
+fiy
+hãḏihi
+ālṣuuwraŧi
+ wahuwa
+ālauḏiy
+laā
+ʿaārifa
+walaā
+ʿaālima
+ wahuwa
+ālmunakiru
+fiy
+hãḏihi
+ālṣuuwraŧi
+ālāuḫaraáã
+ 
+hãḏaā
+ḥaẓuu
+mana
+ʿarafa
+ālḥaḳau
+mina
+āltauǧaliuy
+waālšuuhuwdi
+ fiy
+ʿayni
+ālǧamaʿi
+ 
+fahuwa
+ḳawluhu
+ 
+limana
+kaāna
+lahu
+ḳalabuⁿ
+ 
+swrŧ
+ḳ
+ 73
+ yatanawauʿa
+fiy
+taḳaliybihi
+ 
+waāamauā
+āahalu
+ālāʾiyamaāni
+ fahumu
+ālmuḳaliudaŧu
+ālauḏiyn
+ḳalauduwā
+ālāanabiyaāʾa
+waālruusula
+fiymaā
+āaḫabaruwā
+bihi
+ʿani
+ālḥaḳiu
+ laā
+mana
+ḳalauda
+āaṣaḥaāba
+ālāafakaāri
+waālmutaāawiuliyna
+ālāaḫabaāra
+ālwaāridaŧa
+ baḥamalihaā
+ʿalaáã
+āadiliutahima
+ālʿaḳaliyauŧi
+ fahãʾlaāʾi
+ālauḏiyna
+ḳalauduwā
+ālruusula
+
+ṣalawaātu
+āllhi
+ʿalayhima
+
+ humu
+ālmuraāduwna
+biḳawlihi
+ 
+āawa
+āalaḳaáã
+alsaumaʿa
+ 
+swrŧ
+ḳā
+
+ 
+73
+ limaā
+waradata
+bihi
+ālāaḫabaāru
+ālāʾilãhiyauŧu
+ʿalaáã
+āalasinaŧi
+lāanabiyaāʾi
+ ʿalayhima
+ālṣaulaāŧu
+waālsaulaāmu
+ 
+wahuwa
+yaʿaniy
+hãḏaā
+ālauḏiy
+āalḳaáã
+ālsaumaʿa
+ šahiyaduⁿ
+ 
+yunabiuhu
+ʿalaáã
+ḥaḍaraŧi
+ālḫayaāli
+waasatiʿamaālihaā
+ 
+wahuwa
+ḳawluhu
+ʿalayahi
+ālsaulaāmu
+fiy
+ālāʾiḥasaāni
+ 
+āanua
+taʿabuda
+āllha
+kaānauka
+taraāhu
+waāllhu
+fiy
+ḳibalaŧi
+ālamuṣaliuy
+faliḏãlika
+huwa
+šahiyaduⁿ
+ 
+wamana
+ḳalauda
+ṣaāḥiba
+naẓariⁿ
+fikariyiⁿ
+wataḳayauda
+bihi
+ falayasa
+huwa
+ālauḏiy
+āalaḳaáã
+ālsaumaʿa
+ 
+faāʾinau
+hãḏaā
+ālauḏiy
+āalaḳaáã
+ālsaumaʿa
+ laābudau
+āana
+yakuwana
+šahiyadaⁿā
+limaā
+ḏakaranaāhu
+ 
+wamatáã
+lama
+yakuna
+šahiy
+adaⁿā
+
+ limaā
+ḏakaranaāh
+
+ famaā
+huwa
+ālmuraādu
+bihãḏihi
+ālāyaŧi
+ fahaā
+āuwlaʾ
+ika
+humu
+ālauḏiyn
+ḳaā
+la
+āllhu
+fiy
+hima
+
+ 
+āʾiḏa
+tabarauāa
+alauḏiyana
+atuubiʿ
+uwā
+mina
+alauḏi
+yana
+ataubaʿuwā
+ 
+
+ālbḳrŧ
+
+ 661
+ 
+wālruusuli
+laā
+yatabarauʾuwana
+mina
+āatabaāʿihima
+ālauḏiyana
+ataubaʿuwahuma
+ 
+faḥaḳiuḳa
+
+ yaā
+walayuu
+
+ maāḏakaratuhu
+laka
+fiy
+hãḏihi
+ālḥikamaŧi
+ālḳalabiyauŧi
+ 
+waāamauā
+aḫat
+iṣaāṣuhaā
+bišuʿ
+ayabiⁿ
+ limaā
+fiy
+ahaā
+mana
+āltaušaʿiyabi
+āay
+ šuʿabuhaā
+laātanaḥaṣiru
+ 
+lāanau
+kulaau
+aʿatiḳaādiⁿ
+šuʿabaŧuⁿ
+ fahiya
+šuʿabuⁿ
+kuluuhaā
+ āaʿaniy
+ ālaʿatiḳaādaāti
+ 
+faāʾi
+ḏaā
+anakašafa
+ālġiṭaā
+ʾu
+ anakašafa
+likuuli
+āaḥadiⁿ
+biḥas
+abi
+muʿataḳadihi
+ waḳada
+yanakašifu
+biḫilaāfi
+maʿataḳadihi
+fiy
+ālaḥukami
+ wahuwa
+ḳawluhu
+ 
+wabadaā
+lahuma
+mina
+allhi
+maālama
+yakuwnuwā
+yaḥ
+atas
+ibuw
+na
+ 
+swrŧ
+ālzuumar
+
+ 74
+ faāa
+kaṯaruhaā
+fiy
+ālḥ
+ukami
+
+kaālamuʿ
+ataziliyiu
+ 
+yaʿataḳidu
+fiy
+āllhi
+nufuwada
+ālwaʿiyadi
+fiy
+ālʿaāṣiy
+āʾiḏaā
+maāta
+ʿalaáã
+ġayari
+tawabŧiⁿ
+ faāʾiḏaā
+maāta
+wakaāna
+maraḥuwamaⁿā
+ʿinada
+āllhi
+ḳada
+sabaḳata
+lahu
+ʿināyaŧuⁿ
+baāanauhu
+laā
+yuʿaāḳabu
+ waǧada
+āllha
+ġfwraⁿā
+rḥymaⁿā
+ fabadaā
+lahu
+mina
+āllhi
+maālama
+yakuna
+yaḥatasibuhu
+ 
+
+43
+ẓhr
+ waāamauā
+fiy
+ālhuwiyauŧi
+faāʾinau
+baʿaḍa
+ālʿibaādi
+yaǧazimu
+fiy
+aʿatiḳaādihi
+āanau
+āllha
+kaḏaā
+wakaḏaā
+ faāʾiḏaā
+anakašafa
+ālġiṭaāʾu
+ raāaáã
+ṣuwaraŧa
+muʿataḳadihi
+ wahiya
+ḥaḳuⁿu
+faāʿataḳadahaā
+ 
+waanaḥalauti
+ālʿuḳadaŧu
+ fazaāla
+ālaʿatiḳaādu
+ waʿaāda
+ʿilamaⁿā
+biālmušaāhadaŧi
+ wabʿada
+aḥatidaādi
+ālbaṣari
+laā
+yaraǧiʿu
+kaliyla
+ālnauẓari
+ 
+fayabadu
+wlibaʿ
+aḍi
+ālʿabiydi
+biaḫatalaāfi
+āltauǧaliuy
+fiy
+ālṣuuwari
+ʿanada
+ālruu
+ʾyaŧi
+ 
+lāunauhu
+laā
+yatakarauru
+ fayaṣaduḳu
+ʿalayahi
+fiy
+ālhuwiyauŧ
+
+wabadaā
+lahuma
+mina
+allhi
+ fiy
+huwiyautihi
+
+maālama
+yakuwnuwā
+yaḥatasibuwna
+ 
+swrŧ
+ālzuumar
+
+ 74
+ fiyhaā
+ḳabla
+kašafi
+ālġiṭaāʾi
+ 
+waḳada
+ḏakaranaā
+ṣuwaraŧa
+āltauraḳiy
+baʿda
+ālmawati
+fiy
+ālmaʿaārifi
+ālāʾilãhayauiuŧi
+fiy
+kitaābi
+āltauǧaliuyauāti
+lanaā
+ 
+ʿinada
+ḏikarinaā
+mana
+aǧatamaʿanaā
+bihi
+mina
+ālṭauāʾifaŧi
+fiy
+ālkašafi
+ wamaā
+āafadanaāhuma
+fy
+hãḏihi
+ālmasaāalaŧi
+ mimauā
+lama
+yakuna
+ʿinadahama
+ 
+wamina
+āaʿaǧabi
+ālāamari
+ āanauhu
+fiy
+āltauraḳiy
+daāʾimaⁿā
+ walaā
+yašaʿuru
+biḏãlika
+lilauṭaāfaŧi
+waālḥiǧaābi
+wariḳaut
+ihi
+ watašaābuhi
+ālṣuuwari
+ miṯala
+ḳawalahu
+ 
+waāutuwā
+bihi
+mutašaãbihaⁿā
+ 
+swrŧ
+ālbḳrŧ
+
+ 52
+ 
+walaysa
+huwa
+ālwaāḥidu
+ʿayna
+ālāḫari
+ 
+faāʾinau
+ālšaub
+iyhayni
+ʿinda
+ālʿaārifi
+āʾinauh
+umaā
+šabiyhaāni
+ġayraāni
+ 
+waṣaāḥibu
+āltauḥaḳiyḳi
+yaraáã
+ālkaṯaraŧa
+fiy
+ālwa
+āḥidi
+ kamaā
+naʿal
+amu
+āanau
+mada
+luwla
+ālāasamaā
+ʾi
+ālāʾilãhiyauŧi
+ waāʾina
+aḫatalafata
+ḥaḳaāʾiḳuhaā
+wakaṯurata
+ āanauhaā
+ʿayanuⁿ
+waāḥidaŧuⁿ
+ 
+fahãḏihi
+kaṯaraŧuⁿ
+maʿaḳuwalaŧuⁿ
+ fiy
+waāḥidi
+ālʿayani
+ fatukawiunu
+fiy
+ālt
+auǧaliuy
+kaṯaraŧaⁿ
+mašahuwdaŧaⁿ
+fiiy
+ʿayniⁿ
+waāḥidaŧiⁿ
+ 
+kamaā
+āanau
+ālhayuwlaáã
+tuʾḫaḏu
+fiy
+ḥadiu
+kuliu
+ṣuwraŧiⁿ
+ maʿa
+kaṯaraŧi
+ālṣuuwari
+waaḫatilaāfihaā
+ tarǧiʿu
+
+fiy
+ālḥaḳiyḳaŧi
+
+ āʾilaáã
+ǧwhriⁿ
+waāḥidiⁿ
+ wahuwa
+hayuwlaāhaā
+ 
+
+famana
+ʿarafa
+nafasahu
+ bihaḏihi
+ālmaʿarifaŧi
+ 
+
+faḳada
+ʿarafa
+rabauhu
+ faāʾinauhu
+ʿalaáã
+ṣuwratihi
+ḫalaḳahu
+ bala
+huwa
+ʿayanu
+huwiyautihi
+waḥaḳiyiḳatihi
+ 
+walh
+ãḏaā
+maāʿaṯ
+ara
+āaḥaduⁿ
+mina
+ālʿulama
+āʾi
+ʿalaáã
+maʿarifaŧi
+ālnaufasi
+waḥaḳiyaḳat
+ihaā
+ āʾilauā
+ālāʾilãh
+iyuuwna
+mina
+ālruusuli
+waālṣuuwafiyauŧi
+ 
+waāamauā
+āaṣaḥ
+aābu
+ālnauẓari
+ waāarabaā
+bu
+ālfika
+ri
+mina
+ālḳudamaāʾi
+ waālma
+takaliumiyna
+fiy
+kalaāmihima
+fiy
+ālnaufasi
+wamaāhiyautihaā
+ famaā
+minahuma
+mana
+ʿaṯara
+ʿalaáã
+ḥaḳiyḳatihaā
+ walaā
+yuʿaṭiyhaā
+ālnauẓaru
+ālfikariyuu
+āabadaⁿā
+ 
+famana
+ṭalaba
+ālʿilama
+bihaā
+mina
+ṭariyḳi
+ālnauẓaru
+ālfikariyiu
+ faḳada
+asatasamana
+ḏaā
+waramiⁿ
+ 
+wanafaḫa
+fiy
+ġayri
+ḍarimiⁿ
+
+53
+wǧh
+ laā
+ǧarama
+āanauhuma
+mina
+
+alauḏiyana
+ḍalau
+saʿay
+uhuma
+fiy
+ālḥayawã
+ŧi
+ālduunayaā
+wahuma
+yaḥasab
+uwna
+āanauhuma
+yuḥasinuwna
+ṣunaʿ
+aⁿā
+ 
+sw
+rŧ
+ālkhf
+
+ 401
+ famana
+ṭalaba
+ālāamara
+mina
+ġayri
+ṭariyḳihi
+ famaā
+ẓafira
+bitaḥaḳiyḳihi
+ 
+wamaā
+āaḥasana
+maā
+ḳaāla
+āllhu
+fiy
+ḥaḳiu
+ālʿaālami
+watabaduulihi
+maʿa
+ālāanafaāsi
+fiy
+
+ḫalaḳiⁿ
+ǧadiyadiⁿ
+ 
+swrŧ
+ḳā
+
+ 51
+ fiy
+ʿayaniⁿ
+waāḥidaŧiⁿ
+ faḳaāla
+fiy
+ḥaḳiu
+ṭaāʾifaŧiⁿ
+bala
+āakaṯari
+ālʿaālami
+ 
+bala
+huma
+fiy
+labasiⁿ
+mina
+ḫalaḳiⁿ
+ǧadiyadiⁿ
+ 
+swrŧ
+ḳā
+
+ 51
+ falaā
+yaʿarifuwana
+taǧadiyada
+ālāamari
+maʿa
+ālāanafaāsi
+ 
+lãkina
+ḳada
+ʿaṯarata
+ʿalay
+hi
+ālāašaāʿira
+ŧu
+fiy
+baʿaḍi
+ālmawaǧuwdaāti
+wahiy
+ālāaʿaraāḍu
+ 
+waʿaṯarata
+ʿalayahi
+ālḥusabaāniyauŧi
+fiy
+ālʿaālami
+kuliuhi
+ waǧahilahuma
+āahalu
+ālnauẓari
+baāaǧamaʿihima
+ 
+walãkina
+āaḫaṭaāa
+ālfariyaḳaāni
+ 
+āamauā
+ḫaṭ
+āu
+ālaḥus
+abaāniyauŧi
+ fab
+ikawnihima
+maāʿaṯaru
+wā
+maʿa
+ḳawlih
+ima
+biā
+ltauba
+duuli
+fiy
+ālʿ
+aālami
+biāasarihi
+ʿalaáã
+āaḥadiyauŧi
+ʿayni
+ālǧawhari
+ālmaʿaḳuwli
+ ālauḏiy
+ḳabila
+hãḏihi
+ālṣuuwraŧi
+ walaā
+yuwǧadu
+āʾilauā
+bihaā
+ kamaā
+laā
+tuʿaḳalu
+āʾilauā
+bihi
+ falaw
+ḳaāluwā
+biḏãlika
+faāzuwā
+bidaraǧaŧi
+āltauḥaḳiyḳi
+fiy
+ālāamari
+ 
+waāamuuā
+ālāašaāʿiraŧu
+ famaā
+ʿalimuwā
+āanau
+ālʿaālama
+kulauhu
+maǧamuwʿu
+āaʿraāḍiⁿ
+ fahuwa
+yatabadaulu
+fiy
+kuliu
+zamaāniⁿ
+āʾiḏi
+ālʿaraḍu
+laā
+yabḳaáã
+zamaānayni
+ 
+wayaẓaharu
+ḏãlika
+fiy
+ālḥuduwdi
+lilāšayiⁿāʾi
+ faāʾinauhuma
+āʾiḏaā
+ḥaduuwā
+ālšauyʾa
+ yabiynu
+fiy
+ḥadiuhima
+kawnu
+ālāaʿaraāḍi
+ waānau
+hãḏihi
+ālāaʿaraāḍa
+ālmaḏakuwraŧa
+fiy
+ḥadiuhi
+ ʿaynu
+hãḏaā
+ālǧawahari
+waḥaḳiyḳatuhu
+ ālḳaāʾimu
+binafasihi
+ 
+wamina
+ḥayṯu
+huwa
+ʿaraḍuⁿ
+laāyaḳuwmu
+binafasihi
+ 
+faḳada
+ǧaā
+ʾa
+mina
+maǧ
+amuwʿi
+maā
+laā
+yaḳuw
+mu
+binafas
+ihi
+ mana
+yaḳuw
+mu
+binafas
+ihi
+kaā
+ltauḥ
+ayuuzi
+fiy
+ḥadiu
+ālǧawhari
+ālḳaāʾimi
+binafasihi
+ālḏauātiy
+ 
+waḳabuwlihi
+lilāaʿraāḍi
+ḥaduⁿu
+lahu
+ḏaātiyuⁿu
+ 
+walaā
+šakau
+āana
+ālḳabuwla
+ʿaraḍuⁿ
+ āʾiḏa
+laā
+yakuwnu
+āʾilauā
+fiy
+ḳaābiliⁿ
+ lāanauhu
+laā
+yaḳuwmu
+binafasihi
+ wahuwa
+ḏaātiyuⁿu
+lilǧawhari
+ waāltauḥayuuzu
+ʿaraḍuⁿ
+ walaā
+yakuwnu
+āʾilauā
+fiy
+mutaḥayiu
+ziⁿ
+ falaā
+yaḳuwmu
+binafasihi
+ 
+walaysa
+āltauḥayuuzu
+waālḳabuwlu
+biāamariⁿ
+zaāʾidiⁿ
+ʿalaáã
+ʿayni
+ālǧawhari
+ālmaḥaduwdi
+ lāanau
+ālḥuduwda
+ālḏauātayauŧa
+hiya
+ʿaynu
+ālmaḥaduwdi
+wahuwiyatiuhu
+ 
+faḳ
+ada
+ṣaāra
+maā
+laā
+yabḳaáã
+zamaānayni
+ yabaḳaáã
+zamaānayni
+waāazamin
+aŧaⁿ
+ waʿaā
+da
+maālaā
+yaḳuwmu
+bin
+afasihi
+ 
+yaḳuwmu
+binafasihi
+ 
+walaāyašaʿuruwna
+limaā
+huma
+ʿalayhi
+
+53
+ẓhr
+ whãʾlaāʾi
+huma
+fiy
+labasiⁿ
+mina
+ḫalaḳiⁿ
+ǧadiydiⁿ
+ 
+waāamauā
+āahlu
+ālkaš
+afi
+ faāʾinauh
+uma
+ya
+rawna
+āanau
+āllha
+yataǧ
+alauáã
+fiy
+kuliu
+nafasiⁿ
+ walaā
+yuka
+riuru
+āltauǧaliuy
+ wayarawna
+āayḍaⁿā
+šuhuwdaⁿā
+ āanau
+kulau
+taǧaliⁿu
+yuʿaṭiy
+ḫalaḳaⁿā
+ǧadiydaⁿā
+ wayaḏahabu
+biḫalaḳiⁿ
+ faḏihaābuhu
+huwa
+ālfanaāʾu
+ʿinda
+āltauǧaliuy
+ waālbaḳaāʾu
+limaā
+yuʿaṭiyhi
+āltauǧaliuy
+ālāḫiru
+ 
+faāfahama
+ 
+
+31
+ 
+faṣuu
+ḥikamaŧiⁿ
+malakiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+luwṭiyauŧiⁿ
+ālmal
+aku
+ālšiudau
+ŧu
+ waālmal
+iyku
+
+ālšaudiydu
+ yuḳaāla
+malakatu
+ālʿaǧiyna
+āʾiḏaā
+šadaudata
+ʿaǧanahu
+ 
+ḳaāla
+ḳaysu
+banu
+ālḫaṭiymi
+yaṣifu
+ṭaʿanahu
+ 
+
+ālṭwyl
+malakatu
+bihaā
+kafiuy
+faāanaharatu
+fataḳahaā
+yaraáã
+ḳaāʾimuⁿ
+mina
+duwnihaā
+maāwaraāʾahaā
+āaá
+ šadadatu
+bihaā
+kafiuy
+ yaʿaniy
+ ālṭauʿanaŧa
+ 
+fahuwa
+ḳawlu
+āllhi
+ʿana
+luw
+ṭiⁿ
+
+lawa
+āanau
+liá
+bikuma
+ḳuwauŧaⁿ
+āawa
+ʾaāwiáā
+āʾilaáã
+rukaniⁿ
+šadiyadiⁿ
+
+swrŧ
+hwd
+
+ 08
+ faḳaāl
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+yaraḥami
+āllhu
+āaḫiy
+luwaṭaⁿā
+ laḳada
+kaāna
+yaāwiy
+āʾilaáã
+rukaniⁿ
+šadiydiⁿ
+ fanabauha
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+āanauhu
+kaāna
+maʿa
+āllhi
+mina
+kawnihi
+šadiydaⁿā
+ 
+wālauḏiy
+ḳaṣada
+luwaṭuⁿ
+ʿalayhi
+ālsaulaāmu
+ālḳabiylaŧa
+biālruukani
+ālšaudiydi
+ waālmuḳaāwamaŧi
+ 
+bḳawlihi
+ 
+lawa
+āanau
+liá
+bikuma
+ḳuwauŧaⁿ
+ 
+swrŧ
+hwd
+
+ 08
+ wahiya
+ālhimauŧu
+hunaā
+mina
+ālbašari
+ḫaāṣauŧaⁿ
+ 
+faḳaāla
+rasuwlu
+āll
+hi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+famina
+ḏãlika
+ālwaḳati
+ yaʿaniá
+ mina
+ālzaumani
+ālauḏiy
+ḳaāla
+fiyhi
+luwṭuⁿ
+ʿalayhi
+āls
+aulaāmu
+ 
+āawa
+ʾaāwiá
+āʾilaáã
+rukaniⁿ
+šadiyadiⁿ
+ 
+sw
+rŧ
+hwd
+
+ 08
+ maā
+buʿiṯa
+nabiyuⁿu
+baʿda
+ḏãlika
+ āʾilauā
+fiy
+manaʿaŧiⁿ
+mina
+ḳawmihi
+ 
+fakaāna
+yaḥamiyhi
+ḳabiyluhu
+ kaāabiy
+ṭaālibiⁿ
+maʿa
+rasuwli
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+faḳawluhu
+ 
+lawa
+āanau
+liá
+bikuma
+ḳuwauŧaⁿ
+ 
+sw
+rŧ
+hwd
+
+ 08
+ lika
+wnih
+ʿalay
+hi
+āls
+aulaāmu
+samiʿa
+āllha
+taʿaālaáã
+yaḳuwalu
+ 
+āllhu
+alauḏiy
+ḫalaḳakuma
+mina
+ḍaʿafiⁿ
+ 
+swrŧ
+ālrwm
+
+ 45
+biālāaṣaālaŧi
+ 
+
+ṯumau
+ǧaʿala
+mina
+baʿadi
+ḍaʿafiⁿ
+ḳuwauŧaⁿ
+ 
+swrŧ
+ālrwm
+
+ 45
+ faʿaraḍata
+ālḳuuwauŧu
+biālǧaʿali
+ fahiáa
+ḳuwauŧuⁿ
+ʿaraḍiyauŧuⁿ
+
+ 
+ṯumau
+ǧaʿala
+mina
+baʿadi
+ḳuwau
+ŧiⁿ
+ḍaʿafaⁿā
+wašayabaŧaⁿ
+ 
+swrŧ
+ālrwm
+
+ 45
+ faālǧaʿalu
+taʿalauḳa
+biālšauyabaŧi
+ 
+waāamauā
+ālḍauʿafu
+fahuwa
+ruǧuwʿuⁿ
+āʾilaáã
+āaṣali
+ḫalaḳihi
+ wahuwa
+ḳawluhu
+ 
+ḫalaḳakuma
+mina
+ḍaʿafiⁿ
+ 
+swrŧ
+ālrwm
+
+ 45
+ faradauhu
+
+63
+wǧh
+ limaā
+ḫalaḳahu
+minhu
+kamaā
+ḳaāla
+ ṯumau
+
+yura
+duu
+āʾilaáã
+āaraḏali
+alʿum
+uri
+likayalaā
+yaʿal
+ama
+mina
+baʿadi
+ʿilamiⁿ
+šayáʾaⁿā
+
+swrŧ
+ālḥǧ
+
+ 5
+faḏa
+kara
+āanauhu
+rudau
+āʾilaáã
+ālḍauʿafi
+ālāawauli
+ faḥukamu
+ālšauyḫi
+ḥukamu
+ālṭiufali
+fiy
+ālḍauʿafi
+ 
+wamaā
+buʿiṯa
+nabiyuⁿu
+āʾilauā
+baʿda
+tamaāmi
+ālāarabaʿiyna
+ wahuwa
+zamaānu
+āaḫaḏihi
+fiy
+ālnaḳaṣi
+wālḍauʿafi
+ 
+faliḏaā
+ḳaāla
+ 
+lawa
+āanau
+liá
+bikuma
+ḳuwauŧaⁿ
+ 
+swrŧ
+hwd
+
+ 08
+ maʿa
+kawni
+ḏãlika
+yaṭalubu
+himiⁿuŧaⁿ
+muwʾaṯiuraŧaⁿ
+ 
+faāʾina
+ḳul
+ata
+ wamaā
+yamanaʿuhu
+mina
+ālhimauŧi
+ālmuwʾa
+ṯiura
+ŧi
+ wahiya
+mawa
+ǧuwdaŧuⁿ
+fiy
+ālsauā
+likiyna
+mina
+ālāatabaāʿi
+ faālruusulu
+āawlaáã
+bihaā
+ 
+ḳulan
+aā
+ ṣadaḳata
+ walãkina
+naḳaṣaka
+ʿilmuⁿ
+āḫaru
+ waḏãlika
+āanau
+ālmaʿari
+faŧa
+laā
+tatru
+ku
+lilahimauŧi
+taṣaruufaⁿā
+ fakulaumaā
+ʿalata
+maʿarifatuhu
+ naḳaṣa
+taṣaruufuhu
+biālhimauŧi
+ waḏãlika
+liwaǧahayni
+ ālwaǧhu
+ālwaāḥidu
+litaḥaḳuuḳihi
+bimaḳaāmi
+ālʿubuwdiyauŧi
+ wanaẓarihi
+āʾilaáã
+āaṣali
+ḫalaḳihi
+ālṭaubiyʿiyiu
+ 
+waālwaǧhu
+ālāḫaru
+āaḥadiyauŧu
+ālmutaṣariufi
+waālmutaṣaraufi
+fiyhi
+ falaā
+yuraáã
+ʿalaáã
+mana
+yurasilu
+himautahu
+fayamanaʿuhu
+ḏãlika
+ 
+wafiy
+hãḏaā
+ālmašahadi
+yaraáã
+āanau
+ālmunaāziʿa
+lahu
+maā
+ʿadala
+ʿana
+ḥaḳiyḳatihi
+ālautiy
+huwa
+ʿalayhaā
+ fiy
+ḥaāli
+ṯubuwti
+ʿayn
+ihi
+ waḥaāli
+ʿadamihi
+ famaā
+ẓahara
+fiy
+ālwuǧuwdi
+āʾilauā
+maā
+kaāna
+lahu
+ fiy
+ḥaāli
+ālʿadami
+ fiy
+ālṯuubuwati
+ famaā
+taʿadauáã
+ḥaḳiyḳatahu
+ walaā
+āaḫalau
+biṭariyḳatihi
+ 
+fatasamiyaŧu
+ḏãlika
+nizaāʿaⁿā
+ āʾinauma
+āhuwa
+āamaruⁿ
+ʿaraḍiyuⁿu
+ āaẓaharahu
+ālḥiǧ
+aābu
+ ālauḏi
+yʿal
+aáã
+āaʿyuni
+ālnauāsi
+ kamaā
+ḳaāla
+āllhu
+fiyhima
+ 
+walãkinau
+āakaṯ
+ara
+alnauāsi
+laā
+yaʿalamuwna
+ 
+yaʿal
+amuwna
+ẓaāhirāaⁿ
+mina
+alḥ
+ayaāŧi
+alduunayaā
+wahuma
+ʿani
+ālāḫiraŧi
+huma
+ġaāfiluwna
+ 
+swrŧ
+ālr
+wm
+
+ 6
+7
+ 
+wahuwa
+mina
+ālm
+aḳaluwa
+bi
+ faāʾinauhu
+mina
+ḳaw
+lihima
+
+ḳul
+uwbun
+aā
+ġul
+afuⁿ
+ 
+sw
+rŧ
+ālb
+ḳr
+ŧ
+ 88
+ swrŧ
+ālns
+āʾ
+
+ 551
+ āay
+ fiy
+ġilaāfiⁿ
+ wahuwa
+ālkinuu
+ālauḏiy
+satarahu
+ʿana
+āʾidraāki
+ālāamri
+ʿal
+aáã
+maā
+huwa
+ʿalayhi
+ 
+fahãḏaā
+waāamaṯaāluhu
+yamanaʿu
+ālʿaārifa
+mina
+āltauṣaruufi
+fiy
+ālʿaālami
+ 
+ḳaāla
+ālšauyḫu
+āabuwʿabadiāllhi
+bnu
+ḳaāʾidiⁿ
+lilšauyḫi
+āabiy
+ālsuuʿuwdi
+bni
+ālšiubali
+ 
+
+lima
+laā
+tataṣaraufu
+ faḳaāla
+āabuwālsuuʿuwdi
+ 
+taraktu
+ālḥaḳau
+yataṣaraufu
+liy
+ kamaā
+yašaā
+ʾu
+ yuriydu
+ḳaw
+lahu
+taʿ
+aālaáã
+āmiraⁿ
+ā
+faatauḫiḏa
+hu
+wakiyalaⁿā
+ 
+swrŧ
+ālm
+zml
+
+ 9
+ faālwa
+kiy
+lu
+huwa
+ālmutaṣariufu
+ 
+walaā
+siy
+aumaā
+ waḳada
+samiʿa
+āll
+ha
+yaḳuwlu
+ 
+waanafiḳuwa
+āmim
+auā
+ǧaʿalakuma
+musataḫalafiyana
+fiyahi
+
+
+swrŧ
+ālḥdyd
+
+ 7
+ faʿalima
+āabuw
+ālsuuʿuwdi
+
+63
+ẓhr
+ waālʿaārifuwna
+āanau
+ālāamra
+ālauḏiy
+biyadihi
+laysa
+lahu
+ waāanauhu
+musataḫalafuⁿ
+fiyhi
+ ṯumau
+ḳaāla
+lahu
+ālḥaḳuu
+ 
+hãḏaā
+ālāamru
+ālauḏiy
+asataḫalafatuka
+fiyhi
+wamalaukatuka
+āʾiyauāhu
+ aǧaʿalaniy
+waatauḫiḏaniy
+wakiylaⁿā
+ fiyhi
+ 
+faamataṯala
+āabuw
+ālsuuʿuwdi
+āamara
+āllhi
+ 
+faātauḫaḏahu
+wakiyalaⁿā
+ 
+swrŧ
+ālmzml
+
+ 9
+fakayfa
+baḳiya
+
+limana
+yašah
+adu
+miṯala
+hãḏaā
+ālāamari
+ himauŧuⁿ
+yat
+aṣaraufu
+bihaā
+
+ waālhimauŧu
+laā
+tafaʿ
+alu
+āʾilauā
+biālǧamaʿiyauŧi
+ālautiy
+laā
+mutausaʿa
+liṣaāḥibihaā
+āʾilaáã
+ġayri
+maāaǧatamaʿa
+ʿalayhi
+ 
+wahãḏihi
+ālmaʿarifaŧu
+tuf
+ariuḳuhu
+ʿana
+hãḏihi
+ālǧamaʿiyauŧi
+ fay
+aẓaharu
+ālʿaārifu
+āltauāmu
+ālmaʿarifaŧi
+biġaāyaŧi
+ālʿaǧazi
+waālḍauʿafi
+ 
+ḳaāla
+baʿaḍu
+ālābadaāli
+lil
+šauyḫi
+ʿabadiālrauzauāḳi
+raḍiya
+āllhu
+ʿanhu
+ ḳula
+lilšauyḫi
+āabiy
+madayaniⁿ
+baʿada
+ālsaulaāmi
+ʿalayhi
+ 
+iyaā
+āabaā
+madayaniⁿ
+ lima
+laā
+yaʿataāṣu
+ʿalayanaā
+šayʾuⁿ
+ waāanata
+taʿataāṣu
+ʿalayaka
+ālāašayaāʾu
+ wanaḥanu
+naraġabu
+fiy
+maḳaāmika
+ waāanata
+laā
+taraġabu
+fiy
+maḳaāminaā
+wkḏãlika
+kaāna
+maʿa
+kawni
+āabiy
+madayana
+raḍiya
+āllhu
+ʿanhu
+ kaāna
+ʿindahu
+ḏãlika
+ālmaḳaāmu
+waġayruhu
+ 
+wanaḥanu
+āatamuu
+fiy
+maḳaāmi
+ālḍauʿafi
+waālʿaǧazi
+minhu
+ wamaʿa
+hãḏaā
+ḳaāla
+lahu
+hãḏaā
+ālbadalu
+maāḳaāl
+ whãḏaā
+mina
+ḏãlika
+ālḳabiyli
+āayaḍaⁿā
+ 
+waḳaāla
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+fiy
+hãḏaā
+ālmaḳaāmi
+ʿana
+āamari
+āllhi
+lahu
+biḏãlika
+ 
+maāā
+āadariá
+maāyufaʿalu
+biá
+walaā
+bikuma
+āʾina
+āataubiʿu
+āʾilauā
+maā
+yuw
+ḥaáāã
+āʾilaáau
+ 
+sw
+rŧ
+ālāḥḳ
+āf
+ 9
+faālrausuwlu
+biḥukami
+maā
+yuwḥaáã
+āʾilayhi
+bihi
+ maāʿindahu
+ġayru
+ḏãlika
+ 
+faāʾina
+āuwḥiya
+āʾilayhi
+biāltauṣaruufi
+biǧazmiⁿ
+taṣaraufa
+ wāna
+muniʿa
+amatanaʿa
+ waāʾina
+ḫuyiura
+aḫataāra
+taraka
+āltauṣaruufi
+ āʾilauā
+āana
+yakuwna
+naāḳiṣa
+ālmaʿarifaŧi
+ 
+ḳaāla
+āabuw
+ālsuuʿuwdi
+liāaṣaḥaābihi
+ālmuʾminiyina
+bihi
+ 
+āʾinau
+āll
+ha
+āaʿaṭaāniy
+āltauṣaruufa
+man
+aḏu
+ḫamasa
+ʿašaraŧa
+sanaŧiⁿ
+ watarakanaāhu
+taẓaruufaⁿā
+ hãḏaā
+lisaānu
+āʾidalaāliⁿ
+ 
+waāamauā
+naḥanu
+famaā
+tarakanaāhu
+taẓaruufaⁿā
+ wahuwa
+tarakahu
+āʾiyaṯaāraⁿā
+ waāʾinaumaā
+tarakanaāhu
+likamaāli
+ālmaʿarifaŧi
+ faāʾinau
+ālmaʿarifaŧa
+ laā
+taḳataḍiyhi
+biḥukami
+ālaḫatiyaāri
+ famataáã
+taṣaraufa
+ālʿaārifu
+biālhimauŧi
+fiy
+ālʿaālami
+ faʿana
+āamariⁿ
+āʾilãhiyiⁿu
+ waǧabariⁿ
+laā
+biaḫatiyaāriⁿ
+ walaā
+našukuu
+āanau
+maḳaāma
+ālrausaālaŧi
+yaṭalubu
+āltauṣaruu
+fa
+liḳabuw
+li
+ālriu
+saālaŧi
+ālaut
+iy
+ǧaāʾa
+bihaā
+ fayaẓaharu
+ʿalay
+hi
+maāyuṣadiuḳuhu
+ʿinda
+āumautihi
+waḳawmihi
+ liyaẓahara
+diynu
+āllhi
+ 
+waālwaliyuu
+laysa
+kaḏãlika
+ wamaʿa
+hãḏaā
+falaā
+yaṭalubuhu
+ālrausuwlu
+fiy
+ālẓauāhiri
+ lāanau
+lilrausuw
+li
+ālšaufaḳ
+aŧa
+ʿalaáã
+ḳawmihi
+ falaā
+yuriydu
+āana
+yub
+aāli
+ġa
+fiy
+ẓuh
+uwri
+ālḥuǧ
+auŧi
+ʿalay
+hima
+ 
+73
+wǧh
+ faāʾinau
+fiy
+ḏãlika
+halaākahuma
+ fayubaḳiy
+ʿalayhima
+ 
+waḳada
+ʿalima
+ālrausuwlu
+āayḍaⁿā
+ āanau
+ālāamara
+ālmuʿaǧiza
+āʾiḏaā
+ẓahara
+lilǧamaāʿaŧi
+ minahuma
+ mana
+yuʾminu
+ʿinada
+ḏãlika
+ waminahuma
+ mana
+yaʿarifuhu
+wayaǧaḥaduhu
+ walaā
+yuẓahiru
+āltauṣadiyaḳa
+bihi
+ẓulamaⁿā
+waʿuluwaⁿā
+waḥasadaⁿā
+ waminahuma
+ man
+yulaḥiḳu
+ḏãlika
+biālsiuḥari
+waālāʾiyhaāmi
+ 
+falam
+auā
+raāata
+ālruusulu
+ḏãlika
+ waāanauhu
+laā
+yuʾ
+minu
+āʾilauā
+mana
+āanaāra
+āllhu
+ḳal
+abahu
+binuwri
+ālāʾiymaāni
+ 
+wamat
+aáã
+lama
+yanaẓuri
+ālšauḫaṣu
+biḏãlika
+ālnuuwri
+ālmusamauáã
+āʾiyamaānaⁿā
+ waālauā
+falaā
+yanafaʿu
+fiy
+ḥaḳiuhi
+ālāamru
+ālmuʿ
+aǧizu
+
+ faḳ
+aṣurati
+ālhim
+amu
+ʿana
+ṭalabi
+ālāumuwri
+ālmuʿ
+aǧizaŧi
+ lamauā
+lama
+yaʿumu
+āaṯa
+ruhaā
+fiy
+ālnauāẓiriyana
+ walaā
+fiy
+ḳuluwbihima
+ 
+kamaā
+ḳaāla
+fiy
+ḥaḳiu
+āakamali
+ālruusuli
+ waāaʿlami
+ālḫalaḳi
+waāṣadaḳihima
+fiy
+ālḥaāli
+ 
+
+āʾinauka
+laā
+tahadiá
+mana
+āaḥababata
+walãkinau
+allha
+yahadiá
+mana
+yašaāʾu
+ 
+swrŧ
+ālḳṣṣ
+
+ 
+65
+ 
+walawkaāna
+lilauhimauŧi
+āaṯaruⁿ
+walaābudau
+ lama
+yakuna
+āaḥaduⁿ
+āakamala
+mina
+rasuwli
+āll
+hi
+ṣalauáã
+āllhu
+ʿal
+ayhi
+wasal
+auma
+ walaā
+āaʿl
+aáã
+waāaḳawaáã
+himau
+ŧaⁿ
+minhu
+ wamaāāaṯaurata
+fiy
+āʾisalaāmi
+āabiy
+ṭaālibiⁿ
+ʿamiuhi
+ 
+wafiyhi
+nazalati
+ālāyŧu
+ālautiy
+ḏakaranaāhaā
+ waliḏãlika
+ḳaāla
+fiy
+ālrausuwli
+āʾinauhu
+maāʿalayhi
+āʾilauā
+ālbalaāġu
+ waḳaāla
+ 
+layasa
+ʿalayaka
+hudaáãhuma
+walãkinau
+āllha
+yahadiá
+mana
+yašaāʾu
+ 
+ālbḳ
+rŧ
+ 
+272
+ 
+wazaāda
+fiy
+suwaraŧi
+ālḳ
+aṣaṣi
+ 
+wahuwa
+āaʿal
+amu
+bialmuhatadiyana
+ 
+swrŧ
+ālḳṣṣ
+
+ 65
+ 
+āaya
+ biālauḏiyna
+āaʿaṭawhu
+ālʿil
+ama
+bih
+idaāyatihima
+fiy
+ḥaāli
+ʿadamihim
+biāaʿyaānihima
+ālṯauābitaŧi
+
+ faāaṯabata
+āanau
+ālʿilama
+taābiʿuⁿ
+lilmaʿaluwm
+i
+famana
+kaāna
+maʾmin
+aⁿā
+fiy
+ṯubuwti
+ʿaynihi
+ waḥaāli
+ʿadamihi
+ ẓahara
+bitilaka
+ālṣuuwaraŧi
+fiy
+ḥaāli
+wuǧuwadihi
+ waḳada
+ʿalima
+āllhu
+ḏãlika
+minahu
+ āanauhu
+hãkaḏaā
+yakuwnu
+ 
+faliḏãlika
+ḳaāla
+ 
+wahuwa
+āaʿalamu
+bialamu
+hatadiyana
+ 
+swrŧ
+ālḳṣṣ
+
+ 65
+ falmauā
+ḳaā
+la
+miṯala
+hãḏaā
+ ḳaāla
+āayḍaⁿā
+ 
+maāyubadaulu
+alḳawalu
+ladayau
+ 
+swrŧ
+ḳā
+
+ 92
+ lāanau
+ḳawliy
+ʿalaáã
+ḥadiu
+ʿilamiy
+fiy
+ḫalaḳiy
+ 
+wamaāāanaā
+biẓalauāmiⁿ
+lilʿabiyadi
+ 
+swrŧ
+ḳā
+
+ 92
+ āay
+ maāḳadaratu
+ʿal
+ayh
+ima
+ālkufara
+ālauḏi
+yyuš
+aḳiy
+hima
+ ṯumau
+ṭal
+abat
+uhum
+bimaā
+laysa
+fiy
+wusaʿih
+im
+ āana
+yaātuwā
+bihi
+
+ bala
+maāʿaāmalanaā
+huma
+āʾilauā
+biḥas
+abi
+maā
+ʿalaumana
+āhuma
+ wamaāʿal
+aumanaā
+huma
+āʾilauā
+bimaā
+āaʿaṭawnaā
+mina
+nufuw
+sih
+ima
+ 
+mimauā
+huma
+ʿalayhi
+ faāʾina
+kaāna
+ẓulamuⁿ
+ fahumu
+ālẓauālimuwna
+ wlḏãlika
+ḳāl
+ 
+walã
+kina
+kaānuwā
+āanafusahuma
+yaẓalimuwna
+ 
+swrŧ
+ālāʿrāf
+
+ 061
+ famaā
+ẓalamahumu
+āllhu
+ 
+kaḏ
+ãlika
+maāḳulan
+aā
+lahuma
+ālauā
+maāāaʿaṭtahu
+ḏātunaā
+āana
+naḳuwla
+lah
+uma
+ waḏaātunaā
+maʿaluwmaŧuⁿ
+lanaā
+bimaā
+hiy
+ʿalayhi
+ mina
+āana
+naḳ
+uwla
+kaḏaā
+ walaā
+naḳuwlu
+kaḏaā
+ 
+73
+ẓhr
+ famaā
+ḳulan
+aā
+āalauā
+maā
+ʿalimanaā
+āanauā
+naḳuwlu
+ falanaā
+ālḳawlu
+minauā
+ walahumu
+ālamatiṯaālu
+waʿadamu
+ālamatiṯaāli
+ maʿa
+ālsaumaāʿi
+minahuma
+ 
+
+ālmuǧataṯuu
+1
+faālkuluu
+minauā
+waminahuma
+waālāaḫaḏu
+ʿanauā
+waʿanahuma
+2
+āʾina
+lama
+yakuwnuwnu
+minauā
+fanaḥanu
+laā
+šakau
+minahuma
+fataḥaḳ
+iuḳa
+
+ yaā
+waliyuu
+
+ hãḏihi
+ālḥikam
+aŧa
+ālm
+ala
+kiyauŧa
+mina
+ālkalimaŧi
+āll
+uuwṭiyauŧi
+ faāʾinauh
+iā
+lubaābu
+ālmaʿarifaŧi
+ 
+
+maǧazuwʾu
+ālwaāfiri
+1
+faḳada
+baāna
+laka
+ālsiuru
+waḳadi
+atauḍaḥa
+ālāamaru
+2
+waḳada
+āudariǧa
+fiy
+ālšaufaʿi
+ālauḏiy
+ḳiyala
+hawa
+ālwitaru
+
+41
+ 
+faṣuu
+ḥikamaŧiⁿ
+ḳadariyauŧiⁿ
+fiy
+kalimaŧiⁿ
+ʿuzayariyauŧiⁿ
+aʿalama
+āanau
+ālḳaḍ
+aāʾa
+ḥukamu
+āllhi
+fiy
+ālāašayaāʾi
+ waḥukamu
+āllhi
+fiy
+ālāašay
+aāʾi
+ʿal
+aáã
+ḥadiu
+ʿilamihi
+bihaā
+wafiyhaā
+ waʿilamu
+āllhi
+fiy
+ālāašayaāʾi
+ʿalaáã
+maā
+āaʿaṭatahu
+ālmaʿaluwamaā
+tu
+mimauā
+hiy
+ʿalayhi
+fiy
+nafasihaā
+ 
+waālḳadaru
+tawaḳiytu
+maāhiy
+ʿalayhi
+ālāašyaāʾu
+fiy
+ʿaynihaā
+ mina
+ġayri
+maziydiⁿ
+ 
+famaā
+ḥakama
+ālḳaḍaāʾu
+ʿalaáã
+ālāašyaāʾi
+āʾilauā
+bihaā
+ 
+wahãḏaā
+huwa
+ʿaynu
+siriu
+ālḳ
+adari
+
+limana
+kaāna
+lahu
+ḳal
+abuⁿ
+āawa
+āalaḳaáã
+alsaum
+aʿa
+wahuwa
+šahiyaduⁿ
+
+swrŧ
+ḳā
+
+ 73
+ 
+faliluãhi
+alaḥuǧauŧu
+albaãliġaŧu
+ 
+swrŧ
+ālānʿām
+
+ 941
+ 
+faālḥaākimu
+fiy
+āltauḥaḳiyḳi
+taābiʿuⁿ
+liʿayni
+ālm
+asaāalaŧi
+ālt
+iy
+yaḥakumu
+fiyhaā
+ bimaā
+taḳataḍiyhi
+ḏaātuhaā
+ 
+faā
+lm
+aḥakuwmu
+ʿalayhi
+bimaā
+huwa
+fiyhi
+ ḥaākimuⁿ
+ʿalaáã
+ālḥaākimi
+āana
+yaḥakuma
+ʿalayhi
+biḏãlika
+
+ 
+fakuluu
+ḥaākimiⁿ
+maḥakuwmuⁿ
+ʿalayhi
+bimaā
+ḥakama
+bihi
+wafiyhi
+ kaāna
+ālḥaākimu
+mana
+kaāna
+ 
+fataḥaḳauḳa
+hãḏihi
+ālmasaāalŧa
+faāʾinau
+ālḳadara
+maāǧuhila
+āʾilauā
+lišidauŧi
+ẓuhuwrihi
+ falama
+yuʿarafa
+ 
+wakaṯura
+fiyhi
+ālṭaulabu
+waālāʾilḥaāḥu
+ 
+waaʿalama
+āanau
+ālruusula
+ṣalawaātu
+āllhi
+ʿalayhima
+mina
+ḥayṯu
+huma
+rusuluⁿ
+ laā
+mina
+ḥayṯu
+huma
+āawaliyaāʾu
+waʿaārifuwna
+ ʿalaáã
+maraātiba
+maāhiya
+ʿalay
+hi
+āumamu
+huma
+ 
+famaāʿin
+adahuma
+mina
+ālʿ
+ilami
+ālauḏiy
+āurasiluwā
+bihi
+āʾilauā
+ḳadara
+maāyaḥataāǧu
+āʾilayhi
+āumauŧu
+ḏãlika
+ālrausuwli
+ laā
+zaāʾiduⁿ
+walaā
+naāḳiṣuⁿ
+ 
+waālāumamu
+mutafaāḍilaŧuⁿ
+ yaziyadu
+baʿaḍuhaā
+ʿalaáã
+baʿaḍiⁿ
+ fatatafaāḍalu
+ālruusulu
+fiy
+ʿilami
+ālāʾirasaāli
+bitafaāḍuli
+āumamihaā
+ wahuwa
+ḳawlahu
+ 
+tilaka
+alruusulu
+faḍaulanaā
+baʿaḍahuma
+ʿalaáã
+baʿaḍiⁿ
+ 
+swrŧ
+ālbḳrŧ
+
+ 352
+ 
+kamaā
+huma
+āayaḍaⁿā
+fiymaā
+yaraǧiʿu
+āiʾilaáã
+ḏawaātihima
+ʿalayhimu
+ālsaulaāmu
+mina
+ālʿuluwmi
+waālāaḥakaāmi
+ālāʾilãhiyauŧi
+mutafaāḍiluwna
+biḥasabi
+asatiʿadaādaātihima
+ wahuwu
+ḳawalhu
+
+83
+wǧh
+
+walaḳada
+faḍaulanaā
+baʿaḍa
+alnaubiyiuna
+ʿalaáã
+baʿaḍiⁿ
+ 
+swrŧ
+ālāsrāʾ
+
+ 55
+ 
+waḳaāla
+taʿaālaáã
+fiy
+ḥaḳiu
+ālḫalaḳi
+ 
+waallhu
+faḍaula
+baʿaḍakuma
+ʿalaáã
+baʿaḍiⁿ
+fiy
+alriuzaḳi
+ 
+swrŧ
+ālnḥl
+ 17
+ wālriuzaḳu
+minhu
+maāhuwa
+ruwaḥaāniyuⁿu
+kaālʿuluwami
+ waḥisiuyuⁿ
+kaālāaġaḏiyaŧi
+ wamaā
+yunaziuluhu
+ālḥaḳuu
+āʾilauā
+baḳadariⁿ
+maʿaluwmiⁿ
+ wahuwa
+ālasatiḥaḳaāḳu
+ālauḏiy
+yaṭalubuhu
+ālḫalaḳu
+ 
+faāʾi
+nau
+āllha
+
+āaʿaṭaáã
+kulau
+šaya
+ʾiⁿ
+ḫalaḳahu
+ 
+sw
+rŧ
+ṭã
+hã
+ 05
+ fyunaziulu
+biḳadari
+maāyaš
+aāʾu
+ 
+wamaāyašaāʾu
+āʾilauā
+maāʿalima
+faḥakama
+bihi
+ wamaāʿalima
+kamaā
+ḳulanaāhu
+āʾilauā
+bimaā
+āaʿaṭaāhu
+ālmaʿaluwmu
+ 
+faā
+ltauwaḳiyatu
+fiy
+ālāaṣali
+lil
+maʿal
+uwmi
+ waālḳaḍa
+āʾu
+ waālʿ
+ilamu
+ waālāʾiraādaŧu
+ waālamašiy
+aáʾaŧu
+ tabaʿuⁿ
+lilaḳadari
+ 
+fasiruu
+ālḳadari
+mina
+āaǧaliu
+ālʿuluwmi
+ wamaā
+yufahiumuhu
+āllhu
+taʿaālaáã
+āʾilauā
+limana
+aḫataṣauhu
+biālmaʿarifaŧi
+āltauāmauŧi
+ 
+faā
+lʿil
+amu
+bihi
+yuʿaṭiy
+ālrauāḥaŧa
+ālkuliuyauŧa
+lilʿ
+aālimi
+bihi
+ wayuʿ
+aṭiy
+ālʿaḏaāba
+ālāaliyma
+lilʿaālimi
+bihi
+āayaḍaⁿā
+ fahuwa
+yuʿaṭiy
+ālnauḳiyaḍayani
+ 
+wabihi
+waṣafa
+ālḥḳuu
+nafasahu
+biālġaḍabi
+wabiālriuḍaā
+ wabihi
+taḳaābalati
+ālāasamaāʾu
+ālāʾilãhiyauŧu
+ 
+faḥaḳiyaḳaŧuⁿ
+taḥakumu
+fiy
+ālmawǧuwdi
+ālmuṭalaḳi
+waālmawǧuwdi
+ālamuḳayaudi
+ laā
+yumakinu
+āana
+yakuwna
+šayʾuⁿ
+ātamau
+minahaā
+ walaā
+āaḳawaáã
+ walaā
+āaʿaẓ
+ama
+ liʿum
+uwmi
+ḥukmihaā
+ ālmutaʿadiuy
+waġay
+ri
+ālmutaʿadiuy
+ 
+walamauā
+kaānati
+ālāanabiyaāʾu
+ṣalawaātu
+āllhi
+ʿalayhima
+laā
+taāḫuḏu
+ʿuluwmahaā
+āalauā
+mina
+ālwaḥay
+ālḫaāṣiu
+ālāʾilãhiyiu
+ faḳuluwbuhuma
+saāḏaǧaŧuⁿ
+mina
+ālnauẓari
+ālʿaḳaliyiu
+liʿilamihima
+biḳuṣuwu
+ri
+ālʿaḳali
+mina
+ḥayaṯu
+naẓaruhu
+ālf
+ikariyuu
+ ʿana
+āʾidaraāki
+ālāumuwri
+ʿal
+aáã
+maāhay
+ʿal
+ayhi
+ waālāʾiḫabaā
+ri
+āayaḍaⁿā
+yaḳaṣuru
+ʿana
+āʾidaraāki
+maālaā
+yunaālu
+āalauā
+biālḏauwḳi
+ falama
+yabaḳa
+ālʿilamu
+ālkaāmilu
+āʾilauā
+fiy
+āltauǧaliuy
+ālāʾilãhiyiu
+ wamaā
+yakašifu
+ālḥaḳuu
+ʿana
+āaʿayuni
+ālbaṣaāʾiri
+wālāabaṣaāri
+mina
+ālāaġaṭiyaŧi
+ fatudarika
+ālāumuwra
+ḳadiymahaā
+waḥadiyṯahaā
+ waʿadamahaā
+wawuǧuwadahaā
+ wamuḥaālahaā
+wawaāǧibahaā
+waǧaāʾizahaā
+ ʿalaáã
+maāhiya
+ʿalayhi
+fiy
+ḥaḳaāʾiḳihaā
+waāaʿayaānihaā
+ 
+fal
+amauā
+kaāna
+maṭl
+abu
+ālʿuzayari
+ʿalaáã
+ālṭauri
+yaḳ
+aŧi
+ālḫ
+aāṣauŧi
+ liḏãlika
+waḳaʿa
+ālʿatabu
+ʿalayhi
+ 
+kama
+āwarada
+fiy
+ālḫ
+abari
+ fala
+wa
+ṭal
+aba
+ālkašafa
+ālauḏiy
+ḏakaranaāhu
+ rubaumaā
+maā
+kaā
+na
+yaḳaʿu
+ʿal
+ayhi
+ʿatabuⁿ
+fiy
+ḏãlika
+ 
+waāldauliy
+lu
+ʿalaáã
+saḏaāǧaŧi
+ḳalabihi
+ ḳawluhu
+fiy
+baʿaḍi
+ālwuǧuwahi
+ 
+āanauáã
+yuḥ
+aá
+hãḏihi
+all
+hu
+baʿada
+mawatihaā
+ 
+swrŧ
+ālbḳrŧ
+
+ 952
+ 
+waāamauā
+ʿinadanaā
+fiṣuw
+ratuhu
+ʿalayhi
+ālsaulaāmu
+fiy
+ḳawlihi
+hãḏa
+ā
+ kaṣuwaraŧi
+āʾibaraāhiyama
+
+ 
+āariniá
+kayafa
+tuḥayiá
+almawataáã
+ 
+swrŧ
+ālbḳrŧ
+
+ 062
+ wayaḳataḍiy
+ḏãlika
+ālǧawaāba
+
+83
+ẓhr
+
+biālfiʿali
+ālauḏiy
+āaẓaharahu
+ālḥaḳuu
+fiyhi
+fiy
+ḳawlihi
+ 
+faāamaātahu
+allhu
+miāaáʾaŧa
+ʿaāmiⁿ
+ṯumau
+baʿaṯahu
+
+swrŧ
+ālbḳrŧ
+
+ 952
+ faḳaāla
+lahu
+ 
+waanaẓura
+āʾilaáã
+alʿiẓaāmi
+kayafa
+nunašizuhaā
+ṯumau
+nakasuwahaā
+laḥam
+aⁿā
+ 
+swrŧ
+ālb
+ḳrŧ
+
+ 952
+ faʿaā
+yana
+kayafa
+tun
+abatu
+ālāaǧasaā
+mu
+ muʿ
+aāyanaŧa
+taḥaḳiyḳiⁿ
+ faāaraāhu
+ālkayafiyauŧa
+ 
+fasaāala
+ʿani
+ālḳadari
+ālauḏiy
+laā
+yudaraku
+āʾilauā
+biālkašafi
+lilāašayaāʾi
+fiy
+ḥaāli
+ṯubuwtihaā
+fiy
+ʿadamihaā
+ famaā
+āuʿaṭiya
+ḏãlika
+ faāʾinau
+ḏãlika
+mina
+ḫaṣaāʾiṣi
+ālaṭiulaāʿi
+ālāʾilãhiyiu
+ 
+famina
+ālmuḥaāli
+āana
+yaʿalamahu
+āʾilauā
+huwa
+ faāʾiniuhaā
+ālmafaātiḥu
+ālāuwalu
+ 
+āaʿaniy
+ 
+mafaātiyḥa
+ālġayabi
+ālautiy
+laā
+yaʿalamuhaā
+āʾilauā
+huwa
+ waḳada
+yuṭaliʿu
+āllhu
+mana
+šaāʾa
+mina
+ʿibaādihi
+ʿalaáã
+baʿaḍi
+ālāumuwri
+mina
+ḏãlika
+ 
+waaʿalama
+āanauhaā
+laā
+tusamauáã
+mafaātiḥu
+āʾilauā
+fiy
+ḥaāli
+ālfataḥi
+ waḥaālu
+ālfataḥi
+huwa
+ḥaālu
+taʿaluuḳi
+āltaukawiyni
+biālāašayaāʾi
+ āawa
+ḳula
+āʾina
+šiʾta
+ ḥaālu
+taʿaluuḳi
+ālḳudaraŧi
+bālmaḳaduwri
+ walaā
+ḏawḳa
+liġayari
+āllhi
+fiy
+ḏãlika
+ 
+fala
+āyaḳaʿu
+fiyhaā
+taǧaliⁿu
+walaā
+kašafuⁿ
+ āʾiḏa
+laā
+ḳudaraŧa
+walaā
+fiʿala
+āʾilauā
+lilhi
+ḫaāṣauŧaⁿ
+ āʾiḏa
+lahu
+ālwuǧuwdu
+ālmuṭalaḳu
+ālauḏiy
+laā
+yataḳayaudu
+ 
+falamauā
+raāayanaā
+ʿataba
+ālḥaḳiu
+lahu
+ʿalayhi
+ālsaulaāmu
+fiy
+suwʾaālihi
+fiy
+ālḳadari
+ ʿalimanaā
+āanauhu
+ṭalaba
+hãḏaā
+ālaṭiulaāʿa
+ faṭalaba
+āana
+ta
+kuwna
+lahu
+ḳadaraŧuⁿ
+tataʿalauḳu
+biālmaḳaduwri
+ wamaāyaḳat
+aḍiy
+ḏãlika
+ālāamaru
+lahu
+ lilawuǧuwdi
+ālmuṭalaḳi
+ 
+faṭalaba
+maālaā
+yum
+akinu
+wuǧuwduhu
+fiy
+ālḫal
+aḳi
+ḏawaḳaⁿā
+ faāʾinau
+ālkayafiy
+auāti
+laā
+tuda
+raku
+āʾilauā
+biālāaḏawaāḳi
+ 
+waāamauā
+
+maārawayn
+aāhu
+ mimauā
+āawaḥaáã
+āllhu
+bihi
+āʾilay
+hi
+ laʾina
+lama
+tanatihi
+laāamaḥuwanau
+asam
+aka
+mina
+diyawaāni
+ālnuubuwauŧi
+ āaya
+ āarafaʿu
+ʿanaka
+ṭariyḳa
+ālḫabari
+ waāuʿiṭyka
+ālāumuwra
+ʿalaáã
+āltauǧaliuy
+ 
+waāltauǧaliuy
+laā
+yakuwanu
+āʾilauā
+bimaā
+āanata
+ʿalayhi
+mina
+ālasatiʿadaādi
+ālauḏiy
+bihi
+yaḳaʿu
+ālāʾidaraāku
+ālḏauwḳiyuu
+ fataʿalamu
+āanauka
+maā
+āadarakata
+āʾilauā
+biḥ
+asabi
+asat
+iʿada
+ādika
+ fatanaẓuru
+fiy
+hãḏaā
+ālāamari
+ālauḏiy
+ṭalabata
+ faāʾiḏiā
+lama
+tarahu
+ taʿalamu
+āanauhu
+laysa
+ʿinadaka
+ālasatiʿadaādu
+ālauḏiy
+taṭalubuh
+ 
+waāanau
+ḏãlika
+mina
+ḫaṣaāʾiṣi
+ālḏauāti
+ālāʾilãhiyauŧi
+ waḳada
+ʿalimata
+āanau
+āllha
+
+āaʿaṭaáã
+kulau
+šayaʾiⁿ
+ḫalaḳahu
+ 
+ swrŧ
+ṭãh
+ã
+ 05
+ walama
+yuʿaṭika
+hãḏaā
+ālasatiʿadaāda
+ālḫaāṣau
+ famaā
+huwa
+ḫalaḳuka
+ walaw
+kaā
+na
+ḫalaḳuka
+
+ lāaʿaṭaākahu
+ālḥaḳuu
+ālauḏiy
+āaḫabara
+āanauhu
+ 
+āaʿaṭaáã
+kulau
+šayaʾiⁿ
+ḫalaḳahu
+
+ swrŧ
+ṭãh
+ã
+ 05
+ fatakuwnu
+āanata
+ālauḏiy
+tanat
+ahiya
+ʿana
+miṯali
+hãḏaā
+ālsuwʾaāli
+mina
+naf
+asika
+ laā
+taḥataā
+ǧu
+fiyhi
+āʾilaáã
+nahayiⁿ
+āʾilãhiyiⁿu
+ 
+93
+wǧh
+ wahãḏaā
+ʿinaāyaŧuⁿ
+mina
+āllhi
+biā
+lʿ
+uzayari
+ʿalayhi
+ālsaulaāmu
+ ʿalima
+ḏãlika
+mana
+ʿalimahu
+ waǧahilahu
+mana
+ǧahilahu
+ 
+waaʿalama
+āanau
+ālwilaāyaŧa
+hiya
+ālfalaku
+ālmuḥiyaṭu
+ālʿaāmuu
+ walhãḏaā
+lama
+tanaḳaṭiʿa
+ walahaā
+ālāʾinabaāʾu
+ālʿaāmuu
+ 
+waāamauā
+nub
+uwauŧu
+ālt
+aušari
+yʿi
+ waālriusaālaŧu
+famu
+naḳaṭiʿaŧuⁿ
+ wafiy
+muḥam
+audiⁿ
+ṣalauáã
+āllhu
+ʿalayih
+wasalauma
+ḳada
+ānaḳaṭaʿata
+ falaā
+nabiya
+baʿadahu
+ yaʿaniy
+ mušariuʿaⁿā
+āawa
+mušarauʿaⁿā
+lahu
+ walaā
+rasuwla
+ wahuwa
+ālmušariuʿu
+ 
+wahãḏaā
+ālḥadiyaṯu
+ḳaṣama
+ẓuhuwara
+āawaliyaāʾi
+āllhi
+ lāanauhu
+yataḍamaunu
+anaḳiṭaāʿa
+ḏawḳi
+ālʿubuwdaŧi
+ālkaāmilaŧi
+āltauāmauŧi
+ falaā
+yuṭalaḳu
+ʿalayhi
+asamuhaā
+ālḫaāṣuu
+bihaā
+ 
+faāʾinau
+ālʿabada
+yuriydu
+āalauā
+yušaārika
+sayiudahu
+
+ wahuwa
+āllhu
+
+ fiy
+asamiⁿ
+ waāllhu
+lama
+yatasamau
+binabiyiⁿu
+walaā
+rasuwliⁿ
+ 
+watasamauáã
+bi
+ālwaliyiu
+ waatauṣafa
+bhãḏaā
+ālasami
+ faḳaāla
+ 
+allhu
+waliyuu
+alauḏiyana
+āmanuwaā
+ 
+swrŧ
+ālbḳrŧ
+
+ 852
+ waḳaāla
+ 
+huwa
+alwaliyuu
+alḥamiyadu
+ 
+swrŧ
+ālšwráã
+
+ 82
+ 
+wahãḏaā
+ālasamu
+baāḳiⁿ
+ǧaāriⁿ
+ʿalaáã
+ʿibaādi
+āllhi
+ dunay
+aⁿā
+waāḫiraŧaⁿ
+ falama
+yabaḳa
+asamuⁿ
+yaḫataṣuu
+bihi
+ālʿabadu
+duwna
+ālaḥaḳiu
+bianaḳiṭaāʿi
+ālnuubuwauŧi
+waālriusaālaŧi
+ 
+āʾilauā
+āanau
+āllha
+laṭafa
+biʿibaādahi
+ faāabaḳaáã
+lahuma
+ālnuubuwauŧa
+ālʿaāmauŧa
+ ālautiy
+laātašariyaʿa
+fiyahaā
+ 
+waāabaḳaáã
+lahuma
+ālt
+aušari
+yaʿa
+fiy
+ālaǧatih
+aādi
+fiy
+ṯubuwti
+ālāaḥakaāmi
+ waāabaḳaáã
+lahuma
+ālwi
+raāṯaŧa
+fiy
+āltaušariyaʿi
+ faḳaāla
+ 
+ālʿulamaāʾu
+waraṯaŧu
+ālāanabiyaāʾi
+ wamaā
+ṯamau
+miyara
+āṯuⁿ
+fiy
+ḏãlika
+āʾilauā
+fiyamaā
+aǧatahaduwaā
+fiyhi
+mina
+ālāaḥakaāmi
+ fašarauʿuwhu
+ 
+faāḏaā
+raāayata
+ālnaubiyau
+yatakalaumu
+bikalaāmiⁿ
+ḫaāriǧiⁿ
+ʿani
+āltaušariyʿi
+ famina
+ḥayṯu
+huwa
+waliyuⁿu
+waʿaārifuⁿ
+ 
+walih
+ãḏaā
+ maḳaāmuhu
+mina
+ḥayṯu
+huwa
+ʿaā
+limuⁿ
+ āatamuu
+waāakamalu
+mina
+ḥayṯu
+huwa
+rasuw
+luⁿ
+ āaw
+ḏuw
+tašariyʿiⁿ
+wašaraʿiⁿ
+ 
+faāʾiḏaā
+samiʿata
+āaḥadaⁿā
+miiniⁿ
+āahali
+āllhi
+taʿaālaáã
+yaḳuwlu
+ āaw
+yunḳalu
+āʾilayka
+ʿanhu
+ āanauhu
+ḳaāla
+ 
+ālwilaāyaŧu
+āaʿalaáã
+mina
+ālnuubuwauŧi
+ falaysa
+yuriydu
+ḏãlika
+ālḳaāʾilu
+āʾilauā
+maāḏakaranaāhu
+ 
+āawa
+yaḳuwlu
+ 
+āʾinau
+ālwaliyau
+fawḳa
+ālnaubiyiu
+waālrausuwli
+ 
+faāʾinauhu
+yaʿaniy
+biḏãlika
+fiy
+šaḫaṣiⁿ
+waāḥidiⁿ
+ wahuwa
+āana
+ālrausuwla
+ʿalayhi
+ālsaulaāmu
+mina
+ḥayṯu
+huwa
+waliyuⁿu
+ āatamuu
+mina
+ḥay
+ṯu
+huwa
+nabiyuⁿu
+rasuwluⁿ
+ laā
+āanau
+ālwa
+liyau
+āltauābiʿa
+lahu
+āaʿal
+aáã
+minhu
+ 
+faāʾinau
+āltauābiʿa
+laā
+yudariku
+ālmatabuwʿa
+āabadaⁿā
+fiymaā
+huwa
+taābiʿuⁿ
+lahu
+fiyhi
+ āʾiḏa
+law
+āadarakahu
+lama
+yakuna
+taābiʿaⁿā
+ faāfahama
+ 
+famaraǧiʿu
+ālrausuwli
+waālnaubiyiu
+ālmušariuʿi
+āʾilaáã
+ālwilaāyaŧi
+waālʿilami
+ 
+āalaā
+taraáã
+āllha
+
+93
+ẓhr
+ ḳada
+āamarahu
+biṭalabi
+ālziuyaādaŧi
+mina
+ālʿilami
+laā
+mina
+ġayarihi
+ 
+faḳaāla
+lahu
+āmiraⁿā
+ 
+ḳula
+rabiu
+zidaniy
+ʿilamaⁿā
+ 
+swrŧ
+ṭãh
+ã
+ 411
+ 
+waḏãlika
+āanauka
+taʿalamu
+āanau
+ālšauraʿa
+takaliyfuⁿ
+biāaʿamaāliⁿ
+maḫaṣuwṣaŧiⁿ
+ āawa
+nahayuⁿ
+ʿana
+āafaʿaāliⁿ
+maḫaṣuwṣaŧiⁿ
+ wamaḥaluuhaā
+hãḏihi
+āldauāru
+ fahiya
+munaḳaṭiʿaŧuⁿ
+ 
+waālwilaāyaŧu
+laysata
+kaḏãlika
+ āʾiḏa
+law
+anaḳaṭaʿata
+ lanaḳaṭaʿata
+mina
+ḥayaṯu
+hiya
+kamaā
+anaḳaṭaʿ
+ata
+ālriu
+saālaŧu
+mina
+ḥay
+aṯu
+hiya
+
+ waāʾiḏaā
+ānaḳaṭaʿata
+mina
+ḥayaṯu
+hiya
+ lama
+yabaḳa
+lahaā
+asamuⁿ
+ 
+waālwaliyuu
+asamuⁿ
+baāḳiⁿ
+lilhi
+ fahuwa
+liʿabiyadihi
+taḫaluuḳaⁿā
+wataḥaḳuuḳaⁿā
+wataʿaluuḳaⁿā
+ 
+faḳawluhu
+lilʿuzayari
+ laʾina
+lama
+tanatahi
+ʿana
+ālsuuwʾaāli
+ʿana
+maāhiyauŧi
+ālḳadari
+lāamaḥuwanau
+asamaka
+mina
+diywaāni
+ālnuubuwauŧi
+ fayaā
+tiyaka
+ālāamru
+ʿalaáã
+ālkašafi
+biā
+lt
+auǧaliuy
+ wayazuwlu
+ʿanaka
+asamu
+ālnaubiyiu
+waālrausuwli
+ watabaḳaáã
+lahu
+walaāyatuhu
+ 
+āʾilauā
+āanauhu
+lamauā
+dalauta
+ḳariyanaŧu
+ālḥaāli
+ āanau
+hãḏaā
+ālḫiṭaāba
+ǧaraáã
+maǧaraáã
+ālwaʿiydi
+ ʿalima
+mana
+aḳataranata
+ʿinda
+hu
+hãḏihi
+ālḥaālaŧu
+maʿa
+ālḫiṭaābi
+ āanauhu
+waʿiyduⁿ
+bia
+naḳiṭaāʿi
+ḫuṣuwṣi
+baʿḍi
+maraātibi
+ālwilaāyaŧi
+ fiy
+hãḏihi
+āldauāri
+ 
+āḏa
+ālnuubuwauŧu
+waālriusaālŧu
+ḫuṣuwṣu
+rutabaŧiⁿ
+ fiy
+ālwilaāyaŧi
+ ʿalaáã
+baʿaḍi
+maātaḥawiy
+ʿalayhi
+ālwilaāyaŧu
+mina
+ālmaraātibi
+ 
+fyaʿalamu
+āanauhu
+āaʿlaáã
+mina
+ālwaliyiu
+ālauḏiy
+laā
+nubuwauŧa
+tašariyʿiⁿ
+ʿinadahu
+walaā
+risaālaŧa
+ 
+wamana
+aḳataranata
+ʿindahu
+ḥaālaŧuⁿ
+āuḫaraáã
+ taḳataḍiyhaā
+āayḍ
+aⁿā
+maratabaŧu
+ālnuubuwauŧi
+ yaṯabutu
+ʿindahu
+ānau
+hãḏaā
+wʿadaⁿā
+laā
+waʿiyduⁿ
+ faāʾinau
+suʾ
+ālahu
+ʿal
+ayhi
+ālsaulaāmu
+maḳab
+uwluⁿ
+āʾiḏa
+ālnaubiyuu
+huwa
+ālwaliyuu
+ālḫaāṣuu
+ 
+wayuʿarafu
+biḳariyanaŧi
+ālḥaāli
+ āanau
+ālnaubiyau
+
+ mina
+ḥayaṯu
+lahu
+fiy
+ālwilaāyaŧi
+hãḏaā
+ālaḫatiṣ
+aāṣi
+
+ muḥaāluⁿ
+āana
+yuḳadima
+ʿalaáã
+maā
+yaʿ
+alamu
+āanau
+āllha
+yakarahuhu
+min
+ha
+ āawa
+yuḳadima
+ʿalaáã
+maāyaʿalamu
+āanau
+ḥuṣuwlahu
+muḥaāluⁿ
+ 
+faāʾiḏaā
+aḳataranata
+hãḏihi
+ālāaḥawaālu
+ʿinda
+man
+aḳataranata
+ʿindahu
+ wataḳaraurata
+ āaḫaraǧa
+hãḏaā
+ālḫiṭaāba
+ālāʾilãhiyau
+
+ ʿindahu
+fiy
+ḳawlihi
+ lāamaḥunau
+asamaka
+mina
+diywaāni
+ālnuubuwauŧi
+
+ maḫaraǧa
+ālwaʿdi
+ waṣaāra
+ḫabaraⁿā
+yaduulu
+ʿalaáã
+ʿul
+uwiu
+maratabaŧiⁿ
+baāḳiy
+aŧiⁿ
+ wahiy
+ālmaratab
+aŧ
+uālbaāḳiyaŧu
+ʿalaáã
+ālāanabiyaā
+ʾi
+waālruusuli
+fiy
+āldauāri
+ālāḫiraŧi
+ālt
+iy
+laysata
+bimaḥaliⁿu
+lišaraʿiⁿ
+yakuw
+nu
+ʿalayhi
+āaḥaduⁿ
+mina
+ḫalaḳiⁿ
+ fiy
+ǧanauŧiⁿ
+walaā
+naāriⁿ
+ baʿada
+ālduuḫuwli
+fiyhimaā
+ 
+waāʾinaumaā
+ḳayaudanaāha
+biālduuḫuwli
+fiy
+āldauārayni
+ ālǧanauŧi
+waālnauāri
+ lamauā
+šaraʿa
+
+04
+wǧh
+yawma
+ālḳiyaāmaŧi
+ lāaṣaḥaābi
+ālfataraāti
+waālāaṭafaāli
+ālṣiġaāri
+waālmaǧaāniyana
+ fayuḥšaru
+hãʾlaāʾi
+fiy
+ṣaʿiydiⁿ
+waāḥidiⁿ
+ lāʾiḳaāmaŧi
+ālʿadali
+ waālmuwʾaāḫaḏaŧi
+biālǧariyamaŧi
+ waālṯauwaābi
+ālʿamaliyiu
+fiy
+āaṣaḥaābi
+ālǧanauŧi
+ 
+faāʾiḏaā
+ḥuširuwā
+fiy
+ṣaʿiydiⁿ
+waāḥidiⁿ
+ bimaʿazaliⁿ
+ʿani
+ālnauāsi
+ buʿaṯa
+fiyhima
+nabiyuⁿu
+mina
+āafaḍalihima
+ watumaṯaulu
+lahuma
+naāruⁿ
+yaātiy
+bihaā
+hãḏaā
+ālnaubiyuu
+ālmabaʿuwṯu
+fiy
+ḏãlika
+ālyawmi
+ 
+fayaḳuwlu
+lahuma
+ āanaā
+rasuwlu
+ālḥaḳiu
+āʾilaykuma
+ fayaḳaʿu
+ʿindahumu
+āltauṣadiyḳu
+bihi
+ wayaḳaʿu
+āltaukaḏiybu
+ʿinda
+baʿaḍihima
+ 
+wayaḳuwlu
+lahuma
+aḳataḥimuwā
+hãḏihi
+ālnauāra
+biāanafusikuma
+ famana
+āaṭaāʿaniy
+naǧaā
+ wadaḫala
+ālǧanauŧa
+ wamana
+ʿaṣaāniy
+ waḫaālafa
+āamariy
+ halaka
+ wa
+kaāna
+mina
+āahali
+ālnauāri
+ 
+famana
+amataṯala
+āamarahu
+minahuma
+waramaáã
+binafasihi
+fiyhaā
+ saʿida
+wanaāla
+ālṯauwaāba
+ālʿamaliyau
+ 
+wawaǧada
+tilaka
+ālnauāra
+baradaⁿā
+wasalaāmaⁿā
+ wamana
+ʿaṣaāhu
+asataḥaḳau
+ālʿuḳuwabaŧa
+ fadaḫala
+ālnauāra
+wanazala
+fiyahaā
+biʿamalihi
+ālmuḫaālifi
+ liyaḳuwama
+ālʿadalu
+mina
+āllhi
+fiy
+ʿibaādihi
+ 
+wa
+kḏãlika
+ḳawaluhu
+ 
+yawama
+yukašafu
+ʿana
+saāḳiⁿ
+ 
+swrŧ
+ālḳlm
+
+ 24
+ āaya
+ āamariⁿ
+ʿaẓiyamiⁿ
+mina
+āumuwari
+ālāḫiraŧi
+ 
+wayudaʿawana
+āʾilaáã
+alsauǧuwadi
+ 
+swrŧ
+ālḳlm
+
+ 24
+ fahãḏaā
+taka
+liy
+afuⁿ
+wataš
+ariyaʿuⁿ
+ faminahuma
+mana
+yasataṭiyaʿu
+ waminahuma
+mana
+laā
+yasataṭiyaʿu
+ wahuma
+ālauḏiyna
+ḳaāla
+āllhu
+fiyahim
+ 
+wayuda
+ʿawana
+āʾilaáã
+als
+uuǧuwa
+di
+falaā
+yasat
+aṭiyaʿ
+uwana
+ 
+swrŧ
+ālḳ
+lm
+
+ 24
+ kamaā
+lama
+yasataṭiʿa
+fiy
+ālduunyaā
+
+ amatiṯaāla
+āamari
+āllhi
+
+ baʿaḍu
+ālʿibaādi
+ kaāabiy
+ǧahaliⁿ
+waġayarihi
+ 
+fahãḏaā
+ḳadaru
+miāyabaḳaáã
+mina
+ālšauraʿi
+fiy
+ālāḫiraŧi
+yawma
+ālḳiyaāmaŧi
+ ḳabla
+duḫuwli
+ālǧanauŧi
+waālnauāri
+ falihãḏaā
+ḳayaudanaāhu
+ waālḥamad
+lilhi
+ 
+
+51
+ 
+faṣuu
+ḥikamaŧiⁿ
+nabawiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+ʿiyasawiyauŧiⁿ
+
+ālbsyṭ
+1
+ʿana
+maāʾi
+marayama
+āawa
+ʿana
+nafaḫi
+ǧibariyni
+fiy
+ṣuwraŧi
+ālbašari
+ālmawǧuwadi
+mina
+ṭiyni
+2
+takawauna
+ālruuwḥu
+fiy
+ḏaātiⁿ
+muṭahauraŧiⁿ
+mina
+ālṭaubiyʿaŧi
+tadaʿuwhaā
+bisiǧiuyni
+3
+liāaǧali
+ḏãlika
+ḳada
+ṭaālata
+āʾiḳaāmatuhu
+fiyhaā
+fazāda
+ʿalaáã
+āalafiⁿ
+bitaʿayiyni
+4
+ruwḥuⁿ
+mina
+āllhi
+liā
+mina
+ġayrihi
+faliḏaā
+āaḥayaā
+ālmuwaāta
+waāanašaā
+ālṭauyra
+mina
+ṭiyni
+5
+ḥatauá
+yaṣiḥau
+lahu
+mina
+rabauhi
+nasabuⁿ
+bihi
+yawʾaṯiuru
+fiy
+ālʿaāliy
+wafiy
+ālduuwni
+6
+allhu
+ṭahaurahu
+ǧisamaⁿā
+wanazauhahu
+ruwḥaⁿā
+waṣayaurahu
+maṯalaⁿā
+baitakawiyni
+
+04
+ẓhr
+ aʿal
+ama
+āanau
+mina
+ḫaṣaāʾiṣi
+ālāarawaāḥi
+āanauhaā
+laātaṭaāa
+šayaá
+ʾaⁿā
+āʾilauā
+ḥayiya
+ḏãlika
+ālšauyʾu
+wasarati
+ālḥayaāŧu
+fiyhi
+ walihãḏaā
+ḳabaḍa
+ālsauāmiriyuu
+ḳabaḍaŧaⁿ
+mina
+āaṯari
+ālrausuwli
+ 
+ālauḏiy
+huwa
+ǧibaraʾiylu
+ wahuwa
+ālruuwḥu
+ wa
+kaāna
+ālsauāmiriyuu
+ʿaālimaⁿā
+bihãḏaā
+ālāamari
+ falamauā
+ʿarafa
+āanauhu
+ǧibaraʾiylu
+ ʿarafa
+āanau
+ālḥayaāŧa
+ḳada
+sarata
+fiymaā
+waṭiyʾa
+ʿalayhi
+ faḳabaṣa
+ḳabaṣaŧaⁿ
+mina
+āaṯari
+ālrausuw
+li
+
+ biā
+lṣauā
+di
+āaw
+biā
+lḍauādi
+
+ āay
+ ʿalaáã
+yadihi
+āaw
+baāaṭaraāfi
+āaṣaābiʿihi
+ fanabaḏahaā
+fiy
+ālʿiǧali
+faḫaāra
+ālʿiǧalu
+ āʾiḏa
+ṣawtu
+ālb
+aḳari
+āʾinaumaā
+huwa
+ḫuwaāruⁿ
+ walaw
+āaḳaāmahu
+ṣuwraŧaⁿ
+āuḫaraáã
+lanusiba
+āʾilayhi
+asamu
+ālṣauwti
+ālauḏiy
+litilaka
+ālṣuwraŧi
+ kaālruuġaāʾi
+lilābili
+ waālṯuuwaāǧi
+lilkibaāši
+ waālyuʿaāri
+lilšiuyaāh
+ waālṣauwti
+lilānasaān
+ āaw
+ālnuuṭaḳi
+ āaw
+ālkalaāmi
+ 
+faḏãlika
+ālḳadaru
+mina
+ālḥayaāŧia
+ālsauāriyaŧi
+fiy
+ālāšayaāʾi
+yusamauáã
+ 
+laāhuwtaⁿā
+ 
+wa
+ālnauāsuwatu
+ huwa
+ālamaḥaluu
+ālḳaāʾimu
+bihi
+ḏãlika
+ālruuwaḥu
+ fasum
+iuya
+ālnauāsuwata
+ruwḥaⁿā
+bim
+aā
+ḳaāma
+bihi
+ 
+falamauā
+tamaṯaula
+ālruuwaḥu
+ālāmiyanu
+ālauḏiy
+huwa
+ǧibaraʾiyalu
+limara
+yama
+ʿalayaha
+āālsaulaāmu
+ bašaraⁿā
+sawiyaⁿā
+ taḫayaulata
+āanauhu
+bašaruⁿ
+yuriyaduⁿ
+mawaāḳaʿath
+aā
+ faāsataʿaāḏata
+biāllhi
+minahu
+asatiʿaā
+ḏaŧaⁿ
+biǧamiʿauyaŧiⁿ
+minahaā
+ lyuḫaliuṣahaā
+āllhu
+minahu
+limaā
+taʿalamu
+āanau
+ḏãlika
+mimauā
+laāyaǧuwzu
+ 
+faḥaṣaula
+lahaā
+ḥuḍuwraⁿā
+taāmiⁿuā
+maʿa
+āllhi
+wahuwa
+ālruuwḥu
+ālamaʿanawiyiu
+ 
+fal
+aw
+naf
+aḫa
+fiyhaā
+fiy
+ḏãlika
+ālwa
+ḳati
+
+ ʿalaáã
+hãḏihi
+ālḥaālaŧi
+
+ laḫ
+araǧa
+ʿiysaáã
+laā
+yuṭiyḳuhu
+āaḥaduⁿ
+lišakaāsaŧi
+ḫuluḳihi
+liḥaāli
+āumauhi
+ 
+falamauā
+ḳaāla
+lahaā
+ 
+āʾinaumaā
+āanaā
+rasuwlu
+rabauki
+ 
+swrŧ
+mrym
+
+ 91
+ ǧiʾtu
+
+liāahaba
+laki
+ġulaãmaⁿā
+zakiyiⁿuā
+ 
+swrŧ
+mrym
+
+ 91
+ anabasaṭata
+ʿana
+ḏãlika
+ālḳabaḍu
+waanašaraḥa
+ṣadaruhaā
+fanafaḫa
+fiyhaā
+fiy
+ḏãlika
+ālḥiyni
+ʿiysaáã
+ 
+fakaāna
+ǧibaraʾiylu
+naāḳlaⁿā
+kalimaŧa
+āllhi
+limarayama
+kamaā
+yanaḳilu
+ālrausuwlu
+kalaāma
+āllhi
+lāumautihi
+ 
+wahuwa
+ḳawluhu
+ 
+wa
+kalimatuhu
+āalaḳaáãhaāā
+āʾilaáã
+marayama
+wuruwaḥuⁿ
+minahu
+ 
+swrŧ
+ālnsāʾ
+
+ 171
+ 
+fasarati
+ālšauhawaŧu
+fiy
+marayam
+ faḫuliḳa
+ǧisamu
+ʿiysaáã
+mina
+maāʾiⁿ
+muḥaḳauḳiⁿ
+mina
+marayama
+ 
+wamina
+maāʾiⁿ
+mutawahaumiⁿ
+mina
+ǧibaraʾiylu
+ saraáã
+fiy
+ruṭuwbaŧi
+ḏãlika
+ālnaufaḫi
+ lāanau
+ālnaufaḫa
+mina
+ālǧisami
+ālḥayawaāniyiu
+raṭabuⁿ
+limaā
+fiyhi
+mina
+rukani
+ālmaāʾi
+ 
+fatakawauna
+ǧisamu
+ʿiysaáã
+mina
+maāʾiⁿ
+mutawauhaumiⁿ
+ wamaāʾi
+muḥaḳauḳiⁿ
+ 
+waḫaraǧa
+ʿalaáã
+ṣuwraŧi
+ālbašari
+mina
+āaǧali
+āumauhi
+ wamina
+āaǧali
+tamaṯuuliu
+ǧibaraʾiyla
+fiy
+ṣuwraŧi
+ālbašari
+ḥatauáã
+laāyaḳaʿa
+āltaukawiynu
+fiy
+hãḏaā
+ālnauwʿi
+
+14
+wǧh
+ ālānasaāniy
+āʾilauā
+ʿalaáã
+ālḥukami
+ālmuʿataādi
+ 
+faḫaraǧa
+ʿiysaáã
+yuḥayiy
+ālmawataáã
+ lāanauhu
+ruwaḥuⁿ
+āʾilãhiyiⁿu
+ wakaāna
+ālāʾiḥayaāʾu
+lilhi
+waālnaufaḫu
+liʿiysaáã
+ kamaā
+kaāna
+ālnaufaḫu
+liǧibariyla
+waālkalimaŧu
+lilhi
+ 
+wakaāna
+āʾiḥayaāʾu
+ʿiysaáã
+lilāamawa
+āti
+āʾiḥayaāʾaⁿ
+maḥ
+aḳauḳaⁿā
+ mina
+ḥay
+ṯu
+maā
+ẓahara
+ʿna
+naf
+aḫihi
+ 
+kamaā
+ẓahara
+huwa
+ʿana
+ṣuwraŧi
+āumauhi
+ wa
+kaāna
+āʾiḥayaā
+ʾuhu
+āayḍaⁿā
+mutawahaumaⁿā
+ āanauhu
+minhu
+ waāʾinaumaā
+kaāna
+lilhi
+ faǧamaʿa
+liḥaḳiyḳatihi
+ālautiy
+ḫuliḳa
+ʿalayhaā
+
+ kamaā
+ḳulanaāhu
+
+ āanauhu
+maḫaluwaḳuⁿ
+mina
+maāʾiⁿ
+mutawahaumiⁿ
+wamaāʾ
+muḥaḳauḳiⁿ
+ yunasabu
+āʾilayhi
+ālāaḥayaāʾu
+biṭariyaḳi
+āltauḥaḳuuḳi
+ mina
+waǧhiⁿ
+ wabiṭariyḳi
+āltauwahuumi
+mina
+waǧhiⁿ
+ 
+faḳiyla
+fiyhi
+mina
+ṭariyḳi
+āltauḥaḳuuḳi
+ 
+watuḥayiy
+ālmawtaáã
+ waḳiyla
+fiyhi
+mina
+ṭariyḳi
+āltauwahumi
+ 
+fatanafuḫu
+fiyhi
+fayakuwanu
+ṭayaraⁿā
+biāʾiḏani
+āllhi
+ 
+āḳtb
+āsmina
+sw
+rŧ
+āl
+ʿm
+rān
+
+ 94
+ 
+faālʿaāmilu
+fiy
+ālmaǧaruwri
+yakuwanu
+ 
+laā
+tanafuḫu
+ wayuḥatamalu
+āana
+yakuwna
+ālʿaāmilu
+fiyhi
+ 
+
+yanafuḫu
+ fayakuwanu
+ṭaāʾiraⁿā
+mina
+ḥayṯu
+ṣuwratuhu
+ālǧisamiyauŧi
+ālḥisiuyauŧi
+ 
+wa
+kaḏãlika
+tubariáʾu
+ālāa
+kamaha
+waālāabaraṣa
+
+āḳtbās
+mina
+swrŧ
+ālmāʾdŧ
+
+ 011
+ waǧamiyaʿa
+maāyunasabu
+āʾilayhi
+waāʾilaáã
+
+āʾiḏani
+allhi
+ 
+swrŧ
+āl
+ʿmrān
+
+ 94
+ 
+waāʾiḏana
+ālkinaā
+yaŧu
+fiy
+miṯal
+ḳawlihi
+ 
+biāʾiḏaniy
+
+swrŧ
+ālmā
+ʾd
+ŧ
+ 011
+ wa
+biāʾiḏani
+allhi
+
+
+sw
+rŧ
+āl
+ʿmrān
+
+ 94
+ faāʾiḏaā
+taʿalauḳa
+ālamaǧaruwaru
+bitanafuuḫiⁿ
+fa
+yaku
+wnu
+ālnauā
+fi
+ḫu
+maāaḏuwnaⁿā
+lahu
+fiy
+ālnaufaḫi
+ 
+wayakuwnu
+ālṭaāʾiru
+ʿani
+ālnauā
+fi
+ḫi
+
+biāʾi
+ḏani
+all
+hi
+ 
+swrŧ
+āl
+ʿm
+rān
+
+ 94
+ waāʾiḏaā
+kaāna
+ālnauā
+fi
+ḫu
+naā
+fiḫ
+aⁿā
+laā
+ʿana
+ālāʾiḏani
+ fayakuwanu
+ālt
+aukawiyanu
+lilṭ
+auāʾiri
+ṭaāʾiraⁿā
+
+biāʾiḏani
+allhi
+ 
+swrŧ
+āl
+ʿmrān
+
+ 94
+ fayakuwanu
+ālʿaāmilu
+ʿinada
+ḏãlika
+ 
+yakawanu
+ 
+swrŧ
+āl
+ʿmr
+ān
+
+ 74
+ 
+falawlaā
+āanau
+fiy
+ālāamari
+tawahuumaⁿā
+ āawa
+taḥaḳuuḳaⁿā
+ 
+maāḳabilata
+hãḏihi
+ālṣuuwaraŧu
+hãḏayni
+ālwaǧahayni
+ bala
+lahaā
+hãḏaāni
+ālwaǧhaāni
+ lāanau
+ālnaušaāaŧa
+ālʿiysawiyauŧa
+tuʿaṭiy
+ḏãlika
+ 
+waḫaraǧa
+ʿiysaáã
+mina
+āltauwaāḍuʿi
+āʾilaáã
+āana
+šarauʿa
+lāumautihi
+āana
+
+yuʿaṭuwā
+alǧizayaŧa
+ʿana
+yadiⁿ
+wahuma
+ṣa
+ãġiru
+wna
+ 
+swrŧ
+ālt
+wbŧ
+
+ 92
+ waāanau
+āaḥadahuma
+āʾiḏaā
+luṭima
+fiy
+ḫadiuhi
+waḍaʿa
+ālḫadau
+ālāḫara
+limana
+laṭamahu
+ walaā
+yara
+taf
+iʿu
+ʿal
+ayhi
+walaā
+yaṭ
+alubu
+ālḳiṣaāṣa
+minahu
+ hãḏaā
+lahu
+mina
+ǧihaŧi
+āumauhi
+ āʾiḏa
+ālmara
+āaŧu
+lahaā
+ālsuufalu
+ falahaā
+āltauwaāḍuʿu
+lāanauhaā
+taḥata
+ālrauǧuli
+ḥukam
+aⁿā
+waḥisiⁿuā
+ 
+wamaā
+kaāna
+fiyhi
+mina
+ḳuwauŧi
+ālāʾiḥayaāʾi
+waālāʾibaraāʾi
+famiina
+ǧihaŧi
+nafaḫi
+ǧibariyla
+fiy
+ṣuwraŧi
+ālbašari
+ fakaāna
+ʿiysaáã
+yuḥyiy
+ālmawtaáã
+biṣuwaraŧi
+ālbašari
+ 
+walawa
+lama
+yaāti
+ǧibariylu
+fiiy
+ṣuwraŧi
+ālbašari
+ waāataáã
+fiy
+ṣuwraŧiⁿ
+ġayrihaā
+mina
+ṣuwari
+ālāa
+kwaāni
+ālʿunaṣuriyauŧi
+mina
+ḥayawaāniⁿ
+ āaw
+nabaātiⁿ
+ āaw
+ǧamaādiⁿ
+ 
+lakaāna
+ʿiysaáã
+laāyuḥayiy
+ālmawtaáã
+āʾilauā
+ḥatauáã
+yatalabausa
+bitilaka
+ālṣuuwaraŧi
+
+14
+ẓhr
+ wayaẓaharu
+fiyhaā
+ 
+walaw
+āataáã
+ǧibariylu
+biṣuwratihi
+ālnuuwriyauŧi
+ālḫaāriǧaŧi
+ʿani
+ālʿanaāṣiri
+waālāara
+kaāna
+ āʾiḏa
+laā
+yaḫ
+ruǧu
+ʿana
+ṭabi
+yʿatihi
+ lakaāna
+ʿiysaáã
+laā
+yuḥay
+iy
+ālmawtaáã
+ āʾilauā
+ḥatauá
+yaẓah
+ara
+fiy
+tilaka
+ālṣuuwraŧi
+ālṭaubiy
+ʿiyauŧi
+ālnuuwriyauŧi
+laā
+ālʿunaṣ
+uriyauŧi
+maʿa
+ālṣ
+uuwraŧi
+ālbašari
+yauŧi
+mina
+ǧihaŧi
+āumauhi
+ 
+fakaāna
+yuḳaālu
+fiyhi
+ʿinda
+āʾiḥayaāʾihi
+ālmawtaáã
+ 
+huwa
+laā
+huwa
+ 
+wataḳaʿu
+ālḥ
+ayraŧu
+fiy
+ālnauẓ
+ari
+āʾilayhi
+ kama
+āwaḳaʿata
+fiy
+ālʿaāḳili
+ʿinada
+ālnauẓ
+ari
+ālfikariyiu
+ āʾiḏa
+raāaáã
+šaḫaṣaⁿā
+bašariyiⁿuā
+mina
+ālbašari
+ yuḥayiy
+ālmawtaáã
+ wahuwa
+mina
+ālḫaṣaāʾiṣi
+ālāʾilãhiyauŧi
+ 
+āʾiḥayaāʾu
+ālnuuṭaḳi
+laā
+āʾiḥayaāʾu
+ālaḥayawaāni
+ baḳiya
+ālnauāẓiru
+ḥaāʾiraⁿā
+ āʾiḏa
+yaraáã
+ālṣuuwraŧi
+bašaraⁿā
+biālāaṯari
+
+ālāʾilãhiyiu
+ 
+faāadauáã
+baʿaḍuhuma
+fiyhi
+āʾilaáã
+ālḳawli
+biālḥuluwli
+ waāanauh
+huwa
+āllhu
+ bimaā
+āaḥayaā
+bihi
+mina
+ālmawtaáã
+ waliḏãlika
+nusibuw
+āāʾilaáã
+ālkufri
+wahuwa
+ālsautari
+ lāanauhuma
+sataruwā
+āllha
+ālauḏiy
+āaḥayaā
+ālmawtaáã
+biṣuwraŧi
+bašraŧi
+ʿiysaáã
+ 
+faḳaāla
+taʿaālaáã
+ 
+laḳada
+kafara
+alauḏaiyana
+ḳaā
+luwā
+āʾinau
+āllha
+huwa
+almas
+iyaḥu
+abanu
+marayama
+ 
+sw
+rŧ
+ālmāʾdŧ
+
+ 71
+ faǧamaʿuwā
+bayana
+ālḫaṭaā
+waālkufari
+
+ fiy
+tamaāmi
+ālkalaāmi
+kuliuhi
+
+liāanauhu
+laābiḳawlihima
+ 
+huwa
+āllhu
+ walaā
+biḳawalihima
+ 
+ābanu
+marayama
+ 
+faʿadaluwā
+biāltauḍamiyni
+mina
+āllhi
+ 
+mina
+ḥayaṯu
+āaḥayaā
+ālmawtaáã
+ āʾilaáã
+ālṣuuwraŧi
+ālnauāsuwtiyauŧi
+ālbašariyauŧi
+ biḳawlihima
+abanu
+marayama
+wahuwa
+abanu
+marayama
+bilaā
+šakiⁿu
+ 
+fataḫay
+aula
+ālsauāmiʿu
+āanauhama
+nasab
+uwā
+ālāuluwhaŧa
+lilṣuuwraŧi
+ waǧaʿ
+aluwhaā
+ʿayna
+ālṣuuwraŧi
+ wamaā
+faʿaluwā
+ bala
+ǧaʿaluwā
+ālhuwiyauŧa
+ālāʾilãhiyauŧa
+abatidaāʾaⁿ
+fiy
+ṣuwaraŧiⁿ
+bašariyauŧiⁿ
+ hiy
+abanu
+marayama
+ 
+fafaṣaluwā
+bayna
+ālṣuuwraŧi
+waālḥukami
+ 
+laā
+āanauhuma
+ǧaʿaluwā
+ālṣuuwraŧa
+ʿayna
+ālḥukami
+ 
+kamaā
+kaāna
+ǧibaraʾiylu
+ fiy
+ṣuwraŧi
+ālbašari
+walaānafaḫa
+ ṯumau
+nafaḫa
+ 
+fafaṣala
+bayna
+ālṣuuwraŧi
+waālnaufaḫi
+wa
+kaāna
+ālnaufaḫu
+mina
+ālṣuuwaraŧi
+faḳada
+kaānata
+walaānafaḫa
+ 
+famaā
+huwa
+ālnaufaḫu
+mina
+ḥadiuhaā
+ālḏauātiyiu
+ 
+fawaḳaʿa
+ālḫilaāfu
+bayana
+āahali
+ālmilali
+fiy
+ʿiysaáã
+ maāhuwa
+ 
+famina
+naāẓiriⁿ
+fiyhi
+mina
+ḥayṯu
+ṣuwaratuhu
+ālāʾinasaāniyauŧu
+ālbašariyauŧu
+ fayaḳuwalu
+ huwa
+abanu
+marayama
+ 
+wamina
+naāẓiriⁿ
+fiyhi
+mina
+ḥayaṯu
+ālṣuuwraŧu
+ālamumaṯiulaŧu
+ālbašariyauŧu
+ fyanasibuhu
+liǧibaraʾiyla
+ 
+wamina
+naāẓiriⁿ
+fiyhi
+mina
+ḥayṯu
+maāẓahara
+ʿanhu
+mina
+āʾiḥayaāʾi
+ālmawtaáã
+
+24
+wǧh
+ fay
+anasibuhu
+āʾilaáã
+āllhi
+biālruuwḥiyauŧi
+ fayaḳuwlu
+ ruwḥu
+āllhi
+ āay
+ bihi
+ẓaharata
+ālḥayaāŧa
+fiya
+mana
+nafaḫa
+fiyhi
+ fataāraŧaⁿ
+yakuwnu
+ālḥaḳu
+fiyhi
+mutawahaumaⁿā
+
+ asamu
+mafaʿ
+uwliⁿ
+
+ wataāraŧaⁿ
+yakuwnu
+ālmalaku
+fiyhi
+mutawahaumaⁿā
+ wataāraŧaⁿ
+takuwnu
+ālbašariyauŧu
+ālāʾinasaāniyauŧu
+fiyhi
+mutawahaumaŧaⁿ
+ 
+fayakuwnu
+ʿinada
+kuliu
+naāẓiriⁿ
+ biḥasabi
+maāyaġalibu
+ʿalayahi
+ fahuwa
+kalimaŧu
+āllhi
+ wahuwa
+ruwḥu
+āllhi
+ 
+wahuwa
+ʿabdu
+āllhi
+ 
+walaysa
+ḏãlika
+fiy
+ālṣuuw
+raŧi
+ālḥisiuyauŧi
+liġayrihi
+ bala
+kuluu
+šaḫ
+aṣiⁿ
+manas
+uwbuⁿ
+āʾilaáã
+āabiy
+hi
+iālṣuuwriayiu
+ laā
+āʾilaáã
+ālnauāfiḫi
+ruwḥahu
+fiy
+ālṣuuwraŧii
+ālbašariyauŧi
+ 
+faāʾinau
+āll
+ha
+āʾiḏaā
+sawauáã
+ālǧisamu
+ālāʾinasaā
+niy
+kamaā
+ḳaāla
+ 
+faāʾiḏaā
+sawau
+yatuhu
+ 
+ālḥǧ
+r
+ 
+92
+ nafaḫa
+fiyhi
+huwa
+taʿaālaáã
+mina
+ruwḥihi
+ 
+fanasaba
+ālruuwḥa
+fiy
+kawnihi
+waʿaynihi
+āʾilayhi
+taʿaālaáã
+ waʿiysaáã
+laysa
+kaḏãlika
+ faāʾinauhu
+anadaraǧata
+tasawiyaŧu
+ǧisamihi
+waṣuwratihi
+ālbašariyauŧi
+biālnaufaḫi
+ālruuwḥiyiu
+ waġayruhu
+
+ kamaā
+ḏakaranaāhu
+
+ lama
+yakuna
+miṯalahu
+ 
+faālmawǧuwdaāti
+kulauhuā
+kal
+imaātu
+āllhi
+ āltiy
+laātanafadu
+ faāʾinauhaā
+ʿana
+
+kuna
+ 
+swrŧ
+āl
+ʿmrān
+
+ 74
+ wa
+kuna
+ kalimaŧu
+āllhi
+ 
+fahala
+tunasaba
+ālkal
+imaŧu
+āʾilayhi
+ biḥasabi
+maāhuwa
+ʿalayhi
+falaā
+tuʿal
+amu
+maā
+hiyautuhaā
+ āaw
+yanazilu
+huwa
+taʿaālaáã
+āʾilaáã
+ṣuwraŧi
+mana
+yaḳawalu
+ 
+kuna
+fayakuwanu
+ 
+swrŧ
+āl
+ʿm
+rān
+
+ 74
+ 
+ḳawlu
+
+kuna
+ 
+sw
+rŧ
+āl
+ʿm
+rān
+
+ 74
+ ḥḳyḳŧuⁿ
+lit
+ilkaālṣuuwaraŧi
+ālautiy
+nazala
+āʾilayhā
+ waẓahara
+fiyhaā
+ 
+fabaʿaḍu
+ālʿaārifiyna
+yaḏahabu
+āʾilaáã
+ālṭaurafi
+ālwaāḥidi
+ wabaʿaḍhuma
+āʾilaáã
+ālṭaurafi
+ālāḫari
+ wabaʿaḍhuma
+yaḥaāru
+fiy
+ālāamari
+walaā
+yadariy
+ 
+wahãḏihi
+masaālaŧuⁿ
+laāyumakinu
+āanau
+tuʿarafa
+āʾilauā
+ḏawaḳaⁿā
+ kaāabiy
+yaziyda
+ḥiyana
+nafaḫa
+fiy
+ālnaum
+alaŧi
+ āltiy
+ḳatal
+ahaā
+faḥay
+iyata
+ 
+faʿalima
+ʿinada
+ḏãlika
+ bima
+na
+yan
+afuḫu
+ 
+fanaf
+aḫa
+ fa
+kaā
+na
+ʿiys
+awiyau
+ālmašahadi
+ 
+waāamauā
+ālāʾiḥayaāʾu
+ālamaʿanawiyuu
+biālʿilami
+ fatilka
+ālḥayaāŧu
+ālāʾilãhiyauŧu
+āldaāʾimaŧu
+ālʿaliyauŧu
+ālnuuwriyauŧu
+ ālautiy
+ḳaāla
+āllhu
+fiy
+ahaā
+ 
+āawamana
+kaāna
+mayataⁿā
+faāa
+ḥayayanaãhu
+waǧaʿalanaā
+lahu
+nuwaraⁿā
+yamašiy
+bihi
+fiy
+ālnauāsi
+ 
+sw
+rŧ
+ālānʿām
+
+ 221
+ fakuluu
+mana
+āaḥayaáã
+nafasaⁿā
+mayataŧaⁿ
+ biḥayaāŧiⁿ
+ʿilamiyauŧiⁿ
+ 
+fiy
+masaāalaŧiⁿ
+ḫaāṣauŧiⁿ
+ mutaʿaliuḳaŧiⁿ
+biālʿilami
+biāllhi
+ faḳada
+āaḥay
+aāhu
+bihaā
+ wakaānata
+lahu
+nuw
+raⁿā
+yamašiy
+bihi
+fiy
+ālnauāsi
+ āay
+ bayna
+āašakaālihi
+fiy
+ālṣuuwraŧi
+ 
+
+maǧazuwʾu
+ālwāfr
+1
+falawalaāhu
+walawalaānaā
+lamaā
+kaāna
+ālauḏiy
+kaānaā
+
+24
+ẓhr
+2
+faāʾinauā
+āaʿabaduⁿ
+ḥaḳiⁿuā
+waāʾinau
+āllha
+mawalaānaā
+3
+waānauā
+ʿayanuhu
+faaʿalama
+āʾiḏaā
+maāḳulata
+āʾinasaānaā
+4
+falaā
+tuḥaǧaba
+biāʾinasaāniⁿ
+faḳada
+āaʿaṭaāka
+burahaānaā
+5
+fakuna
+ḥaḳiⁿuā
+wa
+kuna
+ḫalaḳaⁿā
+takuna
+biallhi
+raḥamaānaā
+6
+waġaḏiu
+ḫalaḳahu
+minahu
+takuna
+ruwaḥaⁿā
+warayaḥaānaā
+7
+faāaʿaṭayanaāhu
+maāyibaduwa
+bihi
+fiyanaā
+waāaʿaṭaānaā
+8
+faṣaāra
+ālāamaru
+maḳasuwamaⁿā
+biāʾiyauāhu
+waāʾiyauānaā
+9
+faāaḥayaāhu
+ālauḏiy
+yadariy
+biḳalabiy
+ḥiyana
+āaḥayaānaā
+01
+ fakunauā
+fiyhi
+āakawaānaⁿā
+waāaʿayaānaⁿā
+waāazamaānaā
+11
+ walayasa
+badiāʾimiⁿ
+fiynaā
+walãkina
+ḏaāka
+āaḥayaānaā
+wamimauā
+yadulu
+ʿalaáã
+maāḏakaranaāhu
+fiy
+āamari
+ālnaufaḫi
+ālruuwaḥaāniyiu
+maʿa
+ṣuwaraŧi
+ālbašari
+ālʿunaṣaⁿriyiu
+huwa
+āanau
+ālḥaḳau
+waṣafa
+nafasahu
+bālnaufasi
+ālrauḥamaāniyiu
+ walaābudau
+likuliu
+mawaṣuwfiⁿ
+biṣif
+aŧiⁿ
+āanau
+yat
+abaʿa
+ālṣiufaŧa
+ǧamiy
+ʿa
+maātasatalazimuhu
+tilka
+ālṣ
+iufaŧu
+ waḳada
+ʿarafata
+ānau
+ālnaufasa
+fiy
+ālmutanafiusi
+maā
+yasatalazimuhu
+ flḏãlika
+ḳabila
+ālnaufasu
+ālāʾilãhiyuu
+ṣuwara
+ālʿaālami
+ fahuwa
+lahaā
+kaālǧawhari
+ālhayuwlaāniyiu
+ walaysa
+āʾilauā
+ʿayna
+ālṭaubiyʿaŧi
+ 
+faālʿanaāṣiru
+ṣuwaraŧuⁿ
+mina
+ṣuwari
+ālṭ
+aubiyaʿaŧi
+ wamaā
+fawḳa
+ālʿanaāṣiri
+wamaātawalauda
+ʿanahaā
+ 
+fahuwa
+āayaḍaⁿā
+mina
+ṣuwari
+ālṭaubiyʿaŧi
+ wahiya
+ālāarawaāḥu
+ālʿulawiyauŧu
+ālautiy
+fawaḳa
+ālsaumawaāti
+ālsaubaʿi
+ 
+waāmauā
+āarawaāḥu
+ālsaumawaāti
+waāaʿay
+aānuhaā
+ fahiy
+ʿunaṣuriyuŧuⁿ
+ faāʾi
+nauhaā
+mina
+duḫaā
+ni
+ālʿanaāṣiri
+ālamutawalaudi
+ʿanahaā
+ 
+wmā
+takawau
+na
+
+ʿana
+kuliu
+samaā
+ʾiⁿ
+mina
+ālmalaāʾikaŧi
+fahuwa
+min
+ahaā
+ fahuma
+ʿunaṣ
+uruyuuwna
+wamana
+fawaḳahuma
+ṭabiyaʿiyuuwna
+ walihãḏaā
+waṣafahumu
+āllhu
+biālaḫatiṣaāmi
+āaʿaniy
+ ālmallāa
+ālāaʿlaáã
+ lāanau
+ālṭaubiyaʿaŧa
+mutaḳaābilaŧuⁿ
+ 
+waāltauḳaābulu
+ālauḏiy
+fiy
+ālāasmaāʾi
+ālāʾilãhiyauŧi
+ ālautiy
+hiya
+ālniusabu
+ āʾinaumaā
+āaʿaṭaāhu
+ālnaufasu
+ 
+āalaā
+taraáã
+ālḏauāta
+ālḫaāriǧaŧa
+ʿana
+hãḏaā
+ālḥukami
+
+34
+wǧh
+ kayfa
+ǧaāʾa
+fiyhaā
+ālġinaáã
+ʿani
+ālʿaālamiyna
+ 
+falihãḏaā
+ḫaraǧa
+ālʿaālamu
+ʿalaáã
+ṣuwaraŧi
+mana
+āawaǧadahuma
+ 
+walaysa
+āʾilauāālnaufasu
+ālāʾilãhiyuu
+ 
+fabim
+aā
+fiy
+hi
+mina
+ālḥaraāraŧi
+ʿalaā
+ wabimaā
+fiy
+hi
+mina
+ālburuwadaŧi
+waālruuṭuwabaŧi
+safula
+ wabimaā
+fiyhi
+mina
+ālyubuwsaŧi
+ṯabata
+ walama
+yatazalazala
+ faālruusuwbu
+lilburuwdaŧi
+waālruuṭuwbaŧi
+ āalaā
+taraáã
+ālṭaubiyba
+āʾiḏaā
+āaraāda
+saḳaáã
+dawaāʾaⁿ
+liāaḥadiⁿ
+ yanaẓuru
+fiy
+ḳaāruwraŧi
+maāʾihi
+ faāʾiḏaā
+rāhu
+rasaba
+ 
+ʿalima
+āanau
+ālnuuḍaǧa
+ḳada
+kamula
+ fayasaḳiyhi
+āldauwaāʾa
+ liyusariʿa
+fiy
+ālnuuǧaḥi
+ waāʾinaumaā
+yarasubu
+liruṭuwbatihi
+ waburuwdatihi
+ālṭaubiyʿiyauŧi
+ 
+ṯumau
+āʾinau
+hãḏa
+āālšauḫaṣa
+ālāʾinasaāniyau
+ ʿaǧana
+ṭiynat
+ahu
+biy
+adayhi
+wahum
+aā
+mataḳaābilataā
+ni
+ waāʾina
+kaānata
+kilataā
+yadayhi
+yamiynaⁿā
+ falaā
+ḫafaāʾa
+bimaā
+baynahumaā
+mina
+ālfuraḳaāni
+ walaw
+lama
+yakuna
+āʾilauā
+kawnahumaā
+aṯanatayni
+ āaʿniy
+ yadayni
+ 
+lāanauhu
+laā
+yuwʾaṯiuru
+fiy
+ālṭaubiyʿaŧi
+āʾilauā
+maāyunaāsibuhaā
+ wahiya
+mutaḳaābilaŧuⁿ
+ faǧaāʾa
+biālyadayni
+ 
+walamauā
+āawaǧadahu
+biālyadayni
+ samauāhu
+bašaraⁿā
+ lilmubaāšaraŧi
+āllauāʾiḳaŧi
+biḏãlika
+ālǧanābi
+ biā
+lyadayni
+ālmuḍaāfatayni
+āʾilayhi
+ 
+waǧaʿala
+ḏãlika
+mina
+ʿinaāyatihi
+bihãḏaā
+ālnauwʿi
+ālāʾinasaāniyiu
+ faḳaāla
+limana
+āabaáã
+ʿani
+ālsuuǧuwdi
+lahu
+ 
+maā
+manaʿaka
+āanau
+tasaǧuda
+limaā
+ḫalaḳatu
+biyadayau
+āasatakabarata
+ 
+swrŧ
+ṣā
+
+ 57
+ ʿalaáã
+mana
+huwa
+miṯ
+aluka
+ yaʿaniy
+ʿunaṣuriyiⁿuā
+ 
+āama
+kunata
+mina
+ālʿ
+aāliyana
+ 
+swrŧ
+ṣā
+
+ 57
+ ʿani
+ālʿunaṣuri
+ walasata
+kaḏ
+ãlika
+
+wayaʿniy
+biālʿaāliyna
+ mana
+ʿalaā
+biḏaātihi
+ʿana
+āana
+yakuwna
+fiy
+našaāatihi
+ālnuuwariyauŧi
+ʿunaṣuriyiⁿuā
+ waāʾina
+kaāna
+ṭabiyaʿiyiⁿuā
+ 
+famaā
+faḍala
+ālāʾinasaānu
+ġayrahu
+mina
+ālāanwaāʿi
+ālʿunṣ
+uruyauŧi
+āʾilauā
+bika
+wnihi
+bašaraⁿ
+āmina
+ṭiyniⁿ
+ 
+fahuwa
+āafaḍalu
+nawaʿiⁿ
+mina
+kuliu
+mā
+ḫuliḳa
+mina
+ālʿanaāṣiri
+mina
+ġayri
+mubaāšaraŧiⁿ
+ 
+faālāʾinasaānu
+fiy
+ālruutabaŧi
+fawḳa
+ālmalaāʾikaŧi
+ālāarḍiyauŧi
+waālsamaāwiyauŧi
+ waālmalaāʾikaŧu
+ālʿaāluwna
+ḫayruⁿ
+mina
+hãḏaā
+ālnauwʿi
+ālāʾinasaāniyiu
+ biālnauṣiu
+ālāʾilãhayiu
+ 
+famana
+āaraāda
+āanau
+yaʿarifa
+ālnaufasa
+ālāʾilãhayau
+falayaʿarifa
+ālʿaālama
+ 
+faā
+nauhu
+
+mana
+ʿarafa
+naf
+asahu
+ʿarafa
+rabauhu
+ ālauḏiy
+ẓah
+ara
+fiyhi
+
+āay
+ ālʿaālamu
+ẓahara
+fiy
+naf
+asi
+ālrauḥamãni
+ālauḏiy
+nafausa
+āllhu
+bihi
+ʿana
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ maā
+taǧiduhu
+mina
+ʿadami
+ẓuhuwri
+āṯaārihaā
+ biẓuhuwri
+āṯaārihaā
+ faamatanau
+ʿalaáã
+nafasihi
+bimaā
+āawǧadahu
+fiy
+nafasihi
+ 
+faāa
+waulu
+āaṯariⁿ
+kaāna
+ll
+naufasi
+
+34
+ẓhr
+ āʾinauma
+ākaā
+na
+fiy
+ḏãlika
+ālǧana
+āb
+ ṯumau
+lama
+yazala
+ālāamaru
+yanazilu
+bitanafiyasi
+ālġumuwami
+āʾilaáã
+āḫiri
+maāwuǧida
+ 
+maǧazuwʾu
+ālrauǧazi
+1
+faālkuluu
+fiy
+ʿayani
+ālnaufasi
+kaālḍauwaʾi
+fiy
+ḏaāti
+ālġalasa
+2
+waālʿilamu
+biālburahaāni
+fiy
+salaḫi
+ālnauhaāri
+limana
+naʿasa
+3
+fayaraá
+ālauḏiy
+ḳada
+ḳulatuhu
+ruʾyaā
+taduluu
+ʿalaáã
+ālnaufasa
+4
+fayuriyaḥuhu
+mina
+kuliu
+ġamiⁿu
+fiy
+tilaāwatihi
+ʿabasa
+5
+walaḳada
+taǧalauáã
+lilaḏiy
+ḳada
+ǧaāʾa
+fiy
+ṭalabi
+ālḳabasa
+6
+farāhu
+naāraⁿā
+wahuwa
+nuwa
+ruⁿ
+fiy
+ālmuluwaki
+wifiy
+ālʿasasa
+7
+faāʾiḏaā
+fahimata
+maḳaālatiy
+taʿalamu
+baāanauk
+mubatiʾisa
+8
+lawkaāna
+yaṭalubu
+ġayara
+ḏaālarāhu
+fiyhi
+wamaānakasa
+waāamauā
+hãḏihi
+ālkalimaŧu
+ālʿiyasawiyauŧu
+lam
+auā
+ḳaāma
+lahaā
+ālḥaḳuu
+fiy
+maḳaāmi
+
+ḥatauáã
+naʿalama
+
+swrŧ
+mḥ
+md
+
+ 13
+ wanaʿalmu
+ asatafaham
+ahaā
+ʿamauā
+nusiba
+āʾilayhaā
+ hala
+huwa
+ḥaḳuⁿu
+āama
+laā
+ 
+maʿa
+ʿilamihi
+ālāawauli
+bihala
+waḳaʿa
+ḏãlika
+ālāamaru
+āama
+laā
+ 
+faḳaāla
+lahu
+
+ 
+ʾaāanata
+ḳulata
+lilaniuā
+si
+atuḫiḏuwaniy
+waāumauya
+āʾilãhayani
+mina
+duwani
+āllhi
+ 
+swrŧ
+ālmāʾdŧ
+
+ 611
+ 
+falaābudau
+fiy
+ālāadabi
+mina
+ālǧawaābi
+lilamusatafahimi
+ 
+laāanauhu
+lamauā
+taǧalauáã
+lahu
+fiy
+hãḏaā
+ālmaḳaāmi
+wafiy
+hãḏihi
+ālṣ
+uuwraŧi
+aḳataḍata
+ālḥikam
+aŧu
+ālǧawaāba
+fiy
+āltaufariḳaŧi
+biʿayni
+ālaǧamaʿi
+ 
+fa
+ḳaāla
+ 
+ waḳadauma
+āltaunaziyaha
+
+ 
+subaḥã
+naka
+ 
+swrŧ
+ālm
+āʾdŧ
+
+ 611
+ faḥadauda
+biālkaāfi
+āltiy
+taḳataḍiy
+ālmuwaāǧahaŧa
+waālḫiṭaāba
+ 
+
+maā
+yakuwanu
+liy
+ 
+swrŧ
+ālmāʾdŧ
+
+ 611
+ mina
+ḥayaṯu
+āanaā
+linafasiy
+duwanaka
+ 
+āana
+āaḳuwala
+maālayasa
+liy
+biḥaḳiⁿu
+ 
+swrŧ
+ālmāʾdŧ
+
+ 611
+ āaya
+ maā
+taḳataḍiyhi
+huwayautiy
+ walaā
+ḏaātiy
+ 
+
+āʾina
+kunatu
+ḳulatuhu
+faḳada
+ʿalimatahu
+
+swrŧ
+ālmā
+ʾdŧ
+
+ 611
+ lāanauka
+āanata
+ālḳaāʾilu
+ wamana
+ḳaāla
+āamaraⁿā
+faḳada
+ʿalima
+maāḳaāla
+ waāaa
+nata
+ālliusaānu
+ālauḏiy
+takalaumu
+bihi
+ kamaā
+āaḫabaranaā
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿalayahi
+wasalauma
+ʿana
+rabauhi
+fiy
+ālḫabari
+ālāʾilãhiyiu
+faḳaāla
+ 
+kunatu
+lisaānahu
+ālauḏiy
+yatakalaumu
+bihi
+ faǧaʿala
+huwiyautahu
+ʿayna
+lisaāni
+ālmutakaliumi
+ wanasaba
+ālkalaāma
+āʾilaáã
+ʿabdihi
+ 
+ṯumau
+tamauma
+ālʿabadu
+ālṣau
+āliḥu
+ālǧawa
+āba
+biḳawlihi
+ 
+taʿa
+lamu
+maāfiy
+nafas
+iy
+ 
+swrŧ
+ālm
+āʾdŧ
+
+ 611
+ waālmutakaliumu
+ālaḥaḳuu
+ 
+
+walaā
+āaʿal
+amu
+ 
+swrŧ
+ālmā
+ʾd
+ŧ
+ 611
+ maā
+fiy
+haā
+fanafaáã
+ālʿilama
+ʿana
+huwuyauŧi
+ʿiysaáã
+mina
+ḥayṯu
+huwiyautuhu
+laā
+mina
+ḥayaṯu
+āanauhu
+ḳaāʾiliⁿ
+waḏuw
+āaṯariⁿ
+ 
+
+44
+wǧh
+ 
+āʾinauka
+āanata
+ 
+ālm
+āʾdŧ
+
+ 611
+ faǧaā
+ʾa
+biā
+lfaṣ
+li
+waālʿimaādi
+ taā
+kiydaⁿā
+lilbayaāni
+waaʿatimaādaⁿā
+ʿalayhi
+ āʾiḏa
+laā
+yaʿlamu
+ālġayba
+āʾilauā
+āllhu
+ 
+wafarauḳa
+waǧamauʿa
+ wawaḥauda
+wakaṯaura
+ wawasauʿa
+waḍayauḳa
+ 
+ṯumau
+ḳaāla
+mutamiumaⁿā
+llǧawaābi
+
+maā
+ḳulatu
+lahuma
+āʾilauā
+maā
+āamarataniy
+bihi
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ 
+fanafaáã
+āawaulaⁿā
+ 
+mušiyaraⁿā
+āʾilaáã
+āanauh
+maāhuwa
+ṯamau
+ ṯumau
+āawaǧaba
+ālḳawla
+āadabaⁿā
+maʿa
+ālamusatafahimi
+ walawa
+lama
+yafaʿal
+kaḏãlika
+ laatauṣafa
+biʿadami
+ʿilami
+ālḥaḳaāʾiḳi
+ waḥaāšaāhu
+mina
+ḏãlika
+ faḳaāla
+
+āʾilauā
+maā
+āamartaniy
+bihi
+ 
+swrŧ
+ālmā
+ʾdŧ
+
+ 711
+ waāanata
+ālamutakaliumu
+ʿalaáã
+lisaāniy
+ waāanata
+lisaāniy
+ 
+faanẓura
+āʾilaáã
+hãḏihi
+āltaunabiáʾaŧi
+ālruuwḥiyauŧi
+ālāʾilãhiyauŧi
+ maā
+āalṭafahaā
+wamaā
+āadaḳauhaā
+ 
+
+āani
+aʿabuduwaā
+allha
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ faǧaāʾa
+biālasami
+
+allha
+ liaḫatilaāfi
+ālʿub
+auādi
+fiy
+ālʿibaā
+daāti
+ waaḫatila
+āfu
+ālšauraāʾiʿi
+
+ lama
+yaḫuṣu
+asamaⁿ
+āḫaāṣiⁿuā
+duwna
+asamiⁿ
+ 
+bala
+ǧaāʾa
+biālasami
+ālǧaāmiʿi
+lilkuuliu
+ 
+ṯumau
+ḳaāla
+ 
+rabauy
+warabaukuma
+ 
+aswrŧ
+ālmāʾdŧ
+
+ 711
+ wamaʿaluwmuⁿ
+āanau
+nsabatahu
+āʾilaáã
+mawaǧuwdiⁿ
+maā
+biālruubuwbiyauŧi
+ laysata
+ʿayna
+nisabathi
+āʾilaáã
+mawaǧuwdiⁿ
+āḫara
+ faliḏãlika
+faṣala
+biḳaw
+lihi
+ 
+rabauy
+warabaukuma
+
+sw
+rŧ
+ālm
+āʾdŧ
+
+ 711
+ biālkinaāyatayni
+
+ kinaā
+yaŧu
+ālmutakaliumi
+ wakinaāyaŧu
+ālmuḫaāṭabi
+ 
+
+āʾilauā
+maā
+āamarataniy
+bihi
+ 
+sw
+rŧ
+ālmāʾdŧ
+
+ 711
+ faāaṯabata
+nafasahu
+maāmuwaraⁿā
+ walaysata
+siwaáã
+ʿubuwdiyautihi
+ āʾiḏa
+laā
+yuʾmaru
+āʾilauā
+mana
+yutaṣawauru
+minhu
+ālamatiṯaālu
+ wiāna
+lama
+yafaʿala
+ 
+walamauā
+kaāna
+ālāamaru
+yanazilu
+biḥ
+ukami
+ālmaraātibi
+ liḏãlika
+yanaṣab
+iġu
+kuluu
+mana
+ẓahara
+fiy
+maratabaŧiⁿ
+maā
+ bimaā
+
+tuʿaṭiyhi
+ḥaḳiyḳaŧu
+tilaka
+ālmaratabaŧu
+ famaratabaŧu
+ālmaāmuwri
+ lahaā
+ḥukamuⁿ
+yaẓaharu
+fiⁿy
+kuliu
+maāmuwariⁿ
+ wmaratabaŧu
+ālāmiri
+ lahaā
+ḥukamuⁿ
+yabduw
+fiy
+kuluu
+āmiriⁿ
+ 
+fayaḳuwlu
+ālaḥaḳuu
+
+āaḳayamuwaā
+ālṣaulaāŧa
+ 
+ālbḳrŧ
+
+ 34
+ fahuwa
+ālāmiri
+waālmukaliufu
+waālma
+āmuwru
+ wayaḳaw
+lu
+ālʿabadu
+ 
+rabiu
+aġafira
+liya
+ 
+ālāʿr
+āf
+
+ 151
+ fahuwa
+ālāmiru
+ waālḥ
+aḳuu
+ālmaāmuwa
+ru
+ famaā
+
+yaṭalubu
+ālḥaḳuu
+mina
+ālʿabadi
+biāamari
+hi
+huwa
+biʿayanihi
+yaṭulubu
+ālʿabdu
+mina
+ālḥaḳiu
+biāamarihi
+ 
+walihãḏaā
+kaāna
+kuluu
+duʿaāʾiⁿ
+muǧaābaⁿā
+ 
+walaābudau
+ waāʾina
+taāaḫaura
+ kamaā
+yataāaḫauru
+baʿaḍu
+ālmukalaufiyana
+ mimauna
+āuḳiyama
+muḫaāṭabaⁿā
+biāʾiḳaāmaŧi
+ālṣau
+laāŧi
+ falaā
+yuṣaliuy
+fiy
+waḳatiⁿ
+ 
+fayuwʾaḫiuru
+ālamatiṯaā
+la
+ wayuṣal
+iuy
+fiy
+waḳatiⁿ
+āḫara
+ 
+āʾina
+kaāna
+mutamakiunaⁿā
+mina
+ḏãlika
+ falaābudau
+mina
+ālāʾiǧaābaŧi
+walawa
+biālḳaṣadi
+ 
+ṯumau
+ḳaāla
+ 
+wa
+kanata
+ʿalayahima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ walama
+yaḳula
+ ʿalaáã
+nafasiy
+maʿahuma
+
+44
+ẓhr
+ kamaā
+ḳaāla
+ 
+rabauy
+warabaukuma
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ 
+šahiyadaⁿā
+maādumatu
+fiyhima
+ 
+swrŧ
+ālmāʾd
+ŧ
+ 711
+ lāanau
+ālāanabiyaāʾa
+šuhadaāʾuⁿ
+ʿalaáã
+āumamihima
+maādaāmuwaā
+fiyhima
+ 
+
+falamauā
+tawafauyataniy
+ 
+swrŧ
+ālmāʾd
+ŧ
+ 711
+ āay
+ rafaʿataniy
+āʾilay
+ka
+waḥaǧabatahuma
+ʿaniuy
+waḥaǧabataniy
+ʿanahuma
+
+kunata
+āanata
+alrauḳiyaba
+ʿalayahima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ fiy
+ġayri
+maādautiy
+ bala
+fiy
+mawaādiuhima
+ 
+āʾiḏa
+kunata
+baṣarahuma
+ālauḏiy
+yaḳataḍiy
+ālmuraāḳabaŧa
+ fašuhuwdu
+ālāʾinasaāni
+nafasahu
+ šuhuwdu
+ālḥaḳiu
+āʾiyauāhu
+ waǧaʿal
+ahu
+biā
+lasami
+
+ 
+alrauḳiy
+bu
+ lāanauhu
+ǧaʿala
+ālšuuhuwda
+lahu
+ faāa
+raāda
+āana
+yafaṣ
+ila
+bayn
+ahu
+wabayna
+rabauhi
+ ḥatauáã
+yaʿalama
+āanauh
+huwa
+ likawnihi
+ʿabdaⁿ
+ā
+ waāanau
+ālḥ
+aḳau
+huwa
+ālḥ
+aḳuu
+ likawnihi
+rabiⁿuā
+lahu
+ faǧaāʾa
+linafasihi
+biāanauhu
+šahiyduⁿ
+ wafiy
+ālḥaḳiu
+baāanauhu
+raḳiybuⁿ
+ 
+waḳadaumahuma
+fiy
+ḥaḳiu
+nafasihi
+faḳaāla
+ 
+ʿalayahima
+šahiyadaⁿā
+maādumatu
+fiyhima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ āʾiyaṯaāraⁿā
+lahuma
+fiy
+āltauḳaduumi
+ waāadabaⁿā
+ waāaḫaurahuma
+fiy
+ǧaānibi
+ālḥaḳiu
+ʿani
+ālḥaḳiu
+ fiy
+ḳawalihi
+ 
+alrauḳiyaba
+ʿlayahima
+ 
+sw
+rŧ
+ālmā
+ʾd
+ŧ
+ 711
+ limaā
+yasat
+aḥaḳ
+iuhu
+ālrau
+buu
+mina
+āltauḳaduumi
+biālruutabaŧi
+ 
+ṯumaau
+āaʿalama
+āanau
+lilḥaḳiu
+ālrauḳiybi
+ālasama
+ālauḏiy
+ǧaʿalahu
+ʿiysaáã
+linafasihi
+ wahuwa
+ 
+
+ālšauhiydu
+ fiy
+ḳawalihi
+ 
+ʿalayahima
+šahiyadaⁿā
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ faḳaāla
+ 
+waāanata
+ʿalaáã
+kuliu
+šayaʾiⁿ
+šahiyaduⁿ
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ faǧaāʾa
+bi
+kuliu
+ lilʿumuwami
+ 
+wabi
+šayaʾiⁿ
+ likawnihi
+āanakara
+ālnaukiraāti
+ waǧaāʾa
+biālasami
+ 
+ālšauhiydu
+ fahuwa
+ālšauhiydu
+ʿalaáã
+kuliu
+mašahuwdiⁿ
+ biḥasabi
+maā
+taḳataḍiyhi
+ḥaḳiyḳaŧu
+ḏãlika
+ālamašahuwadi
+ 
+fana
+bauha
+ʿalaáã
+āanauhu
+taʿaālaáã
+huwa
+ālšauhiy
+du
+ʿalaáã
+ḳawmi
+ʿiysaáã
+ ḥiyna
+ḳaāla
+ 
+wa
+kunatu
+ʿal
+ayah
+ima
+šahiyadaⁿā
+maādumatu
+fiyhima
+
+sw
+rŧ
+ālmā
+ʾdŧ
+
+ 711
+ fihiya
+šahaādaŧu
+ālḥ
+aḳiu
+fiy
+maādaŧiⁿ
+ʿiysawiyauŧiⁿ
+ kamaā
+ṯabata
+āanauhu
+lisaānahu
+wasamaʿahu
+wabṣarahu
+ 
+ṯumau
+ḳaāla
+kalimaŧuⁿ
+ʿiyasawiyauŧuⁿ
+wmuḥamaudiyauŧu
+ āamauā
+kawnuhaā
+ʿiyasawiyauŧaⁿ
+ fāʾinauhaā
+ḳawlu
+ʿiysaáã
+biāʾiḫabaāri
+āllhi
+ʿanahu
+fiy
+kitaābihi
+ waāamauā
+kawnuh
+aā
+muḥamau
+di
+yauŧaⁿ
+
+ falimawḳiʿihaā
+mina
+muḥamaudiⁿ
+ṣalauáã
+āllhu
+ʿalayihi
+wasalauma
+biālmakaā
+na
+ālauḏiy
+waḳaʿ
+ata
+minhu
+ faḳ
+aāma
+bihaā
+laylaŧaⁿ
+kaāmil
+aŧaⁿ
+ yuradiuduhaā
+ lama
+yaʿ
+dila
+āʾilaáã
+ġayarihaā
+ḥatauáã
+ṭalaʿa
+ālfaǧru
+ 
+āʾina
+tuʿaḏiu
+bahuma
+faāʾinauhuma
+ʿibaāduka
+waāʾina
+taġ
+afira
+lahuma
+faāʾinauka
+āanata
+alʿaziyazu
+alḥakiyamu
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ 
+wa
+huma
+ ḍamiyru
+ālġaāʾibi
+ kamaā
+āanau
+
+huwa
+ ḍamiyru
+ālġaāʾibi
+kamaā
+ḳaāla
+ 
+humu
+alauḏiyana
+kafaruwaā
+ 
+sw
+rŧ
+ālft
+ḥ
+ 52
+ biḍamiyari
+ālġaāʾibi
+ 
+fkaāna
+ālġaybu
+sataraⁿā
+lahum
+aʿamauā
+yuraādu
+biālmašahuwdi
+ālḥaāḍiri
+ faḳaāla
+ 
+āʾina
+tuʿaḏiubahuma
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ 
+biḍamiyru
+ālġaāʾibi
+ 
+wahuwa
+ʿaynu
+ālḥiǧaābi
+ālauḏiy
+huma
+fiyhi
+ʿani
+ālaḥaḳiu
+ 
+faḏa
+kaurahumu
+āll
+hu
+ḳabala
+ḥuḍuw
+rihima
+ ḥat
+auáã
+āʾiḏaā
+ḥaḍa
+ruwaā
+takuwnu
+ālḫami
+yraŧu
+ḳada
+taḥakaumata
+fiy
+ālʿaǧiyni
+ faṣayauratahu
+miṯalahaā
+ 
+
+54
+wǧh
+ 
+fiāʾinauhuma
+ʿibaāduka
+
+swrŧ
+ālmāʾdŧ
+
+ 811
+ 
+faāafarada
+ālḫiṭaāba
+liltauwḥiydi
+ ālauḏiy
+kaānawā
+ʿalayhi
+ walaā
+ḏilauŧa
+āaʿaẓamu
+mina
+ḏilauŧi
+ālʿabiyadi
+ 
+lāanauhuma
+laā
+taṣaruufa
+lahuma
+fiy
+āanafusihima
+ fahuma
+biḥukami
+maā
+yuriyduhu
+bihima
+sayiuduhuma
+ 
+walaāšariyka
+lahu
+fiyhima
+ faāʾinauhu
+ḳaāla
+ 
+ʿibaāduka
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ faāafarada
+ 
+waālmuraādu
+biālʿaḏaābi
+ āʾiḏalaāluhuma
+ 
+walaā
+āaḏalau
+minahuma
+likawnihima
+ʿibaādaⁿā
+ faḏawaātihima
+taḳataḍiy
+āanauh
+uma
+āaḏilauāʾu
+ falaā
+tuḏi
+lauhuma
+ faāʾi
+nauka
+laātuḏiluuhuma
+biāadawana
+mimauā
+huma
+fiy
+hi
+ miina
+kawnihima
+ʿabiyadaⁿā
+ 
+wiāʾina
+taġafira
+lahuma
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ āaya
+ tasaturahuma
+ʿana
+āʾiyḳaāʿi
+ālʿaḏaābi
+ ālauḏiy
+yas
+ataḥiḳuuwnahu
+bimuḫaālafatihima
+ āaya
+ taǧaʿala
+lahuma
+ġafaraⁿāyasaturahuma
+ʿana
+ḏãlika
+ wayimanaʿuhuma
+minhu
+ 
+
+faāʾinauka
+āanata
+alʿaziyazu
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ āay
+ ālmaniyʿu
+ālḥimaáã
+ 
+wahãḏaā
+ālasamu
+āʾiḏaā
+āaʿaṭaāhu
+ālḥaḳuu
+lima
+na
+āaʿaṭaāhu
+mina
+ʿibaādihi
+ tasamauáã
+ālḥaḳuu
+biālmuʿiziu
+ waālmuʿaṭ
+aáã
+lahu
+hãḏaā
+ālasamu
+biālʿaziyzi
+ fayakuwnu
+maniyʿa
+ālḥimaáã
+ʿamauā
+yuriydu
+bihi
+ālmunataḳimu
+waālmuʿaḏiubu
+mina
+ālanatiḳaāmi
+waālʿaḏaābi
+ 
+waǧaāʾa
+biālfaṣali
+waālʿimaādi
+āayḍaⁿā
+ taā
+kiydaⁿā
+lilbay
+aāni
+ walitakuwna
+ālāyaŧu
+ʿalaáã
+masaāḳiⁿ
+waāḥidiⁿ
+fiy
+ḳawlihi
+ 
+āʾinauka
+āanata
+ʿalauãmu
+alġuyuwbi
+ 
+swrŧ
+ālmāʾdŧ
+
+ 611
+ wuḳawluhu
+ 
+
+kunata
+āanata
+alrauḳiyaba
+ʿalayahima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 711
+ faǧaāʾa
+āayaḍaⁿā
+
+āʾinauka
+ānata
+alʿaziyazu
+alḥakiyamuⁿ
+ 
+swrŧ
+ālmā
+ʾdŧ
+
+ 811
+ fakaāna
+suwʾaālaⁿā
+mina
+ālnaubiyiu
+ʿalayhi
+ālsaulaāmu
+waālḥaāḥaⁿā
+minhu
+ʿalaáã
+rabauhi
+fiy
+ālmasaāalaŧi
+layalatahu
+ālkaāmilaŧa
+āʾilaáã
+ṭuluwʿi
+ālfaǧari
+ yuradiuduhaā
+ṭalabaⁿā
+lilāʾiǧaābaŧi
+ falaw
+samiʿa
+ālāǧaābaŧa
+fiy
+āawauli
+suwʾaāliⁿ
+maākaraura
+ wa
+kaāna
+ālḥaḳuu
+yaʿ
+ariḍu
+ʿalayhi
+fuṣuwla
+maāasatawaǧabuwā
+bihi
+ālʿaḏa
+āba
+ʿaraḍaⁿā
+mufaṣaulaⁿā
+ fay
+aḳuwlu
+lahu
+fiy
+kuliu
+ʿaraḍiⁿ
+waʿayniⁿ
+ ʿaynuⁿ
+ 
+āʾina
+tuʿaḏiubahuma
+faāʾinauhuma
+ʿibaāduka
+waāʾina
+taġafira
+lahuma
+faāʾinauka
+āanata
+alʿaziyazu
+alḥakiyamu
+ 
+swrŧ
+ālmāʾdŧ
+
+ 811
+ 
+walaw
+raāaáã
+fiy
+ḏãlika
+ālʿa
+raḍi
+maā
+yuwaǧibu
+taḳadiyama
+ālḥaḳiu
+ waāʾiyṯaāra
+ǧan
+aābihi
+ lada
+ʿaáã
+ʿalayhima
+ laā
+lahuma
+ 
+famaā
+ʿaraḍa
+ʿal
+ayhi
+āʾilauā
+maā
+asataḥ
+aḳuuwābihi
+maā
+tuʿaṭiyhi
+hãḏihi
+ālāyaŧu
+mina
+ālt
+ausal
+iymi
+lilhi
+ waāltauʿariyḍi
+liʿafawihi
+ 
+waḳada
+warada
+āanau
+ālḥaḳau
+āʾiḏaā
+āaḥabau
+ṣawata
+ʿabdihi
+fiy
+duʿaāʾihi
+āʾiyauāhu
+ āaḫaura
+ālāʾiǧaābaŧa
+ʿanhu
+ ḥatauáã
+yat
+akaraura
+ḏãlika
+minhu
+ ḥubiⁿuā
+fiyhi
+ laā
+āʾiʿraāḍaⁿā
+ʿan
+hu
+ wa
+kaḏãlika
+ǧaāʾa
+biālasami
+
+ālḥakiymi
+ waālḥakiymu
+huwa
+ālauḏiy
+yaḍaʿu
+ālāašayaāʾa
+fiy
+mawaāḍiʿihaā
+ walaā
+yaʿadilu
+bihaā
+ʿamauā
+taḳataḍiyhi
+wataṭalubuhu
+ḥaḳaāʾiḳuhaā
+biṣifaātihaā
+ 
+
+54
+ẓhr
+ faālḥ
+akiymu
+ālʿ
+aliymu
+biālt
+auratiybi
+ fka
+āna
+ṣalauáã
+āll
+hu
+ʿalayhi
+wasal
+auma
+bita
+radaādi
+hãḏihi
+ālāyaŧi
+ʿalaáã
+ʿilamiⁿ
+ʿaẓiy
+miⁿ
+mina
+āllhi
+ famana
+talaā
+hãḏihi
+ālāyaŧa
+fahãkaḏaā
+yatal
+uw
+ waāʾilauā
+faalsuukuwtu
+āawlaáã
+bihi
+ 
+waāʾiḏaā
+wafauḳa
+āllhu
+ālʿab
+da
+āʾilaáã
+nuṭaḳiⁿ
+baāamariⁿ
+maā
+ fam
+aā
+wafauḳahu
+āʾilay
+hi
+āʾilauā
+waḳada
+āaraāda
+āʾiǧaā
+batahu
+fiyhi
+ waḳaḍ
+aāʾa
+ḥaāǧatihi
+ falaā
+yas
+tabaṭiyʾu
+āaḥaduⁿ
+maā
+yataḍamaunuhu
+maāwufiuḳa
+lahu
+ 
+walayuṯaābi
+ra
+muṯaābaraŧa
+rasuwli
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ʿalaáã
+hãḏihi
+ālāyaŧi
+ fiy
+ǧamiyʿi
+āaḥawaālihi
+ 
+ḥatauáã
+yasamaʿa
+biāu
+ḏunihi
+ āaw
+bis
+amaʿihi
+ kayfa
+šiʾta
+āaw
+kayfa
+āasamaʿaka
+āllhu
+ālāʾiǧaābaŧa
+ faāʾina
+ǧaāzaāka
+bisuʾāli
+ālliusaāni
+ āasamaʿaka
+biāuḏunika
+ waāʾina
+ǧaāzaāka
+biālmaʿanaáã
+ āasamaʿaka
+bisamaʿika
+ 
+
+61
+ 
+faṣuu
+ḥikamaŧiⁿ
+raḥamaāniyiuŧiⁿ
+fiy
+kalimaŧiⁿ
+sulayamaāniyauŧiⁿ
+
+āʾinauhu
+ 
+swrŧ
+ālnml
+ 03
+ yaʿaniy
+ ālkitaāba
+
+mina
+sulaymãna
+waāʾinauhu
+ 
+swrŧ
+ālnm
+l
+03
+ āay
+ maḍ
+amuwnuhu
+
+bisami
+all
+hi
+alrau
+ḥamãni
+alrauḥiy
+ami
+ 
+swrŧ
+ālnm
+l
+03
+ 
+faāaḫaḏa
+baʿaḍu
+ālnauāsi
+fiy
+taḳadiymi
+asami
+sulayamaāna
+ʿaláã
+asami
+āllhi
+walama
+yaku
+na
+kaḏ
+ãlika
+
+ 
+watakalaumuwā
+fiy
+ḏãlika
+bimaā
+laā
+yanabaġiy
+mimauā
+laā
+yaliyḳu
+bimaʿarifaŧi
+sulayamaāna
+ʿalayhi
+ālsaulaāmu
+birabauhi
+ wakayfa
+yaliyḳu
+maāḳaāluwhu
+ 
+wabilaḳiysu
+taḳuwl
+fiyhi
+ 
+āʾinauYā
+āulḳiáa
+āʾilaáau
+kitaābuⁿ
+kariymuⁿ
+ 
+ālnml
+ 92
+ āay
+ 
+yukaramu
+ʿalayhaā
+ waāʾinaumaā
+ḥamalahum
+ʿaláã
+ḏãlika
+rubaumaā
+tamaziyḳu
+kisaraáã
+kitaāba
+rasuwli
+āllhi
+ṣalauáã
+āllhu
+ʿalay
+hi
+wasalauma
+ 
+wamaā
+mazauḳahu
+ḥatauáã
+ḳaraāahu
+kulauhu
+waʿarafa
+maḍamuw
+nahu
+ fa
+kaḏãlika
+kaānata
+taf
+aʿalu
+bil
+aḳiy
+su
+law
+lam
+tuwafauḳa
+limaā
+wufiuḳata
+lahu
+ fal
+ama
+takuna
+taḥamiy
+ālkitaāba
+ʿani
+ālāʾiḫaraāḳi
+biḥuramaŧi
+ṣaāḥibihi
+taḳadiymu
+asamihi
+ʿalayhi
+ālsaulaāmu
+ʿaláã
+asami
+āllhi
+ walaā
+taāḫiyruhu
+ 
+faāataáã
+sulaymaānu
+biālrauḥamatayni
+ raḥamaŧu
+ālamatinaāni
+ waraḥamaŧu
+ālwuǧuwbi
+ āllautaāni
+humaā
+
+ ālrauḥamã
+nu
+ālrau
+ḥiymu
+ faamatanau
+biālrauḥamãni
+ waāawǧaba
+biā
+lrauḥiymi
+
+ whãḏa
+āālwuǧuw
+bu
+mina
+ālamatinaāni
+ fadaḫala
+ālrauḥiymu
+fiy
+ālrauḥamãni
+ duḫuwla
+taḍamuuniⁿ
+ 
+faāʾinuhu
+
+kataba
+ʿalaáã
+nafasihi
+alrauḥamaŧa
+ 
+swrŧ
+ālānʿām
+
+ 21
+ subaḥaānahu
+ liyakuwna
+ḏãlika
+lilaʿabadi
+bimaā
+ḏa
+karahu
+ālḥaḳuu
+mina
+ālāaʿmaāli
+ ālautiy
+yaātiy
+bihaā
+hãḏaā
+ālʿabdu
+ 
+ḥaḳiⁿuā
+ʿal
+aáã
+āllhi
+āawǧabahu
+lahu
+ʿal
+aáã
+naf
+asihi
+ yasat
+aḥiḳuu
+bihaā
+hãḏihi
+ālrauḥamaŧa
+ āaʿn
+iy
+ raḥamaŧa
+ālwuǧuwbi
+ 
+wamana
+kaāna
+mina
+ālʿabiydi
+bihãḏihi
+ālmaṯaābaŧi
+ faāʾinauhu
+yaʿalamu
+mana
+huwa
+ālʿaāmilu
+minhu
+ 
+waālʿamalu
+muḳasaumuⁿ
+ʿalaáã
+ṯamaāniyaŧi
+āaʿaḍaāʾiⁿ
+
+64
+wǧh
+ mina
+ālāʾinasaāni
+ 
+waḳada
+āaḫabara
+ālḥaḳuu
+āanauh
+taʿaālaáã
+huwiyauŧu
+kuliu
+ʿuḍawiⁿ
+minahaā
+ falama
+yakuni
+ālʿaāmilu
+ġayra
+ālḥaḳiu
+ waālṣuuwraŧu
+lilaʿabdi
+ waālhuwiyauŧu
+mudaraǧaŧuⁿ
+fiyhi
+ āay
+ fiy
+asamihi
+laā
+ġayru
+ 
+liāanauhu
+taʿaālaáã
+ʿaynu
+maā
+ẓahara
+ wasumiuya
+ḫalaḳaⁿā
+ wibihi
+kaāna
+ālasamu
+
+ālẓauāhiru
+ 
+wa
+ālāḫiru
+ lilaʿabadi
+ wabikawnihi
+lama
+yakuna
+ ṯumau
+kaāna
+ 
+wabitawaḳuufi
+ẓuhuwrihi
+ʿalayhi
+ waṣuduwri
+āl
+ʿamali
+minhu
+ kaāna
+ālasamu
+
+ālbaāṭinu
+wa
+ālāawaulu
+ 
+faāʾiḏaā
+raāayta
+ālḫalaḳa
+ 
+raāayata
+
+ālāawaula
+ wa
+ālāḫira
+ wa
+ālẓauāhira
+wa
+āālbaāṭina
+ 
+wahãḏihi
+maʿarifaŧuⁿ
+laā
+yaġiybu
+ʿanahaā
+sulayamaānu
+ʿalayhi
+ālsaulaāmu
+ bala
+hiya
+mina
+ālmulaki
+ālauḏiy
+laā
+yanabaġiy
+liāaḥadiⁿ
+mina
+baʿdihi
+ yaʿaniy
+ ālẓuuhuwra
+bihi
+ fiy
+ʿaālami
+ālšauhaādaŧi
+ 
+faḳada
+āuwtiya
+muḥamauduⁿ
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ maā
+āuwtiyahu
+sul
+ayamaānu
+ wamaā
+ẓahara
+bihi
+ 
+famakaunahu
+āllhu
+tamakiyna
+ḳahariⁿ
+mina
+ālʿifariyti
+ālauḏiy
+ǧaāʾahu
+biāllauyli
+liyafatika
+bihi
+ fahamau
+biāaḫaḏihi
+ warabaṭihi
+bisaāriyaŧiⁿ
+min
+sawaāriy
+ālmasaǧidi
+ ḥatauáã
+yuṣabiḥa
+fayalaʿabu
+bihi
+wiladaānu
+ālmadi
+yanaŧi
+ faḏa
+kara
+daʿawaŧa
+sulaymaā
+na
+ʿalayhi
+ālsaulaāmu
+faradauhu
+āllhu
+ḫaāsiáʾaⁿā
+ fal
+ama
+yaẓ
+ahara
+ʿalayhi
+ālsaulaāmu
+bimaā
+āuḳdiraʿalayhi
+ waẓahara
+biḏãlika
+sulaymaānu
+ 
+ṯumau
+ḳaw
+luhu
+mulkāaⁿ
+ 
+āln
+sā
+ʾ
+ 45
+ falama
+yaʿumu
+ faʿalim
+anaā
+āanauhu
+yu
+riydu
+mulakaⁿā
+maā
+ waraāyan
+aāhu
+ḳada
+šuwrika
+fiy
+kuliu
+ǧuzaʾiⁿ
+ ǧuzaʾuⁿ
+mina
+ālmulaki
+ ālauḏiy
+āaʿaṭaāhu
+āllhu
+ faʿalimanaā
+āanauhu
+maāaḫatuṣau
+āʾilauā
+biālmaǧamuwʿi
+mina
+ḏãlika
+ wabiḥadiyṯi
+ālʿifariyti
+ āanauhu
+maāaḫatuṣau
+āʾilauā
+biālẓuuhuwri
+ waḳada
+yuḫataṣuu
+biālmaǧamuwʿi
+waālẓuuhuwri
+ 
+walaw
+lama
+yaḳula
+ṣalauáã
+āllhu
+ʿalay
+hi
+wasal
+auma
+fiy
+ḥadiyṯi
+ālʿif
+ariyti
+
+ 
+faāmakananiy
+allhu
+minahu
+ laḳulanaā
+ āanauhu
+lamauā
+hamau
+baāaḫaḏihi
+ ḏa
+kaurahu
+āllhu
+daʿawaŧa
+sulayamaāna
+ liyaʿalama
+āanauhu
+laā
+yuḳadiruhu
+āllhu
+ʿalaáã
+āaḫaḏihi
+ faradauhu
+āllhu
+ḫaāsiʾāaⁿ
+ falamauā
+ḳaāla
+ 
+faāmakananiy
+allhu
+minahu
+ 
+ʿalimanaā
+āanau
+āllha
+taʿaālaáã
+ḳada
+wahabahu
+āltauṣaruufa
+fiyhi
+ ṯumau
+āʾinau
+āllha
+ḏa
+kaurahu
+ fataḏa
+kaura
+daʿawŧa
+sulayamaāna
+ fataāadauba
+maʿ
+ahu
+ faʿalim
+anaā
+mina
+hãḏaā
+āanau
+ālauḏiy
+laā
+yanabaġ
+iy
+liāaḥadiⁿ
+mina
+ālḫ
+alaḳi
+
+baʿda
+sulayamaāna
+
+ ālẓuuhuwru
+biḏãlika
+fiy
+ālʿumuwmi
+ 
+walaysa
+ġaraḍunaā
+mina
+hãḏihi
+ālmasaāalaŧi
+ āʾilauā
+ālkalaāma
+waāltaunabiyha
+ʿalaáã
+ālrauḥamatayni
+ 
+āllautayni
+ḏa
+karahumaā
+sulaymaānu
+fiy
+ālasamayni
+
+64
+ẓhr
+ āllauḏayni
+tafasiyruhumaā
+bilisaāni
+ālʿarabi
+ 
+ālrauḥamãnu
+ālrauḥiymu
+ 
+faḳayauda
+raḥamaŧa
+ālwuǧuwbi
+ waāaṭalaḳa
+raḥamaŧa
+ālamatinaāni
+fiy
+ḳawlihi
+ 
+waraḥamatiá
+wasiʿata
+kulau
+šayʾiⁿ
+ 
+swrŧ
+ālāʿrāf
+
+ 651
+ ḥatuáã
+ālāasamaāʾu
+ālāʾilãhiyauŧu
+ āaʿaniy
+ 
+ḥaḳaāʾiḳa
+ālniusabi
+ 
+faamatanau
+ʿalay
+haā
+binaā
+ fanaḥ
+anu
+binatiy
+ǧaŧu
+raḥam
+aŧi
+ālamatinaā
+ni
+biālāasamaāʾi
+ālāʾilãhiyauŧi
+ waālniusabi
+ālraubauāniyauŧi
+ 
+ṯumau
+āawaǧabahaā
+ʿalaáã
+nafasihi
+ biẓuhuwrinaā
+lanaā
+ waāaʿalamanaā
+āanauhu
+huwiyautunaā
+ linaʿalama
+āanauhu
+maāāawǧabahaā
+ʿalaáã
+nafasihi
+āʾilauā
+linafasihi
+ famaāḫaraǧata
+ālrauḥamaŧu
+ʿanahu
+ faʿalaáã
+mana
+amatanau
+ 
+wamaāṯamau
+āʾilauā
+huwa
+ 
+āʾilauā
+āanauhu
+laā
+budau
+mina
+ḥuka
+mi
+lisaāni
+āltaufaṣiyli
+limaā
+ẓahara
+mina
+tafaāḍuli
+ālḫalaḳi
+fiy
+ālʿuluwmi
+ ḥatauáã
+yuḳaāla
+ āanau
+hãḏaā
+āaʿalama
+min
+hãḏaā
+ maʿa
+āaḥadiyauŧi
+ālʿayni
+ 
+wamaʿanaāhu
+ maʿanaáã
+naḳaṣi
+taʿaluuḳi
+ālāʾiraādaŧi
+ʿan
+taʿaluuḳi
+ālʿilami
+ fahãḏihi
+mufaāḍalaŧuⁿ
+fiy
+ālṣiuf
+aāti
+ālāʾilãhiyauŧi
+ wa
+kam
+aālu
+taʿaluuḳi
+ālāʾiraādaŧi
+ wafaḍal
+ihaā
+waziyaā
+datihaā
+ʿal
+aáã
+taʿaluuḳi
+ālḳuda
+raŧi
+ 
+wa
+kaḏãlika
+ālsaumaʿu
+ālāʾilãhiyuu
+waālbaṣaru
+ waǧamiyʿu
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ʿalaáã
+daraǧaātiⁿ
+fiy
+taf
+aāḍuli
+baʿaḍihaā
+ʿal
+áã
+baʿaḍiⁿ
+ kaḏãlika
+
+tafaāḍala
+maāẓahara
+fiy
+ālḫal
+aḳi
+min
+āana
+yuḳaāla
+hãḏaā
+āaʿalamu
+mina
+hãḏaā
+maʿa
+āaḥadiyauŧi
+ālʿayni
+ 
+wa
+kamaā
+āanau
+kulau
+asamiⁿ
+āʾilãhiyiⁿu
+āʾiḏaā
+ḳadaumatahu
+samauyatahu
+biǧamiyʿi
+ālāasamaāʾi
+ wanaʿatauhu
+bihaā
+ 
+kaḏ
+ãlika
+fiymaā
+ẓahara
+mina
+ālḫalaḳi
+fiy
+hi
+āahal
+iyauŧu
+kuluu
+maāfuwḍila
+bihi
+fakuluu
+ǧuzaʾiⁿ
+mina
+ālʿaālami
+ 
+maǧam
+uwʿu
+ālʿaālami
+ āay
+ huwa
+ḳaābiluⁿ
+liḥaḳ
+aāʾiḳi
+mut
+afariuḳaāti
+ālʿ
+aālami
+kuliuhi
+ falaā
+yaḳadaḥu
+ḳuw
+lunaā
+ 
+āanau
+zayadaⁿā
+duwna
+ʿamarwiⁿ
+fiy
+ālʿil
+ami
+ āana
+takuwna
+huwiyauŧu
+ālḥ
+aḳiu
+ʿayna
+zayadiⁿ
+waʿamar
+wiⁿ
+ wayakuw
+nu
+fiy
+ʿamarwiⁿ
+āa
+kamala
+waāaʿal
+ama
+minhu
+fiy
+zayadiⁿ
+ kamaā
+tafaā
+ḍalati
+ālāasamaāʾu
+ālāʾilãh
+iyauŧu
+ walaysata
+ġayri
+ālḥaḳiu
+ 
+fahuwa
+taʿaālaáã
+mina
+ḥayṯu
+huwa
+ ʿaālimuⁿ
+āaʿamuu
+fiy
+āltauʿaluuḳi
+mina
+ḥayṯu
+maāhuwa
+muriyaduⁿ
+waḳaādiruⁿ
+ wahuwa
+huwa
+ laysa
+ġayrahu
+ falaā
+taʿalam
+uhu
+hunaā
+ yaā
+waliyuu
+ wataǧahaluhu
+hunaā
+ watuṯabituhu
+hunaā
+ 
+watanafiyhi
+hunaā
+ 
+āʾilauā
+āana
+āaṯabatauhu
+biālwaǧhi
+ālauḏiy
+āaṯabata
+nafasahu
+ wanafayatahu
+ʿana
+kaḏaā
+ biālwaǧhi
+ālauḏiy
+naf
+aáã
+nafasahu
+ kaālāyaŧi
+ālǧ
+aāmiʿaŧi
+lilanaufayi
+waālāʾiṯabaāti
+fiy
+ḥaḳiuhi
+ ḥiyna
+ḳaāla
+
+layasa
+kamiṯal
+ihi
+šaya
+ʾuⁿ
+ 
+swrŧ
+ālš
+wráã
+
+ 11
+ fanafaáã
+ 
+wahuwa
+alsaumiy
+ʿu
+albaṣiyru
+ 
+swrŧ
+ālš
+wrá
+
+ 
+11
+ faāaṯabata
+biṣifaŧiⁿ
+taʿumuu
+
+74
+wǧh
+ kulau
+saāmiʿiⁿ
+baṣiyriⁿ
+mina
+ḥayawaāniⁿ
+ 
+wamaā
+ṯamau
+āʾilauā
+ḥayawaāna
+ āʾilauā
+āanuhu
+baṭana
+fiy
+ālduunayaā
+ʿana
+āʾidaraāki
+baʿaḍa
+ālnauāsi
+ 
+waẓahara
+fiy
+ālāḫiraŧi
+likuliu
+ālnauāsi
+ faāʾinauhaā
+āldauāru
+ālḥay
+awaānu
+ 
+wa
+kaḏãlika
+ālduunayaā
+āʾilauā
+āanau
+ḥayaātahaā
+masatuwraŧuⁿ
+ʿana
+baʿaḍi
+ālʿibaādi
+ liyaẓahara
+ālaḫatiṣaāṣu
+waālmufaāḍalaŧu
+bayna
+ʿibaādi
+āllhi
+ bimaā
+yudarikuwnahu
+mina
+ḥaḳaāʾiḳi
+ālʿaālami
+ 
+famana
+ʿamau
+āʾidaraākuhu
+kaāna
+ālḥaḳuu
+fiyhi
+āaẓahara
+fiy
+ālḥukmi
+ mimaun
+laysa
+lahu
+ḏãlika
+ālʿumuwmi
+ 
+falaā
+tuḥaǧabu
+biāltaufaāḍuli
+ wataḳuwlu
+ laā
+yaṣiḥuu
+kalaāmu
+mana
+yaḳuwlu
+ āʾinau
+ālḫalaḳa
+huwi
+yauŧu
+ālḥaḳiu
+baʿada
+maā
+āarayatuka
+āltaufaāḍula
+fiy
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ ālaut
+iy
+laā
+tašukuu
+āanata
+ āanauhaā
+hiya
+ālḥaḳuu
+ wamadaluwluhaā
+ālmusamauáã
+bihaā
+ walaysa
+āʾilauā
+āllhu
+ 
+ṯumau
+āʾinauhu
+kayfa
+yuḳadiumu
+sulay
+maā
+nu
+asamahu
+ʿal
+aáã
+asami
+allhi
+ kamaā
+zaʿamuwā
+ wahuwa
+mina
+ǧumalaŧi
+mana
+āawǧadatahu
+ālrauḥamaŧu
+ 
+falaā
+budau
+āana
+yataḳadauma
+ālrauḥamãnu
+ālrauḥiymu
+liyaṣiḥau
+asatinaādu
+ālmaraḥuwmi
+ hãḏaā
+ʿakasu
+ālḥaḳaāʾiḳi
+ taḳadiymu
+mana
+yasataḥiḳuu
+āltauāḫiyra
+ wataāḫiyru
+mana
+yasataḥiḳuu
+āltauḳadiyma
+fiy
+ālmawḍiʿi
+ālauḏiy
+yasataḥiḳuuhu
+ 
+wamina
+ḥikamaŧi
+bilaḳiysa
+waʿuluwiu
+ʿilamihiā
+ kawnuhaā
+lama
+taḏa
+kura
+mana
+āalaḳaáã
+āʾilayhaā
+ālkitaāba
+ wamaāʿamilata
+ḏãlika
+āʾilauā
+lituʿalima
+āaṣaḥaābahaā
+āanau
+lahaā
+atiuṣaālaⁿā
+āʾilaáã
+āumuwriⁿ
+laā
+yaʿalamuwna
+ṭariyḳahaā
+ wahãḏaā
+mina
+āltauda
+biyri
+ālāʾilãhiyiu
+fiy
+ālmulaki
+ liāanauhu
+āʾiḏaā
+ǧuhila
+ṭariyḳu
+ālāʾiḫabaāri
+ ālwaāṣili
+lilamul
+aki
+ ḫaāfa
+āahalu
+āldauwlaŧi
+ʿalaáã
+āanaf
+usihima
+fiy
+taṣaruufaātihima
+ fala
+ā
+yataṣaraufuwna
+āʾilauā
+fiy
+āamariⁿ
+ āʾiḏaā
+waṣala
+āʾilaáã
+sulaṭaānihima
+ʿanahuma
+ yaāmanuwna
+ġaāʾilaŧa
+ḏãlika
+āltauṣaruufi
+ falaw
+taʿ
+ayauna
+lahuma
+ʿalaáã
+yadaya
+mana
+taṣilu
+ālāaḫabaāru
+āʾilaáã
+malikihim
+liṣaāniʿuw
+hu
+ 
+waāaʿaẓamuwā
+lahu
+ālriušaā
+ 
+ḥatauáã
+yafaʿaluwā
+maāyuriyduwna
+ walaā
+yaṣilu
+ḏãlika
+āʾilaáã
+malikihim
+ 
+fakaāna
+ḳawluhaā
+
+āulaḳiya
+āʾilaáau
+ 
+sw
+rŧ
+ālnml
+
+ 92
+ walama
+tusamiu
+mana
+āalaḳaāhu
+siyaāsaŧaⁿ
+minahaā
+ āawraṯata
+ālḥaḏara
+minahaā
+fiy
+āahali
+mamalakatihaā
+ waḫawaāṣiu
+mudabauriyhaā
+ wabihãḏaā
+asataḥaḳauti
+āltauḳaduumi
+ʿalayhima
+ 
+waāamauā
+faḍalu
+ālʿaālimi
+mina
+ālṣiunafi
+ālāʾinasaāniyiu
+ʿalaáã
+ālʿaālimi
+mina
+ālǧiniu
+biāasaraāri
+āltauṣariyfi
+ waḫawāṣiu
+ālāašayaāʾi
+ famaʿaluwmuⁿ
+biālḳadari
+ālzaumaāniyiu
+ faāʾinau
+ruǧuwʿa
+ālṭaurafi
+āʾilaáã
+ālnauā
+ẓiri
+bihi
+
+74
+ẓhr
+ āasaraʿu
+mina
+ḳiyaā
+mi
+ālḳaā
+ʾimi
+mina
+maǧ
+alisihi
+ liāanau
+ḥa
+rakaŧa
+ālbaṣari
+fiy
+ālāʾidaraāki
+āʾilaáã
+maā
+yudarikuhu
+āasaraʿu
+mina
+ḥarakaŧi
+ālǧisami
+fiymaā
+yataḥarauku
+minahu
+ faāʾinau
+ālzaumaāna
+ālauḏiy
+yataḥarauku
+fiyhi
+ālbaṣaru
+ ʿaynu
+ālzaumaāni
+ālauḏiyyataʿalauḳu
+bimubaṣirihi
+maʿa
+buʿdi
+ālmasaāfaŧi
+bayna
+ālnauāẓiri
+waālmanaẓuwri
+ faāʾinau
+zamaāna
+ftḥi
+ālbaṣari
+ zamaānu
+taʿaluuḳihi
+bifalaki
+ālkawaākibi
+ālṯauābitaŧi
+ 
+wazamaānu
+ruǧuwʿi
+ṭarafihi
+ālyh
+ ʿaynu
+zamaāni
+ʿadami
+āʾidaraākihi
+ 
+waālḳiyaāmu
+mina
+maḳaāmi
+ālāʾinasaāni
+laysa
+kaḏãlika
+ āay
+ laysa
+lahu
+hãḏihi
+ālsuuraʿaŧu
+ 
+fakaāna
+āṣifu
+banu
+baraḫiyaā
+āatamau
+fiy
+ālʿamali
+mina
+ālǧiniu
+ fakaāna
+ʿaynu
+ḳawli
+āṣifa
+bani
+bara
+ḫiyaā
+ ʿayna
+ālfiʿali
+fiy
+ālzaumani
+ālwaāḥidi
+ faraāaáã
+fiy
+ḏãlika
+ālzaumaāni
+biʿaynihi
+sul
+aym
+aānu
+ʿalayhi
+ālsaulaāmu
+ʿaraša
+bilaḳiysa
+musat
+aḳi
+riⁿuā
+ʿinadahu
+liáʾalauā
+yataḫ
+ayala
+āanauhu
+āadarakahu
+wuhuwa
+fiy
+makaānih
+min
+ġayri
+anatiḳaāliⁿ
+ 
+walama
+yakuna
+ʿinadanaā
+biatiuḥaādi
+ālzaumaāni
+anatiḳāaluⁿ
+ waāʾinaumaā
+kaāna
+āʾiʿadaāmuⁿ
+waāʾiyaǧaāduⁿ
+ mina
+ḥayṯu
+laā
+yašaʿuru
+āaḥaduⁿ
+biḏ
+ãlika
+ āʾilauā
+mana
+ʿarafahu
+ wahuwa
+ḳawluhu
+taʿaālaáã
+ 
+bala
+huma
+fiy
+libasiⁿ
+mina
+ḫalaḳiⁿ
+ǧadiydiⁿ
+ 
+swrŧ
+ḳā
+
+ 51
+ 
+walaā
+yamaḍiy
+ʿalayhima
+waḳatuⁿ
+laā
+yarawna
+fiyhi
+maāhuma
+raāʾuwna
+lahu
+ 
+waāʾiḏaā
+kaāna
+hãḏaā
+kamaā
+ḏakaranaāhu
+ fakaāna
+zamaānu
+ʿadamihi
+ āaʿaniy
+ ʿadama
+ālʿaraši
+mina
+makaānihi
+ ʿayna
+wuǧuw
+dih
+ʿinada
+sulaymaāna
+ mina
+taǧadi
+ydi
+ālḫal
+aḳi
+maʿa
+ālāanaf
+aāsi
+ 
+walaā
+ʿilama
+liāaḥadiⁿ
+bihãḏaā
+ālḳadari
+ bali
+ālāʾinasaānu
+laā
+yašaʿuru
+bihi
+mina
+nafasihi
+ āanauhu
+fiy
+kuliu
+nafasiⁿ
+laā
+yakuwnu
+ ṯumau
+yakuwnu
+ 
+walaā
+taḳula
+ 
+ṯumau
+ taḳataḍi
+y
+ālmuhalaŧa
+ falay
+sa
+ḏãlika
+biṣa
+ḥiyḥiⁿ
+
+ waāʾinaum
+aā
+
+ṯumau
+
+taḳataḍiy
+taḳaduuma
+ālruutabaŧi
+ālʿaliyauŧi
+ʿinda
+ālʿarabi
+fiy
+mawaāḍiʿa
+maḫaṣuwṣaŧi
+ kaḳawli
+ālšauāʿiri
+ 
+ālmutaḳaāribu
+kahaziu
+ālruudayaniy
+
+ 
+ ṯumau
+aḍaṭaraba
+wazamaānu
+ālhaziu
+ʿaynu
+zamaāni
+aḍaṭaraābi
+ālmahazuwzi
+bilaā
+šakiⁿu
+ waḳada
+ǧaāʾa
+bi
+ṯumau
+walaā
+
+muhalaŧa
+ kaḏãlika
+taǧadiydu
+ālḫalaḳi
+maʿa
+ālāanafaāsi
+ zamaānu
+ālʿadami
+ zamaānu
+wuǧuwdi
+ālmiṯali
+ kataǧadiydi
+ālāaʿaraāḍi
+fiy
+daliyli
+ālāašaāʿiraŧi
+ 
+faāʾinau
+masaāalaŧa
+ḥuṣuwli
+ʿaraši
+bilaḳiysa
+mina
+āašakali
+ālmasaāʾili
+ āʾilauā
+ʿinda
+mana
+ʿarafa
+maā
+ḏakaranaāhu
+ānifaⁿā
+fiy
+ḳiṣautihi
+ 
+fal
+ama
+yaku
+na
+liāṣifa
+mina
+ālfaḍali
+fiy
+ḏãlika
+ āʾilauā
+ḥuṣ
+uwla
+āltauǧadi
+ydi
+fiy
+maǧalisi
+sulaymaāna
+ʿalayhi
+ālsaulaāmu
+ 
+
+84
+wǧh
+ famaā
+ḳaṭ
+aʿa
+ālʿarašu
+masaāfaŧaⁿ
+ walaā
+zuwiyata
+lahu
+āaraḍuⁿ
+ walaā
+ḫara
+ḳahaā
+ lim
+ana
+fahima
+maāḏa
+karanaāhu
+ 
+wa
+kaāna
+ḏãlika
+ʿalaáã
+yadaya
+baʿaḍi
+āaṣaḥaābi
+sulayamaāna
+ liyakuwna
+āaʿaẓama
+lisulaymaāna
+ʿalayhi
+ālsaulaāmu
+ fiy
+nufuwsi
+ālḥaāḍiriyna
+mina
+bilaḳiysa
+waāaṣaḥaābihaā
+ 
+wasababu
+ḏãlika
+kawnu
+sulaymaāna
+ʿalayhi
+ālsaulaāmu
+hibaŧa
+āllhi
+taʿaālaáã
+lidaāwuda
+ mina
+ḳawlihi
+ 
+
+wawahabanaā
+lidaāwuda
+sulayamãna
+ 
+swrŧ
+ṣā
+
+ 03
+ waālhibaŧu
+ʿaṭaāʾu
+ālwaāhibi
+biṭariyḳi
+ālāʾinaʿaāmi
+ laā
+biṭariyḳi
+ālǧazaāʾi
+ālwifaāḳi
+ āaw
+ālasatiḥaḳaāḳi
+ 
+fahuwa
+ālniuʿamaŧu
+ālsaābiġaŧu
+ 
+waālḥuǧauŧu
+ālbaāliġaŧu
+ 
+waālḍaurabaŧu
+āldauāmiġaŧu
+ 
+waāamauā
+ʿilamuhu
+faḳawluhu
+ 
+fafahaumanãhaā
+sulayamãnu
+ 
+swrŧ
+ālānbyāʾ
+
+ 97
+ maʿa
+naḳiyḍi
+ālḥukami
+ 
+wakuliⁿuā
+ ātaāhu
+
+allhu
+ḥukamaⁿā
+waʿil
+amaⁿā
+ 
+swrŧ
+ālānb
+yāʾ
+
+ 97
+ fakaāna
+ʿilamu
+daāwuda
+ʿilamaⁿā
+muʾtaáaⁿ
+ ātaāhu
+āllhu
+ waʿilama
+sulayamaāna
+ ʿilamu
+āllhi
+fiy
+ālmasaāalaŧi
+ āʾiḏaā
+kaāna
+ālḥaākimu
+bilaā
+waāsaiṭaŧiⁿ
+ wa
+kaāna
+sulayamaānu
+taraǧumaāna
+ḥaḳiⁿu
+fiy
+maḳaʿ
+adi
+ṣidaḳiⁿ
+ kamaā
+āanau
+ālmuǧatahida
+ālmuṣiyba
+ liḥukami
+āllhi
+ālauḏiy
+yaḥakumu
+bihi
+āllhu
+fiy
+ālmasaāalaŧi
+ law
+tawalauāhaā
+binafasihi
+ āawa
+bimaā
+yuwḥiy
+bihi
+lirasuwlihi
+ lahu
+āaǧaraāni
+ waālmuḫaṭiyʾu
+
+ lihãḏaā
+ālḥukami
+ālmuʿayauni
+
+ lahu
+āaǧaruⁿ
+ maʿa
+kawnihi
+ʿilamaⁿā
+waḥukamaⁿā
+ 
+faāuʿaṭiyata
+hãḏihi
+ālāumauŧu
+ālmuḥamaudiyauŧu
+rutabaŧu
+sulaymaāna
+ʿalayhi
+ālsaulaāmu
+fiy
+ālḥukami
+ 
+warutabaŧu
+daāwuda
+ʿalayhi
+ālsaulaāmu
+ famaā
+āafaḍalahaā
+mina
+āumauŧiⁿ
+ 
+walamauā
+raāata
+bilaḳiysu
+ʿarašahaā
+ maʿa
+ʿilamihaā
+bib
+uʿadi
+ālma
+saāfaŧi
+ waasatiḥ
+aālaŧi
+anatiḳaālihi
+fiy
+tilaka
+ālmudauŧi
+ʿinadahaā
+ 
+ḳaālata
+kaāanauhu
+huwa
+ 
+swrŧ
+ālnml
+
+ 24
+ waṣadauḳata
+bimaā
+ḏaka
+ranaāhu
+mina
+taǧadiydi
+ālḫala
+ḳi
+biā
+lāamaṯ
+aāli
+ 
+wahuwa
+huwa
+ waṣadaḳa
+ālāama
+ru
+ kamaā
+āanauka
+fiy
+zamaāni
+āltauǧadiydi
+ ʿaynu
+maāāanata
+fiy
+ālzaumani
+ālmaāḍiy
+ 
+ṯumau
+āʾinauhu
+mina
+kamaāli
+ʿilami
+sulaymaāna
+ āltaunabiyhu
+ālauḏiy
+ḏa
+karahu
+fay
+ālṣauraḥi
+ 
+faḳiyla
+lahaā
+adaḫuliy
+alṣauraḥa
+ 
+sw
+rŧ
+ālnm
+l
+ 44
+ wkaā
+na
+ṣaraḥaⁿā
+āamalasa
+ laā
+āamata
+fiy
+hi
+ mina
+zuǧaāǧiⁿ
+ falamauā
+raāatahu
+ḥasabatahu
+maāʾaⁿ
+ 
+fakašafata
+ʿana
+saāḳayahaā
+ 
+sw
+rŧ
+ālnml
+
+ 44
+ḥatauá
+ãlaā
+yuṣiyba
+ālma
+āʾu
+ṯawbah
+aā
+ fanabauh
+ahaā
+biḏãlika
+ʿal
+aáã
+āanau
+ʿarašahaā
+ālauḏiy
+raāatahu
+mina
+hãḏaā
+ālḳabiy
+li
+ wahãḏaā
+ġaāyaŧu
+ālāʾinaṣaā
+fi
+ faāʾinauhu
+āaʿal
+amahaā
+bḏãlika
+āʾiṣaābatuhaā
+fiy
+ḳawlihaā
+
+ 
+kaāanauhu
+huwa
+ 
+swrŧ
+ālnml
+
+ 24
+ 
+faḳaālata
+ʿinda
+ḏãlika
+ 
+rabiu
+āʾiniuy
+ẓalamatu
+nafasiy
+waāasalamatu
+maʿa
+sulayamãna
+ 
+swrŧ
+ālnml
+
+ 44
+ āay
+ āʾisalaāma
+sulayamaāna
+
+lilhi
+rabiu
+ālʿaālamiyana
+ 
+swrŧ
+ālnml
+
+ 44
+ 
+famaā
+anaḳaādata
+lisulayamaāna
+waāʾinaumaā
+anaḳaādata
+lirabiu
+ālʿaālamiyana
+ wasulayamaānu
+mina
+ālʿaālamiyana
+ 
+famaā
+taḳayaudata
+fiy
+anaḳiyaādihaā
+ kamaā
+laā
+tataḳayauda
+ālruusuli
+
+84
+ẓhr
+ fiy
+aʿatiḳaādihaā
+fiy
+āllhi
+ 
+biḫilaāf
+firaʿawna
+ faāʾinauhu
+ḳaāla
+ 
+rabiu
+muwsaáã
+whãruwuna
+ 
+sw
+rŧ
+ālāʿrāf
+
+ 
+221
+ ālš
+ʿr
+āʾ
+
+ 84
+ waāʾina
+kaāna
+yalaḥ
+aḳu
+bihãḏa
+āālanaḳiyaā
+di
+ālbilaḳiysiyiu
+mina
+waǧahiⁿ
+ walãkina
+laā
+yaḳawaáã
+ḳuwautuhu
+ fakaānat
+āafaḳaha
+mina
+firaʿawna
+fiy
+āālanaḳiyaādi
+lilhi
+ 
+wa
+kaāna
+firaʿawnu
+taḥata
+ḥukami
+ālwaḳati
+ ḥayṯu
+ḳaāla
+ 
+āmanatu
+biālauḏiy
+āmanata
+bihi
+banuwa
+āʾisarãʾiyala
+ 
+āḳtbās
+swrŧ
+ywns
+ 09
+ faḫaṣauṣa
+ waāʾinaumaā
+ḫaṣauṣa
+lamauā
+raāaáã
+ālsauḥaraŧa
+ḳaā
+luw
+āfiy
+āʾiyamaānihima
+biāllhi
+
+rabiu
+muwasaáã
+whãruwuna
+ 
+swrŧ
+ālāʿrāf
+
+ 221
+ 
+ālšʿrāʾ
+
+ 84
+ 
+fakaāna
+āʾisalaāmu
+bilaḳiysa
+āʾisalaāma
+sulaymaāna
+ āʾiḏa
+ḳaālata
+
+maʿa
+sulay
+amãna
+ 
+swrŧ
+ālnml
+
+ 44
+ fatabiʿatahu
+ 
+famaā
+yamuruu
+bišayʾiⁿ
+mina
+ālʿaḳaāʾidi
+āʾilauā
+marauta
+bihi
+ muʿataḳidaŧaⁿ
+ḏãlika
+ kamaā
+naḥanu
+ʿalaáã
+ālṣiuraāṭi
+ālmusataḳiymi
+ ālauḏiy
+ālraaubuu
+ʿalayhi
+ likawni
+nawaāṣiynaā
+fiy
+yadihi
+ wayasataḥiylu
+mufaāraḳatunaā
+āʾiyauāhu
+ 
+fanaḥanu
+maʿ
+ahu
+biālt
+auḍam
+iyna
+ wahuwa
+maʿanaā
+biāltauṣariyḥi
+ faāʾinauhu
+ḳaāla
+ 
+wahuwa
+maʿakuma
+āayanamaā
+kunatuma
+ 
+swrŧ
+ālḥdyd
+
+ 4
+ wanaḥanu
+maʿahu
+bikawnihi
+āḫiḏaⁿā
+binawaāṣiynaā
+ 
+fahuwa
+taʿaālaáã
+maʿa
+nafas
+ihi
+ḥay
+aṯum
+aā
+mašaáã
+binaā
+mina
+ṣiraāṭihi
+ famaā
+āaḥaduⁿ
+mina
+ālʿaālami
+āʾilauā
+ʿalaáã
+ṣiraāṭi
+musataḳiymiⁿ
+ wahuwa
+ṣiraāṭu
+ālraubiu
+taʿaālaáã
+ 
+wa
+kaḏaā
+ʿalimata
+bilaḳiysu
+mina
+sulayamaāna
+ faḳaālata
+ 
+lilhi
+rabiu
+alʿãlmiyana
+ 
+swrŧ
+ālnml
+ 44
+ wamaā
+ḫaṣaṣauta
+ʿālamaⁿā
+mina
+ʿālamiⁿ
+ 
+waāamauā
+āltausaḫiyru
+ālauḏiy
+aḫatuṣau
+bihi
+sul
+ayamaānu
+wafaḍala
+bihi
+ġay
+ruhu
+waǧaʿal
+ahu
+āllhu
+lahu
+min
+ālmulaki
+ ālauḏiy
+laā
+yanabaġiy
+liāaḥadiⁿ
+mina
+baʿadihi
+ fahuwa
+kawnuhu
+ʿana
+āamarihi
+ faḳaāla
+ 
+
+fasaḫauranaā
+lahu
+alriuyaḥa
+taǧariáa
+biāamarihi
+ 
+swrŧ
+ṣā
+
+ 63
+ famaā
+huwa
+mina
+kawnihi
+tasaḫiyraⁿā
+ faāʾinau
+āllha
+yaḳuwlu
+fiy
+ḥaḳ
+iunaā
+kuliunaā
+mina
+ġayri
+taḫaṣiyṣiⁿ
+
+wasaḫauara
+lakuma
+maā
+fiy
+alsaumãwãti
+wamaā
+fiy
+alāaraḍi
+ǧamiyaʿaⁿā
+minahu
+ 
+ālǧ
+āṯyŧ
+
+ 31
+ waḳada
+ḏa
+kara
+tasaḫiyra
+ālriuyaāḥi
+waālnuuǧuwmi
+waġayra
+ḏãlika
+ walãkina
+laā
+ʿana
+āamarinaā
+ bala
+ʿana
+āamari
+āllhi
+ famaā
+aḫat
+uṣau
+sulaymaānu
+ āʾina
+ʿaḳil
+ata
+ āʾilauā
+biālāamari
+mina
+ġayri
+ǧam
+aʿiy
+auŧiⁿ
+walaā
+himauŧiⁿ
+ bala
+bimuǧaraudi
+ālāamari
+ waāʾinaumaā
+ḳulanaā
+ḏãlika
+liāanauā
+naʿai
+rfu
+āanau
+āaǧa
+raāma
+ālʿaālami
+tan
+afaʿilu
+lihimami
+ālnuuf
+uwsi
+āʾiḏaā
+āuḳiymata
+fiy
+maḳaāmi
+ālǧamaʿiyauŧi
+ waḳada
+ʿaāyanauā
+ḏãlika
+fiy
+hãḏaā
+ālṭauriyḳi
+ fakaāna
+mina
+sulay
+amaāna
+muǧaraudu
+ālt
+aulafuuẓi
+baālāamari
+
+94
+wǧh
+ limana
+āaraāda
+tasaḫiyrahu
+ mina
+ġayri
+himauŧiⁿ
+walaā
+ǧamaʿiyauŧiⁿ
+ 
+waaʿalama
+
+ āayauda
+naā
+āllhu
+waāʾiyauāka
+biru
+wḥiⁿ
+minahu
+
+ āanau
+miṯala
+hãḏaā
+ālʿaṭaāʾi
+āʾiḏaā
+ḥaṣala
+lilaʿab
+adi
+
+ āayiu
+ʿabdiⁿ
+kaāna
+
+ faāʾinauhu
+laā
+yan
+aḳuṣuhu
+ḏãlika
+mina
+mul
+aki
+āḫi
+ratihi
+ walaā
+yuḥasabu
+ʿalayhi
+ maʿa
+kawni
+sulaymaāni
+ʿalayhi
+ālsaulaām
+ṭalabahu
+mina
+rabauhi
+taʿaālaáã
+ fayaḳataḍiy
+ḏawḳa
+ālṭauriyḳi
+āana
+yakuwna
+ḳada
+ʿaǧaula
+lahu
+maā
+adaḫaura
+liġayrihi
+ wayuḥaāsibu
+bihi
+āʾiḏaā
+āaraādahu
+fiy
+ālāḫiraŧi
+ 
+faḳaāla
+āllhu
+lahu
+ 
+hãḏaā
+ʿaṭ
+aāʾnaā
+
+swrŧ
+ṣā
+
+ 93
+ walama
+yaḳula
+laka
+walaā
+liġ
+ayri
+ka
+
+faamanuna
+ 
+swrŧ
+ṣā
+
+ 93
+ āay
+ āaʿaṭi
+
+āawa
+āamasika
+biġayari
+ḥisaābiⁿ
+ 
+swrŧ
+ṣā
+
+ 93
+ 
+faʿalimanaā
+mina
+ḏawḳi
+ālṭauriyḳi
+āanau
+suʾālahu
+ḏãlika
+kaāna
+ʿana
+āamari
+rabauhi
+ waālṭaulabu
+āʾiḏaā
+waḳaʿa
+ʿani
+ālāamari
+ālāʾilãhiyiu
+ kaāna
+ālṭauālibu
+lahu
+ ālāaǧaru
+āltauāmu
+ʿalaáã
+ṭalabihi
+ waālbaāriy
+taʿaālaáã
+āʾina
+šaāʾa
+ḳaḍaáã
+ḥaāǧatahu
+fiymaā
+ṭalaba
+minhu
+ waāʾina
+šaāʾa
+āamasaka
+ faāʾinau
+ālʿabada
+ḳada
+wafauáã
+maāāawaǧaba
+āllhu
+ʿalayhi
+mini
+amatiṯaā
+lihi
+āamarahu
+ fiymaā
+saāala
+rabauhu
+fiyhi
+ falaw
+saāala
+ḏãlika
+mina
+nafasihi
+ ʿana
+ġayri
+āamari
+rabauhi
+lahu
+biḏãlika
+ laḥaāsabahu
+bihi
+ 
+wahãḏaā
+saā
+riⁿ
+fiy
+ǧamiyʿi
+maā
+yasaāalu
+fiyhi
+āll
+ha
+taʿ
+aālaáã
+ 
+wa
+kamaā
+ḳaā
+la
+linabiy
+iuhi
+muḥam
+audiⁿ
+ʿalayhi
+ālsaula
+āmu
+ 
+wuḳula
+raubiu
+zidaniya
+ʿilam
+aⁿā
+ 
+ṭãh
+ã
+ 411
+ faamataṯ
+ala
+āamara
+rabauhi
+ fakaāna
+yaṭalubu
+ālziuyaādaŧa
+mina
+ālʿilami
+ ḥatauáã
+kaāna
+āʾiḏaā
+siyaḳa
+lahu
+labanuⁿ
+ yataāawauluhu
+ʿilamaⁿā
+ kamaā
+taāawaula
+ruʾyaāhu
+ 
+lamauā
+raāáã
+fiy
+ālnauwmi
+āanauhu
+āuwtiya
+biḳadaḥi
+labaniⁿ
+fašaribahu
+ waāaʿaṭaáã
+faḍalahu
+ʿumara
+bana
+ālḫaṭ
+auābi
+ 
+ḳaāluwā
+ fama
+āāawaulautahu
+
+ḳaāla
+ ālʿ
+ilamu
+ wa
+kaḏãlika
+lamauā
+āusariya
+bihi
+ āataāhu
+ālm
+alaku
+biāʾinaāʾiⁿ
+fiyhi
+labanuⁿ
+ wiāʾinaāʾuⁿ
+fiyhi
+ḫamaruⁿ
+ fašariba
+āllaubana
+ faḳaāla
+lahu
+ālmalaku
+ āaṣabata
+ālfiṭa
+raŧa
+ āaṣaāba
+āllhu
+bika
+āumautauka
+ faāllaubanu
+mataáã
+ẓahara
+
+ fahuwa
+ṣuwraŧu
+ālʿi
+lami
+ fah
+uwa
+ālʿilamu
+tamaṯaula
+fiy
+ṣuwraŧi
+āllaubana
+ kaǧibaraʾiyla
+tamaṯaula
+fiy
+ṣuwraŧi
+bašariⁿ
+sawayiⁿu
+limarayama
+ 
+walamauā
+ḳaāla
+ʿal
+ayhi
+ālsaulaāmu
+ 
+alnauāsu
+niyaāmuⁿ
+faāʾiḏaā
+maātuwā
+anatabahuwā
+ nabauha
+ʿalaáã
+āanauhu
+kuluu
+maā
+yara
+āhu
+ālāʾinas
+aānu
+fiy
+ḥayaātihi
+ālduunayaā
+ āʾinaum
+aā
+huwa
+bim
+anazilaŧi
+ālruuʾyaā
+lil
+nauāʾimi
+ ḫayaā
+luⁿ
+ 
+falaā
+budau
+mina
+taāwiylihi
+ 
+
+maǧazuwʾu
+ālraumal
+1
+āʾinaumaā
+ālkawanu
+ḫayaāluⁿ
+wahuwa
+ḥaḳuⁿu
+fiy
+ālḥaḳiyḳaŧa
+2
+waālauḏiy
+yafahamu
+hãḏaā
+ḥaāza
+āasaraāra
+ālṭauriyḳaŧa
+
+94
+ẓhr
+fakaā
+na
+ṣal
+auáã
+all
+hʿal
+ayhi
+wasalauma
+āʾiḏaā
+ḳudiuma
+lahu
+la
+banuⁿ
+ ḳaā
+la
+ 
+alluãhumau
+baā
+rika
+lanaā
+fiy
+hi
+wazidanaā
+minahu
+
+ liāanauhu
+kaāna
+yaraāhu
+ṣuwraŧa
+ālʿilami
+ waḳada
+āamara
+biṭalabi
+ālziuyaādaŧi
+mina
+ālʿilami
+ 
+waāḏiā
+ḳudiuma
+āʾilayhi
+ġayru
+āllaubani
+ḳaāla
+ 
+alluãhumau
+baārika
+lanaā
+fiyhi
+waāaṭaʿimanaā
+ḫayaraⁿā
+minahu
+ 
+famana
+āaʿaṭaāhu
+āllhu
+maāāaʿaṭaāhu
+bisuʾāliⁿ
+ʿana
+āamariⁿ
+āʾilãhiyiⁿu
+ faāʾinau
+āllha
+laā
+yuḥaāsibuhu
+bihi
+fiy
+āldauāri
+ālāḫiraŧi
+ wamana
+āaʿaṭaāhu
+āllhu
+maāāaʿaṭaāhu
+bisuʾ
+āliⁿ
+ʿana
+ġayri
+āamariⁿ
+āʾilãhiyiⁿu
+ faālāamaru
+fiyhi
+āʾilaáã
+āllhi
+ āʾina
+šaāʾa
+ḥaāsabahu
+bihi
+ waāʾina
+šaāʾa
+lama
+yuḥaāsibuhu
+ waāaraǧuw
+mina
+āllhi
+fiy
+ālʿilami
+ḫaāṣauŧaⁿ
+ āanauhu
+laā
+yuḥaāsibuhu
+bihi
+ 
+faāʾinau
+āamarahu
+linab
+ayiuhi
+ʿalayhi
+ālsaulaāmu
+biṭalabi
+ālziu
+yaādaŧi
+mina
+ālʿilami
+ ʿaynu
+āamarihi
+liāumautihi
+ faāʾinau
+āllha
+yaḳuwlu
+ 
+laḳada
+kaāna
+lakuma
+fiy
+rasuwlu
+allhi
+āusawaŧaⁿ
+ḥasanaŧaⁿ
+ 
+ālāḥzāb
+
+ 12
+ 
+waāayuu
+āusawaŧiⁿ
+āaʿaẓamu
+mina
+hãḏaā
+āltauāsiuy
+ limana
+ʿaḳila
+ʿani
+āllhi
+taʿaālaáã
+ 
+walaw
+nabauhanaā
+ʿalaáã
+ãālmaḳaāmi
+ālsuulayamaāniyiu
+ʿalaáã
+ãtamaāmihi
+ laraāayata
+āamaraⁿā
+yahuwluka
+ālaṭiulaāʿu
+ʿalayhi
+ faāʾinau
+āakaṯara
+ʿulamaāʾi
+hãḏihi
+ālṭauriyḳaŧi
+ ǧahiluwā
+ḥaālaŧa
+sulaymaāna
+ʿalayhi
+ālsaulaāmu
+wamakaānatahu
+ walaysa
+ālāamaru
+kamaā
+zaʿamuwā
+ 
+
+71
+ 
+faṣuu
+ḥikamaŧiⁿ
+wuǧuwadiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+daāwudiyauŧiⁿ
+aʿalam
+āanauhu
+lamauā
+kaānati
+ālnuubuw
+ŧu
+wālriusaālŧu
+aḫatiṣaā
+ṣaⁿā
+āʾilãhiyiⁿuā
+laysa
+fiyhā
+šay
+ʾuⁿ
+mina
+āla
+katisaābi
+ āaʿn
+iy
+ nubuwauŧ
+āltaušriyʿi
+ kaānata
+ʿaṭā
+yaāhu
+tʿāláã
+lahuma
+ʿalay
+himu
+ālsaula
+āmu
+mina
+hãḏaā
+ālḳabiyl
+mawaāhibu
+laysata
+ǧazaāʾuⁿ
+walaā
+yṭalubu
+ʿalayhaā
+minhum
+ǧazaāʾ
+ faāʾiʿaṭaāʾuhu
+āʾiyauāhum
+ʿalaáã
+ṭariyḳ
+ālāʾinaʿaāmi
+waālāʾifaḍaāli
+ 
+faḳaāl
+ 
+wawahabanaā
+lahu
+āsaḥaãḳa
+wayaʿaḳuwba
+ 
+swrŧ
+ālānʿām
+
+ 48
+ yaʿaniy
+ 
+lāʾibaraāhiyam
+ālaḫaliyal
+ waḳaāla
+fy
+āayuuwab
+ 
+wawahabanaā
+lahu
+āahalahu
+wamiṯalahuma
+maʿahuma
+ 
+swrŧ
+ṣā
+
+ 34
+ waḳaā
+la
+fy
+ḥaḳiu
+muwasaáã
+ 
+wawahabanaā
+lahu
+mina
+raḥamat
+inaāā
+āaḫaāhu
+ha
+ãrwana
+nab
+iyiⁿuā
+
+
+swrŧ
+mrym
+
+ 35
+ āʾilaáã
+miṯali
+ḏalik
+ faālauḏiy
+tawalauāhuma
+āawaulaⁿā
+huwa
+ālauḏiy
+tawalauāhuma
+fy
+ʿumuwmi
+āaḥawaālihima
+āaw
+āakaṯarihaā
+ walaysa
+āʾilauā
+asamhu
+
+ālwahauābu
+ 
+waḳaāla
+fy
+ḥaḳiu
+daāwud
+
+walaḳada
+ʾaātayanaā
+daāwuda
+minauā
+faḍalaⁿā
+ 
+swrŧ
+sbā
+
+ 01
+ falama
+yaḳarina
+bihi
+ǧazaāʾuⁿ
+yaṭalubuhu
+minahu
+ walaā
+āaḫabara
+āanauhu
+āaʿaṭaāhu
+hãḏaā
+ālauḏiy
+ḏakarahu
+
+05
+wǧh
+ǧazaāʾaⁿ
+ walamauā
+ṭalaba
+ālšuukar
+ʿalaáã
+ḏalik
+biālʿamali
+ṭalabahu
+mina
+āli
+daāwuda
+walama
+yataʿarauḍ
+liḏikari
+daāwuda
+liyašakurahu
+ālālu
+ʿalaáã
+maāāanaʿama
+bihi
+ʿalaáã
+daāwuda
+ 
+fahuwa
+fy
+ḥaḳiu
+daāwuda
+ʿaṭaāʾu
+niʿamaŧiⁿ
+waāʾifaḍaāliⁿ
+ wafiy
+ḥaḳiu
+ālihi
+ʿalaáã
+ġayri
+ḏãlika
+liṭalabi
+ālmʿaāwaḍaŧi
+ faḳaāla
+taʿaālaáã
+ 
+aʿamaluwā
+āla
+daāwuda
+šukaraⁿā
+waḳaliyaluⁿ
+mina
+ʿibaādiya
+alš
+aukuwru
+ 
+swrŧ
+sb
+ā
+ 31
+ waāʾina
+kaānata
+ālāanab
+iyaā
+ʾʿalay
+himu
+ālsaulaāmu
+ḳada
+šaka
+ruwā
+āll
+ha
+taʿ
+aāláã
+ʿalaáã
+maāāanaʿama
+bihi
+ʿalayhima
+wawahabahama
+ falama
+yakuna
+ḏãlika
+ʿana
+ṭalabiⁿ
+mina
+āllhi
+ bala
+tabarauʿuwā
+biḏãlika
+mina
+nufuwasihima
+ kamaā
+ḳaāma
+rasuwlu
+allhu
+ṣalauáã
+allhu
+ʿalayhi
+wasalauma
+ḥatauáã
+tawaraumata
+ḳadamaāhu
+šukaraⁿā
+lamauā
+ġafara
+āllhu
+lahu
+maātaḳadauma
+mina
+ḏunabihi
+wamaātaāaḫaura
+ falamauā
+ḳiyala
+lahu
+fy
+ḏãlika
+ ḳaāla
+ 
+āafalaā
+āakuwnu
+ʿabdaⁿā
+šakuwraⁿā
+ waḳaāla
+fiy
+nuwaḥiⁿ
+ 
+āʾinauhu
+kaāna
+ʿabadaⁿā
+šakuwraⁿā
+ 
+swrŧ
+ālāsrāʾ
+
+ 3
+faālšaukuwru
+mina
+ʿibaā
+di
+āll
+hi
+ḳaliy
+al
+ faāa
+waulu
+niʿam
+aŧiⁿ
+āanaʿama
+āllhu
+bihaā
+ʿalaáã
+daāwud
+ āana
+āaʿaṭaāhu
+asamaⁿā
+layasa
+fiyahi
+ḥarafuⁿ
+mina
+ḥuruwafi
+ālatiuṣaāli
+ 
+faḳaṭaʿahu
+ʿani
+ālʿaālami
+biḏãlika
+āʾiḫabaāraⁿā
+lanaā
+ʿanahu
+bimuǧaraudi
+hãḏaā
+ālasami
+ wahiya
+āldauālu
+waālāalifu
+waālawaāwuⁿ
+ 
+wasam
+auáã
+muḥamaudaⁿ
+ābiḥuruwfi
+ālāʾitiuṣaā
+li
+waālanafiṣaāli
+ fawaṣalahu
+bihi
+ wafaṣalahu
+ʿan
+ālʿaālami
+ faǧamaʿa
+lahu
+bayna
+ālḥaālayni
+fy
+asmihi
+ kamaā
+ǧamaʿa
+lidaāwud
+bayna
+ālḥaālayni
+min
+ṭariyḳi
+ālmaʿanaáã
+ walama
+yaǧaʿala
+ḏãlika
+fy
+asmih
+ fakaāna
+ḏãlika
+aḫtiṣaāṣaⁿā
+limuḥamaudiⁿ
+ʿalaáã
+daāwuda
+ āaʿniy
+ āltaunabiyha
+ʿalayhi
+biasamihi
+ fatamau
+lahu
+ālāamar
+ʿalayhi
+ālsaulaāmu
+min
+ǧamiyʿi
+ǧihaātihi
+ wakaḏãlika
+fy
+āsamhi
+
+āaḥamad
+ fahãḏaā
+mina
+ḥikamaŧi
+āllhi
+ 
+ṯumau
+ḳaāla
+fy
+ḥaḳiu
+daāwuda
+fiym
+aā
+āaʿaṭaā
+hu
+ʿalaáã
+ṭariyḳi
+ālāʾinaʿaāmi
+ʿalayhi
+taraǧiyʿu
+ālǧib
+aāli
+maʿahu
+āltausabiyḥa
+ 
+fatusabiuḥu
+litasabiyḥihi
+ liyakuwana
+lahu
+ʿamaluhaā
+ wakaḏãlika
+ālṭauyrai
+ waāaʿaṭaāhu
+ālḳuwauŧa
+wanaʿatahu
+bihaā
+ waāaʿaṭaāhu
+ālḥikamaŧa
+wafaṣala
+ālḫiṭaābi
+ 
+ṯumau
+ālminauŧau
+
+ālkubraáã
+ waālmakaānaŧa
+ālzuulafaáã
+ ālautiy
+ḫaṣauhu
+āllhu
+bihaā
+āltaunaṣiyaṣu
+ʿalaáã
+ḫilaāfatihi
+ 
+walama
+yafaʿala
+ḏãlika
+maʿa
+āaḥadiⁿ
+mina
+āabanaāʾi
+ǧinasihi
+
+05
+ẓhr
+ waāʾina
+kaāna
+fiyhima
+ḫulafaāʾ
+ 
+faḳaāla
+ 
+yãdaāwudu
+āʾinauā
+ǧaʿalanãka
+ḫaliyaf
+aŧaⁿ
+fiya
+alāaraḍi
+faāḥa
+kuma
+bayana
+alnauā
+si
+bia
+lḥaḳiu
+walaā
+tataubiʿa
+alhawaáã
+ 
+sw
+rŧ
+ṣā
+
+ 62
+ āaya
+ maā
+yaḫaṭuru
+laka
+fiy
+ḥukamika
+ mina
+ġayri
+waḥayiⁿ
+miniuy
+ 
+fayuḍilauka
+ʿana
+sabiyali
+allhi
+ 
+swrŧ
+ṣ
+ 62
+ āaya
+ ʿana
+ālṭauriyḳi
+ālauḏiy
+āuwaḥiya
+bihaā
+āʾilá
+rusiliy
+ 
+ṯumau
+taāadauba
+subaḥaānahu
+maʿahu
+ faḳaāla
+ 
+āʾinau
+alauḏiyana
+yaḍiluuwna
+ʿana
+sabiyali
+allhi
+lahuma
+ʿaḏaābuⁿ
+šadiyaduⁿ
+bimaā
+nasuwaā
+yawama
+alḥisaābi
+ 
+swrŧ
+ṣā
+
+ 62
+ walama
+yaḳula
+ 
+faāʾina
+ḍalalata
+ʿan
+sabiyliy
+falaka
+ʿaḏaābuⁿ
+šadiyduⁿ
+ 
+faāʾina
+ḳulata
+ waādamu
+ʿalayhi
+ālsaulaāmu
+ ḳada
+nuṣau
+ʿalaáã
+ḫalaāfatihi
+ ḳulanaā
+ maā
+naṣau
+miṯal
+āltaunaṣiyaṣi
+ʿalaáã
+daāwuda
+ waāʾinaumaā
+ḳaāla
+lilamalaāʾikaŧi
+ 
+āʾiniuy
+ǧaāʿiluⁿ
+fiy
+alāaraḍi
+ḫaliyfaŧaⁿ
+ 
+sw
+rŧ
+ālbḳrŧ
+
+ 03
+ walama
+yaḳula
+ 
+āʾiniy
+ǧaā
+ʿiluⁿ
+ādama
+ḫaliyafŧaⁿ
+
+fiy
+ālāaraḍi
+ 
+walaw
+ḳaāla
+ lama
+yakuna
+miṯal
+ḳawa
+lih
+ 
+āʾinauā
+ǧaʿalanãka
+ḫaliy
+afaŧaⁿ
+ 
+swrŧ
+ṣā
+
+ 62
+ fiy
+ḥaḳiu
+daāwuda
+ faāʾinau
+hãḏaā
+muḥaḳauḳuⁿ
+
+ waḏãlika
+laysa
+kaḏãlika
+ wamaā
+yaduluu
+ḏikaru
+ādama
+fiy
+ālḳiṣauŧ
+
+baʿada
+ḏãlika
+
+ ʿalaáã
+āanauh
+ʿaynu
+ḏãlika
+ālḫaliyafaŧ
+ ālauḏiy
+naṣau
+āllhu
+ʿalayhi
+ faāǧaʿala
+baālaka
+liāʾiḫabaāraāti
+ālḥaḳiu
+ʿan
+ʿibaādihi
+āʾiḏaā
+āaḫabara
+ 
+wa
+kaḏãlika
+fiiy
+ḥaḳiu
+āʾibaraāhiyam
+ālaḫaliyali
+
+ 
+āʾiniuy
+ǧaāʿiluka
+lil
+anauāsi
+āʾimaā
+maⁿā
+ 
+swrŧ
+ālbḳ
+rŧ
+
+ 421
+ walama
+yaḳula
+ 
+ḫaliyafaŧaⁿ
+ waāʾina
+kunauā
+naʿalimu
+āanau
+ālāʾimaāmaŧa
+
+ hunaā
+
+ ḫilaāfaŧuⁿ
+ 
+walãkina
+maāhiy
+miṯalahaā
+ law
+ḏakarahaā
+biāaḫaṣiu
+āasamaāʾihaā
+ wahiy
+ālḫilaāfaŧu
+ 
+ṯumau
+fiy
+daāwuda
+mina
+ālaḫatiṣaāṣi
+biālḫilaāfaŧi
+ āana
+ǧaʿalahu
+ḫaliyafaŧa
+ḥukamiⁿ
+ walaysa
+ḏãlika
+āalauā
+ʿana
+āllhi
+ faḳaāla
+lahu
+ 
+faāḥakuma
+bayana
+alnauāsi
+bialḥaḳiu
+ 
+swrŧ
+ṣā
+
+ 62
+ 
+waḫilaāfaŧu
+ādama
+ḳada
+laātakuwnu
+mina
+haḏihi
+ālmaratabaŧi
+ fatakuwn
+ḫilaāfatuhu
+ āana
+yaḫalufa
+mana
+kaāna
+fiyhaā
+ḳabala
+ḏãlika
+ laā
+āanauhu
+naāʾibuⁿ
+ʿana
+āllhi
+fy
+ḫal
+aḳihi
+ biālaḥukam
+ālāʾilãhiyiu
+fiy
+ahima
+ 
+waāʾina
+kaāna
+ālāamarkaḏãlika
+waḳaʿa
+ walãkina
+laysa
+kalaāmunaā
+āʾilauā
+fy
+āltaunaṣiyṣi
+ʿalayhi
+ 
+waāltauṣariyḥi
+bihi
+ 
+wallhi
+fy
+ālāaraḍi
+ ḫalaāʾifa
+ʿana
+āllhi
+ wahuma
+ālruusulu
+ waāamauā
+ālḫilaāfaŧu
+ālyuw
+ma
+ 
+faʿani
+ālruusuli
+laā
+ʿana
+āllhi
+ 
+faāʾinauhum
+maāyaḥakumuwana
+āalauā
+bimaā
+šaraʿa
+lahuma
+ālrasuwlu
+ laāyaḫaruǧuwna
+ʿana
+ḏãlika
+ 
+ġayra
+āanau
+hunaā
+daḳiyaḳaŧuⁿ
+laāyaʿalamuhaā
+āʾilauā
+āamaṯaālunaā
+ waḏãlika
+fy
+āaḫaḏi
+maāyaḥakumuwn
+bihi
+ mimauā
+huwa
+šaraʿuⁿ
+lilarasuwli
+ʿalayhi
+ālsaulaāmu
+ 
+
+15
+wǧh
+ faālaḫal
+iyaf
+aŧu
+ʿana
+ālrau
+suw
+li
+ mana
+yaāḫuḏu
+ālḥukma
+biā
+lnauḳ
+li
+ʿanhu
+ṣalauáã
+āllhu
+ʿal
+ayhi
+wasalauma
+ āawa
+biālaǧat
+ihaādi
+ ālauḏiy
+āaṣaluhu
+āayḍaⁿā
+manaḳuw
+lʿanhu
+ṣalauáã
+āllhu
+ʿalay
+hi
+wasalauma
+ 
+wafiyanaā
+mana
+yaāḫuḏu
+hu
+ʿana
+āllhi
+ fy
+kwn
+ḫl
+yf
+ŧaⁿ
+ʿn
+āllhi
+ biʿiyn
+ḏãlika
+ālḥukam
+ fayakuwn
+ālmaādauŧ
+lahu
+ mina
+ḥayṯu
+kaānata
+ālmaādauŧu
+lirasuwilihi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ fahuwa
+fy
+ālẓauā
+hiri
+mutau
+biʿuⁿ
+ laʿ
+adam
+muḫaālaf
+atihi
+fy
+ālḥukami
+ kaʿiyasaáã
+āʾiḏaā
+nazala
+faḥakama
+ wa
+kaā
+lnaubiyiu
+muḥamaudi
+ṣalauá
+āllhu
+ʿalayahi
+wasalauma
+ fy
+ḳawlihi
+ 
+āuwalāãʾika
+ālauḏiyana
+hadaáã
+āllhu
+fabihudãhumu
+aḳatadiha
+ 
+swrŧ
+ālānʿām
+
+ 09
+ 
+wahuwa
+fy
+ḥaḳiu
+maā
+yaʿarifuhu
+mina
+ṣuwaraŧ
+ālāaḫaḏi
+ muḫataṣuⁿ
+muwaāfiḳuⁿ
+ 
+huwa
+fiyhi
+bimanazilaŧi
+maāḳaraurahu
+ālnaubiyuu
+ṣalauá
+āllhu
+ʿalayah
+wasalauma
+mina
+šaraʿi
+mana
+taḳadauma
+mina
+ālruusuli
+ bikawnihi
+ḳaraurahu
+ faātabaʿanaāhu
+mina
+ḥayṯu
+taḳariyrihi
+ laā
+mina
+ḥayṯu
+āanauhu
+šuraʿuⁿ
+liġayrihi
+ḳabalahu
+ 
+wakaḏãlika
+āaḫaḏa
+ālḫalayfaŧu
+ʿani
+āllhi
+ ʿayna
+maā
+āaḫaḏahu
+minhu
+ālrausuwlu
+ fanaḳuwl
+fiyhi
+bil
+isaā
+ni
+ālkašafi
+ 
+ḫaliyifaŧ
+āllhi
+ wabilisaāni
+ālẓauāhiri
+ 
+ḫaliy
+faŧ
+rasuwalu
+āll
+hi
+ walihãḏaā
+maāta
+rasuwlu
+āllhi
+ṣalauá
+āllhu
+ʿalayhi
+wasalauma
+ wamaā
+naṣau
+biḫilaāfaŧiⁿ
+ʿan
+hu
+āʾilaáã
+āaḥadiⁿ
+ walaā
+ʿayaunahu
+ liʿil
+amihi
+āanau
+fiy
+āumautihu
+mana
+yaāḫuḏu
+ālḫ
+ilaāfaŧa
+ʿana
+rabauhu
+ fayakuwnu
+ḫal
+iyfaŧaⁿ
+ʿana
+āllhi
+maʿa
+ālmuwaāfaḳaŧi
+fy
+ālḥukami
+ālm
+ašaruwʿi
+ falamauā
+ʿalima
+ḏãlika
+ṣalauáã
+āll
+hu
+ʿalayhi
+wasalauma
+ lama
+yuḥaǧiuri
+ālāamra
+ 
+falilauhi
+ḫulafaāʾu
+fiy
+ḫalaḳihi
+ yaāaḫuḏuwna
+mina
+maʿdani
+ālrausuwli
+waālruusuli
+ maāāaḫaḏatahu
+ālruusul
+ʿalayhima
+ālslaāmu
+ 
+wayaʿarifuwna
+faḍala
+ālmutaḳadium
+hunaā
+ka
+ lāanau
+ālrausuwla
+ḳaābiluⁿ
+lilaziyaādaŧ
+ whãḏa
+āālḫal
+iyf
+aŧu
+laysa
+biḳaābiliⁿ
+lilaziyaādaŧi
+ ālty
+lawa
+kaāna
+ālrausuwlu
+ḳabilahaā
+ 
+falaā
+yuʿaṭaáã
+mina
+ālʿi
+lami
+waālḥ
+ukami
+fiym
+aā
+šarauʿa
+ āʾilauā
+maāšuriʿa
+lilarasuwli
+ḫaā
+ṣauŧaⁿ
+ fahuwa
+fiy
+ālẓauāhiri
+mutaubiʿuⁿ
+ ġayru
+muḫaālifiⁿ
+ biḫilaāfi
+ālruusuli
+ 
+āalaā
+taraáã
+ʿiysaáã
+ʿalayhi
+ālsaulaāmu
+lamauā
+taḫayaulati
+ālyahuwdu
+āanauhu
+laāyaziydu
+ʿalaáã
+muwsaá
+
+ miṯala
+maā
+ḳulanaāhu
+
+ fy
+ālḫilaāfaŧi
+ālyawma
+maʿa
+ālrausuwli
+ āmanuwā
+bihi
+waāaḳaruuwhu
+ 
+falamauā
+zaāda
+ḥukamaⁿā
+ āawa
+nasaḫa
+ḥukamaⁿā
+ kaāna
+ḳada
+ḳaraurahu
+muwsaá
+
+ likawni
+ʿiysaáã
+rasuw
+laⁿā
+
+ lama
+yaḥatamiluwā
+
+15
+ẓhr
+
+ ḏãlika
+ liāanauhu
+ḫaālafa
+aʿatiḳaādhm
+fiy
+hi
+ waǧahilata
+ālyahuwdu
+ālāamara
+ʿalaáã
+maāhuwa
+ʿalayhi
+ 
+faṭal
+abata
+ḳatalahu
+ fakaāna
+mina
+ḳiṣaut
+ihi
+maāāaḫab
+aranaā
+āllhu
+taʿaāláã
+fy
+kitaābihi
+ālʿaziyzi
+ʿan
+hu
+waʿanahuma
+ falamauā
+kaāna
+rasuwlaⁿā
+ḳabila
+ālziuyaādaŧi
+ āʾimauā
+binaḳaṣi
+ḥukamiⁿ
+ḳada
+taḳaraura
+ āaw
+ziyaādaŧi
+ḥukamiⁿ
+ ʿalaáã
+āanau
+ālnauḳaṣa
+ziyaādaŧu
+ḥukamiⁿ
+bilaā
+šakiⁿu
+ 
+waālḫilaāfaŧu
+ālyawma
+laysa
+lahaā
+hãḏaā
+ālmanaṣibu
+ waāʾinaumaā
+tanaḳuṣu
+āawa
+taziydu
+ʿalaáã
+ālšauraʿi
+ ālauḏiy
+ḳada
+taḳaraura
+biālaǧatihaādi
+ laā
+ʿalaáã
+ālšauraʿi
+ālauḏiy
+šawaufahu
+bihi
+muḥamauduⁿ
+ṣalauá
+āllhu
+ʿalayhi
+wasalauma
+ 
+faḳada
+yaẓ
+aharu
+mina
+ālḫ
+aliy
+faŧi
+maāyuḫ
+aālifu
+ḥadiyaṯaⁿā
+maā
+ fy
+ālḥukam
+ fay
+ataḫayauluu
+āanauh
+mina
+ālaǧatihaādi
+ walaysa
+kaḏãlika
+ waāʾinaumaā
+hãḏaā
+ālāʾimiāmu
+lama
+yaṯabuta
+ʿinadahu
+
+ mina
+ǧihaŧa
+ālkašafi
+
+ ḏãlika
+ālaḫabar
+ʿana
+ālnaubiyiu
+ walaw
+ṯabata
+laḥakama
+bihi
+ waāʾina
+kaāna
+ālṭauriyḳu
+fiyhi
+ālʿadalu
+ʿani
+ālʿadali
+ famaā
+huwa
+maʿaṣuwmuⁿ
+mina
+ālwahami
+ walaā
+mina
+ālnauḳali
+ ʿalaáã
+ālmaʿnaá
+ famiṯalu
+hãḏaā
+yaḳaʿu
+mina
+ālḫaliyfaŧi
+ālyauwma
+ wakaḏãlika
+yaḳaʿu
+mina
+ʿiysaá
+ʿalayhi
+ālsaulaāmu
+ faāʾinauhu
+āaḏaā
+nazala
+ yarafaʿu
+kaṯiyrāaⁿ
+mina
+šaraʿi
+ālaǧatihaāid
+ālmuḳarauri
+ fayubayiunu
+birafaʿihi
+ṣuwaraŧa
+ālḥaḳiu
+ālamašaruwʿi
+ ālauḏiy
+kaāna
+ʿalayhi
+ ʿalayhi
+ālsaulaāmu
+ 
+walaāsiyaumaā
+āʾiḏaā
+taʿaā
+raḍata
+āaḥakaāmu
+ālāaʾimauŧi
+fiy
+ālnauāzilaŧi
+ālwaāḥida
+ŧi
+ fanaʿalamu
+ḳaṭaʿaⁿā
+āanauhu
+law
+nazala
+waḥayuⁿ
+ lanazala
+biāaḥadi
+ālwuǧuwhi
+ faḏãlika
+huwa
+ālḥukamu
+ālāʾilãhiyuu
+ wamaā
+ʿadaāhu
+ 
+waāʾina
+ḳaraurahu
+ālḥaḳuu
+fahuwa
+šaraʿu
+taḳariyriⁿ
+ lirafaʿi
+ālḥaraǧi
+ʿani
+hãḏihi
+ālāumuuŧi
+ waatiusaāʿi
+ālḥukami
+fiyhaā
+ 
+waāamauā
+ḳawluhu
+ʿal
+ayhi
+ālsau
+laāmu
+
+āʾiḏaā
+buwa
+yi
+ʿa
+ālaḫal
+iyafa
+tayani
+ faāḳatuluw
+āālāḫara
+minahumaā
+ 
+hãḏaā
+fiy
+ālḫilaāfaŧi
+ālẓauāhiraŧi
+ālty
+lahaā
+ālsauyafu
+ waāana
+ataufaḳaā
+falaābudau
+mina
+ḳatali
+āaḥadihimaā
+ biḫilaāfi
+ālḫilaāfaŧi
+ālmaʿanawiyauŧi
+ faāʾinauhu
+laāḳatala
+fiyhaā
+ 
+waāʾinaum
+aā
+ǧaā
+ʾa
+ālḳatalu
+fiy
+ālḫilaāfaŧi
+ālẓ
+iⁿuāhiraŧi
+ waāʾina
+lama
+yakuna
+liḏ
+ãlika
+ālḫaliyafaŧi
+hãḏaā
+ālmaḳaāmi
+ wahuwa
+ḫaliyfaŧu
+rasuwli
+āllhi
+ āʾina
+ʿadala
+ 
+famina
+ḥukami
+ālāaṣali
+ālauḏiy
+bihi
+taḫayuulu
+wuǧuwdi
+āʾilãhayni
+ 
+
+walawa
+kaāna
+fiyahimaāā
+ʾaālihaŧuⁿ
+āʾilauā
+allhu
+lafasadataā
+ 
+swrŧ
+ālānbyā
+
+ 22
+ 
+waāʾina
+ataufaḳaā
+ fanaḥanu
+naʿalamu
+āanauhumaā
+law
+aḫatalafaā
+taḳadiyaraⁿā
+ lanafaḏa
+ḥukamu
+
+25
+wǧh
+ āaḥaduhumaā
+faālnauāfiḏu
+ālḥukami
+huwa
+ālāʾilãhu
+ʿalaáã
+ālḥaḳiyḳaŧ
+ waālauḏiy
+lama
+yanafuḏu
+ḥukamuhu
+laysa
+biāʾilãhiⁿ
+ 
+wamina
+hun
+aā
+ 
+taʿ
+alamu
+āanau
+kulau
+ḥukamiⁿ
+yanafudu
+āly
+auwmai
+fiy
+ālʿaālami
+ āanauhu
+
+ḥukamu
+āllhi
+ 
+waāʾina
+ḫaālafa
+ālḥukama
+ālmuḳaraura
+fiy
+ālẓauāhiri
+
+ālmus
+amauáã
+šaraʿāaⁿ
+ āʾiḏa
+laā
+yanaf
+adu
+ḥukamuⁿ
+āʾilauā
+lilhi
+ fiy
+nafasi
+ālāamari
+
+lāanau
+ālāamara
+ālwa
+āḳiʿa
+fiy
+ālʿaālami
+ āʾinaum
+aā
+huwa
+ʿalaáã
+ḥukami
+ālmašiy
+aáʾaŧi
+ālāʾilãhiyauŧ
+ laā
+ʿalaáã
+ḥukami
+ālšauraʿi
+ālamuḳarauri
+ 
+waāʾina
+kaāna
+taḳariyrhu
+mina
+ālamašiyáʾaŧi
+ walḏãlika
+nafada
+taḳariyruhu
+ḫaāṣauŧaⁿ
+ 
+faāʾinau
+ālmašiyaáʾaŧa
+layasata
+lahaā
+fiyhi
+āʾilauā
+āltauḳariyru
+ laā
+ālʿamalu
+bimaā
+ǧaāʾa
+bihi
+ 
+faālmašiyáʾaŧu
+sulaṭaānuhaā
+ʿaẓiyamuⁿ
+ walihãḏaā
+ǧaʿalahaā
+āabuwaṭaālibiⁿ
+ 
+ʿaraša
+ālḏauāti
+ 
+lāanauh
+aā
+liḏaātihaā
+taḳta
+ḍiy
+ālḥukama
+ flaā
+yaḳ
+aʿu
+fy
+ālwuǧuw
+di
+šayʾuⁿ
+walaāyartaf
+iʿu
+ḫaāriǧaⁿā
+ʿana
+ālmšiyáʾaŧi
+
+ faāʾinau
+ālāamra
+ālāʾilãhiyau
+āʾiḏaā
+ḫuwlifa
+hunaā
+biālmsamauáã
+
+maʿ
+aṣiyaŧaⁿ
+
+falaysa
+āʾilauā
+ālāamru
+biālwaāsiṭaŧi
+ laā
+ālāamru
+āltaukwiyniyuu
+ 
+famaā
+ḫaālafa
+āllha
+āaḥduⁿ
+ḳaṭuu
+fiy
+ǧamiyʿi
+maā
+yafaʿaluhu
+ mina
+ḥayṯu
+āamaru
+ālmšiyáʾaŧi
+ 
+fawaḳaʿati
+ālmuḫaālafaŧu
+mina
+ḥyṯu
+āamaru
+ālwaāsiṭaŧi
+ faāfahama
+ 
+waʿalaáã
+ālḥaḳiyḳaŧ
+ faāamru
+ālamašiyaáʾaŧ
+āʾinaumaā
+yatawaǧauhu
+ʿalaáã
+āʾiyǧaā
+di
+ʿayni
+ālfiʿ
+ali
+ laā
+ʿalaáã
+mana
+ẓahara
+ʿalaáã
+yadayhi
+ fayasataḥiyalu
+āʾilauā
+āana
+yakuwna
+ walãkina
+fy
+hãḏaā
+ālmaḥaliu
+ālḫaāṣiu
+ fawaḳataⁿā
+yusamauáã
+bihi
+muḫaālafaŧaⁿ
+lāamari
+āllhi
+ wawaḳataⁿā
+yusamauáã
+muwaāfaḳaŧaⁿ
+waṭaāʿaŧaⁿ
+lāamari
+āllhi
+ wayatabaʿahu
+lisaānu
+ālḥamadi
+waālḏaumiu
+ ʿalaáã
+ḥasabi
+maāyakuwnu
+ 
+walamauā
+kaāna
+ālāamaru
+fy
+nafasihi
+ʿalaáã
+maā
+ḳarauranaāhu
+ liḏãlika
+kaāna
+maāālu
+ālḫalaḳi
+āʾiláã
+ālsauʿaādaŧi
+ 
+ʿalaáã
+aḫatilaāfi
+āanawaāʿihaā
+ 
+faʿ
+abaura
+ʿana
+hãḏaā
+ālmaḳaā
+mi
+ baāanau
+ālrauḥamaŧa
+wasiʿata
+kulau
+šaya
+ʾiⁿ
+ 
+waāanauh
+aā
+saba
+ḳata
+ālġaḍaba
+ālāʾilãhiyau
+ 
+waālsauābiḳu
+mutaḳadiumuⁿ
+ fiāḏaā
+laḥiḳahu
+hãḏaā
+ālauḏiy
+ḥakama
+ʿalayhi
+ālamutaāaḫiuru
+ ḥakama
+ʿalayhi
+ālmutaḳadiumu
+ fanaālatahu
+ālrauḥamaŧu
+ 
+āʾiḏa
+lama
+yakuna
+ġayruhaā
+sabaḳa
+ 
+fahãḏaā
+maʿanaáã
+ 
+sabaḳata
+raḥamatuhu
+ġaḍabahu
+ 
+litaḥakuma
+ʿalaáã
+man
+waṣala
+āʾilayhaā
+ faāʾinauhaā
+fiy
+ālġaāyaŧi
+waḳafata
+ 
+waālkuluu
+saālikuⁿ
+āʾiláã
+ālġaā
+yaŧi
+ falaābuuda
+mina
+ālwuṣuwli
+āʾilayhaā
+ 
+25
+ẓh
+r
+fala
+ābuuda
+mina
+ālwuṣuwli
+āʾilá
+ālrauḥamaŧi
+ wamufaāraḳaŧi
+ālġaḍabi
+ 
+fayakuwnu
+ālaḥukmu
+lahaā
+fy
+kuliu
+waāṣiliⁿ
+āʾilayhaā
+ biḥasabi
+maāyuʿaṭiyhi
+ḥaālu
+ālwaāṣili
+āʾilayhāa
+ 
+
+ālṭwyl
+1
+famana
+kaāna
+ḏaā
+fahamiⁿ
+yušaāhidu
+maāḳulanaā
+waāʾina
+lama
+yakuna
+fahamuⁿ
+fayaāḫuḏuhu
+ʿanauā
+2
+famaā
+ṯamau
+āʾilauā
+maāḏakaranaāhu
+faāʿtamida
+ʿalayhi
+wa
+kuna
+biālḥaāli
+fiyhi
+kamaā
+kunauā
+3
+faminhu
+āʾilaynaā
+maātalawnaā
+ʿalaykumu
+waminauā
+āʾilaykuma
+maāwahabanaākuma
+minauā
+waāamauā
+talayiynu
+ālḥadiydi
+ faḳuluwbuⁿ
+ḳaāsiyaŧuⁿ
+ yulayiunuhaā
+
+ ālzauǧaru
+waālwaʿiydu
+
+talayiyna
+ālnauāri
+ālḥadiyda
+ 
+waāʾinaumaā
+ālṣauʿ
+abu
+ḳul
+uwbuⁿ
+āašaduu
+ḳasaāwaŧaⁿ
+mina
+ālḥiǧaāraŧi
+ faāʾinau
+ālḥiǧ
+aāraŧa
+takasaruhaā
+watukaliusuhaā
+ālnauāru
+ walaā
+tulayiunuhaā
+ 
+wamaā
+āalaāna
+lahu
+ālḥadiyda
+āʾilauā
+liʿamali
+ālduuruwʿi
+ālwaāḳiyaŧi
+ tanabiyahaⁿā
+mina
+āllhi
+ āaya
+ 
+laā
+yutauḳaáã
+ālšauyaʾu
+āʾilauā
+binafasihi
+ faāʾinau
+āldiuraʿa
+yutauḳaáã
+bihi
+ālsiunaānu
+waālsauyafui
+waālsiukiuyanu
+waālnauṣalu
+ 
+faātauḳayata
+ālḥadiyda
+biālaḥadiydi
+ 
+faǧaāʾa
+ālšauraʿu
+ālmuḥamaudyuu
+bi
+āaʿuwḏu
+bika
+minaka
+ faāfahama
+ 
+fahãḏaā
+ruwḥu
+talayiyni
+ālḥadiydi
+ fahuwa
+ālmunataḳimu
+ālrauḥiymu
+ waāllhu
+ālamuwafiuḳu
+ 
+
+81
+ 
+faṣuu
+ḥikamaŧiⁿ
+nafasiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+yuwnusiyauŧiⁿ
+aʿalama
+āanau
+hãḏihi
+ālnaušaāaŧa
+ālāʾinasaāniyauŧa
+bikamaālihaā
+ruwḥaⁿā
+waǧisamaⁿā
+wanafasaⁿā
+ ḫalaḳahaā
+āllhu
+ʿalaáã
+ṣuwaratihi
+ falaā
+yatawalauáã
+ḥalau
+niẓ
+aāmihaā
+āʾilauā
+mana
+ḫal
+aḳahaā
+ āʾimauā
+biyadihi
+
+ walaysa
+āʾilauā
+ḏãlika
+
+ āawa
+biāamarihi
+ wamana
+tawa
+lauāhaā
+biġayari
+āamari
+āllhi
+faḳada
+ẓalama
+nafasahu
+wa
+taʿadau
+áã
+ḥadau
+āllhi
+fiyhaā
+wasaʿaáã
+fiy
+ḫaraābi
+mana
+āamarahu
+āllhu
+biʿimaāratihi
+ 
+waāʿalama
+āanau
+ālšaufaḳaŧa
+ʿalaáã
+ʿibaādi
+āllhi
+āaḥaḳuu
+biālriuʿaāyaŧi
+mina
+ālġiyaraŧi
+fiy
+āllhi
+ 
+āaraāda
+daāwudu
+bunayaāna
+ālbayati
+ālmuḳadausi
+ fabanaāhu
+miraāraⁿā
+ fakulaumaā
+faraġa
+minhu
+tahadauma
+ 
+fašakaā
+ḏãlika
+āʾilá
+āllh
+i
+faāawaḥaá
+āllhu
+āʾilayhi
+ āʾinau
+bayatiy
+hãḏaā
+laāyaḳuwmu
+ʿalaáã
+yadaya
+mana
+safaka
+āldiumaāʾa
+ 
+faḳaāla
+daāwudu
+ yaā
+rabiu
+āalama
+yakuna
+ḏãlika
+fy
+sabiyalika
+
+ḳaāla
+ balaá
+ 
+walakinauhuma
+āalayasuwā
+ʿibaādiya
+ 
+35
+wǧh
+ ḳaāla
+ yaārabi
+faāǧaʿala
+bunayaānahu
+ʿalaáã
+yadaya
+mana
+huwa
+miniuy
+ faāawaḥáa
+āllhu
+āʾilayh
+āʾinau
+abanaka
+sulaymaāna
+yabaniyhi
+ 
+faālġaraḍu
+mina
+hãḏihi
+ālḥikaāyaŧi
+muraāʿaāŧu
+hãḏi
+hi
+ālnaušaāaŧa
+ālāʾinasaāniyauŧa
+ waāanau
+āʾiḳaā
+mat
+ahaā
+āawalaáã
+mina
+hadamihaā
+āalaā
+taraáã
+ʿaduwau
+āldiuyni
+ḳada
+faraḍa
+āllhu
+fiy
+ḥaḳiuhima
+ālǧizayaŧa
+waālṣulaḥa
+āʾibaḳ
+aāʾaⁿ
+ʿalay
+hima
+ waḳaāla
+ 
+waāʾina
+ǧanaḥuwā
+lil
+asaulami
+faāǧanaḥa
+lah
+aā
+watawakaula
+
+swrŧ
+ālānfāl
+
+ 16
+ 
+āalaā
+taraáã
+mana
+waǧaba
+ʿalayhi
+ālḳiṣaāṣu
+ kayfa
+šuriʿa
+liwaliyiu
+āldaumi
+āaḫaḏu
+ālfidayaŧi
+āawa
+ālʿafawu
+ faāʾina
+āabaáã
+faḥiyanaʾiḏiⁿ
+yuḳatalu
+ 
+āalaā
+taraāhu
+subaḥaānahu
+āʾiḏaā
+kaāna
+āawaliyaāʾu
+āldaumi
+ǧamaāʿaŧaⁿ
+faraḍiya
+waāḥduⁿ
+biāldiuyauŧi
+āawʿafaā
+ wabaāḳiy
+ālāawaliyaāʾi
+laāyuriyaduwna
+āʾilauā
+ālḳatala
+ kayfa
+yuraāʿiy
+mana
+ʿafaā
+wayurauǧaḥu
+ʿalaáã
+mana
+lama
+yaʿafu
+ falaā
+yuḳatalu
+ḳiṣaāṣaⁿā
+ 
+āalaā
+taraāuhu
+ʿalayhi
+ālsaulaāmu
+yaḳuwlu
+fiy
+ṣaāḥibi
+ālniusaʿaŧi
+ 
+āʾina
+ḳatalahu
+kaāna
+miṯalahu
+ 
+āalaā
+taraāhu
+taʿaālaáã
+yaḳuw
+lu
+ 
+waǧazaāʾu
+sayiuáʾaŧiⁿ
+sayiáʾaŧuⁿ
+miṯalahaā
+ 
+swrŧ
+ālš
+wrá
+
+ 04
+ 
+faǧaʿala
+ālḳiṣ
+aāṣa
+sayiuáʾaŧaⁿ
+ 
+āay
+yas
+uwʾu
+ḏãlika
+ālfiʿali
+maʿa
+kawnihi
+mašaruwʿaⁿā
+ 
+famana
+ʿafaā
+waāaṣalaḥa
+faāaǧaruhu
+ʿalaáã
+āllhi
+ 
+swrŧ
+ālš
+wráã
+
+ 04
+ liāanauhu
+ʿalaáã
+ṣuwratihi
+famana
+ʿafaā
+ʿan
+hu
+walama
+yaḳatulahu
+ faāaǧaruhu
+ʿalaáã
+mana
+huwa
+ʿalaáã
+ṣuwratihi
+ liāanauhu
+āaḥaḳuu
+bihi
+āʾiḏa
+āanašaāahu
+lahu
+ 
+wamaā
+ẓahara
+biālāʾisami
+
+ālẓauāhiri
+ āʾilauā
+biwuǧuwdihi
+ famana
+raāʿaāhu
+āʾinaumaā
+yuraāʿiy
+ālḥaḳau
+ 
+wamaā
+yuḏamuu
+ālāʾinasaānu
+liʿ
+ayn
+ihi
+ waāʾinaumaā
+yuḏamuu
+ālf
+iʿalu
+minhu
+ wfiʿluhu
+laysa
+ʿaynahu
+ wakalaāmunaā
+fiy
+ʿaynihi
+ walaāfiʿala
+āʾilauā
+lilhi
+ wamaʿa
+hãḏaā
+ḏumau
+minahaā
+maāḏumau
+ waḥumida
+maāḥumida
+ 
+walisaānu
+ālḏaumiu
+ʿalaáã
+ǧihaŧi
+ālġaraḍi
+maḏamuwmuⁿ
+ʿinda
+āllhi
+ 
+falaā
+maḏamuwma
+āʾilauā
+maā
+ḏamauhu
+ālšaura
+ʿu
+ fiāʾina
+ḏamau
+ālšauraʿu
+liḥikamaŧiⁿ
+yaʿalamuhaā
+āllhu
+ āaw
+mana
+āaʿalamahu
+āllhu
+ 
+kamaā
+šuriʿa
+ālḳiṣaāṣu
+lilamaṣalaḥaŧi
+āʾibaḳaāʾaⁿ
+lihãḏaā
+ālnauwʿi
+ waāʾiradaāʿaⁿā
+lilamutaʿadiuy
+ḥuduwda
+āllhi
+fyahi
+
+walakuma
+fiy
+alḳiṣaāṣi
+ḥayawãŧuⁿ
+yāãāuwliy
+alāalabãbi
+
+swrŧ
+ālbḳrŧ
+
+ 971
+ wihuma
+āahalu
+lubiu
+ālšauyʾi
+ālauḏiyna
+ʿaṯaruwā
+ʿalaáã
+siriu
+ālnauwaāmiysi
+ālāʾilãhiyauŧi
+waālḥukmiyauŧi
+ 
+waāaḏaā
+ʿalimata
+āanau
+āllha
+raāʿaáã
+hãḏihi
+ālnauš
+aāaŧa
+waāʾiḳaāmatah
+aā
+ faāanata
+āawalaáã
+bimura
+āʿaātihaā
+āʾiḏa
+laka
+bḏãlika
+ālsauʿaādaŧu
+ faāʾinauhu
+maādaāma
+ālāʾinasaānu
+ḥayiⁿuā
+ 
+35
+ẓhr
+ yuraǧaáã
+lahu
+taḥaṣiylu
+ṣifaŧi
+ālkamaāli
+ālauḏiy
+ḫuliḳa
+lahu
+ 
+wamana
+saʿaáã
+fiy
+hadamihi
+ faḳada
+saʿaáã
+fiy
+manaʿi
+wuṣuwlihi
+limaā
+ḫuliḳa
+lahu
+ 
+wamaāāaḥasana
+maāḳaāla
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿal
+yahi
+wasalauma
+ 
+āalaā
+āunabiuáʾukuma
+bim
+aā
+huwa
+ḫayaruⁿ
+lakuma
+waāafaḍalu
+mina
+āana
+talaḳawaā
+ʿaduwaukuma
+
+ fataḍaribuwaā
+riḳaābahuma
+ wayaḍaribuwā
+riḳaābakuma
+
+ ḏikaru
+āllhi
+ 
+waḏãlika
+āanauhu
+laāyaʿalamu
+ḳadara
+haḏihi
+ālnaušaāaŧi
+ālāʾinasaāniyauŧi
+ āʾilauā
+mana
+ḏakara
+āllha
+ālḏiukara
+ālmaṭaluwba
+min
+ahu
+ faāʾinauhu
+taʿ
+aālaáã
+ǧaliysu
+mana
+ḏakarahu
+ 
+waālǧaliysu
+maš
+ahuwduⁿ
+lil
+ḏauākiri
+ 
+wamataáã
+lama
+yušaāhidi
+ālḏauākiru
+ālḥaḳau
+ālauḏiy
+huwa
+ǧaliysuhu
+ falaysa
+biḏaākiriⁿ
+ 
+faāʾinau
+ḏikara
+āllhi
+saāriⁿ
+fiy
+ǧamiyaʿi
+ālʿabadi
+ laā
+mana
+ḏa
+karaha
+bilisaāniihi
+ḫaāṣauŧaⁿ
+ faāʾinau
+ālḥaḳau
+laāyakuwnu
+fiy
+ḏãlika
+ālwaḳati
+āʾilauā
+ǧaliysa
+āllius
+aāni
+ḫaāṣauŧaⁿ
+ fa
+yaraāhu
+ālliusaā
+nu
+mina
+ḥayṯu
+laāyaraāhu
+ālāʾinasaānu
+bimaā
+huwa
+raāʾiⁿ
+ 
+faāfahama
+hãḏaā
+ālsiurau
+fiy
+ḏikari
+ālġaāfiliyna
+ 
+faālḏauākiru
+mina
+ālġaāfili
+ ḥaāḍiruⁿ
+bilaāšakiⁿu
+ waālmaḏakuwru
+ǧaliysuhu
+ fahuwa
+yušaāhiduhu
+ 
+waālġaāfilu
+mina
+ḥayṯu
+ġafalatuhu
+laysa
+biḏaākiriⁿ
+ famaā
+huwa
+ǧaliysu
+ālġaāfili
+ 
+faāʾinau
+ālāʾinasaāna
+kaṯiyaruⁿ
+ maāhuwa
+āaḥadiáuu
+ālʿayni
+ waālḥaḳuu
+āaḥadiáuu
+ālʿayni
+ kaṯiyruⁿ
+biā
+lāasam
+aāʾi
+ālāʾilãhiy
+auŧi
+ kamaā
+āanau
+ālāʾinasaāna
+kaṯiyruⁿ
+biālāaǧazaāʾi
+ wamaāyalazamu
+mina
+ḏikari
+ǧuzaʾiⁿ
+maā
+ 
+ḏikaru
+ǧuzaʾiⁿ
+āḫara
+ 
+faālaḥaḳuu
+ǧaliysu
+ālǧuzaʾi
+ālḏauākiri
+minahu
+ waālāḫaru
+mutauṣifuⁿ
+biālġafalaŧi
+ʿani
+ālḏiu
+kari
+ 
+walaābudau
+āana
+yakuwana
+fiy
+ālāʾinasaāni
+ǧuzaʾuⁿ
+yaḏakuru
+bihi
+ yakuwnu
+ālḥaḳuu
+ǧaliysa
+ḏãlika
+ālǧuzaʾi
+ fayaḥafaẓa
+baāḳiy
+ālāaǧazaāʾi
+biālʿinaāyaŧi
+ 
+wamaāyatawa
+lauáã
+ālḥaḳuu
+hadama
+hãḏihi
+ālnauš
+aāaŧa
+bālmus
+amauáã
+mawtāaⁿ
+ falaysa
+biāʾi
+ʿdaāmiⁿ
+ waāʾinaumaā
+huwa
+tafariyḳuⁿ
+ fayaāḫuḏuhu
+āʾilayhi
+ walaysa
+ālmuraādu
+āʾilauā
+āana
+yaāḫuḏahu
+ālḥaḳuu
+āʾilayhi
+ 
+waāʾilayahi
+yuraǧaʿu
+ālāamaru
+kuluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ faāʾiḏaā
+āaḫaḏahu
+āʾilayhi
+ sawauáã
+lahu
+murakaubaⁿā
+ġayra
+hãḏaā
+ālmurakaubi
+mina
+ǧinasi
+āldauāri
+āltiy
+yanataḳilu
+āʾilayhaā
+ wahiya
+daāru
+ālbaḳaāʾi
+liwuǧuwdi
+ālaʿtidaāli
+ 
+falaā
+yamuwtu
+āabadaⁿā
+ āay
+laātafatariḳu
+āaǧazaāʾuhu
+ 
+waāamaā
+āahalu
+ālnauāri
+ famāāluhuma
+āʾilaáã
+āln
+auʿiy
+mi
+ walãkina
+fiy
+ālnauāri
+āʾiḏa
+laābudau
+liṣuw
+raŧi
+ālnauāri
+baʿada
+ānatihaāʾi
+mudauŧi
+ālʿiḳaābi
+āana
+takuwana
+baradaⁿā
+wasalaāmaⁿā
+
+āḳtbās
+mn
+swrŧ
+ālānbyāʾ
+
+ 96
+ʿalaáã
+mana
+fiyhaā
+ wahãḏaā
+naʿiymuhum
+ 
+
+35
+ā
+wǧh
+ fanaʿiyamu
+āahali
+ālnauāri
+baʿda
+asatiyfaāʾi
+ālḥuḳuwḳi
+ naʿiymu
+ḫaliylu
+āllhi
+ḥiyna
+āulaḳiya
+fiy
+ālnauāri
+ faāʾinauhu
+ʿalayhi
+ālsaulaāmu
+taʿaḏauba
+biruʾyatihaā
+wabimaā
+taʿawauda
+fiy
+ʿilamihi
+ 
+wataḳaraura
+mina
+āaniauhaā
+ṣuw
+raŧuⁿ
+tuʾlimu
+mana
+ǧaāwarahaā
+mina
+ālḥayawaāni
+ wamaāʿalima
+muraāda
+āllhi
+fiyhaā
+ 
+waminhaā
+fiy
+ḥaḳiuhi
+ 
+fabaʿda
+wuǧuwdi
+hãḏihi
+ālālaāmi
+ waǧada
+baradaⁿā
+wasalaāmaⁿā
+ maʿa
+šuhuwdi
+ālṣuwraŧi
+ālalauwniyauŧi
+fiy
+ḥaḳiuhi
+ wahiya
+naāruⁿ
+fiy
+ʿuyuwni
+ālnauāsi
+ faālšauyʾu
+ālwaāḥidu
+yatanawauʿu
+fiy
+ʿuyawni
+ālnauāẓiriyna
+ hãkaḏaā
+huwa
+āltauǧaliuya
+ālāʾilãhiyuu
+ 
+faāʾina
+šiʾ
+ta
+ḳulata
+ āʾinau
+āll
+ha
+taǧalauáã
+miṯala
+hãḏaā
+ālāamar
+ waāʾina
+šiʾta
+ḳulata
+ āʾinau
+ālʿaālama
+fiy
+ālnauẓari
+āʾilayhi
+wafiyhi
+ miṯala
+ālḥaḳau
+fiy
+āltauǧaliuy
+ 
+fayatanawauʿu
+fiy
+ʿayni
+ālnauāẓiri
+ biḥasabi
+mizaāǧi
+ālnauāẓiri
+ āaw
+yaatanawauʿu
+mizaāǧu
+ālnauāẓiri
+litanawiuʿi
+āltauǧaliuy
+ wakuluu
+hãḏaā
+saāʾiġuⁿ
+fiy
+ālḥaḳaāʾiḳi
+ 
+falawa
+āanau
+ālmayiuta
+waālmaḳatuwla
+
+ āayuu
+mayautiⁿ
+kaāna
+āaw
+āayuu
+maḳatuwliⁿ
+kaāna
+
+ āʾiḏaā
+maāta
+āawa
+ḳutila
+laāyaraǧiʿu
+āʾilaáã
+āllhi
+ lama
+yaḳaḍi
+āllhu
+bimawti
+āaḥadiⁿ
+ walaāšaraʿa
+ḳatalahu
+ 
+faālkuluu
+fiy
+ḳabaḍatihi
+ falaā
+fuḳadaāna
+fiy
+ḥaḳiuhi
+ 
+fašaraʿa
+ālḳatala
+waḥakama
+biālmawti
+ liʿilam
+ihi
+biāanau
+ʿbadahu
+laāyafuwtuhu
+ fahuwa
+raāǧiʿuⁿ
+āʾilayhi
+ 
+ʿalaáã
+āanau
+fiy
+ḳawlahu
+ 
+waāʾilayahi
+yuraǧaʿu
+ālāamaru
+kaluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ āaya
+fiyhi
+yaḳaʿu
+āltauṣaruufu
+ wahuwu
+ālmutaṣariufu
+ famaā
+ḫaraǧa
+ʿanahu
+šayʾuⁿ
+lama
+yakuna
+ʿaynahu
+ bala
+huwiyautuhu
+ʿaynu
+ḏãlika
+ālšauyʾi
+ 
+wahuwa
+ālauḏiy
+yuʿaṭiyhi
+ālkašafa
+fiy
+ḳawlihi
+ 
+waāʾiliyahi
+yuraǧaʿu
+ālāamaru
+kuluuhu
+ 
+swrŧ
+hwd
+
+ 321
+ 
+
+91
+ 
+faṣuu
+ḥikamaŧiⁿ
+ġayabiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āayuuwbiyauŧiⁿ
+aʿalama
+āanau
+sirau
+ālḥ
+ayaāŧi
+saraáã
+fiy
+ālmaā
+ʾi
+ fahuwu
+āaṣalu
+ālʿanaāṣiri
+waālāarakaā
+ni
+ waliḏ
+ãlika
+ǧaʿala
+āllhu
+
+mina
+ālmaāʾi
+kulau
+šaáaʾiⁿ
+ḥaáuⁿu
+ 
+swrŧ
+ālānbyāʾ
+
+ 03
+ wamaā
+ṯamau
+šayʾuⁿ
+āʾilauā
+wahuwa
+ḥayuⁿu
+ 
+faāʾi
+nauhu
+maā
+ṯamau
+šayaʾuⁿ
+āʾilauā
+wahuwa
+yusabiuḥu
+biḥama
+di
+āllhi
+
+āḳtb
+ās
+mn
+swrŧ
+ālāsr
+āʾ
+
+ 
+44
+ walãkin
+laā
+yuf
+aḳahu
+tasabiyaḥuhu
+āʾilauā
+bika
+šafiⁿ
+āʾilãh
+iyiⁿu
+ walaā
+yusabiuḥu
+āʾilauā
+ḥayuⁿu
+ fakuluu
+šayʾiⁿ
+ḥayuⁿu
+ fakuluu
+šayʾiⁿ
+ālmaāʾu
+āaṣluhu
+ 
+āalaā
+taraáã
+ālʿara
+ša
+kayfa
+kaāna
+ʿalaáã
+ālma
+āʾi
+ liāanauhu
+minhu
+takawau
+na
+faṭafaā
+ʿalayhi
+fahuwa
+yaḥafaẓuhu
+mina
+taḥtihi
+ kam
+aā
+āanau
+ālāʾinasaāna
+
+35
+ā
+ẓhr
+ ḫalaḳahu
+āllhu
+ʿabdaⁿā
+ fatakabaura
+ʿalaáã
+rabauhi
+waʿalaā
+ʿalayhi
+ fahuwa
+subḥaānahu
+
+ maʿa
+hãḏaā
+
+ yaḥafaẓuhu
+min
+taḥatihi
+ biālnauẓari
+āʾilá
+ʿuluwiu
+hãḏaā
+ālʿabdi
+ālǧaāhili
+binafsihi
+ 
+wahuwa
+ḳawaluhu
+ʿalayahi
+ālsaulaāmu
+ 
+law
+duliuyatuma
+biḥabaliⁿ
+lahabaṭa
+ʿalaáã
+āll
+hi
+ fiāa
+šaāra
+āʾiláã
+nisabiŧ
+āltauḥati
+āʾilayhi
+ kamaā
+nisabituhu
+ālfawḳiyauŧi
+āʾilayhi
+fy
+ḳawlihi
+ 
+yaḫaāfuwana
+rabauhuma
+mina
+fawaḳihima
+ 
+sw
+rŧ
+ālnḥ
+l
+ 05
+ 
+wahuwa
+alḳaāhiru
+fawa
+ḳa
+ʿibaādihi
+ 
+sw
+rŧ
+ālānʿām
+
+ 81
+w16
+ 
+falahu
+ālfawḳu
+wāltauḥatu
+ 
+walihãḏaā
+maāẓaharati
+ālǧihaātu
+ālsiuta
+āʾilauā
+biālāʾinasaāni
+ wahuwa
+ʿalaáã
+ṣuwaraŧi
+ālrauḥamani
+ 
+walaā
+muṭaʿima
+āʾilauā
+āllhu
+ 
+waḳada
+ḳaāla
+fy
+ḥaḳiu
+ṭaāʾifaŧiⁿ
+ 
+walawa
+āanauhuma
+āaḳaāmuwaā
+āltauwaraāŧa
+waālāʾinaǧiyala
+ 
+swrŧ
+ālmāʾd
+ŧ
+ 66
+ ṯumau
+nakaura
+waʿamau
+faḳaāla
+ 
+wamaā
+āunazila
+āʾilayah
+ima
+mina
+rabauhima
+ 
+swrŧ
+ālmā
+ʾdŧ
+
+ 66
+ fadaḫala
+fy
+ḳawlihi
+ 
+wamaā
+āunazila
+āʾilay
+ahima
+mina
+rabauhima
+
+swrŧ
+ālmāʾdŧ
+
+ 66
+ kulau
+ḥukamiⁿ
+munazaliⁿ
+ʿalaáã
+lisaāni
+rasuwliⁿ
+āawa
+mulahamiⁿ
+ 
+lāa
+kaluwā
+mina
+fawaḳihim
+ 
+swrŧ
+ālmāʾdŧ
+
+ 66
+ wahuwa
+ālamuṭaʿimu
+mina
+ālfawaḳiyauŧi
+ ālautiy
+nusibat
+āʾilayhi
+
+wamina
+taḥati
+āaraǧulihima
+ 
+swrŧ
+ālmāʾdŧ
+
+ 66
+ wahuwa
+ālmuṭaʿimu
+mina
+āltauḥatiyauŧi
+ālautiy
+nasabahaā
+āʾilá
+nafasihi
+ʿalaáã
+lisaāni
+rasuwlihi
+ālmtaraǧami
+ʿanhu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+ 
+walawa
+lama
+yakuni
+ālʿarašu
+ʿalaáã
+ālmāʾi
+maāanaḥafaẓa
+wuǧuwduhu
+ faāʾinauhu
+biālḥayaāŧi
+yanaḥafiẓu
+wuǧuwdu
+ālḥayiu
+ āalaā
+taraáã
+ālaḥayau
+āʾiḏaā
+maāta
+ālmawt
+ālʿurafiy
+tanaḥaluu
+āaǧazaāʾu
+niẓaāmihi
+ 
+watanaʿadimu
+ḳuwaāhu
+ʿana
+ḏãlika
+ālnauẓami
+ālḫaāṣiu
+ 
+ḳaāla
+taʿaālaáã
+lāayuuwba
+ 
+arakuḍa
+biriǧlika
+hãḏaā
+muġtasaluⁿ
+ 
+swrŧ
+ṣā
+
+ 24
+ 
+yaʿaniy
+ maāʾuⁿ
+baāriduⁿ
+ limaā
+kaāna
+ʿalayhi
+mina
+āʾifaraāṭi
+ḥaraāraŧi
+ālālami
+ fasakaunahu
+āllhu
+bibaradi
+ālmaāʾi
+ 
+walihãḏaā
+kaāna
+ālṭiubu
+ālnaḳaṣu
+mina
+ālzauāʾidi
+ 
+wālziuyaādaŧu
+fiy
+ālnauāḳiṣi
+ 
+faālmaḳṣuwdu
+ṭalabu
+ālaʿatidaāli
+ 
+walaā
+sabiyla
+āʾilayhi
+āʾilauā
+āanauhu
+yuḳaāribuhu
+ 
+waāʾinaumaā
+ḳulanaā
+ walaā
+sabiyla
+āʾilay
+hi
+
+ āaʿniy
+ālaʿat
+idaāli
+
+ mina
+āaǧali
+āanau
+ālḥaḳaāʾiḳa
+waālšuuhuwda
+tuʿṭiy
+āltaukwiyna
+maʿa
+ālāanafaāsi
+ʿalaáã
+āldauwaāmi
+ walaā
+yakuwnu
+āltaukawiynu
+āʾilauā
+ʿana
+mayaliⁿ
+yusamauáã
+fiy
+ālṭaubiyʿaŧi
+ 
+yusamauá
+ānaḥiraāfaⁿā
+āaw
+taʿ
+fiynaⁿā
+ 
+wafiy
+ḥaḳiu
+ālaḥaḳiu
+āʾiraādaŧuⁿ
+ wahiya
+ mayluⁿ
+āʾilá
+ālmuraādi
+ālḫaāṣiu
+duwna
+ġayrihi
+ waālaʿtidaālu
+yuʾḏinu
+biālsauwaāʾi
+fiy
+ālǧamiyʿi
+ wahãḏaā
+laysa
+biwaāḳiʿiⁿ
+ falihãḏaā
+manaʿanaā
+mina
+ḥukami
+ālaʿatidaāli
+ 
+waḳad
+warada
+fiy
+ālʿilami
+ālāʾilãhiyiu
+ālnaubawiyiu
+ atiuṣaāfu
+ālḥaḳiu
+biālriuḍaā
+waālġaḍabi
+ 
+wabiālṣiufaāti
+ 
+
+45
+wǧh
+ waālriuḍaā
+muziyluⁿ
+lilaġaḍabi
+ waālġaḍabu
+muziyluⁿ
+lilariḍaā
+ ʿana
+ālmaraḍiyiu
+ʿanahu
+ waālaʿtidaālu
+āana
+yatasaāwaáã
+ālriuḍaā
+waālġaḍabu
+ famaā
+ġaḍiba
+ālġ
+aāḍibu
+ʿalaáã
+mana
+ġaḍiba
+ʿalayhi
+ wahuwa
+ʿanahu
+raāḍiⁿ
+ faḳadi
+ātauṣafa
+biāaḥadi
+ālḥukamayni
+fiy
+ḥaḳiuhi
+ wahuwa
+mayluⁿ
+ wamaāraḍiya
+ālrauāḍiy
+ʿamauna
+raḍiya
+ʿanhu
+ wahuwa
+ġaāḍibuⁿ
+ʿalayhi
+ faḳadi
+ātauṣafa
+biāaḥidi
+ālḥukamayni
+fiy
+ḥaḳiuhi
+ wahuwa
+mayluⁿ
+ 
+waāʾinaumaā
+ḳulanaā
+hãḏaā
+ mina
+āaǧali
+mana
+yaraáã
+āanau
+āahla
+ālnauāri
+laā
+yazaālu
+ġaḍabu
+āllhi
+ʿalayhima
+daāʾimaⁿā
+āabadaⁿā
+
+ fiy
+zaʿamihi
+
+ famaā
+lahuma
+ḥukamu
+ālriuḍaā
+mina
+āllhi
+ faṣaḥau
+ālmaḳ
+aṣuwdu
+ faāʾina
+kaāna
+kama
+āḳulan
+aā
+ mā
+ālu
+āahali
+ālnauāri
+āʾiláã
+āʾizaālaŧi
+ālālaāmi
+ waāʾina
+sakanuwā
+ālnauāra
+ faḏãlika
+riḍaⁿā
+ fazaāla
+ālġaḍabu
+lizawaāli
+ālālaāmi
+ āʾiḏa
+ʿaynu
+ālāalami
+ ʿaynu
+ālġaḍabi
+ 
+āʾina
+fahimata
+ 
+famana
+ġaḍiba
+ faḳada
+taāaḏauáã
+ falaā
+yas
+aʿaáã
+fiy
+anatiḳaāmi
+ālmaġaḍuwbi
+ʿal
+ayhi
+biāʾiylaāmihi
+ 
+āʾilauā
+liyaǧida
+ālġaāḍibu
+ālrauāḥaŧa
+biḏãlika
+ fayanataḳilu
+ālālamu
+ālauḏiy
+kaāna
+ʿindahu
+āʾilaáã
+ālmaġaḍuwbi
+ʿalayhi
+ waālḥaḳuu
+āʾiḏaā
+āafradatahu
+ʿani
+ālʿaālama
+ yataʿaālaáã
+ʿuluwiⁿuā
+kabiyraⁿā
+ʿana
+hãḏihi
+ālṣiufaŧi
+ ʿalaáã
+hãḏaā
+ālḥadiu
+ waāʾiḏaā
+kaāna
+ālḥaḳuu
+huwyauŧa
+ālʿaālami
+ famaā
+ẓaharati
+ālāḥkāmu
+kuluuhaā
+āʾilauā
+fayihi
+waminhu
+ 
+wahuwa
+ḳawluhu
+ 
+waāʾilayahi
+yuraǧaʿu
+ālāamaru
+kulauhu
+ 
+swrŧ
+hwd
+
+ 321
+ ḥaḳiyaḳaŧaⁿ
+wkašafaⁿā
+ 
+wa
+aʿabudahu
+watawakaula
+ʿalayhi
+ 
+swrŧ
+hwd
+
+ 321
+ ḥiǧaābāaⁿ
+wasitaraⁿā
+ 
+falaysa
+fiy
+ālāʾimakaāni
+ āabadaʿa
+mina
+hãḏaā
+ālʿaālami
+ liāanauhu
+ʿalaáã
+ṣuwaraŧi
+ālrauḥamãn
+āawǧadahu
+āllhu
+ āaya
+ẓahara
+wuǧuwduhu
+taʿaālaáã
+biẓuhuwri
+ālʿaālami
+ kam
+aā
+ẓahara
+ālāʾinasaānu
+biwuǧuwdi
+ālṣuuwraŧi
+ālṭaubiyʿiyauŧi
+ 
+fanaḥanu
+ṣuwaratuhu
+ālẓauāhiraŧu
+ wahuwiyautuhu
+ruwḥu
+hãḏihi
+ālṣ
+uuwraŧi
+ālmudabauraŧi
+lahaā
+ famaā
+kaāna
+āltaudabiyru
+āʾilauā
+fiyhi
+ kamaā
+lama
+yakuna
+āʾilauā
+minahu
+ fahuwa
+
+ālāawaulu
+ biālmaʿanaáã
+wa
+ālāḫiru
+bālṣuwraŧi
+ wahuwa
+
+ālẓauāhiru
+ bitaġayuuri
+ālāaḥakaāmi
+waālāaḥwaāli
+ wa
+
+ālbaā
+ṭinu
+ bāltaudabiyri
+ 
+
+wahuwa
+bikuliu
+šayaʾiⁿ
+ʿaliyamiⁿ
+ 
+ḳṣ
+dābn
+ālʿ
+rby
+sw
+rŧ
+ālḥdyd
+
+ 3
+ lãkn
+wrdt
+ālāyŧ
+āyḍ
+aⁿā
+fy
+swrŧ
+ālb
+ḳrŧ
+
+ 92
+ ālānʿ
+ām
+ 101
+ fahuwa
+ʿal
+aáã
+kuliu
+šayaʾiⁿ
+šah
+iyduⁿ
+ liyaʿ
+lama
+ʿana
+šuhuwdiⁿ
+ laā
+ʿana
+fikariⁿ
+ 
+fakaḏãlika
+ʿilamu
+ālāaḏawaāḳi
+ laā
+ʿana
+fikariⁿ
+ wahuwa
+ālʿilamu
+ālṣauḥiyḥu
+ wamaāʿadaāhu
+faḥadasuⁿ
+wataḫamiynuⁿ
+ laysa
+biʿilamiⁿ
+āaṣalaⁿā
+ 
+ṯumau
+kaā
+na
+
+45
+ẓhr
+
+ liāayuuw
+ba
+ḏãlika
+ālmaā
+ʾu
+šaraābaⁿā
+ lāʾizaālaŧi
+ālami
+ālʿ
+aṭaši
+ālauḏiy
+huwa
+mina
+āln
+auṣabi
+waālʿaḏaābi
+ 
+ālauḏiy
+masauhu
+bihi
+ālšauyṭaānu
+ āay
+ ālbuʿdu
+ʿani
+ālḥaḳ
+aāʾiḳi
+āana
+yudarikahaā
+ʿalaáã
+maāhiya
+ʿalayhi
+ 
+fayakuwnu
+biāʾidaraākihaā
+fy
+maḥaliu
+ālḳuurabi
+ fakaluu
+mašahuwdiⁿ
+ḳariybuⁿ
+mina
+ālʿayni
+ walaw
+kaāna
+baʿiydaⁿā
+biālmasaāfaŧi
+ faāʾinau
+ālbaṣara
+yatauṣilu
+bihi
+mina
+ḥayṯu
+šuhuwduhu
+ walawlaā
+ḏãlika
+lama
+yašahadahu
+ āawa
+yatauṣilu
+ālmašahuwdu
+biālbaṣari
+kayfa
+kaāna
+ wahuwa
+ḳurabuⁿ
+bayna
+ālbaṣari
+waālmubaṣri
+ 
+walihãḏa
+ākanauáã
+āayuuwbu
+fiy
+ālmasiu
+
+āšārŧ
+āláã
+sw
+rŧ
+ālānb
+yā
+ʾ
+ 38
+48
+ faāaḍaā
+fahu
+āʾilaáã
+ālšauyṭaāni
+maʿa
+ḳurabi
+ālmasiu
+faḳaāla
+ ālbaʿiydu
+miniuy
+ ḳaraybuⁿ
+ liḥukamihi
+fiyau
+ 
+waḳada
+ʿalimata
+āanau
+ālbuʿda
+waālḳurab
+āamaraāni
+āʾiḍaāfiyauāni
+ fahumaā
+nisabataāni
+laā
+wuǧuwda
+lahumaā
+fiy
+ālʿayni
+ maʿa
+ṯubuwti
+āaḥakaāmihimaā
+fiy
+ālbaʿiydi
+wālḳiriybi
+ 
+waaʿalama
+āanau
+sirau
+āllhi
+fiy
+āayuuwba
+ ālauḏiy
+ǧaʿalahu
+ʿibaraŧaⁿ
+lanaā
+ wakataābaⁿā
+masaṭuwraⁿā
+ 
+ḥaākiyaⁿā
+taḳaraāuhu
+hãḏihi
+ālāumauŧu
+ālmuḥamaudiyauŧu
+ litaʿalama
+maā
+fiyihi
+ fayalaḥaḳu
+biṣaāḥibihi
+tašariyfaⁿā
+lahaā
+ 
+faāaṯanaáã
+āllhu
+ʿalayhi
+
+ āaʿaniy
+ ʿalaáã
+āayauwba
+
+ biālṣaubari
+ maʿa
+duʿaāʾihi
+fiy
+rafaʿi
+ālḍuuriu
+ʿanhu
+ faʿalim
+anaā
+āanau
+ālʿabda
+āʾiḏaā
+daʿaā
+āllha
+fiy
+kašfi
+ālḍuuri
+ʿan
+hu
+ laā
+yaḳadaḥu
+fiy
+ṣabrihi
+ 
+waāanauhu
+ṣaābiruⁿ
+ waāanauhu
+niʿama
+ālʿabadi
+ kamaā
+ḳaāla
+ 
+āʾinauhu
+āawauābuⁿ
+ 
+swrŧ
+ṣā
+
+ 71
+ 03
+ 
+44
+ āay
+ raǧauāʿuⁿ
+āʾilaáã
+āllhi
+laā
+āʾilaáã
+ālāasabaābi
+ waālḥaḳuu
+yafaʿalu
+ʿinda
+ḏãlika
+biālsau
+babi
+ 
+liāanau
+ālʿabda
+yasatanidu
+āʾilayhi
+ āʾiḏi
+ālāasabaābu
+ālmuziylaŧu
+liāamariⁿ
+maā
+kaṯayraŧuⁿ
+ waālamusabiubu
+waāḥidu
+ālʿayni
+ faruǧuwʿu
+ālʿabdi
+āʾilaáã
+ālwaāḥidi
+ālʿayni
+ ālmuziylu
+biālsaubabi
+ ḏãlika
+ālāalama
+ āawalaáã
+mina
+ālruuǧuwaʿi
+āʾilaáã
+sababiⁿ
+ḫaāṣiⁿu
+ rubaumaā
+laā
+yuwaāfiḳu
+ʿilama
+āllhi
+fiyhi
+ 
+fayaḳuwlu
+ āʾinau
+āllha
+lama
+yasataǧiba
+liy
+ wahuwa
+maādaʿaāhu
+ waāʾinaumaā
+ǧanaḥa
+āʾilaáã
+sababiⁿ
+ḫaāṣiⁿu
+ lama
+yaḳataḍiyhi
+ālzaumaānu
+walaā
+ālwaḳatu
+ 
+faʿamila
+āayuuwbu
+biḥikamaŧi
+āllhi
+ āʾiḏa
+kaāna
+nibiyiⁿuā
+ 
+lamauā
+ʿalima
+āanau
+ālṣaubara
+ālauḏiy
+huwa
+ḥabasu
+ālnaufasi
+ʿani
+ālšaukawaáã
+
+ ʿinada
+ālṭaāʾifaŧi
+
+ walaysa
+ḏãlika
+biḥadiu
+ālṣaubari
+ʿinadanaā
+ waāʾinaumaā
+ḥaduuhu
+ ḥabasu
+ālnaufasi
+ʿani
+ālšaukawaáã
+liġayri
+āllhi
+ laā
+āʾilaáã
+āllhi
+ 
+faḥ
+aǧaba
+ālṭ
+auāʾifaŧa
+
+55
+wǧh
+ naẓaruhuma
+ fiy
+āanau
+ālš
+auākiy
+yaḳadaḥu
+biā
+lšauka
+wa
+áã
+fiy
+ālriuḍaā
+biālḳaḍaāʾi
+ walaysa
+kaḏãlika
+ faāʾinau
+ālriuḍaā
+biālḳaḍaāʾi
+laātaḳadaḥu
+fiyhi
+ālšaukawaáã
+āʾilaáã
+āllh
+ wlaā
+āʾilaáã
+ġa
+yrihi
+ waāʾinaumaā
+yaḳ
+adaḥu
+fiy
+ālriuḍaā
+biālmaḳaḍi
+yiu
+ wanaḥ
+anu
+maā
+ḫuwaṭibanaā
+biālriuḍaāi
+ālmaḳaḍiyiu
+ waālḍuuruu
+huwa
+ālmaḳaḍiyuu
+ maāhuwa
+ʿaynu
+ālḳaḍaāʾi
+ 
+waʿalima
+āayuuwbu
+āanau
+fiy
+ḥabasi
+ālnaufasi
+ʿn
+ālšaukawaáã
+āʾilaáã
+āll
+hi
+ fiy
+rafaʿi
+ālḍuuriu
+ 
+muḳaāwamaŧa
+ālḳahari
+ālāʾilã
+hiyiu
+ wahuwa
+ǧahaluⁿ
+bialšauḫaṣi
+ āʾiḏa
+abatalaāhu
+āllhu
+bimaā
+tataāalaumu
+minhu
+nafasuhu
+ falaā
+yadaʿuw
+āllha
+fiy
+āʾizaālaŧi
+ḏãlika
+ālāamari
+ālamuʾlimi
+ bala
+yanabaġiy
+lahu
+
+ ʿinda
+ālmuḥ
+aḳiuḳi
+
+ ān
+yataḍarauʿa
+ wayasaāa
+la
+āllha
+fiy
+āʾizaālaŧi
+ḏãlika
+ʿanhu
+ faāʾinau
+ḏãlika
+ āʾizaālaŧuⁿ
+ʿana
+ǧanaābi
+āllhi
+ ʿinada
+ālʿaārifi
+ṣaāḥibi
+ālkašafi
+ 
+faāʾinau
+āllha
+ḳada
+waṣafa
+nafasahu
+baāanauhu
+yuʾḏaáã
+ faḳaāla
+ 
+āʾinau
+alauḏiyana
+yuʾḏuwana
+āllha
+warasuwalahu
+ 
+swrŧ
+ālāḥz
+āb
+
+ 75
+ waāayuu
+āaḏaáaⁿ
+āaʿaẓamu
+mina
+āana
+yabataliyka
+bibalaāʾiⁿ
+ʿinda
+ġafalatika
+ʿanhu
+ āaw
+ʿana
+maḳaāmiⁿ
+āʾilãhiyiⁿu
+laā
+taʿlamuhu
+ litaraǧiʿa
+āʾilayhi
+biālšaukawaáã
+ fayarafuʿuhu
+ʿanaka
+ fayaṣiḥuu
+ālafatiḳaāru
+ālauḏiy
+huwa
+ḥaḳiyḳatuka
+ fayaratafiʿu
+ʿana
+ālḥaḳiu
+ālāaḏaáã
+ 
+bisuwʾaālika
+āʾiyauāhu
+fiy
+rafaʿihi
+ʿanaka
+ āʾiḏa
+āanata
+ṣuwratuhu
+ālẓauāhiraŧu
+ 
+kamaā
+ǧaāʿa
+baʿaḍu
+ālʿaārifiyna
+fabakaáã
+ faḳaāla
+lahu
+fiy
+ḏãlika
+
+ man
+laā
+ḏawḳa
+lahu
+fiy
+hãḏaā
+ālfaniu
+
+ muʿaātibaⁿā
+lahu
+ faḳaāla
+ālʿaārifu
+ 
+āʾiniumaā
+ǧawauʿaniy
+liāabakiy
+ yaḳawalu
+ 
+
+āʾinaumaā
+abatalaāniy
+biālḍuuriu
+ liāasaāalahu
+fiy
+rafaʿihi
+ʿaniuy
+ waḏãlika
+laāyaḳadaḥu
+fiy
+kawaniy
+ṣaābiraⁿā
+ 
+faʿalimanaā
+āanau
+ālṣaub
+ara
+ āʾinaum
+aā
+huwa
+ḥabasu
+ālnaufasi
+ʿani
+ālšau
+kawaáã
+liġayari
+āllhi
+ waāaʿniy
+biālġayri
+ waǧahaⁿā
+ḫaāṣiⁿuā
+mina
+wuǧuwhi
+āllhi
+ waḳada
+ʿayauna
+ālḥaḳuu
+waǧhaⁿā
+ḫaāṣiⁿuā
+mina
+wuǧuwhi
+āllhi
+ wahuwa
+ālamusamauáã
+ 
+waǧhu
+ālhuwiyauŧi
+ fayadaʿuwhu
+mina
+ḏãlika
+ālwaǧhi
+fiy
+rafaʿi
+ālḍuuri
+ 
+laā
+mina
+ālwuǧuwhi
+ālāuḫari
+ ālmusamauāŧu
+āasabaābaⁿā
+ walaysata
+āʾilauā
+huwa
+mina
+ḥayṯu
+tafaṣiylu
+ālāamari
+fiy
+nafasihi
+ 
+faā
+lʿaā
+rifu
+laā
+yaḥaǧub
+uhu
+suwʾaāluhu
+huwiyauŧa
+ālḥaḳiu
+fiy
+rafaʿi
+ālḍuuriu
+ʿanhu
+ ʿana
+āana
+ta
+kuwna
+ǧamiyʿu
+ālāasabaā
+bi
+ʿayanahu
+ mina
+ḥayṯiyauŧiⁿ
+ḫaāṣauŧiⁿ
+ 
+55
+ẓhr
+ wahãḏaā
+laā
+yalazamu
+ṭariyḳatahu
+āʾilauā
+ālāudabaāʾu
+mina
+ʿibaādi
+āllhi
+ ālāumanaāʾu
+ʿalaáã
+āasaraāri
+āllhi
+ faāʾinau
+lilhi
+āumanaāʾu
+ laā
+yaʿarifuhuma
+āʾilauā
+āllhu
+ wayaʿarifu
+baʿaḍuhuma
+baʿaḍaⁿā
+ 
+waḳad
+naṣaḥnaāka
+faāʿamala
+ waāʾiyauāhu
+
+ subaḥaānahu
+
+ faāsaāala
+ 
+
+02
+ 
+faṣuu
+ḥikamaŧiⁿ
+ǧalaāliyauŧiⁿ
+fiy
+kalimaŧiⁿ
+yaḥayawiyauŧiⁿ
+hãḏihi
+ḥikamaŧu
+ālāawauliy
+iuŧi
+fiy
+ālāasamaāʾi
+ faāʾinau
+āllha
+sam
+auāhu
+ 
+yaḥayaáã
+ āay
+ yaḥayaā
+bihi
+ḏikaru
+za
+kariyauā
+wa
+lama
+naǧaʿal
+lauhu
+min
+ḳabalu
+samiyauā
+ 
+swrŧ
+mrym
+
+ 7
+faǧamaʿa
+bayna
+ḥuṣuwli
+ālṣiufaŧi
+ālaut
+iy
+fiymana
+ġabara
+mimauna
+taraka
+waladaⁿā
+yaḥayaā
+bihi
+ḏikaruhu
+ wabayauna
+asamahu
+biḏãlika
+ fasamauāhu
+ 
+yaḥayaáã
+ fakaāna
+asamuhu
+yuḥayiy
+kaālʿilami
+ālḏauwḳiy
+ 
+faāʾinau
+ādama
+ḥayiya
+ḏikaruhu
+bišiyaṯiⁿ
+ wanuwḥaⁿā
+ḥayiya
+ḏikaruhu
+bisaāmiⁿ
+ 
+wa
+kaḏãlika
+ālāanabiyaāʾu
+ walã
+kina
+maāǧamaʿa
+āllhu
+liāaḥadiⁿ
+ḳabala
+yaḥayaáã
+bayna
+ālasami
+ālʿalami
+minahu
+wabayna
+ālṣiufaŧi
+ āʾilauā
+lizakariyauā
+ʿinaāyaŧaⁿ
+minhu
+ 
+āʾiḏa
+ḳaāla
+ 
+haba
+liá
+mina
+ladunaka
+waliyiⁿuā
+ 
+sw
+rŧ
+mrym
+
+ 5
+ faḳ
+adauma
+ālḥ
+aḳau
+ʿal
+aáã
+ḏikari
+waladihi
+kamaā
+ḳadaumata
+āsiyaŧu
+
+ḏikara
+ālǧaā
+ri
+ʿalaáã
+āldauāri
+fiy
+ḳawalih
+aā
+ 
+ʿinadaka
+bay
+ataⁿā
+fiy
+alǧanauŧi
+ 
+swrŧ
+āltḥrym
+
+ 11
+ 
+faāakaramahu
+āll
+hu
+biāa
+na
+ḳaḍaáã
+ḥaāǧat
+ahu
+ wasamau
+āhu
+biṣ
+ifatihi
+ ḥat
+auáã
+yaku
+wna
+asam
+uhu
+tiḏa
+kaāraⁿā
+limaā
+ṭalaba
+minhu
+nabiyuuhu
+za
+kariyauā
+ liāanauhu
+ʿalayhi
+ālsaulaāmu
+āṯara
+baḳ
+aāʾa
+ḏika
+ri
+āllhi
+fiy
+ʿaḳabihi
+ āʾiḏi
+ālwaladu
+siruu
+āabiyhi
+ faḳaāla
+ 
+yariṯuniá
+wayariṯu
+mina
+āli
+yaʿaḳuwba
+ 
+swrŧ
+mrym
+
+ 6
+walaysa
+ṯamau
+mawruwṯuⁿ
+fiy
+ḥaḳiu
+haʾlaāʾi
+āʾilauā
+maḳaāma
+ḏikari
+āllhi
+waāldauʿwaŧi
+āʾilayhi
+ 
+ṯumau
+āʾinauhu
+bašaurahu
+bimaā
+ḳadaumahu
+mina
+salaāmihi
+ʿalayhi
+yawma
+wulida
+ wayawma
+yam
+uwtu
+ wayaw
+ma
+yubaʿaṯu
+ḥayiⁿuā
+ faǧaā
+ʾa
+biṣif
+aŧi
+ālḥ
+ayaāŧi
+ wahiya
+asamuhu
+ waāaʿalama
+bisalaāmihi
+ʿalayhi
+ wakala
+āmuhu
+ṣidaḳuⁿ
+ 
+fahuwa
+maḳaṭuwʿuⁿ
+bihi
+ 
+waāʾina
+kaāna
+ḳawlu
+ālruuwḥi
+ 
+waalsaulaãmu
+ʿalayau
+yawama
+wulidtuu
+wayawama
+āamuwatu
+wayawama
+āubaʿaṯu
+ḥayiⁿuā
+ 
+swrŧ
+mrym
+
+ 33
+ āakamala
+fiy
+ālatiuḥaādi
+ fahãḏaā
+āakamalu
+fiy
+ālatiuḥaādi
+waālaʿatiḳaādi
+ waāarafaʿu
+liltauāwiyalaāti
+ 
+faāʾinau
+ālauḏiy
+anaḫaraḳata
+fiyhi
+ālʿaādaŧu
+fiy
+ḥaḳiu
+ʿiysaáã
+āʾinaumaā
+huwa
+ālnuuṭaḳu
+ 
+faḳada
+tamakauna
+ʿaḳaluhu
+watakamaula
+fiy
+ḏãlika
+ālzaumaāni
+ālauḏiy
+āanaṭaḳahu
+āllhu
+fiyhi
+ walaā
+yalazamu
+lilamatamakiuni
+mina
+ālnuuṭaḳi
+
+ ʿalaáã
+āayiu
+ḥaālaŧiⁿ
+ kaāna
+
+ ālṣiudaḳu
+fiymaā
+bihi
+yanaṭiḳu
+ 
+biḫilaāfi
+ālmašahuwdi
+lahu
+kayaḥayaáã
+ 
+fasalaāmu
+ālḥ
+aḳiu
+ʿalaáã
+yaḥayaáã
+
+ mina
+hãḏa
+āālwaǧhi
+
+ āarafaʿu
+lilaāilat
+ibaāsi
+ālwaāḳiʿi
+fiy
+ālʿinaāyaŧi
+ālāʾilãhiyauŧi
+
+65
+wǧh
+ bihi
+mina
+salaāmi
+ʿiysaáã
+ʿalaáã
+nafasihi
+ 
+waāʾina
+kaānata
+ḳaraāʾinu
+ālāaḥawaāli
+taduluu
+ʿalaáã
+ḳurabihi
+mina
+āllhi
+fiy
+ḏãlika
+waṣidaḳihi
+ āʾiḏa
+naṭaḳa
+fiy
+maʿariḍi
+āldiulaālaŧi
+ʿalaáã
+barāʾaŧi
+āumauhi
+fiy
+ālmahdi
+ 
+fahuwa
+āaḥadu
+ālšauāhidayni
+ waālšauāhidu
+ālāḫiri
+ hazuⁿui
+llaǧiḏaʿi
+ālyaābisi
+ fasaḳaṭa
+ruṭabaⁿā
+ǧaniyiⁿuā
+ 
+mina
+ġayri
+faḥaliⁿ
+walaātaḏakiyriⁿ
+ 
+kamaā
+waladata
+marayamu
+ʿiysaáã
+mina
+ġayri
+faḥaliⁿ
+ walaā
+ḏa
+kariⁿ
+ walaāǧimaāʿiⁿ
+ʿurfiyiu
+muʿataādiⁿ
+ 
+law
+ḳaāla
+nab
+iyuⁿu
+ 
+āyatiy
+wamuʿaǧizatiy
+āana
+yanaṭiḳa
+hãḏaā
+ālḥaā
+ʾiṭu
+ fanaṭaḳa
+ālḥaāʾiṭu
+ 
+waḳaāla
+fiy
+nuṭaḳihi
+ 
+takaḏibu
+ maā
+āanata
+rasuwlu
+āll
+hi
+ laṣaḥ
+auti
+ālāyaŧu
+waṯabata
+bih
+aā
+āanauhu
+rasuwlu
+āllhi
+ walama
+yulatafata
+āʾilaáã
+maā
+naṭaḳa
+bihi
+ālḥaā
+ʾiṭu
+ falamauā
+daḫala
+hãḏaā
+ālaḥat
+imaālu
+fiy
+kalaāmi
+ʿiysaáã
+biāʾišaāraŧi
+āumauhi
+āʾilayhi
+ 
+wahuwa
+fiy
+ālmahadi
+ kaāanauhu
+yanuṣuu
+ 
+ kaāna
+salaāmu
+yaḥayaáã
+āarafaʿa
+mina
+hãḏaā
+ālwaǧahi
+ 
+famawḍiʿu
+āldiulaālaŧi
+
+āanauhu
+ʿabduāllhi
+ mina
+āaǧali
+maāḳiyla
+fiyhi
+ 
+āʾinauhu
+abanu
+āllhi
+ 
+wafaraġata
+āldiulaālaŧu
+bimuǧaraudi
+ālniuṭaḳi
+ wa
+āanauhu
+ʿabduāllhi
+ ʿinada
+ālṭauāʾifaŧi
+ālāuḫaraáã
+ 
+ālḳaāʾilaŧu
+biālnuubuwauŧi
+ wabaḳiya
+maāzaāda
+fiy
+ḥukami
+āliaḥatimaāli
+fiy
+ālnauẓari
+ālʿaḳaliyiu
+ ḥatauáã
+ẓaha
+ra
+fiy
+ālmusataḳ
+abali
+ṣidaḳuhu
+fiy
+ǧamiyʿi
+maā
+āaḫabara
+bihi
+fiy
+ālmahadi
+
+ fataḥaḳauḳa
+maā
+āaša
+ranaā
+āʾilayhi
+ 
+
+12
+ 
+faṣuu
+ḥikamaŧiⁿ
+maālikiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+za
+karayauāwiyauŧiⁿ
+aʿalama
+āanau
+raḥamaŧa
+āllhi
+wasiʿata
+kulau
+šayʾiⁿ
+ 
+wuǧuwdaⁿā
+waḥukamaⁿā
+ waāanau
+wuǧuwda
+ālġaḍ
+abi
+min
+raḥamaŧi
+
+āllhi
+biā
+lġaḍabi
+ fasabaḳata
+raḥamatuhu
+ġaḍabahu
+
+āay
+ sabaḳ
+ata
+nisabaŧu
+ālrauḥamaŧi
+āʾilayhi
+ nisabaŧa
+ālġaḍabi
+āʾilayhi
+ 
+walamauā
+kaāna
+likuliu
+ʿayniⁿ
+wuǧuwduⁿ
+ yaṭalubuhu
+
+mina
+āllhi
+ liḏãlika
+ʿam
+auta
+raḥam
+atuhu
+kulau
+ʿayniⁿ
+ 
+faāʾinauhu
+biraḥamatihi
+ālautiy
+raḥimahu
+bihaā
+ 
+ḳabila
+raġabatahi
+fiy
+wuǧuwadi
+ʿayanihi
+ 
+faāawaǧadahaā
+ faliḏãlika
+ḳulanaā
+ āʾinau
+raḥamaŧa
+āllhi
+wasiʿata
+kulau
+šayʾiⁿ
+ 
+wuǧuwadaⁿā
+waḥukamaⁿā
+ 
+waālāasamaāʾu
+ālāʾilãhiyauŧu
+mina
+ālāašayaāʾi
+ wahiya
+taraǧiʿu
+āʾilaáã
+ʿayniⁿ
+waāḥidaŧiⁿ
+ faāawaulu
+maāwasiʿata
+raḥamaŧu
+āllhi
+ šayaʾiyauŧa
+tilaka
+ālʿayni
+ ālmuwǧidaŧi
+lilrauḥamaŧi
+biālrauḥamaŧi
+ 
+faāawaulu
+šayʾiⁿ
+wasiʿatahu
+ālrauḥamaŧu
+nafasahaā
+ ṯumau
+ālšauyaʾiyauŧa
+ālmušaāra
+āʾilayahaā
+ ṯumau
+šauyaʾiyauŧa
+kuliu
+mawaǧuwdiⁿ
+
+65
+ẓhr
+ yuwǧadu
+āʾiláã
+maālaāyatanaāhaáã
+ dunayaā
+waāḫiraŧaⁿ
+ waʿara
+ḍaⁿā
+waǧaw
+haraⁿ
+ā
+ 
+wamurakaubaⁿā
+wabasiyṭaⁿā
+ 
+walaāyuʿatabaru
+fiyhaā
+ḥuṣuw
+lu
+ġara
+ḍiⁿ
+walaā
+mulaāʾamaŧu
+ṭabaʿiⁿ
+ bala
+
+ ālmulaāʾimu
+waġay
+ru
+ālmulaāʾimi
+
+ kuluuhu
+wasiʿatahu
+ālrauḥamaŧu
+ālāʾilãhiyauŧu
+wuǧuwdaⁿā
+ 
+waḳada
+ḏakaranaā
+fiy
+ālfutuwaḥaāti
+āanau
+ālāaṯara
+laāyakuwnu
+āʾilauā
+lilamaʿaduwmi
+laā
+lilamawǧuwdi
+ 
+waāʾina
+kaāna
+lilamawǧuwdi
+fayaḥakumu
+ālamaʿaduwmu
+ wahuwa
+ʿilamuⁿ
+ġiriybuⁿ
+ wamasaāalaŧuⁿ
+naādiraŧuⁿ
+ 
+walaāyaʿalamu
+taḥaḳiyḳahaā
+āʾilauā
+āaṣaḥaābu
+ālāawhaāmi
+ faḏãlika
+biālḏauwḳi
+ʿindahuma
+ waāamauā
+mana
+laāyuwʾaṯiuru
+ālwahmu
+fiyhi
+ fahuwa
+baʿayduⁿ
+ʿana
+hḏihi
+ālmasaāalaŧi
+ālbsyṭ
+1
+faraḥamaŧu
+āllhi
+fiy
+ālāa
+kawaāni
+saāriyaŧuⁿ
+wafiy
+ālḏauwaāti
+wfiy
+ālāaʿayaāni
+ǧaāriyaŧuⁿ
+2
+makaānaŧu
+ālrauḥamaŧi
+ālmuṯalaáã
+āʾiḏaā
+ʿulimata
+mina
+ālšuuhuwdi
+maʿa
+ālāafakaāri
+ʿaāliyaŧuⁿ
+fakuluu
+mana
+ḏakaratahu
+ālrauḥamaŧu
+faḳada
+saʿida
+ wamaā
+ṯamau
+āʾilauā
+mana
+ḏakaratahu
+ālrauḥamaŧu
+ waḏikaru
+ālrauḥamaŧi
+ālāašayaāʾa
+ʿaynu
+āʾiyǧaādihaā
+āʾiyauāhaā
+ fakuluu
+mawǧuwdiⁿ
+maraḥuwmuⁿ
+ walaātuḥaǧaba
+
+yaā
+waliuyuu
+
+ ʿana
+āʾidaraāki
+maāḳul
+naā
+hu
+ bimaā
+taraāhu
+mina
+āaṣaḥaābi
+ālbalaāʾi
+ wamaā
+tuʾminu
+bihi
+mina
+ālaāmi
+ālāḫiraŧi
+ ālautiy
+laātafaturu
+ʿamauna
+ḳaāmata
+bihi
+ 
+waaʿalama
+āawaulaⁿā
+āanau
+ālrauḥamaŧa
+āʾinaumaā
+hiya
+fiy
+ālāʾiyǧaādi
+ʿaāmauŧuⁿ
+ fabiālrauḥamaŧi
+biālālaāmi
+ 
+āawǧada
+ālālaāma
+ 
+ṯumau
+āʾinau
+ālrauḥamaŧa
+lahaā
+ālāaṯaru
+biwaǧahayni
+ āaṯaruⁿ
+biālḏauāti
+ wahuwa
+āʾiyǧaāduhaā
+kulau
+ʿayniⁿ
+mawaǧuwdaŧiⁿ
+ walaātanaẓura
+āʾilaáã
+ġaraḍiⁿ
+walaā
+āʾiláã
+ʿadami
+ġaraḍiⁿ
+ walaā
+āʾilaáã
+mulaāʾimiⁿ
+walaā
+āʾilaáã
+ġayri
+mulaāʾimiⁿ
+ faāʾinauhaā
+naāẓiraŧuⁿ
+fiy
+ʿayni
+kuliu
+mawaǧuwdiⁿ
+ ḳabila
+wuǧuwdihi
+ bala
+tanaẓuruhu
+fiy
+ʿayni
+ṯubuwtihi
+ 
+walihãḏa
+āraāati
+ālḥ
+aḳau
+ālma
+ḫaluw
+ḳa
+fiy
+ālaʿat
+iḳaādaāti
+ʿayanaⁿā
+ṯaā
+bit
+aŧaⁿ
+fiy
+ālʿ
+uyuwni
+ālṯauā
+bita
+ŧi
+ 
+faraḥimatahu
+binafasihaā
+biālāʾiyǧaādi
+ 
+waliḏãlika
+ḳulanaā
+ āʾinau
+ālaḥaḳau
+ālmaḫaluwḳa
+fiy
+ālaāʿatiḳaādaāti
+ āawaulu
+šayʾiⁿ
+maraḥuwmiⁿ
+ 
+baʿda
+raḥmatihaā
+binafashaā
+ fiy
+taʿaluuḳihaā
+biāʾiyǧaādi
+ālmaraḥuwmiyni
+ 
+walahaā
+āaṯaruⁿ
+āḫaru
+biālsuuwʾaāli
+ fayasaāalu
+ālmaḥaǧuwbuwna
+ālḥaḳau
+āana
+yaraḥamahuma
+fiy
+aʿatiḳaādihima
+ 
+waāahalu
+ālkašafi
+yasaāaluwna
+raḥamaŧa
+
+āllhi
+āana
+taḳuwma
+bihima
+ fayasaāaluwnahaā
+biasami
+āllhi
+fayaḳuwluwna
+ 
+75
+wǧh
+ 
+yaā
+āllhu
+araḥamanaā
+ walaā
+yaraḥamuhuma
+āʾilauā
+ḳiyaāmu
+ālrauḥamaŧi
+bihima
+ 
+falahaā
+ālḥukamu
+liāanau
+ālḥukama
+āʾinaumaā
+huwa
+fiy
+ālḥaḳiyḳaŧi
+ lilamaʿanaáã
+ālḳaāʾimi
+biālmaḥaliu
+ 
+fahu
+wa
+ālrauāḥimu
+ʿalaáã
+ālḥaḳiyḳaŧi
+ falaā
+yaraḥamu
+āllhu
+ʿibaādahu
+ālmuʿatanaáã
+bihima
+āʾilauā
+biālrau
+ḥamaŧi
+ 
+faāʾiḏaā
+ḳaāmata
+bihima
+ālrauḥamaŧu
+ 
+waǧaduwā
+ḥukamahaā
+ḏawḳāaⁿ
+ 
+famana
+ḏakaratahu
+ālrauḥamaŧu
+faḳada
+ruḥima
+ waasamu
+ālfaāʿili
+huwa
+ 
+ālrauḥiymu
+wa
+ālrauāḥimu
+ 
+waālḥukamu
+laāyatauṣifu
+biālḫalaḳi
+ liāanauhu
+āamaruⁿ
+tuwaǧibuhu
+ālmaʿaāniy
+liḏawaātihaā
+ 
+faālāaḥawaālu
+laāmawaǧuwdaŧuⁿ
+walaāmaʿaduwmaŧuⁿ
+ āaya
+ laā
+ʿayana
+lahaā
+fiy
+ālwuǧuwdi
+ lāanauhaā
+nisabaŧuⁿ
+ walaāmaʿaduwmaŧuⁿ
+fiy
+ālḥukami
+ lāanau
+ālauḏiy
+ḳaāma
+bihi
+ālʿilamu
+ yusamauáã
+ʿaālimaⁿā
+ wahuwa
+ālḥaālu
+ 
+faʿaālimuⁿ
+ḏaātuⁿ
+mawaṣuwfaŧuⁿ
+biālʿilami
+ maāhuwa
+ʿaynu
+ālḏauāti
+ walaā
+ʿaynu
+ālʿ
+ilami
+ wamaā
+ṯamau
+āʾilauā
+ʿilamuⁿ
+waḏaātuⁿ
+ ḳaāma
+bihaā
+hãḏaā
+ālʿilamu
+ wa
+kawnuhu
+ʿaālimaⁿā
+ ḥaāluⁿ
+lihãḏihi
+ālḏauāti
+ biātiuṣaāfihaā
+bihãḏaā
+ālmaʿanaáã
+ faḥadaṯata
+nisabiŧu
+ālʿilmi
+āʾilayhi
+ fahuwa
+ālmusamauáã
+ʿaālimaⁿā
+ 
+waālrauḥamaŧu
+
+ ʿalaáã
+ālḥaḳ
+iyḳ
+aŧi
+
+ nisabiŧuⁿ
+mina
+ālrauāḥimi
+ wahiya
+ālmuwǧibaŧu
+ll
+ḥukami
+ 
+fahi
+ya
+ālrauāḥimaŧu
+ waālauḏiy
+āawǧadahaā
+fiy
+ālmaraḥuwmi
+ maā
+āawǧadahaā
+liyarḥamahu
+bihaā
+ wiāʾinaumaā
+āawaǧadahaā
+liyaraḥama
+bihaā
+mana
+ḳaāmata
+bihi
+ 
+wahuwa
+subaḥaānahu
+ laysa
+bimaḥaliⁿu
+lilaḥawaādiṯi
+ fal
+aysa
+bimaḥ
+aliⁿu
+lāʾiyǧaādi
+ālrauḥamaŧi
+fiyhi
+ 
+wahuwa
+ālrauāḥimu
+ falaāyakuwnu
+ālrauāḥimu
+raāḥimaⁿā
+āʾilauā
+biḳiyaāmi
+ālrauḥmaŧi
+bihi
+ faṯabata
+āanauhu
+ʿaynu
+ālrauḥamaŧi
+ 
+wamana
+lam
+yaḏu
+ḳa
+hãḏaā
+ālāamara
+ walaā
+kaā
+na
+lahu
+fiyhi
+ḳadamuⁿ
+ maā
+aǧatara
+āa
+āana
+yaḳ
+uwla
+ āanauhu
+ʿaynu
+ālrauḥamaŧi
+āaw
+ʿaynu
+ālṣiufaŧi
+ faḳaāla
+ maāhuwa
+ʿaynu
+ālṣiufaŧi
+walaāġayruhaā
+ faṣifaātu
+ālḥaḳiu
+ʿinadahu
+laā
+hiya
+huwa
+ walaā
+hiya
+ġayruhu
+ liāanauhu
+laā
+yaḳadiru
+ʿalaáã
+nafayihaā
+ walaāyaḳadiru
+āana
+yaǧaʿl
+ahaā
+ʿayanahu
+ faʿadala
+āʾilaáã
+hãḏihi
+ālʿibaāraŧi
+ wahiya
+ʿib
+aāraŧuⁿ
+ḥas
+anaŧuⁿ
+ waġayruhaā
+āaḥaḳuu
+biālāamari
+minahaā
+ waāarafaʿu
+lilāʾišakaāli
+ 
+wahuwa
+ālḳawlu
+binafayi
+āaʿayaāni
+ālṣiufaāti
+ wuǧuwdaⁿā
+ḳaāʾimaⁿā
+biḏaāti
+ālmawṣuwfi
+ 
+waāʾinaumaā
+hiya
+nisabuⁿ
+waāʾiḍaāfaātuⁿ
+ bayna
+ālmawaṣuwfi
+bihaā
+wabayna
+āaʿyaānihaā
+ālmaʿaḳuwlaŧi
+ 
+waāʾina
+kaānati
+ālrauḥam
+aŧu
+ǧaāmiʿaŧaⁿ
+ faāʾinauh
+aā
+biā
+lnisabiŧi
+āʾilaáã
+
+75
+ẓhr
+
+ kuliu
+asamiⁿ
+āʾilãh
+iyiⁿu
+muḫatalifaŧuⁿ
+ falih
+ãḏaā
+yusaāalu
+subaḥaānahu
+āan
+yaraḥama
+bikuliu
+asamiⁿ
+āʾilãhiyiⁿu
+ faraḥamaŧu
+
+āllhi
+waālkinaāyaŧu
+hiya
+ālautiy
+wasiʿata
+kulau
+šayaʾiⁿ
+ 
+ṯumau
+lahaā
+šuʿabuⁿ
+kaṯiyaraŧuⁿ
+ tataʿadaudu
+bitaʿaduudi
+ālāusamaāʾi
+ālāʾilãhiyauŧi
+ famaā
+taʿumuu
+biālnisabiŧi
+āʾilaáã
+ḏãlika
+ālasami
+ālḫaāṣiu
+ālāʾilãhiyiu
+ fiy
+ḳawli
+ālsauāʾili
+ 
+yaā
+rabiu
+araḥam
+ waġayri
+ḏãlika
+mina
+ālāasamaāʾi
+ ḥatauáã
+ālmunataḳimu
+ lahu
+āana
+yaḳuwla
+ 
+yaāmunataḳimu
+araḥamaniya
+ 
+waḏãlika
+āanau
+hãḏihi
+ālāasamaāʾa
+taduluu
+ʿalaáã
+ālḏauāti
+ālmusamauāŧi
+ wataduluu
+biḥaḳaāʾiḳihaā
+ʿalaáã
+maʿaāniⁿ
+muḫatalifaŧiⁿ
+ fayadaʿuw
+bihaā
+fiy
+ālrauḥamaŧi
+ mina
+ḥayṯu
+dalaālatihaā
+ʿal
+aáã
+ālḏauāti
+ 
+ālamusamauāŧi
+biḏãlika
+ālasami
+laāġayruⁿ
+ 
+laā
+bimaā
+yuʿ
+aṭiyhi
+mada
+luwlu
+ḏãlika
+ālasami
+ ālauḏi
+yyanaf
+aṣilu
+bihi
+ʿana
+ġay
+rihi
+wayatamayau
+zu
+ faāʾinauhu
+laāyatamayauzu
+ʿana
+ġayrihi
+ wahuwa
+ʿinadahu
+daliylu
+ālḏauāti
+ waāʾinaumaā
+yatamayauzu
+binafasihi
+ʿana
+ġayrihi
+liḏaātihi
+ āʾiḏa
+ālm
+uṣaṭalaḥu
+ʿalayhi
+
+ biāa
+yiu
+lafaẓiⁿ
+kaāna
+
+ ḥaḳiy
+ḳaŧuⁿ
+mutamayiuzaŧuⁿ
+biḏaātih
+aā
+ʿana
+ġayrihaā
+ 
+waāʾina
+kaāna
+ālkuluu
+ḳada
+siyaḳa
+liyadulau
+ʿalaáã
+ʿayaniⁿ
+waāḥidaŧiⁿ
+musamauāŧiⁿ
+ falaā
+ḫilaāfa
+fiy
+āanauhu
+likuliu
+asamiⁿ
+ḥukamuⁿ
+laysa
+lilāḫa
+ri
+ fḏãlika
+āayḍaⁿā
+yanabaġiy
+āana
+yuʿatabara
+kamaā
+yuʿatabaru
+dalaālatuhaā
+ʿalaáã
+ālḏauāti
+ālmusamauāŧi
+ 
+walihãḏaā
+ḳaā
+la
+āabuwālḳaāsimi
+banu
+ḳasiyiⁿu
+fiy
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+
+ āʾinau
+kulau
+asamiⁿ
+āʾilãhiyiⁿu
+ʿal
+aáã
+anafira
+ādihi
+ musamauáaⁿ
+biǧamiyʿi
+ālāasamaāʾi
+ālāʾilãhiyau
+ŧi
+kuliuhaā
+ āʾiḏaā
+ḳadaumtahu
+fiy
+ālḏiukari
+ naʿa
+tauhu
+biǧamiyʿi
+ālāasamaāʾi
+ wḏãlika
+lidalaālatihaā
+ʿalaáã
+ʿayniⁿ
+waāḥidaŧiⁿ
+ waāʾina
+takaṯaurati
+ālāasamaāʾu
+ʿalayhaā
+ waaḫatalafata
+ḥaḳaāʾiḳuhaā
+ āay
+ ḥaḳaāʾiḳu
+tilaka
+ālāasamaāʾi
+ 
+ṯumau
+āʾinau
+ālrauḥama
+ŧa
+tunaā
+lu
+ʿal
+aáã
+ṭariyḳay
+ani
+ ṭariyḳu
+ālwuǧuw
+bi
+ wahuwa
+ḳawaluhu
+ 
+fasaāakatubuhaā
+lilauḏiyana
+yatauḳuwna
+wayuʾtuwna
+ālzaukawãŧa
+ 
+swrŧ
+ālāʿrāf
+
+ 651
+ wamaāḳayaudahuma
+bihi
+mina
+ālṣiufaāti
+ālʿamaliyauŧi
+waālʿilamiyauŧi
+ 
+waālṭauriyaḳu
+ālāḫaru
+ālauḏiy
+tunaālu
+bihi
+hãḏihi
+ālrauḥamaŧu
+ ṭariyḳu
+ālamatinaāni
+ālāʾilãhiyiu
+ 
+ālauḏiy
+laāyaḳ
+atarinu
+bihi
+ʿamaluⁿ
+
+wahuwa
+ḳawluhu
+ 
+waraḥamat
+iá
+wasiʿata
+kulau
+šaáʾiⁿ
+ 
+sw
+rŧ
+ālāʿr
+āf
+
+ 651
+ waminahu
+ḳiyala
+ 
+liyaġafira
+laka
+āllhu
+maātaḳadauma
+mina
+ḏanabika
+wamaātaāaḫaura
+ 
+sw
+rŧ
+ālftḥ
+
+ 2
+waminahaā
+ḳawaluhu
+ 
+aʿamala
+maā
+šiʾta
+faḳada
+ġafaratu
+laka
+ faāʿalama
+ḏãlika
+ 
+
+85
+wǧh
+
+22
+ 
+faṣuu
+ḥikamaŧiⁿ
+āʾiyanaāsiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+āʾilyaāsiyauŧiⁿ
+āʾilayaā
+su
+
+ wahuwa
+āʾidariysu
+
+ kaāna
+nabiyiⁿuā
+ḳabala
+nuwḥiⁿ
+ warafaʿahu
+āllhu
+mkaānaⁿā
+ʿaliyiⁿuā
+ 
+fahuwa
+fiy
+ḳalabi
+ālāafalaāki
+saākinuⁿ
+wahuwa
+falaku
+ālšaumasi
+ ṯumau
+buʿiṯa
+āʾiláã
+ḳarayaŧi
+baʿalabakau
+ 
+wa
+
+baʿaluⁿ
+ asamu
+ṣanamiⁿ
+ wa
+
+bakau
+ huwa
+sulaṭaānu
+tilaka
+ālḳarayaŧi
+ wakaāna
+hãḏaā
+ālṣaunamu
+ālmusamauáã
+baʿalaⁿā
+ maḫaṣuwṣaⁿā
+biā
+lmaliki
+ wa
+kaāna
+āʾilayaā
+su
+
+ ālauḏiy
+huwa
+āʾidariysu
+
+ ḳad
+muṯiula
+lah
+anafilaāḳu
+ālǧabali
+ālmusamauáã
+lubanaāna
+
+ mina
+ālliubaānaŧi
+wahiya
+ālḥaāǧaŧu
+
+ ʿana
+farasiⁿ
+mina
+naāriⁿ
+ waǧamiyʿu
+ālaātihi
+mina
+naāriⁿ
+ falamauā
+rāhu
+ra
+kiba
+ʿalayhi
+ 
+fasaḳaṭata
+ʿanhu
+ālš
+auhawaŧu
+ fakaāna
+ʿaḳalaⁿā
+bilaā
+šahawaŧiⁿ
+ falama
+yabaḳa
+lahu
+taʿaluuḳuⁿ
+bimaā
+tataʿal
+auḳu
+bihi
+ālāaġaraāḍu
+ālnaufasiyauŧu
+ 
+fakaāna
+ālḥaḳuu
+fiy
+hi
+munazauhaⁿā
+ 
+wakaāna
+ʿaláã
+ālniuṣafi
+mina
+ālmaʿarifaŧi
+biāllhi
+ faāʾinau
+ālʿaḳ
+ala
+āʾiḏaā
+taǧarauda
+linafasihi
+mina
+ḥayṯu
+āaḫaḏu
+hu
+ālʿul
+uwma
+ʿana
+naẓa
+rihi
+ kaānata
+maʿari
+fat
+uhu
+biāll
+hi
+ʿaláã
+āltaunaziyhi
+laā
+ʿaláã
+āltaušabiyhi
+ 
+waāʾiḏaā
+āaʿaṭaāhu
+āllhu
+ālm
+aʿarifaŧa
+biāltauǧaliuy
+ kamu
+lata
+maʿarifatuhu
+biāllhi
+ fanazauha
+fiy
+mawḍiʿiⁿ
+ 
+wašabauha
+fiy
+mawḍiʿiⁿ
+ 
+waraāaáã
+sarayaāna
+ālḥaḳiu
+fiy
+ālṣuuwari
+ālṭaubiy
+ʿiyauŧi
+waālʿunaṣuriyauŧi
+ wamaābaḳiyata
+lahu
+ṣuwraŧuⁿ
+ālauā
+wayaraáã
+ʿayna
+ālḥaḳiu
+ʿaynahaā
+ 
+whãḏihi
+ālmaʿarifaŧu
+āltauāmauŧu
+ālautiy
+ǧaāʾata
+bihaā
+ālšauraāʾiʿu
+ālmunazalaŧu
+mina
+ʿinada
+āllhi
+ 
+waḥakamata
+bihãḏihi
+ālmaʿarifaŧi
+ālāawahaāma
+kulauhaā
+ 
+waliḏãlika
+kaānata
+ālāawahaāmu
+āaḳawaáã
+sulaṭaānaⁿā
+fiy
+hãḏihi
+ālnaušaāaŧi
+mina
+ālʿaḳuwli
+ liāanau
+ālʿaāḳila
+walaw
+balaġa
+maā
+balaġa
+
+ fiy
+ʿaḳalihi
+
+ lama
+yaḫalu
+ʿana
+ḥukami
+ālwahami
+ʿalayhi
+ 
+waāltauṣawuuri
+fiymaā
+ʿaḳila
+ 
+faālwahamu
+huwa
+ālsuulṭaānu
+ālāaʿaẓamu
+fiy
+hãḏihi
+ālṣuuwraŧi
+ālkaāmilaŧi
+ālāʾinasaāniyauŧi
+ wibihi
+ǧaāʾati
+ālšauraāʾiʿu
+ālmunazalaŧu
+ fašabauhata
+wanazauhata
+ šabauhata
+fiy
+āltaunaziyhi
+biālwahami
+ 
+wanazauhata
+fiy
+āltaušabiyhi
+biālʿaḳali
+ faaratabaṭa
+ālkuluu
+biālkuliu
+ falama
+yatamakauna
+āana
+yaḫaluwa
+tanaziyahuⁿ
+ʿana
+tašabiyahiⁿ
+ walaā
+tašabiyahuⁿ
+ʿana
+tanaziyahiⁿ
+ 
+ḳaāla
+āllhu
+taʿaāláã
+ 
+layasa
+kamiṯalihi
+šaáaʾuⁿ
+ 
+swrŧ
+ālšwráã
+
+ 11
+ 
+85
+ẓhr
+fanazauha
+wašabauha
+ 
+wahuwa
+alsaumiyʿu
+albaṣiyru
+ 
+swrŧ
+ālšwráã
+
+ 11
+ fašabauha
+ 
+wahiya
+āaʿaẓ
+amu
+āyaŧu
+tan
+aziyhiⁿ
+nazalata
+ wamaʿa
+ḏãlika
+lama
+taḫalu
+ʿana
+tašabiyhiⁿ
+biālkaāfi
+ fahuwa
+āaʿalamu
+ālʿulamaāʾi
+binafasihi
+ wamaā
+ʿabaura
+ʿana
+nafasihi
+āʾilauā
+bimaā
+ḏakaranaāhu
+ ṯumau
+ḳaāla
+ 
+subaḥaãna
+rabauka
+rabiu
+alʿizauŧi
+ʿamauā
+yaṣifuwna
+ 
+swrŧ
+ālṣāfāt
+
+ 081
+ 
+wamaā
+yaṣifuw
+nahu
+āʾilauā
+bima
+ātuʿaṭiyhi
+ʿuḳ
+uwluh
+uma
+ fanazauha
+nafas
+ahu
+ʿana
+tanaziyhihima
+ āʾiḏa
+ḥadauduwhu
+bḏãlika
+āltanaziyhi
+ waḏãlika
+liḳuṣuwri
+ālʿuḳuwli
+ʿana
+āʾidaraāki
+miṯali
+hãḏaā
+ 
+ṯumau
+ǧaāʾta
+ālšauraāʾiʿu
+kuluuhaā
+bimaā
+taḥakumu
+bihi
+ālāawahaāmu
+ falama
+tuḫali
+ālḥaḳau
+ʿana
+ṣifaŧiⁿ
+yaẓaharu
+fiyhaā
+ kaḏaā
+ḳaālata
+ wabiḏaā
+ǧaāʾata
+ faʿamilata
+ālāumamu
+ʿaláã
+ḏãlika
+ 
+faāʿaṭaāhaā
+ālḥaḳuu
+āltauǧaliuy
+ falaḥiḳata
+biālruusuli
+wiraāṯaŧaⁿ
+ fanaṭaḳata
+bimaā
+naṭaḳata
+bihi
+rusulu
+āllhi
+ 
+allhu
+āaʿalamu
+ḥayaṯu
+yaǧaʿalu
+risaālaātihi
+ 
+swrŧ
+ālānʿām
+
+ 421
+ 
+waāllhu
+āaʿalamu
+ muwaǧiuhuⁿ
+lahu
+ waǧhuⁿ
+biālḫabariyauŧi
+āʾiláã
+rusuli
+āllhi
+ walahu
+waǧhuⁿ
+biālabatida
+āʾi
+āʾiláã
+
+āaʿalamu
+ḥay
+aṯu
+yaǧaʿ
+alu
+risaā
+laātihi
+ 
+sw
+rŧ
+ālānʿ
+ām
+
+ 421
+ wa
+kilaā
+ālwaǧh
+ayni
+ḥaḳiy
+ḳaŧuⁿ
+fiyhi
+ liḏãlika
+ḳulnaā
+biāltaušabiyhi
+fiy
+āltaunaziyhi
+ wabāltaunaziyhi
+fiy
+āltaušabiyhi
+ 
+wabaʿ
+ada
+āana
+taḳaraura
+hãḏa
+āfana
+raḫiy
+āls
+uutuwra
+ wanasadilu
+ālḥuǧuba
+ ʿaláã
+ʿayni
+ālm
+unataḳidi
+waālmuʿataḳidi
+ waāʾina
+kaānaā
+mina
+baʿaḍi
+ṣuwari
+maātaǧalauáã
+fiyhaā
+ālḥaḳuu
+ 
+walãkina
+ḳad
+āamara
+ biālsautari
+ liyuẓahira
+tafaāḍula
+asatiʿadaādi
+ālṣuuwari
+ waāʾinau
+ālmutaǧaliuy
+fiy
+ṣuwarihi
+biḥukami
+asatiʿadaādi
+tilaka
+ālṣuuwraŧi
+ fayunasabu
+āʾilayhi
+maā
+tuʿaṭiyhi
+ḥaḳiyḳatuhaā
+walawaāzimuhaā
+ laā
+budau
+mina
+ḏãlika
+ 
+miṯalu
+mana
+yaraáã
+ālḥaḳau
+fiy
+ālnauwmi
+ walaā
+yunakiru
+hãḏaā
+ waāʾinauhu
+laā
+šakau
+ālḥaḳuu
+ʿaynuhu
+ fatatab
+aʿuhu
+lawaāzimu
+tilka
+ālṣuuwraŧi
+waḥaḳaāʾiḳihaā
+ ālautiy
+taǧalauáã
+fiyhaā
+fiy
+ālnauwmi
+ ṯumau
+baʿada
+ḏãlika
+yuʿabiuru
+ āay
+ yuǧaāzu
+ʿanahaā
+āʾilaáã
+āamariⁿ
+āḫara
+ yaḳataḍiy
+āltaunaziyahu
+ʿaḳalaⁿā
+ faāʾina
+kaāna
+ālauḏiy
+yuʿabiuruhaā
+ḏaā
+kašafiⁿ
+āaw
+āʾiymaāniⁿ
+ falaā
+yaǧuwzu
+ʿanahaā
+āʾilaáã
+tanaziyhiⁿ
+faḳaṭa
+ bala
+yuʿaṭiyhaā
+ḥaḳauhaā
+min
+āltaunaziyhi
+ wamimauā
+ẓaharata
+fiyhi
+ 
+waāllhu
+ʿaláã
+āltauḥaḳiyḳi
+ʿibaāraŧuⁿ
+ limana
+fahima
+ālāʾišaāraŧa
+ 
+waruwḥu
+hãḏihi
+ālḥikamaŧi
+wafaṣuuhaā
+ āanau
+ālāamara
+yanaḳasimu
+āʾiláã
+muʾṯiuriⁿ
+wamuʾṯauriⁿ
+fiyhi
+ 
+walahumaā
+ʿibaārataāni
+ faālmuʾṯiuru
+bikuliu
+waǧhiⁿ
+ waʿaláã
+kuliu
+ḥaāliⁿ
+ 
+95
+wǧh
+ wafiy
+kuliu
+ḥaḍaraŧiⁿ
+huwa
+āllhu
+ waālmuʾṯauru
+fiyhi
+bikuliu
+waǧhiⁿ
+ waʿaláã
+kuliu
+ḥaāliⁿ
+ wafiy
+kuliu
+ḥaḍaraŧiⁿ
+ 
+huwa
+ālʿaālamu
+ 
+faāʾiḏaā
+warada
+faāalaḥaḳa
+kulau
+šay
+ʾiⁿ
+biāaṣalihi
+ālauḏiy
+yunaāsibuhu
+ faāʾinau
+ālwaārida
+āabadaⁿā
+ laābudau
+āana
+yakuwna
+faraʿaⁿā
+ʿana
+āaṣaliⁿ
+ 
+kaānati
+ālmaḥabauŧu
+ālāʾilãhiyauŧu
+ʿani
+ālnauwaāfili
+mina
+ālʿabadi
+ 
+fahãḏaā
+āaṯaruⁿ
+bayna
+muʾṯiuriⁿ
+wamuʾṯauriⁿ
+fiyhi
+ kaāna
+ālḥaḳuu
+samaʿa
+ālʿabadi
+wabṣarahi
+waḳuwaāhu
+ʿana
+hãḏihi
+ālmaḥabauŧi
+ fahãḏaā
+āaṯaruⁿ
+muḳarauruⁿ
+laā
+muḳadauruⁿ
+ʿaláã
+āʾinkaārihi
+ liṯubuwtihi
+šaraʿaⁿā
+ āʾina
+kunata
+muʾminaⁿā
+ 
+waāamauā
+ālʿaḳalu
+ālsauliymu
+fahuwa
+ āʾimauā
+ṣaāḥibu
+taǧaliⁿu
+āʾilãhiyiⁿu
+ fiy
+maǧalaáaⁿ
+ṭabiyʿiyiⁿu
+ 
+fayaʿarifu
+maā
+ḳulnaāhu
+ waāʾimauā
+muʾminuⁿ
+musalimuⁿ
+ yuʾminu
+bihi
+kamaā
+warada
+fiy
+ālṣauḥiyḥi
+ 
+walaā
+budau
+mina
+sulaṭaāni
+ālwahami
+ āana
+yaḥakuma
+ʿaláã
+ālʿaāḳili
+ālbiā
+ḥiṯi
+ fiymaā
+ǧaāʾa
+bihi
+ālḥaḳuu
+fiy
+hãḏihi
+ālṣuuwraŧ
+i
+liāanauhu
+muʾminuⁿ
+bihaā
+ 
+waāamauā
+ġayru
+ālmuʾmini
+fayaḥakumu
+ʿaláã
+ālwahami
+biālwahami
+ fayat
+aḫayaulu
+binaẓarihi
+ālfikariyiu
+ 
+āanauhu
+ḳada
+āaḥaāla
+ʿaláã
+āllhi
+maā
+āaʿaṭaāhu
+ḏãlika
+āltauǧal
+iuyuu
+fiy
+ālruuʾyaā
+waālwahamu
+fiy
+ḏãlika
+ 
+laā
+yufaāriḳuhu
+mina
+ḥayṯu
+laā
+yašaʿuru
+ liġafalatihi
+ʿana
+nafasihi
+ 
+wamina
+ḏãlika
+ḳaw
+luhu
+ 
+adaʿuwaniáā
+asataǧiba
+lakuma
+
+swrŧ
+ġāfr
+
+ 06
+ ḳaāla
+taʿaā
+laáã
+ 
+
+waāʾiḏaā
+saāalaka
+ʿibaādiáa
+ʿaniuáh
+faāʾiniuáh
+ḳariyabuⁿ
+āuǧiyabu
+daʿawaŧa
+aldauāʿi
+āʾiḏaā
+daʿaāni
+
+swrŧ
+ālbḳrŧ
+
+ 681
+ āʾiḏa
+laā
+yakuwnu
+muǧiybaⁿā
+āʾilauā
+āʾiḏaā
+kaāna
+mana
+yadaʿuwhu
+ġayruhu
+
+ waāʾina
+kaāna
+ʿaynu
+āldauāʿiy
+ʿayna
+ālmuǧiybi
+
+ falaā
+ḫilaāfa
+fiy
+aḫatilaāfi
+ālṣuuwari
+ fahumaā
+ṣuwrataāni
+balaā
+šakiⁿu
+ 
+watilaka
+ālṣuuwaru
+kuluuhaā
+kaālāaʿaḍaāʾi
+lizaydiⁿ
+ famaʿaluwmuⁿ
+āanau
+zaydaⁿā
+ḥaḳiyḳaŧuⁿ
+waāḥidaŧuⁿ
+šaḫ
+aṣiyauŧuⁿ
+ waāanau
+yadahu
+laysata
+ṣuwraŧa
+riǧalihi
+ walaā
+raāsihu
+ walaā
+ʿaynihu
+ walaā
+ḥaāǧibihu
+ fah
+uwa
+ālkaṯiyru
+ālwaāḥidu
+ ālkaṯiyru
+biālṣuuwari
+ ālwaāḥidu
+biālʿayni
+ 
+wa
+kaālāʾinasaāni
+biālʿ
+ayni
+waāḥiduⁿ
+ bilaā
+šakiⁿu
+
+ walaā
+šakau
+āanau
+ʿam
+araⁿā
+maā
+huwa
+zayduⁿ
+ walaā
+ḫaāliduⁿ
+walaā
+ǧaʿafaruⁿ
+ waāanau
+āašaḫaāṣa
+hãḏihi
+ālʿayni
+ālwaāḥidaŧi
+ laā
+tatanaāhaáã
+wuǧuwdaⁿā
+ fahuwa
+waāʾina
+kaāna
+waāḥidaⁿā
+biālʿayni
+ fahuwa
+kaṯiyruⁿ
+biālṣuuwari
+waālāašaḫaāṣi
+ 
+waḳada
+ʿalimata
+ḳaṭaʿaⁿā
+āʾina
+kunta
+muʾminaⁿā
+
+95
+ẓhr
+ āanau
+ālḥaḳau
+ʿaynuhu
+yataǧalauáã
+yawma
+ālḳiyaāmaŧi
+fiy
+ṣuwraŧiⁿ
+fayuʿarafa
+ ṯumau
+yataḥawaulu
+fiy
+ṣuw
+raŧiⁿ
+fayunaka
+ra
+ ṯumau
+yyataḥawau
+lu
+ʿan
+haā
+fiy
+ṣuwraŧiⁿ
+fayuʿarafa
+ wahuwa
+huwa
+ ālmutaǧaliuy
+
+laysa
+ġayrahu
+
+ fiy
+kuliu
+ṣuwraŧiⁿ
+ 
+wamaʿaluwmuⁿ
+āanau
+hãḏihi
+ālṣuuwaraŧa
+ maā
+hiya
+tilaka
+ālṣuuwaraŧu
+ālāuḫaraáã
+ wa
+kaāanau
+ālʿayna
+ālwaāḥidaŧa
+ḳaāmata
+maḳaāma
+ālmirāŧi
+ faāʾiḏaā
+naẓara
+ālnauāẓiru
+fiyhaā
+āʾiláã
+ṣuwraŧi
+muʿataḳadihi
+fiy
+āllhi
+ ʿa
+rafahu
+faāa
+ḳa
+rau
+bihi
+
+ waāʾiḏaā
+atauf
+aḳa
+āana
+yaraáã
+fiy
+haā
+muʿat
+aḳada
+ġay
+rihi
+āana
+karahu
+ kama
+āyaraáã
+fiy
+ālmir
+āŧi
+ṣuwratahu
+waṣuwraŧa
+ġayrihi
+ faālmirāŧu
+ʿaynuⁿ
+waāḥidaŧuⁿ
+ waālṣuuwru
+kaṯiy
+raŧuⁿ
+fiy
+ʿayni
+ālrauāʾiy
+ walaysa
+fiy
+ālmirāŧi
+ṣuwraŧuⁿ
+minahaā
+ǧumalaŧaⁿ
+waāḥidaŧaⁿ
+ 
+maʿa
+kawni
+ālmir
+āŧi
+lahaā
+āaṯaruⁿ
+fiy
+ālṣuuwari
+biwaǧhiⁿ
+ wamaā
+lahaā
+āaṯaruⁿ
+biwa
+ǧhiⁿ
+ faālāaṯaru
+ālauḏiy
+lahaā
+kawnuhaā
+ taridu
+ālṣuuwraŧa
+mutaġayauraŧa
+ālšaukali
+mina
+ālṣiuġari
+waālkibari
+ waālṭuuwli
+waālʿaraḍi
+ falahaā
+āaṯaruⁿ
+fiy
+ālmaḳaādiyri
+ waḏãlika
+raāǧiʿuⁿ
+āʾilayhaā
+ 
+waāʾinaumaā
+kaānata
+hãḏihi
+āltauġayiyraātu
+minhaā
+ liaḫatilaāfi
+maḳaādiyri
+ālmaraāʾiy
+ 
+faanaẓu
+ra
+fiy
+ālmiṯ
+aāli
+ mirāŧaⁿ
+waāḥida
+ŧaⁿ
+min
+hãḏi
+hi
+ālmara
+āʾiy
+ laā
+tanaẓ
+uri
+ālǧamaāʿaŧa
+ wahuwa
+naẓaruka
+mina
+ḥayṯu
+kawnuhu
+ḏaātaⁿā
+ fuhuwa
+ġaniyuⁿu
+ʿani
+ālʿaālamiyna
+ wamina
+ḥayṯu
+ālāasamaāʾu
+ālāʾilãhiyauŧu
+faḏãlika
+ālwaḳatu
+yakuwnu
+kaālmaraāʾiy
+ 
+faāayuu
+asamiⁿ
+āʾilãhiyiⁿu
+ 
+naẓarata
+fiy
+hi
+naf
+asaka
+
+ āaw
+mana
+naẓara
+
+ faāʾi
+nauma
+āyaẓah
+aru
+fiy
+ālnauāẓiri
+ḥaḳiyḳaŧu
+ḏãlika
+ālasami
+ 
+fahãkaḏaā
+huwa
+ālāamaru
+ āʾina
+fahimata
+ 
+falaā
+taǧazaʿa
+walaā
+taḫafa
+ faāʾinau
+āllha
+yuḥibuu
+ālšauǧaāʿaŧa
+walaw
+ʿaláã
+ḳatali
+ḥayauŧiⁿ
+ 
+walaysati
+ālḥayauŧu
+siwaáã
+nafasika
+ waālḥayauŧu
+ ḥayauŧuⁿ
+linafasihaā
+biālṣuuwraŧi
+waālḥaḳiyḳaŧi
+ 
+waālšauyʾu
+laā
+yuḳatalu
+ʿana
+nafasihi
+ waāʾina
+āufasidati
+ālṣuuwraŧu
+fiy
+ālḥisiu
+ faāʾinau
+ālḥadau
+yaḍabiṭuhaā
+ waālḫayaālu
+laā
+yuziyluhaā
+ 
+waāʾiḏaā
+kaāna
+ālāamaru
+ʿaláã
+hãḏaā
+ fahãḏaā
+huwa
+ālāamaānu
+ʿaláã
+ālḏauwaāti
+ waālʿizauŧi
+waālmanaʿaŧi
+ faāʾinauka
+laā
+taḳadiru
+ʿaláã
+fasaādi
+ālḥuduwdi
+ waāayuu
+ʿizauŧiⁿ
+āaʿaẓamu
+mina
+hãḏihi
+ālʿizauŧi
+ 
+fatataḫayaulu
+biālwahami
+āanauka
+ḳatalata
+ wabiālʿaḳali
+waālwahami
+lama
+tazali
+ālṣuuwraŧu
+
+06
+wǧh
+mawǧuwdaŧaⁿ
+fiy
+ālḥadiu
+ 
+waāldau
+liylu
+ʿal
+áã
+ḏãlika
+ 
+wamaā
+ramay
+ata
+āʾiḏa
+ramayata
+walãkinau
+āllha
+ramaáã
+ 
+sw
+rŧ
+ālānfāl
+
+ 71
+ waālʿaynu
+maā
+āadarakata
+āʾilauā
+ālṣuuwraŧa
+ālmuḥamaudiyauŧa
+ ālautiy
+ṯabata
+lahaā
+ālraumayu
+fiy
+ālḥisiu
+ wahiya
+ālautiy
+nafaáã
+āllhu
+ālraumaya
+ʿanahaā
+āawaulaⁿā
+ ṯumau
+āaṯabatahu
+lahaā
+wasaṭaⁿā
+ ṯumau
+ʿaāda
+biālasatidaraāki
+ āanau
+āllha
+huwa
+ālrauāmiy
+fiy
+ṣuwraŧiⁿ
+muḥamaudiyauŧiⁿ
+ walaā
+budau
+mina
+ālāʾiyamaāni
+bihãḏaā
+ 
+faānaẓura
+āʾiláã
+hãḏaā
+ālmuʾṯiuri
+ ḥatauáã
+āanazala
+ālḥaḳhu
+fiy
+ṣuwraŧiⁿ
+muḥamaudiyauŧiⁿ
+ waāaḫabara
+ālḥaḳuu
+nafasah
+ʿibaādahu
+bḏãlika
+ famaā
+ḳaāla
+āaḥaduⁿ
+minauā
+ḏãlika
+ bala
+huwa
+ḳaāla
+ʿana
+nafasihi
+ 
+waḫabaruhu
+ṣidaḳuⁿ
+ waālāʾiymaānu
+bihi
+waāǧibuⁿ
+ sawaāʾuⁿ
+āadarakata
+ʿilama
+maāḳaāla
+āaw
+lama
+tudarikahu
+ 
+faāʾimauā
+ʿaālimuⁿ
+ waāʾimauā
+musalimuⁿ
+muʾminuⁿ
+ 
+wamimauā
+yaduluuka
+ʿaláã
+ḍaʿafi
+ālnauẓari
+ālʿaḳaliyiu
+ mina
+ḥayṯu
+fikaruhu
+ kuwnu
+ālʿaḳali
+yaḥ
+akumu
+ʿaláã
+ālʿilauŧi
+ āanauhaā
+laā
+takuwnu
+maʿaluw
+laŧaⁿ
+lim
+ana
+hiya
+ʿilauŧuⁿ
+lahu
+
+ hãḏa
+āḥukamu
+ālʿaḳali
+ 
+laā
+ḫafaāʾa
+bihi
+ wamaā
+fiy
+ʿilami
+āltauǧaliuy
+āʾilauā
+hãḏaā
+ wahuwa
+āanau
+ālʿilauŧa
+takuwnu
+maʿaluwlaŧaⁿ
+limana
+hiya
+ʿilauŧuⁿ
+lahu
+ 
+waālauḏiy
+ḥakama
+bihi
+ālʿaḳalu
+ṣaḥiyḥuⁿ
+ maʿa
+āltauḥariyri
+fiy
+ālnauẓari
+ waġaāyatuhu
+fiy
+ḏãlika
+āana
+yaḳuwla
+ āʾiḏaā
+raāáã
+ālāamara
+ʿaláã
+ḫilaāfi
+maā
+āaʿaṭaāhu
+āldau
+liylu
+ālnauẓari
+yuu
+ āanau
+ālʿayna
+baʿada
+āana
+ṯabata
+āanauhaā
+waāḥidaŧuⁿ
+fiy
+hãḏaā
+ālkaṯiyri
+ famina
+ḥayṯu
+haya
+ʿilauŧuⁿ
+fiy
+ṣuwraŧiⁿ
+mina
+hãḏihi
+ālṣuuwari
+limaʿ
+aluw
+liⁿ
+maā
+ fala
+ātakuwnu
+maʿaluwlaŧaⁿ
+limaʿaluwlihaā
+ fiy
+ḥaāli
+kawnihaā
+ʿilauŧaⁿ
+ bala
+yan
+ataḳilu
+ālḥ
+ukamu
+bianatiḳ
+aālihaā
+fiy
+ālṣuuwari
+ fatakuwnu
+maʿaluw
+laŧaⁿ
+lim
+aʿaluwlihaā
+ fayaṣiy
+ru
+maʿal
+uwluh
+aā
+ʿilauŧaⁿ
+lahaā
+ hãḏaā
+ġaāyatuhu
+ āʾiḏaā
+kaāna
+ḳada
+raāaáã
+ālāamara
+ʿaláã
+maā
+huwa
+ʿalayhi
+ walama
+yaḳifa
+maʿa
+naẓarihi
+ālfikariyiu
+ 
+waāʾiḏaā
+kaāna
+ālāamaru
+fiy
+ālʿi
+liuyauŧi
+bihãḏi
+hi
+ālmaṯaā
+baŧi
+ fam
+aā
+ẓanuuka
+biatiusaā
+ʿi
+āln
+auẓari
+ālʿ
+aḳaliyiu
+ 
+fiy
+ġayri
+hãḏaā
+ālmaḍiyḳi
+ 
+falaā
+āaʿaḳala
+mina
+ālruusuli
+ṣalawaātu
+āllhi
+ʿalayhima
+ waḳada
+ǧaāʾwā
+bimaā
+ǧaāʾwā
+bihi
+ fiy
+ālḫabari
+ʿani
+ālǧanaābi
+ālāʾilã
+hiyiu
+ faāaṯabatuwā
+maā
+āaṯabatahu
+ālʿaḳalu
+ wazaāduwā
+maā
+laā
+yasataḳiluu
+ālʿaḳalu
+biādaraākihi
+ wamaā
+yuḥiyluhu
+ālʿaḳalu
+raāsaⁿā
+ wayuḳiruu
+bihi
+fiy
+āltauǧaliuy
+ālāʾilãhiyiu
+ 
+faāʾiḏaā
+ḫalaā
+baʿada
+āltauǧ
+aliuy
+binafasihi
+ ḥaāra
+fiy
+maā
+rāhu
+
+06
+ẓhr
+ faāʾi
+na
+kaāna
+ʿabda
+rabiⁿu
+ 
+radau
+ālʿaḳala
+āʾilayhi
+ waāʾina
+kaāna
+ʿabada
+naẓariⁿ
+ radau
+ālḥaḳaau
+āʾiláã
+ḥukamihi
+ 
+wahãḏaā
+laā
+yakuwnu
+āʾilauā
+maādaāma
+fiy
+hãḏihi
+ālnauš
+aāaŧi
+ālduunayaā
+wiyauŧi
+ 
+maḥaǧuw
+baⁿā
+ʿana
+našaāatihi
+ālāuḫaraāwiyauŧi
+fiy
+ālduunayaā
+ faāʾinau
+ālʿaārifiyna
+yaẓaharuwna
+hunaā
+kaāanauhuma
+fiy
+ālṣuuwraŧi
+ālduunayaāwyŧ
+ 
+limaā
+yaǧariy
+ʿalayhima
+mina
+āaḥakaāmihaā
+ waāllhu
+taʿaālaáã
+ḳada
+ḥawaulahuma
+fiy
+bawa
+āṭin
+ihima
+fiy
+ālnaušaāa
+ŧi
+ālāuḫaraāwiyauŧi
+ laā
+budau
+mina
+ḏãlika
+ fahuma
+biālṣuuwraŧi
+maǧahuwluw
+na
+ āʾilauā
+limana
+kašafa
+āllhu
+ʿana
+baṣiyratihi
+faāadaraka
+ 
+famaā
+mina
+ʿaārifiⁿ
+biāllhi
+ mina
+ḥayṯu
+āltauǧaliuy
+ālāʾilãhiyuu
+āʾilauā
+wahuwa
+ʿaláã
+ālnaušaāaŧi
+ālāuḫaraāwiyauŧi
+ 
+ḳad
+ḥušira
+fiy
+dunayaāhu
+ wnušira
+mina
+ḳabrihi
+ fahuwa
+yaráã
+maā
+laā
+tarawna
+ 
+wayašahadu
+maā
+laā
+tašahaduwna
+ ʿinaāyaŧaⁿ
+mina
+āllhi
+bibaʿḍi
+ʿibaādihi
+fiy
+ḏãlika
+ 
+famana
+āaraāda
+ālʿuṯuwra
+ʿaláã
+hãḏihi
+ālḥikamaŧi
+ālāʾilayaāsiyauŧi
+ālāʾidariyasiyauŧi
+ālautiy
+āanašaāahu
+āllhu
+našaāatayni
+ fkaāna
+nabiyiⁿuā
+ḳabala
+nuwḥiⁿ
+ ṯumau
+rufiʿa
+wanazala
+rasuwlaⁿā
+baʿada
+ḏãlika
+ faǧamaʿa
+lahu
+āllhu
+bayna
+ālmanazi
+latayni
+ falayana
+zila
+ʿana
+ḥuka
+mi
+ʿaḳalihi
+āʾiláã
+šahawatihi
+ wayakuwnu
+ḥayawaānaⁿā
+muṭalaḳ
+aⁿā
+ 
+ḥatauáã
+yakašifa
+maātakašif
+uhu
+kuluu
+daābauŧiⁿ
+ maāʿada
+āālṯauḳalayni
+ 
+faḥiynaʾ
+iḏiⁿ
+yaʿlamu
+āanauhu
+ḳada
+taḥaḳauḳa
+biḥayawaāniyautihi
+ 
+waʿalaāmat
+uhu
+ʿalaāmataāni
+ ālwaāḥidaŧu
+ hãḏaā
+ālkašafu
+ fayaraáã
+mana
+yuʿaḏau
+bu
+fiy
+ḳabrihi
+ 
+wamana
+yunaʿaumu
+ wayaraáã
+ālmayiuta
+ḥayiⁿuā
+ waālṣauāmita
+mutakaliumaⁿā
+ waālḳaāʿida
+maāšiyaⁿā
+ 
+waālʿalaāmaŧu
+ālṯauāniyaŧu
+ ālḫarasu
+ 
+biḥayṯu
+āanauhu
+law
+āaraāda
+āana
+yanaṭiḳa
+bimaā
+rāhu
+ lama
+yaḳ
+adira
+ faḥiy
+naʾ
+iḏiⁿ
+yat
+aḥaḳauḳu
+biḥayawa
+āniyautihi
+
+ wa
+kaāna
+lanaā
+til
+amiyḏuⁿ
+ḳada
+ḥaṣala
+lahu
+hãḏaā
+ālkašafu
+ 
+ġayra
+āanauhu
+lama
+yaḥafaẓa
+ʿalayhi
+ālḫarasu
+ falama
+yataḥaḳauḳa
+biḥayawaāniyautihi
+ 
+walamauā
+āaḳaāmaniy
+āllhu
+fiy
+hãḏaā
+ālmaḳaāmi
+ taḥaḳauḳatu
+biḥayawāniyautiy
+taḥaḳuuḳaⁿā
+kuliuyiⁿuā
+ 
+fakunatu
+āaraáã
+ waāuriydu
+ālnuuṭaḳa
+bimaā
+āušaāhiduhu
+ falaā
+āasataṭiyʿu
+ fakuntu
+laā
+āufariuḳu
+bayniy
+wabayna
+ālḫurasi
+ālauḏiyna
+laā
+yatakaliumuwna
+ 
+faāʾiḏaā
+taḥaḳauḳa
+bimaā
+ḏa
+karaniā
+hu
+ anat
+aḳala
+āʾiláã
+āana
+yakuwna
+ʿaḳalaⁿā
+muǧaraudaⁿā
+ fiy
+ġayri
+maādauŧiⁿ
+ṭabiyʿiyauŧiⁿ
+ fayašah
+adu
+āumuwraⁿā
+hiya
+āuṣuwluⁿ
+limaā
+yaẓaharu
+fiy
+ālṣuuwari
+ālṭaubiyʿiy
+auŧi
+ 
+fayaʿalamu
+mina
+āayna
+ẓahara
+
+16
+wǧh
+ hãḏaā
+ālḥukamu
+fiy
+ṣuwari
+ālṭaubiyʿiyauŧi
+ʿilamaⁿā
+ḏawḳiyiⁿuā
+ 
+faāʾina
+kuwšifa
+
+ ʿaláã
+āanau
+ālṭaubiyʿaŧa
+ʿaynu
+nafasa
+ālrauḥamãni
+ 
+
+ faḳada
+āuwtiya
+ḫayraⁿā
+kaṯiyraⁿā
+
+āḳtbās
+mn
+swrŧ
+ālbḳrŧ
+
+ 962
+ 
+waāʾini
+aḳata
+ṣara
+maʿ
+ahu
+ʿal
+áã
+maā
+ḏa
+karanaāhu
+ fhãḏa
+āālḳadaru
+yakafiy
+hi
+mina
+ālmaʿa
+ri
+faŧi
+ ālḥaā
+kaimaŧi
+ʿaláã
+ʿaḳalihi
+ fa
+yalaḥaḳu
+biālʿaā
+rifiyna
+ 
+wayaʿarifu
+ʿinda
+ḏãlika
+ḏwḳaⁿā
+ 
+falama
+taḳatuluwhuma
+walãki
+nau
+āllha
+ḳatalahuma
+ 
+swrŧ
+ālānfāl
+
+ 71
+ 
+wamaā
+ḳatalahuma
+āʾilauā
+ālḥadiydu
+ waālḍauāribu
+ waālauḏiy
+ḫalafa
+hãḏihi
+ālṣuuwari
+ 
+fabiālmaǧamuwʿi
+waḳaʿa
+ālḳatalu
+waālraumayu
+ fayušaāhidu
+ālāumuwra
+biāuṣuwlihaā
+waṣuwarihaā
+ fayakuwnu
+taāmiⁿuā
+ faāʾina
+šahida
+ālnaufasa
+ 
+kaāna
+maʿa
+āltaumaāma
+kaāmilaⁿā
+ falaā
+yaraáã
+āʾilauā
+āllha
+ʿayna
+maāyaraáã
+ fayaraáã
+ālrauāʾiy
+ʿayna
+ālmarʾiy
+ wahãḏaā
+ālḳadaru
+kaāfiⁿ
+ 
+waāllhu
+ālmuwafiuḳu
+ālhaādiy
+ 
+
+32
+ 
+faṣuu
+ḥikamaŧiⁿ
+āʾiḥasaāniyauŧiⁿ
+fiy
+kalimaŧiⁿ
+luḳamaāniyauŧiⁿ
+
+ālwaāfiru
+1
+āʾiḏaā
+šaāʾa
+ālāʾilãhu
+yuriydu
+rizaḳaⁿā
+lahu
+faālkuwnu
+āaǧamaʿahu
+ġiḏaāʾu
+2
+waāʾina
+šaāʾa
+ālāʾilãhu
+yuriydu
+rizaḳaⁿā
+lanaā
+fahuwa
+ālġiḏaāʾu
+kamaā
+yašaāʾu
+3
+mašiyaáʾatuhu
+āʾiraādatuhu
+faḳuwluwā
+bihaā
+ḳada
+šaāʾahaā
+fahiya
+ālmušaāʾu
+4
+yuriydu
+ziyaādaŧaⁿ
+wa
+yuriydu
+naḳaṣaⁿā
+walaysa
+mušaāʾhu
+āʾilauā
+ālmušaāʾu
+5
+fahãḏaā
+ālfaraḳu
+bayanahumaā
+faḥaḳiuḳa
+wamina
+waǧahiⁿ
+faʿayanuhumaā
+sawaāʾu
+ḳaā
+la
+taʿ
+aālaáã
+ 
+walaḳada
+ātayan
+aā
+luḳamaāna
+alḥika
+maŧa
+ 
+swrŧ
+lḳmān
+
+ 21
+ wamana
+āuwtiya
+ālḥikamaŧa
+faḳada
+āuwtiya
+ḫayaraⁿā
+kaṯiyraⁿā
+
+āḳtb
+ās
+mn
+sw
+rŧ
+ālbḳrŧ
+
+ 962
+ fal
+uḳamaānu
+biālnauṣiu
+huwa
+ḏuw
+ālḫ
+ayri
+ālkaṯiy
+ri
+biš
+ahaā
+daŧi
+āllhi
+taʿaālaáã
+lahu
+bḏãlika
+ waālḥikamaŧu
+ḳad
+ta
+kuw
+nu
+mutalafauẓaⁿā
+bihaā
+ wamasakuwtaⁿā
+ʿanahaā
+ 
+miṯala
+ḳawli
+luḳamaā
+na
+liabanihi
+ 
+yaābunaáau
+āʾinauhaā
+āʾina
+taku
+miṯaḳaāla
+ḥabauŧiⁿ
+mina
+ḫara
+daliⁿ
+fatakuna
+fiya
+ṣaḫ
+araŧiⁿ
+āawa
+fiá
+alsaumãwã
+ti
+āawa
+fiá
+alāaraḍi
+yaā
+ti
+bih
+aā
+allhu
+ 
+swrŧ
+lḳmā
+n
+ 61
+ 
+fahãḏihi
+ḥikamaŧuⁿ
+manaṭuwḳuⁿ
+bihaā
+ wahiya
+āana
+ǧaʿala
+āllhu
+huwa
+ālātiy
+bahaā
+ waḳaraura
+ḏãlika
+āllhu
+fiy
+kitaābihi
+ walama
+yarida
+hãḏaā
+ālḳawlu
+ʿaláã
+ḳaāʾilihi
+ 
+waāamauā
+ālḥikamaŧu
+ālmasakuwtu
+ʿanahaā
+ waʿulimata
+biḳariynaŧi
+ālḥaāli
+ fakawnuhu
+sakata
+ʿani
+ālmuʾtaáã
+āʾilayhi
+bitilaka
+ālḥabauŧi
+ 
+16
+ẓhr
+ famaā
+ḏa
+kara
+hu
+ wamaā
+ḳaā
+la
+liabanihi
+
+ 
+yaāti
+bih
+aā
+āllhu
+āʾilayka
+ walaā
+āʾiláã
+ġayrika
+ faāarasala
+ālāʾitayaāna
+ʿaāmiⁿuā
+waǧaʿala
+ālmuʾtaáã
+bihi
+fiy
+ālsaumaāwaāti
+
+ āʾina
+kaāna
+āaw
+fiy
+ālāaraḍi
+
+ tanabiyahaⁿā
+liyanaẓura
+ālnauāẓiru
+fiy
+ḳawlihi
+ 
+
+wahuwa
+allhu
+fiy
+alsaumãwãti
+wafiy
+ālāaraḍi
+ 
+swrŧ
+ālānʿām
+
+ 3
+fan
+abauha
+luḳamaānu
+bim
+aā
+taka
+lauma
+bihi
+ wabimaā
+sakata
+ʿanahu
+āanau
+ālḥaḳau
+ʿaynu
+kuliu
+maʿaluwmiⁿ
+ liāanau
+ālmaʿaluwma
+āaʿamuu
+mina
+ālšauyaʾi
+ fahuwa
+āanakaru
+ālnaukiraāti
+ 
+ṯumau
+tamauma
+ālḥikamaŧa
+waasat
+awfaā
+haā
+ litakuwna
+ālnauš
+aāaŧu
+kaāmilaŧaⁿ
+fiyh
+aā
+ faḳaāla
+ 
+āʾinau
+allha
+laṭiy
+afuⁿ
+ 
+sw
+rŧ
+lḳ
+mān
+
+ 61
+ famina
+laṭaā
+fat
+ihi
+waluṭ
+afihi
+ āanauhu
+fiy
+ālšauyaʾi
+ālm
+usamauáã
+kaḏaā
+ 
+ālmaḥaduwdi
+bikaḏā
+ ʿaynu
+ḏãlika
+ālšauyaʾi
+ ḥatauáã
+laā
+yuḳaāla
+fiyhi
+āʾilauā
+maā
+yaduluu
+ʿalayhi
+asamuhu
+
+biāltauwaāṭuʾ
+waālaṣaṭilaāḥi
+ fayuḳaā
+lu
+ 
+hãḏaā
+samaāʾuⁿ
+waāaraḍuⁿ
+waṣaḫ
+araŧuⁿ
+wašaǧa
+ruⁿ
+waḥayawaānuⁿ
+wamalakuⁿ
+warizaḳuⁿ
+waṭaʿaāmuⁿ
+ waālʿaynu
+waāḥidaŧuⁿ
+min
+kuliu
+šayaʾiⁿ
+ wafiyhi
+ 
+kamaā
+taḳuwlu
+ālāašaāʿiraŧu
+ āʾinau
+ālʿaālama
+kulauhu
+mutamaāṯiluⁿ
+biālǧawhari
+ fahuwa
+ǧawharuⁿ
+waāḥiduⁿ
+ fah
+uwa
+ʿaynu
+ḳawlinaā
+ālʿaynu
+waāḥidaŧuⁿ
+ ṯumau
+ḳaālata
+ wayaḫatalifu
+baālāaʿaraāḍi
+ wahuwa
+ḳawlunaā
+ wayaḫ
+atalifu
+wayatakaṯauru
+biā
+lṣ
+uuwari
+waālniusabi
+ ḥatauáã
+yatamayiuza
+ fayuḳaālu
+ hãḏaā
+laysa
+hãḏaā
+ mina
+ḥay
+ṯu
+ṣuwratuhu
+āaw
+ʿara
+ḍuhu
+āaw
+miza
+āǧuhu
+ kayfa
+šiʾta
+fḳula
+ wahãḏaā
+ʿaynu
+hãḏaā
+ 
+min
+ḥayṯu
+ǧawharuhu
+ 
+walihãḏaā
+yuʾḫaḏu
+ʿaynu
+ālǧawhari
+fiy
+ḥadiu
+kuliu
+ṣuwraŧiⁿ
+wamizaāǧiⁿ
+ 
+fanaḳuwlu
+naḥanu
+ āʾinauhu
+laysa
+siwaáã
+ālḥaḳiu
+ wayaẓunuu
+ālmutakaliumu
+āanau
+musamauáã
+ālǧawhari
+ 
+waāʾina
+kaāna
+ḥaḳiⁿuā
+ maā
+huwa
+ʿaynu
+ālḥaḳiu
+ālauḏiy
+yuṭaliḳuhu
+āahalu
+ālkašafi
+waāltauǧaliuy
+ fahãḏaā
+ḥikamaŧu
+kawnihi
+laṭiyfaⁿā
+ 
+ṯumau
+naʿata
+faḳaāla
+ 
+ḫabiyraⁿ
+ā
+ 
+sw
+rŧ
+ālāḥzāb
+
+ 43
+ āay
+ ʿaālim
+aⁿā
+ʿana
+aḫatib
+aāriⁿ
+ 
+wahuwa
+ḳawluhu
+ 
+walanabaluwanaukuma
+ḥatauáã
+naʿalama
+ 
+swrŧ
+mḥmd
+
+ 13
+ wahãḏaā
+huwa
+ʿilamu
+ālāaḏawaāḳi
+ faǧaʿ
+ala
+ālḥaḳuu
+nafasahu
+maʿa
+ʿilamihi
+bimaāhuwa
+ālāamaru
+ ʿalayhi
+musat
+afiy
+daⁿā
+ʿilamaⁿā
+ walaā
+naḳadiru
+ʿaláã
+āʾinakaāri
+maānaṣau
+ālḥaḳuu
+ʿal
+ayhi
+fiy
+ḥaḳiu
+nafasihi
+ fafarauḳa
+taʿaālaáã
+maābayna
+ʿilami
+ālḏauwḳi
+waālʿilami
+ālmuṭalaḳi
+ 
+faʿilamu
+ālḏauwḳi
+muḳayauduⁿ
+biālḳuwaáã
+ waḳada
+ḳaāla
+ʿana
+nafasihi
+ āanauhu
+ʿaynu
+ḳuwaáã
+ʿabadihi
+fiy
+ḳawlihi
+ 
+ kunatu
+samaʿahu
+ wahuwa
+ḳuwauŧuⁿ
+mina
+ḳuwaáã
+ālʿabadi
+ 
+26
+wǧh
+ 
+wabaṣarahu
+wahuwa
+ḳuwauŧuⁿ
+mina
+ḳuwaáã
+ālʿabadi
+ 
+walisaānahu
+ wahuwa
+ʿaḍawuⁿ
+mina
+āaʿaḍaāʾi
+ālʿabadi
+ 
+wariǧalahu
+wayadahu
+ famaā
+aḳataṣara
+fiy
+āltauʿariyfi
+ʿaláã
+ālḳuwaáã
+faḥasabu
+ ḥatauáã
+ḏakara
+ālāaʿaḍaāʾa
+ 
+walaysa
+ālʿabadu
+biġayriⁿ
+lihãḏihi
+ālāaʿaḍaāʾi
+waālḳuwaáã
+ 
+faʿaynu
+musamauáã
+ālʿabdi
+huwa
+ālḥaḳuu
+ laā
+ʿaynu
+ālʿabadi
+huwa
+ālsauyiudu
+ 
+faāʾinau
+ālniusaba
+mutamayiuzaŧuⁿ
+liḏaātihaā
+ walaysa
+ālmanasuwbu
+āʾilayhi
+mutamayiuzaⁿā
+ faāʾinauhu
+laysa
+ṯamau
+siwaáã
+ʿaynihi
+ fiy
+ǧamiyʿi
+ālniusabi
+ fahuwa
+ʿaynuⁿ
+waāḥidŧuⁿ
+ ḏaātu
+nisabiⁿ
+waāʾiḍaāfaātiⁿ
+waṣifaātiⁿ
+ 
+famina
+tamaāmi
+ḥikamaŧi
+luḳamaāna
+fiy
+taʿaliyamihi
+abanahu
+ maāǧaāʾa
+bihi
+fiy
+hãḏihi
+ālāyaŧi
+ mina
+hãḏayni
+ālāʾisamayni
+ālāʾilãhiyiuyani
+
+laṭiyfaⁿā
+ḫabiyraⁿā
+ sumiuya
+bihimaā
+āllhu
+taʿaālaáã
+ 
+falaw
+ǧaʿala
+ḏãlika
+fiy
+ālkawni
+
+ wahuwa
+ālwuǧuwdu
+
+ faḳaāla
+
+ kaāna
+ lka
+āna
+āatamau
+fiy
+ālḥikamaŧi
+wāabalaġa
+ faḥakaáã
+āllhu
+ḳawla
+luḳamaāna
+ʿaláã
+ālmaʿanaáã
+kamaā
+ḳaāla
+ lama
+yazida
+ʿalayhi
+šayáʾaⁿā
+ 
+waāʾina
+kaāna
+ḳawluhu
+ 
+āʾinau
+allha
+laṭiy
+afuⁿ
+ḫab
+ayaruⁿ
+ 
+sw
+rŧ
+lḳmā
+n
+ 61
+ mina
+ḳawli
+āllhi
+ 
+falimaā
+ʿalima
+āllhu
+taʿaālaáã
+mina
+luḳamaāna
+ law
+naṭaḳa
+mutamiumaⁿā
+latamauma
+bihãḏaā
+ 
+waāamauā
+ḳawalahu
+
+āʾina
+taku
+miṯaḳaāla
+ḥabauŧiⁿ
+mina
+ḫaradaliⁿ
+
+swrŧ
+lḳmān
+
+ 61
+ limana
+hiya
+lahu
+ġiḏaāʾuⁿ
+ walaysa
+āʾilauā
+ālḏaurauŧu
+ālmaḏa
+kuwraŧu
+fiy
+ḳawalihi
+ 
+famana
+yaʿamala
+miṯaḳaāla
+ḏarauŧiⁿ
+ḫayaraⁿā
+yarahu
+ wamana
+yaʿamala
+miṯ
+aḳaāla
+ḏarauŧiⁿ
+šraⁿā
+ya
+rahu
+ 
+swrŧ
+ālzlz
+āl
+
+ 7
+8
+ fah
+iya
+āaṣaġa
+ru
+mutaġaḏiⁿu
+ waālḥabauŧu
+mina
+ālḫaradali
+āaṣaġaru
+ġiḏaāʾiⁿ
+ 
+walawkaāna
+ṯamau
+āaṣaġ
+ara
+laǧaāʾa
+bihi
+ kam
+aā
+ǧaāʾa
+biḳ
+awlihi
+taʿaālaáã
+
+ 
+āʾinau
+āllha
+laāyasataḥiya
+āana
+yaḍari
+ba
+maṯalaⁿā
+maā
+baʿuwaḍaŧaⁿ
+
+swrŧ
+ālbḳ
+rŧ
+ 62
+ ṯumau
+lamauā
+ʿal
+ima
+āanauhu
+ṯamau
+maā
+huwa
+āaṣaġaru
+mina
+ālbaʿuwaḍaŧi
+ ḳaāla
+ 
+fama
+āfawḳahaā
+ 
+sw
+rŧ
+ālbḳ
+rŧ
+ 62
+ yaʿ
+aniy
+ fiy
+ālṣ
+iuġari
+ wahãḏaā
+ḳawlu
+āllhi
+
+ waālautiy
+fiy
+ālzaulaza
+laŧi
+ḳawalu
+āllhi
+āayḍaⁿā
+
+ faaʿal
+ama
+ḏãlika
+
+ fan
+aḥanu
+naʿalamu
+āanau
+āll
+ha
+taʿaālaáã
+maāaḳataṣ
+ara
+ʿaláã
+wazani
+ālḏaurauŧi
+ waṯamau
+maā
+huwa
+āaṣaġa
+ru
+minahaā
+ faāʾinauhu
+ǧaāʾa
+biḏãlika
+ʿal
+áã
+ālmubaālaġaŧi
+ waāllhu
+āaʿalamu
+ 
+waāamauā
+taṣaġ
+iyruhu
+asama
+abanihi
+ fataṣaġiyru
+raḥama
+ŧiⁿ
+ walihãḏa
+āwaṣauāhu
+bimaā
+fiy
+hi
+saʿ
+aādatuhu
+ āʾiḏaā
+ʿamila
+biḏãlika
+ 
+waāamauā
+ḥikamaŧu
+waṣiy
+autihi
+fiy
+nahayihi
+āʾiyauāhu
+ āalauā
+yuš
+arika
+biāllhi
+ faāʾinau
+ālšiu
+raka
+ẓulamuⁿ
+ʿaẓiymuⁿ
+
+āḳtbās
+mn
+swrŧ
+lḳmān
+
+ 31
+ 
+waālmaẓaluwmu
+ālmaḳaāmu
+ ḥayṯu
+naʿatahu
+biālanaḳisaāmi
+ 
+wahuwa
+ʿaynuⁿ
+waāḥidaŧuⁿ
+ 
+26
+ẓhr
+ faāʾinauh
+laā
+yušariku
+maʿahu
+āʾilauā
+ʿayanuhu
+ wahãḏaā
+ġaāyaŧu
+ālǧahali
+ wasababu
+ḏãlika
+āanau
+ālšauḫaṣau
+ālauḏiy
+laā
+maʿarifaŧa
+lahu
+biālāamari
+ʿaláã
+maāhuwa
+ʿalayhi
+ walaā
+biḥaḳiyḳaŧi
+ālšauyʾi
+ āʾiḏaā
+aḫatalafata
+ʿalayhi
+ālṣuuwaru
+fiy
+ālʿayni
+ālwaāḥidaŧi
+ wahuwa
+laā
+yaʿarifu
+āanau
+ḏãlika
+ālaḫatilaāfa
+fiy
+ʿayniⁿ
+waāḥidaŧiⁿ
+ ǧaʿala
+ālṣuuwraŧa
+mušaārikaŧaⁿ
+lilaāʾuḫaraáã
+fiy
+ḏãlika
+ālmaḳaāmi
+ faǧaʿala
+likuliu
+ṣuwrŧiⁿ
+ǧazaʾaⁿā
+mina
+ḏãlika
+ālmaḳaāmi
+ 
+wamaʿaluwmuⁿ
+fiy
+ālšauriyki
+āanau
+ālāamara
+ālauḏiy
+yaḫuṣuuh
+mimauā
+waḳaʿata
+fiyhi
+ālmušaāra
+kaŧu
+ 
+laysa
+ʿayna
+ālāḫari
+ ālauḏiy
+šaārakahu
+ āaw
+huwa
+lilāḫari
+ faāʾiḏana
+maāṯamau
+šariykuⁿ
+ʿaláã
+ālḥaḳiyḳaŧi
+ faāʾinau
+kulau
+waāḥidiⁿ
+ʿaláã
+ḥaẓiuhi
+mimauā
+ḳiyla
+fiyhi
+ āanau
+baynahumaā
+mušaāra
+kaŧuⁿ
+fiyhi
+ 
+wasababu
+ḏãlika
+ ālšiurkaŧu
+ālmušaāʿaŧu
+ waāʾina
+kaānata
+mušaāʿaŧaⁿ
+ faāʾinau
+āltauṣariyfa
+mina
+āaḥadihimaā
+yuziylu
+ālāʾišaāʿaŧa
+ 
+
+ḳuli
+adaʿuwā
+allh
+āawi
+adaʿuwā
+alrauḥamãna
+ 
+swrŧ
+ālāsrāʾ
+
+ 011
+ hãḏaā
+ruwḥu
+ālmasaāalaŧi
+ 
+
+42
+ 
+faṣuu
+ḥikamaŧiⁿ
+āʾimaāmiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+haāruwaniyauŧiⁿ
+aʿal
+ama
+āanau
+wuǧuwda
+haāruwna
+ʿalay
+hi
+ālsaula
+āmu
+kaāna
+mina
+ḥaḍaraŧi
+ālrauḥamuwti
+ biḳ
+awlihi
+ 
+
+wawahabanaā
+lahu
+mina
+raḥamatinaāā
+
+sw
+rŧ
+mrym
+
+ 35
+ yaʿaniy
+ limuwsaáã
+
+āaḫaāhu
+haãruwna
+nabiyiⁿuā
+ 
+swrŧ
+mrym
+
+ 35
+ fakaānata
+nubuwautuhu
+mina
+ḥaḍaraŧi
+ālrauḥamuwti
+ 
+faāʾinauhu
+āakabaru
+mina
+muwsaáã
+siniⁿuā
+ wakaā
+na
+muwsaáã
+āakabara
+minahu
+nubuwauŧaⁿ
+ walamauā
+kaānata
+nubuwauŧu
+haāruwna
+mina
+ḥaḍaraŧi
+ālrauḥamaŧi
+ liḏãlika
+ḳaāla
+liāaḫiyhi
+muwsaáã
+ʿalayahimaā
+ālsaulaām
+ 
+
+yabanawʾumau
+ 
+swrŧ
+ṭãh
+ã
+ 49
+ fanaādaāh
+biāumauhi
+laā
+biāabiyhi
+ āʾiḏa
+kaānata
+ālrauḥamaŧu
+lilaāʾumiu
+duwna
+ālāabi
+āawafara
+fiy
+ālḥukami
+ 
+walawlaā
+tilaka
+ālrauḥamaŧu
+maāṣabarata
+ʿalaáã
+mubaāšaraŧi
+āltaurabiyaŧi
+ 
+ṯumau
+ḳaāla
+ 
+laā
+taāḫuḏa
+biliḥ
+ayatiy
+walaā
+biraāsiy
+ 
+swrŧ
+ṭãh
+ã
+ 49
+ wa
+
+laā
+tušamita
+biya
+ālāaʿadaāʾa
+ 
+swrŧ
+ālāʿrāf
+
+ 051
+ 
+fahãḏaā
+kuluuh
+nafasuⁿ
+mina
+āanafaāsi
+ālrauḥamaŧi
+ wasababu
+ḏãlika
+ʿadamu
+āltauṯabuuti
+fy
+ālnauẓari
+fiymaā
+kaāna
+fiy
+yadayhi
+mina
+ālāalawaāḥi
+ālautiy
+āalaḳaāhaā
+mina
+yadayhi
+ 
+falaw
+naẓara
+fiyhaā
+ naẓara
+taṯabuutiⁿ
+ lawaǧada
+fiyhaā
+ālhudaáã
+waālrauḥamaŧa
+ faālhudaáã
+bayaānu
+maāwaḳaʿa
+mina
+ālāamari
+ ālauḏiy
+āaġaḍabahu
+
+ mimauā
+huwa
+haāruwnu
+
+36
+wǧh
+ bariyʾuⁿ
+minahu
+
+ waālrauḥamaŧu
+biāaḫiyhi
+ fakaāna
+laā
+yaāḫuḏu
+biliḥayatihi
+ bim
+araāaáaⁿ
+min
+ḳawmihi
+ maʿa
+kibari
+hi
+ 
+waāanauhu
+āasanuu
+minahu
+ wa
+kaāna
+ḏãlika
+mina
+haāruwna
+ šafaḳaŧaⁿ
+ʿalaáã
+muwsaáã
+ liāanau
+nubuwauŧa
+haāruwna
+mina
+raḥamaŧi
+āllhi
+ falaā
+yaṣaduru
+minhu
+āʾilauā
+miṯala
+hãḏaā
+ 
+ṯumau
+ḳaāla
+haāruwnu
+limuwsaáã
+ʿalayhimaā
+ālsaulaāmu
+ 
+āʾiniuy
+ḫašiytu
+āana
+taḳuwla
+farauḳata
+bayna
+baniy
+āʾisarāãʾiyla
+ 
+sw
+rŧ
+ṭãh
+ã
+ 49
+ fataǧaʿalaniy
+sababaⁿā
+fiy
+tafariyḳihima
+ faāʾinau
+ʿibaādaŧa
+ālʿiǧali
+farauḳata
+baynahuma
+ fakaāna
+minahuma
+mana
+ʿabadahu
+atiubaāʿaⁿā
+lilasauāmiriyiu
+wataḳaliydaⁿā
+lahu
+ 
+waminahuma
+mana
+tawa
+ḳaufa
+ʿana
+ʿibaādatihi
+ ḥatauáã
+yaraǧiʿa
+muw
+saáã
+āʾilayhima
+ fayasaāaluwnahu
+fiy
+ḏãlika
+ 
+faḫašiya
+haāruwnu
+āana
+yunsaba
+ḏãlika
+ālfuraḳaānu
+
+ baynahuma
+
+ āʾilayhi
+ 
+wa
+kaāna
+muwsaáã
+āaʿalamu
+biālāamari
+mina
+haāruwna
+ liāanauhu
+ʿalima
+maā
+ʿabadahu
+āaṣaḥaābu
+ālʿiǧali
+ liʿilamihi
+baāanau
+āllha
+ḳada
+ḳaḍaáã
+āalauā
+yuʿabada
+āʾilauā
+āʾiyauāhu
+ wamaā
+ḥakama
+āllhu
+bišayʾiⁿ
+āʾilauā
+waḳaʿa
+ 
+fakaāna
+ʿatabu
+muwsaáã
+āaḫaāhu
+haāruwna
+ lamauā
+waḳaʿa
+ālāamaru
+fiy
+āʾinakaārihi
+ waʿadami
+atiusaāʿihi
+ faāʾinau
+ālʿaārifa
+mana
+yaraáã
+ālḥaḳau
+fiy
+kuliu
+šayaʾiⁿ
+ bala
+yaraāhu
+ʿayna
+kuliu
+šayaʾiⁿ
+ 
+fakaāna
+muwsaáã
+yurabauy
+haāruwna
+tarabiyaŧa
+ʿilamiⁿ
+ waāʾina
+kaāna
+āaṣaġara
+minahu
+fiy
+ālsiuniu
+ 
+waliḏãlika
+lamauā
+ḳaāla
+lahu
+haāruwnu
+maā
+ḳaāla
+ 
+raǧaʿa
+āʾiláã
+ālsauāmiriyiu
+ faḳaāla
+lahu
+ 
+maā
+ḫaṭab
+uka
+yãs
+ãmiriyuu
+ 
+swrŧ
+ṭãh
+ã
+ 59
+ yaʿaniy
+ fiymaā
+ṣanaʿata
+mina
+ʿuduwlika
+āʾiláã
+ṣuwraŧi
+ālʿiǧali
+ʿaláã
+ālaḫatiṣaāṣi
+ waṣunaʿika
+hãḏaā
+ālšabaḥa
+mina
+ḥuliyiu
+ālḳawmi
+ḥatauáã
+āaḫaḏata
+biḳuluwbihima
+mina
+āaǧali
+āamawaālihima
+ 
+faāʾinau
+ʿiy
+saáã
+yaḳuwl
+liban
+iy
+āʾisaraāʾiyla
+ 
+yaā
+ban
+iy
+āʾisaraāʾiyla
+ ḳal
+abu
+kuliu
+āʾinas
+aāniⁿ
+ḥayṯu
+maāluhu
+ faaǧaʿaluwā
+āamawaālakuma
+fiy
+ālsaumaāʾi
+ takuna
+ḳuluwbukuma
+fiy
+ālsaumiāʾi
+ 
+wamaāsumiuya
+ālmaā
+lu
+maālaⁿā
+ āʾilauā
+likawnihi
+baālḏau
+āti
+tamiylu
+ālḳlwbu
+āʾilayhi
+biālʿibaādaŧi
+ fahuwa
+ālmaḳaṣuwdu
+ālāaʿaẓamu
+ālmuʿaẓaumu
+fiy
+ālḳuluwbi
+ limaā
+fiyhaā
+mina
+ālafatiḳaāri
+āʾilayhi
+ 
+walaysa
+lilṣuuwari
+baḳaāʾuⁿ
+ falaā
+budau
+mina
+ḏahaābi
+ṣuwraŧi
+ālʿiǧali
+ law
+lama
+yasataʿaǧila
+muwsaáã
+biḥaraḳihi
+faġalabata
+ʿalayhi
+ālġayraŧu
+faḥarauḳaha
+ 
+ṯumau
+nasafa
+ramaāda
+tilaka
+ālṣuuwraŧi
+fiy
+ālyamiu
+nasafaⁿā
+
+ waḳaāla
+lahu
+
+ 
+anaẓu
+ra
+āʾilaáã
+āʾilãhika
+ fasamauāhu
+āʾilãhaⁿā
+biṭariyḳi
+āltaunab
+iyhi
+liltauʿaliymi
+ 
+limaā
+ʿalima
+āanauhu
+baʿaḍa
+ālmaǧaāliy
+ālāʾilãhiyauŧi
+ 
+
+laāuḥa
+riuḳanauhu
+ 
+36
+ẓhr
+ faāʾinau
+ḥay
+awaāniy
+auŧa
+ālāʾinasaā
+ni
+lahaā
+āltau
+ṣaruufu
+fiy
+ḥayawaāniyauŧi
+ālḥayawaāni
+ likawani
+āllhi
+saḫaurahaā
+lilāʾinasaāni
+ walaā
+siyaumaā
+waāaṣaluhu
+laysa
+mina
+ḥayawaāniⁿ
+ 
+fakaāna
+āaʿaẓma
+fiy
+āltausaḫ
+iyri
+ liāanau
+ġay
+ra
+ālḥ
+ayawaāni
+maālahu
+āʾiraādaŧuⁿ
+ bala
+huwa
+biḥakumi
+
+mana
+yataṣaraufu
+fiyhi
+mina
+ġayri
+āʾibaāʾaŧiⁿ
+ 
+waāamauā
+ālḥayawaānu
+ fahuwa
+ḏuw
+āʾiraādaŧiⁿ
+waġaraḍiⁿ
+faḳada
+yaḳaʿu
+minahu
+ālāʾibaāʾaŧu
+fiy
+baʿaḍi
+āltauṣariyfi
+ faāʾina
+kaāna
+fiyhi
+ḳuwauŧu
+āʾiẓahaāri
+ḏãlika
+ ẓahara
+minahu
+ālǧumuwḥu
+limaā
+yuriyduhu
+minahu
+ālāʾinasaānu
+ waāʾina
+lama
+takuna
+lahu
+hãḏihi
+ālḳuwauŧu
+ āaw
+yuṣaādifu
+ġaraḍa
+ālḥayawaāni
+ anaḳaāda
+muḏalaulaⁿā
+limaā
+yuriyduhu
+minahu
+ kamaā
+yanaḳaādu
+miṯaluhu
+liāamriⁿ
+fiym
+aā
+rafaʿahu
+āllhu
+bihi
+
+ mina
+āǧali
+ālmaāli
+ālauḏiy
+yaraǧuwhu
+minahu
+
+ ālmuʿabauru
+ʿanahu
+fiy
+baʿaḍi
+ālāaḥawaāli
+biālāuǧaraŧi
+ fiy
+ḳawlihi
+ 
+warafaʿa
+baʿaḍakuma
+fawaḳa
+baʿaḍiⁿ
+daraǧaātiⁿ
+liyatauḫiḏa
+baʿaḍukuma
+baʿaḍaⁿā
+suḫariyiⁿuā
+
+āḳtbās
+mn
+swrŧ
+ālzḫrf
+
+ 23
+ 
+famaā
+tasaḫaura
+lahu
+man
+huwa
+miṯaluhu
+āʾilauā
+mina
+ḥay
+awaāniyiutihi
+ laā
+min
+āʾinasaāniyiutihi
+ faāʾinau
+ālmiṯalayni
+ḍidauāni
+ fayusaḫiuru
+hu
+ālāarafaʿu
+fiy
+ālmanazilaŧi
+ biālmaāli
+āaw
+biālǧaāhi
+ biāʾinas
+aāniyiutihi
+ wayatas
+aḫauru
+lahu
+ḏãlika
+ālāḫaru
+
+ āʾimauā
+ḫawfaⁿā
+āaw
+ṭamaʿaⁿā
+
+ mina
+ḥayawaāniyiutihi
+ laā
+min
+āʾinasaāniyiutihi
+ 
+famaā
+yusaḫauru
+lahu
+mana
+huwa
+miṯaluhu
+ āalaā
+taraáã
+maābayna
+ālbahaāʾimi
+mina
+āltauḥariyši
+ liāanauhaā
+āamaṯaā
+luⁿ
+ faā
+lmiṯalaāni
+ḍidauāni
+ waliḏ
+ãlika
+ḳaāla
+ 
+warafaʿa
+baʿaḍakuma
+fawa
+ḳa
+baʿ
+aḍiⁿ
+daraǧaātiⁿ
+
+āḳtbās
+mn
+swrŧ
+ālzḫrf
+
+ 23
+ 
+famaā
+huwa
+maʿahu
+fiy
+daraǧatihi
+ fawaḳaʿa
+āltausaḫiyru
+mina
+āaǧali
+āldauraǧaāti
+ waāltausaḫiyru
+ʿal
+áã
+ḳisamayni
+
+ tasaḫiyruⁿ
+muraāduⁿ
+lilmus
+aḫiuri
+
+ asamu
+faā
+ʿiliⁿ
+
+ ḳaāhiruⁿ
+fiy
+tasaḫiy
+rihi
+lih
+ãḏaā
+ālšauḫaṣi
+ālmusaḫaur
+ katasaḫiyri
+ālsauyiudi
+liʿabadihi
+ waāʾina
+kaāna
+miṯaluhu
+fiy
+ālāʾinasaāniyauŧi
+ 
+wakatasaḫiyri
+ālsuulaṭaāni
+liraʿaāyaāhu
+ waāʾina
+kaānawā
+āamaṯaālaⁿā
+lahu
+ fasaḫaurahumuⁿ
+biāldauraǧaŧi
+ 
+waālḳisamu
+ālāḫaru
+ tasaḫiyruⁿ
+biālḥaāli
+ katasaḫiyri
+ālrauʿaāyaā
+lilmalika
+ālḳaāʾimi
+baāamarihima
+ 
+fiy
+ālḏaubiu
+ʿanahuma
+waḥimaāyatihima
+ waḳitaāli
+man
+ʿaādaāhuma
+ wḥifaẓihi
+āamawaālahuma
+wāanafusahuma
+ʿalayhima
+ wahãḏaā
+kuluuhu
+tasaḫiyruⁿ
+biālḥaāli
+mina
+ālrauʿaāyaā
+yusaḫiuruwna
+biḏãlika
+maliykahuma
+ 
+wayusamauáã
+
+ ʿaláã
+ālḥaḳiyḳaŧi
+
+ tasaḫiyra
+ālmaratabaŧi
+ faālmaratabŧu
+ḥakamata
+ʿalayhi
+biḏãlika
+ 
+famina
+ālmul
+uwki
+mana
+saʿaáã
+linafasihi
+ waminahuma
+mana
+ʿarafa
+ālāamara
+ faʿ
+alima
+āanauhu
+biālmaratab
+aŧi
+fiy
+tasaḫi
+yri
+raʿaāyaāhu
+ faʿalima
+
+46
+wǧh
+ ḳadarahuma
+waḥaḳauhuma
+ faāāǧarahu
+āllhu
+ʿaláã
+ḏãlika
+ 
+āuǧaraŧa
+ālʿulamaāʾi
+biālāamari
+ʿaláã
+maā
+huwa
+ʿalayhi
+ waāaǧaruⁿ
+miṯalu
+hãḏaā
+yakuwnu
+ʿaláã
+āllhi
+ fiy
+kawni
+āllhi
+fiy
+šuʾwni
+ʿibaādihi
+ 
+faālʿaālamu
+kuluuhu
+yusaḫiuru
+biālḥaāli
+mana
+laā
+yumakinu
+āana
+yuṭalaḳu
+ʿalayhi
+āanauh
+musaḫauruⁿ
+ 
+ḳaāla
+taʿaālaáã
+
+kulau
+yawmiⁿ
+huwa
+fiy
+šaāniⁿ
+
+swrŧ
+ālrḥmn
+
+ 92
+ 
+fakaāna
+ʿadamu
+ḳuwauŧi
+āʾiradaāʿi
+haāruwna
+biālfiʿali
+ āana
+tanafuḏa
+fiy
+āaṣaḥaābi
+ālʿiǧali
+biāltausaliyṭi
+ʿaláã
+ālʿiǧali
+ kamaā
+salauṭa
+muwsaáã
+ʿalayhi
+ḥikamaŧaⁿ
+mina
+āllhi
+ẓaāhiraŧaⁿ
+fiy
+ālwuǧuwdi
+ liyuʿabada
+fiy
+kuliu
+ṣuwraŧiⁿ
+ waāʾina
+ḏahabata
+til
+aka
+ālṣ
+uuwraŧu
+baʿ
+ada
+ḏãlika
+ famaā
+ḏahabata
+āʾilauā
+baʿada
+maātalabausata
+ʿinada
+ʿaābidihaā
+biālāuluwhiyauŧi
+ 
+walihãḏaā
+maābaḳiya
+nawʿuⁿ
+mina
+ālāanawaāʿi
+āʾilauā
+waʿubida
+ āʾimauā
+ʿibaādaŧa
+taāaluuhiⁿ
+ waāʾimauāʿibaādaŧa
+tasaḫiyriⁿ
+ 
+falaābudau
+mina
+ḏãlika
+liman
+ʿaḳila
+ 
+wamaā
+ʿubida
+šaya
+ʾuⁿ
+mina
+ālʿaālami
+ āʾilauā
+baʿada
+āltaulabuusi
+biālriufaʿ
+aŧi
+ʿinada
+ālʿ
+aābidi
+ waālẓuuhuw
+ri
+biāldauraǧaŧi
+fiy
+ḳalabihi
+ waliḏãlika
+tasamauáã
+ālḥaḳuu
+lanaā
+bi
+rafiyʿi
+āldauraǧaāti
+ walama
+yaḳula
+ 
+
+rafiyʿu
+āldauraǧaŧi
+ faka
+ṯaura
+āldauraǧaāti
+fiy
+ʿayniⁿ
+waāḥidaŧiⁿ
+ faāʾinauhu
+ḳaḍaáã
+āana
+laā
+yuʿabada
+āʾilauā
+āʾiyauāhu
+fiy
+daraǧaātiⁿ
+kaṯiyraŧiⁿ
+muḫatalifaŧiⁿ
+ āaʿaṭata
+kuluu
+daraǧaŧiⁿ
+maǧalaáaⁿ
+āʾilãhiyiⁿuā
+ ʿubida
+fiyhaā
+ 
+waāaʿaẓamu
+maǧalaáaⁿ
+ʿubida
+fiyhi
+waāaʿalaāhu
+ ālhawaáã
+ kamaā
+ḳaāla
+ 
+āafaraʾayata
+mani
+atauḫaḏa
+āʾilãhahu
+hawa
+áãhu
+ 
+swrŧ
+ālǧāṯy
+ŧ
+ 32
+ fahuwa
+āaʿaẓamu
+maʿ
+abuw
+diⁿ
+ faāʾinauhu
+laā
+yuʿab
+adu
+šayaʾuⁿ
+āʾilauā
+bihi
+ 
+walaā
+yuʿabadu
+huwa
+āʾilauā
+biḏaātihi
+ 
+wafiyhi
+āaḳuwlu
+ 
+
+ālṭauwiylu
+waḥaḳiu
+ālhawáã
+āʾinau
+ālhawáã
+sababu
+ālhawáã
+walawlaā
+ālhawáã
+fiy
+ālḳalabi
+maā
+ʿubida
+āalhawáã
+āalaā
+tara
+áã
+ʿilama
+āllhi
+biālāašayaāʾi
+maā
+āakamalahu
+ kayfa
+tamauma
+fiy
+ḥaḳiu
+mana
+ʿabada
+hawaāhu
+ 
+waatauḫaḏahu
+āʾilãhaⁿā
+ faḳaāla
+ 
+waāaḍalauhu
+allhu
+ʿalaáã
+ʿil
+amiⁿ
+ 
+sw
+rŧ
+ālǧāṯyŧ
+
+ 32
+ waālḍaulaālaŧu
+ālḥayaraŧu
+ waḏãlika
+āanauhu
+lamauā
+raāaáã
+hãḏaā
+ālʿaābidu
+ maāʿabada
+āʾilauā
+hawaāhu
+ bianaḳiyaādihi
+liṭaāʿatihi
+ 
+fiymaā
+yaāmuruhu
+bihi
+mina
+ʿibaādaŧi
+mana
+ʿabadahu
+ mina
+ālāašaḫaāṣi
+ 
+ḥatauáã
+ʿibaādatuhu
+lilhi
+ kaānata
+ʿana
+hawaáaⁿ
+āayaḍaⁿā
+ liāanauhu
+law
+lama
+yaḳaʿa
+lahu
+fiy
+ḏãlika
+ālǧanaābi
+ālmuḳ
+adausi
+hawaáaⁿ
+
+ wahuwa
+ālāʾiraādaŧu
+bimaḥabauŧiⁿ
+mauā
+
+
+ 
+46
+ẓhr
+ ʿabada
+āll
+ha
+walaā
+āṯarahu
+ʿaláã
+ġayrihi
+ 
+wa
+kaḏãlika
+kuluu
+mana
+ʿabada
+ṣuwraŧaⁿ
+maā
+ min
+ṣuwari
+ālʿaālami
+waatauḫaḏahaā
+āʾilãhaⁿā
+ 
+maāatauḫaḏahaā
+āʾilauā
+biālhawaáã
+ faālʿaābidu
+laā
+yazaālu
+taḥata
+sulaṭaāni
+hawaāhu
+ 
+ṯumau
+raāaáã
+ālmaʿabuwdaāti
+tatanawauʿu
+fiy
+ālʿaābidiyna
+ wa
+kuluu
+ʿaābidiⁿ
+āamraⁿā
+maā
+ yukafiuru
+mana
+yaʿabudu
+siwaāhu
+ waālauḏiy
+ʿinadahu
+āadanaáã
+tanabuuhiⁿ
+ yaḥaāru
+liatiuḥaādi
+ālhawaáã
+ bala
+liāaḥadiyauŧi
+ālhawaáã
+ faāʾinauhu
+ʿaynuⁿ
+waāḥidaŧuⁿ
+fiy
+kuliu
+ʿaābidiⁿ
+ 
+fa
+āaḍalauhu
+allhu
+ 
+swrŧ
+ālǧā
+ṯyŧ
+
+ 32
+ āay
+ ḥayaurahu
+
+ʿalaáã
+ʿilamiⁿ
+ 
+sw
+rŧ
+ālǧāṯy
+ŧ
+
+ 32
+ baāanau
+kulau
+ʿaābidiⁿ
+maā
+ʿabada
+āʾilauā
+hawaāhu
+ walaā
+asataʿabadahu
+āʾilauā
+hawaāhu
+ sawaāʾuⁿ
+ṣaādafa
+ālāamara
+ālmašaruwʿa
+ āaw
+lama
+yuṣaādifa
+ waālʿaārifu
+ālmukamaulu
+mana
+raāaáã
+kulau
+maʿabuwdiⁿ
+maǧalaáaⁿ
+lilḥaḳiu
+yuʿabadu
+fiyhi
+ 
+waliḏãlika
+samauwhu
+kuluuhuma
+ 
+āʾilãhaⁿā
+ maʿa
+asamihi
+ālḫaāṣiu
+ biḥaǧariⁿ
+ āaw
+šaǧariⁿ
+ āaw
+ḥayawaāniⁿ
+ āaw
+āʾinasaāniⁿ
+ āaw
+kawkabiⁿ
+ āaw
+malakiⁿ
+ hãḏaā
+asamu
+ālšauḫaṣiyauŧi
+fiyhi
+ 
+waālāuluwhiyauŧu
+maratabaŧu
+taḫayuuli
+ālʿaābidi
+lahu
+ āanauhaā
+maratabaŧu
+maʿabuwdihi
+ wahiya
+
+ ʿaláã
+ālḥaḳiyḳaŧi
+
+ maǧalaáã
+ālḥaḳiu
+ ālmaǧalaáã
+ālmuḫataṣuu
+libaṣari
+hãḏaā
+ālʿaābidi
+ālḫaāṣiu
+ 
+ālmuʿatakifi
+ʿaláã
+hãḏaā
+ālmaʿabuwdi
+ fiy
+hãḏaā
+ālmaǧalaáã
+ālmuḫat
+aṣiu
+ walihãḏa
+āḳaāla
+baʿḍu
+mana
+ʿarafa
+ maḳaālaŧa
+ǧah
+aālŧiⁿ
+ 
+maā
+naʿ
+abuduhuma
+āʾilauā
+liyuḳariubuwanaā
+āʾilaáã
+allhi
+zulafaáã
+ 
+swrŧ
+ālzmr
+
+ 3
+maʿa
+tasamiyatihima
+āʾiyauāhuma
+ālihaŧaⁿ
+ 
+ḥatauáã
+ḳaāluw
+ā
+āaǧaʿala
+alālihaŧa
+āʾilãhaⁿā
+waāḥidaⁿā
+āʾinau
+hãḏaā
+lašayaʾuⁿ
+ʿuǧaābuⁿ
+ 
+swrŧ
+ṣā
+
+ 5
+famaā
+āanakaruwhu
+ bala
+taʿaǧaubuwā
+mina
+ḏãlika
+ faāʾinauhuma
+waḳafuwā
+maʿa
+kaṯaraŧi
+ālṣuuwari
+ 
+wanisabaŧi
+ālāuluwhiyauŧi
+lahaā
+ 
+faǧaāʾa
+ālrausuwlu
+wadaʿaāhuma
+āʾilaáã
+āʾilã
+hiⁿ
+waāḥidiⁿ
+yuʿarafu
+walaā
+yušahadu
+bišahaādatihim
+ 
+āanauh
+uma
+āaṯabatuwhu
+ʿinadahuma
+ waaʿataḳaduwhu
+fiy
+ḳawlihima
+
+ 
+maā
+naʿabuduhuma
+āʾilauā
+liyuḳariubuwnaā
+āʾilaáã
+all
+hi
+zulafaáã
+ 
+swrŧ
+ālzmr
+
+
+ 3
+liʿilamihima
+baāanau
+tilaka
+ālṣuuwara
+ḥiǧaāraŧuⁿ
+ waliḏãlika
+ḳaāmati
+ālḥuǧauŧu
+ʿalayhima
+ biḳawlihi
+ 
+
+ḳula
+samuuwahuma
+ 
+swrŧ
+ālrʿd
+
+
+ 33
+ famaā
+yusamuuwnahuma
+āʾilauā
+bimaā
+yaʿalamuwna
+āanau
+tilaka
+ālāasamaāʾa
+lahuma
+ḥaḳiyḳaŧuⁿ
+ 
+waāamauā
+ālʿaārifuw
+na
+biālāamari
+ʿaláã
+maā
+huwa
+ʿalayhi
+fayaẓaharuwna
+biṣuwraŧi
+ālāʾinakaāri
+limaā
+ʿubida
+mina
+ālṣuuwari
+laāanau
+maratabatahuma
+fiy
+ālʿilami
+tuʿaṭiyhima
+āana
+yakuwnuwā
+biḥukami
+ālwaḳati
+liḥukami
+ālrausuwli
+
+ ālauḏiy
+āmanuwā
+bihi
+
+ ʿalayhima
+ ālauḏiy
+bihi
+sumuuwā
+muʾminiyna
+ 
+fahuma
+ʿubauādu
+ālwaḳati
+ maʿa
+ʿilam
+ihima
+
+56
+wǧh
+ baāanauhuma
+maā
+ʿabaduwā
+mina
+tilaka
+ālṣuuwa
+ri
+āaʿayaānahaā
+ wiāʾinaumaā
+ʿabaduwā
+āllha
+ fiyhaā
+liḥukami
+sulaṭaāni
+āltauǧaliuy
+ālauḏiy
+ʿarafuwhu
+minahuma
+ 
+waǧahilahu
+ālmunakiru
+ ālauḏiy
+laā
+ʿilama
+lahu
+bimaā
+taǧalauáã
+ 
+āaw
+yasaturuhu
+ālʿaārifu
+ālmukamaulu
+mina
+nabiyiⁿu
+warasuwliⁿ
+wawaāriṯiⁿ
+ʿanahuma
+ 
+faāamarahuma
+biālanatizaāḥi
+ʿana
+tilaka
+ālṣuuwraŧi
+ lamauā
+anatazaḥa
+ʿanahaā
+rasuwlu
+ālwaḳati
+ 
+atiubaā
+ʿaⁿā
+lilrausuwli
+ ṭamaʿaⁿā
+fiy
+maḥabauŧi
+āllhi
+āʾiyauāhuma
+ biḳawlihi
+
+ 
+ḳula
+āʾina
+kunatuma
+tuḥibuuwana
+allha
+faataubiʿuwaniya
+yuḥabibakumu
+allhu
+ 
+swrŧ
+āl
+ʿmrān
+
+ 13
+
+ 
+fadaʿaā
+āʾiláã
+āʾilãhiⁿ
+yuṣamadu
+āʾilayhi
+ wayuʿalamu
+mina
+ḥayṯu
+ālǧumalaŧu
+ walaā
+yušahadu
+wa
+laā
+tudarikuhu
+alāabaṣaāru
+ 
+swrŧ
+ālānʿām
+
+ 301
+ bala
+
+wuhuwa
+yudariku
+ālāabaṣaāra
+ 
+swrŧ
+ālānʿām
+
+ 301
+ liluṭafihi
+ wasarayaānihi
+fiy
+āaʿayāni
+ālāašayaāʾi
+ falaā
+tudarikuhu
+ālāabaṣaāru
+ 
+kamaā
+āanauhaā
+laā
+tudariku
+āarawaāḥuhaā
+ālmudabaurŧu
+āašabaāḥahaā
+ waṣuwrahaā
+ālẓauāhiraŧa
+ 
+fa
+huwa
+allauṭiyafu
+alḫabiyaru
+ 
+swrŧ
+ālānʿām
+
+ 301
+ 
+waālḫibaraŧu
+ḏawaḳuⁿ
+ waālḏauwaḳu
+taǧaliⁿu
+ waāltauǧaliuy
+fiy
+ālṣuuwari
+ fala
+ābudau
+minahaā
+ walaā
+budau
+minahu
+ 
+falaā
+budau
+āana
+yaʿabudahu
+mana
+rāhu
+bihawaāhu
+ āʾina
+fahimata
+ 
+
+waʿalaáã
+allhi
+ḳaṣadu
+alsaubiyali
+ 
+swrŧ
+ālnḥl
+ 9
+
+52
+ 
+faṣuu
+ḥikamaŧiⁿ
+ʿulawiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+muwasawiyauŧiⁿ
+ḥikamaŧu
+ḳatali
+ālāabanaāʾi
+min
+āaǧali
+muwsaáã
+liyaʿuwda
+āʾilayhi
+biālāʾimadaādi
+ḥayaāŧa
+kuliu
+mana
+ḳutila
+mina
+āaǧalihi
+liāanauhu
+ḳutila
+ʿaláã
+āanauhu
+muwsaáã
+ wamaā
+ṯamau
+ǧahaluⁿ
+ falaā
+budau
+āana
+taʿuwda
+ḥayaātuhu
+ʿaláã
+muwsaáã
+ āaʿaniy
+ ḥayaāŧa
+ālmaḳatuwli
+mina
+āaǧalihi
+ wahiya
+ḥayaāŧuⁿ
+ṭaāhiraŧuⁿ
+ʿaláã
+ālfiṭaraŧi
+ lama
+tuda
+nius
+ahaā
+ālāaġaraāḍu
+āln
+afasiy
+auŧu
+ bala
+hiya
+ʿaláã
+faṭa
+raŧi
+
+balaáã
+
+ 
+fa
+kaāna
+muwsaáã
+maǧamuw
+ʿa
+ḥayaā
+ŧi
+man
+ḳuti
+la
+ʿal
+áã
+āanauh
+huwa
+ wa
+kuluu
+maā
+kaāna
+muhayau
+áʾaⁿā
+liḏ
+ãlika
+ālm
+aḳatuwli
+mimauā
+kaāna
+asatiʿadaādu
+ruwḥihi
+lahu
+ kaāna
+fiy
+muwsaáã
+ʿalayhi
+ālsaulaāmu
+ 
+wahãḏaā
+aḫatiṣaāṣuⁿ
+āʾilãhiyuⁿu
+bimuwsaáã
+ lama
+yakuna
+liāaḥadiⁿ
+ḳabalahu
+ 
+faāʾinau
+ḥikama
+muwsaáã
+kaṯiyraŧuⁿ
+ waāanaā
+
+ āʾina
+šaāʾa
+āllhu
+taʿaālaáã
+
+ āasaridu
+minahaā
+fiy
+hãḏaā
+ālbaābi
+ʿaláã
+ḳadari
+maā
+yaḳaʿu
+bihi
+ālāamaru
+ālāʾilãhiyuu
+fiy
+ḫaāṭiriy
+ 
+fkaāna
+hãḏaā
+āawaulu
+maāšuwfihatu
+bihi
+mina
+hãḏaā
+ālbaābi
+ 
+famaā
+wulida
+muwsaáã
+āʾilauā
+wahuwa
+maǧamuwʿu
+āarawaāḥiⁿ
+kaṯiyraŧiⁿ
+ ǧumiuʿa
+ḳuwaáaⁿ
+faʿauālaŧuⁿ
+
+56
+ẓhr
+ liāanau
+ālṣauġiyra
+yafaʿalu
+fiy
+ālkabiyri
+ 
+āalaā
+taraáã
+ālṭiufala
+yafaʿalu
+fiy
+ālkab
+iyri
+biālḫaāṣiuyauŧi
+ fayanazilu
+ālkab
+iyru
+mina
+riyaāsatihi
+āʾilayhi
+fayulaāʿibuhu
+wayuzaḳaziḳu
+lahu
+ wayaẓaharu
+lahu
+biʿaḳalihi
+ 
+fahuwa
+taḥata
+tasaḫiyrihi
+wahuwa
+laā
+yašaʿuru
+ ṯumau
+šaġalahu
+bitarabiyatihi
+waḥimaāytihi
+wtafaḳuudi
+maṣaāliḥihi
+wataāaniysihi
+ḥatauáã
+laā
+yaḍiyḳa
+ṣadaruhu
+ hãḏaā
+kuluuhu
+mina
+fiʿali
+ālṣauġiyri
+biālka
+biyri
+ 
+wḏãlika
+liḳuwauŧi
+ālmaḳaāmi
+ faāʾinau
+ālṣauġiyra
+ḥadiyṯu
+ʿahadiⁿ
+birabauhi
+ liāanauhu
+ḥadiyṯu
+āltakawiyni
+ 
+waālkabiyru
+āabaʿadu
+ famana
+kaāna
+mina
+āllhi
+āaḳaraba
+ saḫaura
+man
+kaāna
+min
+āllhi
+āabaʿada
+ 
+kaḫawaāṣiu
+ālmaliku
+
+ lilḳurabi
+minahu
+
+ yusaḫiuruwna
+ālāabaʿadiyna
+ 
+kaāna
+rasuwlu
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+yabruzu
+binafasihi
+lilmaṭari
+āʾiḏaā
+nazala
+ 
+wayakašifu
+raāsahu
+lahu
+ ḥatauáã
+yuṣiyba
+minahu
+ wayaḳuwlu
+ 
+āʾinauhu
+ḥadiyṯu
+ʿahadiⁿ
+barabauhi
+ 
+faanaẓura
+āʾiláã
+hãḏihi
+ālm
+aʿarifaŧi
+biā
+llhi
+ mina
+hãḏa
+āālnaubiyiu
+ maā
+āaǧalauhaā
+wamaā
+āaʿalaāhaā
+waāawḍaḥahaā
+ 
+faḳada
+saḫaura
+ālmaṭaru
+āafaḍala
+ālbašari
+liḳurabihi
+mina
+rabauhi
+ fakaāna
+miṯala
+ālrausuwli
+ālauḏiy
+yanzilu
+ʿalayhi
+biālwaḥayi
+fadaʿaāhu
+biālḥaāli
+biḏaātihi
+ fabaraza
+ālyh
+ liyuṣiyba
+minahu
+maā
+āataāhu
+bihi
+mina
+rabauhi
+ 
+falawlaā
+maāḥaṣalata
+lahu
+minhu
+ālfaāʾidaŧu
+ālāʾilãh
+iyauŧu
+ bimaā
+āaṣaāba
+minahu
+ maā
+baraza
+bin
+afas
+ihi
+āʾilayhi
+ 
+fahãḏihi
+risaālaŧu
+maāʾiⁿ
+ 
+ǧaʿala
+āllhu
+minahu
+kulau
+šayaʾiⁿ
+ḥayiⁿu
+ 
+āḳt
+bās
+mn
+swrŧ
+ālānb
+yāʾ
+
+ 03
+ faafahama
+ 
+waāmauā
+ḥikamaŧu
+āʾilḳaāʾihi
+fay
+āltauābuwti
+waramayihi
+fiy
+ālyamiu
+ faāltauābuwtu
+naāsuwtuhu
+ waālyamuu
+maāḥaṣala
+lahu
+mina
+ālʿilami
+ biwaāsiṭaŧi
+hãḏaā
+ālǧisami
+ mimauā
+āaʿaṭatahu
+ālḳuwauŧu
+ālnauẓariyauŧu
+ālfikariyauŧu
+ waālḳuwaáã
+ālḥisiuyauŧu
+ waālḫayaāliyauŧu
+ ālautiy
+laā
+yakuwnu
+šayaʾuⁿ
+minahaā
+ walaā
+mina
+āamaṯaālihaā
+ lihãḏihi
+ālnaufasi
+ālāʾinasaāniyauŧi
+ āʾilauā
+biwuǧuwdi
+hãḏaā
+ālǧisami
+ālʿunaṣuriyiu
+ 
+falamauā
+ḥaṣalata
+ālnaufasu
+fiy
+hãḏaā
+ālǧisami
+ waāumirata
+biāltauṣaruufi
+fiyhi
+watadbiyrihi
+ 
+ǧaʿala
+āllhu
+lahaā
+hãḏihi
+ālḳuwaáã
+ālaātiⁿ
+tatawa
+ṣaulu
+bihaā
+āʾiláã
+maāāaraādahu
+āllhu
+minahaā
+fiy
+tadabiyri
+hãḏaā
+āltauābuwti
+ ālauḏiy
+fiyhi
+sakiynaŧu
+ālraubiu
+ 
+frumiya
+bihi
+fiy
+ālyamiu
+
+66
+wǧh
+ liyaḥaṣula
+bhãḏihi
+ālḳuwaáã
+ʿaláã
+funuwni
+ālʿilami
+ 
+faāa
+ʿalamahu
+biḏãlika
+āanauhu
+waāʾina
+kaāna
+ālruu
+wḥu
+ālmudabauru
+lahu
+huwa
+ālmalaku
+ 
+faāʾinauhu
+laā
+yudabauruhu
+āʾilauā
+bihi
+ faāaṣaḥabahu
+hãḏihi
+ālḳuwaáã
+ālkaāʾinaŧu
+fiy
+hãḏaā
+ālnauāsuwti
+ālauḏiy
+ʿabaura
+ʿanahu
+biāltauābuwti
+ fiy
+baābi
+ālāʾišaāraāti
+waālḥikami
+ 
+kaḏãlika
+tadabiyru
+ālḥaḳiu
+ālʿaālama
+ maā
+dabaurahu
+āʾilauā
+bihi
+āaw
+biṣuwratihi
+ 
+famaā
+dabaurahu
+āʾilauā
+bihi
+ katawaḳuufi
+ālwaladi
+ʿaláã
+āʾiyaǧaādi
+ālwaālidi
+ waālmusabaubaāti
+ʿaláã
+āasab
+aābihaā
+ waālmašaruwṭaāti
+ʿaláã
+šuruwṭih
+aā
+ waālma
+ʿaluw
+laāti
+ʿaláã
+ʿil
+alih
+aā
+ waālmadaluwlaāti
+ʿaláã
+āadilautihaā
+ waālmuḥaḳauḳaāti
+ʿaláã
+ḥaḳaāʾiḳihaā
+ wa
+kuluu
+ḏãlika
+mina
+ālʿaālami
+ 
+wahuwa
+tadabiyru
+ālḥaḳiu
+fiyhi
+ famaā
+dabaurahu
+āʾilauā
+bihi
+ 
+waāamauā
+ḳawlunaā
+ 
+āaw
+biṣuwratihi
+ 
+ āaʿaniy
+ ṣuwraŧa
+ālʿaālami
+
+ faāaʿaniy
+bihi
+ 
+ālāasamaāʾa
+ālāʾilãh
+iyauŧa
+ ālāasamaā
+ʾa
+ālḥusanaáã
+ waālṣiufaāti
+ālʿulaáã
+ ālautiy
+tasam
+auáã
+ālḥ
+aḳuu
+bihaā
+waatauṣafa
+bihaā
+ 
+famaā
+waṣala
+āʾilaynaā
+mini
+asamiⁿ
+tasamauáã
+bihi
+ āʾilauā
+waǧadanaā
+maʿanaáã
+ḏãlika
+ālasami
+ruwḥahu
+fiy
+ālʿaālami
+ famaā
+dabaura
+ālʿaālama
+āayaḍaⁿā
+āʾilauā
+biṣuwraŧi
+ālʿaālami
+ 
+waliḏãlika
+ḳaāla
+ fiy
+ḫal
+aḳi
+ādama
+ālauḏiy
+huwa
+ālbara
+naā
+miǧu
+ālǧ
+aāmiʿu
+linuʿ
+uwti
+ālḥaḍaraŧi
+ālāʾilã
+hiyauŧi
+ ālautiy
+hiya
+ālḏauātu
+ waālṣiufaātu
+ waālāafaʿaālu
+ 
+āʾinau
+āllha
+ḫalaḳa
+ādama
+ʿaláã
+ṣuwratihi
+ 
+walayasata
+ṣuwratuhu
+siwaáã
+ālḥaḍaraŧi
+ālāʾilãhiyauŧi
+ faāawaǧada
+fiy
+hãḏaā
+ālmuḫataṣari
+ālš
+auriyfi
+
+ ālauḏiy
+huwa
+ālāʾinasaā
+nu
+ālkaāmilu
+
+ ǧami
+yʿa
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ 
+waḥḳaāʾiḳi
+maāḫaraǧa
+ʿanahu
+ fiy
+ālʿaālami
+ālkabiyri
+ālmunafaṣili
+ waǧaʿalahu
+ruwḥaⁿā
+lilʿaālami
+ 
+fasaḫaura
+lahu
+ālʿuluwau
+waālsuufala
+ likamaāli
+ālṣuuwraŧi
+ 
+fakamaā
+āanauhu
+laysa
+šayʾuⁿ
+mina
+ālʿaālami
+āʾilauā
+wahuwa
+yus
+abiuḥu
+āllha
+biḥ
+amadihi
+ kḏãlika
+laysa
+šayaʾuⁿ
+fiy
+ālʿaālami
+āʾilauā
+wahuwa
+musaḫauruⁿ
+lhãḏaā
+ālāʾinasaāni
+ limaā
+tuʿaṭiyhi
+ḥaḳiyḳaŧu
+ṣuwratihi
+ 
+faḳaāla
+ 
+wasaḫaura
+lakuma
+maā
+fiya
+āls
+aumãwãti
+wamaā
+fiya
+alāaraḍi
+ǧamiy
+aʿaⁿā
+min
+ahu
+ 
+swrŧ
+ālǧāṯyŧ
+
+ 31
+ fakuluu
+maā
+fiy
+ālʿaālam
+taḥata
+tasaḫiyri
+ālāʾinasaāni
+ ʿalima
+ḏãlika
+mana
+ʿalimahu
+
+ wahuwa
+ālāʾinasaānu
+ālkaāmilu
+
+ waǧahila
+ḏãlika
+mana
+ǧahilahu
+ wahuwa
+ālāʾinasaānu
+ālḥayawaānu
+ 
+fakaānata
+ṣuw
+raŧu
+āʾilḳaāʾi
+muwsaáã
+fiy
+āltauābuw
+ti
+ waāʾilḳaāʾi
+āltauābuwti
+fiy
+āly
+amiu
+ṣuwraŧu
+halaākiⁿ
+ wafiy
+ālbaāṭini
+kaānata
+naǧaāŧaⁿ
+lahu
+mina
+ālḳatali
+ 
+66
+ẓh
+r
+faḥayiya
+kamaā
+taḥayaáã
+ālnuufuwsu
+biālʿilami
+ mina
+mawti
+ālǧahali
+ 
+kamaā
+ḳaāla
+ 
+āawa
+mana
+kaāna
+mayataⁿā
+ 
+swrŧ
+ālānʿām
+
+ 221
+ yaʿaniy
+ biālǧahali
+ 
+
+faāa
+ḥaya
+yan
+ãhu
+ 
+sw
+rŧ
+ālānʿām
+
+ 221
+ yaʿaniy
+ biā
+lʿilami
+ 
+waǧaʿalanaā
+lahu
+nawa
+raⁿā
+yamašiya
+bihi
+fiya
+alnauāsi
+ 
+swrŧ
+ālānʿām
+
+ 221
+ wahuwa
+ālhudaáã
+ 
+kamana
+maṯalahu
+fiya
+alẓuulumãti
+ 
+swrŧ
+ālānʿām
+
+ 221
+ wahiya
+ālḍaulaālu
+ 
+lay
+asa
+biḫaāriǧiⁿ
+minahaā
+ 
+swrŧ
+ālānʿām
+
+ 221
+ āay
+ laā
+yahatidiy
+āabadaⁿā
+ faāʾinau
+ālāamara
+fiy
+nafasihi
+laā
+ġaāyaŧa
+lahu
+ yuwḳafu
+ʿinadahaā
+ 
+faālhudaáã
+huwa
+āana
+yahatadiy
+ālāʾinasaānu
+āʾiláã
+ālḥayaraŧi
+ fayaʿalamu
+āanau
+ālāamara
+ḥayaraŧuⁿ
+ 
+waālḥ
+aya
+raŧu
+ḳalaḳuⁿ
+waḥara
+kaŧuⁿ
+ waālḥara
+kaŧu
+ḥay
+aāŧuⁿ
+ walaā
+sukuwna
+ walaā
+mawta
+ wawuǧuwduⁿ
+ walaā
+ʿadama
+ 
+wa
+kaḏãlika
+fiy
+ālmaāʾi
+ālauḏiy
+bihi
+ḥayaāŧu
+ālāaraḍi
+waḥara
+katuhaā
+ ḳawluhu
+
+ fa
+ahatazauta
+
+swrŧ
+ālḥǧ
+
+ 5
+ waḥamaluhaā
+ḳawluhu
+ 
+warabata
+ 
+swrŧ
+ālḥǧ
+
+ 5
+wawilaādatuhaā
+ḳawluhu
+ 
+
+waāanabatata
+mina
+kuliu
+zawaǧiⁿ
+bahiyaǧiⁿ
+ 
+swrŧ
+ālḥǧ
+
+ 5
+āay
+ āanauhaā
+maāwaladata
+āʾilauā
+mana
+yuš
+abih
+uhaā
+ āay
+ ṭabiyaʿiyiⁿuā
+miṯalahaā
+ fakaānata
+ālzau
+waǧiyauŧu
+ālautiy
+hiya
+ālšaf
+aʿiy
+auŧu
+lah
+aā
+ bim
+aā
+tawalauda
+minahaā
+ waẓahara
+ʿanahaā
+ 
+kaḏãlika
+wuǧuwdu
+ālḥaḳiu
+ kaānata
+ālkaṯaraŧu
+lahu
+ wataʿadaādu
+ālāasamaāʾi
+ āanauhu
+kaḏaā
+wa
+kaḏaā
+ 
+bimaā
+ẓahara
+ʿanahu
+mina
+ālʿaālami
+ālauḏiy
+yaṭalubu
+binašaātihi
+ḥaḳaāʾiḳa
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ 
+fanabata
+bihi
+wabiḫaāliḳihi
+ āaḥadiyauŧu
+ālkaṯaraŧi
+ 
+waḳada
+kaāna
+āaḥadi
+áau
+ālʿayni
+mina
+ḥayṯu
+ḏaātuhu
+ kaālǧ
+awhari
+ālhayuwlaāniyiu
+ āaḥadiáuu
+ālʿayni
+ 
+mina
+ḥayṯu
+ḏaātuhu
+ kaṯiyruⁿ
+biālṣuuwari
+ālẓauāhiraŧi
+fiyhi
+ ālautiy
+huwa
+ḥaāmiluⁿ
+lahaā
+biḏaātihi
+ 
+kaḏãlika
+ālḥaḳuu
+bimaā
+ẓahara
+minahu
+mina
+ṣuwari
+āltauǧaliuy
+ fakaāna
+maǧalaáã
+ṣuwari
+ālʿaālami
+maʿa
+ālāaḥadiyauŧi
+ālmaʿaḳuwlaŧi
+ 
+faanaẓu
+ra
+maāāaḥas
+ana
+hãḏaā
+āltauʿaliyma
+ālāʾilãhiyau
+ālauḏi
+yḫaṣau
+āllhu
+biā
+laṭiulaāʿi
+ʿal
+ayhi
+mana
+šaāʾa
+mina
+ʿibaādihi
+ 
+walamauā
+waǧadahu
+ālu
+firaʿawna
+fiy
+ālyamiu
+ʿinada
+ālšauǧaraŧi
+ samauāhu
+firaʿawnu
+ 
+muwsaáã
+ 
+waāl
+muwa
+ huwa
+ālmaāʾu
+biālḳibaṭiyauŧi
+ wa
+āl
+sauā
+ huwa
+ālšauǧaru
+ fasamauāhu
+bimaā
+waǧadahu
+ʿinadahu
+ 
+faāʾinau
+āltauābuwta
+waḳafa
+ʿinada
+ālšauǧaraŧi
+fiy
+ālyamiu
+ faāaraāda
+ḳatalahu
+ faḳaālata
+amaraāatuhu
+
+ wa
+kaānat
+munaṭaḳaŧaⁿ
+biālnuuṭaḳi
+ālāʾilãhiyiu
+
+ fiymaā
+ḳaālata
+lifiraʿawna
+ āʾiḏa
+kaāna
+āllhu
+ḫalaḳahaā
+lilkamaāli
+ kamaā
+ḳaāla
+ʿalayhi
+ālsaula
+āmu
+ʿan
+ahaā
+ ḥayṯu
+šah
+ida
+lah
+aā
+walimarayama
+banati
+ʿimaraāna
+biālkamaāli
+ ālauḏiy
+huwa
+lilḏuukaraāni
+ faḳaālata
+lifiraʿawna
+fiy
+ḥaḳiu
+muwsaáã
+
+76
+wǧh
+ āʾinauhu
+ 
+ḳurauŧu
+ʿayaniⁿ
+liáa
+walaka
+ 
+swrŧ
+ālḳṣṣ
+
+ 9
+fabihi
+ḳarauta
+ʿayanuhaā
+biālkamaāli
+ ālauḏiy
+ḥaṣala
+lahaā
+
+ kamaā
+ḳulanaā
+
+ wa
+kaāna
+ḳurauŧa
+ʿayniⁿ
+lifiraʿawna
+biālāʾiyamaāni
+ ālauḏiy
+āaʿaṭaāhu
+āllhu
+ʿinada
+ālġaraḳi
+ 
+faḳabaḍahu
+ṭaāhiraⁿā
+muṭahauraⁿā
+ laysa
+fiyhi
+šayʾuⁿ
+mina
+ālḫabaṯi
+ liāanauhu
+ḳabaḍahu
+ʿinda
+āʾiyamaānihi
+ ḳabala
+āana
+yakat
+asiba
+šayaáʾaⁿā
+mina
+ālāṯaāmi
+ waālāʾisalaāmu
+yaǧ
+ubuu
+maā
+ḳabalahu
+ waǧaʿalah
+āyaŧaⁿ
+ʿaláã
+ʿinaāyatiihi
+
+ subaḥaānahu
+
+ bimana
+šaāʾa
+ ḥatauáã
+laā
+yayaāasa
+āaḥaduⁿ
+min
+raḥamaŧi
+āllhi
+
+faāʾinauhu
+laā
+yayaāasu
+mina
+raḥamaŧi
+allhi
+āʾilauāa
+alḳawmu
+alkaāfiruwna
+ 
+āḳtbās
+swrŧ
+ywsf
+
+ 78
+ falaw
+kaāna
+firaʿawnu
+mimauna
+yayaāasu
+ maābaādara
+āʾiláã
+ālāʾiymaāni
+ 
+fakaāna
+muwsaáã
+ʿalayhi
+ālsaulaāmu
+kamaā
+ḳaālata
+amaraāaŧu
+firaʿawna
+fiyhi
+ āʾinauhu
+ḳurauŧu
+ʿayniⁿ
+liy
+walaka
+ʿasaáã
+āana
+yanafaʿanaā
+ wakaḏãlika
+waḳaʿa
+ faāʾinau
+āllha
+nafaʿahumaā
+bihi
+ʿalayhi
+ālsaulaāmu
+ waāʾina
+kaāna
+maāšaʿara
+ baāanauhu
+huwa
+ālnaub
+iyuu
+ālauḏiy
+yakuwnu
+ʿal
+áã
+yada
+yahi
+halaāku
+mulaki
+firaʿawna
+ wahalaāku
+ālihi
+ walamauā
+ʿaṣama
+hu
+āllhu
+mina
+fira
+ʿaw
+na
+ āaṣabaḥa
+fuʾ
+ādu
+āumiu
+muw
+saáã
+faāriġaⁿā
+mina
+ālhamiu
+ ālauḏiy
+kaāna
+ḳada
+āaṣaābahaā
+ 
+ṯumau
+āʾinau
+āllha
+ḥarauma
+ʿalayhi
+ālmarāḍiʿa
+ ḥatauáã
+āaḳabala
+ʿaláã
+ṯadayi
+āumauhi
+faāaraḍaʿatahu
+liyukamila
+āllhu
+lahaā
+suruwrahaā
+bihi
+ 
+kaḏãlika
+ʿilamu
+ālš
+auraāʾiʿi
+ kamaā
+ḳaāla
+ 
+liku
+liⁿu
+ǧaʿalan
+aā
+minakuma
+širaʿaŧaⁿ
+wamin
+ahaāǧaⁿā
+ 
+sw
+rŧ
+ālmāʾdŧ
+
+ 84
+ āay
+ ṭryḳaⁿā
+waminahaāǧaⁿā
+ āay
+ min
+tilaka
+ālṭauriyaḳaŧi
+ǧaāʾa
+ fkaāna
+hãḏaā
+ālḳawlu
+āʾišaāraŧaⁿ
+āʾiláã
+ālāaṣali
+ ālauḏiy
+minahu
+ǧaāʾa
+ 
+fahuwa
+ġiḏaāʾhu
+ kamaā
+āanau
+faraʿa
+ālšauǧaraŧi
+laā
+yataġaḏauáã
+āʾilauā
+mina
+āaṣalihi
+ 
+famaā
+kaāna
+ḥaraāmaⁿā
+fiy
+šaraʿiⁿ
+ yakuwnu
+ḥalaālaⁿā
+fiy
+šaraʿiⁿ
+āḫara
+ yaʿaniy
+ fiy
+ālṣuuwraŧi
+ āaʿaniy
+ ḳaw
+liy
+yakuwna
+ḥalaālaⁿ
+ wafiy
+nafasi
+ālāamari
+maāhuwa
+ʿaynu
+maā
+maḍaáã
+ liāanau
+ālāamara
+ḫalaḳuⁿ
+ǧadiyduⁿ
+ walaā
+takaraāra
+ falihãḏaā
+nabauhanaāka
+ 
+fakanauáã
+ʿana
+hãḏaā
+fiy
+ḥaḳiu
+muwsaáã
+bitaḥariymi
+ālmaraāḍiʿi
+ 
+faāumuuhu
+
+ ʿaláã
+ālḥaḳiyḳaŧi
+
+ mana
+āaraḍaʿatahu
+ laā
+mana
+waladatahu
+ faāʾinau
+āumau
+ālwilaādaŧi
+ 
+ḥamalatahu
+ʿaláã
+ǧihaŧi
+ālāamaānaŧi
+fatakawauna
+fiyhaā
+ wataġaḏauá
+ãbidami
+ṭamaṯihaā
+mina
+ġayri
+āʾiraādaŧiⁿ
+lahaā
+fiy
+ḏãlika
+ ḥatauáã
+laā
+yakuwna
+lahaā
+ʿalayhi
+amatinaānuⁿ
+ faāʾinauhu
+maātaġaḏauáã
+āʾilauā
+bimaā
+law
+lama
+yataġaḏaubihi
+
+ walama
+yaḫaruǧa
+ʿanahaā
+ḏãlika
+āldaumu
+
+ laāahalakahaā
+waāamaraḍahaā
+ falilaǧaniyni
+ālminauŧu
+ʿaláã
+āumauhi
+
+76
+ẓhr
+ bikawnihi
+taġaḏau
+áã
+biḏ
+ãlika
+fawaḳaāhaā
+bin
+afas
+ihi
+mina
+ālḍaura
+ri
+ālauḏiy
+kaānat
+taǧiduhu
+law
+amatasaka
+ḏãlika
+āldaumu
+ʿinadahaā
+walaā
+yaḫaruǧu
+walaā
+yataġaḏauáã
+bihi
+ǧaniynuhaā
+ 
+waālm
+uraḍiʿaŧu
+laysata
+kaḏãlika
+faāʾinauhaā
+ḳaṣadata
+biraḍaāʿatihi
+ḥayaātahu
+waāʾibaḳaāáʾahu
+ 
+faǧaʿala
+āllhu
+ḏãlika
+limuwsaáã
+fiy
+āumiu
+wilaādatihi
+ falama
+takuna
+liamaraāaŧiⁿ
+ʿalayhi
+faḍaluⁿ
+āʾilauā
+liāumiu
+wilaādatihi
+ 
+liyaḳarau
+ʿaynuhaā
+āayaḍaⁿā
+bitarabiyatihi
+watušaāhidu
+anatišaāáʾahu
+fiy
+ḥiǧarihaā
+
+walaā
+taḥazani
+
+swrŧ
+ṭãh
+ã
+ 04
+ 
+wanaǧauāhu
+āllhu
+min
+ġamiu
+āltauābuwti
+ faḫaraḳa
+ẓulamaŧa
+ālṭaubiyʿaŧi
+bimaā
+āaʿaṭaāhu
+āllhu
+mina
+ālʿilami
+ālāʾilãhiyiu
+waāʾina
+lama
+yaḫaruǧa
+ʿanahaā
+ 
+wafatan
+ahu
+futuwnaⁿā
+ āay
+ aḫat
+abarahu
+fiy
+mawaāṭina
+kaṯ
+iyraŧiⁿ
+ liyat
+aḥaḳ
+auḳa
+fiy
+nafasihi
+ṣabaru
+hu
+ʿal
+áã
+maāabatalaāhu
+āllhu
+bihi
+ 
+faāawaulu
+maāabatalaāhu
+āllhu
+bihi
+ḳat
+aluhu
+ālḳibaṭiyau
+ bim
+aā
+āalahamahu
+āllhu
+wawafauḳ
+ahu
+lahu
+fiy
+siriuhi
+waāʾina
+lama
+yaʿalama
+bḏãlika
+ walãkina
+lama
+yaǧida
+fiy
+nafasihi
+akatiraāṯaⁿā
+biḳatalihi
+ maʿa
+kawnihi
+maātawaḳaufa
+ḥatauáã
+yaātiyahu
+āamaru
+rabauhi
+biḏãlika
+ 
+liāanau
+ālnaubiyau
+maʿaṣuwmu
+ālbaāṭini
+mina
+ḥayṯu
+laā
+yašaʿuru
+ 
+ḥatauáã
+yunabauāa
+āay
+ yuḫabara
+biḏãlika
+ 
+walihãḏaā
+āaraāhu
+ālḫiḍaru
+ḳatala
+ālġulaāmi
+ faāanakara
+ʿalayhi
+ḳatalahu
+ walama
+yataḏa
+kaura
+ḳatalahu
+ālḳibaṭiyau
+ faḳaā
+la
+lahu
+ālḫ
+iḍaru
+ 
+maā
+faʿalatuhu
+ʿana
+āamari
+á
+ 
+sw
+rŧ
+ālkhf
+
+ 28
+ yunabiuhuhu
+ʿaláã
+maratabatihi
+ḳab
+ala
+āana
+yuna
+bauāa
+ āanauhu
+kaāna
+maʿaṣuwma
+ālḥara
+kaŧi
+fiy
+nafasi
+ālāamari
+ waāʾina
+lam
+yašaʿura
+biḏãlika
+ waāaraāhu
+āayaḍ
+aⁿā
+ḫaraḳa
+āls
+aufiyn
+aŧi
+ālautiy
+ẓaāhiru
+haā
+hul
+akuⁿ
+ wabaā
+ṭinuh
+aā
+naǧ
+aāŧuⁿ
+ mina
+yadi
+ālġaāṣibi
+ ǧaʿala
+lahu
+ḏãlika
+fiy
+muḳaā
+balaŧi
+āltauā
+buwti
+lahu
+ ālauḏiy
+kaāna
+fiy
+ālyamiu
+muṭ
+baḳaⁿā
+ʿalayhi
+ faẓaāhiruhu
+halaākuⁿ
+ wabaāṭinuhu
+naǧaāŧuⁿ
+ 
+wiāʾinauma
+āfaʿalata
+bihi
+āumuuhu
+ḏãlika
+ḫaw
+faⁿā
+mina
+yadi
+ālġaāṣibi
+firaʿawna
+ āana
+yaḏabaḥahu
+ṣabaraⁿ
+ā
+ 
+wahiya
+tanaẓuru
+āʾilayhi
+maʿa
+ālwaḥayi
+ālauḏiy
+āalahamahaā
+āllhu
+bihi
+mina
+ḥayṯu
+laā
+tašaʿuru
+ fawaǧadata
+fiy
+nafasihaā
+āanauhaā
+turaḍiʿuhu
+ 
+faāʾiḏaā
+ḫaāfata
+ʿalayhi
+āalaḳat
+ahu
+fiy
+ālyamiu
+ liāanau
+fiy
+ālmaṯali
+ 
+ʿaynuⁿ
+laā
+taraáã
+ ḳal
+abuⁿ
+laā
+yatauǧiʿu
+ falama
+taḫafa
+ʿalayhi
+ḫawfa
+mušaāhadaŧi
+ʿayniⁿ
+ walaā
+ḥazanata
+ʿalayhi
+ḥuzana
+ruʾyaŧi
+baṣ
+ariⁿ
+ waġalaba
+ʿaláã
+ẓaniuhaā
+āanau
+āll
+ha
+rubaumaā
+radauhu
+āʾilayh
+aā
+liḥus
+ani
+ẓaniuhaā
+bihi
+ faʿaā
+šata
+bihãḏaā
+ālẓauniu
+
+86
+wǧh
+ fiy
+nafasihaā
+ waālrauǧaāʾu
+yuḳaābilu
+ālḫawfa
+waālyaāsa
+ waḳaālata
+ḥiyna
+āulahim
+ata
+liḏ
+ãlika
+ 
+laʿa
+lau
+hãḏaā
+huwa
+ālrau
+suw
+lu
+ālauḏiy
+yuh
+aliku
+firaʿawna
+waālḳibaṭa
+ʿaláã
+yidihi
+ 
+faʿaāšata
+wasurauta
+bihãḏaā
+āltauwahuumi
+waālẓauniu
+ biālnauẓari
+āʾilayhaā
+ wahuwa
+ʿilamuⁿ
+fiy
+nafasi
+ālāamari
+ 
+ṯumau
+āʾinauhu
+lamauā
+waḳaʿ
+ʿalayhi
+ālṭaulabu
+ ḫaraǧa
+faāriⁿuā
+ḫawfaⁿā
+fiy
+ālẓauāhiri
+ wa
+kaāna
+fiy
+ālmaʿanaáã
+ḥubiⁿuā
+fiy
+ālnauǧaāŧi
+ faāʾinau
+ālḥara
+kaŧa
+āabdaⁿā
+āʾinaumaā
+hiy
+ḥiubiyauŧuⁿ
+ wayuḥaǧabu
+ālnauāẓiru
+fiyhaā
+biāasabaābiⁿ
+āuḫara
+ walaysata
+tilaka
+ 
+waḏãlika
+liāanau
+ālāaṣala
+ḥara
+kaŧu
+ālʿaālami
+mina
+ālʿadami
+ ālauḏiy
+kaāna
+saākinaⁿā
+fiyhi
+āʾiláã
+ālwuǧuwdi
+ waliḏãlika
+yuḳaā
+lu
+ āʾinau
+ālāamara
+ḥara
+kaŧuⁿ
+ʿana
+sukuwniⁿ
+ wakaā
+nat
+ālḥ
+ara
+kaŧu
+
+ ālautiy
+hiya
+wuǧuwdu
+ālʿaā
+lami
+
+ ḥara
+kaŧa
+ḥubiⁿ
+
+ waḳada
+nabauha
+rasuwlu
+āll
+hi
+ṣalauáã
+āll
+hu
+ʿal
+ayhi
+wasalauma
+ʿaláã
+ḏãlika
+biḳawlihi
+ 
+kunatu
+kanazaⁿā
+lama
+āuʿarafa
+faāaḥababatu
+āana
+āuʿarafa
+ 
+falawlaā
+hãḏihi
+ālmaḥabauŧu
+maā
+ẓahara
+ālʿaālamu
+fiy
+ʿaynihi
+ faḥara
+katuhu
+mina
+ālʿadami
+āʾiláã
+ālwuǧuwdi
+ ḥara
+kaŧu
+ḥubiu
+ālmuwǧidi
+liḏãlika
+ waliāanau
+ālʿaālama
+āayḍaⁿā
+yuḥibuu
+šuhuwda
+nafasihi
+wuǧuwdaⁿā
+ kam
+aā
+šahidahaā
+ṯubuw
+taⁿā
+ fakaānata
+bikuliu
+waǧahiⁿ
+ḥara
+katuhu
+mina
+ālʿada
+mi
+ālṯuubuwtiyiu
+āʾiláã
+ālwuǧuwdi
+ ḥara
+kaŧa
+ḥubiⁿu
+mina
+ǧaānibi
+ālḥaḳiu
+waǧaānibihi
+ faāʾinau
+ālkamaāla
+maḥabuwbuⁿ
+liḏaātihi
+ 
+waʿil
+amuhu
+taʿaālaáã
+binafas
+ihi
+mina
+ḥayṯu
+huwa
+ġaniyuⁿu
+ʿani
+ālʿ
+aālamiyna
+ huwa
+lahu
+wamaābaḳiya
+āʾilauā
+tamaā
+ma
+maratabaŧi
+ālʿ
+ilami
+biā
+lʿil
+ami
+ālḥaā
+diṯi
+ālauḏiy
+yaku
+wnu
+mina
+hãḏihi
+ālāaʿayaāni
+ āaʿayānu
+ālʿ
+aālami
+āʾiḏaā
+wuǧidata
+ fataẓaharu
+ṣuwraŧu
+ālkamaāli
+biālʿilami
+ālmuḥadaṯi
+waālḳadiymi
+fatakamulu
+maratabaŧu
+ālʿilami
+biālwaǧahayni
+ 
+wa
+kaḏãlika
+takamulu
+maraātibu
+ālwuǧuwdi
+ faāʾinau
+ālwuǧuwda
+minahu
+āazaliyuⁿu
+waġayru
+āazaliyiⁿu
+ wahuwa
+ālḥaādiṯu
+ faā
+lāazaliyuu
+wuǧuwdu
+ālḥaḳiu
+linafasihi
+ 
+waġayru
+ālāazaliyiu
+wuǧuwdu
+ālḥaḳiu
+biṣuwa
+ri
+ālʿaālami
+ālṯauābiti
+ fayusamauáã
+ḥuduwṯaⁿā
+ liāanauhu
+ẓahara
+baʿaḍuhu
+libaʿaḍihi
+ waẓahara
+
+86
+ẓhr
+linafasihi
+biṣuwari
+ālʿaālami
+ fakamula
+ālwuǧuwdu
+ fakaānata
+ḥara
+kaŧu
+ālʿaālami
+ḥiubiyauŧaⁿ
+lilkamaāli
+ 
+faafahama
+ 
+āalaā
+taraāhu
+kayfa
+nafausa
+ʿani
+ālāasamaāʾi
+ālāʾilãhiyauŧi
+ maākaānata
+taǧiduhu
+mina
+ʿadami
+ẓuhuwri
+āṯaārihaā
+fiy
+ʿayni
+musamauáã
+ālʿaālami
+ fakaānat
+ālrauāḥaŧu
+maḥabuwbaŧaⁿ
+lahu
+ 
+walama
+yuwṣala
+āʾilayhaā
+āʾilauā
+biālwuǧuwdi
+ālṣuuwriyiu
+ālāaʿalaáã
+waālāasafali
+ faṯabata
+āanau
+ālḥarakaŧa
+kaānata
+lilḥubiu
+ famaā
+ṯamau
+ḥara
+kaŧuⁿ
+fiy
+ālkawni
+āʾilauā
+wahiya
+ḥiubiyauŧuⁿ
+ 
+famina
+ālʿulamaāʾi
+mana
+yaʿal
+amu
+ḏãlika
+ waminahuma
+mana
+yaḥaǧ
+ubuhu
+āls
+aubabu
+ālāaḳarabu
+liḥukam
+ihi
+fiy
+ālḥaāli
+ waasatiylaāʾihi
+ʿaláã
+ālnaufasi
+ 
+fakaāna
+ālḫawfu
+limuwsaáã
+mašahuwdaⁿā
+lahu
+ bimaā
+waḳaʿa
+min
+ḳatalihi
+ālḳibaṭiyau
+ wataḍamauna
+ālḫawfu
+ḥubau
+ālnauǧaā
+ŧi
+mina
+ālḳ
+atali
+
+ fafarau
+lamauā
+ḫaāfa
+ wafiy
+ālmaʿanaáã
+ fafarau
+lamauā
+āaḥabau
+ālnauǧaāŧa
+mina
+firaʿawna
+waʿamalihi
+bihi
+ faḏa
+kara
+āls
+aubaba
+ālāaḳara
+ba
+ālmašahuwda
+lahu
+fiy
+ālwaḳati
+ 
+ālauḏiy
+huwa
+kaṣuw
+raŧi
+ālǧ
+isami
+lil
+bašari
+
+ waḥubuu
+āln
+auǧaā
+ŧi
+muḍamaunuⁿ
+fiyhi
+ taḍ
+amiyna
+ālǧasadi
+lilruuwḥi
+ālmudabauri
+lahu
+ 
+waālāanabiyaāʾu
+lahuma
+lisaānu
+ālẓauāhiru
+ bihi
+yatakalaumuwna
+liʿumuwmi
+ālḫiṭaābi
+ waaʿatimaādihima
+ʿaláã
+fahami
+ālʿaālimi
+ālsauāmiʿi
+ falaā
+taʿatabiru
+ālruusulu
+āʾilauā
+ālʿaāmauŧa
+ liʿilamihima
+bimaratabaŧi
+āahali
+ālfah
+ami
+kamaā
+nabauha
+ʿalayhi
+ālsaula
+āmu
+ʿal
+áã
+hãḏi
+hi
+ālruutabaŧi
+fiy
+ālʿaṭaāyaā
+faḳ
+aāla
+ 
+āʾiniuy
+laāuʿaṭ
+iya
+ālrauǧula
+ waġayruhu
+āaḥabuu
+āʾilayau
+minahu
+maḫaāfaŧa
+āana
+yukibauhu
+āllhu
+fiy
+ālnauāri
+ 
+faaʿatabara
+ālḍauʿiyfa
+ālʿaḳala
+waālnauẓara
+ālauḏiy
+ġalaba
+ʿalayhi
+ālṭaumaʿu
+waālṭabaʿu
+ 
+fakaḏaā
+maāǧaāʾuwā
+bihi
+mina
+ālʿuluwmi
+ ǧaāʾuwā
+bihi
+ 
+waʿalayhi
+ḫilaʿaŧu
+āadanaáã
+ālfuhuwmi
+ 
+liyaḳifa
+mana
+laā
+ġawaṣa
+lahu
+ʿinada
+ālḫilaʿaŧi
+ 
+fayaḳuwlu
+ 
+maāāaḥasana
+hãḏihi
+ālḫilaʿaŧa
+wayaraāhaā
+ġaāyaŧa
+āldauraǧaŧi
+ wayaḳuwlu
+ṣaāḥabu
+ālfahami
+āldauḳiyḳi
+ ālġaāʾiṣu
+ʿaláã
+durari
+ālḥikami
+
+ bimaā
+asatawaǧaba
+hãḏaā
+
+ 
+hãḏihi
+ālḫilaʿaŧu
+mina
+ālmaliki
+ fayanaẓaru
+fiy
+ḳadari
+ālḫilaʿaŧi
+waṣinafihaā
+mina
+ālṯiuyaābi
+ fayaʿalamu
+minahaā
+ḳadara
+mana
+ḫuliʿata
+ʿalayhi
+fayaʿaṯuru
+ʿaláã
+ʿilamiⁿ
+lama
+yaḥaṣula
+liġayrihi
+mimauna
+laā
+ʿilama
+lahu
+bimiṯali
+hãḏaā
+ 
+walamauā
+ʿalamati
+ālāanabiyaāʾu
+waālruusulu
+waālwaraṯaŧu
+ āanau
+fiy
+ālʿaālami
+
+96
+wǧh
+ waāumautihima
+mana
+huwa
+bihãḏihi
+ālmaṯaābaŧi
+ ʿamaduwā
+fiy
+ālʿibaāraŧi
+āʾiláã
+ālliusaā
+ni
+ālẓauāhiri
+ālauḏi
+yyaḳaʿu
+fiy
+hi
+ašatiraāku
+ālḫaāṣiu
+waālʿaāmiu
+ fayafahamu
+minahu
+ālḫaāṣiu
+maāfahima
+ālʿaāmauŧu
+minahu
+waziyaādaŧaⁿ
+mimauā
+ṣaḥau
+lahu
+bihi
+asamuⁿ
+ āanauhu
+ḫaāṣuⁿu
+fayatamayauzu
+bihi
+ʿani
+ālʿaāmauyiu
+ faa
+katafaáã
+ālmubaliuġ
+uwna
+ālʿaluwma
+bihãḏaā
+ 
+fahãḏaā
+ḥikamaŧu
+ḳawlihi
+ʿalayhi
+ālsaulaāmu
+ 
+fafararatu
+minakuma
+lamauā
+ḫifatukuma
+ 
+swrŧ
+ālšʿrāʾ
+
+ 12
+ walama
+yaḳula
+fafararatu
+minakuma
+ḥubiⁿuā
+fiy
+ālsaulaāmaŧi
+waālʿaāfiyaŧi
+ 
+faǧaāʾa
+āʾiláã
+madayana
+fawaǧada
+ālǧaāriyatayni
+ 
+fasaḳaáã
+lahumaā
+ 
+swrŧ
+ālḳṣṣ
+
+ 42
+mina
+ġayra
+āaǧariⁿ
+ 
+ṯumau
+tawalauáã
+āʾilaáã
+alẓiuli
+ 
+swrŧ
+ālḳṣṣ
+
+ 42
+ ālāʾilãhiyiu
+ faḳaāla
+ 
+
+rabiu
+āʾinuya
+limaā
+āanazalata
+āʾilayau
+mina
+ḫayariⁿ
+faḳiyariⁿ
+ 
+sw
+rŧ
+ālḳ
+ṣṣ
+
+ 42
+ faǧaʿala
+ʿayna
+ʿamalihi
+ālsauḳaya
+ 
+ʿayna
+ālḫayri
+ālauḏiy
+āanazalahu
+āllhu
+āʾilayhi
+ wawaṣafa
+nafasahu
+biālfaḳari
+āʾiláã
+āllhi
+ fiy
+ālḫayri
+ālauḏiy
+ʿinadahu
+ 
+faāaraāhu
+ālḫiḍaru
+āʾiḳaāmaŧa
+ālǧidaāri
+mina
+ġayri
+āaǧariⁿ
+ faʿatabahu
+ʿaláã
+ḏãlika
+ faḏa
+kaurahu
+bisiḳ
+aāyatihi
+mina
+ġayri
+āaǧariⁿ
+ āʾiláã
+ġayri
+ḏãlika
+mimauā
+lama
+yaḏ
+kura
+ ḥatauáã
+tamanauáã
+ṣalauáã
+āll
+hu
+ʿal
+ayhi
+wasalauma
+ āana
+yasaku
+ta
+muw
+saáã
+ʿal
+ayhi
+ālsaula
+āmu
+walaā
+yaʿatariḍa
+ ḥatauáã
+yaḳuṣau
+āllhu
+ʿal
+ayhi
+mina
+āamarihimaā
+ fayuʿalama
+biḏãlika
+maāwufiuḳa
+āʾilayhi
+muwsaáã
+ mina
+ġayri
+ʿilamiⁿ
+minhu
+ 
+āḏa
+law
+kaā
+na
+ʿana
+ʿl
+miⁿ
+ maā
+āanakara
+miṯ
+ala
+ḏãlika
+ʿaláã
+ālḫiḍari
+ ālauḏiy
+ḳada
+šah
+ida
+āll
+hu
+lahu
+ʿinada
+muwsaáã
+ waza
+kauā
+hu
+waʿadaulahu
+ 
+wamaʿa
+hãḏaā
+ġafala
+muwsaáã
+ʿana
+taza
+kiyaŧi
+āllhi
+ waʿamauā
+šaraṭahu
+ʿalayhi
+fiy
+atiubaāʿihi
+ raḥamaŧaⁿ
+binaā
+āʾiḏaā
+nasiynaā
+āamara
+āāllhi
+ 
+walawkaāna
+muw
+saáã
+ʿaālimaⁿā
+biḏ
+ãlika
+ lamaā
+ḳaā
+la
+lahu
+ālḫiḍaru
+ 
+maā
+lama
+tuḥ
+iṭa
+bihi
+ḫub
+araⁿā
+
+swrŧ
+ālkhf
+
+ 86
+ āay
+ āʾiniuy
+ʿaláã
+ʿilamiⁿ
+lama
+yaḥaṣula
+laka
+ʿana
+ḏawḳiⁿ
+ kamaā
+āanata
+ʿaláã
+ʿilamiⁿ
+laā
+āaʿalamuhu
+āanaā
+ faāanaṣafa
+ 
+waāamauā
+ḥikamaŧu
+firaāḳihi
+ faliāanau
+ālrausuwla
+yaḳuwlu
+āllhu
+fiyhi
+ 
+wamaā
+ʾaātaáãkumu
+alrausuwalu
+faḫuḏuwahu
+wamaānahá
+ãkuma
+ʿanahu
+faanatah
+uwaā
+ 
+swrŧ
+ālḥ
+šr
+ 7
+ fawaḳafa
+ālʿu
+lamaāʾu
+biā
+llhi
+ālauḏiyna
+yaʿarifuwna
+ḳadara
+ālriusaālaŧi
+waālrausuwli
+ʿinada
+hãḏaā
+ālḳawli
+ waḳada
+ʿalima
+ālḫiḍaru
+āanau
+muwsaáã
+rasuwlu
+āllhi
+ faāaḫaḏa
+yaraḳubu
+maā
+yakuwnu
+minahu
+ liyuwafiuya
+ālāadaba
+ḥaḳauhu
+maʿa
+ālruusuli
+ 
+faḳaāla
+lahu
+ 
+āʾina
+saāalatuka
+ʿana
+šayaʾiⁿ
+baʿadahaā
+falaā
+tuṣãḥibaniya
+ 
+swrŧ
+ālk
+hf
+
+ 
+67
+ fanahaāhu
+ʿana
+ṣuḥabatihi
+ falamauā
+waḳaʿata
+minahu
+ālṯaāliṯaŧu
+ 
+96
+ẓhr
+ ḳaāla
+ 
+hãḏaā
+fir
+āḳu
+bayaniya
+wabayana
+ka
+ 
+swrŧ
+ālk
+hf
+ 87
+ walama
+yaḳula
+lahu
+muwsaáã
+
+ 
+laā
+taf
+aʿala
+ walaā
+ṭalaba
+ṣuḥabatahu
+liʿilamihi
+biḳadari
+ālruutabaŧi
+ālautiy
+huwa
+fiyh
+aā
+ ālaut
+iy
+āanaṭaḳat
+ahu
+biālnauhayi
+ʿana
+āana
+yaṣaḥabahu
+ 
+fas
+akata
+muwsaáã
+
+ wawaḳaʿa
+ālfira
+āḳu
+ faanaẓu
+ra
+āʾiláã
+kamaā
+li
+hãḏayni
+ālrau
+ǧulayni
+fiy
+ālʿil
+ami
+ 
+watawfiyaŧi
+ālāadabi
+ālāʾilãhiyiu
+ḥaḳauhu
+ 
+waāʾinaṣaā
+fu
+ālḫiḍari
+fiymaā
+aʿatarafa
+bihi
+ʿina
+da
+muw
+saáã
+ʿalayhi
+ālsaulaāmu
+ ḥayṯu
+ḳaāla
+lahu
+ 
+
+āanaā
+ʿaláã
+ʿilamiⁿ
+ʿalaumaniyhi
+āllhu
+ laā
+taʿalamuhu
+āanata
+ waāanata
+ʿaláã
+ʿilamiⁿ
+ʿalaumakahu
+āllhu
+ laā
+āaʿalamuhu
+āanaā
+ fakaāna
+hãḏaā
+ālāʾiʿalaāmu
+min
+ālḫiḍari
+lmuwsaáã
+dawaāʾuⁿ
+limaā
+ǧarauḥahu
+bihi
+fiy
+ḳawlihi
+ 
+wa
+kayafa
+taṣabiru
+ʿalaáã
+maā
+lama
+tuḥiṭa
+bihi
+ḫubaraⁿā
+ 
+swrŧ
+ālkhf
+
+ 86
+ maʿa
+ʿilamihi
+biʿul
+uwiu
+rutabatihi
+biālriusaālaŧi
+ walays
+ata
+tilaka
+ālruutabaŧu
+lilḫiḍari
+ waẓahara
+ḏãlika
+fiy
+ālāumauŧi
+ālmuḥamaudiyauŧi
+fiy
+ḥadiyṯa
+āʾibaāri
+ālnauḫali
+ faḳaā
+la
+ʿalayhi
+āls
+aulaāmu
+liāaṣaḥaābihi
+ 
+āanatuma
+āaʿalamu
+bimaṣaāliḥi
+dunayaākuma
+ walaā
+šakau
+āanau
+ālʿilama
+biālšauyaʾi
+ḫayruⁿ
+mina
+ālǧahali
+bihi
+ walihãḏaā
+madaḥa
+āllhu
+nafasahu
+biāanauhu
+bikuliu
+šayaʾiⁿ
+ʿaliymuⁿ
+ faḳada
+aʿatarafa
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+liāaṣaḥ
+aābihi
+baāanauhuma
+āaʿal
+amu
+bimaṣ
+aāli
+ḥi
+ālduunay
+aā
+minahu
+ likawnihi
+laā
+ḫibaraŧa
+lahu
+biḏãlika
+ faāʾinauhu
+ʿilamu
+ḏawḳiⁿ
+wataǧaribaŧiⁿ
+ walama
+yatafarauġ
+ʿalayhi
+ālsaulaāmu
+liʿilami
+ḏãlika
+ bala
+kaāna
+šuġaluhu
+biālāahamiu
+faālāahamiu
+ 
+faḳada
+nabauhatuka
+ʿaláã
+āadabiⁿ
+ʿaẓiymiⁿ
+ tanatafiʿu
+bihi
+ āʾini
+asataʿamalata
+nafasaka
+fiyhi
+ 
+waḳawaluhu
+ 
+fawahaba
+liya
+rabauya
+ḥukamaⁿā
+ 
+swrŧ
+ālšʿr
+āʾ
+
+ 12
+ yuriyadu
+ ālḫ
+ilaāfaŧa
+ 
+
+waǧaʿalaniya
+mina
+ālmurasaliyana
+ 
+sw
+rŧ
+ālšʿrāʾ
+
+ 12
+ yuriyadu
+ ālriusaālaŧa
+ famaā
+kuluu
+rasuwliⁿ
+ḫaliyafaŧuⁿ
+ faālḫaliyfaŧu
+ṣaāḥibu
+ālsauyafi
+ waālʿazali
+waālwilaāyaŧi
+ waālrausuwlu
+laysa
+kaḏãlika
+ 
+āʾinaumaā
+ʿalayhi
+balaāġu
+maāāurasila
+bihi
+ faāʾina
+ḳaātala
+ʿalayhi
+waḥamaāhu
+biālsauyafi
+faḏãlika
+ālḫaliyfaŧu
+ālrausuwlu
+ fakamaā
+āanauhu
+maā
+kuluu
+nabiyiⁿu
+rasuwlaⁿā
+ kaḏãlika
+maā
+kuluu
+rasuwliⁿ
+ḫaliyfaŧaⁿ
+ āay
+ 
+maāāuʿaṭiya
+ālmulaka
+walaā
+āltauḥakuuma
+fiyhi
+ 
+waāamauā
+ḥikamaŧu
+suʾāli
+firaʿawna
+ʿani
+ālmaāhiyauŧi
+ālāʾilãhiyauŧi
+ falama
+yakana
+ʿana
+ǧahaliⁿ
+ 
+waāʾinaumaā
+kaāna
+ʿani
+aḫatibaāriⁿ
+ ḥatauáã
+yaraáã
+ǧawābahu
+maʿa
+daʿawaāhu
+ālrau
+saā
+laŧa
+ʿana
+rabauhi
+ waḳada
+ʿalima
+faraʿawnu
+maratabaŧa
+ālmurasaliyna
+fiy
+ālʿilami
+ fayasatadiluu
+biǧawaābihi
+ʿaláã
+ṣidaḳi
+daʿawaāhu
+ 
+wasaāala
+suʾāla
+āʾiyahaāmiⁿ
+mina
+āaǧali
+ālḥaāḍiriyna
+ ḥatauáã
+yuʿariufahuma
+mina
+ḥayṯu
+laā
+yašaʿuruwna
+
+07
+wǧh
+ bimaā
+šaʿara
+huwa
+fiy
+nafasihi
+fiy
+suʾālihi
+ 
+faāʾiḏaā
+āaǧaābahu
+ǧawaāba
+ālʿul
+amaāʾi
+biālāamari
+ āaẓahara
+fi
+raʿawnu
+
+ āʾibaḳaā
+ʾaⁿ
+limanaṣibihi
+
+āanau
+muwsaáã
+maā
+āaǧaābahu
+ʿaláã
+suʾālihi
+ 
+fayatabayaunu
+ʿinda
+ālḥaāḍiriyna
+
+ liḳuṣuwri
+fahamihima
+
+ āanau
+firaʿawna
+āaʿalamu
+mina
+muwsaáã
+ walihãḏaā
+lamauā
+ḳaāla
+lahu
+fiy
+ālǧawaābi
+maā
+yanabaġiy
+ wahuwa
+fiy
+ālẓauāhiri
+ġayru
+ǧawaābiⁿ
+ʿaláã
+maā
+suʾila
+ʿanahu
+ 
+waḳada
+ʿalima
+firaʿawnu
+āanauhu
+laā
+yuǧiybuhu
+āʾilauā
+biḏãlika
+ faḳaāla
+liāaṣaḥaābihi
+
+āʾinau
+rasuwalakuma
+alauḏiya
+āurasila
+āʾilay
+akuma
+lam
+aǧanuwa
+nuⁿ
+ 
+sw
+rŧ
+ālšʿrāʾ
+
+ 72
+ āay
+masat
+uwruⁿ
+ʿanahu
+ʿilamu
+maā
+saāalatahu
+ʿanahu
+ āʾiḏa
+laā
+yutaṣawauru
+āana
+yaʿalama
+āaṣalaⁿā
+ 
+faālsuuʾālu
+ṣaḥiyḥuⁿ
+ faāʾi
+nau
+ālsuuʾāla
+ʿani
+ālmaāhiyauŧi
+ suʾāluⁿ
+ʿana
+ḥaḳiyḳ
+aŧi
+ālmaṭaluw
+bi
+ 
+walaā
+budau
+āana
+yakuwna
+ʿaláã
+ḥaḳiy
+ḳaŧiⁿ
+fiy
+nafasihi
+ waāamauā
+ālauḏiyn
+ǧaʿaluwā
+ālḥuduwda
+mura
+kau
+baŧaⁿ
+mina
+ǧin
+asiⁿ
+wafaṣaliⁿ
+ faḏãlika
+fiy
+kuliu
+maā
+yaḳaʿu
+fiyhi
+ālašatiraāku
+ wamana
+laā
+ǧinasa
+lahu
+ laā
+yalazamu
+āana
+laā
+yakuwna
+ʿaláã
+ḥaḳiyḳaŧiⁿ
+fiy
+nafasihi
+ laā
+yakuwnu
+liġayrihi
+ faālsuuʾālu
+ṣaḥiyḥuⁿ
+ʿaláã
+maḏahabi
+āahali
+ālḥaḳiu
+waālʿilami
+ālṣauḥiyḥi
+waālʿaḳali
+ālsauliymi
+ waālǧawaābu
+ʿanahu
+laā
+yakuwnu
+āʾilauā
+bimaā
+āaǧaāba
+bihi
+muwsaáã
+ 
+wahunaā
+siruⁿu
+kabiyruⁿ
+ faāʾinauhu
+āaǧaābi
+biālfiʿali
+limana
+saāala
+ʿani
+ālḥadiu
+ālḏauātiyiu
+ faǧaʿala
+ālḥadau
+ālḏauātiyau
+ʿayna
+āʾiḍaāfatihi
+āʾiláã
+maā
+ẓahara
+bihi
+mina
+ṣuwari
+ālʿaālami
+ āaw
+maā
+ẓahara
+fiyhi
+mina
+ṣuwa
+ri
+ālʿ
+aālami
+ fakaāanauhu
+ḳaāla
+lahu
+fiy
+ǧawa
+ābi
+ḳawlihi
+ 
+wamaā
+rabuu
+alʿãlamiyana
+ 
+swrŧ
+ālšʿrāʾ
+
+ 32
+ ḳaāla
+ 
+ālauḏiy
+taẓaharu
+fiyhi
+ṣuwaru
+ālʿaālamiyna
+mina
+ʿuluwiⁿu
+wahuwa
+ālsaumaāʾu
+ 
+wasufaliⁿ
+wahuwa
+ālāaraḍu
+ 
+āʾina
+kunatuma
+muwaḳiniyana
+ 
+swrŧ
+ālšʿrāʾ
+
+ 42
+ āaw
+yaẓaharu
+huwa
+bihaā
+ 
+falamauā
+ḳaāla
+firaʿawnu
+liāaṣaḥaābihi
+
+ 
+āʾinauhu
+lamaǧanuwnuⁿ
+ 
+swrŧ
+ālḳlm
+
+ 15
+ kamaā
+ḳulan
+aā
+fiy
+maʿanaáã
+kawnihi
+maǧanuwnaⁿā
+ 
+zaāda
+muwsaáã
+fiy
+ālbayāni
+ liyaʿalma
+firaʿawnu
+rutabatahu
+fiy
+ālʿilami
+ālāʾilãhiyiu
+ liʿilamihi
+baāanau
+firaʿawna
+yaʿalamu
+ḏãlika
+ faḳaāla
+ 
+rabuu
+almašariḳi
+waalmaġaribi
+ 
+swrŧ
+ālšʿrāʾ
+
+ 82
+ 
+faǧaā
+ʾa
+bimaā
+yaẓah
+aru
+wayasat
+atiru
+ wahuwa
+
+ālẓauāhiru
+ wa
+ālbaāṭinu
+ wamaā
+bayanahumaā
+ wahuwa
+ḳawluhu
+ 
+
+biku
+liu
+šayaʾiⁿ
+ʿal
+iymuⁿ
+
+ 
+
+āʾina
+kunatuma
+taʿaḳiluwana
+ 
+swrŧ
+ālš
+ʿrāʾ
+
+ 42
+ āay
+ āʾina
+kun
+atuma
+āaṣaḥaāba
+taḳayiydiⁿ
+ faāʾina
+ālʿaḳala
+yuḳayiudu
+ 
+faālǧawaābu
+ālāawaulu
+ ǧawaābu
+ālmuwḳiniyna
+ wahuma
+āahalu
+ālkašafi
+waālwuǧuwdi
+ faḳaāla
+lahu
+ 
+āʾina
+kunatuma
+muwḳiniyna
+ 
+swrŧ
+ālšʿrāʾ
+
+ 42
+ 
+07
+ẓhr
+ āay
+ āuhalu
+kašafiⁿ
+wawuǧuwdiⁿ
+ faḳada
+āaʿalamatukuma
+bimaā
+tayaḳaunatumuwhu
+fiy
+šuhuwdikuma
+wawuǧuwdikuma
+ 
+faāʾina
+lama
+takuwnuwā
+min
+hãḏaā
+ālṣiunufi
+ faḳada
+āaǧabatu
+kuma
+fiy
+ālǧawaābi
+ālṯauāniy
+ āʾina
+kunatuma
+āahala
+ʿaḳaliⁿ
+wataḳayiydiⁿ
+ waḥaṣaratumu
+ālḥaḳau
+fiymaā
+tuʿaṭiyhi
+āadalauŧu
+ʿuḳuwlikuma
+ faẓahara
+muwsaáã
+biā
+lwaǧahayni
+ 
+liyaʿ
+alama
+fi
+raʿaw
+nu
+faḍalahu
+waṣidaḳahu
+ waʿal
+ima
+muwsaáã
+āanau
+firaʿawna
+ ʿalima
+ḏãlika
+ āaw
+yaʿalamu
+ḏãlika
+ likawnihi
+saāala
+ʿani
+ālmaāhiyauŧi
+ faʿalima
+āanauhu
+laysa
+suʾāluhu
+ʿaláã
+aṣaṭilaāḥi
+ālḳudamaāʾi
+fiy
+ālsuuʾāli
+ba
+maā
+ faliḏãlika
+āaǧaāba
+ falaw
+ʿalima
+minahu
+ġayra
+ḏãlika
+laḫaṭauāahu
+fiy
+ālsuʾāli
+ 
+falamauā
+ǧaʿala
+muwsaáã
+ālmasaʾwla
+ʿanhu
+ ʿayna
+ālʿaālami
+ ḫaāṭabahu
+firaʿawnu
+bihãḏaā
+ālliusaāni
+ waālḳawmu
+laā
+yašaʿuruwna
+ faḳaāla
+lahu
+ 
+laʾini
+atauḫaḏata
+āʾilãhaⁿā
+ġayariya
+laāaǧaʿalanauka
+mina
+almasaǧuwaniyana
+ 
+swrŧ
+ālšʿrāʾ
+
+ 92
+ 
+wa
+ālsiuynu
+ fiy
+ālsiuǧani
+mina
+ḥuruwfi
+ālzauwaāʾidi
+ 
+āay
+ laāasaturanauka
+faāʾinauka
+āaǧabata
+bimaā
+āayaudataniy
+bihi
+ āana
+āaḳuwla
+laka
+miṯala
+hãḏaā
+ālḳawli
+ 
+faāʾina
+ḳulata
+liy
+ faḳada
+ǧahilata
+yaā
+firaʿawnu
+bawaʿiydiki
+āʾiyauāya
+ waālʿaynu
+waāḥidaŧuⁿ
+ 
+fakayfa
+farauḳata
+ fayaḳuwlu
+firaʿawnu
+ 
+āʾinaumaā
+farauḳati
+ālmaraātibu
+ālʿayana
+ maā
+tafarauḳati
+ālʿayanu
+ walaā
+anaḳasamata
+fiy
+ḏaātihaā
+ wamaratabatiy
+ālāna
+āltauḥakuumu
+fiyka
+yaā
+muwsaáã
+biālfiʿali
+ waāanaā
+āanata
+biālʿayni
+ waġayraka
+biālruutabaŧi
+ 
+falamauā
+fahima
+ḏãlika
+muwsaáã
+minahu
+ āaʿaṭaāhu
+ḥaḳauhu
+ fiy
+kawnihi
+yaḳuwlu
+lahu
+ 
+laā
+taḳadiru
+ʿal
+áã
+ḏãlika
+ waālruuta
+baŧu
+tašahadu
+lahu
+biālḳuda
+raŧi
+ʿal
+ayhi
+ waāʾiẓahaāri
+ālāaṯari
+fiyhi
+ liāanau
+ālḥ
+aḳau
+fiy
+rutabaŧi
+firaʿawna
+ mina
+ālṣauwraŧi
+ālẓauāhiraŧi
+ lahaā
+āltauḥakuumu
+ʿaláã
+ālrautabaŧi
+ ālautiy
+kaāna
+fiyhaā
+ẓuhwru
+muwsaáã
+fiy
+ḏãlika
+ālmaǧalisi
+ 
+faḳaāla
+lahu
+ yuẓahiru
+lahu
+ālmaāniʿa
+mina
+taʿdiuyhi
+ʿalayhi
+ 
+āawa
+lawa
+ǧiʾtuka
+bišayaʾiⁿ
+mubiyaniⁿ
+
+sw
+rŧ
+ālšʿ
+rāʾ
+
+ 03
+ fal
+ama
+yasaʿa
+firaʿawnu
+āʾilauā
+āana
+yaḳuwla
+lahu
+
+faā
+ti
+bihi
+āʾina
+kunata
+mina
+alṣ
+ãdiḳiyana
+ 
+sw
+rŧ
+ālšʿrāʾ
+
+ 13
+ ḥatauáã
+laā
+yaẓ
+ahara
+firaʿawnu
+ʿinada
+ḍuʿaf
+aāʾi
+ālrauāyi
+mina
+ḳaw
+mihi
+biʿada
+mi
+ālāʾinaṣaāfi
+ fakaānawā
+yara
+taābuw
+na
+fiy
+hi
+ wahiy
+ālṭauā
+ʾif
+aŧu
+ālautiy
+
+asataḫaf
+auhaā
+firaʿaw
+nu
+faāaṭaā
+ʿuwhu
+ āʾinauhuma
+kaānawaā
+ḳawamaⁿā
+fãsiḳiyana
+ 
+āḳtb
+ās
+mn
+swrŧ
+ālzḫr
+f
+ 45
+ āay
+ 
+ḫaāriǧiyna
+ʿam
+auā
+tuʿ
+aṭiyhi
+ālʿuḳ
+uwlu
+ālṣauḥ
+iyḥ
+aŧu
+mina
+āʾinaka
+āri
+
+17
+wǧh
+ maā
+adauʿaā
+hu
+firaʿawnu
+biālliusaāni
+ālẓauāhiri
+fiy
+ālʿaḳali
+ faāʾinau
+lahu
+ḥadiⁿuā
+yaḳifu
+ʿinadahu
+ āʾiḏaā
+ǧaāwazahu
+ṣaāḥibu
+ālkašafi
+waālyaḳiyni
+ 
+walihãḏaā
+ǧaāʾa
+muwsaáã
+biālǧawaābi
+ bimaā
+yaḳabaluhu
+ālmuwḳinu
+waālʿaāḳilu
+ḫaāṣauŧaⁿ
+ 
+
+faāalaḳaáã
+ʿaṣaāhu
+ 
+swrŧ
+ālšʿrāʾ
+
+ 23
+ wahiy
+ṣuwraŧu
+maāʿaṣaáã
+bihi
+firaʿawnu
+muwsaáã
+fiy
+āʾibaāʾihi
+ʿana
+āʾiǧaābaŧi
+daʿawa
+tihi
+ 
+faāʾiḏaā
+hiya
+ṯuʿabaānuⁿ
+mubiyanuⁿ
+ 
+swrŧ
+ālšʿ
+rāʾ
+
+ 
+23
+ āay
+ ḥayauŧuⁿ
+ẓaāhiraŧuⁿ
+ 
+faanaḳalabati
+ālmaʿaṣiyaŧu
+ ālautiy
+hiya
+ālsayiuʾŧu
+ ṭāaʿaŧaⁿ
+ āay
+ ḥasanaŧaⁿ
+ kamaā
+ḳaāla
+
+yubadiulu
+allhu
+sayiuʾãtihima
+ḥasanãtiⁿ
+ 
+swrŧ
+ālfrḳān
+
+ 07
+ yaʿaniy
+ fiy
+ālḥukami
+ 
+faẓahara
+ālḥukamu
+hunaā
+ʿaynaⁿā
+mutamayiuzaŧaⁿ
+fiy
+ǧawhariⁿ
+waāḥidiⁿ
+ fahiya
+ālʿaṣaā
+ wahiy
+ālḥayauŧu
+waālṯuuʿabaānu
+ālẓauāhiru
+ 
+faāltaḳama
+āamaṯaālahu
+mina
+ālḥayauāti
+ mina
+kawnihaā
+ḥayauŧaⁿ
+ 
+waālʿiṣiáuu
+mina
+kawnihaā
+ʿaṣaⁿā
+ faẓaharata
+ḥuǧauŧu
+muwsaáã
+ʿaláã
+ḥuǧaǧi
+firaʿawna
+ fiy
+ṣuwraŧi
+ʿiṣiáiⁿu
+waḥayauātiⁿ
+waḥibaāliⁿ
+ 
+fakaānata
+lilsauḥaraŧi
+ālḥibaālu
+ walama
+yakuna
+limuwsaáã
+ḥabaluⁿ
+ waālḥabalu
+ āltauluu
+ālṣauġ
+iyru
+
+āay
+ maḳaā
+diyruhuma
+biā
+lniusabaŧi
+āʾiláã
+ḳada
+ri
+muw
+saáã
+bimanazilaŧi
+ālḥ
+ibaāl
+mina
+ālǧib
+aāl
+ālšauāmiḫaŧi
+ 
+falamauā
+raāata
+ālsauḥaraŧu
+ḏãlika
+ ʿalimuwā
+rutabaŧa
+muwsaáã
+fiy
+ālʿilami
+ waāanau
+ālauḏiy
+raāawhu
+laysa
+mina
+maḳaduwri
+ālbašari
+ waāʾina
+kaāna
+mina
+maḳaduwri
+ālbašari
+ falaā
+yakuwnu
+āʾilauā
+mimauna
+lahu
+tamayiuzuⁿ
+fiy
+ālʿilami
+ālmuḥaḳauḳi
+ʿani
+āltauḫayuuli
+waālāʾiyahaāmi
+ faāāmanuwā
+birabiu
+ālʿaālamiyna
+ ribiu
+muwsaáã
+wahaāruwna
+ āay
+ ālraubiu
+ālauḏiy
+yadaʿuwā
+āʾilayhi
+muwsaáã
+wahaāruwnu
+ liʿilamihima
+baāanau
+ālḳawma
+yaʿalamuwna
+āanauhu
+maādaʿaā
+lifiraʿawna
+ 
+walamauā
+kaāna
+firaʿawnu
+fiy
+manaṣibi
+āltauḥakuumi
+ṣaāḥiba
+ālwaḳati
+ waāanauhu
+ālḫaliyfaŧu
+biālsauyafi
+
+ waāʾina
+ǧaāra
+fiy
+ālʿurafi
+ālnauāmuwsiy
+
+ liḏãlika
+ḳaāla
+ 
+āanaā
+rabuukuma
+alāaʿalaáã
+ 
+swrŧ
+ālnā
+zʿāt
+
+ 42
+ āay
+ waāʾina
+kaāna
+ālkuluu
+āarabaābaⁿā
+binisabaŧiⁿ
+maā
+ 
+faāanaā
+ālāaʿalaáã
+munahuma
+ bimaā
+āuʿaṭiytuhu
+fiy
+ālẓauāhiri
+mina
+āltauḥakuumi
+fiykuma
+ 
+walamauā
+ʿalimati
+ālsauḥ
+araŧu
+ṣidaḳahu
+fiymaā
+ḳaā
+lahu
+lama
+yun
+akiruwhu
+waāaḳaruuwā
+lahu
+biḏãlika
+faḳaāluwā
+lahu
+ 
+āʾinaumaā
+taḳaḍiy
+hãḏihi
+alḥayawãŧa
+alduunayaā
+ 
+swrŧ
+ṭãh
+ã
+ 27
+ 
+faaḳaḍi
+maā
+āanata
+ḳaāḍiⁿ
+ 
+swrŧ
+ṭãh
+ã
+ 27
+ faāldauwlaŧu
+laka
+ faṣaḥau
+ḳawluhu
+ 
+āanaā
+rabuukuma
+alāaʿalaáã
+
+swrŧ
+ālnāzʿāt
+
+ 42
+ waāʾina
+kaāna
+ʿayna
+ālḥaḳiu
+faālṣuuwraŧu
+lifiraʿawna
+ 
+faḳaṭaʿa
+ālāayadiya
+waālāaraǧula
+ waṣalaba
+biʿayni
+ḥaḳiⁿu
+fiy
+ṣuwraŧi
+baā
+ṭiliⁿ
+
+17
+ẓhr
+
+ linayli
+ maraātiba
+laā
+tunaālu
+āʾilauā
+biḏãlika
+ālfiʿali
+ faāʾinau
+ālāasabaāba
+laā
+sabiyla
+āʾiláã
+taʿaṭiylihaā
+ 
+liāanau
+ālāaʿay
+aāna
+ālṯauābit
+aŧa
+aḳataḍatahaā
+ 
+falaā
+taẓaharu
+fiy
+ālwuǧuwdi
+āʾilauā
+biṣuw
+raŧi
+maāhiya
+ʿalay
+hi
+fiy
+ālṯuubuwti
+ āʾiḏa
+laā
+tabadiyla
+likalimaāti
+āllhi
+ walaysata
+kalimaātu
+āllhi
+siwaáã
+āaʿayaāni
+ālmawǧuwdaāti
+ fayunasabu
+āʾilayhaā
+ālḳidamu
+mina
+ḥayṯu
+ṯubuwtuha
+ā
+ wayunasabu
+āʾilayhaā
+ālḥuduwṯu
+mina
+ḥay
+ṯu
+wuǧuwduhaā
+waẓuhuw
+ruhaā
+ kamaā
+naḳuw
+l
+ḥada
+ṯa
+ālyaw
+ma
+ʿin
+adanaā
+āʾinas
+aānuⁿ
+āaw
+ḍayfuⁿ
+
+ 
+walaā
+yalazamu
+mina
+ḥuduwṯihi
+āanauhu
+maā
+kaāna
+lahu
+wuǧuwduⁿ
+ḳab
+ala
+hãḏaā
+ālḥ
+uduwṯi
+ liḏ
+ãlika
+ḳaā
+la
+taʿaā
+laáã
+fiy
+kalaāmihi
+ālʿazi
+yzi
+āay
+ fiy
+āʾitayaānihi
+maʿa
+ḳidami
+kalaāmihi
+ 
+maā
+yaātiyahima
+mina
+ḏikariⁿ
+mina
+rabauhima
+muḥadaṯiⁿ
+āʾilauā
+asatamaʿuwahu
+wahuma
+yalaʿabuwana
+ 
+swrŧ
+ālānb
+yāʾ
+
+ 2
+wamaā
+yaātiyahima
+mina
+ḏikariⁿ
+mina
+alrau
+ḥam
+ãni
+maḥ
+adaṯiⁿ
+āʾilaā
+kaā
+naw
+āʿanahu
+muʿari
+ḍiyana
+ 
+swrŧ
+ālšʿ
+rāʾ
+
+ 5
+waālrauḥamãnu
+laā
+yaātiy
+āʾilauā
+biālrauḥamaŧi
+ wamana
+āaʿaraḍa
+ʿani
+ālrauḥamaŧi
+asataḳabala
+ālʿaḏaāba
+ālauḏiy
+huwa
+ʿadamu
+ālrauḥamaŧi
+ 
+waāamauā
+ḳawluhu
+ 
+falama
+yaku
+yanafaʿuhu
+ma
+āʾiyamãnuhuma
+lamauā
+raāawaā
+baāsanaā
+sunauta
+āllhi
+alaut
+iya
+ḳada
+ḫalata
+fiy
+ʿibaā
+dihi
+ 
+sw
+rŧ
+ġā
+fr
+
+ 58
+ 
+āʾilauā
+ḳawama
+yuw
+nusa
+ 
+swrŧ
+yw
+ns
+
+ 89
+ falama
+yadulu
+ḏãlika
+ʿaláã
+āanauhu
+laā
+yanafaʿuhuma
+fiy
+ālāḫiraŧi
+ biḳawlihi
+fiy
+ālasatiṯanaāʾi
+
+āʾilauā
+ḳawama
+yuwnusa
+ 
+swrŧ
+ywns
+
+ 89
+ 
+faāaraāda
+āanau
+ḏãlika
+laā
+yarafaʿu
+ʿan
+ahuma
+ālāaḫaḏa
+fiy
+ālduunayaā
+ faliḏãlika
+āuḫiḏa
+firaʿawnu
+maʿa
+wuǧuwdi
+ālāʾiyamaāni
+minahu
+ 
+hãḏaā
+āʾina
+kaāna
+āamaruhu
+āamara
+mana
+tayaḳauna
+biālanatiḳaāli
+fiy
+tilaka
+ālsauāʿaŧi
+ waḳariynaŧu
+ālḥaāli
+tuʿaṭiy
+āanauhu
+maā
+kaāna
+ʿalaáã
+yaḳiyniⁿ
+mina
+ālanatiḳaāli
+ liāanauhu
+ʿaāyana
+ālmuʾminiyna
+yamašuwna
+fiy
+ālṭauriyḳi
+ālyabasi
+ ālauḏiy
+ẓahara
+biḍarabi
+muwsaáã
+biʿaṣaāhu
+ālbaḥara
+ falama
+yatayaḳauna
+firaʿawnu
+biālhalaāki
+āʾiḏaā
+āmana
+ biḫilaāfi
+ālmuḥataḍari
+ḥatauáã
+laā
+yulaḥaḳa
+bihi
+ 
+faāāmana
+biālauḏiy
+āmanata
+bihi
+banuw
+āʾisaraāʾiyla
+ʿaláã
+āltauyaḳuuni
+biālnauǧaāŧi
+ fakaāna
+kamaā
+tayaḳauna
+ lãkina
+ʿaláã
+ġayri
+ālṣuuwraŧi
+ālautiy
+āaraāda
+ fanaǧauāhu
+āllhu
+mina
+ʿaḏaābi
+ālāḫiraŧi
+fiy
+nafasihi
+ wanaǧauā
+badanahu
+kamaā
+ḳaāla
+taʿaālaáã
+
+ 
+faalyawama
+nunaǧiuyaka
+babadanika
+litakwna
+limana
+ḫalafaka
+ʾa
+āyaŧaⁿ
+ 
+swrŧ
+ywns
+
+ 29
+ 
+liāanauhu
+law
+ġaāba
+biṣuw
+ratihi
+ rubaumaā
+ḳaāla
+ḳaw
+muhu
+aḥataǧaba
+ faẓ
+ahara
+biālṣuuwraŧi
+ālmaʿahuw
+daŧi
+mayiutaⁿā
+ liyuʿalama
+āanauhu
+huwa
+ faḳada
+ʿamautahu
+ālnauǧaāŧu
+
+27
+wǧh
+ ḥisauāaⁿ
+wamaʿanaáaⁿ
+ 
+wamana
+ḥaḳauta
+ʿalayhi
+kalimaŧu
+ālʿaḏaābi
+ālāuḫaraāwiyiu
+laā
+yuʾminu
+ walaw
+ǧaāʾatahu
+kuluu
+āyaŧiⁿ
+
+ḥatauáã
+yarawuā
+alʿaḏaāba
+alāaliyma
+ 
+swrŧ
+ywns
+
+ 29
+ āay
+yaḏuwḳuwā
+ālʿaḏaāba
+ālāuḫaraāwiyau
+ 
+faḫaraǧa
+firaʿawnu
+min
+hãḏaā
+ālṣiunafi
+ hãḏaā
+huwa
+ālẓauāhiru
+ālauḏiy
+warada
+bihi
+ālḳurānu
+ 
+ṯumau
+āʾinauā
+naḳuwlu
+
+ baʿada
+ḏãlika
+waālāamaru
+fiyhi
+āʾiláã
+āllhi
+
+ lim
+aā
+asataḳarau
+fiy
+nufuwsi
+ʿaāmauŧi
+ālḫalaḳi
+mina
+šaḳaāʾihi
+ wamaālahuma
+naṣuⁿu
+fiy
+ḏãlika
+yasataniduwna
+āʾilayhi
+ waāamauā
+āluhu
+falahuma
+ḥukamuⁿ
+āḫaru
+laysa
+hãḏaā
+mawḍiʿahu
+ 
+ṯumau
+litaʿalama
+āanauhu
+maā
+yaḳabiḍu
+āllhu
+āaḥadaⁿā
+āʾilauā
+wahuwa
+muʾminuⁿ
+ āay
+ muṣadiuḳuⁿ
+bimaā
+ǧaāʾata
+bihi
+ālāaḫabaāru
+ālāʾilãhiyauŧu
+ waāaʿaniy
+ min
+ālmuḥataḍariyana
+ walihãḏaā
+yukarahu
+muwtu
+ālfuǧaāʾaŧi
+ 
+waḳatalu
+ālġafalaŧi
+ 
+faāamauā
+muwtu
+ālfuǧaāʾaŧi
+ faḥaduuhu
+āana
+yaḫaruǧa
+ālnaufasu
+āldau
+āḫilu
+walaā
+yadaḫulu
+ālnaufasu
+ālḫaāriǧu
+ fahãḏaā
+muwtu
+ālfuǧaāʾaŧi
+ wahãḏaā
+ġayru
+ālmuḥataḍari
+ wa
+kaḏãlika
+ḳatalu
+ālġafalaŧi
+baḍara
+bi
+ʿunu
+ḳihi
+mina
+waraāʾihi
+wahuwa
+laā
+yašaʿu
+ru
+
+ fa
+yuḳa
+baḍu
+ʿaláã
+maā
+kaāna
+ʿal
+ayhi
+mina
+āʾiyamaāniⁿ
+āw
+kufariⁿ
+waliḏãlika
+ḳaāla
+ʿalayhi
+ālsaulaāmi
+ 
+wayuḥašaru
+ʿaláã
+maā
+ʿalayhi
+maāta
+ 
+kamaā
+āanauhu
+yuḳabaḍu
+ʿaláã
+maā
+kaāna
+ʿalayhi
+ 
+waālmuḥataḍaru
+maā
+yakuwnu
+āʾilauā
+ṣaāḥiba
+šuhuwdiⁿ
+ fahuwa
+ṣaāḥibu
+āʾiyamaāniⁿ
+bimaā
+ṯamau
+ 
+falaā
+yuḳabaḍu
+āʾilauā
+ʿaláã
+maā
+kaāna
+ʿalayhi
+ liāanau
+
+kaāna
+ ḥarafuⁿ
+wuǧuwdiyuⁿu
+laā
+yanaǧaruu
+maʿahu
+ālzaumaā
+nu
+āʾilauā
+biḳ
+araāʾini
+ālāaḥawaāli
+ fayuf
+arauḳu
+bayna
+ālka
+āfiri
+ālmuḥ
+ataḍari
+fiy
+ālmaw
+ti
+ 
+wabayna
+ālkaāfiri
+ālmaḳatuwli
+ġafalaŧaⁿ
+ āaw
+ālmayiuti
+faǧaāaŧaⁿ
+
+ kamaā
+ḳulanaā
+
+ fiy
+ḥadiu
+ālfuǧaāʾaŧi
+ 
+waāamauāḥikamaŧu
+āltauǧaliuy
+ waālkalaāmu
+fiy
+ṣuw
+raŧ
+ālniuāri
+ liāanauhaā
+kaānat
+buġayaŧa
+muw
+saáã
+ 
+fataǧ
+alauáã
+lahu
+fiy
+maṭaluwbihi
+ liyuḳ
+abila
+ʿalayhi
+waluā
+yuʿariḍa
+ʿanahu
+ faāʾi
+nauhu
+law
+taǧ
+alauáã
+lahu
+fiy
+ġayri
+ṣuwraŧi
+maṭaluwbihi
+ āaʿaraḍa
+ʿanahu
+ liaǧatimaāʿi
+hamiuhi
+ʿaláã
+maṭaluwbiⁿ
+ḫaāṣiⁿu
+ 
+walaw
+āaʿaraḍa
+ laʿaāda
+ʿamaluhu
+ʿal
+ayhi
+ faāaʿaraḍa
+ʿan
+ahu
+ālḥaḳuu
+ wahuwa
+muṣaṭafaáaⁿ
+muḳaraubuⁿ
+ 
+famina
+ḳurabihi
+āanauhu
+taǧalauáã
+lahu
+fiy
+maṭaluwbihi
+ wahuwa
+laā
+yaʿalamu
+ 
+
+ālbasiyṭu
+kanaāri
+muwsaáã
+yaraāhaā
+ʿayna
+ḥaāǧatihi
+wahawa
+ālāʾilãhu
+walãkin
+laysa
+yadariyhi
+
+27
+ẓhr
+
+62
+ 
+faṣuu
+ḥikamaŧiⁿ
+ṣamadiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+ḫaālidiyauŧiⁿ
+waāamauā
+ḥikamaŧu
+ḫaālidi
+bani
+sinaāniⁿ
+faāʾinauhu
+āaẓahara
+bidaʿawaāhu
+ālnaubuwauŧa
+ālbarazaḫiyauŧa
+ 
+faāʾinauhu
+maāadauʿaáã
+ālāʾiḫabaāra
+bimaā
+hunaālika
+āʾilauā
+baʿada
+ālmawati
+ faāamara
+āana
+yun
+abaša
+ʿalayhi
+ 
+wayusaāala
+ fayuḫabaru
+āanau
+ālḥukama
+fiy
+ālbarazaḫi
+ʿalaáã
+ṣuwraŧi
+ālḥayaāŧi
+ālduunayaā
+ fayuʿalamu
+biḏãlika
+ṣidaḳu
+ālruusuli
+kuliuhima
+ fiymaā
+āaḫabaruwā
+bihi
+fiy
+ḥayaātihimu
+ālduunayaā
+ 
+fakaāna
+ġaraḍu
+ḫaālidiⁿ
+ṣalauáã
+āllhu
+ʿal
+ayhi
+wasalauma
+ āʾiyamaānu
+ālʿaālami
+kulauihi
+bimaā
+ǧaāʾata
+bihi
+ālruusulu
+ liyakuwna
+raḥamaŧaⁿ
+lil
+aǧamiyʿi
+
+ faāʾinauhu
+āaša
+rafa
+biḳu
+rabi
+nubuwau
+tihi
+mina
+nubuwauŧi
+muḥamaudiⁿ
+ṣalauá
+āllhu
+ʿalayahi
+wasalauma
+ waʿalima
+āanau
+āllha
+āarasalahu
+raḥamaŧaⁿ
+lilaʿaālamiyna
+ walama
+yakuna
+ḫaāliduⁿ
+brsw
+liⁿ
+ fa
+āaraāda
+āana
+yaḥaṣ
+ula
+mina
+hãḏihi
+āl
+rauḥamaŧi
+fiy
+āl
+riusaā
+laŧi
+ālmuḥamaudiyauŧi
+ʿalaáã
+ḥaẓiⁿu
+waāfiriⁿ
+ walama
+yuʾmara
+biāltaubaliy
+aġi
+ faāaraāda
+āana
+yaḥ
+aẓaáã
+biḏãlika
+fiy
+ālba
+razaḫi
+ liy
+akuwna
+āaḳawaáã
+fiy
+ālʿilami
+fiy
+ḥaḳiu
+ālḫalaḳi
+ faāaḍaāʿahu
+ḳawamuhu
+walama
+yaṣifi
+ālnaubiyuu
+ṣalauáã
+āllhu
+ʿalayahi
+wasalauma
+ḳawamahu
+ 
+baāanauhuma
+
+ḍaāʿuwā
+ waāʾinaumaā
+waṣafahuma
+bānhm
+
+āaḍaāʿuwā
+ nabiyauhuma
+ 
+ḥayaṯa
+lama
+yubaliġuwhu
+muraādahu
+ 
+fah
+ala
+balauġahu
+
+āllhu
+āaǧara
+āuman
+iyautihi
+ falaā
+šakau
+ 
+walaāḫilaāfa
+āanau
+lahu
+āaǧara
+āumaniyauti
+hi
+ 
+waāʾinaumaā
+ālšaukuu
+waālḫilaāfu
+fiy
+āaǧari
+ālmaṭaluwbi
+ hala
+yusaāwiy
+tam
+aniuy
+wuḳuwʿihi
+ʿadama
+wuḳuwʿihi
+biālwuǧuwdi
+āama
+laā
+ 
+faāʾinau
+fiy
+ālšauriʿi
+maāyuʾyaudu
+āltausaāwiy
+fiy
+mawaāḍiʿa
+kaṯiyraŧiⁿ
+ kaālātiy
+lilṣaulaāŧi
+fiy
+ālǧamaāʿaŧi
+ fatafuwtuhu
+ālǧ
+amaāʿaŧu
+ falahu
+āaǧaru
+mana
+ḥaḍara
+ālǧamaāʿaŧa
+
+ wa
+kaālmutamaniuy
+maʿa
+faḳarihi
+maāhuma
+ʿalayhi
+āaṣaḥaābu
+ālṯaurawaŧi
+waālmaāli
+ min
+fiʿali
+ālḫayri
+fiyhi
+ falahu
+miṯala
+āuǧuw
+rihima
+ walãkina
+miṯala
+āuǧuwrihima
+fiy
+niyauātihima
+āawa
+fiy
+ʿamalihima
+ faāʾinauhuma
+ǧamaʿuwā
+bayna
+ālʿamali
+waālniuyauŧi
+ walama
+yanuṣu
+ālnaubiyuu
+walaā
+ʿalaáã
+waāḥidiⁿ
+minahumaā
+ 
+waālẓauāhiru
+āanauhu
+laātusaāwiⁿ
+bayanahumaā
+ waliḏãlika
+ṭalaba
+ḫaālidu
+banu
+sinaāniⁿ
+ālāʾibalaāġa
+ 
+ḥatauáã
+yaṣiḥau
+lahu
+maḳaāmu
+ālǧamaʿi
+bayna
+ālāamarayni
+ 
+fayaḥaṣulu
+ʿalaáã
+ālāaǧarayni
+ 
+waāllhu
+āaʿalamu
+ 
+
+72
+ 
+faṣuu
+ḥikamaŧiⁿ
+faradiyauŧiⁿ
+fiy
+kalimaŧiⁿ
+muḥamaudiyauŧiⁿ
+āʾinaumaā
+kaānata
+ḥikamatuhu
+fa
+radiyauŧaⁿ
+ liāanauhu
+āakamalu
+mawǧuwdiⁿ
+fiy
+hãḏaā
+ālnauwʿi
+ālāʾinas
+aāniyiu
+ 
+
+37
+wǧh
+ walihãḏaā
+budiáʾa
+bihi
+ālāumaru
+waḫutima
+ 
+fakaāna
+nabiyiⁿuā
+waādamu
+bayna
+ālmaāʾi
+waālṭiuyni
+ 
+ṯumau
+kaāna
+binašaāatihi
+ālʿunaṣuriyauŧi
+ḫaātama
+ālnabiyiuyna
+ 
+waāawaula
+ālāafaraādi
+ 
+ālṯaulaāṯaŧi
+ wamaā
+zaāda
+ʿalaáã
+haḏihi
+ālāawauliyiuŧi
+mina
+ālāafaraādi
+faāʾinauhu
+ʿayanuhaā
+ 
+fakaāna
+ʿalayhi
+ālsaulaāmu
+āadalau
+daliyliⁿ
+ʿalaáã
+rabauhi
+ 
+faāʾinauhu
+āuwtiya
+ǧawaāmiʿa
+ālkalimi
+ālautiy
+hiya
+musamauyaātu
+āasamaāʾi
+ādama
+ faāašabaha
+āldauliyla
+fiy
+taṯaliyṯihi
+ waāldauliylu
+daliyluⁿ
+linafasihi
+ 
+walamauā
+kaā
+nata
+ḥaḳiyḳatuhu
+tuʿaṭiy
+ālfaradiyauŧa
+ālāuwlaáã
+bimaā
+huwa
+muṯalauṯu
+ālnaušaāaŧi
+ liḏãlika
+ḳaāla
+fiy
+baābi
+ālmaḥabauŧi
+ālautiy
+hiya
+āaṣalu
+ālwuǧuwdi
+ 
+ḥubiuba
+āʾilayau
+mina
+dunayaākuma
+ṯalaāṯuⁿ
+
+ bimaā
+fiyhi
+mina
+āltauṯaliyṯi
+ ṯumau
+ḏakara
+ālniusaāʾa
+ waālṭiuybu
+
+ waǧuʿilata
+ḳurauŧu
+ʿaynihi
+fiy
+ālṣaulaāŧi
+ 
+faabatadaāa
+biḏikari
+ālniusaāʾi
+waāaḫaura
+ālṣaulaāŧa
+ waḏãlika
+liāanau
+ālmaraāaŧa
+ǧuzaʾuⁿ
+mina
+ālrauǧuli
+fiy
+āaṣali
+ẓuhuwri
+ʿaynihaā
+ 
+wamaʿarifaŧu
+ālāʾinasaāni
+binaf
+asihi
+muḳ
+adaumaŧuⁿ
+ʿalaáã
+maʿarifatihi
+birabauhi
+ faāʾinau
+maʿarifatahu
+birabauhi
+natiyaǧ
+aŧuⁿ
+ʿana
+maʿarifatihi
+binafasihi
+ liḏãlika
+ḳaāla
+ʿalayhi
+ālsaulaāmu
+ 
+mana
+ʿarafa
+nafasahu
+ʿarafa
+rabauhu
+ 
+faāʾina
+šiʾta
+ḳulata
+ biman
+aʿi
+ālmaʿari
+faŧi
+fiy
+hãḏaā
+ālḫ
+aba
+ri
+ waālʿa
+ǧa
+zu
+ʿani
+ālwuṣuwli
+faāʾinauhu
+saāʾiġuⁿ
+fiyhi
+ 
+waāʾina
+šiʾta
+ḳul
+ata
+ biṯubuw
+ti
+ālmaʿari
+faŧi
+ faālāawaulu
+ āana
+taʿarifa
+āanau
+naf
+asaka
+laātaʿarifuh
+aā
+falaā
+taʿarifu
+rabauka
+ waālṯauāniy
+ āana
+taʿarifahaā
+fataʿarifu
+rabauka
+ 
+wa
+kaāna
+muḥam
+auduⁿ
+āawaḍaḥa
+daliyliⁿ
+ʿalaáã
+rabauhi
+ faāʾinau
+kulau
+ǧu
+zaʾiⁿ
+mina
+ālʿaālami
+daliyluⁿ
+ʿalaáã
+āaṣalihi
+ālauḏiy
+huwa
+rabuuhu
+ faāfahama
+ 
+faāʾinaumaā
+ḥubiuba
+āʾilayhi
+ālniusaāʾu
+ faḥanau
+āʾilayhinau
+ liāanauhu
+mina
+baābi
+ḥaniyni
+ālkuliu
+āʾilaáã
+ǧu
+zaʾihi
+ faāabaāna
+biḏãlika
+ʿani
+ālāamari
+fiy
+nafasihi
+mina
+ǧaānibi
+ālḥaḳiu
+ fiy
+ḳawlihi
+fiy
+hãḏihi
+ālnaušaāaŧi
+ālāʾinasaāniyauŧi
+ālʿunaṣuriyauŧi
+ 
+wanafaḫatu
+fiyhi
+min
+ruwḥiá
+ 
+swrŧ
+ālḥǧr
+
+ 92
+ 
+swrŧ
+ṣ
+ 27
+ 
+ṯumau
+waṣafa
+naf
+asahu
+bišidauŧi
+ālšauwḳi
+āʾilaáã
+liḳaāʾihi
+ faḳaāla
+lilamušataā
+ḳiyna
+ 
+yaā
+daāwudu
+āʾiniuy
+āašaduu
+šawḳaⁿā
+āʾilayhima
+ 
+yaʿaniy
+ lilamušataāḳiyna
+āʾilayhi
+wahuwa
+liḳaāʾuⁿ
+ḫaāṣuⁿu
+ 
+faāʾinauhu
+ḳaāla
+fiy
+ḥadiyaṯi
+āldauǧauāli
+ 
+āʾinau
+āaḥadakuma
+lana
+yaraáã
+rabauhu
+ḥatauáã
+yamuwta
+ 
+falaābudau
+mina
+ālšauwḳi
+limana
+hãḏihi
+ṣifatuhu
+ 
+fašawḳu
+ālḥaḳiu
+lihãʾlaāʾi
+ālmuḳaraubiyna
+maʿa
+kawnihi
+yaraāhuma
+ 
+37
+ẓh
+r
+fayuḥ
+ibuu
+āana
+yarawahu
+wayaābaáã
+ālmaḳaāmu
+ḏãlika
+faāašabaha
+ḳawlahu
+ 
+ḥatauáã
+naʿalama
+ 
+swrŧ
+mḥmd
+
+ 13
+ maʿa
+kawnihi
+ʿaālimaⁿā
+ fahuwa
+yašataāḳu
+lihãḏihi
+ālṣiufaŧi
+ālḫaāṣauŧi
+ālautiy
+laāwuǧuwda
+lahaā
+āʾilauā
+ʿinada
+ālmawati
+ 
+fayabuluu
+bihaā
+šawḳuhuma
+āʾilayhi
+ kamaā
+ḳaāla
+taʿaālaáã
+fiya
+ḥadiyṯi
+āltauraduudi
+ālāʾilãhi
+yiu
+ wahuwa
+mina
+hãḏaā
+ālbaābi
+ 
+maātaradaudatu
+fiya
+šayʾiⁿ
+āanaā
+faāʿiluhu
+taraduudiy
+fiy
+ḳabaḍi
+ʿabadiyi
+ālmuʾmini
+ yakarahu
+ālmawta
+ waāakarahu
+musaāʾatahu
+ walaābudau
+lahu
+mina
+liḳaāʾiy
+ 
+fabašaurahu
+ 
+wamaāḳaāla
+lahu
+ 
+laābudau
+lahu
+mina
+ālmawti
+ laʾlauā
+yaġumauhu
+biḏikari
+ālmawti
+ 
+walamauā
+kaāna
+laāyalaḳaáã
+ālḥaḳau
+āʾilauā
+baʿada
+ālmawti
+ kamaā
+ḳaāla
+ʿalayhi
+ālsaulaāmu
+ 
+āʾinau
+āaḥadakuma
+laāyaraáã
+rabauhu
+ḥatauáã
+yamuwta
+ liḏãlika
+ḳaāla
+taʿaālaáã
+ 
+walaābudau
+lahu
+mina
+liḳaāʾiy
+ 
+faašatiyaāḳu
+ālḥaḳiu
+liwuǧuwdi
+hãḏihi
+ālniusabaŧi
+ 
+
+ālmutaḳaāribu
+1
+yaḥinuu
+ālḥabiybu
+āʾilaáã
+ruʾyatiy
+waāʾiniuy
+āʾilayhi
+āašaduu
+ḥaniynaā
+2
+watahafuw
+ālnuufuwsu
+wayaābaáã
+ālḳaḍaā
+faāašakuw
+ālāaniyna
+wayašakuw
+ālāaniynaā
+falamauā
+āabaāna
+āanauhu
+nafaḫa
+fiyhi
+mina
+ruwḥihi
+ famaā
+ašataāḳa
+āʾilauā
+linafasihi
+ āalaā
+taraāhu
+ḫalaḳahu
+ʿalaáã
+ṣuwratihi
+ liāanauhu
+mina
+ruwḥihi
+ 
+walamauā
+kaānata
+našaāatuhu
+mina
+hãḏihi
+ālāarakaāni
+ālāarabaʿaŧi
+ālmusamauāŧi
+fiy
+ǧasadihi
+āaḫalaāṭaⁿā
+ 
+ḥadaṯa
+ʿana
+nafaḫihi
+ašatiʿaāluⁿ
+bima
+āfiy
+ǧas
+adihi
+mina
+ālruuṭuwa
+baŧi
+ faka
+āna
+ruwḥu
+ālāʾinasaāni
+naāraⁿā
+liāaǧali
+našaāatihi
+ walihãḏaā
+maākalauma
+āllhu
+muwsaáã
+āʾilauā
+fiy
+ṣuwraŧi
+ālnauāri
+ 
+waǧaʿala
+ḥaāǧatuhu
+fiyhaā
+ falawa
+kaānata
+našaāatuhu
+ṭabiyaʿiyauŧaⁿ
+ lakaāna
+ruwḥuhu
+nuwraⁿā
+ 
+wakanauáã
+ʿanahu
+biālnaufaḫi
+ yušiyaru
+āʾilaáã
+āanauhu
+mina
+nafasi
+ālrauḥamãni
+ faāʾinauhu
+bihãḏaā
+ālnaufasi
+
+ ālauḏiy
+huwa
+ālnaufaḫaŧu
+
+ ẓahara
+ʿayanahu
+ wabiasatiʿadaādi
+ālmanafuwḫi
+fiyhi
+kaāna
+ālaštiʿaālu
+naāraⁿā
+laānuwraⁿā
+ fabaṭana
+nafasu
+ālḥaḳiu
+fiymaā
+kaāna
+bihi
+ālāʾinasaānu
+āʾinasaānaⁿā
+ 
+ṯumau
+ašataḳau
+lahu
+šaḫaṣaⁿā
+ʿal
+aáã
+ṣuwratihi
+sam
+auāhu
+
+amaraāaŧaⁿ
+ faẓah
+arata
+biṣuw
+ratihi
+ faḥanau
+āʾilayhaā
+ḥaniyna
+ālšayʾi
+āʾilaáã
+nafasihi
+ waḥanauta
+āʾilayhi
+ḥaniyna
+ālšayʾ
+āʾilaáã
+waṭanihi
+ 
+faḥubiuba
+āʾilayhi
+ālniusaāʾu
+ faāʾinau
+āllha
+āaḥabau
+mana
+ḫalaḳahu
+ʿalaáã
+ṣuwratihi
+ waāasaǧada
+lahu
+malaāʾikatahu
+ālnuuwriyauyna
+ʿalaáã
+ʿiẓami
+ḳadarihima
+wamanazilatihima
+waʿuluwiu
+našaāatihimi
+ālṭaubiyʿiyauŧi
+
+47
+wǧh
+ famina
+hunaāka
+waḳaʿata
+ālmunaāsabaŧu
+ 
+waālṣuuwraŧu
+āaʿaẓamu
+munaāsabaŧaⁿ
+waāaǧaluuhaā
+waāakamaluhaā
+ faāʾinauhaā
+zawǧuⁿ
+āay
+ šafaʿata
+wuǧuwda
+ālḥaḳiu
+ kamaā
+kaānata
+ālmaraāaŧu
+šafaʿata
+biwuǧuwdihaā
+ālrauǧula
+faṣayauratahu
+zawǧaⁿā
+ 
+faẓah
+arati
+ālṯ
+aulaāṯaŧu
+
+ ḥaḳuⁿu
+ waraǧuluⁿ
+ waamaraāaŧuⁿ
+ faḥanau
+ālrauǧalu
+āʾilaáã
+rabauhi
+
+ ālauḏiy
+huwa
+āaṣal
+uhu
+
+ ḥaniyna
+ālmaraāaŧi
+āʾilayhi
+ faḥabauba
+āʾilayhi
+rabuuhu
+ālniusaāʾa
+ kamaā
+āaḥabau
+āllhu
+mana
+huwa
+ʿalaáã
+ṣuwratihi
+ 
+famaā
+waḳaʿa
+ālḥabuu
+āʾilauā
+limana
+takawauna
+ʿanhu
+ waḳada
+kaāna
+limana
+takawauna
+minhu
+ wahuwa
+ālḥaḳuu
+ falihãḏaā
+ḳaāla
+ 
+ḥubiuba
+ walama
+yaḳula
+ 
+āaḥababatu
+ mina
+nafasihi
+ litaʿal
+uuḳi
+ḥubiuhi
+birabauhi
+ālauḏiy
+huwa
+ʿalaáã
+ṣuwratihi
+ḥatauáã
+fiy
+maḥabautihi
+liamaraāatihi
+ faāʾinauhu
+āaḥabauhaā
+biḥubiu
+āllhi
+āʾiyauāhu
+taḫaluuḳaⁿā
+āʾilãhiyiⁿuā
+ 
+walamauā
+āaḥabau
+ālrauǧulu
+ālmaraāaŧa
+ ṭalaba
+ālwuṣalaŧa
+ āay
+ ġaāyaŧa
+ālwuṣalaŧi
+ālautiy
+takuwna
+fiy
+ālmaḥabauŧi
+ falama
+yakuna
+fiy
+ṣuwraŧi
+ālnaušaāaŧi
+ālʿunaṣuriyauŧi
+āaʿaẓama
+wuⁿṣalaŧaⁿ
+mina
+ālniukaāḥi
+ 
+walih
+ãḏaā
+taʿumuu
+ālšauhawaŧu
+āaǧazaāʾahu
+kul
+auhaā
+ waliḏãlika
+āumira
+biāliaġatis
+aāli
+min
+ahu
+ faʿamauti
+ālṭauhaā
+raŧu
+ 
+kamaā
+ʿamau
+ālfanaāʾu
+fiyhaā
+ʿinada
+ḥuṣuwli
+ālšauhawaŧi
+ 
+faāʾinau
+ālḥaḳau
+ġayuwruⁿ
+ʿalaáã
+ʿabadihi
+āana
+yaʿataḳida
+āanauhu
+yalataḏuu
+biġayrihi
+ faṭahaurahu
+biālġusali
+liyaraǧaʿa
+biālnauẓari
+āʾilayhi
+faymana
+faniya
+fiyhi
+ āʾiḏa
+laāyakuwnu
+āʾilauā
+ḏãlika
+ 
+faāʾiḏaā
+šaā
+hada
+ālrauǧulu
+ālḥaḳau
+fiy
+ālmaraāaŧi
+ kaāna
+šuhuw
+daⁿā
+fiy
+mun
+afaʿ
+iliⁿ
+ waāʾiḏaā
+šaāhadahu
+fiy
+nafasihi
+mina
+ḥayaṯu
+ẓuhuwru
+ālmaraāaŧi
+ʿanahu
+šaāhadahu
+fiy
+faāʿiliⁿ
+ 
+waāʾiḏaā
+šaāhadahu
+min
+nafasihi
+mina
+ġayri
+asatiḥaḍaāri
+ṣuwraŧiⁿ
+maātakuwnu
+ʿanahu
+ kaāna
+šuhuwduhu
+fiy
+munafaʿiliⁿ
+ʿana
+ālḥaḳiu
+bilaā
+waāsiṭaŧiⁿ
+ 
+fašuhuwuduhu
+lil
+aḥaḳiu
+fiy
+ālmaraāaŧi
+ āatamuu
+waāakamalu
+ liāanauhu
+yušaāhidu
+ālḥaḳau
+mina
+ḥayṯu
+huwa
+faāʿiluⁿ
+munafaʿiluⁿ
+ wamina
+nafasihi
+mina
+ḥayṯu
+huwa
+munafaʿiluⁿ
+ḫaāṣauŧaⁿ
+ 
+falihãḏaā
+āaḥabau
+ṣalauáã
+āllhu
+ʿalayhi
+ālniusaāʾa
+ likamaāli
+šuhuwdi
+ālḥaḳiu
+fiyhinau
+ āʾiḏa
+laāyušaāhidu
+ālḥaḳau
+muǧaraudaⁿā
+ʿani
+ālmawaādi
+āabadaⁿā
+ faāʾinau
+āllha
+biālḏauāti
+ġaniyuⁿu
+ʿani
+ālʿaālamiyna
+ 
+faāʾiḏaā
+kaāna
+ālāamaru
+mina
+hãḏaā
+ālwaǧahi
+mumatan
+iʿaⁿā
+ 
+walama
+takuni
+ālšauh
+aādaŧu
+āʾilauā
+fiy
+maādauŧiⁿ
+ 
+fašuhuwdu
+ālḥaḳiu
+fiy
+ālniusaāʾi
+āaʿaẓamu
+šuhuwdiⁿ
+waāakamaluhu
+ 
+waāaʿaẓamu
+ālwuṣalaŧi
+ālniukaāḥu
+ 
+wahuwa
+naẓiyru
+āltauwaǧuuhi
+ālāʾilãhiyiu
+ʿalaáã
+mana
+ḫalaḳahu
+ʿal
+aáã
+ṣuwratihi
+ liy
+aḫal
+uḳahu
+fayaraáã
+fiyhi
+nafasahu
+
+47
+ẓhr
+ fasawauāhu
+ waʿadau
+lahu
+ wanafaḫa
+fiyhi
+min
+ruwḥihi
+ālauḏiy
+huwa
+nafasuhu
+ 
+faẓaāhiruhu
+ḫalaḳuⁿ
+wabaāṭinuhu
+ḥaḳuⁿu
+ 
+walihãḏaā
+waṣafahu
+biāltaudabiyri
+ lihãḏaā
+ālhaykali
+ faāʾinauhu
+taʿaālaáã
+
+yudabauru
+alāamara
+mina
+alsaumāāʾi
+ 
+sw
+rŧ
+ālsǧdŧ
+
+ 5
+wahuwa
+ālʿuluwuu
+ 
+āʾilaáã
+alāaraḍi
+ 
+swrŧ
+ālsǧdŧ
+
+ 5
+ 
+wahuwa
+āasafalu
+saāfiliyna
+ liāanauhaā
+āasafalu
+ālāarakaāni
+kuliuhaā
+ 
+wasamauāhunau
+biālniusaāʾi
+
+ wahuwa
+ǧamaʿuⁿ
+laā
+waāḥida
+lahu
+
+ mina
+lafaẓihi
+ waliḏãlika
+ḳaāla
+ʿalayhi
+ālsaulaāmu
+ 
+ḥubiuba
+āʾilayau
+mina
+dunayaākuma
+ṯalaāṯuⁿ
+ ālniusaāʾu
+ walama
+yaḳuli
+ 
+ālmaraāaŧu
+ 
+faraāʿaáã
+taāaḫuurahunau
+fiy
+ālwuǧuw
+di
+ʿan
+hu
+ faāʾinau
+ālnuus
+aāaŧa
+hiya
+āltau
+āḫiyru
+ ḳaā
+la
+taʿaā
+laáã
+ 
+
+āʾinaumaā
+ālnausiyāʾu
+ziyaādaŧuⁿ
+fiy
+ālkufari
+ 
+sw
+rŧ
+ālt
+wbŧ
+
+ 73
+ waālbayʿu
+binasiyáʾaŧiⁿ
+yaḳuwlu
+bitaāḫiyriⁿ
+ faliḏãlika
+ḏakara
+ālniusaāʾa
+ 
+famaā
+āaḥabauhunau
+āʾilauā
+biālmaratab
+aŧi
+ waāanauhunau
+maḥaluu
+ālanafiʿaāli
+ 
+fahunau
+lahu
+kaālṭaubiyaʿaŧi
+lilaḥaḳiu
+ālaut
+iy
+fat
+aḥa
+fiyhaā
+ṣuwara
+ālʿaālami
+biāltauwaǧuuhi
+ālāʾiraādiyiu
+ waālāamaru
+ālāʾilãhiyiu
+ ālauḏiy
+huwa
+nikaāḥuⁿ
+fiy
+ʿaā
+lami
+ālṣuuwari
+ālʿunaṣu
+ri
+yauŧi
+ wahimauŧuⁿ
+fiy
+ʿaālami
+ālāarawaāḥi
+ālnuuwriyauŧi
+ watara
+tiybu
+muḳadiumaā
+tiⁿ
+fiy
+ālm
+aʿaāniy
+llāʾinataāǧi
+ wa
+kuluu
+ḏãlika
+nika
+āḥu
+ālfaradiyauŧi
+ālāuwlaáã
+fiy
+kuliu
+waǧahiⁿ
+mina
+haḏihi
+ālwuǧuwhi
+ 
+famana
+āaḥabau
+ālniusaāʾa
+ʿalaáã
+hãḏaā
+ālḥadiu
+ fahuwa
+ḥubuⁿu
+āʾilãhiyuⁿu
+ wamana
+āaḥabauhunau
+ʿalaáã
+ǧihaŧi
+ālšauhawaŧi
+ālṭ
+aubiyʿiyauŧi
+ḫaāṣauŧaⁿ
+naḳ
+aṣahu
+ʿil
+amu
+hãḏihi
+ālšauhawa
+ŧi
+ wakaāna
+ṣuwraŧaⁿ
+bilaā
+ruwḥiⁿ
+ʿinadahu
+ waāʾina
+kaānata
+tilaka
+ālṣuuwraŧu
+fiy
+nafasi
+ālāamari
+ḏaāta
+ruwḥiⁿ
+ walãkinauhaā
+ġayru
+mašahuwdaŧiⁿ
+limana
+ǧaāʾa
+liamaraāatihi
+āaw
+liāunaṯaáaⁿ
+ ḥayṯu
+kaānata
+limuǧaraudi
+ālalatiḏaāḏi
+ walãkina
+laāyadariy
+limana
+ faǧahila
+mina
+nafasihi
+maāyaǧahalu
+ālġayru
+minhu
+ maālama
+yusamiuhi
+huwa
+bilisaānihi
+ḥatauáã
+yaʿalama
+kamaā
+ḳaāla
+baʿaḍuhuma
+ 
+
+ālraumalu
+ṣaḥau
+ʿinada
+ālnauāsi
+āaniuy
+ʿaāšiḳuⁿ
+ġayara
+āana
+lama
+yaʿarifuwā
+ʿišaḳiy
+limana
+kaḏãlika
+ hãḏaā
+āaḥabau
+ālalatiḏaāḏa
+ faāaḥabau
+ālmaḥalau
+ālauḏiy
+yakuwnu
+fiyhi
+ wahuwa
+ālmaraāaŧu
+ walãkina
+ġaāba
+ʿanahu
+ruwḥu
+ālmasaāalaŧi
+ fal
+aw
+ʿalimahaā
+ laʿal
+ima
+bimana
+alataḏau
+ wamana
+alat
+aḏau
+ 
+wa
+kaāna
+kaāmilaⁿā
+ 
+wakamaā
+nazalati
+ālmaraāaŧu
+ʿana
+daraǧaŧi
+ālrauǧuli
+biḳawlihi
+ 
+walilriuǧaāli
+ʿalayahinau
+daraǧaŧuⁿ
+
+swrŧ
+ālbḳrŧ
+
+ 822
+ nazala
+ālmaḫaluwḳu
+ʿalaáã
+ālṣuuwraŧi
+ʿana
+daraǧaŧi
+man
+āanašaāahu
+ʿalaáã
+ṣuwratihi
+ maʿa
+kawnihi
+ʿalaáã
+ṣuwratihi
+ 
+fabitilaka
+āldauraǧaŧi
+ālautiy
+tamayauza
+bihaā
+ʿanahu
+ 
+bihaā
+kaāna
+ġaniyiⁿuā
+ʿani
+ālʿaālamiyna
+ 
+wafāaʿilaⁿā
+āawaulaⁿā
+ 
+57
+wǧh
+ faāʾinau
+ālṣuuwraŧa
+faāʿiluⁿ
+ṯaāniⁿ
+ 
+famaā
+lahu
+ālāawauliyauŧu
+ālautiy
+lilaḥaḳiu
+fatamayauzati
+ālāaʿayaānu
+biālmaraātibi
+ faāaʿaṭaáã
+kulau
+ḏiya
+ḥaḳiⁿu
+ḥaḳauhu
+ kuluu
+ʿaārifiⁿ
+ 
+falihãḏaā
+kaān
+ḥubuu
+ālniusaā
+ʾi
+limuḥamaudiⁿ
+ṣalauá
+āllhu
+ʿalay
+hi
+wasalauma
+ʿana
+taḥ
+abuubiⁿ
+āʾilãh
+iyiⁿu
+ 
+waāanau
+āllha
+
+āaʿaṭaáã
+kulau
+šayʾiⁿ
+ḫalaḳahu
+ 
+swrŧ
+ṭãh
+ã
+ 05
+ wahuwa
+ʿaynu
+ḥaḳiuhi
+ 
+famaā
+āaʿaṭaāhu
+āʾilauā
+biālasatiḥaḳaāḳi
+ asataḥaḳauhu
+bimusamauāhu
+ āay
+ biḏaāti
+ḏãlika
+ālmusataḥaḳiu
+ 
+waāʾinaumaā
+ḳadauma
+ālniusaāʾa
+liāanauhunau
+maḥaluu
+ālanafiʿaāli
+ kamaā
+taḳadaumati
+ālṭaubiyʿaŧu
+ʿalaáã
+mana
+wuǧida
+minahaā
+biālṣuuwraŧi
+ 
+walays
+ati
+ālṭaubiyʿaŧu
+
+ ʿal
+aáã
+ālḥaḳ
+iyḳ
+aŧi
+
+ āʾilauā
+ālnaufasa
+ālrauḥamaā
+niyau
+ faāʾinauhu
+fiy
+hi
+anafataḥata
+ṣuwaru
+ālʿaālami
+āaʿalaāhu
+waāasafaluhu
+ lisarayaāni
+ālnaufaḫaŧi
+fiy
+ālǧawhari
+ālhayuwalaāniyiu
+fiy
+ʿaālami
+ālāaǧaraāmi
+ḫaāṣauŧaⁿ
+ 
+waāamauā
+sarayaānuhaā
+liwuǧuwdi
+ālāarawaāḥi
+ālnuuwriyauŧi
+waālāaʿaraāḍi
+ faḏãlika
+sarayaānuⁿ
+āḫaru
+ 
+ṯumau
+āʾinauhu
+
+ ʿalayhi
+ālsaulaāmu
+
+ ġalauba
+fiy
+hãḏaā
+ālḫabari
+āltauāniyṯu
+ʿalaáã
+āltauḏakiyri
+ liāanauhu
+ḳaṣada
+āltauhamuuma
+bālniusaāʾi
+faḳaāla
+ 
+ṯalaāṯuⁿ
+ walama
+yaḳula
+ 
+ṯalaāṯaŧuⁿ
+ 
+biālhaāʾi
+ālauḏiy
+huwa
+liʿadadi
+ālḏuu
+karaāni
+ āʾiḏa
+
+ wafiyhaā
+ḏa
+kara
+ālṭiuyba
+wahuwa
+muḏakauruⁿ
+waʿaādaŧu
+ālʿarabi
+āana
+tuġaliuba
+āltuḏakiyra
+ʿalaáã
+āltaāniyṯi
+fataḳuwlu
+ 
+
+ālf
+awaāṭimu
+wazayduⁿ
+ḫaraǧuwā
+ walaātaḳuwlu
+ 
+ḫaraǧana
+
+ faġalaubuwā
+āltauḏakiyra
+
+ waāʾina
+kaāna
+waāḥadaⁿā
+
+ ʿalaáã
+āltauā
+niyṯi
+waāʾina
+kunau
+ǧamaā
+ʿaŧaⁿ
+ wahuwa
+ʿarabiyuⁿu
+ 
+faraāʿaáã
+ṣal
+auáã
+āllhu
+ʿalayhi
+wasalauma
+ālmaʿanaáã
+ālauḏiy
+ḳaṣada
+bihi
+fiy
+āltauḥabuubi
+āʾilayhi
+maā
+lama
+yakuna
+yuʾṯiru
+ḥubauhu
+ 
+faʿalaumahu
+āllhu
+maā
+lama
+yakuna
+yaʿalamu
+ wa
+kaāna
+faḍalu
+āllhu
+ʿalayhi
+ʿaẓymaⁿā
+ faġalauba
+āltauāniyṯa
+ʿalaáã
+āltauḏakiyri
+biḳawlihi
+ 
+ṯalaāṯuⁿ
+ biġayri
+
+haāʾiⁿ
+ famaā
+āaʿalamahu
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+biālḥaḳaāʾiḳi
+ wamaā
+āašadau
+riʿaāyatahu
+lilaḥuḳuwḳi
+ 
+ṯumau
+āʾinauhu
+ǧaʿala
+ālḫaātimaŧa
+naẓiyrŧa
+ālāuwlaáã
+fiy
+āltauāniyṯi
+ waāadaraǧa
+baynahumaā
+ālmuḏakau
+ra
+ fabadaāa
+biā
+lniusaāʾi
+ waḫatama
+biālṣaulaāŧi
+wakilataāhumaā
+taāniy
+ṯuⁿ
+ waālṭiuybu
+bay
+nah
+umaā
+kahuwa
+fiy
+wuǧuwdihi
+ faāʾinau
+ālrauǧula
+muda
+raǧuⁿ
+bayna
+ḏaātiⁿ
+ẓahara
+ʿanahaā
+ wabayna
+amaraāaŧiⁿ
+ẓaha
+rata
+ʿanhu
+
+ 
+fahuw
+bayna
+muwʾanauṯayni
+ taāniyṯu
+ḏaātiⁿ
+ wataāniyṯuⁿ
+ḥaḳiyḳiyuⁿu
+
+ kaḏãlika
+ālniusaāʾu
+taāniy
+ṯuⁿ
+ḥaḳiyḳiyuⁿu
+
+57
+ẓhr
+ waālṣaulaāŧu
+taāniyṯuⁿ
+ġayru
+ḥaḳiyḳiyiⁿu
+ waālṭiuybu
+muḏakaruⁿ
+baynahumaā
+kaāādama
+bayna
+ālḏauāti
+ ālmawǧuwdi
+ʿanahaā
+ wabayna
+ḥawauāʾa
+ ālmawǧuwdaŧi
+ʿanhu
+ 
+waāʾina
+šiʾta
+ḳulata
+ 
+ālṣiufaŧu
+ famuwʾanauṯaŧuⁿ
+āayḍaⁿā
+ 
+waāʾina
+šiʾta
+ḳul
+ata
+ 
+ālḳudaraŧu
+ fam
+uwʾanauṯaŧuⁿ
+āayḍaⁿā
+ fakuna
+ʿalaáã
+āayiu
+maḏa
+habiⁿ
+šiʾta
+ 
+faāʾinauka
+laā
+taǧidu
+āʾilauā
+āltauāniyṯa
+yataḳadaumu
+ ḥatauáã
+ʿinada
+āaṣaḥaābi
+ālʿilauŧi
+ ālauḏiyana
+ǧaʿaluwā
+ālḥaḳau
+ʿilauŧaⁿ
+fiy
+wuǧuwdi
+ālʿaālami
+ waālʿilauŧu
+muwʾanauṯaŧuⁿ
+ 
+waāamauā
+ḥikamaŧu
+ālṭiuybi
+ waǧaʿaluhu
+baʿada
+ālniusaāʾi
+ falimaā
+fiy
+ālniusaāʾi
+mina
+rawaāʾiḥi
+āltaukawiyni
+ faāʾinauhu
+ 
+āaṭayabu
+ālṭiuybi
+ʿinaāḳu
+ālḥabiybi
+ kaḏaā
+ḳaāluwā
+fiy
+ālmaṯali
+ālsauāʾiri
+ 
+walamauā
+ḫalaḳa
+ʿabadaⁿā
+biālāaṣaālaŧi
+lama
+yarafaʿa
+raāsahu
+ḳaṭuu
+āʾilaáã
+ālsiuyaādaŧi
+ bala
+lama
+yazala
+saāǧidaⁿā
+ waāḳifaⁿā
+maʿa
+kawnihi
+munafaʿilaⁿ
+ā
+ ḥatauáã
+kawauna
+āllhu
+ʿanhu
+maā
+kawauna
+faāaʿaṭaāhu
+rutabaŧa
+ālfaā
+ʿiliyauŧi
+fiy
+ʿaālam
+ālāanafaāsi
+ālautiy
+hiya
+ālāaʿa
+raāfu
+ālṭau
+yiu
+baŧu
+ faḥubiuba
+āʾilay
+hi
+ālṭiuybu
+ 
+faliḏãlika
+ǧaʿalahu
+baʿada
+ālniusaāʾi
+ 
+faraāʿaáã
+āldauraǧaā
+ti
+ālautiy
+lilaḥaḳiu
+fiy
+ḳaw
+lihi
+ 
+rafiyaʿu
+aldauraǧãti
+ḏuwa
+alʿaraši
+
+swrŧ
+ġāfr
+
+ 51
+ liasatiwaāʾihi
+ʿalayhi
+biasamihi
+ālrauḥamãni
+ 
+falaā
+yabaḳaáã
+fiymana
+ḥawaáã
+ʿal
+ayhi
+ālʿarašu
+mana
+laā
+tuṣiybuhu
+ālrauḥamaŧu
+ālāʾilãhiyauŧu
+ wahuwa
+ḳawluhu
+taʿaālaáã
+
+waraḥamatiá
+wasiʿata
+kulau
+šaáʾiⁿ
+ 
+swrŧ
+ālāʿrāf
+
+ 651
+ waālʿarašu
+wasiʿa
+kulau
+šayʾiⁿ
+ 
+waālmusat
+awiy
+ ālrauḥamãnu
+ fabiḥ
+aḳiy
+ḳatihi
+yakuwnu
+sarayaānu
+ālrau
+ḥamaŧi
+fiy
+ālʿaā
+lami
+ 
+kamaā
+ḳada
+bayaunauāhu
+fiy
+ġayri
+mawḍiʿiⁿ
+mina
+hãḏaā
+ālkitaābi
+ wamin
+ālfutuwḥi
+ālmakiuy
+ 
+waḳada
+ǧaʿala
+
+ ālṭiuyba
+
+ taʿaālaá
+ãfiy
+hãḏaā
+ālaltiḥaāmi
+ālniukaāḥiy
+fiy
+baraāʾaŧi
+ʿaāʾišaŧa
+faḳ
+aāla
+ 
+alḫabiyaṯ
+ãtu
+lilaḫabiyaṯiyana
+waalḫabiyaṯuwana
+lilaḫab
+iyaṯãti
+waalṭauyiubãtu
+lilaṭ
+auyiub
+iyana
+waalṭauyuibuwana
+lilaṭauyiubãti
+āuwalāãʾika
+mubarauʾuwana
+mimauā
+yaḳuwaluwana
+ 
+swrŧ
+ālnwr
+
+ 62
+ 
+faǧaʿala
+rawaāʾiḥahuma
+ṭayiubaŧaⁿ
+ lāanau
+ālḳawla
+nafasuⁿ
+wahuwa
+ʿaynu
+ālraāʾiḥaŧi
+ fayaḫaruǧu
+biālṭauyiubi
+ wabiālḫabiyṯi
+
+ ʿalaáã
+ḥasabi
+
+ maā
+yaẓaharu
+bihi
+fiy
+ṣuwraŧi
+ālnuuṭaḳi
+ 
+famina
+ḥayṯu
+huwa
+āʾilãhiyuⁿu
+biālāaṣaālaŧi
+ kuluuhi
+ṭauyiubuⁿ
+ 
+fahuwa
+ṭauyiubuⁿ
+ wamina
+ḥayṯu
+maāyuḥamadu
+wayuḏamuu
+ fahuwa
+ṭayiubuⁿ
+waḫabiyṯuⁿ
+ 
+faḳaā
+la
+fiy
+ḫubaṯi
+
+67
+wǧh
+ ālṯauwmi
+ 
+hiya
+šaǧaraŧuⁿ
+āaka
+rahu
+riyḥahaā
+
+ walama
+yaḳula
+ 
+āakarahuhaā
+ faālʿaynu
+laātukarahu
+ waāʾinaumaā
+yukarahu
+walaā
+yukarahu
+maāyaẓaharu
+minahaā
+ 
+waālkaraāhaŧu
+liḏãlika
+ āʾimauā
+ʿurafaⁿā
+bimulaāʾamaŧi
+ṭabaʿiⁿ
+ āaw
+ġaraḍiⁿ
+ āaw
+šaraʿiⁿ
+ āaw
+naḳaṣiⁿ
+ 
+ʿana
+kamaāliⁿ
+maṭaluwbiⁿ
+ wamaā
+ṯamau
+ġayru
+maāḏakaranaāhu
+ 
+walamauā
+anaḳasama
+ālāamaru
+āʾilaáã
+ḫabiyṯiⁿ
+waṭayiubiⁿ
+kamaā
+ḳarauranaāhu
+ ḥubiuba
+āʾilayhi
+ālṭayiubu
+duwna
+ālḫ
+abiyṯi
+ 
+wawaṣafa
+ālmalaāʾikaŧa
+biāanauhaā
+tataāaḏauáã
+biā
+lrawaāʾi
+ḥi
+ālḫabiyṯaŧi
+ limaā
+fiy
+hãḏihi
+ālnaušaāŧi
+ālʿunaṣuriyauŧi
+mina
+ālt
+auʿaf
+iyni
+ faāʾi
+nauhu
+maḫaluwḳuⁿ
+
+mina
+ṣalaṣaãliⁿ
+mina
+ḥamaāiⁿ
+masanuwaniⁿ
+
+swrŧ
+ālḥǧr
+
+ 62
+ 82
+ 33
+ āay
+ mutaġayri
+ālriuyḥi
+ fatakarahuhu
+ālmalaāʾikaŧu
+biālḏauāti
+ 
+ka
+maā
+āanau
+mizaāǧa
+ālǧuʿali
+yataḍarauru
+biraāʾiḥaŧi
+ālwaradi
+
+ wahiya
+mina
+ālrauwaāʾiḥi
+ālṭayiubaŧi
+
+falaysa
+riyḥu
+ālwaradi
+ʿinada
+ālǧuʿali
+biriyaḥiⁿ
+ṭayiubaŧiⁿ
+ 
+waman
+kaā
+na
+ʿalaáã
+miṯali
+hãḏa
+āālmizaāǧa
+maʿanáaⁿ
+waṣuwraŧaⁿ
+āaḍarau
+bihi
+ālḥaḳuu
+ āʾiḏaā
+samiʿahu
+wasurau
+biālbaā
+ṭili
+ wahuwa
+ḳawluhu
+ 
+waālauḏiyana
+āmanuwaā
+bialbãṭili
+wakafaruwaā
+biā
+llhi
+ 
+sw
+rŧ
+ālʿnkbwt
+
+ 25
+ wawaṣafahuma
+biālḫusaraāni
+ faḳaāla
+ 
+āuwalāãʾika
+humu
+alḫãsiruwana
+ 
+sw
+rŧ
+ālʿnk
+bwt
+
+ 25
+ 
+ālauḏiyna
+ḫasiruwāā
+āanafusahuma
+ 
+ālānʿā
+m
+ 21
+ faāʾinauhu
+mana
+lama
+yudariki
+ālṭauyiuba
+mina
+ālḫabiyṯi
+falaā
+āʾidaraāka
+lahu
+ 
+famaā
+ḥubiuba
+āʾilaáã
+rasuwli
+āllhi
+ṣalauáã
+āllhu
+ʿalayhi
+wasalauma
+āʾilauā
+ālṭauyiubu
+mina
+kuliu
+šayaʾiⁿ
+ wamaā
+ṯamau
+āʾilauā
+huwa
+ wahala
+yutaṣawauru
+āana
+yakuwna
+fiy
+ālʿaālami
+mizaāǧuⁿ
+laā
+yaǧidu
+āʾilauā
+ālṭauyiuba
+mina
+kuliu
+šayaʾiⁿ
+ laā
+yaʿarifu
+ālḫabiyṯa
+āama
+laā
+ 
+ḳulanaā
+ hãḏaā
+laāyakuwnu
+ faāʾinauā
+maā
+waǧadanaāhu
+fiy
+ālāaṣali
+ālauḏiy
+ẓahra
+ālʿaālamu
+minhu
+
+ wahuwa
+ālḥaḳuu
+
+ fawaǧada
+naāhu
+yakarahu
+wyuḥibuu
+ 
+walaysa
+ālḫabiyṯu
+āʾilauā
+maāyukarahu
+walaā
+ālṭauyiubu
+āʾilauā
+maā
+yuḥabuu
+ 
+waālʿaālamu
+ʿalaáã
+ṣuwraŧi
+ālḥaḳiu
+ waālāʾinasaānu
+ʿalaáã
+ālṣuuwratayni
+ 
+falaā
+yakuwnu
+ṯamau
+mizaāǧuⁿ
+laā
+yudariku
+āʾilauā
+ālāama
+ra
+ālwaāḥida
+mina
+kuliu
+šay
+ʾiⁿ
+ bala
+ṯamau
+mizaāǧuⁿ
+yudariku
+ālṭauyiuba
+mina
+ālḫabiyṯi
+ maʿa
+ʿilamihi
+biāanauhu
+ḫabiyṯuⁿ
+biālḏauwḳi
+ ṭayiubuⁿ
+biġayri
+ālḏauwḳi
+ fayašaġaluhu
+āʾidaraāku
+ālṭauyiubi
+minahu
+ ʿani
+ālāʾiḥasaāsi
+biḫubaṯihi
+ 
+hãḏaā
+ḳada
+yakuwnu
+ waāamauā
+rafaʿu
+ālḫubaṯi
+mina
+ālʿaālami
+
+ āay
+ mina
+ālkawni
+
+ faāʾinauhu
+laā
+yaṣiḥ
+uu
+waraḥamaŧu
+āllhi
+fiy
+ālḫabiyṯi
+waālṭauyiubi
+ waālḫabiyṯu
+ʿinada
+nafasihi
+ṭayiubuⁿ
+ 
+waālṭauyiubu
+ʿinadahu
+ḫabiyṯuⁿ
+ famaā
+ṯamau
+šayʾuⁿ
+ṭayiubuⁿ
+ āʾilauā
+wahuwa
+mina
+waǧahiⁿ
+
+ fiy
+ḥaḳiu
+mizaāǧiⁿ
+maā
+
+ ḫabiyṯuⁿ
+ wa
+kaḏãlika
+biālʿakasi
+ 
+
+67
+ẓhr
+ waāamauā
+ālṯauāliṯu
+ālauḏiy
+bihi
+kamulati
+ālfaradiyaŧu
+ faālṣaulaāŧu
+ 
+faḳaāla
+ 
+waǧuʿilata
+ḳurauŧu
+ʿayaniy
+fiy
+ālṣaulaāŧi
+ liāanauhaā
+mušaāhadaŧuⁿ
+ waḏãlika
+liāanauhaā
+munaāǧaāŧuⁿ
+bayna
+āllhi
+wabayna
+ʿabadihi
+ kamaā
+ḳaāla
+ 
+faaḏakuruwniyā
+āaḏakura
+kuma
+ 
+swrŧ
+ālb
+ḳr
+ŧ
+ 
+251
+ 
+wahiya
+ʿibaādaŧuⁿ
+maḳasuwamaŧuⁿ
+bayna
+āllhi
+wabayna
+ʿabadihi
+biniṣafayni
+ faniṣafuhaā
+lilhi
+ 
+waniṣafuhaā
+lilaʿabadi
+ kamaā
+warada
+fiy
+ālḫabari
+ālṣauḥiyḥi
+ʿani
+āllhi
+taʿaālaáã
+āanauhu
+ḳaāla
+ 
+ḳasamatu
+ālṣau
+la
+āŧa
+bayaniy
+wabayana
+ʿaba
+di
+yniṣafaya
+ni
+ 
+fani
+ṣafuhaā
+liya
+ 
+waniṣa
+fuhaā
+liʿ
+abadiy
+ 
+waliʿa
+badiy
+maā
+saāala
+ yaḳuwalu
+ālʿabadu
+ 
+bisami
+allhi
+alrauḥamãni
+alrauḥiyami
+ yaḳuwalu
+āllhu
+ 
+
+ḏakaraniy
+ʿabadiy
+ yaḳuwa
+lu
+ālʿaba
+du
+
+ 
+alḥamadu
+lilhi
+rabiu
+alʿaãlamiyana
+ yaḳ
+uwalu
+āllhu
+
+ 
+
+ḥamidaniy
+ʿabadiy
+ yaḳuwalu
+ālʿabadu
+ 
+alrauḥamãni
+alrauḥiyami
+ yaḳuwalu
+āll
+hu
+ 
+āaṯanaáã
+ʿalayau
+ʿabadiy
+ yaḳuwalu
+ālʿabadu
+ 
+maãliki
+yawami
+āldiuyani
+ yaḳuwalu
+āllhu
+ 
+maǧaudaniy
+ʿabadiy
+ fawau
+ḍa
+āʾilyau
+ʿabadiy
+ 
+ fahãḏaā
+ālniu
+ṣafu
+kuluuhu
+lahu
+taʿaā
+laáã
+ḫaāliṣuⁿ
+
+ ṯumau
+yaḳuwalu
+ālʿabadu
+ 
+āʾiyauāka
+naʿabudu
+waāʾiyauāka
+nasataʿaiyanu
+ yaḳuwalu
+āllhu
+ 
+hãḏihi
+bayani
+ywabaya
+na
+ʿabadiy
+waliʿabadiy
+maā
+saāala
+ 
+ faāawaḳaʿa
+ālašatiraāka
+fiy
+hãḏihi
+ālāyaŧi
+
+ yaḳuwalu
+ālʿabadu
+ 
+ahadinaā
+alṣiurãṭa
+almusataḳiyama
+ṣirãṭa
+alauḏiyana
+āanaʿamata
+ʿalayahima
+ġayari
+almaġa
+ḍu
+wabi
+ʿalayahima
+walaā
+alḍau
+āā
+liuyana
+
+ yaḳuwalu
+āllh
+ 
+fahãwʾulaāʾi
+liʿabadiy
+waliʿabadiy
+maāsaāala
+ 
+faḫalaṣa
+hãwʾulaāʾi
+liʿabadihi
+kamaā
+ḫalaṣa
+ālāawaulu
+lahu
+taʿaālaáã
+ faʿulima
+mina
+hãḏaā
+wuǧuwbu
+ḳiraāʾaŧi
+
+alḥamadu
+lilhi
+rabiu
+ālʿaãlamiyana
+ 
+ ālāyŧ
+mn
+swrŧ
+ālfātḥŧ
+
+ 2
+ lk
+n
+ālmḳṣwd
+ḳr
+āʾŧ
+āls
+wrŧ
+fy
+kl
+ṣlā
+ŧ
+famana
+lama
+yaḳaraāhaā
+ famaā
+ṣalauáã
+ālṣaulaāŧa
+ālma
+ḳasuwmaŧa
+bayna
+āllhi
+wabayna
+ʿabadihi
+ 
+walamauā
+kaānata
+munaāǧaāŧaⁿ
+fahiya
+ḏikaruⁿ
+ wamana
+ḏa
+kara
+ālḥaḳau
+ faḳada
+ǧaālasa
+ālḥaḳau
+ 
+waǧaālasahu
+ālḥaḳuu
+ faāʾinauhu
+ṣaḥau
+fiy
+ālḫabara
+ālāʾilãhiyiu
+āanauhu
+taʿaālaáã
+ḳaāla
+
+āanaā
+ǧaliyasu
+mana
+ḏakaraniy
+ 
+wamana
+ǧaālasa
+mana
+ḏa
+karahu
+
+ wahuwa
+ḏuwa
+baṣariⁿ
+
+ raāáã
+ǧaliysahu
+ 
+fahãḏihi
+mušaāhadaŧuⁿ
+waruʾyaŧuⁿ
+ faāʾina
+lama
+yakuna
+ḏaā
+baṣariⁿ
+ lama
+yarahu
+ famina
+hunaā
+yaʿalamu
+ālmuṣaliuy
+rutabatahu
+ hala
+yaraáã
+ālḥaḳau
+hãḏihi
+ālruuʾyaŧa
+fiy
+hãḏihi
+ālṣaulaāŧa
+āama
+laā
+ faāʾina
+lama
+yarahu
+ falayaʿabudahu
+biālāʾiyamaāni
+kaāanauhu
+yaraāhu
+ fayuḫayiuluhu
+fiy
+ḳibalatihi
+ʿinada
+munaāǧaātihi
+ wayuluḳiy
+ālsaumaʿa
+limaā
+yaruduu
+bihi
+ʿaliyhi
+ālḥaḳuu
+ 
+faāʾina
+kaāna
+āʾimaāmaⁿā
+liʿaālamihi
+ālḫaāṣiu
+bihi
+walilamalaāʾikaŧi
+ālmuṣaliuyna
+maʿ
+ahu
+ faāʾinau
+kulau
+muṣaliⁿu
+ fahuwa
+āʾimaāmuⁿ
+bilaā
+šakiⁿu
+ faāʾi
+nau
+ālmalaāʾikaŧa
+tuṣaliuy
+ḫalafa
+ālʿabadi
+āʾiḏaā
+ṣalauáã
+
+77
+wǧh
+ waḥadahu
+
+ kamaā
+warada
+fiy
+ālḫabara
+
+ faḳada
+ḥaṣala
+lahu
+rutabaŧa
+ālrausuwli
+fiy
+ālṣaulaāŧi
+ 
+wahiya
+ālniuyaābaŧu
+ʿani
+āllhi
+āʾiḏaā
+ḳaāla
+ 
+samiʿa
+āllhu
+limana
+ḥamidahu
+ fayuḫabiru
+nafasahu
+wamana
+ḫalafahu
+baāanau
+āllha
+ḳada
+samiʿahu
+ 
+fat
+aḳuwlu
+ālm
+alaāʾikaŧu
+waālḥ
+aāḍiruwna
+ 
+rabaunaā
+walaka
+ālḥamadu
+ faāʾinau
+āll
+ha
+ḳaā
+la
+ʿalaáã
+lisaāni
+ʿabadihi
+ 
+samiʿa
+āllhu
+limana
+ḥamidahu
+ faānaẓura
+ʿuluwau
+rutabaŧi
+ālṣaulaāŧi
+ waāʾilaáã
+āayana
+tanatihiy
+biṣaāḥib
+ihaā
+ famana
+lama
+yaḥaṣiula
+daraǧaŧa
+ālruuʾyaŧi
+fiy
+ālṣaulaāŧ
+ fam
+aā
+balaġa
+ġaāyatahaā
+ 
+walaā
+kaāna
+lahu
+fiyhaā
+ḳurauŧu
+ʿayniⁿ
+ liāanauh
+lam
+yara
+mana
+yunaāǧiyhi
+ 
+faāʾina
+lam
+yasamaʿa
+maāyaruduu
+ālḥaḳuu
+ʿalayhi
+fiyhaā
+ famaā
+huwa
+mimauna
+
+āalaḳaáã
+alsaumaʿa
+
+swrŧ
+ḳā
+
+ 73
+ 
+wamana
+lama
+yaḥaḍura
+fiyhaā
+maʿa
+rabauhi
+ maʿa
+kawnihi
+lama
+yasamaʿa
+walama
+yara
+ 
+falaysa
+bimuṣaliⁿu
+āaṣalaⁿā
+ walaā
+huwa
+mimauna
+
+āalaḳaáã
+alsaumaʿa
+wahuwa
+šahiyduⁿ
+ 
+swrŧ
+ḳā
+
+ 
+73
+ 
+wamaā
+ṯamau
+ʿibaādaŧuⁿ
+tam
+anaʿu
+mina
+ālt
+auṣaruufi
+fiy
+ġayrihaā
+maādaāmata
+siwaáã
+ālṣaula
+āŧi
+ waḏikaru
+āllhi
+fiyh
+aā
+āakabaru
+maāfiyh
+aā
+ limaā
+tašatamilu
+ʿalayhi
+mina
+āaḳawaāliⁿ
+waāafaʿaāliⁿ
+ waḳada
+ḏakaranaā
+ṣifaŧa
+ālrauǧuli
+ālkaāmili
+fiy
+ālṣau
+laāŧi
+fiy
+ālfutuwḥaāti
+ālmakau
+yiuŧa
+kayafa
+yakuwnu
+ 
+liāanau
+āllha
+yaḳuwlu
+ 
+āʾinau
+alṣaulawãŧa
+tan
+ahaáã
+ʿani
+alfaḥašaāāʾi
+waalmuna
+kari
+ 
+sw
+rŧ
+ālʿnk
+bw
+t
+ 54
+ liāanauhu
+šuriʿa
+lilamuṣaliuy
+āana
+laā
+yataṣaraufa
+fiy
+ġayri
+hãḏihi
+ālʿibaādaŧi
+maādaāma
+fiyhaā
+ wayuḳaālu
+lahu
+ 
+muṣaliⁿu
+ 
+
+walaḏikaru
+allhi
+āakab
+aru
+ 
+sw
+rŧ
+ālʿn
+kb
+wt
+
+ 54
+ yaʿaniy
+fiy
+haā
+ āay
+ ālḏikaru
+ālauḏiy
+yaku
+wnu
+mina
+āll
+hi
+liʿ
+abadihi
+ḥiyna
+yuǧiyb
+uhu
+fiy
+suwʾaālihi
+ waālṯaunaāʾu
+ʿal
+ayhi
+āakabaru
+mina
+ḏikari
+ālʿabadi
+rabauhu
+fiyhaā
+ liāanau
+ālkibariyaāʾa
+lilhi
+taʿaālaáã
+ waliḏãlika
+ḳaāla
+ 
+waāllhu
+yaʿalamu
+maātaṣanaʿuwna
+
+swrŧ
+ālʿnkbwt
+
+ 54
+ 
+waḳaāla
+ 
+āawa
+āalaḳaáã
+alsaumaʿa
+wahuwa
+šah
+iyaduⁿ
+ 
+swrŧ
+ḳā
+
+ 73
+ waāʾilaḳaāʾuhu
+ālsaum
+aʿa
+huwa
+limaā
+yakuwnu
+mina
+ḏikari
+āllhi
+āʾiyauāhu
+fiyhaā
+ 
+wamin
+ḏãlika
+āanau
+ālwuǧuwda
+lamauā
+kaāna
+ʿana
+ḥarakaŧiⁿ
+maʿaḳuwlaŧiⁿ
+ naḳalati
+ālʿaālama
+mina
+ālʿadami
+āʾilaáã
+ālwuǧuwdi
+ ʿamauti
+ālṣaulaāŧu
+ǧamiyʿa
+ālḥarakaāti
+wahiya
+ṯalaāṯaŧuⁿ
+ ḥarakaŧuⁿ
+musataḳiymaŧuⁿ
+ wahiya
+ḥaālu
+ḳiyaāmi
+ālmuṣaliuy
+ waḥarakaŧuⁿ
+āufuḳiyauŧuⁿ
+ wahiya
+ḥaālu
+rukuwʿi
+ālmuṣaliuy
+ waḥarakaŧuⁿ
+mana
+kuw
+saŧuⁿ
+ wahiya
+ḥaālaŧu
+suǧuwdihi
+ faḥarakaŧu
+ālāʾinasaāni
+mus
+ataḳiymaŧuⁿ
+ 
+waḥarakaŧu
+ālḥ
+ayawaāni
+āufuḳ
+iyauŧuⁿ
+ waḥarakaŧu
+ālnaub
+aāti
+manakuwsaŧuⁿ
+ walaysa
+lilaǧam
+aādi
+ḥarakaŧuⁿ
+mina
+ḏaātihi
+ faāʾiḏaā
+taḥarauka
+ḥaǧaruⁿ
+ faāʾinaumaā
+yataḥarauku
+biġayarihi
+ 
+waāamauā
+ḳawlahu
+ 
+waǧuʿilata
+ḳurauŧu
+ʿayaniy
+fiy
+ālṣaulaāŧi
+ 
+ walama
+yanasibu
+
+77
+ẓhr
+ ālǧaʿala
+āʾilaáã
+nafasihi
+
+ faāʾinau
+taǧaliuya
+ālḥaḳiu
+lilamuṣaliuy
+ āʾinaumaā
+huwa
+raāǧiʿuⁿ
+āʾilayhi
+taʿaālaáã
+ 
+laā
+āʾilaáã
+ālmuṣaliuy
+ 
+faāʾinauhu
+law
+lama
+yaḏakura
+hãḏihi
+ālṣiufaŧa
+ʿana
+nafasihi
+ laāamarahu
+biālṣaulaāŧi
+ʿalaáã
+ġay
+ri
+taǧaliⁿu
+minhu
+lahu
+ 
+falamauā
+kaāna
+minahu
+ḏãlika
+biṭariyḳi
+ālamatinaāni
+ kaānata
+ālmušaāhadaŧu
+biṭariyḳi
+ālamatin
+aāni
+ 
+faḳaāla
+ 
+waǧuʿilata
+ḳurauŧu
+ʿayaniy
+fiy
+ālṣaulaāŧi
+ 
+walaysa
+āʾilauā
+mušaāhadaŧu
+ālmaḥabuwbi
+ālautiy
+taḳaruu
+bihaā
+ʿaynu
+ālmuḥibiu
+mina
+ālasat
+iḳaraāra
+ fatasataḳiruu
+ālʿaynu
+ʿinada
+ruʾyatihi
+falaā
+yanaẓ
+uru
+maʿahu
+āʾilaáã
+šayʾiⁿ
+ġayrihi
+fiy
+šayʾiⁿ
+ wafiy
+ġayri
+šayʾiⁿ
+ 
+waliḏãlika
+nahaáã
+ʿani
+ālalatifaāti
+fiy
+ālṣaulaāŧi
+ 
+waāʾinau
+ālalatifaā
+ta
+šayʾuⁿ
+yaḫat
+alisuhu
+ālšauyaṭaānu
+mina
+ṣalaāŧi
+ālʿabadi
+ fayaḥarimuhu
+mušaāhadaŧa
+maḥabuwbihi
+ bala
+lawkaāna
+maḥabuwbu
+hãḏaā
+ālmulatafiti
+ maāaltafata
+fiy
+ṣalaātihi
+āʾilaáã
+ġayri
+ḳibalatihi
+biwaǧahihi
+ 
+waālāʾinasaānu
+yaʿalamu
+ḥaālahu
+fiy
+nafasihi
+ hala
+huwa
+bihãḏihi
+ālmaṯaābaŧi
+fiy
+hãḏihi
+ālʿibaādaŧi
+ālḫaāṣauŧi
+āama
+laā
+ faāʾinau
+
+ālāʾinasãnu
+ʿalaáã
+nafasihi
+baṣiyraŧuⁿ
+walawa
+āalaḳaáã
+maʿaāḏiyarahu
+ 
+swrŧ
+ālḳ
+yāmŧ
+
+ 41
+51
+ fahuwa
+yaʿarifu
+kaḏibaha
+mina
+ṣi
+daḳihi
+fi
+ynafasihi
+ liāanau
+ālšau
+yʾa
+laāyaǧahalu
+ḥaālahu
+ faāʾinau
+ḥaālahu
+lahu
+ḏawḳiyuⁿu
+ 
+ṯumau
+āʾinau
+mus
+amauáã
+ālṣaula
+āŧi
+lahu
+ḳisamaŧuⁿ
+āuḫaraáã
+ faāʾi
+nauhu
+taʿaālaáã
+āamaranaā
+āana
+nuṣaliya
+lahu
+ 
+waāaḫabaranaā
+āanauhu
+yuṣaliuy
+ʿalaynaā
+
+āḳtbās
+mn
+swrŧ
+ālāḥzāb
+
+ 34
+ faālṣaulaāŧu
+minauā
+ waminhu
+ 
+faāʾiḏaā
+kaāna
+huwa
+ālmuṣaliuy
+ faāʾinaumaā
+yuṣaliuy
+biasamihi
+ 
+ālāḫiri
+ fayataāaḫauru
+ʿana
+wuǧuw
+di
+ālʿabadi
+ wahuwa
+ʿaynu
+ālḥaḳiu
+ālauḏiy
+yaḫaluḳ
+uhu
+ālʿabadu
+fiy
+ḳalab
+ihi
+banaẓarihi
+ālf
+ikariyiu
+āaw
+bitaḳaliydihi
+ wahuwa
+ālāʾilãhu
+ālmuʿataḳiadu
+ 
+wayatanawauʿu
+baḥasabi
+maā
+ḳaāma
+biḏãlika
+ālmaḥaliu
+mina
+ālasatiʿadaādi
+ kamaā
+ḳaāla
+ālǧunaydu
+ḥiyna
+suʾ
+ila
+ʿani
+ālmaʿarifaŧi
+biāllhi
+waālʿaārifi
+ faḳaāla
+ 
+lawnu
+ālm
+aāʾi
+lawnu
+āʾinaāʾihi
+ wahuwa
+ǧawaābu
+saāduⁿu
+ āaḫabara
+ʿani
+ālāamari
+bimaāhuwa
+ʿalayhi
+ 
+fahãḏaā
+huwa
+āllhu
+ālauḏiy
+yuṣaliuy
+ʿalaynaā
+ 
+waāʾiḏaā
+ṣalauynaā
+naḥanu
+kaāna
+lanaā
+ālasamu
+
+ālāḫiru
+ fakunauā
+fiyhi
+kamaā
+ḏakaranaāhu
+fiy
+ḥaāli
+mana
+lahu
+hãḏaā
+ālasamu
+ fanakuwnu
+ʿinadahu
+biḥasabi
+ḥaālinaā
+ falaā
+yanaẓuru
+āʾilaynaā
+āʾilauā
+biṣuwraŧiⁿ
+maā
+ǧiʾnaāhu
+bihaā
+ faāʾinau
+ālmuṣaliuy
+huwa
+ālmutaāaḫiura
+ʿani
+ālsauābiḳi
+fiy
+ālḥalabaŧi
+ 
+waḳawluhu
+ 
+kuluⁿu
+ḳada
+ʿalima
+ṣala
+ātahu
+watasabiyḥahu
+ 
+swrŧ
+ālnwr
+
+ 14
+ āaya
+ rutabatahu
+fiy
+āltauāaḫuuri
+fiy
+ʿibaādatihi
+rabauhu
+ watasabiyḥahu
+ālauḏiy
+yuʿaṭiyhi
+mina
+ālt
+aunaziyhi
+asatiʿadaādahu
+ 
+famaā
+mina
+šayʾiⁿ
+āʾilauā
+wahuwa
+yusabiuḥu
+biḥam
+adi
+
+87
+wǧh
+ rabauhi
+ālḥaliymi
+ālġaf
+uwri
+ waliḏãlika
+laā
+yafaḳahu
+tasabiyḥa
+ālʿaālami
+ʿlaá
+āltaufaṣiyli
+waāḥidaⁿā
+waāḥidaⁿā
+ 
+wṯamau
+maratabaŧuⁿ
+yaʿ
+uwdu
+ālḍau
+miyru
+
+ʿalaáã
+ālʿ
+abadi
+ālm
+usibiuḥi
+fiyhaā
+fiy
+ḳawlihi
+ 
+waāʾina
+mina
+šayaʾiⁿ
+āʾilauā
+yusabiuḥu
+biḥamadihi
+ 
+swrŧ
+ālāsrāʾ
+
+ 44
+ āaya
+ biḥamadi
+ḏãlika
+ālšauyʾi
+ 
+faālḍaumiyru
+ālauḏiy
+fiy
+ḳawlihi
+ 
+biḥamadihi
+ 
+swrŧ
+ālāsrāʾ
+
+ 44
+ yaʿuwdu
+ʿalaáã
+ālšauyʾi
+āaya
+ biālṯaunaāʾi
+ālauḏiy
+yakuwnu
+ʿalayhi
+ 
+kamaā
+ḳulanaā
+fiy
+ālmuʿat
+aḳadi
+ āanauhu
+āʾinaumaā
+yuṯaniy
+ʿal
+aáã
+ālāʾilãhi
+ālauḏiy
+fy
+muʿataḳadihi
+ warabaṭa
+bihi
+nafasahu
+ wamaā
+kaāna
+mina
+ʿamalihi
+ fah
+uwa
+raāǧiʿuⁿ
+āʾilayhi
+ famaā
+āaṯanaáã
+āʾilauā
+ʿalaáã
+nafasihi
+ faāʾinauhu
+mana
+madaḥa
+ālṣaunaʿaŧa
+ faāʾinaumaā
+madaḥa
+ālṣauāniʿa
+bilaā
+šakiⁿu
+ faāʾinau
+ḥusanahaā
+waʿadama
+ḥusanihaā
+ 
+raāǧiʿuⁿ
+āʾilaáã
+ṣaāniʿih
+aā
+ waāʾilãhu
+ālm
+uʿataḳ
+adi
+maṣanuw
+ʿuⁿ
+lilanau
+āẓi
+ri
+fiy
+hi
+ fahuwa
+ṣanaʿa
+tuhu
+ faṯ
+anaāʾhu
+ʿalaáã
+maāaʿataḳadahu
+ ṯanaāʾuhu
+ʿalaáã
+nafasihi
+ 
+wlhãḏaā
+yaḏumuu
+muʿataḳada
+ġayrihi
+ walaw
+āanaṣafa
+lama
+yakuna
+lahu
+ḏãlika
+ 
+āʾilauā
+āanau
+ṣaāḥiba
+hãḏaā
+ālmaʿabuwdi
+ālḫaāṣiu
+ǧaāhiluⁿ
+bilaā
+šakiⁿu
+ fiy
+ḏãlika
+ 
+laaʿatiraāḍihi
+ʿalaáã
+ġayrihi
+fiymaā
+aʿataḳadahu
+fiy
+āllhi
+ 
+āʾiḏa
+law
+ʿarafa
+maāḳaāl
+ālǧunaydu
+ 
+lawnu
+ālmaāʾi
+lawnu
+āʾinaāʾihi
+ lasalauma
+likuliu
+ḏiya
+aʿatiḳaādiⁿ
+maāaʿataḳadahu
+ waʿarafa
+āllha
+fiy
+kuliu
+ṣuwraŧiⁿ
+ wakuliu
+muʿataḳadiⁿ
+ 
+fahuwa
+ẓaānuⁿu
+laysa
+biʿaālimiⁿ
+ 
+faliḏãlika
+ḳaāla
+ 
+āanaā
+ʿinada
+ẓaniu
+ʿabadiy
+biy
+ āaya
+ 
+laā
+āaẓaharu
+lahu
+āʾilauā
+fiy
+ṣuwraŧi
+muʿataḳadihi
+ faāʾina
+šaāʾa
+āaṭalaḳa
+ waāʾina
+šaāʾa
+ḳayauda
+ 
+faāʾilãhu
+ālmuʿataḳadaāti
+taā
+ḫuḏu
+hu
+ālḥuduwdu
+ wahuwa
+ālāʾilãhu
+ālauḏiy
+wasiʿahu
+ḳalabu
+ʿabadihi
+ faāʾinau
+ālāʾilãha
+ālmuṭalaḳa
+laā
+yasaʿuhu
+šay
+ʾuⁿ
+liāanauhu
+ʿaynu
+ālāaša
+yaāʾi
+waʿaynu
+nafasihi
+ waālšay
+ʾu
+laā
+yuḳaālu
+fiyhi
+ 
+yasaʿa
+nafasahu
+ walaā
+laā
+yasaʿuhaā
+ faāfahama
+ 
+
+waallhu
+yuḳuwalu
+alḥaḳuu
+wahuwu
+yahadiy
+alsaubiyala
+ 
+swrŧ
+ālāḥzāb
+
+ 4
+tamau
+ālkitaābu
+waālḥamadu
+lilhi
+ʿalaáã
+kuliu
+ḥaāliⁿ
+ ʿalauḳahu
+muḥamaudu
+banui
+āʾisaḥ
+aāḳa
+biḫaṭiuhi
+ sum
+iʿa
+ǧamiyʿu
+hãḏaā
+ālkitaābi
+ʿalaáã
+munašiʾihi
+sa
+yiudinaā
+waāʾimaāminaā
+ālāʾimaāmi
+ālʿaālimi
+ālauraāsiḫi
+ālfaradi
+ālmuḥaḳauḳi
+muḥiyy
+ālmilauŧi
+waāldiuyni
+āabiy
+ʿabadi
+āllhi
+ muḥamaudu
+banu
+ʿalayiⁿu
+bani
+ālʿarabiyuu
+ālṭauā
+ʾiyuu
+ālḥaātim
+iyuu
+ālāanadalusiyuu
+
+ raḍiya
+āllhu
+ʿanahu
+
+ liṣaḥabihi
+ālǧamaāʿaŧu
+
+ ālǧulauŧu
+zayanu
+āldiuyni
+yuwsufu
+banu
+āʾibaraāhiyma
+ālšauāfiʿiyiu
+ 
+waʿima
+ādu
+āldiuynu
+muḥ
+amaudu
+banu
+šarafi
+āldiuyni
+ʿabdu
+ālḳaā
+diri
+banu
+ʿabdi
+ālḫa
+āliḳi
+bani
+ḫali
+yliⁿ
+ālāanaṣaā
+riyiu
+ wawaladu
+ālm
+usamiʿi
+ʿima
+ādu
+āldiuyni
+muḥam
+audu
+banu
+sayiudinaā
+ālšauyḫi
+ wamuwafauḳu
+āldiu
+yni
+āabuw
+ālḳaāsimi
+āaḥamadu
+banu
+ʿaliyiⁿu
+banu
+sahamiⁿ
+ālāʾišabiyaliyuu
+ālḳ
+ayasi
+yuu
+ wasaya
+fu
+āldiuyni
+ʿaliyuu
+banu
+ʿabdi
+ālʿaziyazi
+ālḥimayariyuu
+ wataḳi
+yuu
+āldiuyni
+abanu
+muḥamaudiⁿ
+ʿabdu
+ālrauḥamãni
+bani
+muḥamaudiⁿ
+bani
+ʿaliyiⁿu
+āllwlhy
+
+ṣaāḥibu
+ālšayḫi
+ āakaramahu
+āllhu
+waāaraḍaāhu
+ waḏãlika
+biḳira
+āʾaŧi
+taāǧi
+āldiuyni
+ʿabauāsi
+bani
+ʿumara
+ālsau
+rauāǧi
+ālāanaṣ
+aāriyiu
+
+ wasam
+iʿa
+biālḳira
+āʾaŧi
+ālmaḏakuwraŧi
+wabiḳiraāʾatihi
+āayaḍaⁿā
+ġayara
+marauŧiⁿ
+kaānata
+lahu
+āḫara
+
+ wamuḥamaudu
+banu
+āʾisaḥaā
+ḳa
+bani
+muḥ
+amaudiⁿ
+bani
+yuwsufa
+bani
+ʿaliyiⁿu
+ḫaāliṣuⁿ
+mina
+lilš
+auyḫi
+ 
+wa
+kaāna
+ālsaumaāʿu
+bim
+aǧaālisi
+sayiudinaā
+ālmusamiʿi
+bidimašaḳa
+ wakam
+ula
+fiy
+yawmi
+ālǧumuʿaŧi
+fiy
+ālʿašari
+ālāḫiri
+mina
+ǧumaā
+dáã
+ālāuwláã
+sanaŧa
+ṯalaāṯiyna
+wasitaumaāʾŧi
+
+036
+h
+ waālḥamadu
+lilhi
+waḥadahu
+ 
+
+ḳāl
+ālmḥḳḳ
+ 
+wfy
+ālhāmš
+āláã
+ǧānb
+ālsṭr
+ālsāds
+ʿšr
+āláã
+āltāsʿ
+ʿšr
+ blāġ
+ḏāt
+ārbʿŧ
+āsṭr
+ nṣuhā
+ 
+
+1
+balaġa
+samaāʿaⁿā
+wataṣaḥiyḥaⁿā
+ʿalá
+ālšayḫi
+
+2
+raḍiya
+āllhu
+ʿanhu
+fiy
+ālʿašari
+ālāḫiri
+mina
+
+3
+ǧumaādaáã
+ālāuwlaáã
+sanaŧa
+ṯalaāṯiyna
+wasitaumaāáʾaŧi
+
+036h
+
+4
+waālḥamadu
+lilhi
+wasalaāmuⁿ
+ʿalaáã
+ʿibaādihi
+ālauḏiyna
+
+aṣaṭafaáã
+
+
+ḳāl
+ālmḥḳḳ
+ 
+wfy
+ālhāmš
+āyḍaⁿā
+ āláã
+ǧānb
+ālsṭr
+ālʿšryn
+āláã
+ālrābʿ
+wālʿšryn
+ blāġ
+āḫr
+mā
+ʾlŧ
+mn
+ālāʿláã
+āláã
+ālāsfl
+ḏāt
+ārbʿŧ
+āsṭr
+nṣuhā
+ 
+
+1
+balaġa
+ʿaraḍaⁿā
+waḳiraāʾaŧaⁿ
+
+ʿbārŧ
+ġyr
+mḳrwʾŧ
+lānu
+šryṭaⁿā
+mn
+ālwrḳŧ
+mḳṭwʿ
+
+2
+mn
+
+ááá
+
+sydnā
+ālmuṣaniuf
+
+3
+lihãḏaā
+ālkitaābi
+raḍiya
+āllhu
+
+ʿbārŧ
+ġyr
+mḳrwʾŧ
+lānu
+šryṭaⁿā
+mn
+ālwrḳŧ
+mḳṭwʿ
+
+4
+wa
+katabahu
+muḥamaudu
+banu
+āʾisaḥaāḳa
+tḥryraⁿā
+
+ālklmŧ
+ālāḫyrŧ
+šbh
+mmswḥŧ
+ālmlḥḳāt
+mlḥḳ
+1
+ tʿlyḳāt
+dāḫl
+ālmḫṭwṭ
+mlḥḳ
+2
+ tḥḳyḳ
+fy
+msālŧ
+ālḏbyḥ
+mlḥḳ
+3
+ tḥḳyḳ
+fy
+ḫāld
+bn
+snān
+mlḥḳ
+4
+ tḫryǧ
+ḥdyṯ
+āltḥwul
+mlḥḳ
+1
+tʿlyḳāt
+dāḫl
+ālmḫṭwṭ
+tʿlyḳāt
+ʿláã
+ālṣfḥŧ
+ālty
+tsbḳ
+
+1wǧh
+ wlwnhā
+ābyḍ
+mġāyr
+lbḳyŧ
+ṣfḥāt
+ālmḫṭwṭ
+ 
+
+1
+smā
+
+āsmāʾ
+ālāḥwāl
+wmsmāhā
+ālʿyn
+why
+llḥḳ
+bʿynh
+
+
+2
+ālsmyʿ
+ālbṣyr
+wānt
+ālsmyʿ
+ālbṣyr
+mḥāl
+ālsmʿ
+wālbṣ
+r
+ 
+
+3
+ā
+lḥsná
+
+ fānh
+hw
+ wnḥn
+nḥn
+ flnā
+ālātuⁿ
+ wnḥn
+lh
+ālāt
+
+
+4
+mā
+r
+ āʿyānhā
+ktḳlb
+ālwāḥd
+fy
+mrātb
+ālāʿdād
+ lāẓhār
+āʿy
+ānhā
+ 
+
+5
+ʿ
+ dda
+wfaṣala
+ālʿddu
+ālwāḥdu
+fy
+ālmrātb
+ālʿddyŧ
+ ylwḥ
+ḏãlk
+ 
+
+6
+ mmā
+fy
+nfsy
+ān
+āsāl
+ʿnh
+sydy
+āydh
+āllh
+tʿālá
+āḏā
+ḳadaura
+
+ālāḥ
+
+
+7
+mā
+mʿnáã
+tḥḳḳ
+ālānsān
+bḥywānyth
+ālmááḥ
+
+ālāḥwāl
+ālbrzḫyŧ
+kāḥwāl
+ālmw
+tá
+ 
+
+8
+whl
+hãḏā
+ālāṭlā
+ʿālḫ
+āṣmn
+ḫṣ
+āʾṣ
+hãḏ
+āālḥāl
+bm
+ʿnáã
+ānh
+lā
+yḥ
+ṣl
+dwnh
+āw
+
+
+9
+wkḏãlk
+āltḥḳḳ
+bālrwḥānyŧ
+wmā
+ālk
+šf
+ālḫ
+āṣ
+āyḍaⁿā
+ālmtwḳf
+ḥṣwlh
+ʿláã
+ālḥ
+
+01
+ rwḥā
+nyth
+kmā
+ʿubiura
+ʿam
+auā
+tḳ
+dauma
+ḏkrh
+ whl
+ḏānk
+mmā
+yuktsb
+wāḏā
+ḥṣ
+lykwn
+
+ʿn
+
+mw
+
+11
+ šrḥ
+klyāt
+mn
+ālāṣṭlāḥ
+ālmḏkwr
+fy
+ktāb
+mwāḳʿ
+ālnǧwm
+
+21
+ mwḳʿ
+āln
+ǧm
+hw
+ẓhwr
+āwl
+ālḫā
+ṭr
+āltwfyḳy
+fy
+ālbāṭn
+fʿndmā
+ys
+tḳr
+wykswh
+ālʿbd
+ḥuluŧ
+ʿmlyŧ
+yṣyrhā
+
+
+31
+ fān
+kaā
+na
+dāḫlaⁿā
+āláã
+rbh
+kaā
+na
+hlāl
+ārtḳ
+āb
+mḥ
+aāḳ
+ wān
+kaāna
+ḫārǧaⁿā
+āláã
+ālḫlḳ
+kaāna
+hlāl
+ārtḳāb
+wsá
+
+
+41
+ sy
+dy
+āyḍaⁿā
+lma
+ḳadauma
+hlāl
+ālmḥ
+āḳ
+ʿl
+áã
+hlāl
+ālārtḳāb
+fḳāl
+rḍy
+āllh
+ʿnh
+lān
+ālnās
+ānmā
+yr
+ḳbw
+
+
+51
+ 
+klmŧ
+ġyr
+mḳ
+rwʾŧ
+ āḫr
+ǧbh
+āldāḫl
+ʿl
+áāllh
+tʿ
+āláã
+fkaā
+na
+hlāl
+ālm
+ḥāḳ
+whw
+ālāṣl
+lāwlyŧ
+lḳāʾ
+āllh
+tʿāláã
+ 
+
+61
+ wmn
+ḏãlika
+
+71
+ ālnǧm
+lʿālm
+ālšhādŧ
+wālhlālyn
+āḥdhmā
+lʿālm
+ālbrzḫ
+whw
+llwsṭ
+ʿālm
+ālǧbrwt
+whw
+ālmḳām
+llāsmāʾ
+ālḥsn
+áã
+ 
+
+81
+ wālhlāl
+ālāḫr
+lʿālm
+ālr
+ḥm
+wt
+ whw
+ʿālm
+ālm
+ʿā
+ny
+ wāʿl
+mān
+llāns
+ān
+mr
+ātb
+fhw
+fy
+mrtbŧ
+āslāmh
+nǧ
+m
+
+91
+ ybḳá
+
+fy
+ʿā
+lm
+ālšh
+ādŧ
+whw
+fy
+mrtbŧ
+āym
+ānh
+hlāl
+ wfy
+mr
+tb
+ŧāḥsā
+nh
+ḳṭ
+bā
+
+hãkḏā
+ yuḥy
+wyumyt
+
+02
+ fālāslā
+mālānḳyād
+ālẓ
+āhr
+ wālāymān
+ālānḳyād
+ālb
+āṭn
+ wālāḥsān
+ālʿbādŧ
+ʿláã
+ālmšāhdŧ
+ wāʿl
+m
+ 
+
+12
+ ān
+maʿaḳila
+ālāuns
+hy
+ālḥḍrŧ
+ālt
+yyasta
+miduu
+mnhā
+ālḳ
+ṭbu
+mn
+kwnh
+ḳṭbaⁿā
+āw
+āy
+mrtbŧ
+kaānat
+llmstmd
+mnhā
+
+klmŧ
+ġyr
+mḳrwʾŧ
+
+22
+ maʿaḳilu
+āuns
+lḏãlika
+ālmstmd
+mn
+tlk
+ālḥḍrŧ
+ āy
+ḥḍrŧ
+kātb
+āḥsānyŧ
+āw
+āymānyŧ
+āw
+āslāmyŧ
+w
+klmŧ
+ġyr
+mḳrwʾŧ
+
+32
+ wmn
+fwāʾd
+ālšyḫ
+āḥmd
+
+sʿd
+āldyn
+ālḥmwy
+rḍá
+āllh
+ʿnh
+wnfʿ
+bh
+wālʿlm
+bh
+āmdh
+
+klmŧ
+ġyr
+mḳrwʾŧ
+ 
+ 
+
+42
+ wḳd
+sā
+lth
+ʿn
+ānfʿ
+wṣyŧ
+yw
+ṣáã
+bhā
+ālānsān
+mmā
+yn
+fʿh
+lāstḥḍārh
+
+kl
+mŧ
+ġyr
+mḳrwʾŧ
+
+52
+ yḳwl
+ rḍy
+āllh
+ʿnh
+ ywṣá
+bālḥryŧ
+wālʿfŧ
+fy
+ālḥryŧ
+ fsā
+lth
+ mā
+ālḥryŧ
+wmā
+ālʿfŧ
+ fḳāl
+ lkmālh
+ykwn
+
+62
+ ʿd
+mālmʿt
+br
+bšyʾ
+swáã
+ālḥḳ
+mṭlḳaⁿā
+mn
+ḥy
+ṯhw
+swáã
+ wālʿ
+fŧ
+fy
+ālḥryŧ
+ān
+lā
+yṣdr
+
+
+72
+ ālmʿtbr
+ālmwfy
+ḥḳuh
+wlāḥḳa
+ġyrh
+ fʿl
+lāǧl
+nfʿh
+ āw
+lāǧl
+ġyrh
+ bl
+llh
+tʿāláã
+ʿzu
+nfʿh
+bmʿrfŧ
+tāmuŧ
+
+klmŧ
+ġyr
+mḳrwʾŧ
+ 
+tʿlyḳāt
+ʿláã
+ālṣfḥŧ
+ālrʾysyŧ
+
+1wǧh
+
+1
+tnbyh
+ 
+
+2
+mn
+nfāʾs
+fwāʾd
+sydy
+rḍá
+āllh
+ʿnh
+wʿn
+wāldyh
+ʿláã
+bʿḍ
+mā
+
+ttḍmunh
+fātḥŧ
+ālktāb
+ālʿzyz
+mn
+kluyuāt
+ālfwāʾd
+wālāsrār
+ 
+
+3
+ḳā
+lrḍy
+āllh
+ʿnh
+ 
+sumiyauta
+fā
+tḥŧu
+ālktāb
+āy
+ānuhā
+tftḥ
+ʿlyk
+mʿāny
+ktāb
+āllh
+tʿāláã
+ āsm
+fāʿl
+mn
+fataḥa
+yafataḥa
+ 
+
+4
+wālktābu
+ḍamuu
+ālḥ
+rwf
+bʿḍhā
+āláã
+bʿḍ
+ wfy
+ānḍimaā
+mihā
+ḍamuu
+ālmʿāny
+āluty
+tdlu
+ʿlyhā
+hãḏh
+ālḥrwf
+ 
+
+5
+wālftḥu
+āluḏy
+tuʿṭyh
+ālfātḥŧu
+ hw
+fṣlu
+hãḏihi
+ālmʿāny
+ālmtḍmunŧ
+bʿḍhā
+mn
+bʿḍ
+ ḥtuáã
+yaṣr
+kluu
+mʿnáaⁿ
+ḳāʾmaⁿā
+bnfsh
+ 
+
+6
+fmʿnáã
+fātḥŧ
+ālkt
+āb
+āy
+ mn
+ʿara
+fa
+mā
+
+tdlu
+ʿly
+hfḳd
+ʿalima
+ǧmyʿa
+mā
+
+tḍmunh
+ālktāb
+ālʿzyz
+mn
+ālmʿāny
+ wḏãlika
+ānu
+ālwǧwd
+
+7
+mnḳ
+sm
+āláã
+rbiⁿu
+wmrbwbiⁿ
+ wālrubuu
+hw
+ālwāǧbu
+lnfs
+h
+ wālm
+rbwbu
+hw
+ālmm
+knu
+whw
+mā
+swáã
+ālḥḳ
+ wālfātḥŧ
+
+8
+mštmilŧuⁿ
+ʿl
+áã
+rbiⁿu
+wmrbwbiⁿ
+ fhy
+tštmilu
+ʿláã
+wāǧbiⁿ
+wmmkniⁿ
+ ṯmu
+ālmḥmwl
+ʿláã
+hãḏyn
+ḳsmyn
+ʿláã
+
+kḏā
+ ylyh
+āḳsāmuⁿ
+ ḳsmuⁿ
+mnhā
+
+9
+yḫ
+tṣu
+bālwāǧb
+ln
+fsh
+
+ wḳsmuⁿ
+yḫtṣu
+bālmmkn
+ wmn
+hāḳsmuⁿ
+yaḳaʿu
+fyh
+ālāštrāk
+byn
+ālrubu
+wālmrbwb
+ whãḏh
+
+01
+ ālāḳsām
+mwǧw
+dŧ
+fy
+fātḥŧ
+ālkt
+āb
+ kmā
+nṣu
+ālš
+ārʿ
+ʿni
+ālsiuru
+fy
+ḏãlika
+ fḳ
+āl
+ 
+
+ḳsmtu
+ālṣulāŧa
+byny
+wbyn
+ʿbdy
+ faʿaraufa
+ālḳsmŧa
+ālāwláã
+ ṯmu
+ḳā
+lāláã
+ḳwlh
+ 
+
+yawami
+āldiuyani
+ ānuhā
+lh
+ wmn
+ḳwlh
+ 
+ahadinaā
+
+ 
+ 
+āláã
+āḫr
+ālswrŧ
+ ānuhā
+lʿbdh
+ 
+
+11
+ wḳwlh
+ 
+āʾiyauāka
+naʿ
+abudu
+waāʾiyauāka
+nasata
+ʿiyanu
+ ānuhā
+byn
+hwbyn
+ʿbdh
+ fhãḏihi
+ālṯlā
+ṯŧ
+āḳsā
+m
+āluty
+ḏkrnāhā
+ḳd
+tḍmunthā
+ālfātḥŧ
+tusamauáã
+
+21
+ mb
+hmā
+tālāsmā
+ʾāluty
+naʿ
+atahaā
+ālḥ
+ḳu
+fy
+ktābh
+ wnaʿata
+bbʿḍh
+ā
+ ṯlā
+ṯŧ
+ly
+sāluā
+ 
+wmā
+
+nǧd
+fy
+ālḳrān
+lhā
+
+nẓyr
+
+āyḍaⁿā
+
+ rḍy
+āllh
+tʿāláã
+ʿnh
+
+31
+ 
+alr
+ḥmãni
+ whãḏihi
+mḏkwrŧ
+fy
+ālfātḥŧ
+ftftḥ
+bhā
+mā
+tḥthā
+
+ ṯmu
+ānu
+ālʿālama
+mnḳsmuⁿ
+āláã
+ḳsmyn
+šḳyu
+wsʿyd
+ wnʿrf
+ḏkrh
+āḫrŧa
+ālfātḥŧ
+ 
+
+41
+ liyaṣifa
+ālwāḥdu
+ṣrāṭa
+mana
+āanaʿama
+ʿlyh
+ wālḳsm
+ālṯuāny
+ 
+ġayari
+ālmaġaḍuwabi
+ʿalayahima
+ ṯmu
+tḳsymuⁿ
+āḫr
+ whw
+ānu
+ālkwna
+ynḳsim
+āláã
+ āḫrŧiⁿ
+wdnyā
+
+klmāt
+mṭmwsŧ
+
+51
+ 
+ṣirāṭa
+ālmusataḳiyami
+ lānuh
+ādār
+āltukl
+yf
+ wālāḫrŧ
+ḳwlh
+ 
+yawami
+āldiuyani
+ wlmuā
+kaāna
+ālāmr
+mnḳsmuⁿ
+āláã
+ḫyr
+wšru
+ ǧāʾ
+bywm
+ālduyn
+whw
+ālmuǧaāzaāŧu
+ḳabala
+
+
+61
+ muǧaā
+zaāŧu
+ālš
+ariu
+šariⁿuā
+waʿafawaⁿā
+ wmuǧaā
+zaāŧu
+ālḫ
+yr
+ḫy
+raⁿ
+ā
+fataḍam
+aunati
+ālfā
+tḥ
+ŧu
+āyḍaⁿā
+mfā
+tyḥa
+ālḫyrāti
+wālšuurwr
+ wlm
+uā
+kaāna
+ālṯunāʾ
+ʿláã
+āllh
+ʿláã
+ḳsmyn
+ ṯnāʾ
+ʿlyh
+bmā
+hw
+āhlh
+ 
+wṯnāʾuⁿ
+ʿl
+yhbmā
+hw
+mn
+h
+ whw
+ālšukr
+
+ wkaāna
+ālḥm
+dyaʿumuu
+ālṯ
+aunaāʾa
+bmā
+hw
+ʿlyh
+ wālṯ
+aunaā
+ʾu
+bm
+ā
+hw
+mnh
+
+klmāt
+ġyr
+mḳrwʾŧ
+
+71
+ 
+klmŧ
+ġyr
+mḳrwʾŧ
+ ālškr
+ldḫwl
+ālškr
+
+klmŧ
+ġyr
+mḳrwʾŧ
+ wlmuā
+kaānat
+ālruḥmŧ
+tnḳsm
+āláã
+mrtbtyn
+ mrtbŧ
+yʿmu
+fyhā
+ālmʿnáã
+
+klmŧ
+ġyr
+mḳrwʾŧ
+ wmrtbŧ
+yḫṣu
+
+klmāt
+ġyr
+mḳrwʾŧ
+
+81
+ hw
+fy
+āldār
+ālāḫrŧ
+ ātá
+bḳwlh
+ 
+alrauḥamãni
+ fy
+ālmrtbtyn
+ 
+alrauḥiymi
+bā
+lmʾ
+mnyn
+ fānu
+
+fʿlā
+n
+āʿẓm
+mn
+ālāḫr
+ fh
+w
+fʿy
+l
+ 
+ 
+ 
+ 
+klmā
+tġyr
+mḳrwʾŧ
+wšbh
+mṭmwsŧ
+ 
+
+91
+ bmā
+yʿṭyh
+mn
+ālʿāfyŧ
+wālrzḳ
+ wālmulk
+wālslṭān
+ ʿāǧlaⁿā
+fʿaālimu
+ǧm
+yʿhãḏaā
+
+hãkḏā
+ ālfʿwl
+
+02
+ 
+ālsṭr
+šbh
+mṭmws
+bālkāml
+ 
+
+12
+ 
+ālsṭr
+šbh
+mṭmws
+bālkāml
+wālwrḳŧ
+mḳṭwʿŧ
+mn
+āsflhā
+ 
+tābʿ
+lmlḥḳ
+1
+hwāmš
+ʿláã
+ālṣfḥŧ
+ālrʾysyŧ
+
+1wǧh
+ 
+
+1
+ālklmŧ
+ālāwláã
+ġyr
+wāḍḥŧ
+ wālāwul
+mn
+fṣwṣ
+ālḥkm
+
+2
+sru
+ʿzyz
+
+3
+ālfrḳ
+byn
+hãḏihi
+ālhwyuŧ
+
+klmŧ
+ġyr
+mḳrwʾŧ
+
+4
+llāʿyān
+ālṯuābtŧ
+
+klmŧ
+ġyr
+mḳrwʾŧ
+
+5
+ālḥḳu
+ytġlub
+fy
+ālāḫrŧ
+
+6
+why
+ttġlub
+ʿlyh
+
+7
+ālāḥwāl
+
+8
+whãḏaā
+
+klmŧ
+ġyr
+mḳrwʾŧ
+
+9
+ʿláã
+
+klmŧ
+ġyr
+mḳrwʾŧ
+
+01
+ 
+klmŧ
+ġyr
+mḳrwʾŧ
+
+11
+ 
+klmŧ
+ġyr
+mḳrwʾŧ
+
+tʿ
+lyḳ
+llm
+ḥḳ
+iḳ
+ ḳd
+ykw
+nālh
+āmš
+ālmāʾl
+ālmtǧ
+hlāʿláã
+mt
+mm
+lls
+ṭr
+rḳm
+5mn
+
+tnbyh
+ 
+
+1
+ ālrubu
+āluḏy
+ydlu
+ʿláã
+hãḏihi
+ālmʿāny
+ fānuh
+ālmrbuy
+wālmuṣaliḥu
+ wālḫālḳ
+wālmlik
+ wālsuyud
+wālṯuābt
+
+tʿlyḳ
+āḫr
+llmḥḳiḳ
+ wālsṭr
+āltāly
+mḳlwb
+ 
+
+2
+wlmuā
+kaāna
+ālāmr
+bālnusbyuŧ
+ālzumānyuŧ
+ynḳsm
+āláã
+mā
+
+yḫtṣ
+bālluyl
+wālnuhār
+ ḫaṣau
+ālḏukra
+fy
+ālfātḥŧ
+bālywm
+ āluḏy
+yʿmu
+ālnuhār
+
+tʿlyḳ
+ālmḥḳiḳ
+ wālsṭr
+āltāly
+mḳlwb
+ 
+
+3
+wālluyl
+ lmuā
+kaāna
+ālāmr
+ynḳsm
+āláã
+ẓāhriⁿ
+wmḍmriⁿ
+ ātáã
+bkāf
+ālḫṭāb
+ wātáã
+bẓāhr
+ālāsmāʾ
+ftftḥ
+āyḍaⁿā
+āǧtmʿ
+lṭwlh
+
+tʿlyḳ
+ālmḥḳiḳ
+ wmn
+hnā
+āḫtfáã
+bāḳy
+ālsṭr
+lānh
+mlṣwḳ
+ʿlyh
+šryṭ
+wrḳy
+ 
+tʿlyḳāt
+ʿláã
+ālṣfḥŧ
+
+87
+ẓhr
+
+1
+āllh
+ālmwfḳ
+
+2
+ḏkr
+ālrwyāáy
+
+ṣāḥb
+ālktāb
+ālmsmáã
+bā
+lbḥr
+fy
+mḏhb
+ālšāfʿy
+rḍá
+āllh
+ʿnh
+fy
+
+3
+ktāb
+āḫr
+lh
+āyḍaⁿā
+smāh
+ḥlyŧ
+ālmʾmn
+fy
+ḥkm
+ālmāʾ
+āḏā
+wḳʿt
+fyh
+nǧāsŧ
+ 
+
+4
+ḳāl
+ǧmāʿŧ
+mn
+ālṣḥābŧ
+wāltābʿyn
+wālfḳhāʾ
+āláã
+ānu
+ālmāʾa
+lā
+yunaǧausu
+
+5
+bwḳwʿ
+ālnǧāsŧ
+fyh
+ ḳlylaⁿā
+kaāna
+ālmāʾ
+āwkṯyraⁿā
+ ālā
+ān
+ytġyr
+ wbh
+ḳāl
+
+6
+ʿly
+bn
+āby
+ṭālb
+ wʿbd
+āllh
+bn
+ʿbās
+ wḥḏyfŧ
+ wābw
+hryrŧ
+ wālḥsn
+ālbṣry
+ 
+
+7
+wsʿyd
+bn
+ālmsyb
+ wālṯwry
+ wǧʿfr
+bn
+mḥmd
+ālṣādḳ
+ wābrāhym
+
+8
+ālnḫʿy
+ wʿkrmŧ
+ wǧā
+br
+bn
+yzyd
+ wālḳāsm
+bn
+mḥmd
+ wʿbd
+ālr
+ḥmãn
+bn
+āby
+lylá
+ 
+
+9
+wmā
+lk
+ wālāwzāʿy
+ wsfyān
+ālṯwry
+ rḍy
+āllh
+ʿnhm
+āǧmʿyn
+ lḳwlh
+
+01
+ ṣláã
+āllh
+ʿlyh
+wslm
+ 
+ḫuliḳa
+ālmaā
+ʾu
+ṭahuwraⁿā
+laā
+yuna
+ǧiusuhu
+šayaʾuⁿ
+āʾilauā
+maā
+ġayaura
+ṭaʿ
+amuhu
+āawa
+riyaḥuhu
+ 
+
+11
+ wrwáã
+ǧʿfr
+bn
+mḥmd
+ālṣādḳ
+rḍy
+āllh
+ʿnh
+bāsnādh
+ʿn
+āmyr
+ālmʾmnyn
+
+21
+ ʿly
+ālmr
+tḍáã
+ʿlyh
+ālslā
+mān
+ālnb
+yṣláã
+āllh
+ʿlyh
+wsl
+mḳāl
+ 
+ālmaāʾu
+yuṭahiu
+ru
+walaā
+yuṭahauru
+ 
+
+31
+ tmt
+ālmsālŧ
+ wālḥmd
+llh
+ 
+
+41
+ ruwiya
+ʿn
+āby
+ḏr
+ālġifāry
+āanuh
+ḳāl
+ kaānata
+taāḫḏu
+lrswl
+āllh
+ṣláã
+āllh
+ʿlyh
+wslm
+ġmrŧ
+rbumā
+kaāna
+
+51
+ yḳʿ
+dmʿnā
+ wrbmā
+kaāna
+yḳwm
+wyadʿnā
+ fsā
+ltu
+hʿn
+tlk
+ālġmrŧ
+ḳbla
+wfāth
+bārbʿyn
+ywmaⁿā
+ fḳāl
+ly
+ 
+yaāa
+āabaā
+ḏariⁿu
+ 
+
+61
+ āu
+katumahu
+fiy
+ḥayaātiy
+waāabadihi
+lilṯiuḳaāti
+baʿada
+wafaātiy
+ yaāa
+āabaā
+ḏariⁿu
+ mani
+āsatawalata
+ʿlyh
+ālḥaḳiyaḳaŧu
+āaḫaḏata
+biniyaāṭi
+ḳalabihi
+wamana
+
+71
+ āaḫaḏata
+bini
+yaāṭi
+ḳalabihi
+wšaġalata
+hu
+ʿana
+muǧaālasa
+ŧi
+āʾiḫawa
+ānihi
+ wāẓn
+hḳāl
+ 
+ʿana
+muḥa
+ādaṯati
+hima
+ 
+
+yaāa
+āabaā
+ḏariⁿu
+ šuʿabu
+ālḥaḳiyaḳaŧi
+āarabaʿaŧuⁿ
+ 
+
+81
+ siruⁿu
+muḫabaruⁿ
+ wasiruⁿu
+muʾnisuⁿ
+ wasiruⁿu
+muwḥišuⁿ
+ wasiruⁿu
+muna
+biuhuⁿ
+ waāaġaṣa
+ānuhaā
+ṯalaāṯuⁿ
+ ġuṣanuⁿ
+fiy
+ālduunayaā
+ waġuṣanu
+ālāḫiraŧi
+ 
+
+91
+ waġuṣanuⁿ
+laā
+fiy
+ālduunayaā
+walaā
+fy
+ālāḫiraŧi
+ waka
+yafiyautihaā
+āṯntāni
+ waāḥidaŧuⁿ
+laka
+ wawaāḥidaŧuⁿ
+lahu
+ waḥaḳiyaḳatuhumaā
+waāḥidaŧuⁿ
+ 
+
+02
+ wahiya
+ālǧalasaŧu
+fiy
+kanafihi
+ 
+
+ḫātm
+āwḳāf
+āslāmyŧ
+mwzh
+sy
+
+bḫṭ
+ālṯlṯ
+0371
+ālṣfḥŧ
+
+97
+wǧh
+ 
+ ālṣfḥŧ
+fārġŧ
+ 
+tʿlyḳāt
+ʿláã
+ālṣfḥŧ
+
+08
+ẓhr
+
+bḫṭ
+šksth
+nstʿlyḳ
+nfys
+ 
+
+1
+bāsmh
+sbḥānh
+tʿāláã
+ 
+
+2
+āstn
+sḫtu
+mn
+hãḏihi
+ālnsḫŧ
+ālšryfŧ
+nsḫ
+tyn
+ nsḫŧaⁿ
+llāḫ
+fy
+āllh
+sl
+ymā
+ndadaha
+āfndy
+ālšyḫ
+fy
+zāwyŧ
+bškdāš
+
+s
+a
+sikt
+Be
+hãḏā
+āsm
+ḥy
+fy
+āsṭnbwl
+ 
+
+3
+wns
+ḫŧaⁿ
+llšy
+ḫḳāsm
+ālmaṯanawiyaḫaw
+ān
+fy
+āltr
+bŧ
+ālǧlālyŧ
+ wānā
+ālfḳyr
+mḥmd
+ālḫalawatiy
+ālḫṭyb
+wālwāʿẓ
+fy
+ǧāmʿ
+āby
+ālfḍl
+ 
+
+4
+fy
+tāryḫ
+snŧ
+āḥdáã
+wsbʿyn
+wālf
+
+1701h
+
+5
+min
+hǧrŧ
+man
+lh
+ālʿzu
+
+6
+wālšrf
+ 
+
+bḫṭ
+mġāyr
+llḫṭ
+ālsābḳ
+ 
+
+7
+wktbtu
+mn
+hãḏaā
+ālktāb
+ālšryf
+bḫṭy
+ wānā
+ālsyd
+ālḥsyny
+
+8
+slymān
+ālbḫāry
+ālblḫy
+ālḳanaduwziy
+fy
+šhr
+ṣfr
+
+9
+snŧ
+ḫmsŧ
+wsbʿyn
+wmā
+ʾtyn
+wālf
+
+5721h
+ mn
+ālhǧrŧ
+ālmbārkŧ
+
+01
+ ālmḳdsŧ
+ʿláã
+ṣāḥbhā
+wālh
+ālāf
+ālāf
+ālāf
+tṣlyŧ
+wtslymŧ
+
+11
+ fy
+kl
+wḳt
+wḥyn
+klmā
+ḏkrh
+ālḏākrwn
+wġfl
+ʿn
+ḏkrh
+ālġāflwn
+ 
+
+21
+ wālḥmd
+llh
+rb
+ālʿālmyn
+ 
+tʿlyḳāt
+ʿláã
+ālṣfḥŧ
+
+08
+wǧh
+
+1
+lmā
+ys
+rly
+ālrbu
+tʿāláã
+zyā
+rŧ
+ḳbr
+ḥḍ
+rŧ
+ālšy
+ḫṣdr
+āldyn
+ālḳwnw
+ywrāytu
+ktbh
+ālmwḳwfŧ
+
+2
+ʿndh
+tbrktu
+bhãḏā
+ālk
+tābwāḫḏ
+th
+mʿ
+yāyāmaⁿā
+lmuā
+rāytu
+hmtf
+rḳŧ
+
+hãkḏ
+ā
+ālāwrāḳ
+ 
+fǧmʿthā
+wǧdudtu
+ǧldh
+ālḏy
+
+3
+ʿl
+yhliya
+stmd
+bḳāʾ
+āṯr
+ḥḍrŧ
+ālš
+yḫyn
+ālmʾlf
+wālkātb
+bḫṭh
+ālšryf
+ rǧā
+ʾa
+āldʿāʾi
+mmn
+naẓara
+wṭaālaʿa
+fyh
+
+4
+wāllh
+ālh
+ādy
+nhǧa
+fhmi
+kalimaā
+tihi
+ālḥika
+miyauŧi
+ wḳd
+waḳaʿa
+ḏãlika
+fy
+šhr
+rby
+ʿālāwl
+ls
+nŧ
+āṯntyn
+wḫmsyn
+wālf
+
+2501h
+
+5
+wkatabahu
+ālʿbd
+ālfḳyr
+mḥmd
+šrḥy
+ālsfr
+ālḥṣāry
+mwldaⁿā
+ ālāuskdāry
+mwṭnaⁿā
+ 
+ālmubtalaáã
+bḳḍāʾ
+ḳyṣryŧ
+ 
+
+6
+ālmāmwr
+btḥryr
+ḳrbān
+ʿfā
+āllh
+ʿnh
+lmā
+ṣdr
+mn
+ālshw
+wālnḳṣān
+wālḫṭā
+wālnḳṣān
+ āmyn
+ 
+
+7
+bḥrmŧ
+ālāwlyāʾ
+wālṣālḥyn
+ 
+mlḥḳ
+2
+tḥḳyḳ
+fy
+msālŧ
+ālḏbyḥ
+wmn
+ālmsā
+ʾl
+ālty
+ānfrd
+bhā
+ālšyḫ
+ālā
+kbr
+fy
+fṣwṣh
+ msālŧ
+ālḏbyḥ
+fānu
+fḥwáã
+ālklām
+fy
+ālfṣ
+ālāsḥāḳy
+ydlu
+ʿláã
+ānu
+āsḥāḳ
+
+ whw
+ābn
+h
+ālāṣġ
+r
+ ḏbyḥ
+āllh
+ byd
+ānu
+āyāt
+ālḳrān
+dālŧ
+ʿláã
+ānu
+āsmāʿy
+l
+ ālābn
+ālā
+kbr
+lābrāhy
+m
+ hw
+ālḏbyḥ
+ flḳd
+ǧāʾ
+fy
+ālḳ
+rān
+ālk
+rym
+ānu
+ābrāhy
+mʿl
+yh
+ālslām
+ bušiura
+bġlām
+ḥlym
+ wānuh
+bʿd
+ān
+kabura
+ āmrh
+āllh
+sbḥānh
+tʿāláã
+fy
+ālmnām
+ān
+yḏbḥh
+ wāmtṯl
+ābrāhym
+ʿlyh
+ālslām
+lāmr
+mwlāh
+ ffdāh
+bḏbḥ
+ʿẓym
+ ṯm
+wuṣf
+ābrāhym
+ʿlyh
+ālslām
+bānuh
+mn
+ʿbād
+āllh
+ālmʾmnyn
+wālānbyāʾ
+ālṣālḥyn
+ wbʿd
+kl
+hãḏā
+ bušiura
+bāsḥāḳ
+ wānuh
+nby
+mn
+ālṣālḥyn
+
+swrŧ
+ālṣuāfuāt
+
+ 001
+āláã
+111
+ 
+rabiu
+haba
+liá
+mina
+alṣauãliḥiyna
+
+001
+ fabašauranaãhu
+biġulaãmiⁿ
+ḥaliymiⁿ
+
+101
+falamauā
+balaġa
+maʿahu
+alsauʿaáa
+ḳaāla
+yaā
+bunaáau
+āʾiniuáā
+āaraáã
+fiá
+almanaāmi
+āaniuáā
+āaḏabaḥuka
+faanaẓura
+maāḏaā
+taraáã
+ḳaāla
+yaāãā
+āabati
+afaʿala
+maā
+tuwʾa
+maru
+sataǧiduniáā
+āʾina
+šāāʾa
+allauhu
+mina
+alṣ
+auãbiriyna
+
+201
+ falam
+auāā
+āasal
+amaā
+watalauhu
+lil
+aǧabiyni
+
+301
+ wanaãdayanaãhu
+āana
+yaāãā
+āʾibarãhiymu
+
+401
+ ḳada
+ṣadauḳata
+alruuʾayaāā
+āʾinauā
+kaḏãlika
+naǧaziá
+alamuḥasiniyna
+
+501
+ āʾinau
+hãaḏaā
+lahuwa
+alabalaāãʾ
+ālmubiynu
+
+601
+ wafadayanaãhu
+biḏibaḥiⁿ
+ʿaẓiymiⁿ
+
+701
+ watarakanaā
+ʿalayahi
+fiá
+alāḫiriyna
+
+801
+ salaãmuⁿ
+ʿalaáã
+āʾibarãhiyma
+
+901
+ kaḏãlika
+naǧaziá
+ālmuḥasiniyna
+
+011
+ āʾinauhu
+mina
+ʿibaādinaā
+almuʾminiyna
+
+111
+ wabašauranaãhu
+biāʾisaḥãḳa
+nabiyiⁿuā
+mina
+alṣauãliḥiyna
+
+211
+ wabaãrakanaā
+ʿalayahi
+waʿalaáāã
+āʾisaḥãḳa
+wamina
+ḏuriuyautihimaā
+muḥasinuⁿ
+waẓaālimuⁿ
+linafasihi
+mubiynuⁿ
+
+311
+hãḏā
+ wlm
+trd
+āyuŧ
+ʿbārŧ
+ṣryḥŧ
+fy
+āyu
+fṣu
+mn
+ālfṣwṣ
+tdlu
+ʿláã
+kwn
+āsḥāḳ
+ḏbyḥaⁿā
+ bl
+āstḫdm
+ālšyḫ
+ālā
+kbr
+ʿnd
+ḥdyṯh
+ʿn
+ālḏbyḥ
+fy
+ālfṣ
+ālāsḥāḳy
+ 
+ḳāl
+lābnh
+ w
+ābn
+ābrāhym
+ 
+ mrtān
+
+ w
+wldh
+ 
+w
+ānh
+ābnk
+ w
+ābnh
+ w
+wldh
+ wlm
+yṣruḥ
+bāsm
+
+āsḥāḳ
+ āluā
+fy
+ʿnwān
+ālfṣu
+ 
+fṣ
+ḥkmŧ
+ḥḳyŧ
+fy
+klmŧ
+āsḥāḳyŧ
+ 
+wāmā
+šrwḥ
+fṣwṣ
+ālḥkm
+ fāhmuhā
+ālfkwk
+lṣdr
+āldyn
+ālḳwnwy
+
+t
+276h
+
+4721m
+ āltlmyḏ
+ālmb
+āšr
+ll
+mʾlf
+ wšr
+ḥmʾ
+yd
+āld
+yn
+ālǧ
+anadiy
+
+t
+196h
+2921
+ tlmyḏ
+ālḳwnwy
+ wšrḥ
+ʿbd
+ālrzāḳ
+ālkāšāny
+
+t
+037h
+0331m
+ tlmyḏ
+ālǧanadiy
+ wšrḥ
+dāwd
+ālḳyṣry
+
+157h
+0531m
+ 
+tlmyḏ
+ālkāšāny
+ wʿrḍnā
+ārāʾ
+āwlãʾk
+ālāfāḍl
+mlḫuṣaⁿā
+fy
+mā
+yly
+ 
+1
+wṣruḥ
+ālḳwnwy
+kwn
+āsḥāḳ
+ḏbyḥaⁿā
+ ḳāl
+fy
+ālfkwk
+ tḥḳyḳ
+mḥmd
+ḫwāǧwy
+ ṭhrān
+ āntšārāt
+mwláã
+ 3141h
+ ṣ271
+ 
+
+wāmuā
+hãd
+āālfṣu
+ālāsḥāḳyu
+ fm
+ḥtdh
+ʿā
+lm
+ālḫyāl
+ālṣ
+uḥy
+ḥālmṭā
+bḳ
+ālm
+nāsb
+llmʿn
+áã
+āluḏy
+ytǧ
+sud
+bh
+wfyh
+ wālsuru
+fy
+āst
+nād
+mbdʾy
+ŧḥāl
+āsḥ
+āḳ
+ʿly
+hāls
+ulām
+āláã
+ʿālam
+ālmṯāl
+ālmḳyud
+hw
+ lmuā
+kān
+āḫṣu
+āḥkām
+ālṣufāt
+ālsulbyuŧ
+slb
+ālkṯrŧ
+ʿn
+wḥdŧ
+ālḥḳu
+ kānt
+ālmwǧwdāt
+ālṣuādrŧ
+ʿn
+ālḥḳu
+mn
+ḥyṯ
+ālṣufāt
+āls
+ulb
+yuŧ
+ālbdyhyuŧ
+āḳrbhā
+nsb
+ŧaⁿ
+āláã
+ālw
+ḥd
+ŧwābʿ
+dhā
+mn
+mrtbŧ
+ālẓuhwr
+ 
+why
+ālārwāḥ
+ bḫlāf
+ālṣufāt
+ālṯubwtyuŧ
+ fānuh
+yǧb
+ān
+ykwn
+ālmwǧwdāt
+ālṣuādrŧ
+ʿn
+ālḥḳu
+mn
+ḥyṯyuthā
+āḳrb
+nsbŧaⁿ
+āláã
+ālẓuhwr
+wātmu
+tḥḳuḳaⁿā
+bh
+ 
+wḳd
+byunuā
+ānu
+āwul
+ḥāml
+wẓāhr
+bāḥkām
+ālṣufāt
+ālṯu
+bwtyuŧ
+ālḫlyl
+ʿlyh
+ālsulām
+ 
+flzm
+ān
+yẓ
+hr
+fy
+ḥāl
+wldh
+āluḏy
+hw
+ālnyǧŧ
+ḥkm
+ʿālam
+ālḫ
+yāl
+wṣf
+th
+ lānu
+ʿālam
+ālmṯāl
+ālmṭlḳ
+mrtbth
+byn
+ʿālam
+ālārwāḥ
+wʿālam
+ālāǧsām
+ 
+2
+wāmuā
+ālǧndy
+ flm
+nǧd
+fy
+šrḥh
+ʿbārŧ
+ṣryḥŧ
+tfyd
+bkwn
+āsḥāḳ
+ḏbyḥaⁿā
+ 
+3
+wāmuā
+ālkāšāny
+ fānuh
+ṣruḥ
+bkwn
+āsḥāḳ
+ḏbyḥaⁿā
+ ḳāl
+fy
+šrḥ
+fṣwṣ
+ālḥkm
+ tḥḳyḳ
+mǧyd
+hādy
+zādh
+ṣ802
+ 
+
+āʿlm
+
+ āydnā
+āllh
+wāyāk
+
+ ān
+ābrāhym
+
+ʿlyh
+ālṣlāŧ
+wālslām
+ ḳāl
+lābnh
+
+ 
+āʾiniuá
+āaraáã
+fiá
+alm
+anaā
+mi
+āaniuá
+āaḏabaḥ
+uka
+ 
+sw
+rŧ
+ālṣāfāt
+
+ 201
+ 
+w
+almanaāmi
+ ḥḍrŧu
+ālḫyāl
+flm
+yʿburhā
+ wkān
+kbšuⁿ
+ẓhr
+fy
+ṣwrŧ
+ābn
+ābr
+āhy
+mfy
+ālmn
+ām
+ fṣdḳ
+ābrāhym
+ālrʾyā
+ āy
+ lm
+yʿ
+burhā
+ lmā
+tʿ
+wud
+bh
+mn
+ālāḫḏ
+ʿn
+ʿā
+lm
+ālmṯ
+āl
+ flmuā
+rḳuā
+hāllh
+tʿāláã
+ʿn
+ʿālm
+ālmṯāl
+
+ lyǧ
+ʿl
+ḳlbh
+mḥlu
+ālāstwāʾ
+ālrḥmāny
+
+ āḫḏ
+ḫyālh
+ālmʿnáã
+mn
+ḳlbh
+ālmǧrud
+ 
+wtṣruft
+ālḳwuŧ
+ālmtṣrufŧ
+fy
+tṣwyrh
+ fṣwurt
+mʿnáã
+ālkbš
+bṣwrŧ
+āsḥāḳ
+
+ lm
+āḏkr
+mn
+kwnh
+ālāṣl
+
+ fl
+myʿbrhā
+wṣduḳh
+āfy
+ānu
+ḏãlk
+āsḥāḳ
+ wkān
+ʿnd
+āllh
+ālḏbḥ
+ālʿẓym
+
+ 
+4
+wḳāl
+ālkāšāny
+āyḍaⁿā
+ fy
+ṣ012
+ 
+
+ flw
+ṣdḳ
+fy
+rʾyā
+mā
+
+rāh
+ lmā
+kān
+
+ ʿnd
+āllh
+
+ ālā
+āsḥāḳ
+ 
+wlḏbḥh
+ 
+5
+wḳāl
+ālḳyṣry
+fy
+šr
+ḥfṣw
+ṣālḥk
+m
+ tḥḳyḳ
+ālsyud
+ǧlāl
+āldu
+yn
+āšatiyaāny
+ ṭ3
+ ṭhrān
+ šrkt
+āntšārāt
+ʿlmy
+wfrhngá
+ 6831
+hǧry
+šmsy
+ ṣ606
+706
+ 
+
+wāʿlm
+ānu
+ẓāhr
+ālḳr
+ān
+ydlu
+ʿláã
+ānu
+ālfdāʾa
+ʿn
+āsmāʿyla
+ whw
+āluḏy
+rāh
+ābrāhym
+ānuh
+yḏbḥh
+ wālyh
+ḏhb
+ākṯ
+rālmfsryn
+ wḏhb
+bʿḍhm
+āláã
+ānuh
+āsḥāḳ
+ wālšyḫ
+
+rḍ
+ mʿḏwr
+fymā
+ḏhb
+ālyh
+ lānuh
+māmwr
+kmā
+ḳāl
+fy
+āwul
+ālktāb
+ 
+whnā
+nḳl
+ālsy
+ud
+ǧlāl
+āldu
+yn
+āšatiyaā
+ny
+
+t
+6241h
+
+5002m
+ tʿl
+yḳ
+yn
+ āwlh
+ā
+lāstāḏh
+āls
+yud
+rwḥ
+āllh
+ālḫ
+umayny
+
+t
+0141h
+9891m
+ wālṯuāny
+lāḳaā
+miy
+razaā
+āby
+ālḥsn
+bn
+mḥmd
+ālṭbāṭbāʾy
+ālmšthr
+b
+ǧilawaha
+ 
+t
+5721h
+6981m
+ wnḳlnāhmā
+bālnuṣu
+fymā
+yly
+ 
+6
+tʿlyḳ
+ālsyud
+rwḥ
+āllh
+ālḫumayny
+ 
+
+ḳāl
+šyḫnā
+ālʿārf
+ālkāml
+
+yḳṣd
+šyḫh
+mḥmd
+ʿly
+ālšauāhaābaādiy
+
+2921h
+
+ 9631h
+ dām
+ẓluh
+ālʿāly
+ 
+ānu
+ālšuyḫa
+bḥsb
+kšfh
+fy
+ʿālam
+ālmkāšfŧ
+ rāáã
+fy
+ālʿyn
+ālṯuābtŧ
+ālāsḥāḳyuŧ
+āḳtḍāʾa
+hãḏā
+ālmʿnáã
+āluḏy
+ẓhr
+fy
+āsmāʿyla
+ ʿlyh
+ālsulā
+m
+ fy
+ʿālam
+ālmul
+kmn
+ālʿbwdyŧ
+āltu
+āmuŧ
+wālfnāʾ
+āltuāmu
+ fāḫbr
+ʿm
+uā
+ẓhr
+ʿlyh
+mn
+ālʿyn
+ālṯu
+ābtŧ
+ whãḏh
+ālmkā
+šf
+ŧṣḥ
+yḥŧ
+
+āluā
+ānu
+ʿdma
+ālẓuhwr
+fy
+ʿālam
+ālmulk
+ lḳwuŧ
+ālʿyn
+ālṯuābtŧ
+ālāsmāʿylyuŧ
+āw
+lmānʿ
+āḫra
+ 
+hãḏā
+ wḳd
+āstškltu
+ʿlyh
+bānu
+ālẓuāhra
+mn
+klām
+ālšuyḫ
+wḳwʿh
+bālnusbŧ
+āláã
+āsḥāḳa
+fy
+ʿālam
+ālmulk
+ fṣduḳ
+ḏãlk
+ wḳāl
+ dām
+ẓluh
+ 
+yumk
+nān
+ykwna
+kšfahu
+ṣḥ
+yḥaⁿā
+ āluā
+ānu
+ḫy
+ālah
+lmuā
+kā
+nmšwbaⁿā
+ tmṯu
+llh
+ālmʿnáã
+ālmǧrud
+ʿn
+āllubās
+fy
+ʿālam
+ḫyālh
+bṣwrŧ
+āsḥāḳa
+ ʿlyh
+ālsulām
+ fānu
+ālmkāšfāt
+tḳʿ
+mǧrudŧaⁿ
+ʿn
+ālṣuwrŧ
+ wlã
+knu
+ālḫyāla
+yumṯulhā
+bzyu
+ṣwrŧ
+šāʾ
+bmǧrud
+mnāsbŧ
+ wālġālb
+daḫaā
+laŧ
+ālmānwsāt
+wālmʿtḳdāt
+fy
+ḏãlk
+āltumṯu
+l
+hãḏā
+mā
+āfād
+ dām
+ẓlu
+h
+āntháã
+tʿlyḳ
+ālsyud
+rwḥ
+āllh
+ālḫumayny
+ 
+7
+tʿlyḳ
+āḳaā
+miyrazaā
+āby
+ālḥsn
+ǧilawah
+ 
+wāʿlm
+ānu
+ālkšf
+ālṣ
+ryḥ
+ālm
+ḥmd
+yu
+ydlu
+ʿláã
+ānu
+ālfdāʾ
+ʿn
+āsmāʿyl
+ wḳd
+āṭb
+ḳāʾmutnā
+wsādātnā
+ ālwārṯyn
+
+hãkḏā
+ llʿl
+wmwālāḥwāl
+wālm
+ḳā
+mā
+tālmḥm
+dyuŧ
+ 
+ʿláã
+ānu
+ālfdāʾ
+ʿn
+ḏbyḥ
+āllh
+āsm
+āʿyl
+bn
+ābrāhym
+ʿlyhm
+āālslā
+m
+wʿlyh
+ǧuluu
+ārbāb
+āltfsyr
+wālḥdyṯ
+mn
+ālʿāmŧ
+
+yḳṣd
+āhl
+ālsnŧ
+ wāmuā
+mā
+
+ḳyl
+ 
+ānu
+ālšyḫ
+māmwr
+ wālmāmwr
+mʿḏwr
+ klāmuⁿ
+ḫaāliⁿ
+ʿn
+āltḥ
+ṣyl
+ wlā
+yuʿabaā
+bh
+ wmā
+ḳyl
+ 
+ānu
+ālš
+yḫa
+rāáã
+fy
+ḥḍrŧ
+ālārtsām
+ānu
+ālfdāʾ
+ʿn
+āsmāʿyl
+ wlm
+uā
+tn
+zul
+mā
+
+šhd
+hfy
+ālḫ
+yāl
+ ḏhb
+wahamuh
+āláã
+āsḥā
+ḳ
+ mn
+ǧhŧ
+kmā
+lālmn
+āsbŧ
+byn
+ʿyn
+ālāsmāʿyl
+wālāsḥāḳ
+ wānt
+tʿlm
+ānu
+fy
+ktāb
+ālfṣwṣ
+mwāḍʿa
+nḳḍiⁿ
+wāštkāl
+ lā
+yumkn
+twǧyhhā
+wtṣḥyḥhā
+ wālḳwl
+bānu
+ālšyḫ
+māmwr
+mʿḏwr
+ 
+lys
+āluā
+āstnād
+ālḫbṭ
+wālāštbāh
+āláã
+āllh
+āw
+āláã
+ālrswl
+ lānu
+ālmʾlf
+ḳd
+ṣruḥ
+fy
+āwāʾl
+ktābh
+ānu
+ālmulḳiy
+ʿláã
+ḫyālh
+ āw
+ḳlbh
+ hw
+ālrswl
+āw
+āllh
+ wāmuā
+wǧh
+tsmyŧ
+ālfṣu
+ālāsḥāḳy
+bālḥkmŧ
+ālḥḳyuŧ
+ ānuh
+lmuā
+kān
+āḫṣu
+āḥkām
+ālṣufāt
+ālsulbyuŧ
+ slb
+ālkṯ
+rŧ
+ʿn
+wḥd
+ŧālḥḳu
+ kānt
+ālmw
+ǧwdāt
+ālṣuādrŧ
+ʿn
+ālḥḳ
+mn
+ḥyṯyuŧ
+ālṣufāt
+ālsulbyuŧ
+āltunzyhyuŧ
+ āḳrbhā
+nsbŧaⁿ
+āláã
+ālwḥdŧ
+ 
+wābʿ
+dhā
+mn
+mrtbŧ
+ālẓhw
+r
+why
+llā
+rwāḥ
+ bḫlāf
+ālṣufāt
+ālṯbwtyuŧ
+ wḳd
+sb
+ḳ
+ānu
+āwul
+ḥāmliⁿ
+wẓāhriⁿ
+bā
+ḥkām
+ālṣufāt
+ālṯbwtyuŧ
+ ālḫ
+lyl
+ʿlyh
+ālsulā
+m
+ fala
+zima
+āna
+yẓhra
+fy
+wldh
+
+āluḏ
+yhw
+nty
+ǧth
+
+ ḥukamu
+ʿālam
+ālmṯ
+āl
+ āluḏy
+aʿatubira
+mṭ
+ābḳt
+h
+llwāḳʿ
+yusamauáã
+ḥḳiⁿuā
+ 
+āntháã
+tʿlyḳ
+āḳaā
+miyrazaā
+āby
+ālḥsn
+ǧilawah
+ 
+mlḥḳ
+3
+tḥḳyḳ
+fy
+ḫāld
+bn
+snān
+ʿanawana
+ālšuyḫ
+ālā
+kbr
+ālfṣu
+ālsāds
+ʿšr
+mn
+fṣwṣh
+b
+fṣu
+klmŧ
+ṣmdyuŧ
+fy
+klmŧ
+ḫāldyuŧ
+ wfṣuh
+āṣġr
+ālfṣw
+ṣ
+ fānuh
+āḫḏ
+91
+sṭraⁿā
+fḳ
+ṭu
+fy
+mḫṭwṭ
+ḳwnyŧ
+ 
+whw
+ḫāld
+bn
+snān
+bn
+ġayṯ
+ālʿab
+asiy
+ wyḳāl
+ānuh
+nby
+mn
+ānbyāʾ
+ālftrŧ
+ 
+āy
+ālḥḳbŧ
+ālzmnyŧ
+byn
+ʿy
+sáã
+bn
+mrym
+ʿlyh
+mā
+
+āls
+lām
+wmḥ
+md
+ṣláã
+āllh
+ʿlyh
+wālh
+wslum
+ wāḫtlf
+ālʿlmāʾ
+fy
+nbwth
+ rāǧʿ
+ālmṣādr
+ālātyŧ
+ 
+
+t
+Pella
+Charles
+ 
+ 
+an 
+Sin
+
+b 
+alid
+Kh
+ 
+EI 
+
+t
+Pella
+Charles
+ 
+ 
+an 
+Safw
+ 
+b 
+zala
+Han
+ 
+EI 
+s
+i
+Arab
+al
+Ibn
+in
+Motif
+
+Millenial
+The 
+ 
+Elmore 
+
+T 
+Gerald
+Religion
+of
+Journal
+The
+
+Gryphon 
+Fabulous
+the
+of
+Book
+
+ 
+at
+
+ 
+July 
+ 
+ 
+of
+Fullness
+the
+in
+Sainthood
+Islamic
+
+Elmore 
+
+T 
+Gerald
+
+ 
+Gryphon
+Fabulous
+the
+of
+Book
+s
+i
+Arab
+al
+Ibn
+
+Time 
+
+ 
+ 
+Brill
+
+J 
+
+E 
+
+Leiden 
+wlm
+yḳtrb
+mʿẓm
+ālšārḥyn
+ālmtḳdmyn
+lfṣwṣ
+ālḥkm
+mmuā
+wrd
+fy
+ḫāld
+bn
+snān
+fy
+ktb
+ālāḥādyṯ
+ālšuryfŧ
+ fnḳlnā
+fy
+mā
+yly
+mā
+wǧdnā
+fy
+āšhr
+ālmǧāmʿ
+ālḥdyṯyŧ
+ālsnyŧ
+wālšyʿyŧ
+ 
+1
+ālāṣābŧ
+fy
+tmyyz
+ālṣḥābŧ
+lābn
+ḥǧr
+ālʿsḳlāny
+ ālḳsm
+2
+ ṣ
+963
+āláã
+473
+ rḳm
+āltrǧmŧ
+7532
+ 
+
+ḫāld
+bn
+snān
+ālʿbsy
+ḏkrh
+ābw
+mwsá
+ʿn
+ʿbdaān
+ wḳāl
+ lyst
+lh
+ṣḥbŧ
+ wlā
+āadaraka
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+ fḳāl
+ nbyuⁿu
+ḍayauʿahu
+ḳwmuhu
+ 
+wwfdt
+ābnth
+ʿlá
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ fḳālt
+ wḳd
+smʿth
+yḳrā
+ 
+ḳula
+huwa
+allh
+āaḥaduⁿ
+ kān
+āby
+yḳwl
+hãḏā
+ 
+ḳāl
+ābn
+ālāṯyr
+ lā
+ādry
+lm
+ḏkrh
+mʿ
+āʿtrāfh
+bān
+lā
+ṣḥbŧ
+lh
+ 
+ḳlt
+ wlwkān
+kl
+mana
+yḏkrh
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ykwn
+ṣḥābyaⁿā
+lāstdrknā
+ʿlyh
+ḫlḳaⁿā
+kṯyraⁿā
+ 
+wḳd
+nsb
+ābn
+ālklby
+ḫāldaⁿā
+hãḏā
+fḳāl
+ ḫāld
+bn
+snān
+bn
+ġyṯ
+bn
+murayṭŧ
+bn
+mḫzwm
+bn
+mā
+lk
+bn
+ġālb
+bn
+ḳuṭyaʿŧ
+bn
+ʿabas
+ālʿabasiy
+ 
+wḏkr
+ālmsʿwdy
+fy
+mrwǧ
+ālḏhb
+mn
+ṭryḳ
+sʿyd
+bn
+kṯyr
+bn
+ʿufyr
+ālmṣry
+ ʿn
+ābyh
+ ʿn
+ǧdh
+ ʿn
+ʿkrmŧ
+ ʿn
+ābn
+ʿbās
+ ḳāl
+ ḳāl
+rswl
+āllh
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ ān
+āllh
+ḫlḳ
+ṭāʾrā
+fy
+ālzmn
+ālāwl
+ yḳāl
+lh
+ 
+ālʿanaḳaāʾ
+ fkṯr
+nslh
+fy
+blād
+ālḥǧāz
+ fkānt
+tḫṭf
+ālṣbyān
+ fškwā
+ḏlk
+lḫāld
+bn
+snān
+ whw
+nby
+ẓhr
+bʿd
+ʿysáã
+mn
+bny
+ʿabas
+ fdʿā
+ʿlyhā
+ān
+yḳṭʿ
+nslhā
+ fbḳyt
+ṣwrthā
+fy
+ālbsṭ
+ 
+wbh
+ḳāl
+ābn
+ʿbās
+ 
+wkān
+ḫāld
+bn
+snān
+buʿiṯa
+mbšraⁿā
+bmḥmd
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ flmā
+ḥḍrth
+ālwfāŧ
+ ḳāl
+ āḏā
+ānā
+mituu
+ fādfnwny
+fy
+ḥiḳafiⁿ
+mn
+hãḏh
+ālāḥḳāf
+ fḏkr
+nḥw
+mā
+tḳdum
+ 
+wbh
+āláã
+ābn
+ʿbuās
+ ḳāl
+ wwrdt
+ābnŧuⁿ
+lh
+ʿǧwz
+ʿlá
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ ftlḳuāhā
+bḫyr
+wākrmhā
+ wḳāl
+lhā
+ mrḥbaⁿā
+bābnŧ
+nby
+ḍyʿh
+ḳwmh
+ fāslmt
+ wfy
+ḏlk
+yḳwl
+šāʿr
+mn
+bny
+ʿbs
+ fḏkr
+šʿraⁿā
+ 
+wāṣḥuu
+mā
+wḳftu
+ʿlyh
+fy
+ḏlk
+mʿ
+ārsālh
+mā
+ḳrātu
+ʿláã
+āby
+ālmʿāly
+ālāzhry
+ ʿn
+zynb
+bnt
+āḥmd
+ālmḳdsyŧ
+ ʿn
+ābrāhym
+bn
+mḥmwd
+ ḳāl
+ ḳrā
+ʿláã
+ḫdyǧŧ
+bnt
+ālnhrwāny
+wnḥn
+nsmʿ
+ʿn
+ālḥsyn
+bn
+āḥmd
+bn
+ṭlḥŧ
+smāʿaⁿā
+ 
+ānbānā
+ābw
+ālḥsyn
+bn
+bšrān
+fy
+ālǧzʾ
+ālṯāny
+mn
+ālrābʿ
+mn
+āmāly
+ʿbd
+ālrāzḳ
+ ʿn
+āsmāʿyl
+ālṣfār
+smāʿā
+ ānbānā
+ʿbd
+ālrāzḳ
+āmlāʾaⁿ
+ ḥdṯnā
+sfyān
+ ʿn
+sālm
+ālāfṭs
+ ʿn
+sʿyd
+bn
+ǧbyr
+ ḳāl
+ ǧāʾt
+ābnŧu
+ḫāld
+bn
+snān
+ālʿbsy
+ālá
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ fḳāl
+ mrḥbaⁿā
+bābnŧi
+nby
+ḍyʿh
+ḳwmh
+ wrǧālh
+ṯḳāt
+ālauā
+ānuh
+mrsl
+ 
+wḳāl
+ālklby
+fy
+tfsyrh
+ ʿn
+āby
+ṣālḥ
+ ʿn
+ābn
+ʿbās
+ daḫalata
+ābnŧ
+ḫāld
+bn
+snān
+ʿlá
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ fḳāl
+ marḥbaⁿā
+bābnŧ
+nby
+ḍyʿh
+ḳwmh
+ 
+ḳāl
+ālfḍl
+bn
+mwsá
+ālšybāny
+ dḫltu
+ʿlá
+āby
+ǧmrŧ
+ālskry
+ fḥdṯtuh
+bhãḏā
+ʿn
+ālklby
+ fḳāl
+ āstġfr
+āllh
+ āstġfr
+āllh
+ āḫrǧh
+ālḥākm
+fy
+tāryḫ
+nysābwr
+ 
+wrwāh
+ābw
+mḥmd
+bn
+zabar
+ ʿn
+ālḫḍr
+bn
+āabaān
+ ʿn
+ʿmrw
+bn
+mḥmd
+ ʿn
+sfyān
+ālṯwry
+ ʿn
+sālm
+nḥwh
+ 
+wḏkr
+ābw
+ʿbydh
+maʿamar
+bn
+ālmuṯanauáã
+fy
+ktāb
+ālārǧāʾ
+wālǧmāǧm
+ ḫāld
+bn
+snān
+āḥad
+bny
+mḫzwm
+bn
+mā
+lk
+ālʿabsy
+lm
+ykn
+fy
+bny
+āsmāʿyl
+nby
+ġyrh
+ḳbl
+mḥmd
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ whw
+ālḏy
+āṭfā
+nāra
+ālḥarauŧ
+ 
+wkānt
+ḥraauŧ
+bblād
+bny
+ʿbs
+yustḍāʾ
+bnārhā
+mina
+msyrŧ
+ṯlāṯŧ
+āyām
+ wrbmā
+sṭʿt
+mnhā
+ʿunuḳuⁿ
+fāštʿlt
+fy
+ālblād
+ flā
+tmru
+ʿlá
+šyʾ
+ālā
+āhlkth
+ fāḏā
+kān
+ālnhār
+fānumā
+hy
+dḫān
+yfwr
+ 
+fbʿṯ
+āllh
+ḫālda
+bn
+snān
+ālʿbsy
+fāḥtfr
+lhā
+sirabaⁿā
+ṯm
+ādḫlhā
+fyh
+ wālnās
+ynẓrwn
+ 
+ṯumau
+āḳtḥm
+fyhā
+ḥtá
+ġayuabahaā
+ fsmʿ
+bʿḍ
+ālḳwm
+whw
+yḳwl
+ hlk
+ālrǧl
+ fḳāl
+ḫāld
+bn
+snān
+ kḏb
+ābn
+rāʿyŧ
+ālmʿzá
+ wḫrǧ
+yršḥ
+ǧbynh
+ʿrḳaⁿā
+ whw
+yḳwl
+ ʿuwdiy
+budauā
+ kuluu
+šayʾiⁿ
+yuʾdauáã
+ laāaḫaruǧanau
+mnhā
+wǧsdy
+yanadaáã
+ flmuā
+ḥḍrth
+ālwfāŧ
+ ḳāl
+lḳwmh
+ āḏā
+ānā
+mituu
+fāḥfrwā
+ḳbry
+bʿd
+ṯlāṯ
+ fānkm
+tarawna
+ʿayraⁿā
+yṭwf
+bḳbry
+ wāḏā
+rāytm
+ḏãlk
+fānuy
+āḫbrkm
+bmā
+hwkāʾnuⁿ
+āláã
+ywm
+ālḳyāmŧ
+ 
+fāǧtmʿwā
+ flmuā
+rāwā
+ālʿayra
+ārādwā
+nabašahu
+ fḳāl
+ābnh
+ʿbd
+āllh
+bn
+ḫāld
+bn
+snān
+ lā
+tnbšwh
+ wlā
+āudaʿaáã
+ābn
+ālmnbwš
+ābdaⁿā
+ fāftrḳwā
+frḳtyn
+ ftrkwh
+ 
+wḳadimata
+ābnth
+ʿlá
+ālnby
+ṣluáã
+āllh
+ʿlyh
+wslm
+ fbsṭ
+lhā
+rdāʾh
+wāǧlshā
+ʿlyh
+ 
+wḳāl
+ ābnŧ
+nby
+ḍyʿh
+ḳwmh
+ 
+wḳāl
+ālḳāḍy
+ʿiyaāḍu
+fy
+ālšfāʾ
+fy
+syāḳ
+mn
+āḫtlf
+fy
+nbwth
+ wḫāld
+bn
+snān
+ālmḏkwr
+ yḳāl
+ānh
+nby
+āhl
+ālrausiu
+ 
+wḳd
+rwáã
+ālḥākm
+ wābw
+yʿláã
+ wālṭbrāty
+ mn
+ṭryḳ
+muʿalaáã
+bn
+mhdy
+ ʿn
+āby
+ʿwānŧa
+ ʿn
+āby
+ywnsa
+ ʿn
+ʿkrmŧa
+ ʿn
+ābn
+ʿbās
+ān
+rǧlaⁿā
+mn
+bny
+ʿabas
+yḳāl
+lh
+ḫāld
+bn
+snān
+ḳāl
+lḳwmh
+ āny
+āuṭfiyʾu
+ʿnkm
+nār
+ālḥdṯān
+ fḳāl
+lh
+ʿmārŧ
+bn
+zyād
+ rǧl
+mn
+ḳwmh
+ wāllh
+mā
+ḳlta
+lnā
+yā
+ḫāldu
+ḳaṭuu
+āluā
+ḥḳaⁿā
+ fmā
+šānuk
+wšānu
+nār
+ālḥdṯān
+ tzʿm
+ānk
+tṭfʾhā
+ 
+ḳāl
+ ānṭlḳa
+ fānṭalaḳa
+mʿh
+ʿmārŧ
+fy
+ṯlāṯyn
+mn
+ḳwmh
+ḥtuáã
+ātwhā
+ why
+tḫrǧ
+mn
+šiḳiu
+ǧbl
+mn
+ḥarauŧ
+ yḳāl
+lhā
+ḥrŧ
+āšǧʿ
+ fḫṭu
+lhm
+ḫāld
+ḫaṭauŧaⁿ
+ fāǧlshm
+fhā
+ wḳāl
+ 
+ābṭāt
+ʿlykm
+flā
+tdʿwny
+bāsmy
+ ḳāl
+ fḫrǧt
+kānuhā
+ǧbl
+saʿariⁿ
+ ytbʿ
+bʿḍhā
+bʿḍaⁿā
+ 
+wāstḳblhā
+ḫāld
+ fḍrbhā
+bʿṣāh
+ ḥtuáã
+dḫl
+mʿhā
+ālšiḳu
+ whw
+yḳwl
+ badauā
+badauā
+badauā
+ kl
+hadayiⁿ
+yuʾdauáã
+ zʿm
+ābn
+rāʿyŧ
+ālmʿzáã
+āny
+lā
+āḫrǧ
+mnhā
+ wṯyāby
+tndáã
+ ḥtuáã
+dḫl
+mʿhā
+ālšḳ
+ 
+ḳāl
+ fābṭā
+ʿlyhm
+ fḳāl
+ʿmārŧ
+bt
+zyd
+ wāllh
+lwkān
+ṣāḥbkm
+ḥyiⁿuā
+lḳd
+ḫrǧ
+mnhā
+ 
+fḳālwā
+ ānh
+ḳd
+nhānā
+ān
+ndʿwh
+bāsmh
+ ḳāl
+ fdʿwh
+bāsmh
+ fḫrǧ
+ālyhm
+ wḳd
+āḫḏ
+brāsh
+ 
+fḳāl
+ ālm
+ānhkm
+ān
+tdʿwny
+bāsmy
+ ḳd
+wāllh
+ḳtltmwny
+ fāḏā
+mituu
+fādfnwny
+ fāḏā
+marauta
+bkm
+ʿānŧ
+ḥumr
+fānbšwty
+ fānkm
+stǧdwnny
+ḥyauā
+fāḫbrkm
+bmā
+ykwn
+ 
+fdfnwh
+ fmrt
+bhm
+ālḥmr
+fyhā
+ḥmār
+ābtr
+ fḳālwā
+ānbšwh
+ fānh
+ḳd
+āmrnā
+ān
+nnbšh
+ 
+fḳāl
+lhm
+ʿmārŧ
+bn
+zyād
+ taḥadauta
+muḍaru
+ān
+nnbš
+mwtānā
+ wāllh
+lā
+tnbšwh
+ābdaⁿā
+ wḳdkān
+ḫāld
+āḫbrhm
+ān
+fy
+ʿukani
+āmrāth
+lwḥyn
+ fāḏā
+āušakila
+ʿlykm
+āmr
+fānẓrwā
+fyhmā
+ fānkm
+strwn
+mā
+
+tsālwn
+ʿnh
+ wḳāl
+ lā
+tmshmā
+ḥāʾḍ
+ 
+flmuā
+rǧʿwā
+āláã
+āmrāth
+sālwhā
+ʿnhmā
+fāḫrǧthmā
+why
+ḥāʾḍ
+ fḏhb
+mā
+
+kān
+fyhmā
+mn
+ʿlm
+ 
+ḳāl
+ābw
+ywns
+ ḳāl
+smāk
+bn
+ḥrb
+ sʾl
+ʿnh
+ālnby
+ṣluáã
+āllh
+ʿlyh
+wslm
+ fḳāl
+ 
+ḏāk
+nby
+ḍyʿh
+ḳwmh
+ wān
+ābnth
+ātt
+ālnby
+ṣluáã
+āllh
+ʿlyh
+wslm
+ fḳāl
+mrḥbā
+bābnŧ
+āḫy
+ 
+ḳāl
+ālḥākm
+ hḏā
+ḥdyṯ
+ṣḥyḥ
+ fān
+ābā
+ywns
+hw
+ḥātm
+bn
+āby
+ṣġyrŧ
+ 
+ḳlt
+ lãkn
+mʿlá
+bn
+mhdy
+ḍʿfh
+ābw
+ḥātm
+ālrāzy
+ ḳāl
+ālḥākm
+ ḳd
+smʿt
+ābā
+ālāṣbʿ
+ʿbd
+ālmlk
+bn
+nṣr
+wġyrh
+yḏkrwn
+ān
+bynhm
+wbyn
+ālḳyrwān
+bḥraⁿā
+fy
+wsṭ
+ǧbl
+lā
+yṣʿdh
+āḥd
+ wānu
+ṭryḳhā
+fy
+ālbḥr
+ʿláã
+ālǧbl
+ wānhm
+rāwā
+fy
+āʿláã
+ālǧbl
+fy
+ġār
+ht
+nāk
+rǧlaⁿā
+ʿlyh
+ṣwf
+ābyḍ
+whw
+muḥatabiⁿ
+fy
+ṣwf
+ābyḍ
+wrāsh
+ʿláã
+ydyh
+kānh
+nāʾm
+lm
+ytġyr
+mnh
+šyʾ
+ wānu
+ǧmāʿŧ
+āhl
+tlk
+ālnāḥyŧ
+yšhwn
+ānh
+ḫāld
+bn
+šnān
+ 
+ḳlt
+ wšhādŧ
+āhl
+tlk
+ālnāḥyŧ
+bḏãlk
+mrdwdŧ
+ fāyn
+blād
+bny
+ʿbs
+mn
+ǧbāl
+ālmġrb
+ 
+wāḫrǧh
+ālbzāz
+wālṭbrāny
+mn
+ṭryḳ
+ḳys
+bn
+ālrbyʿ
+ ʿn
+sālm
+mwṣwlaⁿā
+bḏkr
+bn
+ʿbās
+ ḳāl
+ ḏukr
+ḫāld
+bn
+snān
+ʿnd
+ālnby
+ṣluáã
+āllh
+ʿlyh
+wālh
+wslum
+ fḳāl
+ ḏāk
+nbyuⁿu
+ḍayauʿahu
+ḳwmh
+ 
+wzād
+ālṭbrāny
+ wǧāʾt
+bnt
+ḫāld
+ālá
+ālnby
+ṣluáã
+āllh
+ʿlyh
+wālh
+wslm
+ fsālhā
+ḳwmh
+ ālḥdyṯ
+ 
+wḳys
+ḍʿyf
+mn
+ḳbl
+ḥifaẓh
+ wsyāty
+lh
+ḏkr
+fy
+trǧmŧ
+sbāʿ
+bn
+zyd
+ālʿbsy
+ 
+wḏkr
+ālmsʿwdy
+fy
+mrwǧ
+ālḏhb
+mn
+ṭryḳ
+mḥmd
+bn
+ʿmr
+ ḥdṯny
+ʿly
+bn
+mslm
+āllyṯy
+ ʿn
+ālmḳbry
+ ʿn
+āby
+hryrŧ
+ ḳāl
+ ḳdm
+ṯlāṯŧ
+nfr
+mn
+bny
+ʿbs
+ʿlá
+rswl
+āllh
+ṣluáã
+āllh
+ʿlyh
+wālh
+wslm
+fḳālwā
+ ānuh
+ḳdm
+ʿlynā
+ḳruuāʾnā
+wāḫbrwnā
+ānh
+lā
+āslām
+lmn
+lā
+hǧrŧ
+lh
+ wlnā
+āmwāl
+wmwāš
+hy
+mʿāšnā
+ fān
+kān
+lā
+āslām
+lmn
+lā
+hǧrŧ
+lh
+ bʿnāhā
+whāǧrnā
+ fḳāl
+ ātḳwā
+āllh
+ḥyṯ
+kntm
+fln
+yalitakm
+mn
+āʿmālkm
+šyʾā
+wlwkntm
+bṣdr
+ǧāzān
+ 
+wsālhm
+ʿn
+ḫāld
+bn
+snān
+ fḳālwā
+lā
+ʿḳb
+lh
+ fḳāl
+ nby
+ḍyʿh
+ḳwmh
+ ṯm
+ānšā
+yḥdṯ
+āṣḥābh
+ḥdyṯ
+ḫāld
+bn
+snān
+ 
+wāḫrǧ
+ābn
+šāhyn
+fy
+ālṣḥābŧ
+mn
+ṭryḳ
+ālḥsyn
+bn
+mḥmd
+ ḥdṯnā
+ʿāʾḏ
+bn
+ḥbyb
+ ʿn
+ābyh
+ ḥdṯny
+mšyḫŧ
+mn
+bny
+ʿbs
+ ʿn
+sbāʿ
+bn
+zyd
+ānhm
+wfdwā
+ʿlá
+rswl
+āllh
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+fḏkrwā
+lh
+ḳṣŧ
+ḫāld
+bn
+snān
+fḳāl
+ ḏāk
+nby
+ḍyʿh
+ḳwmh
+ 
+2
+myzān
+ālāʿtdāl
+llḏuhby
+ ālḳsm
+3
+ ṣ693
+ trǧmŧ
+rḳm
+1196
+ ḳys
+bn
+ālrbyʿ
+ālāsdy
+ālkwfy
+mḥmud
+bn
+ālṣaulat
+ ʿn
+ḳys
+ ʿn
+sālm
+ālāafaṭas
+ ʿn
+sʿyd
+bn
+ālǧubyr
+ ʿn
+ābni
+ʿbāsiⁿ
+ḳāl
+ ǧāʾt
+bntu
+ḫāldi
+bni
+snāniⁿ
+āláã
+ālnbyiu
+ṣlauáã
+āllhu
+ʿly
+hi
+wslauma
+fbsṭ
+lhā
+ṯwbah
+ wḳāl
+ 
+maraḥabaⁿā
+biabanaŧi
+nabiyiⁿu
+ḍayauʿahu
+ḳawmuhu
+ 
+3
+bḥār
+ālānwār
+ lmḥmd
+bāḳr
+ālmǧlsy
+ ḳṣṣ
+ālānbyāʾ
+ bāb
+03
+ḳṣuŧ
+ḫāld
+bn
+snān
+ālʿbsy
+ʿlyh
+ālsulām
+ ǧ
+41
+ ṣ844
+āláã
+154
+ 
+1
+kā
+ 
+ālkāfy
+ ʿly
+bn
+ābrāhym
+ ʿn
+ābyh
+wāḥmd
+bn
+mḥmd
+ālkwfy
+ ʿn
+ʿl
+ybn
+ʿmrw
+bn
+āʿyn
+ǧmy
+ʿaⁿā
+ ʿn
+mḥsn
+bn
+āḥmd
+bn
+mʿāḏ
+ ʿn
+ābān
+bn
+ʿṯmān
+ ʿn
+bšyr
+ālnbāl
+ ʿn
+āby
+ʿbd
+āllh
+ʿly
+hālslām
+ḳāl
+ bynā
+rswl
+āllh
+ṣláã
+āll
+hʿlyh
+wālh
+ǧā
+ls
+āḏ
+ǧāʾth
+āmrāŧ
+frḥub
+bh
+āwāḫḏ
+bydhā
+wāḳʿ
+dhā
+ ṯm
+ḳā
+l
+ābnŧ
+nby
+ḍy
+ʿh
+ḳwmh
+ ḫāld
+bn
+snān
+ dʿāhm
+fābw
+āān
+yʾmnwā
+wkā
+nt
+nār
+yḳ
+āllhā
+nār
+ālḥd
+ṯān
+ tātyhm
+kl
+sn
+ŧftākl
+bʿḍhm
+ wkā
+nt
+tḫr
+ǧfy
+wḳt
+mʿlwm
+ fḳāl
+lhm
+ ān
+rddtuhā
+ʿnkm
+tʾmnwn
+
+ḳālwā
+ nʿm
+ ḳāl
+ fǧāʾt
+fāstḳblhā
+bṯwbh
+fr
+duhā
+ṯm
+tbʿhā
+ḥtuáã
+dḫl
+ta
+kh
+fhā
+wdḫl
+mʿh
+ā
+ wǧlswā
+ʿláã
+bāb
+ālkhf
+whm
+yrwn
+ān
+lā
+yḫrǧ
+ābdaⁿā
+ fḫrǧ
+whw
+yḳwl
+ hãḏā
+hãḏā
+ wkl
+hãḏā
+mn
+ḏā
+ zʿmt
+bnw
+ʿbs
+āny
+lā
+āḫrǧ
+wǧbyny
+yanadaáã
+ ṯm
+ḳāl
+ tʾmnwn
+by
+ ḳālwā
+ lā
+ ḳāl
+ fāny
+myt
+ywm
+kḏā
+wkḏā
+ fāḏā
+ānā
+mituu
+fādfnwny
+fānh
+syǧyʾ
+ʿānŧ
+mn
+ḥmr
+yḳdmhā
+ʿyr
+ābtr
+ḥtuáã
+yḳf
+ʿláã
+ḳbry
+fānbšwny
+wsalu
+wny
+ʿmā
+šʾtm
+ flmā
+mā
+
+tdfn
+wh
+ wkā
+nḏãlk
+āly
+wm
+āḏ
+ǧāʾt
+ālʿā
+nŧ
+āǧt
+mʿ
+wā
+wǧāʾwā
+yrydwn
+nbšh
+ fḳālwā
+ mā
+
+āmntm
+bh
+fy
+ḥyāth
+ fkyf
+tʾmnwn
+bh
+bʿd
+wfāth
+ wlʾn
+nbštmwh
+lykwnnu
+subuŧuⁿ
+ʿlykm
+ fātrkwh
+ftrkwh
+ 
+2
+ṣ
+ḳṣṣ
+ālānbyāʾ
+ʿlyhm
+ālslām
+ ālṣdwḳ
+ ʿn
+ābn
+ālwlyd
+ ʿn
+ālṣau
+fauār
+ ʿn
+ālbaraḳiy
+ ʿn
+ābyh
+ ʿn
+ʿly
+bn
+šǧrŧ
+ ʿn
+ʿmh
+ ʿn
+bš
+yr
+āln
+bāl
+ 
+ʿn
+ālṣ
+ādḳ
+ʿlyh
+ālslām
+ḳāl
+ bynā
+rswl
+āllh
+ṣl
+áã
+āllh
+ʿlyh
+wālh
+ǧāls
+āḏā
+āmrāŧ
+āḳb
+lttmš
+yḥtuáã
+āntht
+ālyh
+fḳ
+āl
+lhā
+
+ mrḥbaⁿā
+bābnŧ
+nby
+ḍyʿ
+hḳwmh
+āḫy
+ḫāld
+ābn
+sn
+ān
+ālʿ
+bs
+y
+ ṯm
+ḳā
+l
+ān
+ḫāldaⁿā
+dʿā
+ḳwmah
+fā
+bwā
+ān
+yǧybw
+h
+ wkānt
+nār
+tḫr
+ǧfy
+kl
+yw
+mft
+ākl
+mā
+
+tlyhā
+mn
+mwāšy
+hm
+wmā
+
+ādrkta
+lhm
+ fḳā
+llḳwmh
+
+ 
+ārāyt
+mān
+rddtuhā
+ʿnkm
+ātʾmn
+wnby
+wtṣ
+dḳwnn
+y
+ḳālw
+ā
+nʿm
+ fāstḳ
+blhā
+frduhā
+bḳwŧ
+ḥtuáã
+ādḫlhā
+ġāraⁿā
+whm
+ynẓrwn
+ fdḫl
+mʿhā
+fmkṯ
+ḥtuáã
+ṭāl
+ḏãlk
+ʿlyhm
+ fḳālwā
+ ānuā
+lnrāhā
+ḳd
+ākltahu
+fḫr
+ǧmn
+hā
+ fḳ
+āl
+ ātǧybw
+nny
+wtʾ
+mnwn
+by
+ 
+ḳālw
+ā
+nār
+ḫr
+ǧta
+wdḫl
+ta
+lw
+ḳt
+ fā
+bw
+āān
+yǧ
+ybwh
+fḳā
+llh
+m
+āny
+my
+tbʿdkḏā
+fāḏā
+ānā
+mituu
+fādfn
+wny
+ ṯm
+dʿwny
+āyāmaⁿā
+fānbš
+wny
+ ṯm
+saluw
+ny
+āḫbrkm
+bm
+ākān
+wmā
+
+ykwn
+āláã
+ywm
+ālḳyāmŧ
+ flmā
+kān
+ālwḳt
+ǧāʾ
+mā
+
+ḳāl
+fḳāl
+bʿḍhm
+ lm
+nṣdḳh
+ḥyiⁿuā
+nṣdḳh
+mytaⁿā
+
+ftrkwh
+ wānh
+kān
+byn
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wʿysáã
+ʿlyh
+ālslām
+wlm
+ykn
+bynhmā
+ftrŧ
+ 
+3
+k
+kmāl
+āldyn
+wtmām
+ālnʿ
+mŧ
+ābn
+ālwlyd
+ ʿn
+mḥmd
+bn
+ālwlyd
+ālḫzāz
+wālsndy
+bn
+mḥmd
+mʿaⁿā
+ ʿn
+ābn
+āby
+ʿmyr
+ ʿn
+ābā
+nbn
+ʿṯmān
+ālāḥm
+r
+ ʿn
+bšyr
+ālnbā
+l
+ ʿn
+āby
+ǧʿ
+fr
+ālbāḳr
+wāby
+ʿbd
+āllh
+ālṣādḳ
+ʿlyhm
+āālslām
+ḳāl
+ 
+ǧā
+ʾt
+ābnŧ
+ḫāld
+bn
+snān
+ālʿbs
+yāláã
+rswl
+āllh
+ṣláã
+āll
+hʿlyh
+wālh
+fḳ
+āl
+lhā
+
+ 
+mrḥbaⁿā
+yā
+bnt
+āḫy
+ wṣāfḥ
+hā
+wādnāhā
+wbs
+ṭlhā
+rdāʾh
+ ṯm
+āǧlshā
+ʿly
+hāláã
+ǧn
+bh
+ ṯm
+ḳāl
+ hãḏh
+ābn
+ŧnby
+ḍyʿh
+ḳw
+mh
+ḫāld
+bn
+snān
+ālʿ
+bsy
+ wkānt
+āsmhā
+muḥayauāŧu
+ābnŧ
+ḫāld
+bn
+snān
+ 
+4
+ ǧ
+ālāḥt
+ǧāǧ
+ ḳāl
+ālṣādḳ
+ʿlyh
+ālslām
+fy
+āsʾlŧ
+ālzndyḳ
+ālḏy
+sālh
+ʿn
+msāʾl
+ fkān
+fym
+āsālh
+ āḫbrny
+ʿn
+ālmǧ
+ws
+ hl
+buʿiṯa
+ālyh
+mḫāld
+bn
+sn
+ān
+ ḳā
+lʿl
+yhālslām
+ ān
+ḫāldaⁿ
+ākān
+ʿrbyiⁿuā
+bdwyiⁿuā
+wmā
+
+kān
+nb
+yiⁿuā
+ wānm
+āḏãlk
+yʾ
+yḳwlh
+ālnās
+ 
+4
+wāmā
+ābnth
+fhy
+muḥayauāŧ
+bnt
+ḫāld
+bn
+snān
+ālʿab
+asiyu
+kmā
+wrdt
+fy
+ālāṣābŧ
+fy
+tmyyz
+ālṣḥābŧ
+lābn
+ḥǧr
+ālʿsḳlāny
+ ālḳ
+sm
+8
+ ṣ611
+ 
+rḳm
+āltrǧmŧ
+34711
+ muḥayauāŧ
+bnt
+ḫāld
+bn
+snān
+ālʿabasiyu
+ 
+ḏkrhā
+ābw
+mwsáã
+fy
+ālḏyl
+ wsāḳ
+mn
+ṭryḳ
+mḥmd
+bn
+ʿmr
+ālrāzy
+ālḥāfẓ
+ 
+ʿn
+ʿmrw
+bn
+āsḥāḳ
+bn
+ālʿlāʾ
+ ʿn
+ābrāhym
+bn
+ālʿlāʾ
+ ḥdṯnā
+ābw
+mḥmd
+ālḳršy
+ālhāšmy
+ ʿn
+hšām
+bn
+ʿrwŧ
+ ʿn
+ābn
+ʿmārŧ
+ ʿn
+ābyh
+ʿmārŧ
+bn
+ḥazan
+bn
+šyṭān
+ 
+bḳṣŧ
+ḫāld
+bn
+snān
+ ḳāl
+ flmā
+bʿṯa
+āllhu
+mḥmdaⁿā
+ ātth
+muḥayauāŧ
+bnt
+ḫāld
+ fāntsbt
+lh
+ fbsṭ
+lhā
+rdāʾh
+ wāǧlshā
+ʿlyh
+ wḳāl
+ ābnŧ
+āḫy
+ nbyuⁿu
+ḍayauʿahu
+ḳawmuhu
+ 
+wwrdt
+tsmythā
+āyḍaⁿā
+fymā
+ḏkrh
+ābn
+ālklby
+ ḳāl
+ ḳāl
+āby
+ wāḫbrny
+ābn
+āby
+ʿmārŧ
+ ḳāl
+ ātānā
+ḫāld
+bn
+snān
+ fḳāl
+ yāmʿšr
+bny
+ʿbs
+ ān
+āllh
+āmrny
+bāṭfāʾ
+hãḏh
+ālnār
+ ḳāl
+āby
+ fkān
+āby
+hw
+ālḏy
+ḏhb
+mʿh
+ fḏkr
+ālḳṣŧ
+mṭwlŧ
+ 
+wfy
+āḫr
+ālḥdyṯ
+ ḳāl
+hšāmu
+bnu
+mḥmd
+ fḳdmt
+ālmuḥayauāŧ
+bnt
+ḫāld
+bn
+snān
+ʿlá
+ālnby
+ṣláã
+āllh
+ʿlyh
+wālh
+wslm
+ 
+wḳd
+ḏukirata
+
+ fy
+trǧmŧ
+ḫāld
+bn
+snān
+
+ lḳṣth
+fy
+ṭfy
+ālnār
+ ṭrḳaⁿā
+kṯyrŧ
+ 
+mlḥḳ
+4
+ tḫryǧ
+ḥdyṯ
+āltḥwl
+mn
+ālāṣṭlāḥāt
+ālā
+kbryŧ
+ālšāʾʿŧ
+fy
+fṣwṣ
+ālḥkm
+ḳwl
+ālmʾlf
+
+āʾilãhu
+ālmuʿataḳadi
+ w
+āʾilãhu
+ālmuʿataḳadaāti
+ w
+ṣuwaru
+ālmuʿataḳadaāti
+ w
+ṣuwraŧu
+muʿataḳadihi
+ wmā
+
+šābhhā
+mn
+ālʿbārāt
+ wfy
+ǧmyʿ
+tlk
+ālmwāḍʿ
+mn
+ktāb
+ālfṣw
+ṣ
+ ḳṣd
+ālmʾlf
+fḥwáã
+ḥd
+yṯiⁿ
+ṭwyliⁿ
+mʿr
+wf
+ʿn
+dārbāb
+āltṣwf
+b
+
+ḥdyṯ
+āltḥwl
+ wrd
+fy
+ālṣḥyḥyn
+wsnn
+ālnausā
+ʾy
+ wfymā
+yl
+ytḫryǧ
+ālḥdyṯ
+wnṣuh
+kmā
+wrd
+fy
+ālbḫāry
+ʿn
+āby
+hryrŧ
+ 
+tḫryǧ
+ālḥdyṯ
+rwāh
+ālbḫ
+āry
+ ālǧ
+āmʿ
+ālṣḥ
+yḥ
+ ktāb
+ālāḏān
+ bāb
+fḍl
+ālsǧ
+wd
+ ǧ
+1
+ ṣ351
+āláã
+551
+ rḳm
+ālḥdyṯ
+418
+ʿn
+āby
+hryrŧ
+ wktāb
+āltfsyr
+ 
+bāb
+ānu
+āllh
+lā
+yẓlm
+mṯḳāl
+ḏrŧ
+ ǧ
+2
+ ṣ029
+āláã
+129
+ rḳm
+ālḥdyṯ
+4264
+ʿn
+āby
+sʿyd
+ālḫdry
+wkt
+āb
+ālrḳāḳ
+ bā
+bālṣrāṭ
+ǧasar
+ǧh
+num
+ ǧ
+3
+ ṣ0331
+āláã
+1331
+ rḳm
+ālḥdyṯ
+3566
+ʿn
+āby
+hryrŧ
+w4566
+ʿn
+āby
+sʿyd
+ālḫdry
+ wktāb
+āltwḥyd
+ bāb
+ḳwl
+āllh
+tʿāláã
+ 
+wuǧawhuⁿ
+yawmaʾiḏiⁿ
+naāḍiraŧuⁿ
+ālaáã
+rabuhaā
+naāẓiraŧuⁿ
+ ǧ
+3
+ ṣ1051
+āláã
+3051
+rḳm
+ālḥdyṯ
+7257
+w8257
+klāhmā
+ʿn
+āby
+hryrŧ
+ w9257
+ʿn
+āby
+sʿyd
+ālḫdry
+ 
+wrwāh
+mslm
+ ālǧāmʿ
+ālṣ
+ḥy
+ḥ
+ ktāb
+ālāym
+ān
+ bāb
+mʿrfŧ
+ṭr
+yḳ
+ālrʾyŧ
+ 
+ǧ
+1
+ ṣ29
+āláã
+69
+ rḳm
+ālḥdyṯ
+964
+w074
+klāhmā
+ʿn
+āby
+hryrŧ
+ wrḳm
+ālḥdyṯ
+274
+āláã
+474
+ǧmyʿaⁿā
+ʿn
+āby
+sʿyd
+ālḫdry
+ 
+wrwāh
+ālnausāʾy
+ ālsnn
+ ktāb
+āltṭbyḳ
+ bāb
+mwḍʿ
+ālsǧwd
+ ǧ
+1
+ ṣ
+481
+āláã
+581
+ rḳm
+ālḥdyṯ
+8411
+ 
+ ʿn
+ʿṭāʾ
+bn
+yzyd
+ḳāl
+ kntu
+ǧālsaⁿā
+āláã
+āby
+hryrŧ
+wāby
+sʿyd
+ fḥduṯ
+āḥdhmā
+ ālḥdyṯ
+ 
+nṣ
+ālḥdyṯ
+rwāh
+ālbḫ
+āry
+ ālǧ
+āmʿ
+ālṣḥ
+yḥ
+ ktāb
+ālāḏān
+ bāb
+fḍl
+ālsǧ
+wd
+ ǧ
+1
+ ṣ351
+āláã
+551
+ rḳm
+ālḥdyṯ
+418
+ʿn
+āby
+hryrŧ
+ 
+ḥduṯnā
+ābw
+ālymān
+ ḳāl
+ āḫbrnā
+šʿyb
+ʿn
+ālzhry
+ ḳāl
+ āḫbrny
+sʿyd
+bn
+ālmsyb
+wʿṭāʾ
+bn
+yzyd
+āllyṯy
+ ānu
+ābā
+hryrŧa
+āḫbrhmā
+ānu
+ālnās
+ḳālwā
+yā
+rswl
+āllh
+ hl
+nráã
+rbnā
+ywm
+ālḳyāmŧ
+ḳāl
+ 
+hl
+tmārwn
+fy
+ālḳmr
+lylŧ
+ālbdr
+lys
+dwnh
+sḥāb
+ḳālwā
+ 
+lā
+yā
+rswl
+āllh
+ 
+ḳāl
+ 
+fhl
+tmārwn
+fy
+ālšms
+lys
+dwnhā
+sḥāb
+ḳālwā
+ 
+lā
+ 
+ḳā
+l
+fānkm
+trwnh
+ kḏãlk
+ yuḥ
+ašaru
+ālnauāsu
+yawma
+ālḳyāmŧ
+ fyḳ
+wlmn
+kān
+yʿb
+d
+šyʾā
+falaya
+tau
+bi
+ʿa
+ fmnhm
+mana
+yataubiʿu
+ālšm
+sa
+ wmnhm
+mana
+yataubiʿu
+ālḳmra
+ wmnhm
+mmana
+yataubiʿu
+ālṭwāġyta
+ wtbḳáã
+hãḏh
+ālāmuŧ
+ fyhā
+mnāfḳwhā
+ 
+fyātyhm
+āllh
+ fyḳwl
+ 
+ānā
+rbkm
+ 
+fyḳwlwn
+ 
+hãḏā
+mkānnā
+ḥtuáã
+yātynā
+rbnā
+ fāḏā
+ǧāʾ
+rbnā
+ʿrfnāh
+ 
+fyātyhm
+āllh
+fyḳwl
+ 
+ānā
+rbkm
+ 
+fyḳwlwn
+ 
+ānt
+rbnā
+
+ 
