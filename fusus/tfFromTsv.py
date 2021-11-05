@@ -73,6 +73,7 @@ intFeatures[None] = set(
 )
 intFeatures[False] = {"np"}
 intFeatures[True] = set()
+intFeatures["extra"] = {"poetryverse", "fass"}
 
 featureMeta = {}
 
@@ -165,6 +166,50 @@ featureMeta[True] = {
     },
 }
 
+featureMeta["extra"] = {
+    "raw": {
+        "description": "letters of the word straight from the pdf",
+        "format": "string",
+    },
+    "puncb": {
+        "description": "punctuation immediately before a word",
+        "format": "string",
+    },
+    "puncba": {
+        "description": "punctuation immediately before a word",
+        "format": "string, ascii",
+    },
+    "qunawims": {
+        "description": (
+            "on which folio of the oldest manuscript, "
+            "penned by Qunawi himself, is this word attested?"
+        ),
+        "format": "string",
+    },
+    "poetrymeter": {
+        "description": "meter in which this verse is written",
+        "format": "string",
+    },
+    "poetryverse": {
+        "description": (
+            "word is start of a verse of poetry, " "value is the number of the verse"
+        ),
+        "format": "number",
+    },
+    "fass": {
+        "description": "number of the piece (bezel) that the word belongs to",
+        "format": "number",
+    },
+    "lwcvl": {
+        "description": "personal notes by Cornelis van Lit",
+        "format": "string",
+    },
+    "quran": {
+        "description": "word is part of a quran citation (sura:aya)",
+        "format": "string",
+    },
+}
+
 # DISTILL TABLE of CONTENTS
 
 TOC_PAGES = (4, 5)
@@ -249,6 +294,18 @@ pageNums = None
 TYPE_MAPS = {
     False: ["page", "line", "column", "span"],
     True: ["page", "stripe", "block", "line"],
+    "extra": [
+        "short",
+        "haspunct",
+        "punctafter",
+        "punctbefore",
+        "qunawims",
+        "poetrymeter",
+        "poetryverse",
+        "fass",
+        "lwcvl",
+        "quran",
+    ],
 }
 
 
@@ -257,9 +314,13 @@ def convert(source, ocred, pages, versionTf):
     global SRC_FILE
     global TYPE_MAP
     global HAS_TOC
+    global TOC_SOURCE
     global OCRED
     global U
     global VERSION_TF
+    global SEP
+    global SKIPCOL
+    global EXTRA
 
     U = UChar()
 
@@ -269,8 +330,12 @@ def convert(source, ocred, pages, versionTf):
     dest = getTfDest(source, versionTf)
     (SRC_FILE, OCRED) = getFile(source, ocred)
     HAS_TOC = workInfo.get("toc", False)
+    TOC_SOURCE = workInfo.get("sourceToc", None)
     TYPE_MAP = TYPE_MAPS[OCRED]
     VERSION_TF = versionTf
+    SEP = workInfo["sep"]
+    SKIPCOL = workInfo.get("skipcol", None)
+    EXTRA = workInfo.get("extra", False)
 
     cv = CV(Fabric(locations=dest))
 
@@ -280,7 +345,9 @@ def convert(source, ocred, pages, versionTf):
         otext=otext[None] | otext[OCRED],
         generic=generic(source),
         intFeatures=intFeatures[None] | intFeatures[OCRED],
-        featureMeta=featureMeta[None] | featureMeta[OCRED],
+        featureMeta=featureMeta[None]
+        | featureMeta[OCRED]
+        | (featureMeta["extra"] if EXTRA else {}),
         generateTf=True,
     )
 
@@ -304,41 +371,53 @@ def director(cv):
     prev = [None, None, None, None]
     nSec = len(prev)
 
-    data = []
+    def getData(dataFile, sep, extra):
+        data = []
 
-    with open(SRC_FILE) as fh:
-        next(fh)
-        for line in fh:
-            row = tuple(line.rstrip("\n").split("\t"))
-            page = int(row[0])
-            if pageNums is not None and page not in pageNums:
-                continue
+        with open(dataFile) as fh:
+            next(fh)
+            for line in fh:
+                row = line.rstrip("\n").split(sep)
+                if SKIPCOL is not None:
+                    del row[SKIPCOL : SKIPCOL + 1]
+                page = int(row[0])
+                if pageNums is not None and page not in pageNums:
+                    continue
 
-            if OCRED:
-                row = (
-                    page,
-                    int(row[1]),
-                    row[2],
-                    int(row[3]),
-                    *(None if c == "?" else int(c) for c in row[4:8]),
-                    int(row[8]),
-                    *row[9:11],
-                )
-            else:
-                row = (
-                    page,
-                    *(int(c) for c in row[1:4]),
-                    row[4],
-                    *(None if c == "?" else int(c) for c in row[5:9]),
-                    *row[9:11],
-                )
+                if OCRED:
+                    row = (
+                        page,
+                        int(row[1]),
+                        row[2],
+                        int(row[3]),
+                        *(None if c in {"", "?"} else int(c) for c in row[4:8]),
+                        int(row[8]),
+                        *row[9:11],
+                    )
+                else:
+                    tail = (*row[10:13], row[9], *row[13:]) if extra else row[9:11]
+                    row = (
+                        page,
+                        *(int(c) for c in row[1:4]),
+                        row[4],
+                        *(None if c in {"", "?"} else int(c) for c in row[5:9]),
+                        *tail,
+                    )
 
-            data.append(row)
+                data.append(row)
+        return data
+
+    data = getData(SRC_FILE, SEP, EXTRA)
 
     boxL = nSec if OCRED else nSec + 1
 
     if HAS_TOC:
-        toc = getToc(data)
+        tocData = data
+        if TOC_SOURCE:
+            tocFile = f"{TOC_SOURCE['dir']}/{TOC_SOURCE['file']}"
+            sep = TOC_SOURCE["sep"]
+            tocData = getData(tocFile, sep, False)
+        toc = getToc(tocData)
         curPiece = cv.node("piece")
         cv.feature(curPiece, n=1, title="front")
 
@@ -384,8 +463,17 @@ def director(cv):
         for i in range(nSec):
             prev[i] = fields[i]
 
-        letters = fields[-2]
-        punc = fields[-1]
+        lettersIndex = 9 if EXTRA else -2
+        puncIndex = 10 if EXTRA else -1
+        letters = fields[lettersIndex]
+        punc = fields[puncIndex]
+
+        puncBefore = None
+        raw = None
+        if EXTRA:
+            puncBefore = fields[puncIndex + 1]
+            raw = fields[puncIndex + 2]
+
         lettersp = Tr.asciiFromArabic(letters) if letters else ""
         lettersn = Tr.latinFromArabic(letters) if letters else ""
         letterst = Tr.standardFromArabic(letters) if letters else ""
@@ -404,6 +492,28 @@ def director(cv):
             letterst=letterst,
         )
         cv.feature(s, punc=punc, punca=punca)
+        if puncBefore is not None:
+            puncba = Tr.asciiFromArabic(puncBefore) if puncBefore else ""
+            cv.feature(s, puncb=puncBefore, puncba=puncba)
+        if raw is not None:
+            cv.feature(s, raw=raw)
+
+        if EXTRA:
+            extraData = {}
+            if fields[13]:
+                extraData["qunawims"] = fields[13]
+            if fields[14]:
+                extraData["poetrymeter"] = fields[14]
+            if fields[15]:
+                extraData["poetryverse"] = int(fields[15])
+            if fields[16]:
+                extraData["fass"] = int(fields[16])
+            if fields[17]:
+                extraData["lwcvl"] = fields[17]
+            if fields[18]:
+                extraData["quran"] = fields[18]
+            cv.feature(s, **extraData)
+
         if any(c in stops for c in punc):
             cv.terminate(curSentence)
             curSentence = cv.node("sentence")

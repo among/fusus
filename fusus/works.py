@@ -6,7 +6,7 @@ The books of the Fusus project are in the directory `ur` of this repo.
 
 There you find subdirectories corresponding to
 
-* **Affifi** The Fusus Al Hikam in the Affifi edition.
+* **Afifi** The Fusus Al Hikam in the Afifi edition.
 * **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
   The source is a textual PDF, not in the online repo, from which
   structured data is derived by means of a specific workflow,
@@ -57,7 +57,7 @@ the `fusus.book.Book` and `fusus.lakhnawi.Lakhnawi` objects.
 """
 
 WORKS = dict(
-    fususl=dict(
+    fususlur=dict(
         meta=dict(
             name="fusus",
             title="Fusus Al Hikam",
@@ -73,23 +73,68 @@ WORKS = dict(
         dest="tf/Lakhnawi",
         toc=True,
         ocred=False,
+        sep="\t",
+    ),
+    fususaur=dict(
+        meta=dict(
+            name="fusus",
+            title="Fusus Al Hikam",
+            author="Ibn Arabi",
+            editor="Afifi",
+            published="pdf, personal communication",
+            period="1165-1240",
+        ),
+        source=dict(
+            dir="ur/Afifi",
+            file="allpages.tsv",
+        ),
+        dest="tf/Afifi",
+        toc=False,
+        ocred=True,
+        sep="\t",
+    ),
+    fususl=dict(
+        meta=dict(
+            name="fusus",
+            title="Fusus Al Hikam",
+            author="Ibn Arabi",
+            editor="Lakhnawi",
+            published="pdf, personal communication",
+            period="1165-1240",
+        ),
+        source=dict(
+            dir="fusust-text-laboratory",
+            file="fusus.csv",
+        ),
+        sourceToc=dict(
+            dir="ur/Lakhnawi",
+            file="allpages.tsv",
+            sep="\t",
+        ),
+        dest="tf/Lakhnawi",
+        toc=True,
+        ocred=False,
+        sep=",",
+        extra=True,
+        skipcol=11,
     ),
     fususa=dict(
         meta=dict(
             name="fusus",
             title="Fusus Al Hikam",
             author="Ibn Arabi",
-            editor="Affifi",
+            editor="Afifi",
             published="pdf, personal communication",
             period="1165-1240",
         ),
         source=dict(
-            dir="ur/Affifi",
-            file="allpages.tsv",
+            dir="fusust-text-laboratory",
+            file="AfifiCleaned.csv",
         ),
-        dest="tf/Affifi",
+        dest="tf/Afifi",
         toc=False,
         ocred=True,
+        sep=",",
     ),
 )
 """Metadata of works in the pipeline.
@@ -116,7 +161,7 @@ They are given a keyword, and under that keyword are these fields:
   So it will not work for other works that reside in a textual PDF.
 
 !!! hint "fususa"
-    The Affifi page images are in the `in` subdirectory of its work
+    The Afifi page images are in the `in` subdirectory of its work
     directory as specified in `WORKS`.
 
 !!! caution "fususl"
