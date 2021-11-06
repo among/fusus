@@ -1,9 +1,7 @@
 @node
 @author=Ibn Arabi
 @converters=Cornelis van Lit, Dirk Roorda (Text-Fabric)
-@description=sequence number of a proper content piece
-@editor=Lakhnawi
-@format=number
+@editor=Afifi
 @institute=Univ Utrecht NL/DANS
 @language=ara
 @name=fusus
@@ -13,32 +11,13 @@
 @researcher=Cornelis van Lit
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikam
-@valueType=int
+@valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-11-06T11:41:18Z
+@dateWritten=2021-11-06T11:42:39Z
 
-49609	1
-2
-3
-4
-5
-6
-7
-8
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-27
+1-40271	word
+40272-40451	block
+40452-43671	line
+43672-43851	page
+43852-44026	sentence
+44027-44206	stripe

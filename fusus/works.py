@@ -129,7 +129,7 @@ WORKS = dict(
         ),
         source=dict(
             dir="fusust-text-laboratory",
-            file="AfifiCleaned.csv",
+            file="AfifiTweaked.csv",
         ),
         dest="tf/Afifi",
         toc=False,

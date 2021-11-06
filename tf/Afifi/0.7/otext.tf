@@ -1,9 +1,11 @@
-@node
+@config
 @author=Ibn Arabi
 @converters=Cornelis van Lit, Dirk Roorda (Text-Fabric)
-@description=sequence number of a proper content piece
-@editor=Lakhnawi
-@format=number
+@editor=Afifi
+@fmt:text-orig-full={letters}{punc}
+@fmt:text-orig-nice={lettersn}{punca}
+@fmt:text-orig-plain={lettersp}{punca}
+@fmt:text-orig-trans={letterst}{punca}
 @institute=Univ Utrecht NL/DANS
 @language=ara
 @name=fusus
@@ -11,34 +13,10 @@
 @project=Fusus
 @published=pdf, personal communication
 @researcher=Cornelis van Lit
+@sectionFeatures=n,b,ln
+@sectionTypes=page,block,line
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikam
-@valueType=int
 @writtenBy=Text-Fabric
-@dateWritten=2021-11-06T11:41:18Z
+@dateWritten=2021-11-06T11:42:39Z
 
-49609	1
-2
-3
-4
-5
-6
-7
-8
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-27
