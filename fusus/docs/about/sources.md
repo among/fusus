@@ -23,7 +23,7 @@ All results obtained from these source materials are publicly available.
 The seminal work is the Fusus Al Hikam (Bezels of Wisdom) by 
 [Ibn Arabi 1165-1240](https://en.wikipedia.org/wiki/Ibn_Arabi).
 
-We use two editions, by Lakhnawi and by Affifi.
+We use two editions, by Lakhnawi and by Afifi.
 
 ## Lakhnawi edition
 
@@ -40,13 +40,13 @@ The pdf that we worked from is not in the repository, but the results are in the
 The Text-Fabric result is in the *tf/fusus/Lakhnawi* directory, where versioned releases of the
 tf data reside.
 
-## Affifi edition
+## Afifi edition
 
 Cornelis obtained a pdf with the text as page images in it.
 We have used the fusus pipeline to extract the full text involving OCR.
 
 The pdf that we worked from is not in the repository, but the results are in the
-*ur/Affifi* directory.
+*ur/Afifi* directory.
 
 # Commentaries
 

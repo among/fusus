@@ -26,8 +26,8 @@
 
 * [do example](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/do.ipynb)
   Run the pipeline in a notebook on the examples;
-* [do Affifi](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Affifi/do.ipynb)
-  Run the pipeline in a notebook on the Affifi edition of the Fusus;
+* [do Afifi](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/Afifi/do.ipynb)
+  Run the pipeline in a notebook on the Afifi edition of the Fusus;
 * [inspect](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/inspect.ipynb)
   Inspect intermediate results in a notebook.
 * [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)

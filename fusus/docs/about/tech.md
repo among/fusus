@@ -637,9 +637,9 @@ If the data comes from the pipe line, we do not have the *column, span, directio
 These are regions within the line, based on the detection of big spaces and the occurrence
 of unicode characters in ltr and rtl scripts.
 
-This is the start of the TSV for Affifi:
+This is the start of the TSV for Afifi:
 
-![affifitsv](../images/affifitsv.png)
+![afifitsv](../images/afifitsv.png)
 
 If the data comes from text-extraction, we do not have the *stripe, block* fields,
 which come from pre-ocr layout detection, and we also do not have a *confidence* field.

@@ -75,9 +75,9 @@ Each word occupies exactly one line in the TSV file, with the following fields:
 
 ### Example `(P)`
 
-The start of the Affifi TSV:
+The start of the Afifi TSV:
 
-![affifitsv](images/affifitsv.png)
+![afifitsv](images/afifitsv.png)
 
 ### Example `(T)`
 
@@ -104,7 +104,7 @@ python3 -m fusus.convert tsv fususa
 python3 -m fusus.convert tsv fususl
 ```
 
-This will run the OCR pipeline for the Affifi/Lakhnawi editions respectively,
+This will run the OCR pipeline for the Afifi/Lakhnawi editions respectively,
 and deliver TSV data as result;
 
 ---
@@ -115,7 +115,7 @@ python3 -m fusus.convert tf fususl 0.5
 ```
 
 This will convert the TSV data to TF and deliver the tf files in version 0.5,
-for the Affifi and Lakhnawi editions resepctively.
+for the Afifi and Lakhnawi editions resepctively.
 
 ---
 
@@ -165,7 +165,7 @@ python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
 source      : a work (given as keyword or as path to its work directory)
               Examples:
                 fususl (Fusus Al Hikam in Lakhnawi edition)
-                fususa (Fusus Al Hikam in Affifi edition)
+                fususa (Fusus Al Hikam in Afifi edition)
                 any commentary by its keyword
                 ~/github/myorg/myrepo/mydata
                 mydir/mysubdir
