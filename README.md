@@ -26,7 +26,7 @@ from where the text material can be processed further.
   and storing them in a designated directory;
 * column layout and line boundaries are detected prior to OCRing;
 * individual lines will be passed to the OCR engine, which is Kraken using a model trained
-  on many printed Arabic books, see [model](https://among.github.io/fusus/about/model.html);
+  on many printed Arabic books, see [model](https://among.github.io/fusus/fusus/about/model.html);
 * the results are stored in tab-separated files, retaining boundary boxes and confidences;
 * proofing pages can be generated for manually checking the OCR results;
 * the OCR results of each book are composed into Text-Fabric datasets.
