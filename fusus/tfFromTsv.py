@@ -335,6 +335,7 @@ def convert(source, ocred, pages, versionTf):
     VERSION_TF = versionTf
     SEP = workInfo["sep"]
     SKIPCOL = workInfo.get("skipcol", None)
+    MERGED = workInfo.get("merged", False)
     EXTRA = workInfo.get("extra", False)
 
     cv = CV(Fabric(locations=dest))

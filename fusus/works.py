@@ -118,6 +118,32 @@ WORKS = dict(
         extra=True,
         skipcol=11,
     ),
+    fusus=dict(
+        meta=dict(
+            name="fusus",
+            title="Fusus Al Hikam",
+            author="Ibn Arabi",
+            editor="Lakhnawi and Afifi (merged with diff info)",
+            published="pdf, personal communication",
+            period="1165-1240",
+        ),
+        source=dict(
+            dir="ur/Fusus",
+            file="LFmergedAF.tsv",
+        ),
+        sourceToc=dict(
+            dir="ur/Lakhnawi",
+            file="allpages.tsv",
+            sep="\t",
+        ),
+        dest="tf/Fusus",
+        toc=True,
+        ocred=False,
+        sep=",",
+        extra=True,
+        skipcol=11,
+        merged=True,
+    ),
     fususa=dict(
         meta=dict(
             name="fusus",

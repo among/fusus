@@ -112,22 +112,36 @@ and deliver TSV data as result;
 ``` sh
 python3 -m fusus.convert tf fususa 0.5
 python3 -m fusus.convert tf fususl 0.5
+python3 -m fusus.convert tf fusus 0.5
 ```
 
 This will convert the TSV data to TF and deliver the tf files in version 0.5,
-for the Afifi and Lakhnawi editions resepctively.
+for the Afifi (fususa) and Lakhnawi (fusul) editions or for the
+combined work (fusus).
+In order to combine fususa and fususl run the `combine` task, see below.
+
 
 ---
 
 ``` sh
 python3 -m fusus.convert tf fususa 0.5 loadonly
 python3 -m fusus.convert tf fususl 0.5 loadonly
+python3 -m fusus.convert tf fusus 0.5 loadonly
 ```
 
 This will load the TF data in version 0.5.
 The first time it loads, some extra computations will be performed, and
 a binary version of the tf files will be generated, which will be used for
 subsequent use by Text-Fabric.
+
+---
+
+``` sh
+python3 -m fusus.convert combine fusus 0.5
+```
+
+This will combine the data of fususl and fususl (both version 0.5),
+into a tsv file called fusus, with version 0.5
 
 ---
 
@@ -144,11 +158,12 @@ import re
 
 from tf.core.helpers import unexpanduser
 
-from .works import getFile, getWorkDir, getTfDest
+from .works import getFile, getWorkDir, getTfDest, WORKS
 from .lib import parseNums
 from .book import Book
 from .lakhnawi import Lakhnawi
 from .tfFromTsv import convert, loadTf
+from .align import readEditions, doDiffs
 
 
 __pdoc__ = {}
@@ -158,6 +173,7 @@ Convert tsv data files to TF and optionally loads the TF.
 
 python3 -m fusus.convert --help
 python3 -m fusus.convert tsv source ocr|noocr pages
+python3 -m fusus.convert combine source ocr|noocr pages
 python3 -m fusus.convert tf source ocr|noocr pages versiontf [load] [loadonly]
 
 --help: print this text and exit
@@ -166,9 +182,13 @@ source      : a work (given as keyword or as path to its work directory)
               Examples:
                 fususl (Fusus Al Hikam in Lakhnawi edition)
                 fususa (Fusus Al Hikam in Afifi edition)
+                fusus (combination of fususl and fususa)
                 any commentary by its keyword
                 ~/github/myorg/myrepo/mydata
                 mydir/mysubdir
+
+              NB: when `fusus` is passed, it is the destination,
+              and the sources are fususa and fususl.
 
 pages       : page specification, only process these pages; default: all pages
               Examples:
@@ -300,7 +320,7 @@ def makeTsv(source=None, ocred=None, pages=None):
     Returns
     -------
     nothing
-        It will run the appripriate pipeline and generate tsv in the appropriate
+        It will run the appropriate pipeline and generate tsv in the appropriate
         locations.
     """
 
@@ -329,7 +349,92 @@ def makeTsv(source=None, ocred=None, pages=None):
         Lw.close()
 
 
-def loadTsv(source=None, ocred=None, pages=None):
+def combineTsv(versionTf=None, source=None, ocred=None, pages=None):
+    CASES = {
+        3072: (5, 1),
+        4597: (1, 1),
+        4598: (1, 1),
+        4600: (0, 4),
+        8273: (4, 0),
+        13539: (2, 1),
+        14878: (1, 1),
+        14879: (1, 0),
+        14880: (12, 0),
+        16198: (1, 1),
+        16199: (1, 1),
+        16200: (1, 1),
+        16201: (1, 1),
+        16212: (1, 1),
+        18029: (6, 1),
+        22762: (1, 0),
+        22763: (1, 1),
+        22764: (1, 1),
+    }
+    print(f"Aligning LK with AF for version {versionTf}")
+    state = readEditions(versionTf, CASES)
+    doDiffs()
+    print("Merging AF into LK")
+    alignment = state["alignment"]
+    (headLK, rowsLK) = loadTsv("fususl", raw=True)
+    (headAF, rowsAF) = loadTsv("fususa", raw=True)
+    rowIndexLK = {i + 1: row for (i, row) in enumerate(rowsLK)}
+    rowIndexAF = {i + 1: row for (i, row) in enumerate(rowsAF)}
+
+    head = "\t".join((
+        *headLK[0:5],
+        *headLK[9:],
+        "slot_lk",
+        "combine_lk",
+        "editdistance",
+        "ratio",
+        "combine_af",
+        "slot_af",
+        *(f"{h}_af" for h in headAF[0:4]),
+        *(f"{h}_af" for h in headAF[9:]),
+    ))
+    prevLocLK = ("0", "0", "0", "0", "r")
+    prevLocAF = ("0", "0", "", "0")
+
+    emptyRestLK = ("", "", "", "", "", "", "", "", "", "", "")
+    emptyRestAF = ("", "", "", "")
+
+    (destFile, ocred) = getFile("fusus", False)
+    if not destFile:
+        return False
+
+    print(f"Writing result to {destFile}")
+    with open(destFile, "w") as fh:
+        fh.write(f"{head}\n")
+        for (iLK, left, d, r, right, iAF) in alignment:
+            if iLK:
+                row = rowIndexLK[iLK]
+                prevLocLK = tuple(row[0:5])
+                rowLK = (*prevLocLK, *row[9:])
+            else:
+                rowLK = (*prevLocLK, *emptyRestLK)
+
+            if iAF:
+                row = rowIndexAF[iAF]
+                prevLocAF = tuple(row[0:4])
+                rowAF = (*prevLocAF, *row[9:])
+            else:
+                rowAF = (*prevLocAF, *emptyRestAF)
+            row = "\t".join(
+                (
+                    *rowLK,
+                    str(iLK),
+                    str(left),
+                    str(d),
+                    f"{r:3.1f}",
+                    str(right),
+                    str(iAF),
+                    *rowAF,
+                )
+            )
+            fh.write(f"{row}\n")
+
+
+def loadTsv(source=None, ocred=None, pages=None, raw=False):
     """Load a tsv file into memory.
 
     The tsv file either comes from a known work or is specified by a path.
@@ -351,6 +456,8 @@ def loadTsv(source=None, ocred=None, pages=None):
     source: string, optional `None`
         The key of a known work, see `fusus.works.WORKS`.
         Or the path to the tsv file.
+    raw: boolean, optional False
+        If True, the lines are split into fields, but no type conversion is done
     ocred: string
         Whether the tsv file comes from the OCR pipeline.
         Not needed in case of a known work.
@@ -372,39 +479,40 @@ def loadTsv(source=None, ocred=None, pages=None):
     if sourceFile is None:
         return ((), ())
 
+    sep = WORKS[source].get("sep", "\t")
     pageNums = parseNums(pages)
 
     data = []
 
     print(f"Loading TSV data from {unexpanduser(sourceFile)}")
     with open(sourceFile) as fh:
-        head = tuple(next(fh).rstrip("\n").split("\t"))
+        head = tuple(next(fh).rstrip("\n").split(sep))
 
         for line in fh:
-            row = tuple(line.rstrip("\n").split("\t"))
-            page = int(row[0])
-            if pageNums is not None and page not in pages:
-                continue
+            row = tuple(line.rstrip("\n").split(sep))
+            if not raw:
+                page = int(row[0])
+                if pageNums is not None and page not in pages:
+                    continue
 
-            if ocred:
-                row = (
-                    page,
-                    int(row[1]),
-                    row[2],
-                    int(row[3]),
-                    *(None if c == "?" else int(c) for c in row[4:8]),
-                    int(row[8]),
-                    *row[9:11],
-                )
-            else:
-                row = (
-                    page,
-                    *(int(c) for c in row[1:4]),
-                    row[4],
-                    *(None if c == "?" else int(c) for c in row[5:9]),
-                    *row[9:11],
-                )
-
+                if ocred:
+                    row = (
+                        page,
+                        int(row[1]),
+                        row[2],
+                        int(row[3]),
+                        *(None if c == "?" else int(c) for c in row[4:8]),
+                        int(row[8]),
+                        *row[9:11],
+                    )
+                else:
+                    row = (
+                        page,
+                        *(int(c) for c in row[1:4]),
+                        row[4],
+                        *(None if c == "?" else int(c) for c in row[5:9]),
+                        *row[9:11],
+                    )
             data.append(row)
 
     return (head, tuple(data))
@@ -454,7 +562,7 @@ def parseArgs(args):
             good = False
 
     for arg in args:
-        if arg in {"tf", "tsv"}:
+        if arg in {"tf", "tsv", "combine"}:
             setArg("command", arg)
         elif arg == "load":
             setArg("load", True)
@@ -479,10 +587,18 @@ def parseArgs(args):
             print("No command specified (tf or tsv)")
             good = False
         if passed["source"] is None:
-            print(
-                "No source specified (fususl, fususa, commentary_name, directory_path)"
-            )
+            if passed["command"] == "combine":
+                print("No destination specfified (fusus)")
+            else:
+                print(
+                    "No source specified "
+                    "(fususl, fususa, commentary_name, directory_path)"
+                )
             good = False
+        if passed["command"] == "combine":
+            if passed["versionTf"] is None:
+                print("No TSV version specified (e.g. 0.3)")
+                good = False
         if passed["command"] == "tf":
             if passed["versionTf"] is None:
                 print("No TF version specified (e.g. 0.3)")
@@ -492,7 +608,7 @@ def parseArgs(args):
             if passed["loadOnly"] is None:
                 passed["loadOnly"] = False
         else:
-            for name in ("versionTf", "load", "loadOnly"):
+            for name in ("load", "loadOnly"):
                 if passed[name] is not None:
                     print(f"Illegal argument `{passed[name]}` for {name}")
                     good = False
@@ -517,6 +633,9 @@ def main():
     if passed["command"] == "tsv":
         print("TSV to TF converter for the Fusus project")
         return makeTsv(**kwargs)
+    elif passed["command"] == "combine":
+        print("TSV combiner of fususa and fususl")
+        return combineTsv(**kwargs)
     elif passed["command"] == "tf":
         print(f"TF  target version = {passed['versionTf']}")
         return makeTf(**kwargs)
