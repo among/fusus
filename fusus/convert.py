@@ -382,21 +382,23 @@ def combineTsv(versionTf=None, source=None, ocred=None, pages=None):
 
     head = "\t".join((
         *headLK[0:5],
-        *headLK[9:],
+        *headLK[9:11],
+        *headLK[12:],
         "slot_lk",
         "combine_lk",
         "editdistance",
         "ratio",
         "combine_af",
         "slot_af",
-        *(f"{h}_af" for h in headAF[0:4]),
+        f"{headAF[0]}_af",
+        f"{headAF[3]}_af",
         *(f"{h}_af" for h in headAF[9:]),
     ))
     prevLocLK = ("0", "0", "0", "0", "r")
-    prevLocAF = ("0", "0", "", "0")
+    prevLocAF = ("0", "0")
 
-    emptyRestLK = ("", "", "", "", "", "", "", "", "", "", "")
-    emptyRestAF = ("", "", "", "")
+    emptyRestLK = ("", "", "", "", "", "", "", "", "", "")
+    emptyRestAF = ("", "", "")
 
     (destFile, ocred) = getFile("fusus", False)
     if not destFile:
@@ -409,13 +411,13 @@ def combineTsv(versionTf=None, source=None, ocred=None, pages=None):
             if iLK:
                 row = rowIndexLK[iLK]
                 prevLocLK = tuple(row[0:5])
-                rowLK = (*prevLocLK, *row[9:])
+                rowLK = (*prevLocLK, *row[9:11], *row[12:])
             else:
                 rowLK = (*prevLocLK, *emptyRestLK)
 
             if iAF:
                 row = rowIndexAF[iAF]
-                prevLocAF = tuple(row[0:4])
+                prevLocAF = (row[0], row[3])
                 rowAF = (*prevLocAF, *row[9:])
             else:
                 rowAF = (*prevLocAF, *emptyRestAF)
@@ -584,7 +586,7 @@ def parseArgs(args):
 
     if good:
         if passed["command"] is None:
-            print("No command specified (tf or tsv)")
+            print("No command specified (tf or tsv or combine)")
             good = False
         if passed["source"] is None:
             if passed["command"] == "combine":
@@ -614,6 +616,7 @@ def parseArgs(args):
                     good = False
                 del passed[name]
 
+    print(f"{good=} {passed=}")
     return (good, passed)
 
 

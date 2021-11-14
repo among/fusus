@@ -23,7 +23,7 @@ from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
 from .char import UChar
-from .works import WORKS, getFile, getTfDest
+from .works import BASE, WORKS, getFile, getTfDest
 from .lib import parseNums
 
 
@@ -63,6 +63,13 @@ otext[True] = {
     "sectionFeatures": "n,b,ln",
     "sectionTypes": "page,block,line",
 }
+otext["extra"] = {}
+otext["merged"] = {
+    "fmt:text-afifi-full": "{letters_af}{punc_af}",
+    "fmt:text-afifi-plain": "{lettersp_af}{punca_af}",
+    "fmt:text-afifi-nice": "{lettersn_af}{punca_af}",
+    "fmt:text-afifi-trans": "{letterst_af}{punca_af}",
+}
 
 intFeatures = {}
 intFeatures[None] = set(
@@ -74,6 +81,16 @@ intFeatures[None] = set(
 intFeatures[False] = {"np"}
 intFeatures[True] = set()
 intFeatures["extra"] = {"poetryverse", "fass"}
+intFeatures["merged"] = {
+    "slot_lk",
+    "slot_af",
+    "combine_lk",
+    "combine_af",
+    "editdistance",
+    "ratio",
+    "page_af",
+    "line_af",
+}
 
 featureMeta = {}
 
@@ -119,6 +136,103 @@ featureMeta[None] = {
     "punca": {
         "description": "punctuation and/or space immediately after a word",
         "format": "string, ascii",
+    },
+}
+
+featureMeta["merged"] = {
+    "letters_af": {
+        "description": "text string of a word without punctuation (Afifi edition)",
+        "format": "string",
+    },
+    "lettersn_af": {
+        "description": (
+            "text string of a word in latin transcription (beta code)"
+            " (Afifi edition)"
+        ),
+        "format": "string, latin with diacritics",
+    },
+    "lettersp_af": {
+        "description": (
+            "text string of a word in ascii transcription (beta code)"
+            " (Afifi edition)"
+        ),
+        "format": "string, ascii",
+    },
+    "letterst_af": {
+        "description": (
+            "text string of a word in romanized transcription"
+            " (Library of Congress)"
+            " (Afifi edition)"
+        ),
+        "format": "string, latin with diacritics",
+    },
+    "punc_af": {
+        "description": (
+            "punctuation and/or space immediately after a word" " (Afifi edition)"
+        ),
+        "format": "string",
+    },
+    "punca_af": {
+        "description": (
+            "punctuation and/or space immediately after a word" " (Afifi edition)"
+        ),
+        "format": "string, ascii",
+    },
+    "slot_lk": {
+        "description": (
+            "slot number in the raw fususl dataset, "
+            "which is obtained from reverse-engineering the Lakhnawi pdf"
+        ),
+        "format": "integer",
+    },
+    "slot_af": {
+        "description": (
+            "slot number in the raw fususa dataset, "
+            "which is obtained from ocr-ing the Afifi page images"
+        ),
+        "format": "integer",
+    },
+    "combine_lk": {
+        "description": (
+            "number of consecutive words in the Lakhnawi text"
+            "that form an alignment entry with 1 or more words in the Afifi text"
+        ),
+        "format": "integer",
+    },
+    "combine_af": {
+        "description": (
+            "number of consecutive words in the Afifi text"
+            "that form an alignment entry with 1 or more words in the Lakhnawi text"
+        ),
+        "format": "integer",
+    },
+    "editdistance": {
+        "description": (
+            "edit distance between the Lakhnawi part in an alignment entry"
+            "and its Afifi counterpart"
+        ),
+        "format": "integer, number of edits between the counterparts",
+    },
+    "ratio": {
+        "description": (
+            "ratio (=similarity) between the Lakhnawi part in an alignment entry"
+            "and its Afifi counterpart"
+        ),
+        "format": "integer, scale 1 to 10, higher is more similar",
+    },
+    "page_af": {
+        "description": (
+            "page number in the raw fususa dataset, "
+            "which is obtained from ocr-ing the Afifi page images"
+        ),
+        "format": "integer",
+    },
+    "line_af": {
+        "description": (
+            "line number in the raw fususa dataset, "
+            "which is obtained from ocr-ing the Afifi page images"
+        ),
+        "format": "integer",
     },
 }
 
@@ -320,6 +434,7 @@ def convert(source, ocred, pages, versionTf):
     global VERSION_TF
     global SEP
     global SKIPCOL
+    global MERGED
     global EXTRA
 
     U = UChar()
@@ -340,15 +455,29 @@ def convert(source, ocred, pages, versionTf):
 
     cv = CV(Fabric(locations=dest))
 
+    thisFeatureMeta = (
+        featureMeta[None]
+        | featureMeta[OCRED]
+        | (featureMeta["extra"] if EXTRA else {})
+        | (featureMeta["merged"] if MERGED else {})
+    )
+    if MERGED:
+        for feat in ("boxl", "boxt", "boxr", "boxb"):
+            del thisFeatureMeta[feat]
+
     return cv.walk(
         director,
         slotType,
-        otext=otext[None] | otext[OCRED],
+        otext=otext[None]
+        | otext[OCRED]
+        | (otext["extra"] if EXTRA else {})
+        | (otext["merged"] if MERGED else {}),
         generic=generic(source),
-        intFeatures=intFeatures[None] | intFeatures[OCRED],
-        featureMeta=featureMeta[None]
-        | featureMeta[OCRED]
-        | (featureMeta["extra"] if EXTRA else {}),
+        intFeatures=intFeatures[None]
+        | intFeatures[OCRED]
+        | (intFeatures["extra"] if EXTRA else {})
+        | (intFeatures["merged"] if MERGED else {}),
+        featureMeta=thisFeatureMeta,
         generateTf=True,
     )
 
@@ -372,7 +501,7 @@ def director(cv):
     prev = [None, None, None, None]
     nSec = len(prev)
 
-    def getData(dataFile, sep, extra):
+    def getData(dataFile, sep, extra, merged):
         data = []
 
         with open(dataFile) as fh:
@@ -395,6 +524,29 @@ def director(cv):
                         int(row[8]),
                         *row[9:11],
                     )
+                elif merged:
+                    row = (
+                        page,
+                        int(row[1]),
+                        int(row[2]),
+                        int(row[3]),
+                        row[4],
+                        *row[6:9],
+                        row[5],
+                        *row[9:11],
+                        int(row[11]) if row[11] else None,
+                        int(row[12]) if row[12] else None,
+                        *row[13:15],
+                        int(row[15]) if row[15] else None,
+                        int(row[16]) if row[16] else None,
+                        int(row[17]) if row[17] else None,
+                        int(round(float(row[18]) * 10)) if row[18] else None,
+                        int(row[19]) if row[19] else None,
+                        int(row[20]) if row[20] else None,
+                        int(row[21]),
+                        int(row[22]),
+                        *row[23:],
+                    )
                 else:
                     tail = (*row[10:13], row[9], *row[13:]) if extra else row[9:11]
                     row = (
@@ -408,7 +560,7 @@ def director(cv):
                 data.append(row)
         return data
 
-    data = getData(SRC_FILE, SEP, EXTRA)
+    data = getData(SRC_FILE, SEP, EXTRA, MERGED)
 
     boxL = nSec if OCRED else nSec + 1
 
@@ -417,7 +569,7 @@ def director(cv):
         if TOC_SOURCE:
             tocFile = f"{TOC_SOURCE['dir']}/{TOC_SOURCE['file']}"
             sep = TOC_SOURCE["sep"]
-            tocData = getData(tocFile, sep, False)
+            tocData = getData(f"{BASE}/{tocFile}", sep, False, False)
         toc = getToc(tocData)
         curPiece = cv.node("piece")
         cv.feature(curPiece, n=1, title="front")
@@ -464,8 +616,8 @@ def director(cv):
         for i in range(nSec):
             prev[i] = fields[i]
 
-        lettersIndex = 9 if EXTRA else -2
-        puncIndex = 10 if EXTRA else -1
+        lettersIndex = 5 if MERGED else 9 if EXTRA else -2
+        puncIndex = 6 if MERGED else 10 if EXTRA else -1
         letters = fields[lettersIndex]
         punc = fields[puncIndex]
 
@@ -481,12 +633,16 @@ def director(cv):
         punca = Tr.asciiFromArabic(punc) if punc else ""
 
         s = cv.slot()
+        if not MERGED:
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+            )
         cv.feature(
             s,
-            boxl=fields[boxL],
-            boxt=fields[boxL + 1],
-            boxr=fields[boxL + 2],
-            boxb=fields[boxL + 3],
             letters=letters,
             lettersp=lettersp,
             lettersn=lettersn,
@@ -514,6 +670,32 @@ def director(cv):
             if fields[18]:
                 extraData["quran"] = fields[18]
             cv.feature(s, **extraData)
+
+        if MERGED:
+            letters_af = fields[-2]
+            punc_af = fields[-1]
+
+            lettersp_af = Tr.asciiFromArabic(letters_af) if letters_af else ""
+            lettersn_af = Tr.latinFromArabic(letters_af) if letters_af else ""
+            letterst_af = Tr.standardFromArabic(letters_af) if letters_af else ""
+            punca_af = Tr.asciiFromArabic(punc_af) if punc_af else ""
+            cv.feature(
+                s,
+                letters_af=letters_af,
+                lettersp_af=lettersp_af,
+                lettersn_af=lettersn_af,
+                letterst_af=letterst_af,
+                punc_af=punc_af,
+                punca_af=punca_af,
+                slot_lk=fields[15],
+                combine_lk=fields[16],
+                editdistance=fields[17],
+                ratio=fields[18],
+                combine_af=fields[19],
+                slot_af=fields[20],
+                page_af=fields[21],
+                line_af=fields[22],
+            )
 
         if any(c in stops for c in punc):
             cv.terminate(curSentence)

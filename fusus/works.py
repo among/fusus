@@ -139,9 +139,8 @@ WORKS = dict(
         dest="tf/Fusus",
         toc=True,
         ocred=False,
-        sep=",",
+        sep="\t",
         extra=True,
-        skipcol=11,
         merged=True,
     ),
     fususa=dict(
