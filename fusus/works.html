@@ -25,7 +25,7 @@
 <p>The books of the Fusus project are in the directory <code>ur</code> of this repo.</p>
 <p>There you find subdirectories corresponding to</p>
 <ul>
-<li><strong>Affifi</strong> The Fusus Al Hikam in the Affifi edition.</li>
+<li><strong>Afifi</strong> The Fusus Al Hikam in the Afifi edition.</li>
 <li><strong>Lakhnawi</strong> The Fusus Al Hikam in the Lakhnawi edition.
 The source is a textual PDF, not in the online repo, from which
 structured data is derived by means of a specific workflow,
@@ -52,7 +52,7 @@ or, on the command line, pass <code>noocr</code>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/works.py#L0-L262" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/works.py#L0-L332" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Registry of sources.
 
@@ -62,7 +62,7 @@ The books of the Fusus project are in the directory `ur` of this repo.
 
 There you find subdirectories corresponding to
 
-* **Affifi** The Fusus Al Hikam in the Affifi edition.
+* **Afifi** The Fusus Al Hikam in the Afifi edition.
 * **Lakhnawi** The Fusus Al Hikam in the Lakhnawi edition.
   The source is a textual PDF, not in the online repo, from which
   structured data is derived by means of a specific workflow,
@@ -113,7 +113,7 @@ the `fusus.book.Book` and `fusus.lakhnawi.Lakhnawi` objects.
 &#34;&#34;&#34;
 
 WORKS = dict(
-    fususl=dict(
+    fususlur=dict(
         meta=dict(
             name=&#34;fusus&#34;,
             title=&#34;Fusus Al Hikam&#34;,
@@ -129,23 +129,93 @@ WORKS = dict(
         dest=&#34;tf/Lakhnawi&#34;,
         toc=True,
         ocred=False,
+        sep=&#34;\t&#34;,
+    ),
+    fususaur=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Afifi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Afifi&#34;,
+            file=&#34;allpages.tsv&#34;,
+        ),
+        dest=&#34;tf/Afifi&#34;,
+        toc=False,
+        ocred=True,
+        sep=&#34;\t&#34;,
+    ),
+    fususl=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Lakhnawi&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;fusust-text-laboratory&#34;,
+            file=&#34;fusus.csv&#34;,
+        ),
+        sourceToc=dict(
+            dir=&#34;ur/Lakhnawi&#34;,
+            file=&#34;allpages.tsv&#34;,
+            sep=&#34;\t&#34;,
+        ),
+        dest=&#34;tf/Lakhnawi&#34;,
+        toc=True,
+        ocred=False,
+        sep=&#34;,&#34;,
+        extra=True,
+        skipcol=11,
+    ),
+    fusus=dict(
+        meta=dict(
+            name=&#34;fusus&#34;,
+            title=&#34;Fusus Al Hikam&#34;,
+            author=&#34;Ibn Arabi&#34;,
+            editor=&#34;Lakhnawi and Afifi (merged with diff info)&#34;,
+            published=&#34;pdf, personal communication&#34;,
+            period=&#34;1165-1240&#34;,
+        ),
+        source=dict(
+            dir=&#34;ur/Fusus&#34;,
+            file=&#34;LFmergedAF.tsv&#34;,
+        ),
+        sourceToc=dict(
+            dir=&#34;ur/Lakhnawi&#34;,
+            file=&#34;allpages.tsv&#34;,
+            sep=&#34;\t&#34;,
+        ),
+        dest=&#34;tf/Fusus&#34;,
+        toc=True,
+        ocred=False,
+        sep=&#34;\t&#34;,
+        extra=True,
+        merged=True,
     ),
     fususa=dict(
         meta=dict(
             name=&#34;fusus&#34;,
             title=&#34;Fusus Al Hikam&#34;,
             author=&#34;Ibn Arabi&#34;,
-            editor=&#34;Affifi&#34;,
+            editor=&#34;Afifi&#34;,
             published=&#34;pdf, personal communication&#34;,
             period=&#34;1165-1240&#34;,
         ),
         source=dict(
-            dir=&#34;ur/Affifi&#34;,
-            file=&#34;allpages.tsv&#34;,
+            dir=&#34;fusust-text-laboratory&#34;,
+            file=&#34;AfifiTweaked.csv&#34;,
         ),
-        dest=&#34;tf/Affifi&#34;,
+        dest=&#34;tf/Afifi&#34;,
         toc=False,
         ocred=True,
+        sep=&#34;,&#34;,
     ),
 )
 &#34;&#34;&#34;Metadata of works in the pipeline.
@@ -172,7 +242,7 @@ They are given a keyword, and under that keyword are these fields:
   So it will not work for other works that reside in a textual PDF.
 
 !!! hint &#34;fususa&#34;
-    The Affifi page images are in the `in` subdirectory of its work
+    The Afifi page images are in the `in` subdirectory of its work
     directory as specified in `WORKS`.
 
 !!! caution &#34;fususl&#34;
@@ -358,7 +428,7 @@ So it will not work for other works that reside in a textual PDF.</li>
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">fususa</p>
-<p>The Affifi page images are in the <code>in</code> subdirectory of its work
+<p>The Afifi page images are in the <code>in</code> subdirectory of its work
 directory as specified in <code><a title="fusus.works.WORKS" href="#fusus.works.WORKS">WORKS</a></code>.</p>
 </div>
 <div class="admonition caution">
@@ -411,7 +481,7 @@ ocr status is returned, otherwise None.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/works.py#L191-L234" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/works.py#L261-L304" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getFile(source, ocred):
     &#34;&#34;&#34;Resolve a work data file location, given by key of directory.
@@ -481,7 +551,7 @@ its versioned tf data directory is returned.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/works.py#L237-L263" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/works.py#L307-L333" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getTfDest(source, versionTf):
     &#34;&#34;&#34;Resolve a work tf directory, given by key of directory.
@@ -538,7 +608,7 @@ ocr status is returned, otherwise None.
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/works.py#L139-L188" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/works.py#L209-L258" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getWorkDir(source, ocred):
     &#34;&#34;&#34;Resolve a work location, given by key of directory.

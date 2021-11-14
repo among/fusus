@@ -35,7 +35,7 @@ textual extraction of the Lakhnawi PDF, but they share most fields.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L0-L447" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L0-L744" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Convert TSV data to Text-Fabric.
 
@@ -62,7 +62,7 @@ from tf.convert.walker import CV
 from tf.writing.transcription import Transcription as Tr
 
 from .char import UChar
-from .works import WORKS, getFile, getTfDest
+from .works import BASE, WORKS, getFile, getTfDest
 from .lib import parseNums
 
 
@@ -88,19 +88,29 @@ def generic(source):
 
 
 otext = {}
-otext[None] = {
-    &#34;fmt:text-orig-full&#34;: &#34;{letters}{punc}&#34;,
-    &#34;fmt:text-orig-plain&#34;: &#34;{lettersp}{punca}&#34;,
-    &#34;fmt:text-orig-nice&#34;: &#34;{lettersn}{punca}&#34;,
-    &#34;fmt:text-orig-trans&#34;: &#34;{letterst}{punca}&#34;,
-}
+otext[None] = {}
 otext[False] = {
+    &#34;fmt:text-orig-full&#34;: &#34;{letters}{punc} &#34;,
+    &#34;fmt:text-orig-plain&#34;: &#34;{lettersp}{punca} &#34;,
+    &#34;fmt:text-orig-nice&#34;: &#34;{lettersn}{punca} &#34;,
+    &#34;fmt:text-orig-trans&#34;: &#34;{letterst}{punca} &#34;,
     &#34;sectionFeatures&#34;: &#34;n,n,ln&#34;,
     &#34;sectionTypes&#34;: &#34;piece,page,line&#34;,
 }
 otext[True] = {
+    &#34;fmt:text-orig-full&#34;: &#34;{letters}{punc}&#34;,
+    &#34;fmt:text-orig-plain&#34;: &#34;{lettersp}{punca}&#34;,
+    &#34;fmt:text-orig-nice&#34;: &#34;{lettersn}{punca}&#34;,
+    &#34;fmt:text-orig-trans&#34;: &#34;{letterst}{punca}&#34;,
     &#34;sectionFeatures&#34;: &#34;n,b,ln&#34;,
     &#34;sectionTypes&#34;: &#34;page,block,line&#34;,
+}
+otext[&#34;extra&#34;] = {}
+otext[&#34;merged&#34;] = {
+    &#34;fmt:text-afifi-full&#34;: &#34;{letters_af}{punc_af}&#34;,
+    &#34;fmt:text-afifi-plain&#34;: &#34;{lettersp_af}{punca_af}&#34;,
+    &#34;fmt:text-afifi-nice&#34;: &#34;{lettersn_af}{punca_af}&#34;,
+    &#34;fmt:text-afifi-trans&#34;: &#34;{letterst_af}{punca_af}&#34;,
 }
 
 intFeatures = {}
@@ -112,6 +122,17 @@ intFeatures[None] = set(
 )
 intFeatures[False] = {&#34;np&#34;}
 intFeatures[True] = set()
+intFeatures[&#34;extra&#34;] = {&#34;poetryverse&#34;, &#34;fass&#34;}
+intFeatures[&#34;merged&#34;] = {
+    &#34;slot_lk&#34;,
+    &#34;slot_af&#34;,
+    &#34;combine_lk&#34;,
+    &#34;combine_af&#34;,
+    &#34;editdistance&#34;,
+    &#34;ratio&#34;,
+    &#34;page_af&#34;,
+    &#34;line_af&#34;,
+}
 
 featureMeta = {}
 
@@ -160,6 +181,103 @@ featureMeta[None] = {
     },
 }
 
+featureMeta[&#34;merged&#34;] = {
+    &#34;letters_af&#34;: {
+        &#34;description&#34;: &#34;text string of a word without punctuation (Afifi edition)&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;lettersn_af&#34;: {
+        &#34;description&#34;: (
+            &#34;text string of a word in latin transcription (beta code)&#34;
+            &#34; (Afifi edition)&#34;
+        ),
+        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+    &#34;lettersp_af&#34;: {
+        &#34;description&#34;: (
+            &#34;text string of a word in ascii transcription (beta code)&#34;
+            &#34; (Afifi edition)&#34;
+        ),
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;letterst_af&#34;: {
+        &#34;description&#34;: (
+            &#34;text string of a word in romanized transcription&#34;
+            &#34; (Library of Congress)&#34;
+            &#34; (Afifi edition)&#34;
+        ),
+        &#34;format&#34;: &#34;string, latin with diacritics&#34;,
+    },
+    &#34;punc_af&#34;: {
+        &#34;description&#34;: (
+            &#34;punctuation and/or space immediately after a word&#34; &#34; (Afifi edition)&#34;
+        ),
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;punca_af&#34;: {
+        &#34;description&#34;: (
+            &#34;punctuation and/or space immediately after a word&#34; &#34; (Afifi edition)&#34;
+        ),
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;slot_lk&#34;: {
+        &#34;description&#34;: (
+            &#34;slot number in the raw fususl dataset, &#34;
+            &#34;which is obtained from reverse-engineering the Lakhnawi pdf&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+    &#34;slot_af&#34;: {
+        &#34;description&#34;: (
+            &#34;slot number in the raw fususa dataset, &#34;
+            &#34;which is obtained from ocr-ing the Afifi page images&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+    &#34;combine_lk&#34;: {
+        &#34;description&#34;: (
+            &#34;number of consecutive words in the Lakhnawi text&#34;
+            &#34;that form an alignment entry with 1 or more words in the Afifi text&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+    &#34;combine_af&#34;: {
+        &#34;description&#34;: (
+            &#34;number of consecutive words in the Afifi text&#34;
+            &#34;that form an alignment entry with 1 or more words in the Lakhnawi text&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+    &#34;editdistance&#34;: {
+        &#34;description&#34;: (
+            &#34;edit distance between the Lakhnawi part in an alignment entry&#34;
+            &#34;and its Afifi counterpart&#34;
+        ),
+        &#34;format&#34;: &#34;integer, number of edits between the counterparts&#34;,
+    },
+    &#34;ratio&#34;: {
+        &#34;description&#34;: (
+            &#34;ratio (=similarity) between the Lakhnawi part in an alignment entry&#34;
+            &#34;and its Afifi counterpart&#34;
+        ),
+        &#34;format&#34;: &#34;integer, scale 1 to 10, higher is more similar&#34;,
+    },
+    &#34;page_af&#34;: {
+        &#34;description&#34;: (
+            &#34;page number in the raw fususa dataset, &#34;
+            &#34;which is obtained from ocr-ing the Afifi page images&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+    &#34;line_af&#34;: {
+        &#34;description&#34;: (
+            &#34;line number in the raw fususa dataset, &#34;
+            &#34;which is obtained from ocr-ing the Afifi page images&#34;
+        ),
+        &#34;format&#34;: &#34;integer&#34;,
+    },
+}
+
 featureMeta[False] = {
     &#34;dir&#34;: {
         &#34;description&#34;: &#34;writing direction of a span&#34;,
@@ -204,6 +322,50 @@ featureMeta[True] = {
     },
 }
 
+featureMeta[&#34;extra&#34;] = {
+    &#34;raw&#34;: {
+        &#34;description&#34;: &#34;letters of the word straight from the pdf&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;puncb&#34;: {
+        &#34;description&#34;: &#34;punctuation immediately before a word&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;puncba&#34;: {
+        &#34;description&#34;: &#34;punctuation immediately before a word&#34;,
+        &#34;format&#34;: &#34;string, ascii&#34;,
+    },
+    &#34;qunawims&#34;: {
+        &#34;description&#34;: (
+            &#34;on which folio of the oldest manuscript, &#34;
+            &#34;penned by Qunawi himself, is this word attested?&#34;
+        ),
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;poetrymeter&#34;: {
+        &#34;description&#34;: &#34;meter in which this verse is written&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;poetryverse&#34;: {
+        &#34;description&#34;: (
+            &#34;word is start of a verse of poetry, &#34; &#34;value is the number of the verse&#34;
+        ),
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;fass&#34;: {
+        &#34;description&#34;: &#34;number of the piece (bezel) that the word belongs to&#34;,
+        &#34;format&#34;: &#34;number&#34;,
+    },
+    &#34;lwcvl&#34;: {
+        &#34;description&#34;: &#34;personal notes by Cornelis van Lit&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+    &#34;quran&#34;: {
+        &#34;description&#34;: &#34;word is part of a quran citation (sura:aya)&#34;,
+        &#34;format&#34;: &#34;string&#34;,
+    },
+}
+
 # DISTILL TABLE of CONTENTS
 
 TOC_PAGES = (4, 5)
@@ -213,6 +375,7 @@ TOC_LINE_RE = re.compile(
     ^
     ([٠-٩]+)
     ‐
+    \s*
     ([^…]+)
     …+
     ([٠-٩]+)
@@ -287,6 +450,18 @@ pageNums = None
 TYPE_MAPS = {
     False: [&#34;page&#34;, &#34;line&#34;, &#34;column&#34;, &#34;span&#34;],
     True: [&#34;page&#34;, &#34;stripe&#34;, &#34;block&#34;, &#34;line&#34;],
+    &#34;extra&#34;: [
+        &#34;short&#34;,
+        &#34;haspunct&#34;,
+        &#34;punctafter&#34;,
+        &#34;punctbefore&#34;,
+        &#34;qunawims&#34;,
+        &#34;poetrymeter&#34;,
+        &#34;poetryverse&#34;,
+        &#34;fass&#34;,
+        &#34;lwcvl&#34;,
+        &#34;quran&#34;,
+    ],
 }
 
 
@@ -295,9 +470,14 @@ def convert(source, ocred, pages, versionTf):
     global SRC_FILE
     global TYPE_MAP
     global HAS_TOC
+    global TOC_SOURCE
     global OCRED
     global U
     global VERSION_TF
+    global SEP
+    global SKIPCOL
+    global MERGED
+    global EXTRA
 
     U = UChar()
 
@@ -307,18 +487,39 @@ def convert(source, ocred, pages, versionTf):
     dest = getTfDest(source, versionTf)
     (SRC_FILE, OCRED) = getFile(source, ocred)
     HAS_TOC = workInfo.get(&#34;toc&#34;, False)
+    TOC_SOURCE = workInfo.get(&#34;sourceToc&#34;, None)
     TYPE_MAP = TYPE_MAPS[OCRED]
     VERSION_TF = versionTf
+    SEP = workInfo[&#34;sep&#34;]
+    SKIPCOL = workInfo.get(&#34;skipcol&#34;, None)
+    MERGED = workInfo.get(&#34;merged&#34;, False)
+    EXTRA = workInfo.get(&#34;extra&#34;, False)
 
     cv = CV(Fabric(locations=dest))
+
+    thisFeatureMeta = (
+        featureMeta[None]
+        | featureMeta[OCRED]
+        | (featureMeta[&#34;extra&#34;] if EXTRA else {})
+        | (featureMeta[&#34;merged&#34;] if MERGED else {})
+    )
+    if MERGED:
+        for feat in (&#34;boxl&#34;, &#34;boxt&#34;, &#34;boxr&#34;, &#34;boxb&#34;):
+            del thisFeatureMeta[feat]
 
     return cv.walk(
         director,
         slotType,
-        otext=otext[None] | otext[OCRED],
+        otext=otext[None]
+        | otext[OCRED]
+        | (otext[&#34;extra&#34;] if EXTRA else {})
+        | (otext[&#34;merged&#34;] if MERGED else {}),
         generic=generic(source),
-        intFeatures=intFeatures[None] | intFeatures[OCRED],
-        featureMeta=featureMeta[None] | featureMeta[OCRED],
+        intFeatures=intFeatures[None]
+        | intFeatures[OCRED]
+        | (intFeatures[&#34;extra&#34;] if EXTRA else {})
+        | (intFeatures[&#34;merged&#34;] if MERGED else {}),
+        featureMeta=thisFeatureMeta,
         generateTf=True,
     )
 
@@ -342,41 +543,76 @@ def director(cv):
     prev = [None, None, None, None]
     nSec = len(prev)
 
-    data = []
+    def getData(dataFile, sep, extra, merged):
+        data = []
 
-    with open(SRC_FILE) as fh:
-        next(fh)
-        for line in fh:
-            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
-            page = int(row[0])
-            if pageNums is not None and page not in pageNums:
-                continue
+        with open(dataFile) as fh:
+            next(fh)
+            for line in fh:
+                row = line.rstrip(&#34;\n&#34;).split(sep)
+                if SKIPCOL is not None:
+                    del row[SKIPCOL : SKIPCOL + 1]
+                page = int(row[0])
+                if pageNums is not None and page not in pageNums:
+                    continue
 
-            if OCRED:
-                row = (
-                    page,
-                    int(row[1]),
-                    row[2],
-                    int(row[3]),
-                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
-                    int(row[8]),
-                    *row[9:11],
-                )
-            else:
-                row = (
-                    page,
-                    *(int(c) for c in row[1:4]),
-                    row[4],
-                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    *row[9:11],
-                )
+                if OCRED:
+                    row = (
+                        page,
+                        int(row[1]),
+                        row[2],
+                        int(row[3]),
+                        *(None if c in {&#34;&#34;, &#34;?&#34;} else int(c) for c in row[4:8]),
+                        int(row[8]),
+                        *row[9:11],
+                    )
+                elif merged:
+                    row = (
+                        page,
+                        int(row[1]),
+                        int(row[2]),
+                        int(row[3]),
+                        row[4],
+                        *row[6:9],
+                        row[5],
+                        *row[9:11],
+                        int(row[11]) if row[11] else None,
+                        int(row[12]) if row[12] else None,
+                        *row[13:15],
+                        int(row[15]) if row[15] else None,
+                        int(row[16]) if row[16] else None,
+                        int(row[17]) if row[17] else None,
+                        int(round(float(row[18]) * 10)) if row[18] else None,
+                        int(row[19]) if row[19] else None,
+                        int(row[20]) if row[20] else None,
+                        int(row[21]),
+                        int(row[22]),
+                        *row[23:],
+                    )
+                else:
+                    tail = (*row[10:13], row[9], *row[13:]) if extra else row[9:11]
+                    row = (
+                        page,
+                        *(int(c) for c in row[1:4]),
+                        row[4],
+                        *(None if c in {&#34;&#34;, &#34;?&#34;} else int(c) for c in row[5:9]),
+                        *tail,
+                    )
 
-            data.append(row)
+                data.append(row)
+        return data
+
+    data = getData(SRC_FILE, SEP, EXTRA, MERGED)
 
     boxL = nSec if OCRED else nSec + 1
 
     if HAS_TOC:
-        toc = getToc(data)
+        tocData = data
+        if TOC_SOURCE:
+            tocFile = f&#34;{TOC_SOURCE[&#39;dir&#39;]}/{TOC_SOURCE[&#39;file&#39;]}&#34;
+            sep = TOC_SOURCE[&#34;sep&#34;]
+            tocData = getData(f&#34;{BASE}/{tocFile}&#34;, sep, False, False)
+        toc = getToc(tocData)
         curPiece = cv.node(&#34;piece&#34;)
         cv.feature(curPiece, n=1, title=&#34;front&#34;)
 
@@ -422,26 +658,87 @@ def director(cv):
         for i in range(nSec):
             prev[i] = fields[i]
 
-        letters = fields[-2]
-        punc = fields[-1]
+        lettersIndex = 5 if MERGED else 9 if EXTRA else -2
+        puncIndex = 6 if MERGED else 10 if EXTRA else -1
+        letters = fields[lettersIndex]
+        punc = fields[puncIndex]
+
+        puncBefore = None
+        raw = None
+        if EXTRA:
+            puncBefore = fields[puncIndex + 1]
+            raw = fields[puncIndex + 2]
+
         lettersp = Tr.asciiFromArabic(letters) if letters else &#34;&#34;
         lettersn = Tr.latinFromArabic(letters) if letters else &#34;&#34;
         letterst = Tr.standardFromArabic(letters) if letters else &#34;&#34;
         punca = Tr.asciiFromArabic(punc) if punc else &#34;&#34;
 
         s = cv.slot()
+        if not MERGED:
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+            )
         cv.feature(
             s,
-            boxl=fields[boxL],
-            boxt=fields[boxL + 1],
-            boxr=fields[boxL + 2],
-            boxb=fields[boxL + 3],
             letters=letters,
             lettersp=lettersp,
             lettersn=lettersn,
             letterst=letterst,
         )
         cv.feature(s, punc=punc, punca=punca)
+        if puncBefore is not None:
+            puncba = Tr.asciiFromArabic(puncBefore) if puncBefore else &#34;&#34;
+            cv.feature(s, puncb=puncBefore, puncba=puncba)
+        if raw is not None:
+            cv.feature(s, raw=raw)
+
+        if EXTRA:
+            extraData = {}
+            if fields[13]:
+                extraData[&#34;qunawims&#34;] = fields[13]
+            if fields[14]:
+                extraData[&#34;poetrymeter&#34;] = fields[14]
+            if fields[15]:
+                extraData[&#34;poetryverse&#34;] = int(fields[15])
+            if fields[16]:
+                extraData[&#34;fass&#34;] = int(fields[16])
+            if fields[17]:
+                extraData[&#34;lwcvl&#34;] = fields[17]
+            if fields[18]:
+                extraData[&#34;quran&#34;] = fields[18]
+            cv.feature(s, **extraData)
+
+        if MERGED:
+            letters_af = fields[-2]
+            punc_af = fields[-1]
+
+            lettersp_af = Tr.asciiFromArabic(letters_af) if letters_af else &#34;&#34;
+            lettersn_af = Tr.latinFromArabic(letters_af) if letters_af else &#34;&#34;
+            letterst_af = Tr.standardFromArabic(letters_af) if letters_af else &#34;&#34;
+            punca_af = Tr.asciiFromArabic(punc_af) if punc_af else &#34;&#34;
+            cv.feature(
+                s,
+                letters_af=letters_af,
+                lettersp_af=lettersp_af,
+                lettersn_af=lettersn_af,
+                letterst_af=letterst_af,
+                punc_af=punc_af,
+                punca_af=punca_af,
+                slot_lk=fields[15],
+                combine_lk=fields[16],
+                editdistance=fields[17],
+                ratio=fields[18],
+                combine_af=fields[19],
+                slot_af=fields[20],
+                page_af=fields[21],
+                line_af=fields[22],
+            )
+
         if any(c in stops for c in punc):
             cv.terminate(curSentence)
             curSentence = cv.node(&#34;sentence&#34;)
@@ -502,16 +799,21 @@ def loadTf(outDir):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L254-L284" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L429-L485" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def convert(source, ocred, pages, versionTf):
     global pageNums
     global SRC_FILE
     global TYPE_MAP
     global HAS_TOC
+    global TOC_SOURCE
     global OCRED
     global U
     global VERSION_TF
+    global SEP
+    global SKIPCOL
+    global MERGED
+    global EXTRA
 
     U = UChar()
 
@@ -521,18 +823,39 @@ def loadTf(outDir):
     dest = getTfDest(source, versionTf)
     (SRC_FILE, OCRED) = getFile(source, ocred)
     HAS_TOC = workInfo.get(&#34;toc&#34;, False)
+    TOC_SOURCE = workInfo.get(&#34;sourceToc&#34;, None)
     TYPE_MAP = TYPE_MAPS[OCRED]
     VERSION_TF = versionTf
+    SEP = workInfo[&#34;sep&#34;]
+    SKIPCOL = workInfo.get(&#34;skipcol&#34;, None)
+    MERGED = workInfo.get(&#34;merged&#34;, False)
+    EXTRA = workInfo.get(&#34;extra&#34;, False)
 
     cv = CV(Fabric(locations=dest))
+
+    thisFeatureMeta = (
+        featureMeta[None]
+        | featureMeta[OCRED]
+        | (featureMeta[&#34;extra&#34;] if EXTRA else {})
+        | (featureMeta[&#34;merged&#34;] if MERGED else {})
+    )
+    if MERGED:
+        for feat in (&#34;boxl&#34;, &#34;boxt&#34;, &#34;boxr&#34;, &#34;boxb&#34;):
+            del thisFeatureMeta[feat]
 
     return cv.walk(
         director,
         slotType,
-        otext=otext[None] | otext[OCRED],
+        otext=otext[None]
+        | otext[OCRED]
+        | (otext[&#34;extra&#34;] if EXTRA else {})
+        | (otext[&#34;merged&#34;] if MERGED else {}),
         generic=generic(source),
-        intFeatures=intFeatures[None] | intFeatures[OCRED],
-        featureMeta=featureMeta[None] | featureMeta[OCRED],
+        intFeatures=intFeatures[None]
+        | intFeatures[OCRED]
+        | (intFeatures[&#34;extra&#34;] if EXTRA else {})
+        | (intFeatures[&#34;merged&#34;] if MERGED else {}),
+        featureMeta=thisFeatureMeta,
         generateTf=True,
     )</code></pre>
 </details>
@@ -548,7 +871,7 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L290-L433" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L491-L730" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def director(cv):
     &#34;&#34;&#34;Read tsv data fields.
@@ -566,41 +889,76 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
     prev = [None, None, None, None]
     nSec = len(prev)
 
-    data = []
+    def getData(dataFile, sep, extra, merged):
+        data = []
 
-    with open(SRC_FILE) as fh:
-        next(fh)
-        for line in fh:
-            row = tuple(line.rstrip(&#34;\n&#34;).split(&#34;\t&#34;))
-            page = int(row[0])
-            if pageNums is not None and page not in pageNums:
-                continue
+        with open(dataFile) as fh:
+            next(fh)
+            for line in fh:
+                row = line.rstrip(&#34;\n&#34;).split(sep)
+                if SKIPCOL is not None:
+                    del row[SKIPCOL : SKIPCOL + 1]
+                page = int(row[0])
+                if pageNums is not None and page not in pageNums:
+                    continue
 
-            if OCRED:
-                row = (
-                    page,
-                    int(row[1]),
-                    row[2],
-                    int(row[3]),
-                    *(None if c == &#34;?&#34; else int(c) for c in row[4:8]),
-                    int(row[8]),
-                    *row[9:11],
-                )
-            else:
-                row = (
-                    page,
-                    *(int(c) for c in row[1:4]),
-                    row[4],
-                    *(None if c == &#34;?&#34; else int(c) for c in row[5:9]),
-                    *row[9:11],
-                )
+                if OCRED:
+                    row = (
+                        page,
+                        int(row[1]),
+                        row[2],
+                        int(row[3]),
+                        *(None if c in {&#34;&#34;, &#34;?&#34;} else int(c) for c in row[4:8]),
+                        int(row[8]),
+                        *row[9:11],
+                    )
+                elif merged:
+                    row = (
+                        page,
+                        int(row[1]),
+                        int(row[2]),
+                        int(row[3]),
+                        row[4],
+                        *row[6:9],
+                        row[5],
+                        *row[9:11],
+                        int(row[11]) if row[11] else None,
+                        int(row[12]) if row[12] else None,
+                        *row[13:15],
+                        int(row[15]) if row[15] else None,
+                        int(row[16]) if row[16] else None,
+                        int(row[17]) if row[17] else None,
+                        int(round(float(row[18]) * 10)) if row[18] else None,
+                        int(row[19]) if row[19] else None,
+                        int(row[20]) if row[20] else None,
+                        int(row[21]),
+                        int(row[22]),
+                        *row[23:],
+                    )
+                else:
+                    tail = (*row[10:13], row[9], *row[13:]) if extra else row[9:11]
+                    row = (
+                        page,
+                        *(int(c) for c in row[1:4]),
+                        row[4],
+                        *(None if c in {&#34;&#34;, &#34;?&#34;} else int(c) for c in row[5:9]),
+                        *tail,
+                    )
 
-            data.append(row)
+                data.append(row)
+        return data
+
+    data = getData(SRC_FILE, SEP, EXTRA, MERGED)
 
     boxL = nSec if OCRED else nSec + 1
 
     if HAS_TOC:
-        toc = getToc(data)
+        tocData = data
+        if TOC_SOURCE:
+            tocFile = f&#34;{TOC_SOURCE[&#39;dir&#39;]}/{TOC_SOURCE[&#39;file&#39;]}&#34;
+            sep = TOC_SOURCE[&#34;sep&#34;]
+            tocData = getData(f&#34;{BASE}/{tocFile}&#34;, sep, False, False)
+        toc = getToc(tocData)
         curPiece = cv.node(&#34;piece&#34;)
         cv.feature(curPiece, n=1, title=&#34;front&#34;)
 
@@ -646,26 +1004,87 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
         for i in range(nSec):
             prev[i] = fields[i]
 
-        letters = fields[-2]
-        punc = fields[-1]
+        lettersIndex = 5 if MERGED else 9 if EXTRA else -2
+        puncIndex = 6 if MERGED else 10 if EXTRA else -1
+        letters = fields[lettersIndex]
+        punc = fields[puncIndex]
+
+        puncBefore = None
+        raw = None
+        if EXTRA:
+            puncBefore = fields[puncIndex + 1]
+            raw = fields[puncIndex + 2]
+
         lettersp = Tr.asciiFromArabic(letters) if letters else &#34;&#34;
         lettersn = Tr.latinFromArabic(letters) if letters else &#34;&#34;
         letterst = Tr.standardFromArabic(letters) if letters else &#34;&#34;
         punca = Tr.asciiFromArabic(punc) if punc else &#34;&#34;
 
         s = cv.slot()
+        if not MERGED:
+            cv.feature(
+                s,
+                boxl=fields[boxL],
+                boxt=fields[boxL + 1],
+                boxr=fields[boxL + 2],
+                boxb=fields[boxL + 3],
+            )
         cv.feature(
             s,
-            boxl=fields[boxL],
-            boxt=fields[boxL + 1],
-            boxr=fields[boxL + 2],
-            boxb=fields[boxL + 3],
             letters=letters,
             lettersp=lettersp,
             lettersn=lettersn,
             letterst=letterst,
         )
         cv.feature(s, punc=punc, punca=punca)
+        if puncBefore is not None:
+            puncba = Tr.asciiFromArabic(puncBefore) if puncBefore else &#34;&#34;
+            cv.feature(s, puncb=puncBefore, puncba=puncba)
+        if raw is not None:
+            cv.feature(s, raw=raw)
+
+        if EXTRA:
+            extraData = {}
+            if fields[13]:
+                extraData[&#34;qunawims&#34;] = fields[13]
+            if fields[14]:
+                extraData[&#34;poetrymeter&#34;] = fields[14]
+            if fields[15]:
+                extraData[&#34;poetryverse&#34;] = int(fields[15])
+            if fields[16]:
+                extraData[&#34;fass&#34;] = int(fields[16])
+            if fields[17]:
+                extraData[&#34;lwcvl&#34;] = fields[17]
+            if fields[18]:
+                extraData[&#34;quran&#34;] = fields[18]
+            cv.feature(s, **extraData)
+
+        if MERGED:
+            letters_af = fields[-2]
+            punc_af = fields[-1]
+
+            lettersp_af = Tr.asciiFromArabic(letters_af) if letters_af else &#34;&#34;
+            lettersn_af = Tr.latinFromArabic(letters_af) if letters_af else &#34;&#34;
+            letterst_af = Tr.standardFromArabic(letters_af) if letters_af else &#34;&#34;
+            punca_af = Tr.asciiFromArabic(punc_af) if punc_af else &#34;&#34;
+            cv.feature(
+                s,
+                letters_af=letters_af,
+                lettersp_af=lettersp_af,
+                lettersn_af=lettersn_af,
+                letterst_af=letterst_af,
+                punc_af=punc_af,
+                punca_af=punca_af,
+                slot_lk=fields[15],
+                combine_lk=fields[16],
+                editdistance=fields[17],
+                ratio=fields[18],
+                combine_af=fields[19],
+                slot_af=fields[20],
+                page_af=fields[21],
+                line_af=fields[22],
+            )
+
         if any(c in stops for c in punc):
             cv.terminate(curSentence)
             curSentence = cv.node(&#34;sentence&#34;)
@@ -704,7 +1123,7 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L47-L48" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L47-L48" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def generic(source):
     return {**GENERIC, **WORKS[source][&#34;meta&#34;]}</code></pre>
@@ -718,7 +1137,7 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L198-L240" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L361-L403" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getToc(data):
     (start, end) = TOC_PAGES
@@ -773,7 +1192,7 @@ See <code><a title="fusus.convert" href="convert.html">fusus.convert</a></code> 
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5d918842bc76b9a44c35f79bccc1ddcfd8fb6aaf/fusus/tfFromTsv.py#L439-L448" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/tfFromTsv.py#L736-L745" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def loadTf(outDir):
     TF = Fabric(locations=[outDir])
