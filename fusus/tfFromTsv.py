@@ -49,17 +49,20 @@ def generic(source):
 
 
 otext = {}
-otext[None] = {
-    "fmt:text-orig-full": "{letters}{punc}",
-    "fmt:text-orig-plain": "{lettersp}{punca}",
-    "fmt:text-orig-nice": "{lettersn}{punca}",
-    "fmt:text-orig-trans": "{letterst}{punca}",
-}
+otext[None] = {}
 otext[False] = {
+    "fmt:text-orig-full": "{letters}{punc} ",
+    "fmt:text-orig-plain": "{lettersp}{punca} ",
+    "fmt:text-orig-nice": "{lettersn}{punca} ",
+    "fmt:text-orig-trans": "{letterst}{punca} ",
     "sectionFeatures": "n,n,ln",
     "sectionTypes": "piece,page,line",
 }
 otext[True] = {
+    "fmt:text-orig-full": "{letters}{punc}",
+    "fmt:text-orig-plain": "{lettersp}{punca}",
+    "fmt:text-orig-nice": "{lettersn}{punca}",
+    "fmt:text-orig-trans": "{letterst}{punca}",
     "sectionFeatures": "n,b,ln",
     "sectionTypes": "page,block,line",
 }

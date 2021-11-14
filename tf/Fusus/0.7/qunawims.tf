@@ -15,7 +15,7 @@
 @title=Fusus Al Hikam
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-11-14T10:57:19Z
+@dateWritten=2021-11-14T11:43:58Z
 
 56	last days of Muharram 726h in Damascus
 423	between three dots

@@ -15,7 +15,7 @@
 @title=Fusus Al Hikam
 @valueType=str
 @writtenBy=Text-Fabric
-@dateWritten=2021-11-14T10:57:18Z
+@dateWritten=2021-11-14T11:43:58Z
 
 bnzlylāl`
 ylr`ā

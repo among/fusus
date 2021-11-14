@@ -6,10 +6,10 @@
 @fmt:text-afifi-nice={lettersn_af}{punca_af}
 @fmt:text-afifi-plain={lettersp_af}{punca_af}
 @fmt:text-afifi-trans={letterst_af}{punca_af}
-@fmt:text-orig-full={letters}{punc}
-@fmt:text-orig-nice={lettersn}{punca}
-@fmt:text-orig-plain={lettersp}{punca}
-@fmt:text-orig-trans={letterst}{punca}
+@fmt:text-orig-full={letters}{punc} 
+@fmt:text-orig-nice={lettersn}{punca} 
+@fmt:text-orig-plain={lettersp}{punca} 
+@fmt:text-orig-trans={letterst}{punca} 
 @institute=Univ Utrecht NL/DANS
 @language=ara
 @name=fusus
@@ -22,5 +22,5 @@
 @sourceFormat=CSV (tab-separated)
 @title=Fusus Al Hikam
 @writtenBy=Text-Fabric
-@dateWritten=2021-11-14T10:57:19Z
+@dateWritten=2021-11-14T11:43:58Z
 
