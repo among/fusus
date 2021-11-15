@@ -32,7 +32,7 @@ use Kraken for OCR only.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L0-L460" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L0-L460" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 Kraken Arabic model:
@@ -512,7 +512,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L451-L461" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L451-L461" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def addWord(curWord):
     letters = &#34;&#34;.join(x[0] for x in curWord[0])
@@ -535,7 +535,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L167-L200" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L167-L200" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def getProofColor(conf, test=False):
     for (
@@ -581,7 +581,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L442-L448" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L442-L448" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def removeMargins(img, keep=0):
     mask = img &lt; 255
@@ -600,7 +600,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L203-L255" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L203-L255" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def showConf(stage, results, label=&#34;notes&#34;):
     header = f&#34;&#34;&#34;
@@ -671,7 +671,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L258-L439" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L258-L439" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">class OCR(UChar):
     def __init__(self, engine):
@@ -870,7 +870,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L267-L282" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L267-L282" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def ensureLoaded(self):
     if self.model is None:
@@ -898,7 +898,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L375-L439" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L375-L439" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def proofing(self, page):
     &#34;&#34;&#34;Produces an OCR proof page&#34;&#34;&#34;
@@ -975,7 +975,7 @@ def addWord(curWord):
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/4ef24b31a3e4560c6941aa47542b4feb29775d99/fusus/ocr.py#L284-L373" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/ocr.py#L284-L373" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">def read(self, page):
     &#34;&#34;&#34;Perfoms OCR with Kraken.&#34;&#34;&#34;
