@@ -12,6 +12,7 @@ setup(
         "numpy",
         "pillow",
         "PyMuPDF",
+        "python-Levenshtein",
         "opencv-contrib-python",
         "kraken",
         "text-fabric>=8.4.7",

@@ -2,7 +2,7 @@
 
 We have two versions of the Fusus text, obtained in wildly different ways:
 
-* `AF` the Afifi edition, obtained via the OCR pipeline
+* `AF` the Afifi edition, obtained via the OCR pipeline;
 * `LK` the Lakhnawi edition,
    obtained by reverse engineering a textual PDF with unusual fonts and private use characters.
    
@@ -19,15 +19,14 @@ We experimented with it, see the [collatexAfLk notebook](collatexAfLk.ipynb),
 but it took a very long time to run.
 
 However, the two editions are very similar, with very few transpositions but a lot of OCR errors.
+We have developed our own algorithm, which runs in about a second.
 
-We use Text-Fabric.
-
-The cleaned `LK` and `AF` are present in the TF resources `fususl` and `fususa`.
-We then have each word precisely numbered in both version, and we also have a latin
+The cleaned `LK` and `AF` are present in the Text-Fabric resources `fususl` and `fususa`.
+In this way we have each word precisely numbered in both version, and we also have a latin
 transcription of the words, which eases the visual comparison of similar words.
-
-It is not only that the author of this notebook (Dirk Roorda) is not trained to read Arabic,
-it is also that the Arabaic letters change shape depending on their position in the word,
+We use the latin transcription,
+only because the author of this notebook (Dirk Roorda) is not trained to read Arabic,
+but also beecause the Arabaic letters change shape depending on their position in the word,
 which makes a task like this needlessly complicated.
 
 # Edit distance
@@ -40,8 +39,8 @@ and for this the concept of edit distance is useful.
 
 However, we also need the slightly more refined notion of *ratio*, which takes the lengths
 of the words into account. It roughly corresponds to proportion of the common part of the words
-in relation to the totality of the words.
-In other words, and edit distance of 2 between words of length 10 tells you that the words are rather similar,
+in relation to the totality of both words under comparison.
+In other words, an edit distance of 2 between words of length 10 tells you that the words are rather similar,
 their *ratio* is high. But the same edit distance between words of length 3 means that the words are very
 different, their *ratio* is low.
 
@@ -49,7 +48,8 @@ The concepts *ratio* and *edit distance* can be computed by the
 [Levenshtein algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance),
 which is implemented in the Python module `Levenshtein`.
 
-You may have to
+We have included this module in the fusus dependencies, but if for some
+reason yoou have not recently installed fusus, you may have to
 
 ```
 pip3 install python-Levenshtein
@@ -57,17 +57,17 @@ pip3 install python-Levenshtein
 
 # The alignment table
 
-The table itself is stored in the list `alignment`.
+The table itself is stored in a Python list `alignment`.
 The elements of this list are tuples with a slot number in LK and a corresponding slot number in
 AF and a measure of how well these slots correspond with each other.
 
 Some words cannot be matched with the other source. In those cases the corresponding
 member of the tuple is the empty string.
 
-That means that the table becomes longer than each of the editions, and that it is not
-trivial to locate a specific slot in the alignment list.
+That means that the alignment list becomes longer than each of the editions, and that it is not
+trivial to locate a specific slot in this table.
 
-For that reason we maintain two indexes that map slot numbers the editions to 
+For that reason we maintain two indexes that map the slot numbers of both editions to 
 positions in the alignment list.
 
 # Alignment algorithm
@@ -78,12 +78,15 @@ comparison actions at each point.
 Comparison actions may succeed, in which case we jump in both sources to the first
 point after the compared material.
 
-Comparison actions can also fail, in which case we stop the process prematurely
+If they fail, we try several jumps in the neighbourhood to see if the alignment
+catches up later.
+
+If that fails, we stop the process prematurely
 and print the situation around the point of failure.
 
 ## Comparison
 
-We do not only compare single words, we also try out short sequences of words at both sides.
+We do not only compare single words, we also try out short combinations of words at both sides.
 We do this because the editions do not always agree on word boundaries.
 
 So, we need to compute whether $n$ consecutive words left are similar to $m$ consecutive words
@@ -91,7 +94,7 @@ right.
 
 We set a boundary $C$ on the amount of words that we combine at each source.
 
-We need to try out to al possible combinations, from simplest and shortest to longest and most complex.
+We need to try out all possible combinations, from simplest and shortest to longest and most complex.
 
 Every combination can be characterized by $(n, m)$, where $n$ is the number of words on the left
 and $m$ is the number of words on the right. $n$ and $m$ are in the range $1 \ldots C$.
@@ -119,10 +122,14 @@ It turns out that 4 is a good value for this source.
 3 is definitely too low.
 5 is too high, because then the following is likely to happen.
 
-Suppose on the left we have words A, BB, CCC, DDD, EEE and on the right we have BB, CCC, DDD, EEE, X.
+Suppose we have to compare the sentence left to the one right.
+
+left | right
+--- | ---
+A, BB, CCC, DDD, EEE | BB, CCC, DDD, EEE, X
 
 The best alignment is to decide that A on the left is not matched with anything on the right, 
-X on the left is not matched to anything on the left, and BB, CCC, DDD, EEE will be exact matches.
+X on the right is not matched to anything on the left, and BB, CCC, DDD, EEE will be exact matches.
 
 Buth when comparing combinations of length 5, we get the comparison
 
@@ -151,28 +158,30 @@ ratio(left, right)=0.8
 ```
 
 The algorithm specifies limits in terms of distance and ratio to determine when a comparison succeeds or fails,
-and as you see, the combination of 5 is much more likely to succeed than the combination of 4.
+and as you see, the combination of 5 words is much more likely to succeed than the combination of 4.
 
 And we want it to fail in this case, because it is a suboptimal match.
 
 ## Similarity
 
-We compute the similarity of words, and report if the words are similar with respect
+We compute the similarity of words by a function that reports whether the words are similar with respect
 to a given edit distance and ratio.
 
 The two words match if their edit distance is at most the given edit distance
 and their ratio is at least the given ratio.
 
+The function returns the decision, and the computed distance and ratio between the words.
+
 ## Comparing
 
-Here we make a local comparison.
+This is about making a comparison between the locations in both editions where we are currently at.
 
 First we make a quick 1-1 comparison between the words in both editions at the current positions.
 If that fails, we check whether the next word at both sides match.
 If that fails, we try out all possible short combinations, using `findCombi` above.
 
-If all fails, None is returned. In case of success, the alignment table is appended to and 
-the next positions in both editions are returned.
+If all fails, None is returned. In case of success, a tuple with comparison information is appended
+to the alignment table and the next positions in both editions are returned.
 
 ## Looking up
 
@@ -188,7 +197,7 @@ jumps with higher strictness.
 
 Short jumps are tried out before long jumps, and we try the jumps in the left and right edition alternately.
 
-If a jump is successful, the next position will be returned, and a `catchup` will be done for the
+If a jump is successful, the next position will be returned, and a *catchup* will be done for the
 edition in which the jump has been made.
 When there is no successful jump, None is returned.
 
@@ -210,22 +219,15 @@ The comparison consists of checking out a number of things under several strictn
 As soon as a check succeeds, we perform the actions associated with that, and continue to the next iteration.
 
 1. First of all: is there a special case defined for this point? If so, follow its instructions.
-2. Do left and right compare as equal, give or take an edit distance of 1?
-   Comparing involves not only comparing the single words at the current positions,
-   but also trying out a number of word combinations at the current point.
-3. Do left and right compare as equal, give or take an edit distance of 2?
-4. Do left and right compare as equal, give or take an edit distance of 3?
-5. Do left and right compare as equal, give or take a similarity ratio of 0.5?
-   This is rather lenient for long words.
-6. If all comparisons have failed so far, it is time to jump forward:
-7. is there a match within 5 words, give or take a similarity ratio of 0.6?
-   This is rather coarse, but we stay in the neighbourhood.
-8. Is there a match between 6 and 10 words, give or take a similarity ratio of 0.8?
-   We are drifting further from home, so we pose stricter requirements to the match.
-9. Is there an exact match between and 1000 words?
-   When looking so far forward, we do not trust matches that are not 100%.
+2. Perform local and very strict comparisons.
+3. Relax the strictness a little bit and try the local comparisons again
+4. Try out small jumps with great strictness
+5. Try out small jumps with lesser strictness
+6. Try out bigger jumps with great strictness
+7. Try out bigger jumps with lesser strictness
+9. Fail!
    
-Clearly, there is no guarantee that any of these will be successfull.
+Clearly, there is no guarantee that we reach the end without failing.
 When it fails, we have to inspect the failure and see what happens there.
 There are basically three solutions to overcome such roadblocks
 
@@ -236,6 +238,10 @@ There are basically three solutions to overcome such roadblocks
 3. Change the orchestration: change the order of comparing and jumping, introduce more strictness levels,
    try more or less combinations. Invent new criteria for comparison.
    This is really difficult. The present orchestration is the result of quite some trial and error.
+
+We have provided an analysis function for the alignment table that assesses its quality
+and reports where the bad stretches are. This is a very helpful aid in tweaking the parameters
+and defining special cases. More about this below.
 
 # The diff function
 
@@ -250,19 +256,13 @@ You can specify the number of steps, or pass -1 in order to continue to the end.
 And if you pass `show=True`, the alignment table will be printed after completion.
 Only do this if you run a limited number of steps.
 
-# Check the result
-
-We must make sure that the algorithm has not skipped material, duplicated material, or put material in the wrong order.
-
-We examine the alignment list and check that we have all slot numbers of LK in the right order and all slot numbers of AF idem.
-
 # Define the special cases
 
-The special cases below are the result of trial and error.
+The special cases that you find in the notebook are the result of trial and error.
 
 The keys are the LK slot numbers where the cases must be applied.
 
-The values are the amount of words in LK and in AF that will bee identified.
+The values are the amount of words in LK and in AF that will be identified.
 
 So `1000: (3, 4)` means that at slot position 1000 in LK we take 3 consecutive words and identify it with
 4 consecutive words in AF at the current position there.
@@ -279,12 +279,14 @@ It could be just garbage.
 ## Sanity
 
 First of all we need to know whether all words of both LF and LK occur left and right, without gaps and duplications
-and in the right order. We check that.
+and in the right order. We check that. This is important, because the alignment algorithm is under 
+intense evolution, and it could easily incur a flaw in which the material of the editions is not
+properly conserved.
 
 ## Agreement
 
-We provide information on about the agreement in both sources.
-How many words are there for which there is no alignment inb the other edition?
+We provide information about the agreement of the words in both sources.
+How many words are there for which there is no counterpart in the other edition?
 
 And how close are the words for which an alignment could be established?
 
@@ -299,13 +301,15 @@ Note that there are two reasons for bad agreement results:
 Are there long stretches of poorly matching alignments?
 We are going to examine them.
 
-If they contain many cases of a left missing word and many cases of a right missing word,
+If they contain many cases of left missing words and many cases of right missing words,
 they are suspect, because they might contain largely the same words, but the algorithm has failed
-to spot them.
+to match them.
 
 We show all suspect bad stretches.
+It is advisable to tweak the algorithm until all suspect bad stretches are gone.
+We have done so.
 
 The remaining stretches are benign.
-We show examples of benign bad strectches (at most three examples per size).
+We also show examples of benign bad strectches (at most three examples per size).
 
 
