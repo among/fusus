@@ -8,6 +8,10 @@ The *fusus* package deals with two distinct problems:
 * get text from page images by means of Optical Character Recognition
 * extract text from a textual, but convoluted PDF
 
+The solution offered is a pipeline that implements the following diagram.
+
+![diagram](../images/Pipeline/Pipeline.000.jpeg)
+
 # OCR Pipeline
 
 We have to recognize page images from Arabic books over several centuries.
@@ -576,6 +580,30 @@ Alternatively, we also do a plain text export, which is easier as input for text
 We can control the html pages very tightly: we can select pages and lines.
 
 There are also methods to look to words in lines.
+
+# Alignment
+
+**Tech**
+
+* [Python-Levenshtein](https://github.com/ztane/python-Levenshtein)
+
+
+**Code references**
+
+*   `fusus.align`
+
+**Show and tell**
+
+* [alignment](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/compareAfLK.ipynb)
+
+**Discussion**
+
+We wanted to keep both texts of the Fusus under our fingertips.
+Because we have derived the Lakhnawi edition in the most deterministic way, without OCR,
+we made that into the ground truth.
+We added the Afifi to that for comparison, in such a way that each word in the LK
+is linked to the corresponding word in the AF.
+This has been achieved by constructing an alignment table between the two editions.
 
 # Delivery
 

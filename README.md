@@ -19,6 +19,8 @@ and from there to
 [Text-Fabric](https://github.com/annotation/text-fabric)
 from where the text material can be processed further.
 
+![pipeline](fusus/docs/images/Pipeline/Pipeline.001.jpeg)
+
 ## Features
 
 * cleaning is included:
@@ -38,6 +40,10 @@ This lays the foundations for:
 * perform intertextuality research between the ground work (the "Fusus" by Ibn Arabi)
   and its commentary books.
 
+A lot of cleaning has been carried out on two editions of the Fusus: Lakhnawi and Afifi.
+After that these editions have been aligned and brought together in a single dataset,
+in which it is possible read back the individual editions.
+
 ## Authors
 
 *   [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/)
@@ -48,6 +54,9 @@ This lays the foundations for:
 Fusus has been funded by the IT Research Innovation Fund.
 
 It has been developed between 2020-03-01 and 2021-03-01
+
+Correction, enrichment and alignment of the two Fusus editions was done
+from the end of the project till the end of 2021.
 
 # Docs
 

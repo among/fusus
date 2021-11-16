@@ -289,11 +289,11 @@ featureMeta["extra"] = {
         "format": "string",
     },
     "puncb": {
-        "description": "punctuation immediately before a word",
+        "description": "",
         "format": "string",
     },
     "puncba": {
-        "description": "punctuation immediately before a word",
+        "description": "",
         "format": "string, ascii",
     },
     "qunawims": {

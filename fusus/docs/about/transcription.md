@@ -96,12 +96,11 @@ by whitespace.
 
 **Features**
 
+We have features that contain the text. The following features contain
+the Lakhnawi text.
+
 name | type | description
 --- | --- | ---
-`boxl` | int | left x-coordinate of the bounding box of a word
-`boxt` | int | top y-coordinate of the bounding box of a word
-`boxr` | int | right x-coordinate of the bounding box of a word
-`boxb` | int | bottom y-coordinate of the bounding box of a word
 `letters` | str | the text of a word in Arabic, unicode, without punctuation
 `lettersn` | str | the text of a word in beta code, latin + diacritics
 `lettersp` | str | the text of a word in beta code, ascii
@@ -109,3 +108,51 @@ name | type | description
 `punc` | str | the punctuation and/or space immediately after a word in Arabic, unicode
 `punca` | str | the punctuation and/or space immediately after a word in ascii
 
+The Afifi text is stored in analogous features:
+
+name | type | description
+--- | --- | ---
+`letters_af` | str | the text of a word in Arabic, unicode, without punctuation
+`lettersn_af` | str | the text of a word in beta code, latin + diacritics
+`lettersp_af` | str | the text of a word in beta code, ascii
+`letterst_af` | str | the text of a word in romanized transcription
+`punc_af` | str | the punctuation and/or space immediately after a word in Arabic, unicode
+`punca_af` | str | the punctuation and/or space immediately after a word in ascii
+
+There is also information about the location of the AF words in their edition:
+
+name | type | description
+--- | --- | ---
+`page_af` | int | the page number in the AF edition of this word
+`line_af` | int | the line number in the AF edition of this word
+
+There are extra features that contain information about the alignment between
+the LK words and the AF words.
+Some features identify the slots in the individual datasets before the merge.
+These datasets contain the box/confidence information of the words.
+We decided not to take this information with us in the merger.
+
+name | type | description
+--- | --- | ---
+`slot_lk` | int | the slot number of this word in the `fususl` dataset
+`slot_af` | int | the slot number of this word in the `fususa` dataset
+`combine_lk` | int | if the slot is part of a combination of LK words that has been aligned, this is the number of words in that combination 
+`combine_af` | int | if the slot is part of a combination of AF words that has been aligned, this is the number of words in that combination 
+`editdistance` | int | the edit distance between the combination/word on the LK side and the combination/word on the AF side
+`ratio` | int | the similarity ratio between the combination/word on the LK side and the combination/word on the AF side. 10 is completely similar. 0 is completely dissimilar.
+
+The Lakhnawi text has been enriched with several features by Cornelis van Lit.
+In fact, the features `letters`, `lettersn`, `lettersp`, `letterst` derive
+from that enrichment.
+
+name | type | description
+--- | --- | ---
+`raw` | str | the raw text of the word as in the `fususl` dataset
+`puncb` | str | punctuation immediately before a word (Arabic unicode)
+`puncba` | str | punctuation immediately before a word (Ascii)
+`qunawims` | str | on which folio of the oldest manuscript, penned by Qunawi himself, is this word attested?
+`poetrymeter` | str | meter in which this verse is written
+`poetryverse` | int | word is start of a verse of poetry, value is the number of the verse
+`fass` | int | number of the piece (bezel) that the word belongs to
+`lwcvl` | str | personal notes by Cornelis van Lit
+`quran` | str | word is part of a quran citation (sura:aya)

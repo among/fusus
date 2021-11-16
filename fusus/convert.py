@@ -163,7 +163,7 @@ from .lib import parseNums
 from .book import Book
 from .lakhnawi import Lakhnawi
 from .tfFromTsv import convert, loadTf
-from .align import readEditions, doDiffs
+from .align import Alignment
 
 
 __pdoc__ = {}
@@ -371,10 +371,11 @@ def combineTsv(versionTf=None, source=None, ocred=None, pages=None):
         22764: (1, 1),
     }
     print(f"Aligning LK with AF for version {versionTf}")
-    state = readEditions(versionTf, CASES)
-    doDiffs()
+    ALIGN = Alignment()
+    ALIGN.readEditions(versionTf, CASES)
+    ALIGN.doDiffs()
     print("Merging AF into LK")
-    alignment = state["alignment"]
+    alignment = ALIGN.alignment
     (headLK, rowsLK) = loadTsv("fususl", raw=True)
     (headAF, rowsAF) = loadTsv("fususa", raw=True)
     rowIndexLK = {i + 1: row for (i, row) in enumerate(rowsLK)}
