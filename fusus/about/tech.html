@@ -28,6 +28,8 @@ pointing to relevant technologies.</p>
 <li>get text from page images by means of Optical Character Recognition</li>
 <li>extract text from a textual, but convoluted PDF</li>
 </ul>
+<p>The solution offered is a pipeline that implements the following diagram.</p>
+<p><img alt="diagram" src="../images/Pipeline/Pipeline.001.jpeg"></p>
 <h1 id="ocr-pipeline">OCR Pipeline</h1>
 <p>We have to recognize page images from Arabic books over several centuries.</p>
 <p>Initial experiments showed that Tesseract and its Arabic model did not do a good job
@@ -461,6 +463,26 @@ page references, and place a convenient table of contents in a side bar.</p>
 <p>Alternatively, we also do a plain text export, which is easier as input for text mining tools. </p>
 <p>We can control the html pages very tightly: we can select pages and lines.</p>
 <p>There are also methods to look to words in lines.</p>
+<h1 id="alignment">Alignment</h1>
+<p><strong>Tech</strong></p>
+<ul>
+<li><a href="https://github.com/ztane/python-Levenshtein">Python-Levenshtein</a></li>
+</ul>
+<p><strong>Code references</strong></p>
+<ul>
+<li><code><a title="fusus.align" href="../align.html">fusus.align</a></code></li>
+</ul>
+<p><strong>Show and tell</strong></p>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/compareAfLK.ipynb">alignment</a></li>
+</ul>
+<p><strong>Discussion</strong></p>
+<p>We wanted to keep both texts of the Fusus under our fingertips.
+Because we have derived the Lakhnawi edition in the most deterministic way, without OCR,
+we made that into the ground truth.
+We added the Afifi to that for comparison, in such a way that each word in the LK
+is linked to the corresponding word in the AF.
+This has been achieved by constructing an alignment table between the two editions.</p>
 <h1 id="delivery">Delivery</h1>
 <p>The export to HTML and plain text discussed above is primarily an aid to study and check
 the pipeline and text extraction. But the real results of are delivered as
@@ -612,7 +634,7 @@ in Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/tech.md
@@ -660,6 +682,7 @@ in Text-Fabric.</p>
 <li><a href="#text-reconstruction">Text reconstruction</a></li>
 </ul>
 </li>
+<li><a href="#alignment">Alignment</a></li>
 <li><a href="#delivery">Delivery</a><ul>
 <li><a href="#works">Works</a></li>
 <li><a href="#tsv-files">TSV files</a></li>

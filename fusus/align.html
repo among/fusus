@@ -25,7 +25,8 @@
 <ul>
 <li><code>AF</code> the Afifi edition, obtained via the OCR pipeline;</li>
 <li><code>LK</code> the Lakhnawi edition,
-obtained by reverse engineering a textual PDF with unusual fonts and private use characters.</li>
+obtained by reverse engineering a textual PDF
+with unusual fonts and private use characters.</li>
 </ul>
 <p>The results of both attempts have been cleaned and enriched by Cornelis van Lit,
 through visual inspection and manipulation in Pandas.</p>
@@ -36,7 +37,8 @@ correspondence with the words in <code>AF</code>.</p>
 <a href="https://collatex.net">Collatex</a> by Ronald Haentjes-Dekker.
 We experimented with it, see the <a href="collatexAfLk.ipynb">collatexAfLk notebook</a>,
 but it took a very long time to run.</p>
-<p>However, the two editions are very similar, with very few transpositions but a lot of OCR errors.
+<p>However, the two editions are very similar,
+with very few transpositions but a lot of OCR errors.
 We have developed our own algorithm, which runs in about a second.</p>
 <p>The cleaned <code>LK</code> and <code>AF</code> are present in the Text-Fabric resources <code>fususl</code> and <code>fususa</code>.
 In this way we have each word precisely numbered in both version, and we also have a latin
@@ -52,10 +54,13 @@ one word into another.
 Since one of the editions is the result of OCR, we expect (many) OCR errors,
 and for this the concept of edit distance is useful.</p>
 <p>However, we also need the slightly more refined notion of <em>ratio</em>, which takes the lengths
-of the words into account. It roughly corresponds to proportion of the common part of the words
+of the words into account. It roughly corresponds to proportion
+of the common part of the words
 in relation to the totality of both words under comparison.
-In other words, an edit distance of 2 between words of length 10 tells you that the words are rather similar,
-their <em>ratio</em> is high. But the same edit distance between words of length 3 means that the words are very
+In other words, an edit distance of 2 between words of length 10 tells you
+that the words are rather similar,
+their <em>ratio</em> is high. But the same edit distance between words of length 3
+means that the words are very
 different, their <em>ratio</em> is low.</p>
 <p>The concepts <em>ratio</em> and <em>edit distance</em> can be computed by the
 <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein algorithm</a>,
@@ -66,11 +71,13 @@ reason yoou have not recently installed fusus, you may have to</p>
 </code></pre>
 <h1 id="the-alignment-table">The alignment table</h1>
 <p>The table itself is stored in a Python list <code>alignment</code>.
-The elements of this list are tuples with a slot number in LK and a corresponding slot number in
+The elements of this list are tuples with a slot number in LK and
+a corresponding slot number in
 AF and a measure of how well these slots correspond with each other.</p>
 <p>Some words cannot be matched with the other source. In those cases the corresponding
 member of the tuple is the empty string.</p>
-<p>That means that the alignment list becomes longer than each of the editions, and that it is not
+<p>That means that the alignment list becomes longer than each of the editions,
+and that it is not
 trivial to locate a specific slot in this table.</p>
 <p>For that reason we maintain two indexes that map the slot numbers of both editions to
 positions in the alignment list.</p>
@@ -84,13 +91,17 @@ catches up later.</p>
 <p>If that fails, we stop the process prematurely
 and print the situation around the point of failure.</p>
 <h2 id="comparison">Comparison</h2>
-<p>We do not only compare single words, we also try out short combinations of words at both sides.
+<p>We do not only compare single words, we also try out short combinations
+of words at both sides.
 We do this because the editions do not always agree on word boundaries.</p>
-<p>So, we need to compute whether $n$ consecutive words left are similar to $m$ consecutive words
+<p>So, we need to compute whether $n$ consecutive words left are similar
+to $m$ consecutive words
 right.</p>
 <p>We set a boundary $C$ on the amount of words that we combine at each source.</p>
-<p>We need to try out all possible combinations, from simplest and shortest to longest and most complex.</p>
-<p>Every combination can be characterized by $(n, m)$, where $n$ is the number of words on the left
+<p>We need to try out all possible combinations,
+from simplest and shortest to longest and most complex.</p>
+<p>Every combination can be characterized by $(n, m)$,
+where $n$ is the number of words on the left
 and $m$ is the number of words on the right. $n$ and $m$ are in the range $1 \ldots C$.</p>
 <p>Suppose $C = 3$, then we want to compare combinations in the following order:</p>
 <table>
@@ -161,7 +172,8 @@ and then by decreasing difference of the pair.</p>
 </tbody>
 </table>
 <p>The best alignment is to decide that A on the left is not matched with anything on the right,
-X on the right is not matched to anything on the left, and BB, CCC, DDD, EEE will be exact matches.</p>
+X on the right is not matched to anything on the left, and BB, CCC, DDD, EEE
+will be exact matches.</p>
 <p>Buth when comparing combinations of length 5, we get the comparison</p>
 <p>ABBCCCDDDEEE versus BBCCCDDDEEEX with distance and ratio:</p>
 <pre><code>left = &quot;ABBCCCDDDEEE&quot;
@@ -177,47 +189,66 @@ right = &quot;BBCCCDDDEEE&quot;
 <pre><code>distance(left, right)=4
 ratio(left, right)=0.8
 </code></pre>
-<p>The algorithm specifies limits in terms of distance and ratio to determine when a comparison succeeds or fails,
-and as you see, the combination of 5 words is much more likely to succeed than the combination of 4.</p>
+<p>The algorithm specifies limits in terms of distance and ratio to determine
+when a comparison succeeds or fails,
+and as you see, the combination of 5 words is much more likely to succeed
+than the combination of 4.</p>
 <p>And we want it to fail in this case, because it is a suboptimal match.</p>
 <h2 id="similarity">Similarity</h2>
-<p>We compute the similarity of words by a function that reports whether the words are similar with respect
+<p>We compute the similarity of words by a function that reports
+whether the words are similar with respect
 to a given edit distance and ratio.</p>
 <p>The two words match if their edit distance is at most the given edit distance
 and their ratio is at least the given ratio.</p>
 <p>The function returns the decision, and the computed distance and ratio between the words.</p>
 <h2 id="comparing">Comparing</h2>
-<p>This is about making a comparison between the locations in both editions where we are currently at.</p>
-<p>First we make a quick 1-1 comparison between the words in both editions at the current positions.
+<p>This is about making a comparison between the locations in both editions
+where we are currently at.</p>
+<p>First we make a quick 1-1 comparison between the words in both editions
+at the current positions.
 If that fails, we check whether the next word at both sides match.
-If that fails, we try out all possible short combinations, using <code><a title="fusus.align.findCombi" href="#fusus.align.findCombi">findCombi()</a></code> above.</p>
-<p>If all fails, None is returned. In case of success, a tuple with comparison information is appended
+If that fails, we try out all possible short combinations, using <code>findCombi</code> above.</p>
+<p>If all fails, None is returned. In case of success,
+a tuple with comparison information is appended
 to the alignment table and the next positions in both editions are returned.</p>
 <h2 id="looking-up">Looking up</h2>
-<p>If comparison fails, even after having tried all possible combinations of words, we are potentially stuck.</p>
-<p>But before giving up, we can make a jump if we can match the current word left to a word right that is not far ahead.
+<p>If comparison fails, even after having tried all possible combinations of words,
+we are potentially stuck.</p>
+<p>But before giving up, we can make a jump if we can match the current word left
+to a word right that is not far ahead.
 Or vice versa.</p>
-<p>The following function checks whether there are successful jumps within a specific region and within a given strictness.
+<p>The following function checks whether there are successful jumps
+within a specific region and within a given strictness.
 Typically, this function is called with different strictnesses for different regions.
-For example, first we want to try short jumps with moderate strictness, and if that fails, we try out longer
+For example, first we want to try short jumps with moderate strictness, and if that fails,
+we try out longer
 jumps with higher strictness.</p>
-<p>Short jumps are tried out before long jumps, and we try the jumps in the left and right edition alternately.</p>
-<p>If a jump is successful, the next position will be returned, and a <em>catchup</em> will be done for the
+<p>Short jumps are tried out before long jumps, and we try the jumps
+in the left and right edition alternately.</p>
+<p>If a jump is successful, the next position will be returned, and a <em>catchup</em>
+will be done for the
 edition in which the jump has been made.
 When there is no successful jump, None is returned.</p>
-<p>The catchup is a bit complicated, because the comparison that led to the successful jump has already been appended
-to the alignment table. So we have to pop that first (it could be multiple entries in case the comparison involved
-a combination of words), and then we can do the catchup, and then we can push the comparison entries again.
+<p>The catchup is a bit complicated, because the comparison that led to
+the successful jump has already been appended
+to the alignment table. So we have to pop that first
+(it could be multiple entries in case the comparison involved
+a combination of words), and then we can do the catchup,
+and then we can push the comparison entries again.
 We also need to update the indexes between slot numbers and the alignment table entries.</p>
 <h1 id="orchestrating">Orchestrating</h1>
-<p>We can now define how we are going to orchestrate the comparisons that will build the alignment table.</p>
+<p>We can now define how we are going to orchestrate the comparisons
+that will build the alignment table.</p>
 <p>First we define a function that does a single step or a limited number of steps,
 starting at given positions in the editions.</p>
 <p>This function will then be called from a big loop.</p>
-<p>The comparison consists of checking out a number of things under several strictness conditions.
-As soon as a check succeeds, we perform the actions associated with that, and continue to the next iteration.</p>
+<p>The comparison consists of checking out a number of things
+under several strictness conditions.
+As soon as a check succeeds, we perform the actions associated with that,
+and continue to the next iteration.</p>
 <ol>
-<li>First of all: is there a special case defined for this point? If so, follow its instructions.</li>
+<li>First of all: is there a special case defined for this point?
+If so, follow its instructions.</li>
 <li>Perform local and very strict comparisons.</li>
 <li>Relax the strictness a little bit and try the local comparisons again</li>
 <li>Try out small jumps with great strictness</li>
@@ -234,15 +265,19 @@ There are basically three solutions to overcome such roadblocks</p>
 <li>Tweak the strictness levels in the algorithm. Easy, but risky. Things that went well
 may now go awry. It is not only about preventing the roadblocks, but also maintaining
 the quality of the output alignment table.</li>
-<li>Change the orchestration: change the order of comparing and jumping, introduce more strictness levels,
+<li>Change the orchestration: change the order of comparing and jumping,
+introduce more strictness levels,
 try more or less combinations. Invent new criteria for comparison.
-This is really difficult. The present orchestration is the result of quite some trial and error.</li>
+This is really difficult. The present orchestration is the result of
+quite some trial and error.</li>
 </ol>
 <p>We have provided an analysis function for the alignment table that assesses its quality
-and reports where the bad stretches are. This is a very helpful aid in tweaking the parameters
+and reports where the bad stretches are.
+This is a very helpful aid in tweaking the parameters
 and defining special cases. More about this below.</p>
 <h1 id="the-diff-function">The diff function</h1>
-<p>Finally we can write up the <code>doDiff</code> function which loops through the editions and produces an alignment table.</p>
+<p>Finally we can write up the <code>doDiff</code> function which loops through the editions
+and produces an alignment table.</p>
 <p>But you can also run call it for a specific pair of positions and a limited number of steps.
 Handy for debugging and tweaking the decision parameters.</p>
 <p>You specify the start positions by means of the slot numbers in the LK and AF.
@@ -253,18 +288,25 @@ Only do this if you run a limited number of steps.</p>
 <p>The special cases that you find in the notebook are the result of trial and error.</p>
 <p>The keys are the LK slot numbers where the cases must be applied.</p>
 <p>The values are the amount of words in LK and in AF that will be identified.</p>
-<p>So <code>1000: (3, 4)</code> means that at slot position 1000 in LK we take 3 consecutive words and identify it with
-4 consecutive words in AF at the current position there.</p>
-<p>When you read the alignment table (by <code><a title="fusus.align.printDiff" href="#fusus.align.printDiff">printDiff()</a></code> or <code><a title="fusus.align.printLines" href="#fusus.align.printLines">printLines()</a></code>)
+<p>So <code>1000: (1100, 3, 4)</code> means that at slot position 1000 in LK resp. 1100 in AF
+we take 3 resp. 4 consecutive words and declare that those 3 words in LK
+match those 3 words in AF.</p>
+<p>If for some reason the algorithm never reaches a point where the current position
+in LF is 1000 and the current position in AF is 1100, the case will be reported
+as a failed case.</p>
+<p>When you read the alignment table (by <code>printDiff</code> or <code>printLines</code>)
 you see the information on the basis of which you could define a special case.</p>
 <h1 id="quality-check">Quality check</h1>
 <p>How did the alignment perform?
 It did complete, but what have we got?
 It could be just garbage.</p>
 <h2 id="sanity">Sanity</h2>
-<p>First of all we need to know whether all words of both LF and LK occur left and right, without gaps and duplications
-and in the right order. We check that. This is important, because the alignment algorithm is under
-intense evolution, and it could easily incur a flaw in which the material of the editions is not
+<p>First of all we need to know whether all words of both LF and LK occur left and right,
+without gaps and duplications
+and in the right order. We check that. This is important,
+because the alignment algorithm is under
+intense evolution, and it could easily incur a flaw
+in which the material of the editions is not
 properly conserved.</p>
 <h2 id="agreement">Agreement</h2>
 <p>We provide information about the agreement of the words in both sources.
@@ -273,14 +315,16 @@ How many words are there for which there is no counterpart in the other edition?
 <p>Note that there are two reasons for bad agreement results:</p>
 <ol>
 <li>The editions are really very different</li>
-<li>The alignment is not optimal and fails to align many words that would have matched under another
+<li>The alignment is not optimal and fails to align many words
+that would have matched under another
 alignment strategy.</li>
 </ol>
 <h2 id="bad-stretches">Bad stretches</h2>
 <p>Are there long stretches of poorly matching alignments?
 We are going to examine them.</p>
 <p>If they contain many cases of left missing words and many cases of right missing words,
-they are suspect, because they might contain largely the same words, but the algorithm has failed
+they are suspect, because they might contain largely the same words,
+but the algorithm has failed
 to match them.</p>
 <p>We show all suspect bad stretches.
 It is advisable to tweak the algorithm until all suspect bad stretches are gone.
@@ -290,7 +334,7 @@ We also show examples of benign bad strectches (at most three examples per size)
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L0-L730" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L0-L1044" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: docs/about/alignment.md
@@ -318,217 +362,8 @@ EDITIONS = {
     AF: &#34;Afifi&#34;,
 }
 
-
-def readEditions(versionGiven, casesGiven):
-    global version
-    global cases
-    global alignmentPath
-    global A
-    global FLK
-    global FAF
-    global TLK
-    global TAF
-    global LLK
-    global LAF
-    global maxLK
-    global maxAF
-    global getTextLK
-    global getTextAF
-    global alignment
-    global indexLK
-    global indexAF
-    global decisions
-
-    version = versionGiven
-    cases = casesGiven
-    alignmentPath = f&#34;{ALIGNMENT_DIR}/alignment{version}.tsv&#34;
-    if not os.path.exists(ALIGNMENT_DIR):
-        os.makedirs(alignmentPath, exist_ok=True)
-
-    A = {}
-    F = {}
-    T = {}
-    L = {}
-    maxSlot = {}
-
-    for (acro, name) in EDITIONS.items():
-        A[acro] = use(f&#34;among/fusus/tf/{name}:clone&#34;, writing=&#34;ara&#34;, version=version)
-        F[acro] = A[acro].api.F
-        T[acro] = A[acro].api.T
-        L[acro] = A[acro].api.L
-        maxSlot[acro] = F[acro].otype.maxSlot
-
-    FLK = F[LK]
-    FAF = F[AF]
-    TLK = T[LK]
-    TAF = T[AF]
-    LLK = L[LK]
-    LAF = L[AF]
-    maxLK = maxSlot[LK]
-    maxAF = maxSlot[AF]
-
-    getTextLK = FLK.lettersn.v
-    getTextAF = FAF.lettersn.v
-
-    alignment = []
-    indexLK = {}
-    indexAF = {}
-    decisions = collections.Counter()
-
-    return dict(
-        version=version,
-        cases=cases,
-        alignmentPath=alignmentPath,
-        A=A,
-        FLK=FLK,
-        FAF=FAF,
-        TLK=TLK,
-        TAF=TAF,
-        LLK=LLK,
-        LAF=LAF,
-        maxLK=maxLK,
-        maxAF=maxAF,
-        getTextLK=getTextLK,
-        getTextAF=getTextAF,
-        alignment=alignment,
-        indexLK=indexLK,
-        indexAF=indexAF,
-        decisions=decisions,
-    )
-
-
-def getPosLK(slot):
-    (piece, page, line) = TLK.sectionFromNode(slot)
-    return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
-
-
-def getPosAF(slot):
-    (page, block, line) = TAF.sectionFromNode(slot)
-    return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
-
-
-def printLines(start=0, end=None):
-    &#34;&#34;&#34;Print specified entries in the alignment table.
-
-    Parameters
-    ----------
-    start: integer, optional 0
-        Position of first alignment entry that needs to be printed.
-        If it is 0 or negative, it starts from the beginning.
-
-    end: integer, optional `None`
-        Position of last alignment entry that needs to be printed.
-        If it is negative, it indicates a position that much
-        before the end of the list.
-        If it is absent, it indicates the last line of the list.
-    &#34;&#34;&#34;
-    if start &lt; 0:
-        start = 0
-    if end is None or end &gt; len(alignment):
-        end = len(alignment)
-    lines = []
-
-    lines.append(
-        &#34;pag:ln|slot |cc|textLakhnawi        |@ed~rat|textAfifi           |cc| slot|pag:ln&#34;
-    )
-    lines.append(
-        &#34;------|-----|--|--------------------|-------|--------------------|--|-----|------&#34;
-    )
-    for (iLK, left, d, r, right, iAF) in alignment[start:end]:
-        textLK = getTextLK(iLK) if iLK else &#34;&#34;
-        textAF = getTextAF(iAF) if iAF else &#34;&#34;
-        posLK = getPosLK(iLK) if iLK else &#34;&#34;
-        posAF = getPosAF(iAF) if iAF else &#34;&#34;
-        lines.append(
-            f&#34;{posLK:&gt;6}|{iLK:&gt;5}|{left:&lt;2}|{textLK:&gt;20}|@{d:&lt;2}~{r:3.1f}|{textAF:&lt;20}|{right:&gt;2}|{iAF:&gt;5} {posAF:&lt;6}&#34;
-        )
-    return &#34;\n&#34;.join(lines)
-
-
-def printAlignment(path, asTsv=False):
-    &#34;&#34;&#34;Prints the whole alignment table to file.
-
-    Parameters
-    ----------
-    path: string
-        The path name of the file to which the information is printed.
-
-    asTsv: boolean, optional `False
-        If False, pretty prints the table to file, using
-        `printLines` above.
-        If True, write essential data only in tab separated format.
-        The essential information is *slot in LK*, *distance*, *slot in AF*
-    &#34;&#34;&#34;
-    with open(path, &#34;w&#34;) as fh:
-        if asTsv:
-            for item in alignment:
-                fh.write(
-                    &#34;\t&#34;.join(
-                        f&#34;{it:3.1f}&#34; if i == 3 else str(it)
-                        for (i, it) in enumerate(item)
-                    )
-                    + &#34;\n&#34;
-                )
-        else:
-            fh.write(printLines())
-            fh.write(&#34;\n&#34;)
-
-
-def printDiff(before, after):
-    &#34;&#34;&#34;Print the last alignment entries plus what comes after.
-
-    This function is useful if alignment fails at some point.
-    It then shows what happened before the failure and how it looks
-    after the failure.
-
-    Parameters
-    ----------
-    before: integer
-        The amount of alignment entries to print.
-        They will be picked from the end of the current alignment table.
-    after: integer
-        The amount of slots after the last alignment entry that
-        needs to be shown for each source.
-    &#34;&#34;&#34;
-    print(printLines(start=len(alignment) - before))
-    print(&#34;^&#34; * 67)
-    lastLK = None
-    lastAF = None
-    for c in range(len(alignment) - 1, -1, -1):
-        comp = alignment[c]
-        if lastLK is None:
-            if comp[0]:
-                lastLK = comp[0]
-        if lastAF is None:
-            if comp[-1]:
-                lastAF = comp[-1]
-        if lastLK is not None and lastAF is not None:
-            break
-    if lastLK is not None and lastAF is not None:
-        for i in range(after):
-            iLK = lastLK + 1 + i
-            iAF = lastAF + 1 + i
-            textLK = getTextLK(iLK) if iLK &lt;= maxLK else &#34;&#34;
-            textAF = getTextAF(iAF) if iAF &lt;= maxAF else &#34;&#34;
-            d = distance(textLK, textAF)
-            r = ratio(textLK, textAF)
-            print(f&#34;{iLK:&gt;5} =  {textLK:&gt;20} @{d:&gt;2}~{r:3.1f} {textAF:&lt;20}  = {iAF:&gt;5}&#34;)
-
-
 COMBINE = 4
-
-
-def getCombis(c):
-    combis = []
-    for i in range(1, c + 1):
-        for j in range(1, c + 1):
-            if i != 1 or j != 1:
-                combis.append((i, j))
-    return tuple(sorted(combis, key=lambda x: (x[0] + x[1], abs(x[0] - x[1]))))
-
-
-COMBIS = getCombis(COMBINE)
-COMBIS
+LOOKAHEAD = 3
 
 
 def similar(s1, s2, maxD, minR):
@@ -543,486 +378,1009 @@ def similar(s1, s2, maxD, minR):
     return (d &lt;= maxD and r &gt;= minR, d, r)
 
 
-def catchupAF(start, end):
-    for i in range(start, end + 1):
-        indexAF[i] = len(alignment)
-        alignment.append((&#34;&#34;, 0, 99, 0.0, &#34;&#34;, i))
+class Alignment:
+    &#34;&#34;&#34;Aligns the words of the LK edition with those of the AF edition.
 
+    The main method is `doDiffs` which produces the alignment table.
+    &#34;&#34;&#34;
 
-def catchupLK(start, end):
-    for i in range(start, end + 1):
-        indexLK[i] = len(alignment)
-        alignment.append((i, &#34;&#34;, 99, 0.0, 0, &#34;&#34;))
+    def __init__(self):
+        self.getCombis(COMBINE)
 
+    def readEditions(self, version, cases):
+        &#34;&#34;&#34;Read the material of both LK and AF editions.
 
-def doCase(iLK, iAF, debug=False):
-    if iLK not in cases:
-        return None
+        Parameters
+        ----------
+        version: string
+            The version number of the source datasets for both editions.
+            We assume that both editions are available as Text-Fabric datasets.
 
-    (cLK, cAF) = cases[iLK]
-    common = min((cLK, cAF))
-    for i in range(max((cLK, cAF))):
-        nAlignment = len(alignment)
-        if i &lt; common:
-            alignment.append((iLK + i, cLK, 88, 0.0, cAF, iAF + i))
-            indexLK[iLK + i] = nAlignment
-            indexAF[iAF + i] = nAlignment
-        elif i &lt; cLK:
-            alignment.append((iLK + i, cLK, 88, 0.0, cAF, &#34;&#34;))
-            indexLK[iLK + i] = nAlignment
-        else:
-            alignment.append((&#34;&#34;, cLK, 88, 0.0, cAF, iAF + i))
-            indexAF[iAF + i] = nAlignment
-    if debug:
-        print(f&#34;[{iLK}~{iAF}] special case ({cLK}, {cAF})&#34;)
-    return (iLK + cLK, iAF + cAF)
+        cases: dict
+            The special cases defined to help the alignment algorithm through
+            difficult spots.
 
+            The dictionary is keyed by LK slot number, and the value is a tuple
+            consisting of a corresponding AF slot number, the amount of
+            words to collect at the LK side, and the amount of words to collect at
+            the AF side.
 
-def findCombi(iLK, iAF, maxD, minR):
-    found = None
+        Returns
+        -------
+        None
+            But the Alignment object will have attributes set by which
+            the other methods are capable of reading the data source.
+        &#34;&#34;&#34;
 
-    for (cLK, cAF) in COMBIS:
-        if iLK + cLK &gt; maxLK or iAF + cAF &gt; maxLK:
-            continue
-        textLK = &#34;&#34;.join(getTextLK(iLK + i) for i in range(cLK))
-        textAF = &#34;&#34;.join(getTextAF(iAF + i) for i in range(cAF))
-        (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
-        if isSimilar:
-            found = (cLK, cAF)
-            common = min((cLK, cAF))
-            for i in range(max((cLK, cAF))):
-                nAlignment = len(alignment)
-                if i &lt; common:
-                    alignment.append((iLK + i, cLK, d, r, cAF, iAF + i))
-                    indexLK[iLK + i] = nAlignment
-                    indexAF[iAF + i] = nAlignment
-                elif i &lt; cLK:
-                    alignment.append((iLK + i, cLK, d, r, cAF, &#34;&#34;))
-                    indexLK[iLK + i] = nAlignment
-                elif i &lt; cAF:
-                    alignment.append((&#34;&#34;, cLK, d, r, cAF, iAF + i))
-                    indexAF[iAF + i] = nAlignment
-            break
-    return found
+        self.version = version
+        self.cases = cases
+        self.alignmentPath = f&#34;{ALIGNMENT_DIR}/alignment{version}.tsv&#34;
+        self.alignmentText = f&#34;{ALIGNMENT_DIR}/alignment{version}.txt&#34;
+        self.alignmentTextBlocked = f&#34;{ALIGNMENT_DIR}/alignment-incomplete{version}.txt&#34;
 
+        if not os.path.exists(ALIGNMENT_DIR):
+            os.makedirs(self.alignmentPath, exist_ok=True)
 
-def compare(iLK, iAF, maxD, minR, debug=False):
-    textLK = getTextLK(iLK)
-    textAF = getTextAF(iAF)
-    (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
-    if isSimilar:
-        nAlignment = len(alignment)
-        alignment.append((iLK, &#34;&#34;, d, r, &#34;&#34;, iAF))
-        indexLK[iLK] = nAlignment
-        indexAF[iAF] = nAlignment
-        if debug:
-            print(
-                f&#34;[{iLK}~{iAF}] single comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+        A = {}
+        F = {}
+        T = {}
+        L = {}
+        maxSlot = {}
+
+        for (acro, name) in EDITIONS.items():
+            A[acro] = use(
+                f&#34;among/fusus/tf/{name}:clone&#34;, writing=&#34;ara&#34;, version=version
             )
-        return (iLK + 1, iAF + 1)
+            F[acro] = A[acro].api.F
+            T[acro] = A[acro].api.T
+            L[acro] = A[acro].api.L
+            maxSlot[acro] = F[acro].otype.maxSlot
 
-    if iLK &lt; maxLK and iAF &lt; maxAF:
-        textLK = getTextLK(iLK + 1)
-        textAF = getTextAF(iAF + 1)
-        (isSimilarNext, dNext, rNext) = similar(textLK, textAF, maxD, minR)
-        if isSimilarNext:
-            nAlignment = len(alignment)
-            alignment.append((iLK, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF))
-            indexLK[iLK] = nAlignment
-            indexAF[iAF] = nAlignment
-            if debug:
-                print(
-                    f&#34;[{iLK}~{iAF}] single comparison failed with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
-                )
-            nAlignment = len(alignment)
-            alignment.append((iLK + 1, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF + 1))
-            indexLK[iLK] = nAlignment
-            indexAF[iAF] = nAlignment
-            if debug:
-                print(
-                    f&#34;[{iLK}~{iAF}] single comparison recovered with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
-                )
-            return (iLK + 2, iAF + 2)
+        self.F_LK = F[LK]
+        self.F_AF = F[AF]
+        self.T_LK = T[LK]
+        self.T_AF = T[AF]
+        self.L_LK = L[LK]
+        self.L_AF = L[AF]
+        self.maxLK = maxSlot[LK]
+        self.maxAF = maxSlot[AF]
 
-    combi = findCombi(iLK, iAF, maxD, minR)
-    if combi is not None:
-        (cLK, cAF) = combi
-        if debug:
-            print(
-                f&#34;[{iLK}~{iAF}] ({cLK}, {cAF}) comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+        self.getTextLK = F[LK].lettersn.v
+        self.getTextAF = F[AF].lettersn.v
+
+    def getPosLK(self, slot):
+        &#34;&#34;&#34;Obtain the page and line numbers where a slot in the LK occurs.
+        &#34;&#34;&#34;
+
+        T_LK = self.T_LK
+
+        (piece, page, line) = T_LK.sectionFromNode(slot)
+        return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
+
+    def getPosAF(self, slot):
+        &#34;&#34;&#34;Obtain the page and line numbers where a slot in the AF occurs.
+        &#34;&#34;&#34;
+        T_AF = self.T_AF
+
+        (page, block, line) = T_AF.sectionFromNode(slot)
+        return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
+
+    def printLines(self, start=0, end=None):
+        &#34;&#34;&#34;Print specified entries in the alignment table.
+
+        Parameters
+        ----------
+        start: integer, optional 0
+            Position of first alignment entry that needs to be printed.
+            If it is 0 or negative, it starts from the beginning.
+
+        end: integer, optional `None`
+            Position of last alignment entry that needs to be printed.
+            If it is negative, it indicates a position that much
+            before the end of the list.
+            If it is absent, it indicates the last line of the list.
+        &#34;&#34;&#34;
+
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+
+        if start &lt; 0:
+            start = 0
+        if end is None or end &gt; len(alignment):
+            end = len(alignment)
+        lines = []
+
+        lines.append(
+            &#34;pag:ln|slot |cc|textLakhnawi        |@ed~rat|textAfifi           |cc| slot|pag:ln&#34;
+        )
+        lines.append(
+            &#34;------|-----|--|--------------------|-------|--------------------|--|-----|------&#34;
+        )
+        for (iLK, left, d, r, right, iAF) in alignment[start:end]:
+            textLK = getTextLK(iLK) if iLK else &#34;&#34;
+            textAF = getTextAF(iAF) if iAF else &#34;&#34;
+            posLK = self.getPosLK(iLK) if iLK else &#34;&#34;
+            posAF = self.getPosAF(iAF) if iAF else &#34;&#34;
+            lines.append(
+                f&#34;{posLK:&gt;6}|{iLK:&gt;5}|{left:&lt;2}|{textLK:&gt;20}|@{d:&lt;2}~{r:3.1f}|{textAF:&lt;20}|{right:&gt;2}|{iAF:&gt;5} {posAF:&lt;6}&#34;
             )
+        return &#34;\n&#34;.join(lines)
+
+    def printAlignment(self, path, asTsv=False):
+        &#34;&#34;&#34;Prints the whole alignment table to file.
+
+        Parameters
+        ----------
+        path: string
+            The path name of the file to which the information is printed.
+
+        asTsv: boolean, optional `False
+            If False, pretty prints the table to file, using
+            `printLines` above.
+            If True, write essential data only in tab separated format.
+            The essential information is *slot in LK*, *distance*, *slot in AF*
+        &#34;&#34;&#34;
+        alignment = self.alignment
+
+        with open(path, &#34;w&#34;) as fh:
+            if asTsv:
+                for item in alignment:
+                    fh.write(
+                        &#34;\t&#34;.join(
+                            f&#34;{it:3.1f}&#34; if i == 3 else str(it)
+                            for (i, it) in enumerate(item)
+                        )
+                        + &#34;\n&#34;
+                    )
+            else:
+                fh.write(self.printLines())
+                fh.write(&#34;\n&#34;)
+
+    def printDiff(self, before, after):
+        &#34;&#34;&#34;Print the last alignment entries plus what comes after.
+
+        This function is useful if alignment fails at some point.
+        It then shows what happened before the failure and how it looks
+        after the failure.
+
+        Parameters
+        ----------
+        before: integer
+            The amount of alignment entries to print.
+            They will be picked from the end of the current alignment table.
+        after: integer
+            The amount of slots after the last alignment entry that
+            needs to be shown for each source.
+        &#34;&#34;&#34;
+        alignment = self.alignment
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+
+        print(self.printLines(start=len(alignment) - before))
+        print(&#34;^&#34; * 67)
+        lastLK = None
+        lastAF = None
+        for c in range(len(alignment) - 1, -1, -1):
+            comp = alignment[c]
+            if lastLK is None:
+                if comp[0]:
+                    lastLK = comp[0]
+            if lastAF is None:
+                if comp[-1]:
+                    lastAF = comp[-1]
+            if lastLK is not None and lastAF is not None:
+                break
+        if lastLK is not None and lastAF is not None:
+            for i in range(after):
+                iLK = lastLK + 1 + i
+                iAF = lastAF + 1 + i
+                textLK = getTextLK(iLK) if iLK &lt;= maxLK else &#34;&#34;
+                textAF = getTextAF(iAF) if iAF &lt;= maxAF else &#34;&#34;
+                d = distance(textLK, textAF)
+                r = ratio(textLK, textAF)
+                print(
+                    f&#34;{iLK:&gt;5} =  {textLK:&gt;20} @{d:&gt;2}~{r:3.1f} {textAF:&lt;20}  = {iAF:&gt;5}&#34;
+                )
+
+    def printCase(self, iLK, label):
+        &#34;&#34;&#34;Print the alignment entries that belong to a special case.
+
+        Parameters
+        ----------
+        iLK: integer
+            The slot number in LK that triggered a special case.
+        label: string
+            The kind of issue with this case that you want to report:
+            FAILED or MISSING.
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        cases = self.cases
+        case = cases[iLK]
+        (iAF, cLK, cAF) = case
+        start = min((indexLK[iLK], indexAF[iAF]))
+        end = max((indexLK[iLK + cLK + 1], indexAF[iAF + cAF + 1]))
+        print(f&#34;{label} CASE: {iLK} vs {iAF}:&#34;)
+        print(self.printLines(start=start, end=end))
+
+    def getCombis(self, c):
+        &#34;&#34;&#34;Precompute a specification of all combinations that might be tried.
+
+        When the alignment fails between single words, we try combinations
+        of words left and right in a specific order.
+        The result of this function lists the combinations that must be
+        tried, where each combination is specified as a tuple
+        of the number of words left and the number of words right
+        that needs to be taken together for the matching.
+
+        See also: `findCommbi`.
+        &#34;&#34;&#34;
+        combis = []
+        for i in range(1, c + 1):
+            for j in range(1, c + 1):
+                if i != 1 or j != 1:
+                    combis.append((i, j))
+        self.combis = tuple(
+            sorted(combis, key=lambda x: (x[0] + x[1], abs(x[0] - x[1])))
+        )
+
+    def catchupAF(self, start, end):
+        &#34;&#34;&#34;Move the current position in the AF edition forward.
+
+        While doing so, it adds an entry to the alignment table
+        for each time the position is shifted by one.
+
+        Parameters
+        ----------
+        start: integer
+            From where to start shifting
+        end: integer
+            Where to end shifting
+        &#34;&#34;&#34;
+        indexAF = self.indexAF
+        alignment = self.alignment
+
+        for i in range(start, end + 1):
+            indexAF[i] = len(alignment)
+            alignment.append((&#34;&#34;, 0, 99, 0.0, &#34;&#34;, i))
+
+    def catchupLK(self, start, end):
+        &#34;&#34;&#34;Move the current position in the LK edition forward.
+
+        While doing so, it adds an entry to the alignment table
+        for each time the position is shifted by one.
+
+        Parameters
+        ----------
+        start: integer
+            From where to start shifting
+        end: integer
+            Where to end shifting
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        alignment = self.alignment
+
+        for i in range(start, end + 1):
+            indexLK[i] = len(alignment)
+            alignment.append((i, &#34;&#34;, 99, 0.0, 0, &#34;&#34;))
+
+    def doCase(self, iLK, iAF, debug=False):
+        &#34;&#34;&#34;Deal with a special case.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current position in LK edition.
+            A case is triggered when iLK is equal
+            to a key in the cases table and if the same case
+            has not already been applied.
+            This last condition is relevant for special
+            cases where the number of LK words that must be
+            combined is 0. In that case, the current LK
+            position does not shift, and we would be in an
+            infinite loop.
+        iAF: integer
+            Current position in AF edition.
+            If a case is triggered by iLK, but the AF position
+            specified in the case does not match iAF,
+            the case is skipped and is reported as a failed case.
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+        alignment = self.alignment
+        usedCases = self.usedCases
+        failedCases = self.failedCases
+
+        cases = self.cases
+
+        if iLK not in cases:
+            return None
+
+        (givenIAF, cLK, cAF) = cases[iLK]
+        if givenIAF != iAF:
+            failedCases.add(iLK)
+            return None
+
+        usedCases.add(iLK)
+        common = min((cLK, cAF))
+        for i in range(max((cLK, cAF))):
+            nAlignment = len(alignment)
+            if i &lt; common:
+                indexLK[iLK + i] = nAlignment
+                indexAF[iAF + i] = nAlignment
+                alignment.append((iLK + i, cLK, 88, 0.0, cAF, iAF + i))
+            elif i &lt; cLK:
+                indexLK[iLK + i] = nAlignment
+                alignment.append((iLK + i, cLK, 88, 0.0, cAF, &#34;&#34;))
+            else:
+                indexAF[iAF + i] = nAlignment
+                alignment.append((&#34;&#34;, cLK, 88, 0.0, cAF, iAF + i))
+        if debug:
+            print(f&#34;[{iLK}~{iAF}] special case ({cLK}, {cAF})&#34;)
         return (iLK + cLK, iAF + cAF)
 
-    return None
+    def findCombi(self, iLK, iAF, maxD, minR):
+        &#34;&#34;&#34;Tries out all possible combinations at this point until success.
 
+        This is typically called when a direct match at the current slots
+        in LK and AF fail.
 
-def lookup(iLK, iAF, maxD, minR, start, end, debug=False):
-    step = None
+        We are going to take together small amounts of words and match
+        them instead. As soon as we have a match, we break out of the loop
+        and use step to the new positions.
 
-    for i in range(start, end + 1):
-        prevAlignmentIndex = len(alignment)
+        See also: `getCombis` and `compare`.
 
-        if iAF + i &lt;= maxAF:
-            step = compare(iLK, iAF + i, maxD, minR, debug=debug)
-            if step:
-                if debug:
-                    print(f&#34;[{iLK}~{iAF}] right {i}-jump to {iAF + i}&#34;)
-                thisAlignment = list(alignment[prevAlignmentIndex:])
-                alignment[prevAlignmentIndex:] = []
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        &#34;&#34;&#34;
+        combis = self.combis
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
 
-                catchupAF(iAF, iAF + i - 1)
-                for thisComp in thisAlignment:
+        found = None
+
+        for (cLK, cAF) in combis:
+            if iLK + cLK &gt; maxLK or iAF + cAF &gt; maxAF:
+                continue
+            textLK = &#34;&#34;.join(getTextLK(iLK + i) for i in range(cLK))
+            textAF = &#34;&#34;.join(getTextAF(iAF + i) for i in range(cAF))
+            (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
+            if isSimilar:
+                found = (cLK, cAF)
+                common = min((cLK, cAF))
+                for i in range(max((cLK, cAF))):
                     nAlignment = len(alignment)
-                    thisLK = thisComp[0]
-                    thisAF = thisComp[-1]
-                    if thisLK:
-                        indexLK[thisLK] = nAlignment
-                    if thisAF:
-                        indexAF[thisAF] = nAlignment
-                    alignment.append(thisComp)
+                    if i &lt; common:
+                        indexLK[iLK + i] = nAlignment
+                        indexAF[iAF + i] = nAlignment
+                        alignment.append((iLK + i, cLK, d, r, cAF, iAF + i))
+                    elif i &lt; cLK:
+                        indexLK[iLK + i] = nAlignment
+                        alignment.append((iLK + i, cLK, d, r, cAF, &#34;&#34;))
+                    elif i &lt; cAF:
+                        indexAF[iAF + i] = nAlignment
+                        alignment.append((&#34;&#34;, cLK, d, r, cAF, iAF + i))
                 break
+        return found
 
-        if iLK + i &lt;= maxLK:
-            step = compare(iLK + i, iAF, maxD, minR, debug=debug)
-            if step:
+    def compare(self, iLK, iAF, maxD, minR, debug=False):
+        &#34;&#34;&#34;Does a full comparison at a location, including between combinations.
+
+        First a direct match between the words at the current positions in
+        the LK and AF editions is tried. If that fails,
+        combinations of words from those points onwards are tried.
+
+        See also: `getCombis` and `findCombi`.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the comparison.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        textLK = getTextLK(iLK)
+        textAF = getTextAF(iAF)
+        (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
+        if isSimilar:
+            nAlignment = len(alignment)
+            indexLK[iLK] = nAlignment
+            indexAF[iAF] = nAlignment
+            alignment.append((iLK, &#34;&#34;, d, r, &#34;&#34;, iAF))
+            if debug:
+                print(
+                    f&#34;[{iLK}~{iAF}] single comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                )
+            return (iLK + 1, iAF + 1)
+
+        if iLK &lt; maxLK and iAF &lt; maxAF:
+            textLK = getTextLK(iLK + 1)
+            textAF = getTextAF(iAF + 1)
+            (isSimilarNext, dNext, rNext) = similar(textLK, textAF, maxD, minR)
+            if isSimilarNext:
+                nAlignment = len(alignment)
+                indexLK[iLK] = nAlignment
+                indexAF[iAF] = nAlignment
+                alignment.append((iLK, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF))
                 if debug:
-                    print(f&#34;[{iLK}~{iAF}] left {i}-jump to {iLK + i}&#34;)
-                thisAlignment = list(alignment[prevAlignmentIndex:])
-                alignment[prevAlignmentIndex:] = []
+                    print(
+                        f&#34;[{iLK}~{iAF}] single comparison failed with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                    )
+                nAlignment = len(alignment)
+                indexLK[iLK + 1] = nAlignment
+                indexAF[iAF + 1] = nAlignment
+                alignment.append((iLK + 1, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF + 1))
+                if debug:
+                    print(
+                        f&#34;[{iLK}~{iAF}] single comparison recovered with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                    )
+                return (iLK + 2, iAF + 2)
 
-                catchupLK(iLK, iLK + i - 1)
-                for thisComp in thisAlignment:
-                    nAlignment = len(alignment)
-                    thisLK = thisComp[0]
-                    thisAF = thisComp[-1]
-                    if thisLK:
-                        indexLK[thisLK] = nAlignment
-                    if thisAF:
-                        indexAF[thisAF] = nAlignment
-                    alignment.append(thisComp)
-                break
-    return step
+        combi = self.findCombi(iLK, iAF, maxD, minR)
+        if combi is not None:
+            (cLK, cAF) = combi
+            if debug:
+                print(
+                    f&#34;[{iLK}~{iAF}] ({cLK}, {cAF}) comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                )
+            return (iLK + cLK, iAF + cAF)
 
+        return None
 
-def doDiffs(startLK=1, startAF=1, steps=-1, show=False, debug=False):
-    alignment.clear()
-    decisions.clear()
+    def lookup(self, iLK, iAF, maxD, minR, start, end, debug=False):
+        &#34;&#34;&#34;Performs a jump in both editions.
 
-    lastCase = None
-    step = (startLK, startAF)
+        Typically invoked when comparison at the current locations fail,
+        even after having tried combinations.
 
-    it = 0
+        We compare the current word in one edition with those from a certain
+        interval in the other edition. And vice versa, alternately.
+        of subsequent words.
 
-    def doDiff(iLK, iAF):
-        decision = 0
-        if iLK &gt; maxLK or iAF &gt; maxAF:
-            if iAF &lt; maxAF:
-                catchupAF(iAF, maxAF)
-            if iLK &lt; maxLK:
-                catchupLK(iLK, maxLK)
-            decisions[decision] += 1
-            return True
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        start: integer
+            first position in the other edition where we start comparing
+        end: integer
+            last position in the other edition where we stop comparing
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the lookup.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
 
-        nonlocal lastCase
+        step = None
 
-        decision += 1
+        for i in range(start, end + 1):
+            prevAlignmentIndex = len(alignment)
 
-        if lastCase != iLK:
-            step = doCase(iLK, iAF, debug=debug)
+            if iAF + i &lt;= maxAF:
+                step = self.compare(iLK, iAF + i, maxD, minR, debug=debug)
+                if step:
+                    if debug:
+                        print(f&#34;[{iLK}~{iAF}] right {i}-jump to {iAF + i}&#34;)
+                    thisAlignment = list(alignment[prevAlignmentIndex:])
+                    alignment[prevAlignmentIndex:] = []
+
+                    self.catchupAF(iAF, iAF + i - 1)
+                    for thisComp in thisAlignment:
+                        nAlignment = len(alignment)
+                        thisLK = thisComp[0]
+                        thisAF = thisComp[-1]
+                        if thisLK:
+                            indexLK[thisLK] = nAlignment
+                        if thisAF:
+                            indexAF[thisAF] = nAlignment
+                        alignment.append(thisComp)
+                    break
+
+            if iLK + i &lt;= maxLK:
+                step = self.compare(iLK + i, iAF, maxD, minR, debug=debug)
+                if step:
+                    if debug:
+                        print(f&#34;[{iLK}~{iAF}] left {i}-jump to {iLK + i}&#34;)
+                    thisAlignment = list(alignment[prevAlignmentIndex:])
+                    alignment[prevAlignmentIndex:] = []
+
+                    self.catchupLK(iLK, iLK + i - 1)
+                    for thisComp in thisAlignment:
+                        nAlignment = len(alignment)
+                        thisLK = thisComp[0]
+                        thisAF = thisComp[-1]
+                        if thisLK:
+                            indexLK[thisLK] = nAlignment
+                        if thisAF:
+                            indexAF[thisAF] = nAlignment
+                        alignment.append(thisComp)
+                    break
+        return step
+
+    def doDiffs(self, startLK=1, startAF=1, steps=-1, show=False, debug=False):
+        &#34;&#34;&#34;Main loop of the alignment process.
+
+        Without optional parameters, performs the whole alignment until
+        it is completed or fails.
+
+        But you can also run a few alignment steps, from arbitrary positions
+        and record the decision steps. This is handy for debugging and
+        exploring.
+
+        !!! hint &#34;doDiff&#34;
+            This function defines an inner function `doDiff`, which
+            contains the logic of a single alignment step.
+            That function `doDiff` issues a sequence of `compare` and `lookup`
+            commands with various strictnesses and various jump sizes,
+            which will be tried in order.
+
+            Here you can finetune the amount of looseness you allow in a comparison
+            before jumping from that position.
+            You can first compare strictly, then jump away a short distance while
+            still comparing strictly, and then start comparing more loosely, and
+            then jump away a longer distance, possibly a bit more loosely.
+            That is a matter of trial and error.
+
+            The current implementation of `doDiff` matches the present LK and AF well,
+            especially in conjunction with the special cases that have been defined.
+
+        Parameters
+        ----------
+        startLK: integer, optional 1
+            Start position in LK edition. If not passed, starts from the beginning.
+        startAF: integer, optional 1
+            Start position in AF edition. If not passed, starts from the beginning.
+        steps: integer, optional `-1`
+            The number of alignment steps to perform.
+            If not passed or -1, there is no limit on the steps.
+        show: boolean, optional False
+            If True, prints the resulting alignment table to the screen.
+            Only do this when you produce a small part of the alignment table!
+            maximum edit distance that we allow for the comparisons to succeed
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the each decision
+            that has been taken during the alignment process.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        cases = self.cases
+        alignmentPath = self.alignmentPath
+        alignmentText = self.alignmentText
+        alignmentTextBlocked = self.alignmentTextBlocked
+
+        self.alignment = []
+        self.indexLK = {}
+        self.indexAF = {}
+        self.decisions = collections.Counter()
+        self.usedCases = set()
+        self.failedCases = set()
+
+        alignment = self.alignment
+        indexLK = self.indexLK
+        decisions = self.decisions
+        usedCases = self.usedCases
+        failedCases = self.failedCases
+
+        lastCase = None
+        step = (startLK, startAF)
+
+        it = 0
+
+        def doDiff(iLK, iAF):
+            decision = 0
+            if iLK &gt; maxLK or iAF &gt; maxAF:
+                if iAF &lt; maxAF:
+                    self.catchupAF(iAF, maxAF)
+                if iLK &lt; maxLK:
+                    self.catchupLK(iLK, maxLK)
+                decisions[decision] += 1
+                return True
+
+            nonlocal lastCase
+
+            decision += 1
+
+            if lastCase != iLK:
+                step = self.doCase(iLK, iAF, debug=debug)
+                if step:
+                    lastCase = iLK
+                    decisions[decision] += 1
+                    return step
+
+            step = self.compare(iLK, iAF, 0, 1.0, debug=debug)
+            decision += 1
             if step:
-                lastCase = iLK
                 decisions[decision] += 1
                 return step
 
-        step = compare(iLK, iAF, 0, 1.0, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = compare(iLK, iAF, 1, 0.8, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 0, 1.0, 1, 5, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 1, 5, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = compare(iLK, iAF, 1, 0.8, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.compare(iLK, iAF, 2, 0.7, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = compare(iLK, iAF, 2, 0.7, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.compare(iLK, iAF, 3, 0.6, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = compare(iLK, iAF, 3, 0.6, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 0, 1.0, 1, 10, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 1, 10, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 1, 0.8, 1, 10, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 1, 10, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 0, 1.0, 10, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 10, 20, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 1, 0.8, 10, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 10, 20, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 2, 0.7, 1, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 2, 0.7, 1, 20, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 1, 0.8, 20, 100, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 20, 100, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            step = self.lookup(iLK, iAF, 2, 0.7, 20, 100, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
 
-        step = lookup(iLK, iAF, 2, 0.7, 20, 100, debug=debug)
-        decision += 1
-        if step:
-            decisions[decision] += 1
-            return step
+            return False
 
-        return False
+        while it != steps:
+            it += 1
+            step = doDiff(*step)
 
-    while it != steps:
-        it += 1
-        step = doDiff(*step)
+            if step is True:
+                self.printAlignment(alignmentText)
+                self.printAlignment(alignmentPath, asTsv=True)
+                print(f&#34;Alignment complete, {len(alignment)} entries.&#34;)
+                break
+            elif step is False:
+                self.printAlignment(alignmentTextBlocked)
+                print(f&#34;Alignment blocked, {len(alignment)} entries.&#34;)
+                self.printDiff(20, 20)
+                break
 
-        if step is True:
-            printAlignment(&#34;zipLK-AF-complete.txt&#34;)
-            printAlignment(alignmentPath, asTsv=True)
-            print(f&#34;Alignment complete, {len(alignment)} entries.&#34;)
-            break
-        elif step is False:
-            printAlignment(&#34;zipLK-AF-incomplete.txt&#34;)
-            print(f&#34;Alignment blocked, {len(alignment)} entries.&#34;)
-            printDiff(20, 20)
-            break
+        endLK = startLK if len(indexLK) == 0 else max(indexLK)
+        possibleCases = set(range(startLK, endLK + 1))
+        casesSet = set(cases)
+        relevantCases = casesSet &amp; possibleCases
+        missedCases = relevantCases - usedCases - failedCases
 
-    if show:
-        print(printLines())
+        if failedCases:
+            for iLK in sorted(failedCases):
+                self.printCase(iLK, &#34;FAILED&#34;)
+        if missedCases:
+            for iLK in sorted(missedCases):
+                self.printCase(iLK, &#34;MISSED&#34;)
 
-    for d in sorted(decisions):
-        n = decisions[d]
-        print(f&#34;{d:&gt;2} taken: {n:&gt;5} x&#34;)
-
-
-LOOKAHEAD = 3
-
-
-def analyseStretch(start, end):
-    total = 0
-    good = 0
-    onlyLK = 0
-    onlyAF = 0
-
-    for (iLK, left, d, r, right, iAF) in alignment[start : end + 1]:
-        total += 1
-        if not iLK:
-            onlyAF += 1
-        if not iAF:
-            onlyLK += 1
-        if d == 0:
-            good += 1
-
-    suspect = onlyAF &gt; 1 and onlyLK &gt; 1 and onlyAF + onlyLK &gt; 5
-    return suspect
-
-
-def checkAlignment():
-    errors = {}
-    prevILK = 0
-    prevIAF = 0
-
-    where = collections.Counter()
-    agreement = collections.Counter()
-    badStretches = collections.defaultdict(lambda: [])
-    combinations = collections.defaultdict(lambda: [])
-
-    startBad = 0
-    startCombi = 0
-    nCombi = 0
-
-    for (c, (iLK, left, d, r, right, iAF)) in enumerate(alignment):
-        thisBad = d &gt; 0 or not iLK or not iAF
-        hasLeft = left != &#34;&#34;
-        hasRight = right != &#34;&#34;
-
-        # a good line between bad lines is counted as bad
-        if not thisBad and startBad:
-            nextGood = True
-            for j in range(1, LOOKAHEAD + 1):
-                if c + j &lt; len(alignment):
-                    compJ = alignment[c + j]
-                    if compJ[2] &gt; 0 or not compJ[0] or not compJ[-1]:
-                        nextGood = False
-                        break
-            if not nextGood:
-                thisBad = True
-        if startBad:
-            if not thisBad:
-                badStretches[c - startBad].append(startBad)
-                startBad = 0
-        else:
-            if thisBad:
-                startBad = c
-
-        if startCombi and nCombi == c - startCombi:
-            startCombi = 0
-            nCombi = 0
-        if startCombi == 0:
-            thisCombi = hasLeft and left &gt; 1 or hasRight and right &gt; 1
-            if thisCombi:
-                combinations[(left, right)].append(c)
-                startCombi = c
-                nCombi = max((left, right))
-
-        agreement[d] += 1
-
-        if iLK:
-            if iLK != prevILK + 1:
-                errors.setdefault(&#34;wrong iLK&#34;, []).append(
-                    f&#34;{c:&gt;5}: Expected {prevILK + 1}, found {iLK}&#34;
+        if not failedCases and not missedCases:
+            if not relevantCases:
+                print(&#34;No special cases defined for this stretch&#34;)
+            else:
+                print(
+                    f&#34;Special cases: all relevant {len(relevantCases)} cases &#34;
+                    &#34;defined, encountered, and applied&#34;
                 )
-            prevILK = iLK
+
+        if show:
+            print(self.printLines())
+
+        for d in sorted(decisions):
+            n = decisions[d]
+            print(f&#34;{d:&gt;2} taken: {n:&gt;5} x&#34;)
+
+    def analyseStretch(self, start, end):
+        &#34;&#34;&#34;Analyse a stretch in the alignment table and reports whether it is suspect.
+
+        Stretches are suspect if they contain both a number entries where an LK
+        word is missing, and a number of entries where an AF word is missing.
+
+        This is usually an indication that the alignment has gone out of sync.
+
+        Parameters
+        ----------
+        start: integer
+            Index in the alignment list where to start
+        end: integer
+            Index in the alignment list where to stop
+        &#34;&#34;&#34;
+        alignment = self.alignment
+
+        total = 0
+        good = 0
+        onlyLK = 0
+        onlyAF = 0
+
+        for (iLK, left, d, r, right, iAF) in alignment[start : end + 1]:
+            total += 1
+            if not iLK:
+                onlyAF += 1
+            if not iAF:
+                onlyLK += 1
+            if d == 0:
+                good += 1
+
+        suspect = onlyAF &gt; 1 and onlyLK &gt; 1 and onlyAF + onlyLK &gt; 5
+        return suspect
+
+    def check(self):
+        &#34;&#34;&#34;Comprehensive quality assessment of the alignment table.
+
+        Reports various statistics on how close the matches are overall.
+
+        Checks the minimum requirement of sanity:
+        All words in the LK must occur without duplications in the right order
+        int the alignment table. Same for the AF words.
+
+        Reports where the combinations are: the cases where more than one word
+        in the LK has matched with more than one word in the AF.
+        Or where single words have been forced to match, or where words
+        in one edition have no counterpart in the other edition.
+        Gives at most three examples of all distinct combination patterns.
+
+        Identifies bad strectches: chunks of entries within the alignment
+        table where words do not match for various reasons.
+        The identification is a bit loose in the sense that bad stretches
+        with a single perfect match in between are combined.
+
+        Some bad stretches are suspect (see `analyseStretch`).
+        All suspect stretches are shown, and at most three examples
+        of the benign (non-suspsect) bad stretches are shown.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        alignment = self.alignment
+
+        errors = {}
+        prevILK = 0
+        prevIAF = 0
+
+        where = collections.Counter()
+        agreement = collections.Counter()
+        badStretches = collections.defaultdict(lambda: [])
+        combinations = collections.defaultdict(lambda: [])
+
+        startBad = 0
+        startCombi = 0
+        nCombi = 0
+
+        for (c, (iLK, left, d, r, right, iAF)) in enumerate(alignment):
+            thisBad = d &gt; 0 or not iLK or not iAF
+            hasLeft = left != &#34;&#34;
+            hasRight = right != &#34;&#34;
+
+            # a good line between bad lines is counted as bad
+            if not thisBad and startBad:
+                nextGood = True
+                for j in range(1, LOOKAHEAD + 1):
+                    if c + j &lt; len(alignment):
+                        compJ = alignment[c + j]
+                        if compJ[2] &gt; 0 or not compJ[0] or not compJ[-1]:
+                            nextGood = False
+                            break
+                if not nextGood:
+                    thisBad = True
+            if startBad:
+                if not thisBad:
+                    badStretches[c - startBad].append(startBad)
+                    startBad = 0
+            else:
+                if thisBad:
+                    startBad = c
+
+            if startCombi and nCombi == c - startCombi:
+                startCombi = 0
+                nCombi = 0
+            if startCombi == 0:
+                thisCombi = hasLeft and left &gt; 1 or hasRight and right &gt; 1
+                if thisCombi:
+                    combinations[(left, right)].append(c)
+                    startCombi = c
+                    nCombi = max((left, right))
+
+            agreement[d] += 1
+
+            if iLK:
+                if iLK != prevILK + 1:
+                    errors.setdefault(&#34;wrong iLK&#34;, []).append(
+                        f&#34;{c:&gt;5}: Expected {prevILK + 1}, found {iLK}&#34;
+                    )
+                prevILK = iLK
+                if iAF:
+                    where[&#34;both&#34;] += 1
+            else:
+                where[AF] += 1
             if iAF:
-                where[&#34;both&#34;] += 1
-        else:
-            where[AF] += 1
-        if iAF:
-            if iAF != prevIAF + 1:
-                errors.setdefault(&#34;wrong iAF&#34;, []).append(
-                    f&#34;{c:&gt;5}: Expected {prevIAF + 1}, found {iAF}&#34;
-                )
-            prevIAF = iAF
-        else:
-            where[LK] += 1
+                if iAF != prevIAF + 1:
+                    errors.setdefault(&#34;wrong iAF&#34;, []).append(
+                        f&#34;{c:&gt;5}: Expected {prevIAF + 1}, found {iAF}&#34;
+                    )
+                prevIAF = iAF
+            else:
+                where[LK] += 1
 
-    if startBad:
-        badStretches[len(alignment) - startBad].append(startBad)
+        if startBad:
+            badStretches[len(alignment) - startBad].append(startBad)
 
-    if prevILK &lt; maxLK:
-        errors.setdefault(&#34;missing iLKs at the end&#34;, []).append(
-            f&#34;last is {prevILK}, expected {maxLK}&#34;
-        )
-    elif prevILK &gt; maxLK:
-        errors.setdefault(&#34;too many iLKs at the end&#34;, []).append(
-            f&#34;last is {prevILK}, expected {maxLK}&#34;
-        )
-    if prevIAF &lt; maxAF:
-        errors.setdefault(&#34;missing iAFs at the end&#34;, []).append(
-            f&#34;last is {prevIAF}, expected {maxAF}&#34;
-        )
-    elif prevIAF &gt; maxAF:
-        errors.setdefault(&#34;too many iAFs at the end&#34;, []).append(
-            f&#34;last is {prevIAF}, expected {maxAF}&#34;
-        )
-
-    print(&#34;\nSANITY\n&#34;)
-    if not errors:
-        print(&#34;All OK&#34;)
-    else:
-        for (kind, msgs) in errors.items():
-            print(f&#34;ERROR {kind} ({len(msgs):&gt;5}x):&#34;)
-            for msg in msgs[0:10]:
-                print(f&#34;\t{msg}&#34;)
-            if len(msgs) &gt; 10:
-                print(f&#34;\t ... and {len(msgs) - 10} more ...&#34;)
-
-    print(&#34;\nAGREEMENT\n&#34;)
-    print(&#34;Where are the words?\n&#34;)
-    print(f&#34;\t{LK}-only: {where[LK]:&gt;5} slots&#34;)
-    print(f&#34;\t{AF}-only: {where[AF]:&gt;5} slots&#34;)
-    print(f&#34;\tboth:    {where[&#39;both&#39;]:&gt;5} slots&#34;)
-
-    print(&#34;\nHow well is the agreement?\n&#34;)
-    for (d, n) in sorted(agreement.items()):
-        print(f&#34;edit distance {d:&gt;3} : {n:&gt;5} words&#34;)
-    print(&#34;NB: 88 are special cases that have been declared explicitly&#34;)
-
-    print(&#34;\nCOMBINATIONS\n&#34;)
-    print(&#34;What combination alignments are there and how many?&#34;)
-    for comb in sorted(combinations):
-        cs = combinations[comb]
-        (left, right) = comb
-        print(f&#34;\t({left:&gt;2}, {right:&gt;2}) : {len(cs):&gt;4} x :&#34;)
-        for (i, c) in enumerate(cs[0:3]):
-            print(f&#34;EXAMPLE {i + 1}:&#34;)
-            print(
-                printLines(
-                    start=max((1, c - 2)), end=min((len(alignment), c + 2 + max(comb)))
-                )
+        if prevILK &lt; maxLK:
+            errors.setdefault(&#34;missing iLKs at the end&#34;, []).append(
+                f&#34;last is {prevILK}, expected {maxLK}&#34;
             )
-            print(&#34;&#34;)
+        elif prevILK &gt; maxLK:
+            errors.setdefault(&#34;too many iLKs at the end&#34;, []).append(
+                f&#34;last is {prevILK}, expected {maxLK}&#34;
+            )
+        if prevIAF &lt; maxAF:
+            errors.setdefault(&#34;missing iAFs at the end&#34;, []).append(
+                f&#34;last is {prevIAF}, expected {maxAF}&#34;
+            )
+        elif prevIAF &gt; maxAF:
+            errors.setdefault(&#34;too many iAFs at the end&#34;, []).append(
+                f&#34;last is {prevIAF}, expected {maxAF}&#34;
+            )
 
-    print(&#34;\nBAD STRETCHES\n&#34;)
-    print(&#34;How many of which size?\n&#34;)
-    allSuspects = []
-    someBenigns = []
-    for (size, starts) in sorted(badStretches.items(), key=lambda x: (-x[0], x[1])):
-        suspects = {
-            start: size for start in starts if analyseStretch(start, start + size)
-        }
-        benigns = {start: size for start in starts if start not in suspects}
-        allSuspects.extend(
-            [(start, start + size) for (start, size) in suspects.items()]
-        )
-        someBenigns.extend(
-            [(start, start + size) for (start, size) in list(benigns.items())[0:3]]
-        )
-        examples = &#34;, &#34;.join(str(start) for start in list(suspects.keys())[0:3])
-        if not suspects:
-            examples = &#34;, &#34;.join(str(start) for start in list(benigns.keys())[0:3])
+        print(&#34;\nSANITY\n&#34;)
+        if not errors:
+            print(&#34;All OK&#34;)
+        else:
+            for (kind, msgs) in errors.items():
+                print(f&#34;ERROR {kind} ({len(msgs):&gt;5}x):&#34;)
+                for msg in msgs[0:10]:
+                    print(f&#34;\t{msg}&#34;)
+                if len(msgs) &gt; 10:
+                    print(f&#34;\t ... and {len(msgs) - 10} more ...&#34;)
+
+        print(&#34;\nAGREEMENT\n&#34;)
+        print(&#34;Where are the words?\n&#34;)
+        print(f&#34;\t{LK}-only: {where[LK]:&gt;5} slots&#34;)
+        print(f&#34;\t{AF}-only: {where[AF]:&gt;5} slots&#34;)
+        print(f&#34;\tboth:    {where[&#39;both&#39;]:&gt;5} slots&#34;)
+
+        print(&#34;\nHow well is the agreement?\n&#34;)
+        for (d, n) in sorted(agreement.items()):
+            print(f&#34;edit distance {d:&gt;3} : {n:&gt;5} words&#34;)
+        print(&#34;NB: 88 are special cases that have been declared explicitly&#34;)
+        print(&#34;NB: 99 are words that have no counterpart in the other edition&#34;)
+
+        print(&#34;\nCOMBINATIONS\n&#34;)
+        print(&#34;What combination alignments are there and how many?&#34;)
+        for comb in sorted(combinations):
+            cs = combinations[comb]
+            (left, right) = comb
+            print(f&#34;\t({left:&gt;2}, {right:&gt;2}) : {len(cs):&gt;4} x :&#34;)
+            for (i, c) in enumerate(cs[0:3]):
+                print(f&#34;EXAMPLE {i + 1}:&#34;)
+                print(
+                    self.printLines(
+                        start=max((1, c - 2)),
+                        end=min((len(alignment), c + 2 + max(comb))),
+                    )
+                )
+                print(&#34;&#34;)
+
+        print(&#34;\nBAD STRETCHES\n&#34;)
+        print(&#34;How many of which size?\n&#34;)
+        allSuspects = []
+        someBenigns = []
+        for (size, starts) in sorted(badStretches.items(), key=lambda x: (-x[0], x[1])):
+            suspects = {
+                start: size
+                for start in starts
+                if self.analyseStretch(start, start + size)
+            }
+            benigns = {start: size for start in starts if start not in suspects}
+            allSuspects.extend(
+                [(start, start + size) for (start, size) in suspects.items()]
+            )
+            someBenigns.extend(
+                [(start, start + size) for (start, size) in list(benigns.items())[0:3]]
+            )
+            examples = &#34;, &#34;.join(str(start) for start in list(suspects.keys())[0:3])
+            if not suspects:
+                examples = &#34;, &#34;.join(str(start) for start in list(benigns.keys())[0:3])
+            print(
+                f&#34;bad stretches of size {size:&gt;3} : {len(suspects):&gt;4} suspect of total {len(starts):&gt;4} x see e.g. {examples}&#34;
+            )
+
         print(
-            f&#34;bad stretches of size {size:&gt;3} : {len(suspects):&gt;4} suspect of total {len(starts):&gt;4} x see e.g. {examples}&#34;
+            f&#34;\nShowing all {len(allSuspects)} inversion suspects&#34;
+            if len(allSuspects)
+            else &#34;\nNo suspect bad stretches\n&#34;
         )
-
-    print(
-        f&#34;\nShowing all {len(allSuspects)} inversion suspects&#34;
-        if len(allSuspects)
-        else &#34;\nNo suspect bad stretches\n&#34;
-    )
-    for (i, (start, end)) in enumerate(reversed(allSuspects)):
-        print(f&#34;\nSUSPECT {i + 1:&gt;2}&#34;)
-        print(printLines(max((1, start - 5)), min((len(alignment), end + 5))))
-    print(
-        f&#34;\nShowing some ({len(someBenigns)}) benign examples&#34;
-        if len(someBenigns)
-        else &#34;\nNo bad stretches\n&#34;
-    )
-    for (i, (start, end)) in enumerate(someBenigns):
-        print(f&#34;\nBENIGN {i + 1:&gt;2}&#34;)
-        print(printLines(max((1, start - 2)), min((len(alignment), end + 2))))</code></pre>
+        for (i, (start, end)) in enumerate(reversed(allSuspects)):
+            print(f&#34;\nSUSPECT {i + 1:&gt;2}&#34;)
+            print(self.printLines(max((1, start - 5)), min((len(alignment), end + 5))))
+        print(
+            f&#34;\nShowing some ({len(someBenigns)}) benign examples&#34;
+            if len(someBenigns)
+            else &#34;\nNo bad stretches\n&#34;
+        )
+        for (i, (start, end)) in enumerate(someBenigns):
+            print(f&#34;\nBENIGN {i + 1:&gt;2}&#34;)
+            print(self.printLines(max((1, start - 2)), min((len(alignment), end + 2))))</code></pre>
 </details>
 </section>
 <section>
@@ -1032,17 +1390,1087 @@ def checkAlignment():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="fusus.align.analyseStretch"><code class="name flex">
-<span>def <span class="ident">analyseStretch</span></span>(<span>start, end)</span>
+<dt id="fusus.align.similar"><code class="name flex">
+<span>def <span class="ident">similar</span></span>(<span>s1, s2, maxD, minR)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L549-L565" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L31-L40" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def analyseStretch(start, end):
+<pre><code class="python">def similar(s1, s2, maxD, minR):
+    if s1 == s2:
+        return (True, 0, 1.0)
+
+    if maxD == 0 or minR == 1:
+        return (False, 77, 0.0)
+
+    d = distance(s1, s2)
+    r = ratio(s1, s2)
+    return (d &lt;= maxD and r &gt;= minR, d, r)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="fusus.align.Alignment"><code class="flex name class">
+<span>class <span class="ident">Alignment</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Aligns the words of the LK edition with those of the AF edition.</p>
+<p>The main method is <code>doDiffs</code> which produces the alignment table.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L43-L1045" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">class Alignment:
+    &#34;&#34;&#34;Aligns the words of the LK edition with those of the AF edition.
+
+    The main method is `doDiffs` which produces the alignment table.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.getCombis(COMBINE)
+
+    def readEditions(self, version, cases):
+        &#34;&#34;&#34;Read the material of both LK and AF editions.
+
+        Parameters
+        ----------
+        version: string
+            The version number of the source datasets for both editions.
+            We assume that both editions are available as Text-Fabric datasets.
+
+        cases: dict
+            The special cases defined to help the alignment algorithm through
+            difficult spots.
+
+            The dictionary is keyed by LK slot number, and the value is a tuple
+            consisting of a corresponding AF slot number, the amount of
+            words to collect at the LK side, and the amount of words to collect at
+            the AF side.
+
+        Returns
+        -------
+        None
+            But the Alignment object will have attributes set by which
+            the other methods are capable of reading the data source.
+        &#34;&#34;&#34;
+
+        self.version = version
+        self.cases = cases
+        self.alignmentPath = f&#34;{ALIGNMENT_DIR}/alignment{version}.tsv&#34;
+        self.alignmentText = f&#34;{ALIGNMENT_DIR}/alignment{version}.txt&#34;
+        self.alignmentTextBlocked = f&#34;{ALIGNMENT_DIR}/alignment-incomplete{version}.txt&#34;
+
+        if not os.path.exists(ALIGNMENT_DIR):
+            os.makedirs(self.alignmentPath, exist_ok=True)
+
+        A = {}
+        F = {}
+        T = {}
+        L = {}
+        maxSlot = {}
+
+        for (acro, name) in EDITIONS.items():
+            A[acro] = use(
+                f&#34;among/fusus/tf/{name}:clone&#34;, writing=&#34;ara&#34;, version=version
+            )
+            F[acro] = A[acro].api.F
+            T[acro] = A[acro].api.T
+            L[acro] = A[acro].api.L
+            maxSlot[acro] = F[acro].otype.maxSlot
+
+        self.F_LK = F[LK]
+        self.F_AF = F[AF]
+        self.T_LK = T[LK]
+        self.T_AF = T[AF]
+        self.L_LK = L[LK]
+        self.L_AF = L[AF]
+        self.maxLK = maxSlot[LK]
+        self.maxAF = maxSlot[AF]
+
+        self.getTextLK = F[LK].lettersn.v
+        self.getTextAF = F[AF].lettersn.v
+
+    def getPosLK(self, slot):
+        &#34;&#34;&#34;Obtain the page and line numbers where a slot in the LK occurs.
+        &#34;&#34;&#34;
+
+        T_LK = self.T_LK
+
+        (piece, page, line) = T_LK.sectionFromNode(slot)
+        return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
+
+    def getPosAF(self, slot):
+        &#34;&#34;&#34;Obtain the page and line numbers where a slot in the AF occurs.
+        &#34;&#34;&#34;
+        T_AF = self.T_AF
+
+        (page, block, line) = T_AF.sectionFromNode(slot)
+        return f&#34;{page:&gt;03}:{line:&gt;02}&#34;
+
+    def printLines(self, start=0, end=None):
+        &#34;&#34;&#34;Print specified entries in the alignment table.
+
+        Parameters
+        ----------
+        start: integer, optional 0
+            Position of first alignment entry that needs to be printed.
+            If it is 0 or negative, it starts from the beginning.
+
+        end: integer, optional `None`
+            Position of last alignment entry that needs to be printed.
+            If it is negative, it indicates a position that much
+            before the end of the list.
+            If it is absent, it indicates the last line of the list.
+        &#34;&#34;&#34;
+
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+
+        if start &lt; 0:
+            start = 0
+        if end is None or end &gt; len(alignment):
+            end = len(alignment)
+        lines = []
+
+        lines.append(
+            &#34;pag:ln|slot |cc|textLakhnawi        |@ed~rat|textAfifi           |cc| slot|pag:ln&#34;
+        )
+        lines.append(
+            &#34;------|-----|--|--------------------|-------|--------------------|--|-----|------&#34;
+        )
+        for (iLK, left, d, r, right, iAF) in alignment[start:end]:
+            textLK = getTextLK(iLK) if iLK else &#34;&#34;
+            textAF = getTextAF(iAF) if iAF else &#34;&#34;
+            posLK = self.getPosLK(iLK) if iLK else &#34;&#34;
+            posAF = self.getPosAF(iAF) if iAF else &#34;&#34;
+            lines.append(
+                f&#34;{posLK:&gt;6}|{iLK:&gt;5}|{left:&lt;2}|{textLK:&gt;20}|@{d:&lt;2}~{r:3.1f}|{textAF:&lt;20}|{right:&gt;2}|{iAF:&gt;5} {posAF:&lt;6}&#34;
+            )
+        return &#34;\n&#34;.join(lines)
+
+    def printAlignment(self, path, asTsv=False):
+        &#34;&#34;&#34;Prints the whole alignment table to file.
+
+        Parameters
+        ----------
+        path: string
+            The path name of the file to which the information is printed.
+
+        asTsv: boolean, optional `False
+            If False, pretty prints the table to file, using
+            `printLines` above.
+            If True, write essential data only in tab separated format.
+            The essential information is *slot in LK*, *distance*, *slot in AF*
+        &#34;&#34;&#34;
+        alignment = self.alignment
+
+        with open(path, &#34;w&#34;) as fh:
+            if asTsv:
+                for item in alignment:
+                    fh.write(
+                        &#34;\t&#34;.join(
+                            f&#34;{it:3.1f}&#34; if i == 3 else str(it)
+                            for (i, it) in enumerate(item)
+                        )
+                        + &#34;\n&#34;
+                    )
+            else:
+                fh.write(self.printLines())
+                fh.write(&#34;\n&#34;)
+
+    def printDiff(self, before, after):
+        &#34;&#34;&#34;Print the last alignment entries plus what comes after.
+
+        This function is useful if alignment fails at some point.
+        It then shows what happened before the failure and how it looks
+        after the failure.
+
+        Parameters
+        ----------
+        before: integer
+            The amount of alignment entries to print.
+            They will be picked from the end of the current alignment table.
+        after: integer
+            The amount of slots after the last alignment entry that
+            needs to be shown for each source.
+        &#34;&#34;&#34;
+        alignment = self.alignment
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+
+        print(self.printLines(start=len(alignment) - before))
+        print(&#34;^&#34; * 67)
+        lastLK = None
+        lastAF = None
+        for c in range(len(alignment) - 1, -1, -1):
+            comp = alignment[c]
+            if lastLK is None:
+                if comp[0]:
+                    lastLK = comp[0]
+            if lastAF is None:
+                if comp[-1]:
+                    lastAF = comp[-1]
+            if lastLK is not None and lastAF is not None:
+                break
+        if lastLK is not None and lastAF is not None:
+            for i in range(after):
+                iLK = lastLK + 1 + i
+                iAF = lastAF + 1 + i
+                textLK = getTextLK(iLK) if iLK &lt;= maxLK else &#34;&#34;
+                textAF = getTextAF(iAF) if iAF &lt;= maxAF else &#34;&#34;
+                d = distance(textLK, textAF)
+                r = ratio(textLK, textAF)
+                print(
+                    f&#34;{iLK:&gt;5} =  {textLK:&gt;20} @{d:&gt;2}~{r:3.1f} {textAF:&lt;20}  = {iAF:&gt;5}&#34;
+                )
+
+    def printCase(self, iLK, label):
+        &#34;&#34;&#34;Print the alignment entries that belong to a special case.
+
+        Parameters
+        ----------
+        iLK: integer
+            The slot number in LK that triggered a special case.
+        label: string
+            The kind of issue with this case that you want to report:
+            FAILED or MISSING.
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        cases = self.cases
+        case = cases[iLK]
+        (iAF, cLK, cAF) = case
+        start = min((indexLK[iLK], indexAF[iAF]))
+        end = max((indexLK[iLK + cLK + 1], indexAF[iAF + cAF + 1]))
+        print(f&#34;{label} CASE: {iLK} vs {iAF}:&#34;)
+        print(self.printLines(start=start, end=end))
+
+    def getCombis(self, c):
+        &#34;&#34;&#34;Precompute a specification of all combinations that might be tried.
+
+        When the alignment fails between single words, we try combinations
+        of words left and right in a specific order.
+        The result of this function lists the combinations that must be
+        tried, where each combination is specified as a tuple
+        of the number of words left and the number of words right
+        that needs to be taken together for the matching.
+
+        See also: `findCommbi`.
+        &#34;&#34;&#34;
+        combis = []
+        for i in range(1, c + 1):
+            for j in range(1, c + 1):
+                if i != 1 or j != 1:
+                    combis.append((i, j))
+        self.combis = tuple(
+            sorted(combis, key=lambda x: (x[0] + x[1], abs(x[0] - x[1])))
+        )
+
+    def catchupAF(self, start, end):
+        &#34;&#34;&#34;Move the current position in the AF edition forward.
+
+        While doing so, it adds an entry to the alignment table
+        for each time the position is shifted by one.
+
+        Parameters
+        ----------
+        start: integer
+            From where to start shifting
+        end: integer
+            Where to end shifting
+        &#34;&#34;&#34;
+        indexAF = self.indexAF
+        alignment = self.alignment
+
+        for i in range(start, end + 1):
+            indexAF[i] = len(alignment)
+            alignment.append((&#34;&#34;, 0, 99, 0.0, &#34;&#34;, i))
+
+    def catchupLK(self, start, end):
+        &#34;&#34;&#34;Move the current position in the LK edition forward.
+
+        While doing so, it adds an entry to the alignment table
+        for each time the position is shifted by one.
+
+        Parameters
+        ----------
+        start: integer
+            From where to start shifting
+        end: integer
+            Where to end shifting
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        alignment = self.alignment
+
+        for i in range(start, end + 1):
+            indexLK[i] = len(alignment)
+            alignment.append((i, &#34;&#34;, 99, 0.0, 0, &#34;&#34;))
+
+    def doCase(self, iLK, iAF, debug=False):
+        &#34;&#34;&#34;Deal with a special case.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current position in LK edition.
+            A case is triggered when iLK is equal
+            to a key in the cases table and if the same case
+            has not already been applied.
+            This last condition is relevant for special
+            cases where the number of LK words that must be
+            combined is 0. In that case, the current LK
+            position does not shift, and we would be in an
+            infinite loop.
+        iAF: integer
+            Current position in AF edition.
+            If a case is triggered by iLK, but the AF position
+            specified in the case does not match iAF,
+            the case is skipped and is reported as a failed case.
+        &#34;&#34;&#34;
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+        alignment = self.alignment
+        usedCases = self.usedCases
+        failedCases = self.failedCases
+
+        cases = self.cases
+
+        if iLK not in cases:
+            return None
+
+        (givenIAF, cLK, cAF) = cases[iLK]
+        if givenIAF != iAF:
+            failedCases.add(iLK)
+            return None
+
+        usedCases.add(iLK)
+        common = min((cLK, cAF))
+        for i in range(max((cLK, cAF))):
+            nAlignment = len(alignment)
+            if i &lt; common:
+                indexLK[iLK + i] = nAlignment
+                indexAF[iAF + i] = nAlignment
+                alignment.append((iLK + i, cLK, 88, 0.0, cAF, iAF + i))
+            elif i &lt; cLK:
+                indexLK[iLK + i] = nAlignment
+                alignment.append((iLK + i, cLK, 88, 0.0, cAF, &#34;&#34;))
+            else:
+                indexAF[iAF + i] = nAlignment
+                alignment.append((&#34;&#34;, cLK, 88, 0.0, cAF, iAF + i))
+        if debug:
+            print(f&#34;[{iLK}~{iAF}] special case ({cLK}, {cAF})&#34;)
+        return (iLK + cLK, iAF + cAF)
+
+    def findCombi(self, iLK, iAF, maxD, minR):
+        &#34;&#34;&#34;Tries out all possible combinations at this point until success.
+
+        This is typically called when a direct match at the current slots
+        in LK and AF fail.
+
+        We are going to take together small amounts of words and match
+        them instead. As soon as we have a match, we break out of the loop
+        and use step to the new positions.
+
+        See also: `getCombis` and `compare`.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        &#34;&#34;&#34;
+        combis = self.combis
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        found = None
+
+        for (cLK, cAF) in combis:
+            if iLK + cLK &gt; maxLK or iAF + cAF &gt; maxAF:
+                continue
+            textLK = &#34;&#34;.join(getTextLK(iLK + i) for i in range(cLK))
+            textAF = &#34;&#34;.join(getTextAF(iAF + i) for i in range(cAF))
+            (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
+            if isSimilar:
+                found = (cLK, cAF)
+                common = min((cLK, cAF))
+                for i in range(max((cLK, cAF))):
+                    nAlignment = len(alignment)
+                    if i &lt; common:
+                        indexLK[iLK + i] = nAlignment
+                        indexAF[iAF + i] = nAlignment
+                        alignment.append((iLK + i, cLK, d, r, cAF, iAF + i))
+                    elif i &lt; cLK:
+                        indexLK[iLK + i] = nAlignment
+                        alignment.append((iLK + i, cLK, d, r, cAF, &#34;&#34;))
+                    elif i &lt; cAF:
+                        indexAF[iAF + i] = nAlignment
+                        alignment.append((&#34;&#34;, cLK, d, r, cAF, iAF + i))
+                break
+        return found
+
+    def compare(self, iLK, iAF, maxD, minR, debug=False):
+        &#34;&#34;&#34;Does a full comparison at a location, including between combinations.
+
+        First a direct match between the words at the current positions in
+        the LK and AF editions is tried. If that fails,
+        combinations of words from those points onwards are tried.
+
+        See also: `getCombis` and `findCombi`.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the comparison.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        getTextLK = self.getTextLK
+        getTextAF = self.getTextAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        textLK = getTextLK(iLK)
+        textAF = getTextAF(iAF)
+        (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
+        if isSimilar:
+            nAlignment = len(alignment)
+            indexLK[iLK] = nAlignment
+            indexAF[iAF] = nAlignment
+            alignment.append((iLK, &#34;&#34;, d, r, &#34;&#34;, iAF))
+            if debug:
+                print(
+                    f&#34;[{iLK}~{iAF}] single comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                )
+            return (iLK + 1, iAF + 1)
+
+        if iLK &lt; maxLK and iAF &lt; maxAF:
+            textLK = getTextLK(iLK + 1)
+            textAF = getTextAF(iAF + 1)
+            (isSimilarNext, dNext, rNext) = similar(textLK, textAF, maxD, minR)
+            if isSimilarNext:
+                nAlignment = len(alignment)
+                indexLK[iLK] = nAlignment
+                indexAF[iAF] = nAlignment
+                alignment.append((iLK, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF))
+                if debug:
+                    print(
+                        f&#34;[{iLK}~{iAF}] single comparison failed with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                    )
+                nAlignment = len(alignment)
+                indexLK[iLK + 1] = nAlignment
+                indexAF[iAF + 1] = nAlignment
+                alignment.append((iLK + 1, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF + 1))
+                if debug:
+                    print(
+                        f&#34;[{iLK}~{iAF}] single comparison recovered with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                    )
+                return (iLK + 2, iAF + 2)
+
+        combi = self.findCombi(iLK, iAF, maxD, minR)
+        if combi is not None:
+            (cLK, cAF) = combi
+            if debug:
+                print(
+                    f&#34;[{iLK}~{iAF}] ({cLK}, {cAF}) comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
+                )
+            return (iLK + cLK, iAF + cAF)
+
+        return None
+
+    def lookup(self, iLK, iAF, maxD, minR, start, end, debug=False):
+        &#34;&#34;&#34;Performs a jump in both editions.
+
+        Typically invoked when comparison at the current locations fail,
+        even after having tried combinations.
+
+        We compare the current word in one edition with those from a certain
+        interval in the other edition. And vice versa, alternately.
+        of subsequent words.
+
+        Parameters
+        ----------
+        iLK: integer
+            Current slot position in LK edition
+        iAF: integer
+            Current slot position in AF edition
+        maxD: integer
+            maximum edit distance that we allow for the comparisons to succeed
+        minR: integer
+            minimum similarity ratio that we require for the comparisons to succeed
+        start: integer
+            first position in the other edition where we start comparing
+        end: integer
+            last position in the other edition where we stop comparing
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the lookup.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        alignment = self.alignment
+        indexLK = self.indexLK
+        indexAF = self.indexAF
+
+        step = None
+
+        for i in range(start, end + 1):
+            prevAlignmentIndex = len(alignment)
+
+            if iAF + i &lt;= maxAF:
+                step = self.compare(iLK, iAF + i, maxD, minR, debug=debug)
+                if step:
+                    if debug:
+                        print(f&#34;[{iLK}~{iAF}] right {i}-jump to {iAF + i}&#34;)
+                    thisAlignment = list(alignment[prevAlignmentIndex:])
+                    alignment[prevAlignmentIndex:] = []
+
+                    self.catchupAF(iAF, iAF + i - 1)
+                    for thisComp in thisAlignment:
+                        nAlignment = len(alignment)
+                        thisLK = thisComp[0]
+                        thisAF = thisComp[-1]
+                        if thisLK:
+                            indexLK[thisLK] = nAlignment
+                        if thisAF:
+                            indexAF[thisAF] = nAlignment
+                        alignment.append(thisComp)
+                    break
+
+            if iLK + i &lt;= maxLK:
+                step = self.compare(iLK + i, iAF, maxD, minR, debug=debug)
+                if step:
+                    if debug:
+                        print(f&#34;[{iLK}~{iAF}] left {i}-jump to {iLK + i}&#34;)
+                    thisAlignment = list(alignment[prevAlignmentIndex:])
+                    alignment[prevAlignmentIndex:] = []
+
+                    self.catchupLK(iLK, iLK + i - 1)
+                    for thisComp in thisAlignment:
+                        nAlignment = len(alignment)
+                        thisLK = thisComp[0]
+                        thisAF = thisComp[-1]
+                        if thisLK:
+                            indexLK[thisLK] = nAlignment
+                        if thisAF:
+                            indexAF[thisAF] = nAlignment
+                        alignment.append(thisComp)
+                    break
+        return step
+
+    def doDiffs(self, startLK=1, startAF=1, steps=-1, show=False, debug=False):
+        &#34;&#34;&#34;Main loop of the alignment process.
+
+        Without optional parameters, performs the whole alignment until
+        it is completed or fails.
+
+        But you can also run a few alignment steps, from arbitrary positions
+        and record the decision steps. This is handy for debugging and
+        exploring.
+
+        !!! hint &#34;doDiff&#34;
+            This function defines an inner function `doDiff`, which
+            contains the logic of a single alignment step.
+            That function `doDiff` issues a sequence of `compare` and `lookup`
+            commands with various strictnesses and various jump sizes,
+            which will be tried in order.
+
+            Here you can finetune the amount of looseness you allow in a comparison
+            before jumping from that position.
+            You can first compare strictly, then jump away a short distance while
+            still comparing strictly, and then start comparing more loosely, and
+            then jump away a longer distance, possibly a bit more loosely.
+            That is a matter of trial and error.
+
+            The current implementation of `doDiff` matches the present LK and AF well,
+            especially in conjunction with the special cases that have been defined.
+
+        Parameters
+        ----------
+        startLK: integer, optional 1
+            Start position in LK edition. If not passed, starts from the beginning.
+        startAF: integer, optional 1
+            Start position in AF edition. If not passed, starts from the beginning.
+        steps: integer, optional `-1`
+            The number of alignment steps to perform.
+            If not passed or -1, there is no limit on the steps.
+        show: boolean, optional False
+            If True, prints the resulting alignment table to the screen.
+            Only do this when you produce a small part of the alignment table!
+            maximum edit distance that we allow for the comparisons to succeed
+        debug: boolean, optional `False`
+            If True, print a statement indicating the result of the each decision
+            that has been taken during the alignment process.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        cases = self.cases
+        alignmentPath = self.alignmentPath
+        alignmentText = self.alignmentText
+        alignmentTextBlocked = self.alignmentTextBlocked
+
+        self.alignment = []
+        self.indexLK = {}
+        self.indexAF = {}
+        self.decisions = collections.Counter()
+        self.usedCases = set()
+        self.failedCases = set()
+
+        alignment = self.alignment
+        indexLK = self.indexLK
+        decisions = self.decisions
+        usedCases = self.usedCases
+        failedCases = self.failedCases
+
+        lastCase = None
+        step = (startLK, startAF)
+
+        it = 0
+
+        def doDiff(iLK, iAF):
+            decision = 0
+            if iLK &gt; maxLK or iAF &gt; maxAF:
+                if iAF &lt; maxAF:
+                    self.catchupAF(iAF, maxAF)
+                if iLK &lt; maxLK:
+                    self.catchupLK(iLK, maxLK)
+                decisions[decision] += 1
+                return True
+
+            nonlocal lastCase
+
+            decision += 1
+
+            if lastCase != iLK:
+                step = self.doCase(iLK, iAF, debug=debug)
+                if step:
+                    lastCase = iLK
+                    decisions[decision] += 1
+                    return step
+
+            step = self.compare(iLK, iAF, 0, 1.0, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 0, 1.0, 1, 5, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.compare(iLK, iAF, 2, 0.7, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.compare(iLK, iAF, 3, 0.6, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 0, 1.0, 1, 10, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 1, 0.8, 1, 10, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 0, 1.0, 10, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 1, 0.8, 10, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 2, 0.7, 1, 20, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 1, 0.8, 20, 100, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            step = self.lookup(iLK, iAF, 2, 0.7, 20, 100, debug=debug)
+            decision += 1
+            if step:
+                decisions[decision] += 1
+                return step
+
+            return False
+
+        while it != steps:
+            it += 1
+            step = doDiff(*step)
+
+            if step is True:
+                self.printAlignment(alignmentText)
+                self.printAlignment(alignmentPath, asTsv=True)
+                print(f&#34;Alignment complete, {len(alignment)} entries.&#34;)
+                break
+            elif step is False:
+                self.printAlignment(alignmentTextBlocked)
+                print(f&#34;Alignment blocked, {len(alignment)} entries.&#34;)
+                self.printDiff(20, 20)
+                break
+
+        endLK = startLK if len(indexLK) == 0 else max(indexLK)
+        possibleCases = set(range(startLK, endLK + 1))
+        casesSet = set(cases)
+        relevantCases = casesSet &amp; possibleCases
+        missedCases = relevantCases - usedCases - failedCases
+
+        if failedCases:
+            for iLK in sorted(failedCases):
+                self.printCase(iLK, &#34;FAILED&#34;)
+        if missedCases:
+            for iLK in sorted(missedCases):
+                self.printCase(iLK, &#34;MISSED&#34;)
+
+        if not failedCases and not missedCases:
+            if not relevantCases:
+                print(&#34;No special cases defined for this stretch&#34;)
+            else:
+                print(
+                    f&#34;Special cases: all relevant {len(relevantCases)} cases &#34;
+                    &#34;defined, encountered, and applied&#34;
+                )
+
+        if show:
+            print(self.printLines())
+
+        for d in sorted(decisions):
+            n = decisions[d]
+            print(f&#34;{d:&gt;2} taken: {n:&gt;5} x&#34;)
+
+    def analyseStretch(self, start, end):
+        &#34;&#34;&#34;Analyse a stretch in the alignment table and reports whether it is suspect.
+
+        Stretches are suspect if they contain both a number entries where an LK
+        word is missing, and a number of entries where an AF word is missing.
+
+        This is usually an indication that the alignment has gone out of sync.
+
+        Parameters
+        ----------
+        start: integer
+            Index in the alignment list where to start
+        end: integer
+            Index in the alignment list where to stop
+        &#34;&#34;&#34;
+        alignment = self.alignment
+
+        total = 0
+        good = 0
+        onlyLK = 0
+        onlyAF = 0
+
+        for (iLK, left, d, r, right, iAF) in alignment[start : end + 1]:
+            total += 1
+            if not iLK:
+                onlyAF += 1
+            if not iAF:
+                onlyLK += 1
+            if d == 0:
+                good += 1
+
+        suspect = onlyAF &gt; 1 and onlyLK &gt; 1 and onlyAF + onlyLK &gt; 5
+        return suspect
+
+    def check(self):
+        &#34;&#34;&#34;Comprehensive quality assessment of the alignment table.
+
+        Reports various statistics on how close the matches are overall.
+
+        Checks the minimum requirement of sanity:
+        All words in the LK must occur without duplications in the right order
+        int the alignment table. Same for the AF words.
+
+        Reports where the combinations are: the cases where more than one word
+        in the LK has matched with more than one word in the AF.
+        Or where single words have been forced to match, or where words
+        in one edition have no counterpart in the other edition.
+        Gives at most three examples of all distinct combination patterns.
+
+        Identifies bad strectches: chunks of entries within the alignment
+        table where words do not match for various reasons.
+        The identification is a bit loose in the sense that bad stretches
+        with a single perfect match in between are combined.
+
+        Some bad stretches are suspect (see `analyseStretch`).
+        All suspect stretches are shown, and at most three examples
+        of the benign (non-suspsect) bad stretches are shown.
+        &#34;&#34;&#34;
+        maxLK = self.maxLK
+        maxAF = self.maxAF
+        alignment = self.alignment
+
+        errors = {}
+        prevILK = 0
+        prevIAF = 0
+
+        where = collections.Counter()
+        agreement = collections.Counter()
+        badStretches = collections.defaultdict(lambda: [])
+        combinations = collections.defaultdict(lambda: [])
+
+        startBad = 0
+        startCombi = 0
+        nCombi = 0
+
+        for (c, (iLK, left, d, r, right, iAF)) in enumerate(alignment):
+            thisBad = d &gt; 0 or not iLK or not iAF
+            hasLeft = left != &#34;&#34;
+            hasRight = right != &#34;&#34;
+
+            # a good line between bad lines is counted as bad
+            if not thisBad and startBad:
+                nextGood = True
+                for j in range(1, LOOKAHEAD + 1):
+                    if c + j &lt; len(alignment):
+                        compJ = alignment[c + j]
+                        if compJ[2] &gt; 0 or not compJ[0] or not compJ[-1]:
+                            nextGood = False
+                            break
+                if not nextGood:
+                    thisBad = True
+            if startBad:
+                if not thisBad:
+                    badStretches[c - startBad].append(startBad)
+                    startBad = 0
+            else:
+                if thisBad:
+                    startBad = c
+
+            if startCombi and nCombi == c - startCombi:
+                startCombi = 0
+                nCombi = 0
+            if startCombi == 0:
+                thisCombi = hasLeft and left &gt; 1 or hasRight and right &gt; 1
+                if thisCombi:
+                    combinations[(left, right)].append(c)
+                    startCombi = c
+                    nCombi = max((left, right))
+
+            agreement[d] += 1
+
+            if iLK:
+                if iLK != prevILK + 1:
+                    errors.setdefault(&#34;wrong iLK&#34;, []).append(
+                        f&#34;{c:&gt;5}: Expected {prevILK + 1}, found {iLK}&#34;
+                    )
+                prevILK = iLK
+                if iAF:
+                    where[&#34;both&#34;] += 1
+            else:
+                where[AF] += 1
+            if iAF:
+                if iAF != prevIAF + 1:
+                    errors.setdefault(&#34;wrong iAF&#34;, []).append(
+                        f&#34;{c:&gt;5}: Expected {prevIAF + 1}, found {iAF}&#34;
+                    )
+                prevIAF = iAF
+            else:
+                where[LK] += 1
+
+        if startBad:
+            badStretches[len(alignment) - startBad].append(startBad)
+
+        if prevILK &lt; maxLK:
+            errors.setdefault(&#34;missing iLKs at the end&#34;, []).append(
+                f&#34;last is {prevILK}, expected {maxLK}&#34;
+            )
+        elif prevILK &gt; maxLK:
+            errors.setdefault(&#34;too many iLKs at the end&#34;, []).append(
+                f&#34;last is {prevILK}, expected {maxLK}&#34;
+            )
+        if prevIAF &lt; maxAF:
+            errors.setdefault(&#34;missing iAFs at the end&#34;, []).append(
+                f&#34;last is {prevIAF}, expected {maxAF}&#34;
+            )
+        elif prevIAF &gt; maxAF:
+            errors.setdefault(&#34;too many iAFs at the end&#34;, []).append(
+                f&#34;last is {prevIAF}, expected {maxAF}&#34;
+            )
+
+        print(&#34;\nSANITY\n&#34;)
+        if not errors:
+            print(&#34;All OK&#34;)
+        else:
+            for (kind, msgs) in errors.items():
+                print(f&#34;ERROR {kind} ({len(msgs):&gt;5}x):&#34;)
+                for msg in msgs[0:10]:
+                    print(f&#34;\t{msg}&#34;)
+                if len(msgs) &gt; 10:
+                    print(f&#34;\t ... and {len(msgs) - 10} more ...&#34;)
+
+        print(&#34;\nAGREEMENT\n&#34;)
+        print(&#34;Where are the words?\n&#34;)
+        print(f&#34;\t{LK}-only: {where[LK]:&gt;5} slots&#34;)
+        print(f&#34;\t{AF}-only: {where[AF]:&gt;5} slots&#34;)
+        print(f&#34;\tboth:    {where[&#39;both&#39;]:&gt;5} slots&#34;)
+
+        print(&#34;\nHow well is the agreement?\n&#34;)
+        for (d, n) in sorted(agreement.items()):
+            print(f&#34;edit distance {d:&gt;3} : {n:&gt;5} words&#34;)
+        print(&#34;NB: 88 are special cases that have been declared explicitly&#34;)
+        print(&#34;NB: 99 are words that have no counterpart in the other edition&#34;)
+
+        print(&#34;\nCOMBINATIONS\n&#34;)
+        print(&#34;What combination alignments are there and how many?&#34;)
+        for comb in sorted(combinations):
+            cs = combinations[comb]
+            (left, right) = comb
+            print(f&#34;\t({left:&gt;2}, {right:&gt;2}) : {len(cs):&gt;4} x :&#34;)
+            for (i, c) in enumerate(cs[0:3]):
+                print(f&#34;EXAMPLE {i + 1}:&#34;)
+                print(
+                    self.printLines(
+                        start=max((1, c - 2)),
+                        end=min((len(alignment), c + 2 + max(comb))),
+                    )
+                )
+                print(&#34;&#34;)
+
+        print(&#34;\nBAD STRETCHES\n&#34;)
+        print(&#34;How many of which size?\n&#34;)
+        allSuspects = []
+        someBenigns = []
+        for (size, starts) in sorted(badStretches.items(), key=lambda x: (-x[0], x[1])):
+            suspects = {
+                start: size
+                for start in starts
+                if self.analyseStretch(start, start + size)
+            }
+            benigns = {start: size for start in starts if start not in suspects}
+            allSuspects.extend(
+                [(start, start + size) for (start, size) in suspects.items()]
+            )
+            someBenigns.extend(
+                [(start, start + size) for (start, size) in list(benigns.items())[0:3]]
+            )
+            examples = &#34;, &#34;.join(str(start) for start in list(suspects.keys())[0:3])
+            if not suspects:
+                examples = &#34;, &#34;.join(str(start) for start in list(benigns.keys())[0:3])
+            print(
+                f&#34;bad stretches of size {size:&gt;3} : {len(suspects):&gt;4} suspect of total {len(starts):&gt;4} x see e.g. {examples}&#34;
+            )
+
+        print(
+            f&#34;\nShowing all {len(allSuspects)} inversion suspects&#34;
+            if len(allSuspects)
+            else &#34;\nNo suspect bad stretches\n&#34;
+        )
+        for (i, (start, end)) in enumerate(reversed(allSuspects)):
+            print(f&#34;\nSUSPECT {i + 1:&gt;2}&#34;)
+            print(self.printLines(max((1, start - 5)), min((len(alignment), end + 5))))
+        print(
+            f&#34;\nShowing some ({len(someBenigns)}) benign examples&#34;
+            if len(someBenigns)
+            else &#34;\nNo bad stretches\n&#34;
+        )
+        for (i, (start, end)) in enumerate(someBenigns):
+            print(f&#34;\nBENIGN {i + 1:&gt;2}&#34;)
+            print(self.printLines(max((1, start - 2)), min((len(alignment), end + 2))))</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="fusus.align.Alignment.analyseStretch"><code class="name flex">
+<span>def <span class="ident">analyseStretch</span></span>(<span>self, start, end)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Analyse a stretch in the alignment table and reports whether it is suspect.</p>
+<p>Stretches are suspect if they contain both a number entries where an LK
+word is missing, and a number of entries where an AF word is missing.</p>
+<p>This is usually an indication that the alignment has gone out of sync.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Index in the alignment list where to start</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Index in the alignment list where to stop</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L817-L849" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def analyseStretch(self, start, end):
+    &#34;&#34;&#34;Analyse a stretch in the alignment table and reports whether it is suspect.
+
+    Stretches are suspect if they contain both a number entries where an LK
+    word is missing, and a number of entries where an AF word is missing.
+
+    This is usually an indication that the alignment has gone out of sync.
+
+    Parameters
+    ----------
+    start: integer
+        Index in the alignment list where to start
+    end: integer
+        Index in the alignment list where to stop
+    &#34;&#34;&#34;
+    alignment = self.alignment
+
     total = 0
     good = 0
     onlyLK = 0
@@ -1061,49 +2489,140 @@ def checkAlignment():
     return suspect</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.catchupAF"><code class="name flex">
-<span>def <span class="ident">catchupAF</span></span>(<span>start, end)</span>
+<dt id="fusus.align.Alignment.catchupAF"><code class="name flex">
+<span>def <span class="ident">catchupAF</span></span>(<span>self, start, end)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Move the current position in the AF edition forward.</p>
+<p>While doing so, it adds an entry to the alignment table
+for each time the position is shifted by one.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>integer</code></dt>
+<dd>From where to start shifting</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Where to end shifting</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L252-L255" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L293-L311" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def catchupAF(start, end):
+<pre><code class="python">def catchupAF(self, start, end):
+    &#34;&#34;&#34;Move the current position in the AF edition forward.
+
+    While doing so, it adds an entry to the alignment table
+    for each time the position is shifted by one.
+
+    Parameters
+    ----------
+    start: integer
+        From where to start shifting
+    end: integer
+        Where to end shifting
+    &#34;&#34;&#34;
+    indexAF = self.indexAF
+    alignment = self.alignment
+
     for i in range(start, end + 1):
         indexAF[i] = len(alignment)
         alignment.append((&#34;&#34;, 0, 99, 0.0, &#34;&#34;, i))</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.catchupLK"><code class="name flex">
-<span>def <span class="ident">catchupLK</span></span>(<span>start, end)</span>
+<dt id="fusus.align.Alignment.catchupLK"><code class="name flex">
+<span>def <span class="ident">catchupLK</span></span>(<span>self, start, end)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Move the current position in the LK edition forward.</p>
+<p>While doing so, it adds an entry to the alignment table
+for each time the position is shifted by one.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>integer</code></dt>
+<dd>From where to start shifting</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Where to end shifting</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L258-L261" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L313-L331" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def catchupLK(start, end):
+<pre><code class="python">def catchupLK(self, start, end):
+    &#34;&#34;&#34;Move the current position in the LK edition forward.
+
+    While doing so, it adds an entry to the alignment table
+    for each time the position is shifted by one.
+
+    Parameters
+    ----------
+    start: integer
+        From where to start shifting
+    end: integer
+        Where to end shifting
+    &#34;&#34;&#34;
+    indexLK = self.indexLK
+    alignment = self.alignment
+
     for i in range(start, end + 1):
         indexLK[i] = len(alignment)
         alignment.append((i, &#34;&#34;, 99, 0.0, 0, &#34;&#34;))</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.checkAlignment"><code class="name flex">
-<span>def <span class="ident">checkAlignment</span></span>(<span>)</span>
+<dt id="fusus.align.Alignment.check"><code class="name flex">
+<span>def <span class="ident">check</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Comprehensive quality assessment of the alignment table.</p>
+<p>Reports various statistics on how close the matches are overall.</p>
+<p>Checks the minimum requirement of sanity:
+All words in the LK must occur without duplications in the right order
+int the alignment table. Same for the AF words.</p>
+<p>Reports where the combinations are: the cases where more than one word
+in the LK has matched with more than one word in the AF.
+Or where single words have been forced to match, or where words
+in one edition have no counterpart in the other edition.
+Gives at most three examples of all distinct combination patterns.</p>
+<p>Identifies bad strectches: chunks of entries within the alignment
+table where words do not match for various reasons.
+The identification is a bit loose in the sense that bad stretches
+with a single perfect match in between are combined.</p>
+<p>Some bad stretches are suspect (see <code>analyseStretch</code>).
+All suspect stretches are shown, and at most three examples
+of the benign (non-suspsect) bad stretches are shown.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L568-L731" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L851-L1045" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def checkAlignment():
+<pre><code class="python">def check(self):
+    &#34;&#34;&#34;Comprehensive quality assessment of the alignment table.
+
+    Reports various statistics on how close the matches are overall.
+
+    Checks the minimum requirement of sanity:
+    All words in the LK must occur without duplications in the right order
+    int the alignment table. Same for the AF words.
+
+    Reports where the combinations are: the cases where more than one word
+    in the LK has matched with more than one word in the AF.
+    Or where single words have been forced to match, or where words
+    in one edition have no counterpart in the other edition.
+    Gives at most three examples of all distinct combination patterns.
+
+    Identifies bad strectches: chunks of entries within the alignment
+    table where words do not match for various reasons.
+    The identification is a bit loose in the sense that bad stretches
+    with a single perfect match in between are combined.
+
+    Some bad stretches are suspect (see `analyseStretch`).
+    All suspect stretches are shown, and at most three examples
+    of the benign (non-suspsect) bad stretches are shown.
+    &#34;&#34;&#34;
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    alignment = self.alignment
+
     errors = {}
     prevILK = 0
     prevIAF = 0
@@ -1213,6 +2732,7 @@ def checkAlignment():
     for (d, n) in sorted(agreement.items()):
         print(f&#34;edit distance {d:&gt;3} : {n:&gt;5} words&#34;)
     print(&#34;NB: 88 are special cases that have been declared explicitly&#34;)
+    print(&#34;NB: 99 are words that have no counterpart in the other edition&#34;)
 
     print(&#34;\nCOMBINATIONS\n&#34;)
     print(&#34;What combination alignments are there and how many?&#34;)
@@ -1223,8 +2743,9 @@ def checkAlignment():
         for (i, c) in enumerate(cs[0:3]):
             print(f&#34;EXAMPLE {i + 1}:&#34;)
             print(
-                printLines(
-                    start=max((1, c - 2)), end=min((len(alignment), c + 2 + max(comb)))
+                self.printLines(
+                    start=max((1, c - 2)),
+                    end=min((len(alignment), c + 2 + max(comb))),
                 )
             )
             print(&#34;&#34;)
@@ -1235,7 +2756,9 @@ def checkAlignment():
     someBenigns = []
     for (size, starts) in sorted(badStretches.items(), key=lambda x: (-x[0], x[1])):
         suspects = {
-            start: size for start in starts if analyseStretch(start, start + size)
+            start: size
+            for start in starts
+            if self.analyseStretch(start, start + size)
         }
         benigns = {start: size for start in starts if start not in suspects}
         allSuspects.extend(
@@ -1258,7 +2781,7 @@ def checkAlignment():
     )
     for (i, (start, end)) in enumerate(reversed(allSuspects)):
         print(f&#34;\nSUSPECT {i + 1:&gt;2}&#34;)
-        print(printLines(max((1, start - 5)), min((len(alignment), end + 5))))
+        print(self.printLines(max((1, start - 5)), min((len(alignment), end + 5))))
     print(
         f&#34;\nShowing some ({len(someBenigns)}) benign examples&#34;
         if len(someBenigns)
@@ -1266,28 +2789,74 @@ def checkAlignment():
     )
     for (i, (start, end)) in enumerate(someBenigns):
         print(f&#34;\nBENIGN {i + 1:&gt;2}&#34;)
-        print(printLines(max((1, start - 2)), min((len(alignment), end + 2))))</code></pre>
+        print(self.printLines(max((1, start - 2)), min((len(alignment), end + 2))))</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.compare"><code class="name flex">
-<span>def <span class="ident">compare</span></span>(<span>iLK, iAF, maxD, minR, debug=False)</span>
+<dt id="fusus.align.Alignment.compare"><code class="name flex">
+<span>def <span class="ident">compare</span></span>(<span>self, iLK, iAF, maxD, minR, debug=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Does a full comparison at a location, including between combinations.</p>
+<p>First a direct match between the words at the current positions in
+the LK and AF editions is tried. If that fails,
+combinations of words from those points onwards are tried.</p>
+<p>See also: <code>getCombis</code> and <code>findCombi</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iLK</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in LK edition</dd>
+<dt><strong><code>iAF</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in AF edition</dd>
+<dt><strong><code>maxD</code></strong> :&ensp;<code>integer</code></dt>
+<dd>maximum edit distance that we allow for the comparisons to succeed</dd>
+<dt><strong><code>minR</code></strong> :&ensp;<code>integer</code></dt>
+<dd>minimum similarity ratio that we require for the comparisons to succeed</dd>
+<dt><strong><code>debug</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, print a statement indicating the result of the comparison.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L315-L362" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L446-L522" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def compare(iLK, iAF, maxD, minR, debug=False):
+<pre><code class="python">def compare(self, iLK, iAF, maxD, minR, debug=False):
+    &#34;&#34;&#34;Does a full comparison at a location, including between combinations.
+
+    First a direct match between the words at the current positions in
+    the LK and AF editions is tried. If that fails,
+    combinations of words from those points onwards are tried.
+
+    See also: `getCombis` and `findCombi`.
+
+    Parameters
+    ----------
+    iLK: integer
+        Current slot position in LK edition
+    iAF: integer
+        Current slot position in AF edition
+    maxD: integer
+        maximum edit distance that we allow for the comparisons to succeed
+    minR: integer
+        minimum similarity ratio that we require for the comparisons to succeed
+    debug: boolean, optional `False`
+        If True, print a statement indicating the result of the comparison.
+    &#34;&#34;&#34;
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    getTextLK = self.getTextLK
+    getTextAF = self.getTextAF
+    alignment = self.alignment
+    indexLK = self.indexLK
+    indexAF = self.indexAF
+
     textLK = getTextLK(iLK)
     textAF = getTextAF(iAF)
     (isSimilar, d, r) = similar(textLK, textAF, maxD, minR)
     if isSimilar:
         nAlignment = len(alignment)
-        alignment.append((iLK, &#34;&#34;, d, r, &#34;&#34;, iAF))
         indexLK[iLK] = nAlignment
         indexAF[iAF] = nAlignment
+        alignment.append((iLK, &#34;&#34;, d, r, &#34;&#34;, iAF))
         if debug:
             print(
                 f&#34;[{iLK}~{iAF}] single comparison with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
@@ -1300,24 +2869,24 @@ def checkAlignment():
         (isSimilarNext, dNext, rNext) = similar(textLK, textAF, maxD, minR)
         if isSimilarNext:
             nAlignment = len(alignment)
-            alignment.append((iLK, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF))
             indexLK[iLK] = nAlignment
             indexAF[iAF] = nAlignment
+            alignment.append((iLK, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF))
             if debug:
                 print(
                     f&#34;[{iLK}~{iAF}] single comparison failed with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
                 )
             nAlignment = len(alignment)
+            indexLK[iLK + 1] = nAlignment
+            indexAF[iAF + 1] = nAlignment
             alignment.append((iLK + 1, &#34;&#34;, dNext, rNext, &#34;&#34;, iAF + 1))
-            indexLK[iLK] = nAlignment
-            indexAF[iAF] = nAlignment
             if debug:
                 print(
                     f&#34;[{iLK}~{iAF}] single comparison recovered with distance &lt;= {maxD} and ratio &gt;= {minR}&#34;
                 )
             return (iLK + 2, iAF + 2)
 
-    combi = findCombi(iLK, iAF, maxD, minR)
+    combi = self.findCombi(iLK, iAF, maxD, minR)
     if combi is not None:
         (cLK, cAF) = combi
         if debug:
@@ -1329,52 +2898,201 @@ def checkAlignment():
     return None</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.doCase"><code class="name flex">
-<span>def <span class="ident">doCase</span></span>(<span>iLK, iAF, debug=False)</span>
+<dt id="fusus.align.Alignment.doCase"><code class="name flex">
+<span>def <span class="ident">doCase</span></span>(<span>self, iLK, iAF, debug=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Deal with a special case.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iLK</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current position in LK edition.
+A case is triggered when iLK is equal
+to a key in the cases table and if the same case
+has not already been applied.
+This last condition is relevant for special
+cases where the number of LK words that must be
+combined is 0. In that case, the current LK
+position does not shift, and we would be in an
+infinite loop.</dd>
+<dt><strong><code>iAF</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current position in AF edition.
+If a case is triggered by iLK, but the AF position
+specified in the case does not match iAF,
+the case is skipped and is reported as a failed case.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L264-L284" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L333-L386" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def doCase(iLK, iAF, debug=False):
+<pre><code class="python">def doCase(self, iLK, iAF, debug=False):
+    &#34;&#34;&#34;Deal with a special case.
+
+    Parameters
+    ----------
+    iLK: integer
+        Current position in LK edition.
+        A case is triggered when iLK is equal
+        to a key in the cases table and if the same case
+        has not already been applied.
+        This last condition is relevant for special
+        cases where the number of LK words that must be
+        combined is 0. In that case, the current LK
+        position does not shift, and we would be in an
+        infinite loop.
+    iAF: integer
+        Current position in AF edition.
+        If a case is triggered by iLK, but the AF position
+        specified in the case does not match iAF,
+        the case is skipped and is reported as a failed case.
+    &#34;&#34;&#34;
+    indexLK = self.indexLK
+    indexAF = self.indexAF
+    alignment = self.alignment
+    usedCases = self.usedCases
+    failedCases = self.failedCases
+
+    cases = self.cases
+
     if iLK not in cases:
         return None
 
-    (cLK, cAF) = cases[iLK]
+    (givenIAF, cLK, cAF) = cases[iLK]
+    if givenIAF != iAF:
+        failedCases.add(iLK)
+        return None
+
+    usedCases.add(iLK)
     common = min((cLK, cAF))
     for i in range(max((cLK, cAF))):
         nAlignment = len(alignment)
         if i &lt; common:
+            indexLK[iLK + i] = nAlignment
+            indexAF[iAF + i] = nAlignment
             alignment.append((iLK + i, cLK, 88, 0.0, cAF, iAF + i))
-            indexLK[iLK + i] = nAlignment
-            indexAF[iAF + i] = nAlignment
         elif i &lt; cLK:
-            alignment.append((iLK + i, cLK, 88, 0.0, cAF, &#34;&#34;))
             indexLK[iLK + i] = nAlignment
+            alignment.append((iLK + i, cLK, 88, 0.0, cAF, &#34;&#34;))
         else:
-            alignment.append((&#34;&#34;, cLK, 88, 0.0, cAF, iAF + i))
             indexAF[iAF + i] = nAlignment
+            alignment.append((&#34;&#34;, cLK, 88, 0.0, cAF, iAF + i))
     if debug:
         print(f&#34;[{iLK}~{iAF}] special case ({cLK}, {cAF})&#34;)
     return (iLK + cLK, iAF + cAF)</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.doDiffs"><code class="name flex">
-<span>def <span class="ident">doDiffs</span></span>(<span>startLK=1, startAF=1, steps=-1, show=False, debug=False)</span>
+<dt id="fusus.align.Alignment.doDiffs"><code class="name flex">
+<span>def <span class="ident">doDiffs</span></span>(<span>self, startLK=1, startAF=1, steps=-1, show=False, debug=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Main loop of the alignment process.</p>
+<p>Without optional parameters, performs the whole alignment until
+it is completed or fails.</p>
+<p>But you can also run a few alignment steps, from arbitrary positions
+and record the decision steps. This is handy for debugging and
+exploring.</p>
+<div class="admonition hint">
+<p class="admonition-title">doDiff</p>
+<p>This function defines an inner function <code>doDiff</code>, which
+contains the logic of a single alignment step.
+That function <code>doDiff</code> issues a sequence of <code>compare</code> and <code>lookup</code>
+commands with various strictnesses and various jump sizes,
+which will be tried in order.</p>
+<p>Here you can finetune the amount of looseness you allow in a comparison
+before jumping from that position.
+You can first compare strictly, then jump away a short distance while
+still comparing strictly, and then start comparing more loosely, and
+then jump away a longer distance, possibly a bit more loosely.
+That is a matter of trial and error.</p>
+<p>The current implementation of <code>doDiff</code> matches the present LK and AF well,
+especially in conjunction with the special cases that have been defined.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>startLK</code></strong> :&ensp;<code>integer</code>, optional <code>1</code></dt>
+<dd>Start position in LK edition. If not passed, starts from the beginning.</dd>
+<dt><strong><code>startAF</code></strong> :&ensp;<code>integer</code>, optional <code>1</code></dt>
+<dd>Start position in AF edition. If not passed, starts from the beginning.</dd>
+<dt><strong><code>steps</code></strong> :&ensp;<code>integer</code>, optional <code>-1</code></dt>
+<dd>The number of alignment steps to perform.
+If not passed or -1, there is no limit on the steps.</dd>
+<dt><strong><code>show</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, prints the resulting alignment table to the screen.
+Only do this when you produce a small part of the alignment table!
+maximum edit distance that we allow for the comparisons to succeed</dd>
+<dt><strong><code>debug</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, print a statement indicating the result of the each decision
+that has been taken during the alignment process.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L413-L543" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L603-L815" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def doDiffs(startLK=1, startAF=1, steps=-1, show=False, debug=False):
-    alignment.clear()
-    decisions.clear()
+<pre><code class="python">def doDiffs(self, startLK=1, startAF=1, steps=-1, show=False, debug=False):
+    &#34;&#34;&#34;Main loop of the alignment process.
+
+    Without optional parameters, performs the whole alignment until
+    it is completed or fails.
+
+    But you can also run a few alignment steps, from arbitrary positions
+    and record the decision steps. This is handy for debugging and
+    exploring.
+
+    !!! hint &#34;doDiff&#34;
+        This function defines an inner function `doDiff`, which
+        contains the logic of a single alignment step.
+        That function `doDiff` issues a sequence of `compare` and `lookup`
+        commands with various strictnesses and various jump sizes,
+        which will be tried in order.
+
+        Here you can finetune the amount of looseness you allow in a comparison
+        before jumping from that position.
+        You can first compare strictly, then jump away a short distance while
+        still comparing strictly, and then start comparing more loosely, and
+        then jump away a longer distance, possibly a bit more loosely.
+        That is a matter of trial and error.
+
+        The current implementation of `doDiff` matches the present LK and AF well,
+        especially in conjunction with the special cases that have been defined.
+
+    Parameters
+    ----------
+    startLK: integer, optional 1
+        Start position in LK edition. If not passed, starts from the beginning.
+    startAF: integer, optional 1
+        Start position in AF edition. If not passed, starts from the beginning.
+    steps: integer, optional `-1`
+        The number of alignment steps to perform.
+        If not passed or -1, there is no limit on the steps.
+    show: boolean, optional False
+        If True, prints the resulting alignment table to the screen.
+        Only do this when you produce a small part of the alignment table!
+        maximum edit distance that we allow for the comparisons to succeed
+    debug: boolean, optional `False`
+        If True, print a statement indicating the result of the each decision
+        that has been taken during the alignment process.
+    &#34;&#34;&#34;
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    cases = self.cases
+    alignmentPath = self.alignmentPath
+    alignmentText = self.alignmentText
+    alignmentTextBlocked = self.alignmentTextBlocked
+
+    self.alignment = []
+    self.indexLK = {}
+    self.indexAF = {}
+    self.decisions = collections.Counter()
+    self.usedCases = set()
+    self.failedCases = set()
+
+    alignment = self.alignment
+    indexLK = self.indexLK
+    decisions = self.decisions
+    usedCases = self.usedCases
+    failedCases = self.failedCases
 
     lastCase = None
     step = (startLK, startAF)
@@ -1385,9 +3103,9 @@ def checkAlignment():
         decision = 0
         if iLK &gt; maxLK or iAF &gt; maxAF:
             if iAF &lt; maxAF:
-                catchupAF(iAF, maxAF)
+                self.catchupAF(iAF, maxAF)
             if iLK &lt; maxLK:
-                catchupLK(iLK, maxLK)
+                self.catchupLK(iLK, maxLK)
             decisions[decision] += 1
             return True
 
@@ -1396,85 +3114,85 @@ def checkAlignment():
         decision += 1
 
         if lastCase != iLK:
-            step = doCase(iLK, iAF, debug=debug)
+            step = self.doCase(iLK, iAF, debug=debug)
             if step:
                 lastCase = iLK
                 decisions[decision] += 1
                 return step
 
-        step = compare(iLK, iAF, 0, 1.0, debug=debug)
+        step = self.compare(iLK, iAF, 0, 1.0, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = compare(iLK, iAF, 1, 0.8, debug=debug)
+        step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 1, 5, debug=debug)
+        step = self.lookup(iLK, iAF, 0, 1.0, 1, 5, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = compare(iLK, iAF, 1, 0.8, debug=debug)
+        step = self.compare(iLK, iAF, 1, 0.8, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = compare(iLK, iAF, 2, 0.7, debug=debug)
+        step = self.compare(iLK, iAF, 2, 0.7, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = compare(iLK, iAF, 3, 0.6, debug=debug)
+        step = self.compare(iLK, iAF, 3, 0.6, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 1, 10, debug=debug)
+        step = self.lookup(iLK, iAF, 0, 1.0, 1, 10, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 1, 10, debug=debug)
+        step = self.lookup(iLK, iAF, 1, 0.8, 1, 10, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 0, 1.0, 10, 20, debug=debug)
+        step = self.lookup(iLK, iAF, 0, 1.0, 10, 20, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 10, 20, debug=debug)
+        step = self.lookup(iLK, iAF, 1, 0.8, 10, 20, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 2, 0.7, 1, 20, debug=debug)
+        step = self.lookup(iLK, iAF, 2, 0.7, 1, 20, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 1, 0.8, 20, 100, debug=debug)
+        step = self.lookup(iLK, iAF, 1, 0.8, 20, 100, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
             return step
 
-        step = lookup(iLK, iAF, 2, 0.7, 20, 100, debug=debug)
+        step = self.lookup(iLK, iAF, 2, 0.7, 20, 100, debug=debug)
         decision += 1
         if step:
             decisions[decision] += 1
@@ -1487,39 +3205,109 @@ def checkAlignment():
         step = doDiff(*step)
 
         if step is True:
-            printAlignment(&#34;zipLK-AF-complete.txt&#34;)
-            printAlignment(alignmentPath, asTsv=True)
+            self.printAlignment(alignmentText)
+            self.printAlignment(alignmentPath, asTsv=True)
             print(f&#34;Alignment complete, {len(alignment)} entries.&#34;)
             break
         elif step is False:
-            printAlignment(&#34;zipLK-AF-incomplete.txt&#34;)
+            self.printAlignment(alignmentTextBlocked)
             print(f&#34;Alignment blocked, {len(alignment)} entries.&#34;)
-            printDiff(20, 20)
+            self.printDiff(20, 20)
             break
 
+    endLK = startLK if len(indexLK) == 0 else max(indexLK)
+    possibleCases = set(range(startLK, endLK + 1))
+    casesSet = set(cases)
+    relevantCases = casesSet &amp; possibleCases
+    missedCases = relevantCases - usedCases - failedCases
+
+    if failedCases:
+        for iLK in sorted(failedCases):
+            self.printCase(iLK, &#34;FAILED&#34;)
+    if missedCases:
+        for iLK in sorted(missedCases):
+            self.printCase(iLK, &#34;MISSED&#34;)
+
+    if not failedCases and not missedCases:
+        if not relevantCases:
+            print(&#34;No special cases defined for this stretch&#34;)
+        else:
+            print(
+                f&#34;Special cases: all relevant {len(relevantCases)} cases &#34;
+                &#34;defined, encountered, and applied&#34;
+            )
+
     if show:
-        print(printLines())
+        print(self.printLines())
 
     for d in sorted(decisions):
         n = decisions[d]
         print(f&#34;{d:&gt;2} taken: {n:&gt;5} x&#34;)</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.findCombi"><code class="name flex">
-<span>def <span class="ident">findCombi</span></span>(<span>iLK, iAF, maxD, minR)</span>
+<dt id="fusus.align.Alignment.findCombi"><code class="name flex">
+<span>def <span class="ident">findCombi</span></span>(<span>self, iLK, iAF, maxD, minR)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Tries out all possible combinations at this point until success.</p>
+<p>This is typically called when a direct match at the current slots
+in LK and AF fail.</p>
+<p>We are going to take together small amounts of words and match
+them instead. As soon as we have a match, we break out of the loop
+and use step to the new positions.</p>
+<p>See also: <code>getCombis</code> and <code>compare</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iLK</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in LK edition</dd>
+<dt><strong><code>iAF</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in AF edition</dd>
+<dt><strong><code>maxD</code></strong> :&ensp;<code>integer</code></dt>
+<dd>maximum edit distance that we allow for the comparisons to succeed</dd>
+<dt><strong><code>minR</code></strong> :&ensp;<code>integer</code></dt>
+<dd>minimum similarity ratio that we require for the comparisons to succeed</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L287-L312" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L388-L444" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def findCombi(iLK, iAF, maxD, minR):
+<pre><code class="python">def findCombi(self, iLK, iAF, maxD, minR):
+    &#34;&#34;&#34;Tries out all possible combinations at this point until success.
+
+    This is typically called when a direct match at the current slots
+    in LK and AF fail.
+
+    We are going to take together small amounts of words and match
+    them instead. As soon as we have a match, we break out of the loop
+    and use step to the new positions.
+
+    See also: `getCombis` and `compare`.
+
+    Parameters
+    ----------
+    iLK: integer
+        Current slot position in LK edition
+    iAF: integer
+        Current slot position in AF edition
+    maxD: integer
+        maximum edit distance that we allow for the comparisons to succeed
+    minR: integer
+        minimum similarity ratio that we require for the comparisons to succeed
+    &#34;&#34;&#34;
+    combis = self.combis
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    getTextLK = self.getTextLK
+    getTextAF = self.getTextAF
+    alignment = self.alignment
+    indexLK = self.indexLK
+    indexAF = self.indexAF
+
     found = None
 
-    for (cLK, cAF) in COMBIS:
-        if iLK + cLK &gt; maxLK or iAF + cAF &gt; maxLK:
+    for (cLK, cAF) in combis:
+        if iLK + cLK &gt; maxLK or iAF + cAF &gt; maxAF:
             continue
         textLK = &#34;&#34;.join(getTextLK(iLK + i) for i in range(cLK))
         textAF = &#34;&#34;.join(getTextAF(iAF + i) for i in range(cAF))
@@ -1530,93 +3318,176 @@ def checkAlignment():
             for i in range(max((cLK, cAF))):
                 nAlignment = len(alignment)
                 if i &lt; common:
+                    indexLK[iLK + i] = nAlignment
+                    indexAF[iAF + i] = nAlignment
                     alignment.append((iLK + i, cLK, d, r, cAF, iAF + i))
-                    indexLK[iLK + i] = nAlignment
-                    indexAF[iAF + i] = nAlignment
                 elif i &lt; cLK:
-                    alignment.append((iLK + i, cLK, d, r, cAF, &#34;&#34;))
                     indexLK[iLK + i] = nAlignment
+                    alignment.append((iLK + i, cLK, d, r, cAF, &#34;&#34;))
                 elif i &lt; cAF:
-                    alignment.append((&#34;&#34;, cLK, d, r, cAF, iAF + i))
                     indexAF[iAF + i] = nAlignment
+                    alignment.append((&#34;&#34;, cLK, d, r, cAF, iAF + i))
             break
     return found</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.getCombis"><code class="name flex">
-<span>def <span class="ident">getCombis</span></span>(<span>c)</span>
+<dt id="fusus.align.Alignment.getCombis"><code class="name flex">
+<span>def <span class="ident">getCombis</span></span>(<span>self, c)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Precompute a specification of all combinations that might be tried.</p>
+<p>When the alignment fails between single words, we try combinations
+of words left and right in a specific order.
+The result of this function lists the combinations that must be
+tried, where each combination is specified as a tuple
+of the number of words left and the number of words right
+that needs to be taken together for the matching.</p>
+<p>See also: <code>findCommbi</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L227-L233" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L272-L291" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def getCombis(c):
+<pre><code class="python">def getCombis(self, c):
+    &#34;&#34;&#34;Precompute a specification of all combinations that might be tried.
+
+    When the alignment fails between single words, we try combinations
+    of words left and right in a specific order.
+    The result of this function lists the combinations that must be
+    tried, where each combination is specified as a tuple
+    of the number of words left and the number of words right
+    that needs to be taken together for the matching.
+
+    See also: `findCommbi`.
+    &#34;&#34;&#34;
     combis = []
     for i in range(1, c + 1):
         for j in range(1, c + 1):
             if i != 1 or j != 1:
                 combis.append((i, j))
-    return tuple(sorted(combis, key=lambda x: (x[0] + x[1], abs(x[0] - x[1]))))</code></pre>
+    self.combis = tuple(
+        sorted(combis, key=lambda x: (x[0] + x[1], abs(x[0] - x[1])))
+    )</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.getPosAF"><code class="name flex">
-<span>def <span class="ident">getPosAF</span></span>(<span>slot)</span>
+<dt id="fusus.align.Alignment.getPosAF"><code class="name flex">
+<span>def <span class="ident">getPosAF</span></span>(<span>self, slot)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Obtain the page and line numbers where a slot in the AF occurs.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L111-L113" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L122-L128" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def getPosAF(slot):
-    (page, block, line) = TAF.sectionFromNode(slot)
+<pre><code class="python">def getPosAF(self, slot):
+    &#34;&#34;&#34;Obtain the page and line numbers where a slot in the AF occurs.
+    &#34;&#34;&#34;
+    T_AF = self.T_AF
+
+    (page, block, line) = T_AF.sectionFromNode(slot)
     return f&#34;{page:&gt;03}:{line:&gt;02}&#34;</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.getPosLK"><code class="name flex">
-<span>def <span class="ident">getPosLK</span></span>(<span>slot)</span>
+<dt id="fusus.align.Alignment.getPosLK"><code class="name flex">
+<span>def <span class="ident">getPosLK</span></span>(<span>self, slot)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Obtain the page and line numbers where a slot in the LK occurs.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L106-L108" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L113-L120" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def getPosLK(slot):
-    (piece, page, line) = TLK.sectionFromNode(slot)
+<pre><code class="python">def getPosLK(self, slot):
+    &#34;&#34;&#34;Obtain the page and line numbers where a slot in the LK occurs.
+    &#34;&#34;&#34;
+
+    T_LK = self.T_LK
+
+    (piece, page, line) = T_LK.sectionFromNode(slot)
     return f&#34;{page:&gt;03}:{line:&gt;02}&#34;</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.lookup"><code class="name flex">
-<span>def <span class="ident">lookup</span></span>(<span>iLK, iAF, maxD, minR, start, end, debug=False)</span>
+<dt id="fusus.align.Alignment.lookup"><code class="name flex">
+<span>def <span class="ident">lookup</span></span>(<span>self, iLK, iAF, maxD, minR, start, end, debug=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Performs a jump in both editions.</p>
+<p>Typically invoked when comparison at the current locations fail,
+even after having tried combinations.</p>
+<p>We compare the current word in one edition with those from a certain
+interval in the other edition. And vice versa, alternately.
+of subsequent words.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iLK</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in LK edition</dd>
+<dt><strong><code>iAF</code></strong> :&ensp;<code>integer</code></dt>
+<dd>Current slot position in AF edition</dd>
+<dt><strong><code>maxD</code></strong> :&ensp;<code>integer</code></dt>
+<dd>maximum edit distance that we allow for the comparisons to succeed</dd>
+<dt><strong><code>minR</code></strong> :&ensp;<code>integer</code></dt>
+<dd>minimum similarity ratio that we require for the comparisons to succeed</dd>
+<dt><strong><code>start</code></strong> :&ensp;<code>integer</code></dt>
+<dd>first position in the other edition where we start comparing</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>integer</code></dt>
+<dd>last position in the other edition where we stop comparing</dd>
+<dt><strong><code>debug</code></strong> :&ensp;<code>boolean</code>, optional <code>False</code></dt>
+<dd>If True, print a statement indicating the result of the lookup.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L365-L410" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L524-L601" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def lookup(iLK, iAF, maxD, minR, start, end, debug=False):
+<pre><code class="python">def lookup(self, iLK, iAF, maxD, minR, start, end, debug=False):
+    &#34;&#34;&#34;Performs a jump in both editions.
+
+    Typically invoked when comparison at the current locations fail,
+    even after having tried combinations.
+
+    We compare the current word in one edition with those from a certain
+    interval in the other edition. And vice versa, alternately.
+    of subsequent words.
+
+    Parameters
+    ----------
+    iLK: integer
+        Current slot position in LK edition
+    iAF: integer
+        Current slot position in AF edition
+    maxD: integer
+        maximum edit distance that we allow for the comparisons to succeed
+    minR: integer
+        minimum similarity ratio that we require for the comparisons to succeed
+    start: integer
+        first position in the other edition where we start comparing
+    end: integer
+        last position in the other edition where we stop comparing
+    debug: boolean, optional `False`
+        If True, print a statement indicating the result of the lookup.
+    &#34;&#34;&#34;
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    alignment = self.alignment
+    indexLK = self.indexLK
+    indexAF = self.indexAF
+
     step = None
 
     for i in range(start, end + 1):
         prevAlignmentIndex = len(alignment)
 
         if iAF + i &lt;= maxAF:
-            step = compare(iLK, iAF + i, maxD, minR, debug=debug)
+            step = self.compare(iLK, iAF + i, maxD, minR, debug=debug)
             if step:
                 if debug:
                     print(f&#34;[{iLK}~{iAF}] right {i}-jump to {iAF + i}&#34;)
                 thisAlignment = list(alignment[prevAlignmentIndex:])
                 alignment[prevAlignmentIndex:] = []
 
-                catchupAF(iAF, iAF + i - 1)
+                self.catchupAF(iAF, iAF + i - 1)
                 for thisComp in thisAlignment:
                     nAlignment = len(alignment)
                     thisLK = thisComp[0]
@@ -1629,14 +3500,14 @@ def checkAlignment():
                 break
 
         if iLK + i &lt;= maxLK:
-            step = compare(iLK + i, iAF, maxD, minR, debug=debug)
+            step = self.compare(iLK + i, iAF, maxD, minR, debug=debug)
             if step:
                 if debug:
                     print(f&#34;[{iLK}~{iAF}] left {i}-jump to {iLK + i}&#34;)
                 thisAlignment = list(alignment[prevAlignmentIndex:])
                 alignment[prevAlignmentIndex:] = []
 
-                catchupLK(iLK, iLK + i - 1)
+                self.catchupLK(iLK, iLK + i - 1)
                 for thisComp in thisAlignment:
                     nAlignment = len(alignment)
                     thisLK = thisComp[0]
@@ -1650,8 +3521,8 @@ def checkAlignment():
     return step</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.printAlignment"><code class="name flex">
-<span>def <span class="ident">printAlignment</span></span>(<span>path, asTsv=False)</span>
+<dt id="fusus.align.Alignment.printAlignment"><code class="name flex">
+<span>def <span class="ident">printAlignment</span></span>(<span>self, path, asTsv=False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Prints the whole alignment table to file.</p>
@@ -1661,16 +3532,16 @@ def checkAlignment():
 <dd>The path name of the file to which the information is printed.</dd>
 <dt><strong><code>asTsv</code></strong> :&ensp;<code>boolean</code>, optional <code>`False</code></dt>
 <dd>If False, pretty prints the table to file, using
-<code><a title="fusus.align.printLines" href="#fusus.align.printLines">printLines()</a></code> above.
+<code>printLines</code> above.
 If True, write essential data only in tab separated format.
 The essential information is <em>slot in LK</em>, <em>distance</em>, <em>slot in AF</em></dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L154-L180" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L172-L200" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def printAlignment(path, asTsv=False):
+<pre><code class="python">def printAlignment(self, path, asTsv=False):
     &#34;&#34;&#34;Prints the whole alignment table to file.
 
     Parameters
@@ -1684,6 +3555,8 @@ The essential information is <em>slot in LK</em>, <em>distance</em>, <em>slot in
         If True, write essential data only in tab separated format.
         The essential information is *slot in LK*, *distance*, *slot in AF*
     &#34;&#34;&#34;
+    alignment = self.alignment
+
     with open(path, &#34;w&#34;) as fh:
         if asTsv:
             for item in alignment:
@@ -1695,12 +3568,53 @@ The essential information is <em>slot in LK</em>, <em>distance</em>, <em>slot in
                     + &#34;\n&#34;
                 )
         else:
-            fh.write(printLines())
+            fh.write(self.printLines())
             fh.write(&#34;\n&#34;)</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.printDiff"><code class="name flex">
-<span>def <span class="ident">printDiff</span></span>(<span>before, after)</span>
+<dt id="fusus.align.Alignment.printCase"><code class="name flex">
+<span>def <span class="ident">printCase</span></span>(<span>self, iLK, label)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the alignment entries that belong to a special case.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iLK</code></strong> :&ensp;<code>integer</code></dt>
+<dd>The slot number in LK that triggered a special case.</dd>
+<dt><strong><code>label</code></strong> :&ensp;<code>string</code></dt>
+<dd>The kind of issue with this case that you want to report:
+FAILED or MISSING.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L250-L270" class="git-link">Browse git</a>
+</summary>
+<pre><code class="python">def printCase(self, iLK, label):
+    &#34;&#34;&#34;Print the alignment entries that belong to a special case.
+
+    Parameters
+    ----------
+    iLK: integer
+        The slot number in LK that triggered a special case.
+    label: string
+        The kind of issue with this case that you want to report:
+        FAILED or MISSING.
+    &#34;&#34;&#34;
+    indexLK = self.indexLK
+    indexAF = self.indexAF
+
+    cases = self.cases
+    case = cases[iLK]
+    (iAF, cLK, cAF) = case
+    start = min((indexLK[iLK], indexAF[iAF]))
+    end = max((indexLK[iLK + cLK + 1], indexAF[iAF + cAF + 1]))
+    print(f&#34;{label} CASE: {iLK} vs {iAF}:&#34;)
+    print(self.printLines(start=start, end=end))</code></pre>
+</details>
+</dd>
+<dt id="fusus.align.Alignment.printDiff"><code class="name flex">
+<span>def <span class="ident">printDiff</span></span>(<span>self, before, after)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Print the last alignment entries plus what comes after.</p>
@@ -1719,9 +3633,9 @@ needs to be shown for each source.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L183-L221" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L202-L248" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def printDiff(before, after):
+<pre><code class="python">def printDiff(self, before, after):
     &#34;&#34;&#34;Print the last alignment entries plus what comes after.
 
     This function is useful if alignment fails at some point.
@@ -1737,7 +3651,13 @@ needs to be shown for each source.</dd>
         The amount of slots after the last alignment entry that
         needs to be shown for each source.
     &#34;&#34;&#34;
-    print(printLines(start=len(alignment) - before))
+    alignment = self.alignment
+    maxLK = self.maxLK
+    maxAF = self.maxAF
+    getTextLK = self.getTextLK
+    getTextAF = self.getTextAF
+
+    print(self.printLines(start=len(alignment) - before))
     print(&#34;^&#34; * 67)
     lastLK = None
     lastAF = None
@@ -1759,11 +3679,13 @@ needs to be shown for each source.</dd>
             textAF = getTextAF(iAF) if iAF &lt;= maxAF else &#34;&#34;
             d = distance(textLK, textAF)
             r = ratio(textLK, textAF)
-            print(f&#34;{iLK:&gt;5} =  {textLK:&gt;20} @{d:&gt;2}~{r:3.1f} {textAF:&lt;20}  = {iAF:&gt;5}&#34;)</code></pre>
+            print(
+                f&#34;{iLK:&gt;5} =  {textLK:&gt;20} @{d:&gt;2}~{r:3.1f} {textAF:&lt;20}  = {iAF:&gt;5}&#34;
+            )</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.printLines"><code class="name flex">
-<span>def <span class="ident">printLines</span></span>(<span>start=0, end=None)</span>
+<dt id="fusus.align.Alignment.printLines"><code class="name flex">
+<span>def <span class="ident">printLines</span></span>(<span>self, start=0, end=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Print specified entries in the alignment table.</p>
@@ -1781,9 +3703,9 @@ If it is absent, it indicates the last line of the list.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L116-L151" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L130-L170" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def printLines(start=0, end=None):
+<pre><code class="python">def printLines(self, start=0, end=None):
     &#34;&#34;&#34;Print specified entries in the alignment table.
 
     Parameters
@@ -1798,6 +3720,11 @@ If it is absent, it indicates the last line of the list.</dd>
         before the end of the list.
         If it is absent, it indicates the last line of the list.
     &#34;&#34;&#34;
+
+    getTextLK = self.getTextLK
+    getTextAF = self.getTextAF
+    alignment = self.alignment
+
     if start &lt; 0:
         start = 0
     if end is None or end &gt; len(alignment):
@@ -1813,49 +3740,78 @@ If it is absent, it indicates the last line of the list.</dd>
     for (iLK, left, d, r, right, iAF) in alignment[start:end]:
         textLK = getTextLK(iLK) if iLK else &#34;&#34;
         textAF = getTextAF(iAF) if iAF else &#34;&#34;
-        posLK = getPosLK(iLK) if iLK else &#34;&#34;
-        posAF = getPosAF(iAF) if iAF else &#34;&#34;
+        posLK = self.getPosLK(iLK) if iLK else &#34;&#34;
+        posAF = self.getPosAF(iAF) if iAF else &#34;&#34;
         lines.append(
             f&#34;{posLK:&gt;6}|{iLK:&gt;5}|{left:&lt;2}|{textLK:&gt;20}|@{d:&lt;2}~{r:3.1f}|{textAF:&lt;20}|{right:&gt;2}|{iAF:&gt;5} {posAF:&lt;6}&#34;
         )
     return &#34;\n&#34;.join(lines)</code></pre>
 </details>
 </dd>
-<dt id="fusus.align.readEditions"><code class="name flex">
-<span>def <span class="ident">readEditions</span></span>(<span>versionGiven, casesGiven)</span>
+<dt id="fusus.align.Alignment.readEditions"><code class="name flex">
+<span>def <span class="ident">readEditions</span></span>(<span>self, version, cases)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Read the material of both LK and AF editions.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>version</code></strong> :&ensp;<code>string</code></dt>
+<dd>The version number of the source datasets for both editions.
+We assume that both editions are available as Text-Fabric datasets.</dd>
+<dt><strong><code>cases</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>The special cases defined to help the alignment algorithm through
+difficult spots.</p>
+<p>The dictionary is keyed by LK slot number, and the value is a tuple
+consisting of a corresponding AF slot number, the amount of
+words to collect at the LK side, and the amount of words to collect at
+the AF side.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>But the Alignment object will have attributes set by which
+the other methods are capable of reading the data source.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L28-L103" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/7c5671fcb56fe62b2c04ad8d59654b41e2e55d0d/fusus/align.py#L52-L111" class="git-link">Browse git</a>
 </summary>
-<pre><code class="python">def readEditions(versionGiven, casesGiven):
-    global version
-    global cases
-    global alignmentPath
-    global A
-    global FLK
-    global FAF
-    global TLK
-    global TAF
-    global LLK
-    global LAF
-    global maxLK
-    global maxAF
-    global getTextLK
-    global getTextAF
-    global alignment
-    global indexLK
-    global indexAF
-    global decisions
+<pre><code class="python">def readEditions(self, version, cases):
+    &#34;&#34;&#34;Read the material of both LK and AF editions.
 
-    version = versionGiven
-    cases = casesGiven
-    alignmentPath = f&#34;{ALIGNMENT_DIR}/alignment{version}.tsv&#34;
+    Parameters
+    ----------
+    version: string
+        The version number of the source datasets for both editions.
+        We assume that both editions are available as Text-Fabric datasets.
+
+    cases: dict
+        The special cases defined to help the alignment algorithm through
+        difficult spots.
+
+        The dictionary is keyed by LK slot number, and the value is a tuple
+        consisting of a corresponding AF slot number, the amount of
+        words to collect at the LK side, and the amount of words to collect at
+        the AF side.
+
+    Returns
+    -------
+    None
+        But the Alignment object will have attributes set by which
+        the other methods are capable of reading the data source.
+    &#34;&#34;&#34;
+
+    self.version = version
+    self.cases = cases
+    self.alignmentPath = f&#34;{ALIGNMENT_DIR}/alignment{version}.tsv&#34;
+    self.alignmentText = f&#34;{ALIGNMENT_DIR}/alignment{version}.txt&#34;
+    self.alignmentTextBlocked = f&#34;{ALIGNMENT_DIR}/alignment-incomplete{version}.txt&#34;
+
     if not os.path.exists(ALIGNMENT_DIR):
-        os.makedirs(alignmentPath, exist_ok=True)
+        os.makedirs(self.alignmentPath, exist_ok=True)
 
     A = {}
     F = {}
@@ -1864,76 +3820,30 @@ If it is absent, it indicates the last line of the list.</dd>
     maxSlot = {}
 
     for (acro, name) in EDITIONS.items():
-        A[acro] = use(f&#34;among/fusus/tf/{name}:clone&#34;, writing=&#34;ara&#34;, version=version)
+        A[acro] = use(
+            f&#34;among/fusus/tf/{name}:clone&#34;, writing=&#34;ara&#34;, version=version
+        )
         F[acro] = A[acro].api.F
         T[acro] = A[acro].api.T
         L[acro] = A[acro].api.L
         maxSlot[acro] = F[acro].otype.maxSlot
 
-    FLK = F[LK]
-    FAF = F[AF]
-    TLK = T[LK]
-    TAF = T[AF]
-    LLK = L[LK]
-    LAF = L[AF]
-    maxLK = maxSlot[LK]
-    maxAF = maxSlot[AF]
+    self.F_LK = F[LK]
+    self.F_AF = F[AF]
+    self.T_LK = T[LK]
+    self.T_AF = T[AF]
+    self.L_LK = L[LK]
+    self.L_AF = L[AF]
+    self.maxLK = maxSlot[LK]
+    self.maxAF = maxSlot[AF]
 
-    getTextLK = FLK.lettersn.v
-    getTextAF = FAF.lettersn.v
-
-    alignment = []
-    indexLK = {}
-    indexAF = {}
-    decisions = collections.Counter()
-
-    return dict(
-        version=version,
-        cases=cases,
-        alignmentPath=alignmentPath,
-        A=A,
-        FLK=FLK,
-        FAF=FAF,
-        TLK=TLK,
-        TAF=TAF,
-        LLK=LLK,
-        LAF=LAF,
-        maxLK=maxLK,
-        maxAF=maxAF,
-        getTextLK=getTextLK,
-        getTextAF=getTextAF,
-        alignment=alignment,
-        indexLK=indexLK,
-        indexAF=indexAF,
-        decisions=decisions,
-    )</code></pre>
-</details>
-</dd>
-<dt id="fusus.align.similar"><code class="name flex">
-<span>def <span class="ident">similar</span></span>(<span>s1, s2, maxD, minR)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/5e0a845cdcc0aadbfa2c0d41f16154b9bdaa56e2/fusus/align.py#L240-L249" class="git-link">Browse git</a>
-</summary>
-<pre><code class="python">def similar(s1, s2, maxD, minR):
-    if s1 == s2:
-        return (True, 0, 1.0)
-
-    if maxD == 0 or minR == 1:
-        return (False, 77, 0.0)
-
-    d = distance(s1, s2)
-    r = ratio(s1, s2)
-    return (d &lt;= maxD and r &gt;= minR, d, r)</code></pre>
+    self.getTextLK = F[LK].lettersn.v
+    self.getTextAF = F[AF].lettersn.v</code></pre>
 </details>
 </dd>
 </dl>
-</section>
-<section>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -1973,24 +3883,34 @@ If it is absent, it indicates the last line of the list.</dd>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="two-column">
-<li><code><a title="fusus.align.analyseStretch" href="#fusus.align.analyseStretch">analyseStretch</a></code></li>
-<li><code><a title="fusus.align.catchupAF" href="#fusus.align.catchupAF">catchupAF</a></code></li>
-<li><code><a title="fusus.align.catchupLK" href="#fusus.align.catchupLK">catchupLK</a></code></li>
-<li><code><a title="fusus.align.checkAlignment" href="#fusus.align.checkAlignment">checkAlignment</a></code></li>
-<li><code><a title="fusus.align.compare" href="#fusus.align.compare">compare</a></code></li>
-<li><code><a title="fusus.align.doCase" href="#fusus.align.doCase">doCase</a></code></li>
-<li><code><a title="fusus.align.doDiffs" href="#fusus.align.doDiffs">doDiffs</a></code></li>
-<li><code><a title="fusus.align.findCombi" href="#fusus.align.findCombi">findCombi</a></code></li>
-<li><code><a title="fusus.align.getCombis" href="#fusus.align.getCombis">getCombis</a></code></li>
-<li><code><a title="fusus.align.getPosAF" href="#fusus.align.getPosAF">getPosAF</a></code></li>
-<li><code><a title="fusus.align.getPosLK" href="#fusus.align.getPosLK">getPosLK</a></code></li>
-<li><code><a title="fusus.align.lookup" href="#fusus.align.lookup">lookup</a></code></li>
-<li><code><a title="fusus.align.printAlignment" href="#fusus.align.printAlignment">printAlignment</a></code></li>
-<li><code><a title="fusus.align.printDiff" href="#fusus.align.printDiff">printDiff</a></code></li>
-<li><code><a title="fusus.align.printLines" href="#fusus.align.printLines">printLines</a></code></li>
-<li><code><a title="fusus.align.readEditions" href="#fusus.align.readEditions">readEditions</a></code></li>
+<ul class="">
 <li><code><a title="fusus.align.similar" href="#fusus.align.similar">similar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fusus.align.Alignment" href="#fusus.align.Alignment">Alignment</a></code></h4>
+<ul class="two-column">
+<li><code><a title="fusus.align.Alignment.analyseStretch" href="#fusus.align.Alignment.analyseStretch">analyseStretch</a></code></li>
+<li><code><a title="fusus.align.Alignment.catchupAF" href="#fusus.align.Alignment.catchupAF">catchupAF</a></code></li>
+<li><code><a title="fusus.align.Alignment.catchupLK" href="#fusus.align.Alignment.catchupLK">catchupLK</a></code></li>
+<li><code><a title="fusus.align.Alignment.check" href="#fusus.align.Alignment.check">check</a></code></li>
+<li><code><a title="fusus.align.Alignment.compare" href="#fusus.align.Alignment.compare">compare</a></code></li>
+<li><code><a title="fusus.align.Alignment.doCase" href="#fusus.align.Alignment.doCase">doCase</a></code></li>
+<li><code><a title="fusus.align.Alignment.doDiffs" href="#fusus.align.Alignment.doDiffs">doDiffs</a></code></li>
+<li><code><a title="fusus.align.Alignment.findCombi" href="#fusus.align.Alignment.findCombi">findCombi</a></code></li>
+<li><code><a title="fusus.align.Alignment.getCombis" href="#fusus.align.Alignment.getCombis">getCombis</a></code></li>
+<li><code><a title="fusus.align.Alignment.getPosAF" href="#fusus.align.Alignment.getPosAF">getPosAF</a></code></li>
+<li><code><a title="fusus.align.Alignment.getPosLK" href="#fusus.align.Alignment.getPosLK">getPosLK</a></code></li>
+<li><code><a title="fusus.align.Alignment.lookup" href="#fusus.align.Alignment.lookup">lookup</a></code></li>
+<li><code><a title="fusus.align.Alignment.printAlignment" href="#fusus.align.Alignment.printAlignment">printAlignment</a></code></li>
+<li><code><a title="fusus.align.Alignment.printCase" href="#fusus.align.Alignment.printCase">printCase</a></code></li>
+<li><code><a title="fusus.align.Alignment.printDiff" href="#fusus.align.Alignment.printDiff">printDiff</a></code></li>
+<li><code><a title="fusus.align.Alignment.printLines" href="#fusus.align.Alignment.printLines">printLines</a></code></li>
+<li><code><a title="fusus.align.Alignment.readEditions" href="#fusus.align.Alignment.readEditions">readEditions</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
