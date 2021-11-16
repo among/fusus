@@ -5,7 +5,7 @@
 <img src="fusus/docs/images/dans.png" align="right" width="200"/>
 </div>
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309884.svg)](https://doi.org/10.5281/zenodo.4309884)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5705044.svg)](https://doi.org/10.5281/zenodo.5705044)
 [![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/among/fusus/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/among/fusus)
 
 # Fusus
