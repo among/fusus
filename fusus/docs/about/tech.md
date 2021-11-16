@@ -10,7 +10,7 @@ The *fusus* package deals with two distinct problems:
 
 The solution offered is a pipeline that implements the following diagram.
 
-![diagram](../images/Pipeline/Pipeline.000.jpeg)
+![diagram](../images/Pipeline/Pipeline.001.jpeg)
 
 # OCR Pipeline
 
