@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.2" />
-<title>fusus.about.transcriptionl API documentation</title>
+<title>fusus.about.transcription API documentation</title>
 <meta name="description" content="Lakhnawi transcription …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>fusus.about.transcriptionl</code></h1>
+<h1 class="title">Module <code>fusus.about.transcription</code></h1>
 </header>
 <section id="section-intro">
 <h1 id="lakhnawi-transcription">Lakhnawi transcription</h1>
@@ -160,6 +160,8 @@ So we do miss word boundaries on the one hand, and we
 have spurious word boundaries on the other hand.</p>
 </div>
 <p><strong>Features</strong></p>
+<p>We have features that contain the text. The following features contain
+the Lakhnawi text.</p>
 <table>
 <thead>
 <tr>
@@ -169,26 +171,6 @@ have spurious word boundaries on the other hand.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>boxl</code></td>
-<td>int</td>
-<td>left x-coordinate of the bounding box of a word</td>
-</tr>
-<tr>
-<td><code>boxt</code></td>
-<td>int</td>
-<td>top y-coordinate of the bounding box of a word</td>
-</tr>
-<tr>
-<td><code>boxr</code></td>
-<td>int</td>
-<td>right x-coordinate of the bounding box of a word</td>
-</tr>
-<tr>
-<td><code>boxb</code></td>
-<td>int</td>
-<td>bottom y-coordinate of the bounding box of a word</td>
-</tr>
 <tr>
 <td><code>letters</code></td>
 <td>str</td>
@@ -221,13 +203,182 @@ have spurious word boundaries on the other hand.</p>
 </tr>
 </tbody>
 </table>
+<p>The Afifi text is stored in analogous features:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>letters_af</code></td>
+<td>str</td>
+<td>the text of a word in Arabic, unicode, without punctuation</td>
+</tr>
+<tr>
+<td><code>lettersn_af</code></td>
+<td>str</td>
+<td>the text of a word in beta code, latin + diacritics</td>
+</tr>
+<tr>
+<td><code>lettersp_af</code></td>
+<td>str</td>
+<td>the text of a word in beta code, ascii</td>
+</tr>
+<tr>
+<td><code>letterst_af</code></td>
+<td>str</td>
+<td>the text of a word in romanized transcription</td>
+</tr>
+<tr>
+<td><code>punc_af</code></td>
+<td>str</td>
+<td>the punctuation and/or space immediately after a word in Arabic, unicode</td>
+</tr>
+<tr>
+<td><code>punca_af</code></td>
+<td>str</td>
+<td>the punctuation and/or space immediately after a word in ascii</td>
+</tr>
+</tbody>
+</table>
+<p>There is also information about the location of the AF words in their edition:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>page_af</code></td>
+<td>int</td>
+<td>the page number in the AF edition of this word</td>
+</tr>
+<tr>
+<td><code>line_af</code></td>
+<td>int</td>
+<td>the line number in the AF edition of this word</td>
+</tr>
+</tbody>
+</table>
+<p>There are extra features that contain information about the alignment between
+the LK words and the AF words.
+Some features identify the slots in the individual datasets before the merge.
+These datasets contain the box/confidence information of the words.
+We decided not to take this information with us in the merger.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>slot_lk</code></td>
+<td>int</td>
+<td>the slot number of this word in the <code>fususl</code> dataset</td>
+</tr>
+<tr>
+<td><code>slot_af</code></td>
+<td>int</td>
+<td>the slot number of this word in the <code>fususa</code> dataset</td>
+</tr>
+<tr>
+<td><code>combine_lk</code></td>
+<td>int</td>
+<td>if the slot is part of a combination of LK words that has been aligned, this is the number of words in that combination</td>
+</tr>
+<tr>
+<td><code>combine_af</code></td>
+<td>int</td>
+<td>if the slot is part of a combination of AF words that has been aligned, this is the number of words in that combination</td>
+</tr>
+<tr>
+<td><code>editdistance</code></td>
+<td>int</td>
+<td>the edit distance between the combination/word on the LK side and the combination/word on the AF side</td>
+</tr>
+<tr>
+<td><code>ratio</code></td>
+<td>int</td>
+<td>the similarity ratio between the combination/word on the LK side and the combination/word on the AF side. 10 is completely similar. 0 is completely dissimilar.</td>
+</tr>
+</tbody>
+</table>
+<p>The Lakhnawi text has been enriched with several features by Cornelis van Lit.
+In fact, the features <code>letters</code>, <code>lettersn</code>, <code>lettersp</code>, <code>letterst</code> derive
+from that enrichment.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>raw</code></td>
+<td>str</td>
+<td>the raw text of the word as in the <code>fususl</code> dataset</td>
+</tr>
+<tr>
+<td><code>puncb</code></td>
+<td>str</td>
+<td>punctuation immediately before a word (Arabic unicode)</td>
+</tr>
+<tr>
+<td><code>puncba</code></td>
+<td>str</td>
+<td>punctuation immediately before a word (Ascii)</td>
+</tr>
+<tr>
+<td><code>qunawims</code></td>
+<td>str</td>
+<td>on which folio of the oldest manuscript, penned by Qunawi himself, is this word attested?</td>
+</tr>
+<tr>
+<td><code>poetrymeter</code></td>
+<td>str</td>
+<td>meter in which this verse is written</td>
+</tr>
+<tr>
+<td><code>poetryverse</code></td>
+<td>int</td>
+<td>word is start of a verse of poetry, value is the number of the verse</td>
+</tr>
+<tr>
+<td><code>fass</code></td>
+<td>int</td>
+<td>number of the piece (bezel) that the word belongs to</td>
+</tr>
+<tr>
+<td><code>lwcvl</code></td>
+<td>str</td>
+<td>personal notes by Cornelis van Lit</td>
+</tr>
+<tr>
+<td><code>quran</code></td>
+<td>str</td>
+<td>word is part of a quran citation (sura:aya)</td>
+</tr>
+</tbody>
+</table>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/6cc4c6ea093dfbb0062b9bde174eb761909c327f/fusus/about/transcriptionl.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/6cc4c6ea093dfbb0062b9bde174eb761909c327f/fusus/about/transcription.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-.. include:: ../docs/about/transcriptionl.md
+.. include:: ../docs/about/transcription.md
 &#34;&#34;&#34;</code></pre>
 </details>
 </section>
