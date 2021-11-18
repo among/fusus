@@ -483,6 +483,39 @@ we made that into the ground truth.
 We added the Afifi to that for comparison, in such a way that each word in the LK
 is linked to the corresponding word in the AF.
 This has been achieved by constructing an alignment table between the two editions.</p>
+<pre><code>pag:ln|slot |cc|textLakhnawi        |@ed~rat|textAfifi           |cc| slot|pag:ln
+------|-----|--|--------------------|-------|--------------------|--|-----|------
+014:03|  290|  |             āʿyānhā|@0 ~1.0|āʿyānhā             |  |  292 048:16
+014:03|  291|  |                 wān|@1 ~0.8|ān                  |  |  293 048:16
+014:03|  292|2 |                 šʾt|@0 ~1.0|šʾtḳlt              | 1|  294 048:16
+014:03|  293|2 |                 ḳlt|@0 ~1.0|                    | 1|            
+014:03|  294|  |                  ān|@0 ~1.0|ān                  |  |  295 048:16
+014:03|  295|  |                 yrá|@0 ~1.0|yrá                 |  |  296 048:16
+014:03|  296|  |                ʿynh|@0 ~1.0|ʿynh                |  |  297 048:16
+014:03|  297|3 |                  fy|@1 ~0.9|y                   | 2|  298 048:16
+014:03|  298|3 |                 kwn|@1 ~0.9|kwnǧāmʿ             | 2|  299 048:16
+015:01|  299|3 |                ǧāmʿ|@1 ~0.9|                    | 2|            
+015:01|  300|2 |                yḥṣr|@0 ~1.0|yḥṣrālāmr           | 1|  300 048:16
+015:01|  301|2 |               ālāmr|@0 ~1.0|                    | 1|            
+      |     |0 |                    |@99~0.0|kh                  |  |  301 048:16
+015:01|  302|  |               lkwnh|@0 ~1.0|lkwnh               |  |  302 048:17
+015:01|  303|  |               mtṣfā|@0 ~1.0|mtṣfā               |  |  303 048:17
+015:01|  304|  |             bālwǧwd|@0 ~1.0|bālwǧwd             |  |  304 048:17
+015:01|  305|  |               wyẓhr|@0 ~1.0|yẓhr                |  |  305 048:17
+</code></pre>
+<p>Left is the Lakhnawi edition, right is Afifi. Each word occupies a row.
+In this little fragment you see several discrepancies that the algorithm
+detected and dealt with:</p>
+<ul>
+<li>LK word <code>291</code> aligns with AF word <code>293</code>,
+but they are not identical,
+having an edit distance of 1 (<code>@1</code>);</li>
+<li>LK words <code>292</code> and <code>293</code> together match AF word <code>294</code>,
+it is a perfect match apart from the fact that AF combines two words;</li>
+<li>LK words <code>297</code>, <code>298</code>, <code>299</code> together match AF words <code>298</code> and <code>299</code> together,
+it is a pretty close match, with an edit distance of only 1 between the two word groups;</li>
+<li>AF word <code>301</code> has no counterpart in LK.</li>
+</ul>
 <h1 id="delivery">Delivery</h1>
 <p>The export to HTML and plain text discussed above is primarily an aid to study and check
 the pipeline and text extraction. But the real results of are delivered as
@@ -634,7 +667,7 @@ in Text-Fabric.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/among/fusus/blob/b802ee04dc1c4846bee2959f702b6dacf31bb339/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
+<a href="https://github.com/among/fusus/blob/9ccbc2880fc248fd7f7d99c12378a96503d81ded/fusus/about/tech.py#L0-L2" class="git-link">Browse git</a>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../docs/about/tech.md
