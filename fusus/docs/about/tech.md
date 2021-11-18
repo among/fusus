@@ -605,6 +605,41 @@ We added the Afifi to that for comparison, in such a way that each word in the L
 is linked to the corresponding word in the AF.
 This has been achieved by constructing an alignment table between the two editions.
 
+```
+pag:ln|slot |cc|textLakhnawi        |@ed~rat|textAfifi           |cc| slot|pag:ln
+------|-----|--|--------------------|-------|--------------------|--|-----|------
+014:03|  290|  |             āʿyānhā|@0 ~1.0|āʿyānhā             |  |  292 048:16
+014:03|  291|  |                 wān|@1 ~0.8|ān                  |  |  293 048:16
+014:03|  292|2 |                 šʾt|@0 ~1.0|šʾtḳlt              | 1|  294 048:16
+014:03|  293|2 |                 ḳlt|@0 ~1.0|                    | 1|            
+014:03|  294|  |                  ān|@0 ~1.0|ān                  |  |  295 048:16
+014:03|  295|  |                 yrá|@0 ~1.0|yrá                 |  |  296 048:16
+014:03|  296|  |                ʿynh|@0 ~1.0|ʿynh                |  |  297 048:16
+014:03|  297|3 |                  fy|@1 ~0.9|y                   | 2|  298 048:16
+014:03|  298|3 |                 kwn|@1 ~0.9|kwnǧāmʿ             | 2|  299 048:16
+015:01|  299|3 |                ǧāmʿ|@1 ~0.9|                    | 2|            
+015:01|  300|2 |                yḥṣr|@0 ~1.0|yḥṣrālāmr           | 1|  300 048:16
+015:01|  301|2 |               ālāmr|@0 ~1.0|                    | 1|            
+      |     |0 |                    |@99~0.0|kh                  |  |  301 048:16
+015:01|  302|  |               lkwnh|@0 ~1.0|lkwnh               |  |  302 048:17
+015:01|  303|  |               mtṣfā|@0 ~1.0|mtṣfā               |  |  303 048:17
+015:01|  304|  |             bālwǧwd|@0 ~1.0|bālwǧwd             |  |  304 048:17
+015:01|  305|  |               wyẓhr|@0 ~1.0|yẓhr                |  |  305 048:17
+```
+
+Left is the Lakhnawi edition, right is Afifi. Each word occupies a row.
+In this little fragment you see several discrepancies that the algorithm
+detected and dealt with:
+
+*   LK word `291` aligns with AF word `293`,
+    but they are not identical,
+    having an edit distance of 1 (`@1`);
+*   LK words `292` and `293` together match AF word `294`,
+    it is a perfect match apart from the fact that AF combines two words;
+*   LK words `297`, `298`, `299` together match AF words `298` and `299` together,
+    it is a pretty close match, with an edit distance of only 1 between the two word groups;
+*   AF word `301` has no counterpart in LK.
+
 # Delivery
 
 The export to HTML and plain text discussed above is primarily an aid to study and check
