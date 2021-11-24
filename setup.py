@@ -14,7 +14,7 @@ setup(
         "PyMuPDF",
         "python-Levenshtein",
         "opencv-contrib-python",
-        "kraken",
+        "kraken==3.0.6",
         "text-fabric>=8.4.7",
     ],
     python_requires=">=3.9.0",
