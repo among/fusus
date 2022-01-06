@@ -45,6 +45,20 @@ A lot of cleaning has been carried out on two editions of the Fusus: Lakhnawi an
 After that these editions have been aligned and brought together in a single dataset,
 in which it is possible read back the individual editions.
 
+## Text-Fabric interface
+
+Get started with the
+[tutorial](https://nbviewer.jupyter.org/github/among/fusus/blob/master/tutorial/start.ipynb).
+
+We also have generated a static search interface.
+
+Just click
+[fusus-search](https://among.github.io/fusus-search/)
+and off you go.
+
+You can do full text search via regular expressions, not only in the full-text,
+but also in attributes of the text, notably the bounding box information of each word.
+
 ## Authors
 
 *   [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/)
