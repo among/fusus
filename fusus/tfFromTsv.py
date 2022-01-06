@@ -171,13 +171,13 @@ featureMeta["merged"] = {
     },
     "punc_af": {
         "description": (
-            "punctuation and/or space immediately after a word" " (Afifi edition)"
+            "punctuation and/or space immediately after a word (Afifi edition)"
         ),
         "format": "string",
     },
     "punca_af": {
         "description": (
-            "punctuation and/or space immediately after a word" " (Afifi edition)"
+            "punctuation and/or space immediately after a word (Afifi edition)"
         ),
         "format": "string, ascii",
     },
@@ -198,42 +198,42 @@ featureMeta["merged"] = {
     "combine_lk": {
         "description": (
             "number of consecutive words in the Lakhnawi text"
-            "that form an alignment entry with 1 or more words in the Afifi text"
+            " that form an alignment entry with 1 or more words in the Afifi text"
         ),
         "format": "integer",
     },
     "combine_af": {
         "description": (
             "number of consecutive words in the Afifi text"
-            "that form an alignment entry with 1 or more words in the Lakhnawi text"
+            " that form an alignment entry with 1 or more words in the Lakhnawi text"
         ),
         "format": "integer",
     },
     "editdistance": {
         "description": (
             "edit distance between the Lakhnawi part in an alignment entry"
-            "and its Afifi counterpart"
+            " and its Afifi counterpart"
         ),
         "format": "integer, number of edits between the counterparts",
     },
     "ratio": {
         "description": (
             "ratio (=similarity) between the Lakhnawi part in an alignment entry"
-            "and its Afifi counterpart"
+            " and its Afifi counterpart"
         ),
         "format": "integer, scale 1 to 10, higher is more similar",
     },
     "page_af": {
         "description": (
             "page number in the raw fususa dataset, "
-            "which is obtained from ocr-ing the Afifi page images"
+            " which is obtained from ocr-ing the Afifi page images"
         ),
         "format": "integer",
     },
     "line_af": {
         "description": (
             "line number in the raw fususa dataset, "
-            "which is obtained from ocr-ing the Afifi page images"
+            " which is obtained from ocr-ing the Afifi page images"
         ),
         "format": "integer",
     },
@@ -298,8 +298,8 @@ featureMeta["extra"] = {
     },
     "qunawims": {
         "description": (
-            "on which folio of the oldest manuscript, "
-            "penned by Qunawi himself, is this word attested?"
+            "on which folio of the oldest manuscript,"
+            " penned by Qunawi himself, is this word attested?"
         ),
         "format": "string",
     },
@@ -309,7 +309,7 @@ featureMeta["extra"] = {
     },
     "poetryverse": {
         "description": (
-            "word is start of a verse of poetry, " "value is the number of the verse"
+            "word is start of a verse of poetry, value is the number of the verse"
         ),
         "format": "number",
     },

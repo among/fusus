@@ -1,0 +1,29 @@
+apiVersion: 3
+dataDisplay:
+  noneValues:
+  - none
+  - unknown
+  - null
+  - NA
+docs:
+  docPage: align
+  docBase: 'https://{org}.github.io/{repo}/fusus'
+  docExt: .html
+  featureBase: '{docBase}/about/transcription'
+  featurePage: ''
+interfaceDefaults: {}
+provenanceSpec:
+  corpus: Fusus Al Hikam, by Ibn Arabi, merged editions Lakhnawi-Afifi
+  doi: 10.5281/zenodo.xx1464787
+  relative: tf/Fusus
+  version: '0.7'
+  webLang: en
+  webBase: 'https://{org}.github.io/{repo}/fusus/assets/lakhnawi-with-toc'
+  webHint: show this passage in the the original (html derived from pdf)
+  webUrl: '{webBase}.html#p<2>'
+  webUrlZeros:
+    2: 3
+typeDisplay:
+  word:
+    features: lettersn lettersp letterst letters_af lettersn_af lettersp_af letterst_af
+writing: ara
