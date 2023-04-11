@@ -15,7 +15,6 @@ interfaceDefaults: {}
 provenanceSpec:
   corpus: Fusus Al Hikam, by Ibn Arabi, merged editions Lakhnawi-Afifi
   doi: 10.5281/zenodo.xx1464787
-  relative: tf/Fusus
   version: '0.7'
   webLang: en
   webBase: 'https://{org}.github.io/{repo}/fusus/assets/lakhnawi-with-toc'
