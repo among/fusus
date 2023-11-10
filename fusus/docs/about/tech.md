@@ -735,7 +735,7 @@ as tuples of tuples of fields of the right type.
       settings. That is bad for interoperability.
 
 !!! caution "TSV and Unicode"
-    Our TSV files are in UTF-8. But for Excel UTF-16_LE would have been a better choice.
+    Our TSV files are in UTF-8. But for Excel UTF-16-LE would have been a better choice.
     But that makes it more difficult for all other applications to read the data.
     See also the
     [Text-Fabric docs on this](https://annotation.github.io/text-fabric/tf/advanced/display.html#tf.advanced.display.export) (under Encoding).
