@@ -26,7 +26,7 @@ and control the processing of pages.
 A book directory should have subdirectories at the outset:
 
 *   `in`
-    Contains image files (scans at 1800 x2700 pixels approximately);
+    Contains image files (scans at 1800 `x2700` pixels approximately);
 *   `marks` (optional)
     Contains subdirectories with little rectangles copied from the scans
     and saved in individual files at the same resolution.
@@ -52,7 +52,7 @@ name | kind | items | remarks
 `broad` | marks | arbitrary images | as `main`, but a bit broader
 `inter` | marks | arbitrary images | between the lines
 
-When fusus reads the marks, it will crop all white borders from it and
+When `fusus` reads the marks, it will crop all white borders from it and
 surround the result with a fixed small white border.
 
 So you do not have to be very precise in trimming the mark templates.
@@ -80,7 +80,7 @@ After running the pipeline, the following subdirectories may have been produced:
     page object and is not currently stored on disk.
 
     This information is needed after OCR to shift the coordinates with respect to
-    the blocks 9this is what comes out of the OCR) to coordinates with respect
+    the blocks (this is what comes out of the OCR) to coordinates with respect
     to the page.
 
     That means you cannot initialize the pipeline with the clean block images as sole
@@ -124,7 +124,7 @@ class Book:
             Else the whole book processing takes place in the current directory.
             You can use `~` to denote your home directory.
         params: dict, optional
-            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+            Any number of customisable settings from `fusus.parameters.SETTINGS`.
 
             They will be in effect when running the workflow, until
             a `Book.configure` action will modify them.
@@ -232,7 +232,7 @@ class Book:
         Parameters
         ----------
         params: dict, optional
-            Any number of customizable settings from `fusus.parameters.SETTINGS`.
+            Any number of customisable settings from `fusus.parameters.SETTINGS`.
 
             The current values of given parameters will be displayed.
             The values that you give each of the `params` here is not used,
@@ -496,7 +496,7 @@ class Book:
         return (getattr(C, stageDir or "interDir"), trail, stageExt)
 
     def measureQuality(self, pages=None, showStats=True, updateProofs=False):
-        """Measure the reported quality of the ocr processing.
+        """Measure the reported quality of the OCR processing.
 
         pages: string | int, optional `None`
             Specification of pages to do. If absent or `None`: all pages.
@@ -512,8 +512,8 @@ class Book:
 
         updateProofs: boolean, optional `False`
             If true, regenerate all proofing pages.
-            This is desriable if you have tweaked the coloring of OCR results
-            depending on the confidence.
+            This is desirable if you have tweaked the colouring of OCR
+            results depending on the confidence.
             The OCR itself does not have to be performed again for this.
         """
 
@@ -637,7 +637,7 @@ class Book:
         info("all done")
 
     def exportTsv(self, pages=None):
-        """Combine the tsv data per page to one big tsv file.
+        """Combine the TSV data per page to one big TSV file.
 
         pages: string | int, optional `None`
             Specification of pages to do. If absent or `None`: all pages.
@@ -700,7 +700,7 @@ class Book:
             info("Nothing written")
 
     def htmlPages(self, pages=None):
-        """Get the text in html from the ocr output in one file
+        """Get the text in HTML from the OCR output in one file
 
         pages: string | int, optional `None`
             Specification of pages to do. If absent or `None`: all pages.

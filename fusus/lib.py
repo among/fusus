@@ -49,7 +49,7 @@ def parseNums(numSpec):
 
     Parameters
     ----------
-    numSpec: None | int | string | iterable
+    numSpec: void | int | string | iterable
         If `None` results in `None`.
         If an `int`, it stands for that int.
         If a `string`, it is allowed to be a comma separated list of
@@ -126,7 +126,7 @@ def tempFile():
 
 
 def imgElem(data):
-    """Produce an image with its data packaged into a HTML <img> element.
+    """Produce an image with its data packaged into a HTML `img` element.
     """
 
     return f"""<img src="data:image/jpeg;base64,{data}">"""
@@ -170,7 +170,7 @@ def writeImage(a, path, **kwargs):
 
 
 def overlay(img, left, top, right, bottom, srcColor, dstColor):
-    """Colors a region of an image with care.
+    """Colours a region of an image with care.
 
     A selected region of an image can be given a uniform color,
     where only pixels are changed that have an exact given color.
@@ -183,10 +183,10 @@ def overlay(img, left, top, right, bottom, srcColor, dstColor):
     img: np array
         The image to be overlain with a new color
     (left, top, right, bottom): (int, int, int, int)
-        The region in the image to be colored
-    srcColor: RGB color
+        The region in the image to be coloured
+    srcColor: tuple
         The color of the pixels that may be replaced.
-    dstColor:
+    dstColor: tuple
         The new color of the replaced pixels.
     """
     if right > left and bottom > top:
@@ -249,7 +249,7 @@ def imageFileList(imDir):
 
 
 def imageFileListSub(imDir):
-    """Gets sorted lisst of image files from the subdirectories of a directory.
+    """Gets sorted list of image files from the subdirectories of a directory.
 
     Only files having an image extension (defined in `EXTENSIONS`)
     are listed.
@@ -353,7 +353,7 @@ def cropBorders(img, tolerance=10):
 
     Parameters
     ----------
-    img: numpy array
+    img: np array
         The image. We assume it is grayscale, and inverted.
         For best results, it should be blurred before thresholding.
     tolerance: integer
@@ -362,7 +362,7 @@ def cropBorders(img, tolerance=10):
     Returns
     -------
     int, int, int, int
-        The (x0, x1, y0, y1) of the crop region.
+        The `(x0, x1, y0, y1)` of the crop region.
         This will be used in `removeBorders` to whiten the margins outside it.
     """
 
@@ -394,7 +394,7 @@ def removeBorders(img, crop, white):
     may have been introduced.
     Or it might be the result of scanning a page.
 
-    This function removes them by coloring all image borders with white.
+    This function removes them by colouring all image borders with white.
 
     The exact borders to be whitened are calculated by `cropBorders`.
 
@@ -403,7 +403,7 @@ def removeBorders(img, crop, white):
     img: image as np array
         the image to operate on
     crop: (int, int, int, int)
-        the x1, x2, y1, y2 values which indicate the region
+        the `x1, x2, y1, y2` values which indicate the region
         outside which the white may be applied
     white: color
         the exact white color with which we color the borders.
@@ -440,7 +440,7 @@ def parseStages(stage, allStages, sortedStages, error):
         If an iterable: the items must be names of stages.
     allStages: tuple
         Names of all stages.
-    sortedStages:
+    sortedStages: list
         Sorted list of all stages.
     error: function
         Method to write error messages.
@@ -614,7 +614,7 @@ def applyBandOffset(C, height, bandName, lines, inter=False):
     Returns
     -------
     tuple
-        For each line the band named bandName specified by top and bottom heights.
+        For each line the band named `bandName` specified by top and bottom heights.
     """
 
     offsetBand = C.offsetBand
@@ -639,8 +639,8 @@ def getMargins(hist, width, threshold):
     The margins of a histogram are the coordinates where the histogram reaches a
     threshold for the first time and for the last time.
 
-    We deliver the pairs (0, xFirst) and (xLast, maxWidth) if there are points
-    above the threshold, and (0, maxW) otherwise.
+    We deliver the pairs `(0, xFirst)` and `(xLast, maxWidth)` if there are points
+    above the threshold, and `(0, maxW)` otherwise.
 
 
     Parameters
@@ -664,7 +664,7 @@ def getMargins(hist, width, threshold):
 def pureAverage(data, supplied):
     """Get the average of a list of values after removing the outliers.
 
-    It is used for calcaluting lineheights from a sequence of distances between
+    It is used for calculating line heights from a sequence of distances between
     histogram peaks.
     In practice, some peaks are missing due to short line lengths, and that
     causes some abnormal peak distances which we want to remove.

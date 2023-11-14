@@ -60,7 +60,7 @@ hemistic poems. See `fusus.lakhnawi.Lakhnawi.columns`.
 
 ## Span
 
-Logical/physical unit: a strectch of text with the same writing direction.
+Logical/physical unit: a stretch of text with the same writing direction.
 Whenever the writing direction reverses, a new span is started.
 
 
@@ -86,10 +86,10 @@ name | type | description
 ## Word
 
 Logical/physical unit: individual words in as far they are separated
-by whitespace.
+by white-space.
 
-!!! caution "Imperfect whitespace detection"
-    We do not guarantee that whitespace has been detected
+!!! caution "Imperfect white-space detection"
+    We do not guarantee that white-space has been detected
     perfectly.
     So we do miss word boundaries on the one hand, and we
     have spurious word boundaries on the other hand.
@@ -103,10 +103,10 @@ name | type | description
 --- | --- | ---
 `letters` | str | the text of a word in Arabic, unicode, without punctuation
 `lettersn` | str | the text of a word in beta code, latin + diacritics
-`lettersp` | str | the text of a word in beta code, ascii
+`lettersp` | str | the text of a word in beta code, ASCII
 `letterst` | str | the text of a word in romanized transcription
 `punc` | str | the punctuation and/or space immediately after a word in Arabic, unicode
-`punca` | str | the punctuation and/or space immediately after a word in ascii
+`punca` | str | the punctuation and/or space immediately after a word in ASCII
 
 The Afifi text is stored in analogous features:
 
@@ -114,10 +114,10 @@ name | type | description
 --- | --- | ---
 `letters_af` | str | the text of a word in Arabic, unicode, without punctuation
 `lettersn_af` | str | the text of a word in beta code, latin + diacritics
-`lettersp_af` | str | the text of a word in beta code, ascii
+`lettersp_af` | str | the text of a word in beta code, ASCII
 `letterst_af` | str | the text of a word in romanized transcription
 `punc_af` | str | the punctuation and/or space immediately after a word in Arabic, unicode
-`punca_af` | str | the punctuation and/or space immediately after a word in ascii
+`punca_af` | str | the punctuation and/or space immediately after a word in ASCII
 
 There is also information about the location of the AF words in their edition:
 
@@ -149,7 +149,7 @@ name | type | description
 --- | --- | ---
 `raw` | str | the raw text of the word as in the `fususl` dataset
 `puncb` | str | punctuation immediately before a word (Arabic unicode)
-`puncba` | str | punctuation immediately before a word (Ascii)
+`puncba` | str | punctuation immediately before a word (ASCII)
 `qunawims` | str | on which folio of the oldest manuscript, penned by Qunawi himself, is this word attested?
 `poetrymeter` | str | meter in which this verse is written
 `poetryverse` | int | word is start of a verse of poetry, value is the number of the verse

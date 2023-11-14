@@ -270,7 +270,7 @@ class Alignment:
         print(self.printLines(start=start, end=end))
 
     def getCombis(self, c):
-        """Precompute a specification of all combinations that might be tried.
+        """Pre-compute a specification of all combinations that might be tried.
 
         When the alignment fails between single words, we try combinations
         of words left and right in a specific order.
@@ -348,7 +348,7 @@ class Alignment:
         iAF: integer
             Current position in AF edition.
             If a case is triggered by iLK, but the AF position
-            specified in the case does not match iAF,
+            specified in the case does not match `iAF`,
             the case is skipped and is reported as a failed case.
         """
         indexLK = self.indexLK
@@ -448,7 +448,7 @@ class Alignment:
 
         First a direct match between the words at the current positions in
         the LK and AF editions is tried. If that fails,
-        combinations of words from those points onwards are tried.
+        combinations of words from those points onward are tried.
 
         See also: `getCombis` and `findCombi`.
 
@@ -610,7 +610,7 @@ class Alignment:
         and record the decision steps. This is handy for debugging and
         exploring.
 
-        !!! hint "doDiff"
+        !!! hint "`doDiff`"
             This function defines an inner function `doDiff`, which
             contains the logic of a single alignment step.
             That function `doDiff` issues a sequence of `compare` and `lookup`
@@ -863,14 +863,14 @@ class Alignment:
         in one edition have no counterpart in the other edition.
         Gives at most three examples of all distinct combination patterns.
 
-        Identifies bad strectches: chunks of entries within the alignment
+        Identifies bad stretches: chunks of entries within the alignment
         table where words do not match for various reasons.
         The identification is a bit loose in the sense that bad stretches
         with a single perfect match in between are combined.
 
         Some bad stretches are suspect (see `analyseStretch`).
         All suspect stretches are shown, and at most three examples
-        of the benign (non-suspsect) bad stretches are shown.
+        of the benign (non-suspect) bad stretches are shown.
         """
         maxLK = self.maxLK
         maxAF = self.maxAF

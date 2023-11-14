@@ -65,14 +65,14 @@ def addBlockName(img, top, left, right, marginX, letterColor, stripe, kind, size
         Where the top, left, right edges of the image are.
     marginX: integer
         Where we set the left margin
-    letterColor: color
+    letterColor: tuple
         The color of the letters
     stripe: integer
         The stripe number. Stripes are horizontal page-wide regions corresponding
         to *vertical* block dividers.
     kind: string
         Whether the block spans the whole page width (`""`), is in the left block
-        ("l") or in the right block ("r").
+        (`l`) or in the right block (`r`).
     size: float
         The font-size of the letters.
 
@@ -125,7 +125,7 @@ def addHStroke(
         The thickness of the stroke as found on the image.
     top, left, right: integer
         Where the top, left, right edges of the image are.
-    letterColor: color
+    letterColor: tuple
         The color of the letters
     size: float
         The font-size of the letters.
@@ -169,10 +169,10 @@ def getStretches(C, info, stages, pageSize, horizontal, batch):
     direction.
 
     Clusters are line segments with nearly the same constant coordinate.
-    If we do horizontal lines, clusters are pairs of x coordinates
-    for one y coordinate.
-    If we do vertical lines, clusters are pairs of y coordinates
-    for one x coordinate.
+    If we do horizontal lines, clusters are pairs of `x` coordinates
+    for one `y` coordinate.
+    If we do vertical lines, clusters are pairs of `y` coordinates
+    for one `x` coordinate.
     We return the clusters, i.e. a dict keyed by the fixed coordinate and
     valued by the pair of segment coordinates.
 
@@ -184,8 +184,8 @@ def getStretches(C, info, stages, pageSize, horizontal, batch):
     info: function
         To write messages to the console
     stages: dict
-        Intermediate cv2 images, keyed by stage name
-    pageSize: int
+        Intermediate `cv2` images, keyed by stage name
+    pageSize: integer
         The width or height in pixels of a complete page. Note that
         the image we work with, might be a fraction of a page
     horizontal: boolean
@@ -317,10 +317,10 @@ def getStripes(stages, stretchesV):
     We assume the vertical bars split the page in two portions, and not more,
     and that they occur more or less in the middle of the page.
 
-    If many vertical bars have been detected, we sort them by y1 ascending and then
-    y2 descending and then by x.
+    If many vertical bars have been detected, we sort them by `y1` ascending and then
+    `y2` descending and then by `x`.
 
-    We filter the bars: if the last bar reached to y = height, we only consider
+    We filter the bars: if the last bar reached to `y` = height, we only consider
     bars that start lower than height.
 
     !!! note "Fine tuning needed later on"
@@ -338,9 +338,9 @@ def getStripes(stages, stretchesV):
     Returns
     -------
     list
-        A list of stripes, specified as (x, y1, y2) values,
-        where the y-coordinates y1 and y2 specify the vertical extent of the stripe,
-        and x is the x coordinate of the dividing vertical stroke if there is one
+        A list of stripes, specified as `(x, y1, y2)` values,
+        where the `y`-coordinates `y1` and `y2` specify the vertical extent of the stripe,
+        and `x` is the `x` coordinate of the dividing vertical stroke if there is one
         and `None` otherwise.
     """
 
@@ -391,7 +391,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
         Configuration settings
     stages: dict
         We need access to several intermediate results.
-    pageH: int
+    pageH: integer
         The height of a full page in pixels (the image might be a fraction of a page)
     stripes: list
         The preliminary stripe division of the page, as delivered by
@@ -406,8 +406,8 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
     dict
         Blocks keyed by stripe number and block specification
         (one of `""`, `"l"`, `"r"`).
-        The values form dicts themselves, with in particular the bounding box
-        information under key `box` specified as four numbers:
+        The values form dictionaries themselves, with in particular the
+        bounding box information under key `box` specified as four numbers:
         left, top, right, bottom.
 
         The dict is ordered.
@@ -521,7 +521,7 @@ def getBlocks(C, info, stages, pageH, stripes, stretchesH, batch):
 def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     """Trims regions above horizontal top lines and below bottom lines.
 
-    Inspect the horizontal strokes and specifiy which ones are
+    Inspect the horizontal strokes and specify which ones are
     top separators and which ones are bottom separators.
 
     First we map each horizontal stretch to one of the page stripes.
@@ -541,7 +541,7 @@ def applyHRules(C, stages, stretchesH, stripes, blocks, batch, boxed):
     stages: dict
         We need access to several intermediate results.
     stretchesH: dict
-        Horizontal line segments per y-coordinate, as delivered by `getStretches`.
+        Horizontal line segments per `y`-coordinate, as delivered by `getStretches`.
     stripes: list
         The preliminary stripe division of the page, as delivered by
         `getStripes`.
@@ -724,7 +724,7 @@ def adjustVertical(
     When we determine the vertical sizes of blocks from the vertical block separators
     on the page, we may find that these separators are too short.
 
-    We remedy this by finding the line divisision of the ink left and right from the
+    We remedy this by finding the line division of the ink left and right from the
     dividing line, and enlarging the blocks left and right so that they contain
     complete lines.
 
@@ -737,7 +737,7 @@ def adjustVertical(
     blurred: image as np array
         The input image. It must be the `blurred` stage of the source image,
         which is blurred and inverted.
-    pageH: int
+    pageH: integer
         size of a full page in pixels
     left, right: int
         The left and right edges of the block

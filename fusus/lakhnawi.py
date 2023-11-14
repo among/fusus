@@ -1,4 +1,4 @@
-"""Lakhnawi pdf reverse engineering.
+"""Lakhnawi PDF reverse engineering.
 
 This is an effort to make the Lakhnawi PDF readable.
 It is a text-based PDF, no images are used to represent text.
@@ -8,11 +8,11 @@ Yet the text is not easily extracted, due to:
 * the use of private-use unicode characters that refer to heavily customised fonts;
 * some fonts have some glyphs with dual unicode points;
 * the drawing order of characters does not reflect the reading order;
-* horizontal whitespace is hard to detect due to oversized bounding boxes of many
+* horizontal white-space is hard to detect due to oversized bounding boxes of many
   private-use characters.
 
 We used the top-notch Python PDF library
-[PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as *fitz*.
+[PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as `fitz`.
 
 ```
 pip3 install PyMuPDF
@@ -47,12 +47,12 @@ This required considerable subtlety, because we had to deal
 with diacritics above and below the lines.
 See `clusterVert`.
 
-# Horizontal whitespace
+# Horizontal white-space
 
 This is the most tricky point, because the information we retain from the PDF is,
 strictly speaking, insufficient to determine word boundaries.
 Word boundaries are partly in the eyes of the beholder, if the beholder knows Arabic.
-The objective part is in the amount of whitespace between characters
+The objective part is in the amount of white-space between characters
 and the form of the characters (initial, final, isolated).
 But the rules of Arabic orthography allow initial characters inside words,
 and there are the enclitic words.
@@ -60,7 +60,7 @@ and there are the enclitic words.
 So we only reached an approximate solution for this problem.
 
 !!! caution "Footnotes"
-    We have strippped footnotes and footnote references from the text.
+    We have stripped footnotes and footnote references from the text.
 
 # Output format
 
@@ -773,7 +773,7 @@ class Lakhnawi(UChar):
         It also adds specific characters to some of those categories, especially
         the private use characters that occur in the Lakhnawi PDF.
 
-        We use *fitz* (`pip3 install PyMuPDF`) for PDF reading.
+        We use `fitz` (`pip3 install PyMuPDF`) for PDF reading.
         """
 
         super().__init__()
@@ -808,7 +808,7 @@ class Lakhnawi(UChar):
         """Column information, indexed by page and line number.
 
         Spaces that are significantly larger than a normal white space
-        are interpreted as an emspace, and these are considered as column separators.
+        are interpreted as an `em`-space, and these are considered as column separators.
         We remember the character positions where this happens plus the amount
         of space in question.
 
@@ -833,7 +833,7 @@ class Lakhnawi(UChar):
         Some private use characters have two unicode points assigned to them
         by fonts in the PDF.
         This is the cause that straightforward text extractions deliver
-        double occurrences of those letters. Even *fitz* does that.
+        double occurrences of those letters. Even `fitz` does that.
 
         We have collected these cases, and choose to use the lower unicode point,
         which is usually an ordinary character, whereas the other is usually a
@@ -857,10 +857,10 @@ class Lakhnawi(UChar):
         self.getCharConfig()
 
         self.doc = fitz.open(SOURCE)
-        """A handle to the PDF document, after it has been read by *fitz*."""
+        """A handle to the PDF document, after it has been read by `fitz`."""
 
     def close(self):
-        """Close the PDF handle, offered by *fitz*."""
+        """Close the PDF handle, offered by `fitz`."""
 
         self.doc.close()
 
@@ -883,7 +883,7 @@ class Lakhnawi(UChar):
         self.getCharInfo()
 
     def privateInfo(self):
-        """Set up additional character categories wrt. private-use characters.
+        """Set up additional character categories w.r.t. private-use characters.
 
         Several categories will receive additional members from the
         private use characters.
@@ -1020,8 +1020,8 @@ class Lakhnawi(UChar):
         """Pretty display of a single unicode character.
 
         We show the character itself and its name (if not a private-use one),
-        its hexadecimal code, and we indicate by coloring the kind of
-        white space that the character represents (ordinary space or emspace).
+        its hexadecimal code, and we indicate by colouring the kind of
+        white space that the character represents (ordinary space or `em`-space).
 
         Parameters
         ----------
@@ -1318,7 +1318,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         """
 
@@ -1350,7 +1350,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             If `None` results in all page numbers.
             If an `int`, it stands for that int.
             If a `string`, it is allowed to be a comma separated list of
@@ -1381,7 +1381,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         clip: (int, int), optional `None`
             If None: produces the whole page.
@@ -1419,10 +1419,10 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         refreshConfig: boolean, optional `False`
-            If `True`, rereads all character configuration.
+            If `True`, re-reads all character configuration.
             Ideal when you are iteratively developing the character configuration.
         doRules: boolean, optional `True`
             If `False`, suppresses the application of character transformation
@@ -1511,21 +1511,21 @@ class Lakhnawi(UChar):
     def getPageRaw(self, pageNum):
         """Do a rough/raw text extract of a specific page.
 
-        The *fitz* method
+        The `fitz` method
         [extractRAWDICT()](https://pymupdf.readthedocs.io/en/latest/textpage.html#TextPage.extractRAWDICT)
         is used to obtain very detailed information about each character on that page.
         Used for debugging.
 
         Parameters
         ----------
-        pageNum: int
+        pageNum: integer
             A valid page number.
             It is the sequence number of the page within the PDF, counting from 1.
 
         Returns
         -------
         None
-            It pretty prints the output of the fitz method, which is a big
+            It pretty prints the output of the `fitz` method, which is a big
             and deep dictionary.
         """
 
@@ -1541,20 +1541,20 @@ class Lakhnawi(UChar):
         pprint(data)
 
     def getPageObj(self, pageNum):
-        """Get the *fitz* object for a specific page.
+        """Get the `fitz` object for a specific page.
 
         Used for debugging.
 
         Parameters
         ----------
-        pageNum: int
+        pageNum: integer
             A valid page number.
             It is the sequence number of the page within the PDF, counting from 1.
 
         Returns
         -------
         object
-            A *fitz*
+            A `fitz`
             [page object](https://pymupdf.readthedocs.io/en/latest/page.html)
         """
 
@@ -1569,7 +1569,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
 
         Returns
@@ -1598,13 +1598,13 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
 
         Returns
         -------
         None
-            The tab-separated data is written to a single tsv file.
+            The tab-separated data is written to a single TSV file.
             There is a heading row.
 
             The file is in `fusus.parameters.UR_DIR`, under `Lakhnawi`.
@@ -1653,7 +1653,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         line: None | int | string | iterable
             A specification of zero or more line numbers (see `fusus.lib.parseNums`).
@@ -1789,13 +1789,13 @@ class Lakhnawi(UChar):
         The lines can be selected by page numbers and line numbers.
 
         Within the selected lines, the characters can be selected by
-        start/end postions, or by characters of interest.
+        start/end positions, or by characters of interest.
 
         All of these indices start at 1.
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         line: None | int | string | iterable
             A specification of zero or more line numbers (see `fusus.lib.parseNums`).
@@ -1924,7 +1924,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         line: None | int | string | iterable
             A specification of zero or more line numbers (see `fusus.lib.parseNums`).
@@ -2010,7 +2010,7 @@ class Lakhnawi(UChar):
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         orig: boolean, optional `False`
             If `True`: shows characters of the original PDF.
@@ -2136,14 +2136,14 @@ on {totalPages} {pageRep}</b></p>
         """Show used characters.
 
         Gives an overview of the columns in each line.
-        The result is a readable, ascii overview of the columns
+        The result is a readable, ASCII overview of the columns
         that exists in the lines of the selected pages.
 
         It is useful to visually check column detection for many pages.
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
 
         Returns
@@ -2182,7 +2182,7 @@ on {totalPages} {pageRep}</b></p>
 
         Parameters
         ----------
-        pageNumSpec: None | int | string | iterable
+        pageNumSpec: void | int | string | iterable
             As in `Lakhnawi.parsePageNums()`.
         line: None | int | string | iterable
             A specification of zero or more line numbers (see `fusus.lib.parseNums`).
@@ -2234,7 +2234,7 @@ on {totalPages} {pageRep}</b></p>
         data: dict
             as obtained by the
             [extractRAWDICT()](https://pymupdf.readthedocs.io/en/latest/textpage.html#TextPage.extractRAWDICT)
-            method of *fitz*.
+            method of `fitz`.
 
         Returns
         -------
@@ -2402,14 +2402,14 @@ on {totalPages} {pageRep}</b></p>
         Private use characters often come in sequences, so a sequence of characters
         must be transformed to another sequence.
 
-        We do the tramsformation before the space insertion, because otherwise we
+        We do the transformation before the space insertion, because otherwise we
         might insert the space at the wrong point.
 
         When we transform characters we need to retain the box information,
         because we still have to insert the space.
 
         That's why we have as input a list of character records, where each record
-        is itself a list with box information, orginal character, modified characters
+        is itself a list with box information, original character, modified characters
         and space information.
 
         When we transform characters, we modify character records in place.
@@ -2450,7 +2450,7 @@ on {totalPages} {pageRep}</b></p>
         we join the remaining characters in the replacement string and append it
         after the replacement string of the last input character that we have visited.
 
-        After succesful application of a rule, we do not apply other rules that would
+        After successful application of a rule, we do not apply other rules that would
         have been applicable at this point. Instead, we move our starting point to the
         next character record in the sequence and repeat the matching process.
 
@@ -2469,7 +2469,7 @@ on {totalPages} {pageRep}</b></p>
             The match sequence may contain the character `d`, which is a placeholder
             for a diacritic sign. It will match any diacritic.
             The replacement sequence of such a rule may or may not contain a `d`.
-            It is an error if the replacement seqience of a rule contains a `d` while
+            It is an error if the replacement sequence of a rule contains a `d` while
             its match sequence does not.
             It is also an error of there are multiple `d`s in a match sequence
             of a replacement sequence.
@@ -2477,21 +2477,27 @@ on {totalPages} {pageRep}</b></p>
 
             Suppose the rule is
 
+            ```
             x d y => r d s
+            ```
 
-            where x, y, r, s are sequences of arbitrary length.
+            where `x`, `y`, `r`, `s` are sequences of arbitrary length.
             If the rule matches the input, then first the rule
 
+            ```
             x => r
+            ```
 
             will be applied at the current position.
 
             Then we shift temporarily to the position right after where the d has matched,
             and apply the rule
 
+            ```
             y => s
+            ```
 
-            Then we shift back to the orginal position plus one, and continue applying
+            Then we shift back to the original position plus one, and continue applying
             rules.
         """
 
@@ -2916,7 +2922,7 @@ on {totalPages} {pageRep}</b></p>
             Each column is an iterable of spans.
             Spans contain words plus an indication of the writing direction
             for that span.
-        pageNum: int
+        pageNum: integer
             The page number of the page where this line occurs.
 
         Returns

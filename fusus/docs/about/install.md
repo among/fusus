@@ -36,7 +36,8 @@ git reset --hard origin/master
 # Install the software
 
 You are going to install the Python package `fusus` that is contained in the repo.
-We install fusus *fusus* with `pip3` from the clone, not from the global, online PyPI repository.
+We install `fusus` with `pip3` from the clone, not from the global, online PyPI
+repository.
 
 During install, all the packages that `fusus` is dependent on, will be installed
 into your current Python3 installation.
@@ -53,9 +54,9 @@ pip3 install -e .
 !!! caution "Mind the dot"
     Do not forget the `.` at the end of the line in the above instruction.
 
-!!! hint "No nead to repeat this step"
+!!! hint "No need to repeat this step"
     When you update the repo later, it will not be necessary to redo the
-    `pip3 install` step, because the soft link to the fusus package in the repo
+    `pip3 install` step, because the soft link to the `fusus` package in the repo
     will still be valid.
 
 # Build steps
@@ -93,8 +94,8 @@ fsb --help
 The docs are here:
 
 * the README file of the repository;
-* the docstrings in the Python files in the *fusus* package;
-* the markdown files in the *docs* subdirectory of the *fusus* package.
+* the docstrings in the Python files in the `fusus` package;
+* the markdown files in the *docs* subdirectory of the `fusus` package.
 
 Edit the sources of documentation in your local repo clone and use a set of build
 commands to display and publish the modified docs.
@@ -133,8 +134,8 @@ To generate and publish documentation online, say
 fsb sdocs
 ```
 
-This will publish the documentation to the *gh-pages* branch
-in the online GitHub repository *among/fusus*, from where it can be
+This will publish the documentation to the `gh-pages` branch
+in the online GitHub repository `among/fusus`, from where it can be
 accessed by [https://among.github.io/fusus/](https://among.github.io/fusus/).
 
 # Push everything

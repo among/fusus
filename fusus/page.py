@@ -461,11 +461,11 @@ class Page:
             The processing stage to which the data belongs
         data: any
             The data to serialize. The type of data must be compatible with
-            the *extension*.
+            the `extension`.
         extension: string
             The file type according to which the data must be serialized.
         handle: string, optional `None`
-            If `None`, output is prepared for display in a Jupter notebook,
+            If `None`, output is prepared for display in a Jupyter notebook,
             else it is a file handle and the data is serialized
             in the canonical way and written to that file.
 
@@ -482,9 +482,9 @@ class Page:
 
         extension | data type
         --- | ---
-        html | html text
-        tsv | tuple/list of tuple/list
-        json | json
+        HTML | HTML text
+        TSV | tuple/list of tuple/list
+        JSON | JSON
         """
 
         headers = self.dataHeaders.get(stage, None)
@@ -549,9 +549,9 @@ class Page:
 
         extension | data type
         --- | ---
-        html | html text
-        tsv | tuple/list of tuple/list
-        json | json
+        HTML | HTML text
+        TSV | tuple/list of tuple/list
+        JSON | JSON
         """
 
         if extension == "tsv":
@@ -590,11 +590,11 @@ class Page:
 
         Normalization produces the stages:
 
-        * *gray*: grayscale version of *orig*
-        * *blurred*: inverted, black-white, blurred without skew artefacts,
+        * `gray`: grayscale version of `orig`
+        * `blurred`: inverted, black-white, blurred without skew artefacts,
           needed for histograms later on;
-        * *normalized*: *gray* without skew artefacts;
-        * *normalizedC*: *orig* without skew artefacts.
+        * `normalized`: `gray` without skew artefacts;
+        * `normalizedC`: `orig` without skew artefacts.
 
         """
 
@@ -662,7 +662,7 @@ class Page:
 
         The stripes will be numbered from top to bottom, starting at 1.
 
-        If a stripe is not split, it defines a roi (region of interest) with
+        If a stripe is not split, it defines a `roi` (region of interest) with
         label `(i, '')`.
 
         If it is split, it defines blocks with labels `(i, 'r')` and `(i, 'l')`.
@@ -672,8 +672,8 @@ class Page:
         As a rule of thumb: horizontal stripes in the top stripe are top-separators,
         all other horizontal stripes are bottom separators.
 
-        If there are multiple horizontal strokes in a roi, the most aggressive
-        one will be taken, i.e. the one that causes the most matarial to be discarded.
+        If there are multiple horizontal strokes in a `roi`, the most aggressive
+        one will be taken, i.e. the one that causes the most material to be discarded.
 
         All further operations will take place on these blocks (and not on the
         page as a whole).
@@ -722,10 +722,10 @@ class Page:
 
         New stages of the page are added:
 
-        *   *clean* all targeted marks removed
-        *   *cleanh* all targeted marks highlighted in light gray
-        *   *boxed* all targeted marks boxed in light gray
-        *   *markData* information about each detected mark.
+        *   `clean` all targeted marks removed
+        *   `cleanh` all targeted marks highlighted in light gray
+        *   `boxed` all targeted marks boxed in light gray
+        *   `markData` information about each detected mark.
 
         Parameters
         ----------
@@ -734,7 +734,8 @@ class Page:
             directory are used.
             Otherwise, a series of marks is specified together with the band
             where this mark is searched in. Optionally you can also
-            put parameters in the tuple: the accuracy, connectBorder and connectRatio.
+            put parameters in the tuple: the `accuracy`, `connectBorder` and
+            `connectRatio`.
         block: (integer, string), optional `None`
             Block identifier. If specified, only this block will be cleaned.
             If absent, cleans all blocks.
@@ -745,7 +746,7 @@ class Page:
         showKept: boolean, optional `False`
             Whether to show the mark candidates that are kept.
             If False, kept marks do not show up as green boxes,
-            and they do not contribute to the markData layer.
+            and they do not contribute to the `markData` layer.
         """
 
         if self.empty:

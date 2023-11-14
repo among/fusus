@@ -60,7 +60,7 @@ hemistic poems. See `fusus.lakhnawi.Lakhnawi.columns`.
 
 ## Span
 
-Logical/physical unit: a strectch of text with the same writing direction.
+Logical/physical unit: a stretch of text with the same writing direction.
 Whenever the writing direction reverses, a new span is started.
 
 
@@ -86,10 +86,10 @@ name | type | description
 ## Word
 
 Logical/physical unit: individual words in as far they are separated
-by whitespace.
+by white-space.
 
-!!! caution "Imperfect whitespace detection"
-    We do not guarantee that whitespace has been detected
+!!! caution "Imperfect white-space detection"
+    We do not guarantee that white-space has been detected
     perfectly.
     So we do miss word boundaries on the one hand, and we
     have spurious word boundaries on the other hand.
@@ -98,14 +98,14 @@ by whitespace.
 
 name | type | description
 --- | --- | ---
-`boxl` | int | left x-coordinate of the bounding box of a word
-`boxt` | int | top y-coordinate of the bounding box of a word
-`boxr` | int | right x-coordinate of the bounding box of a word
-`boxb` | int | bottom y-coordinate of the bounding box of a word
+`boxl` | int | left `x`-coordinate of the bounding box of a word
+`boxt` | int | top `y`-coordinate of the bounding box of a word
+`boxr` | int | right `x`-coordinate of the bounding box of a word
+`boxb` | int | bottom `y`-coordinate of the bounding box of a word
 `letters` | str | the text of a word in Arabic, unicode, without punctuation
 `lettersn` | str | the text of a word in beta code, latin + diacritics
-`lettersp` | str | the text of a word in beta code, ascii
+`lettersp` | str | the text of a word in beta code, ASCII
 `letterst` | str | the text of a word in romanized transcription
 `punc` | str | the punctuation and/or space immediately after a word in Arabic, unicode
-`punca` | str | the punctuation and/or space immediately after a word in ascii
+`punca` | str | the punctuation and/or space immediately after a word in ASCII
 

@@ -1,10 +1,10 @@
 # Rationale
 
-We skectch the academic background of this project.
+We sketch the academic background of this project.
 
 Medieval Arabic texts, especially those from intellectual history
 (philosophy, natural theology, theoretical mysticism) are sorely underrepresented
-in current digital text databases (such as al-Maktaba al-Shamela and Noorlib).
+in current digital text databases (such as `al-Maktaba al-Shamela` and `Noorlib`).
 There are, however, many (critical or not so critical) editions available of these texts.
 We therefore wanted to advance the use of printed editions to automatically create digital texts.
 

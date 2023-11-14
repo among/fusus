@@ -1,15 +1,15 @@
-"""Convenience methods to call conversions to and from tsv and to tf.
+"""Convenience methods to call conversions to and from TSV and to TF.
 
 The pipeline can read Arabic books in the form of page images,
 and returns structured data in the form of a tab separated file (TSV).
 
 The PDF text extraction of the Lakhnawi file also produces a TSV file.
 
-Both kinds of TSV files can be converted furhter into Text-Fabric.
+Both kinds of TSV files can be converted further into Text-Fabric.
 
 ## Input
 
-See `fusus.works` for how to specify the input for *fusus* operations.
+See `fusus.works` for how to specify the input for `fusus` operations.
 
 ## TSV output
 
@@ -57,21 +57,21 @@ Each *span* is divided into *words*.
 
 Each word occupies exactly one line in the TSV file, with the following fields:
 
-* `(TP)` **page** page number
-* `( P)` **stripe** stripe number within the page
-* `( P)` **block** (empty string or `r` or `l`)
-* `( P)` **line** line number within the block
-* `(T )` **line** line number within the page
-* `(T )` **column** column number within the line
-* `(T )` **span** span number within the column
-* `(T )` **direction** (`l` or `r`) writing direction of the span
-* `(TP)` **left** *x* coordinate of left boundary
-* `(TP)` **top** *y* coordinate of top boundary
-* `(TP)` **right** *x* coordinate of right boundary
-* `(TP)` **bottom** *y* coordinate of bottom boundary
-* `( P)` **confidence** measure of OCR confidence (0 .. 100) percent
-* `(TP)` **letters** letters of the word (possibly the empty string)
-* `(TP)` **punc** non-letters after the word
+* `(TP)` *`page`* page number
+* `( P)` *`stripe`* stripe number within the page
+* `( P)` *`block`* (empty string or `r` or `l`)
+* `( P)` *`line`* line number within the block
+* `(T )` *`line`* line number within the page
+* `(T )` *`column`* column number within the line
+* `(T )` *`span`* span number within the column
+* `(T )` *`direction`* (`l` or `r`) writing direction of the span
+* `(TP)` *`left`* `x` coordinate of left boundary
+* `(TP)` *`top`* `y` coordinate of top boundary
+* `(TP)` *`right`* `x` coordinate of right boundary
+* `(TP)` ``bottom** `y` coordinate of bottom boundary
+* `( P)` *`confidence`* measure of OCR confidence (0 .. 100) percent
+* `(TP)` *`letters`* letters of the word (possibly the empty string)
+* `(TP)` *`punc`* non-letters after the word
 
 ### Example `(P)`
 
@@ -87,7 +87,7 @@ The start of the Lakhnawi TSV:
 
 ## Run
 
-You can run the pipeline on the known works inside the *ur* directory in this repo or
+You can run the pipeline on the known works inside the `ur` directory in this repo or
 on books that you provide yourself.
 
 This script supports one-liners on the command line
@@ -115,10 +115,10 @@ python3 -m fusus.convert tf fususl 0.5
 python3 -m fusus.convert tf fusus 0.5
 ```
 
-This will convert the TSV data to TF and deliver the tf files in version 0.5,
-for the Afifi (fususa) and Lakhnawi (fusul) editions or for the
-combined work (fusus).
-In order to combine fususa and fususl run the `combine` task, see below.
+This will convert the TSV data to TF and deliver the TF files in version 0.5,
+for the Afifi (`fususa`) and Lakhnawi (`fusul`) editions or for the
+combined work (`fusus`).
+In order to combine `fususa` and `fususl` run the `combine` task, see below.
 
 
 ---
@@ -131,7 +131,7 @@ python3 -m fusus.convert tf fusus 0.5 loadonly
 
 This will load the TF data in version 0.5.
 The first time it loads, some extra computations will be performed, and
-a binary version of the tf files will be generated, which will be used for
+a binary version of the TF files will be generated, which will be used for
 subsequent use by Text-Fabric.
 
 ---
@@ -140,8 +140,8 @@ subsequent use by Text-Fabric.
 python3 -m fusus.convert combine fusus 0.5
 ```
 
-This will combine the data of fususl and fususl (both version 0.5),
-into a tsv file called fusus, with version 0.5
+This will combine the data of `fususa` and `fususl` (both version 0.5),
+into a TSV file called `fusus`, with version 0.5
 
 ---
 
@@ -169,7 +169,7 @@ from .align import Alignment
 __pdoc__ = {}
 
 HELP = """
-Convert tsv data files to TF and optionally loads the TF.
+Convert TSV data files to TF and optionally loads the TF.
 
 python3 -m fusus.convert --help
 python3 -m fusus.convert tsv source ocr|noocr pages
@@ -229,7 +229,7 @@ def makeTf(
     (e.g. `fususa`, `fususl`)
     or by specifying the work directory.
 
-    The function needs to know whether the tsv comes out of an OCR process or
+    The function needs to know whether the TSV comes out of an OCR process or
     from the text extraction of a PDF.
 
     In case of a known work, this is known and does not have to be specified.
@@ -239,30 +239,30 @@ def makeTf(
     ----------
     versionTf: string
         A version number for the TF to be generated, e.g. `0.3`.
-        Have a look in the fusus tf subdirectory, and see which version already exists,
-        and then choose a higher version if you do not want to overwrite the existing
-        version.
+        Have a look in the `fusus` `tf` subdirectory, and see which version
+        already exists, and then choose a higher version if you do not want to
+        overwrite the existing version.
     source: string, optional `None`
         The key of a known work, see `fusus.works.WORKS`.
         Or else the path to directory of the work.
     ocred: string
-        Whether the tsv is made by the OCR pipeline.
+        Whether the TSV is made by the OCR pipeline.
         Not needed in case of a known work.
     pages: string|int, optional `None`
         A specification of zero or more page numbers (see `fusus.lib.parseNums`).
         Only rows belonging to selected pages will be extracted.
         If None, all pages will be taken.
     load: boolean, optional `False`
-        If TF generation has succeeded, load the tf files for the first time.
-        This will trigger a one-time precomputation step.
+        If TF generation has succeeded, load the TF files for the first time.
+        This will trigger a one-time pre-computation step.
     loadOnly: boolean, optional `False`
         Skip TF generation, assume the TF is already in place, and load it.
-        This might trigger a one-time precomputation step.
+        This might trigger a one-time pre-computation step.
 
     Returns
     -------
     nothing
-        It will run the appripriate pipeline and generate tf in the appropriate
+        It will run the appropriate pipeline and generate TF in the appropriate
         locations.
     """
 
@@ -298,7 +298,7 @@ def makeTsv(source=None, ocred=None, pages=None):
     (e.g. `fususa`, `fususl`)
     or by specifying the work directory.
 
-    The function needs to know whether the tsv comes out of an OCR process or
+    The function needs to know whether the TSV comes out of an OCR process or
     from the text extraction of a PDF.
 
     In case of a known work, this is known and does not have to be specified.
@@ -310,7 +310,7 @@ def makeTsv(source=None, ocred=None, pages=None):
         The key of a known work, see `fusus.works.WORKS`.
         Or the path to directory of the work.
     ocred: string
-        Whether the tsv is made by the OCR pipeline.
+        Whether the TSV is made by the OCR pipeline.
         Not needed in case of a known work.
     pages: string|int, optional `None`
         A specification of zero or more page numbers (see `fusus.lib.parseNums`).
@@ -320,7 +320,7 @@ def makeTsv(source=None, ocred=None, pages=None):
     Returns
     -------
     nothing
-        It will run the appropriate pipeline and generate tsv in the appropriate
+        It will run the appropriate pipeline and generate TSV in the appropriate
         locations.
     """
 
@@ -438,14 +438,14 @@ def combineTsv(versionTf=None, source=None, ocred=None, pages=None):
 
 
 def loadTsv(source=None, ocred=None, pages=None, raw=False):
-    """Load a tsv file into memory.
+    """Load a TSV file into memory.
 
-    The tsv file either comes from a known work or is specified by a path.
+    The TSV file either comes from a known work or is specified by a path.
 
     If it comes from a known work, you only have to pass the key of that work,
     e.g. `fususa`, or `fususl`.
 
-    The function needs to know whether the tsv comes out of an OCR process or
+    The function needs to know whether the TSV comes out of an OCR process or
     from the text extraction of a PDF.
 
     In case of a known work, this is known and does not have to be specified.
@@ -458,11 +458,11 @@ def loadTsv(source=None, ocred=None, pages=None, raw=False):
     ----------
     source: string, optional `None`
         The key of a known work, see `fusus.works.WORKS`.
-        Or the path to the tsv file.
+        Or the path to the TSV file.
     raw: boolean, optional False
         If True, the lines are split into fields, but no type conversion is done
     ocred: string
-        Whether the tsv file comes from the OCR pipeline.
+        Whether the TSV file comes from the OCR pipeline.
         Not needed in case of a known work.
     pages: string|int, optional `None`
         A specification of zero or more page numbers (see `fusus.lib.parseNums`).

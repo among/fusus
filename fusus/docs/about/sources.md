@@ -1,7 +1,7 @@
 # Availability
 
 Some sources are not publicly available in this repository.
-They are in the directory _local_, which is excluded from git tracking.
+They are in the directory `_local`, which is excluded from git tracking.
 
 These files might be available upon request to 
 [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/).
@@ -27,31 +27,32 @@ We use two editions, by Lakhnawi and by Afifi.
 
 ## Lakhnawi edition
 
-Cornelis obtained by private means a pdf with the typeset text in it.
-The text cannot be extracted by normal means due to a range of problems, among with the unusual
-encoding of Arabic characters to drive special purpose fonts.
+Cornelis obtained by private means a PDF with the typeset text in it.
+The text cannot be extracted by normal means due to a range of problems, among
+with the unusual encoding of Arabic characters to drive special purpose fonts.
 
-We have reversed engineered the pdf and produced versions in
-tsv files, plain text, html, Text-Fabric as well as raster images.
+We have reversed engineered the PDF and produced versions in
+TSV files, plain text, HTML, Text-Fabric as well as raster images.
 
-The pdf that we worked from is not in the repository, but the results are in the
+The PDF that we worked from is not in the repository, but the results are in the
 *ur/Lakhnawi* directory.
 
-The Text-Fabric result is in the *tf/fusus/Lakhnawi* directory, where versioned releases of the
-tf data reside.
+The Text-Fabric result is in the `tf/fusus/Lakhnawi` directory, where versioned
+releases of the TF data reside.
 
 ## Afifi edition
 
-Cornelis obtained a pdf with the text as page images in it.
-We have used the fusus pipeline to extract the full text involving OCR.
+Cornelis obtained a PDF with the text as page images in it.
+We have used the `fusus` pipeline to extract the full text involving OCR.
 
-The pdf that we worked from is not in the repository, but the results are in the
+The PDF that we worked from is not in the repository, but the results are in the
 *ur/Afifi* directory.
 
 # Commentaries
 
-Cornelis has prepared page images for several commentaries, which we have carried through
-the fusus pipeline.
+Cornelis has prepared page images for several commentaries, which we have
+carried through the `fusus` pipeline.
 
-The results are in the *ur/xxx* directories, where *xxx* stands for the acronym of the commentary.
+The results are in the `ur/xxx` directories, where `xxx` stands for the acronym
+of the commentary.
 

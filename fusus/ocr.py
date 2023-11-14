@@ -6,13 +6,13 @@ Kraken Arabic model:
 
 We can call Kraken with a batch of images.
 
-We can call binarization and segmentation and ocr in one call, but then
-we do not get the line segmentation json file.
+We can call binarisation and segmentation and OCR in one call, but then
+we do not get the line segmentation JSON file.
 
-So we split it up in three batch calls: one for binarize, one for segmentation,
-and one for ocr.
+So we split it up in three batch calls: one for binarise, one for segmentation,
+and one for OCR.
 
-Alternatively, we can do binarization and segmentation in our preprocessing, and
+Alternatively, we can do binarisation and segmentation in our pre-processing, and
 use Kraken for OCR only.
 """
 
@@ -282,7 +282,7 @@ class OCR(UChar):
         return self.model
 
     def read(self, page):
-        """Perfoms OCR with Kraken."""
+        """Performs OCR with Kraken."""
 
         stages = page.stages
         scan = stages.get("clean", None)

@@ -1,9 +1,9 @@
-This is a technical overview of the capabilities of the fusus package.
+This is a technical overview of the capabilities of the `fusus` package.
 
 We discuss the main problems we encountered and how we solved them,
 pointing to relevant technologies.
 
-The *fusus* package deals with two distinct problems:
+The `fusus` package deals with two distinct problems:
 
 * get text from page images by means of Optical Character Recognition
 * extract text from a textual, but convoluted PDF
@@ -41,7 +41,7 @@ on Arabic texts. See below.
 
 **Discussion**
 
-Yet we needed considerable preprocessing to aid and feed the OCR engine.
+Yet we needed considerable pre-processing to aid and feed the OCR engine.
 
 The tool of the trade for that is OpenCV.
 The added beauty of this is that OpenCV represents images as NumPy arrays and allows us
@@ -180,7 +180,7 @@ In the end we devised our own algorithm, expressed in NumPy operations.
 
 **Discussion**
 
-The basic idead for line detection is using histograms of the ink distribution and then inferring
+The basic idea for line detection is using histograms of the ink distribution and then inferring
 the line boxes by reading off the peaks of the histogram.
 While this works in the majority of cases, it also fails spectacularly in a wide range of minority cases.
 We had to do something about it.
@@ -196,7 +196,7 @@ with carefully chosen parameters.
 
 However, it turned out to be very difficult to tweak those parameters in such a way that the lines
 came out right in all cases.
-Either we missed out the peaks of short lines, or we were overwhelmed with strongish secondary peaks.
+Either we missed out the peaks of short lines, or we were overwhelmed with strong-ish secondary peaks.
 
 That's why we needed to correct for line length.
 The straightforward idea is to examine every horizontal pixel line and determine its first and last
@@ -214,7 +214,7 @@ pixel lines, but at the text line as a whole.
 
 We still take the first pixels and last pixels of horizontal pixel lines, but instead of using them
 individually, we first smooth them.
-The first pixels form a contour of the left line bondaries, the last pixels form a contour of the
+The first pixels form a contour of the left line boundaries, the last pixels form a contour of the
 right line boundaries.
 
 We smoothen these contours, by taking at each point the median of the points above and below on the
@@ -261,7 +261,7 @@ We were able to choose parameter values that did the trick.
 
 **Show and tell**
 
-* [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
+* [OCR](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
 
 **Discussion**
 
@@ -272,7 +272,7 @@ OpenITI has trained an *OCR model* on many printed Arabic pages.
 
 It was easy to bring them together.
 
-However, there were some things that required extra care: Kraken can do binarization and segmentation
+However, there were some things that required extra care: Kraken can do binarisation and segmentation
 itself, but not layout detection.
 So, at first we tried to feed our blocks of text, coming out layout detection, to Kraken.
 Then it turned out that the line segmenter in Kraken had some worst case performance that was excessive.
@@ -305,7 +305,7 @@ take place.
 
 **Tech**
 
-* [PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as *fitz*
+* [PyMUPDF](https://pymupdf.readthedocs.io/en/latest/index.html), also know as `fitz`
   (see note *[1]*).
 
 **Code references**
@@ -332,7 +332,7 @@ duplication of characters, and a strange order.
 It required a kind of reverse engineering to get it done.
 
 The first task was to select the best PDF library available.
-It turned out to be *PyMuPDF*, also known as *fitz*, that provided a very complete Python API
+It turned out to be *PyMuPDF*, also known as `fitz`, that provided a very complete Python API
 for manipulating PDF objects.
 
 **Notes**
@@ -341,7 +341,7 @@ for manipulating PDF objects.
 > In 2002, Tor Andersson started work on MuPDF based on the Libart rendering library by Raph Levien.
 After Artifex Software acquired the MuPDF project,
 the development focus shifted on writing a new modern graphics library called Fitz.
-Fitz was originally intended as an R&D project to replace the aging Ghostscript graphics library,
+Fitz was originally intended as an R&D project to replace the aging GhostScript graphics library,
 but has instead become the rendering engine powering MuPDF.
 
 > Source: [MUPDF](https://en.wikipedia.org/wiki/MuPDF)
@@ -381,12 +381,12 @@ The second task was to examine the fonts and their usage in the PDF. For that we
 used the font reported, which produced a exhaustive report (in PDF) of all character/font combinations
 used in the PDF.
 
-We needed to read that font report programmatically, and for that we used *fitz*, of course.
+We needed to read that font report programmatically, and for that we used `fitz`, of course.
 
 ### Duplicate characters
 
-When we used each and every method provided by *fitz* for text extraction, we were faced with duplicate
-characters. This also happened when using other libraries, and also when we naïvely copied and pasted
+When we used each and every method provided by `fitz` for text extraction, we were faced with duplicate
+characters. This also happened when using other libraries, and also when we naively copied and pasted
 portions from the PDF.
 
 ![titlel](../images/titlel.png)
@@ -459,11 +459,11 @@ we generate a white space in our text extract.
 ![realspace](../images/realspace.png)
 
 Sometimes we encounter a very big space, namely in *hemistic* verse lines, which consist of
-wo parts, each centered on the left/right half of the page.
+two parts, each centred on the left/right half of the page.
 
 ![hemistica](../images/hemistica.png)
 
-Such spaces we convert into em-spaces (unicode x2003), which are translated to columns later on.
+Such spaces we convert into `em`-spaces (unicode `x2003`), which are translated to columns later on.
 
 ![hemisticb](../images/hemisticb.png)
 
@@ -513,7 +513,7 @@ When a PDF is renders, its shape definitions are translated to pixels.
 Letters in a PDF are shape definitions that are stored in a font, and addressed by a key.
 For the end result the rendering, it does not matter in what order the shapes are rendered.
 
-When *fitz* extracts text from a PDF, it extracts the rendering definitions in the order in which they
+When `fitz` extracts text from a PDF, it extracts the rendering definitions in the order in which they
 are stored in the PDF. Other text extraction tools do the same.
 
 ![p101](../images/p101.png)
@@ -577,7 +577,7 @@ And here as it is in the heaven of HTML:
 
 Alternatively, we also do a plain text export, which is easier as input for text mining tools. 
 
-We can control the html pages very tightly: we can select pages and lines.
+We can control the HTML pages very tightly: we can select pages and lines.
 
 There are also methods to look to words in lines.
 
@@ -663,9 +663,9 @@ In order to streamline the orchestration of work we have registered the works th
 we have subjected to the pipeline and the text extraction.
 They can be referred to by a simple acronym in several data conversion and delivery functions.
 
-This does not restrict the package *fusus* to these known works.
+This does not restrict the package `fusus` to these known works.
 Instead of passing an acronym of a known work, you can also give a full path
-to a directory or file where a work resides, and then *fusus* will operate on that.
+to a directory or file where a work resides, and then `fusus` will operate on that.
 
 The intention is to run more commentary works through the OCR pipeline, give them an acronym,
 and register them in the WORKS dictionary.
@@ -689,7 +689,7 @@ and register them in the WORKS dictionary.
 
 **Discussion**
 
-All data that we produce with *fusus* consists of records corresponding to individual words
+All data that we produce with `fusus` consists of records corresponding to individual words
 (or at least what the software has identified as individual words).
 
 For each word we have location information (*page, stripe, block, line, column, span, direction*),
@@ -698,32 +698,32 @@ and a *text*.
 
 If the data comes from the pipe line, we do not have the *column, span, direction* fields.
 These are regions within the line, based on the detection of big spaces and the occurrence
-of unicode characters in ltr and rtl scripts.
+of unicode characters in `ltr` and `rtl` scripts.
 
 This is the start of the TSV for Afifi:
 
 ![afifitsv](../images/afifitsv.png)
 
 If the data comes from text-extraction, we do not have the *stripe, block* fields,
-which come from pre-ocr layout detection, and we also do not have a *confidence* field.
+which come from pre-OCR layout detection, and we also do not have a *confidence* field.
 
 This is the start of the TSV for Lakhnawi:
 
 ![lakhnawitsv](../images/lakhnawitsv.png)
 
-For known works, *fusus* knows what to expect, and the user of the software does not have to
+For known works, `fusus` knows what to expect, and the user of the software does not have to
 spell out the details.
 
 There is one streamlined function to execute the full conversion from page images to TSV and from
 PDF to TSV.
 It is also possible to trigger this function as a one liner from the command line.
 
-Conversely, if you want to work with result tsv files from within a Python program, 
-there is a convenience function to load them from disk straight into Python memeory
+Conversely, if you want to work with result TSV files from within a Python program, 
+there is a convenience function to load them from disk straight into Python memory
 as tuples of tuples of fields of the right type.
 
 !!! hint "Why TSV"
-    TSV is a very transparant plain text format for structured data.
+    TSV is a very transparent plain text format for structured data.
     Why not Comma-Separated?
     Well, technically, TSV is CSV but them with the TAB as field separator.
     There are two advantages of the TAB above the comma:
@@ -793,7 +793,7 @@ all that enrichment work a new.
 
 !!! caution "Limited quality transliteration"
     Arabic transliteration involves knowledge of Arabic orthography, morphology and parsing.
-    That type of knowledge is nowhere built-in in *fusus* or Text-Fabric,
+    That type of knowledge is nowhere built-in in `fusus` or Text-Fabric,
     so our transliteration is a poor man's job: the result of a character mapping.
 
 Since these steps are relevant for the data coming out of the text extraction and the OCR pipeline,

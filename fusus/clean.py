@@ -116,7 +116,7 @@ def connected(markH, markW, bw, threshold, img, hitPoint, sides=None):
         the value above which a connection is detected
     img: np array
         the source image
-    hitPoint: (int, int)
+    hitPoint: tuple of integer
         Y and X coordinate of top left corner of the rectangle in the image
     sides: string, optional `None`
         If `None`, computes connections on all sides.
@@ -221,7 +221,7 @@ def reborder(gray, bw, color, crop=False):
     ----------
     gray: np array
         A grayscale image.
-    bw: int
+    bw: integer
         Width of the new border.
     color: int
         Color of the new border (grayscale).
@@ -247,7 +247,7 @@ def addBox(C, img, left, top, right, bottom, kept, band, seq, connDegree):
     """Add a box around a mark that is to be cleaned.
 
     When we display the marks that will be wiped from the image, we do so by
-    putting colored boxes around them.
+    putting coloured boxes around them.
     This function adds one such box.
 
     Parameters
@@ -260,7 +260,7 @@ def addBox(C, img, left, top, right, bottom, kept, band, seq, connDegree):
         specification of the rectangle of the box
     kept: boolean
         Whether the mark is to be kept. Kept marks and wiped marks will get
-        different colors.
+        different colours.
     band: string
         The name of the band in which the mark is searched for. It will be displayed
         near the box.

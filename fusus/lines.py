@@ -45,7 +45,7 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
         Configuration settings
     stages: dict
         We need access to several intermediate results.
-    pageH: int
+    pageH: integer
         size of a full page in pixels
     blocks: dict
         The blocks as delivered by `getBlocks`.
@@ -148,7 +148,8 @@ def getInkDistribution(C, info, stages, pageH, blocks, batch, boxed):
 def getInkX(imgIn, left, top, right, bottom, imgOut=None):
     """Make a horizontal histogram of an input region of interest.
 
-    Optionally draw the histograms on the corresponding roi of an output image.
+    Optionally draw the histograms on the corresponding region of interest of
+    an output image.
 
     Parameters
     ----------
@@ -232,7 +233,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     """Determine the line distribution in a block of text.
 
     Optionally draw the histogram and the peaks and valleys
-    on the corresponding roi of an output image.
+    on the corresponding region of interest of an output image.
 
     In this operation, we determine the regular line height by analysing the peaks
     and the distances between them.
@@ -248,7 +249,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
         To write messages to the console
     imgIn: np array
         Input image.
-    pageH: int
+    pageH: integer
         size of a full page in pixels
     top, bottom, left, right: int
         Region of interest on input and output image.
@@ -264,7 +265,7 @@ def getInkY(C, info, imgIn, pageH, left, top, right, bottom, final, imgOut=None)
     Returns
     -------
     lines: list
-        The detected lines, given as a list of tuples of upper and lower y coordinates
+        The detected lines, given as a list of tuples of upper and lower `y` coordinates
     """
 
     debug = C.debug

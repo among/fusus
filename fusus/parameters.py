@@ -519,7 +519,7 @@ class Config:
 
         Parameters
         ----------
-        params: str, optional `None`
+        params: string, optional `None`
             If `None`, all settings will be displayed.
             Else it should be a comma-separated string of legal
             parameter names whose values are to be displayed.

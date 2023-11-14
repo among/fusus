@@ -2,34 +2,35 @@
 
 We have two versions of the Fusus text, obtained in wildly different ways:
 
-* `AF` the Afifi edition, obtained via the OCR pipeline;
-* `LK` the Lakhnawi edition,
-   obtained by reverse engineering a textual PDF
-   with unusual fonts and private use characters.
+*   AF the Afifi edition, obtained via the OCR pipeline;
+*   LK the Lakhnawi edition,
+    obtained by reverse engineering a textual PDF
+    with unusual fonts and private use characters.
    
 The results of both attempts have been cleaned and enriched by Cornelis van Lit,
 through visual inspection and manipulation in Pandas.
 
 In this notebook, we align the results obtained by Cornelis.
-The essential result is an alignment table where the words of the `LK` are brought into
-correspondence with the words in `AF`.
+The essential result is an alignment table where the words of the LK are brought into
+correspondence with the words in AF.
 
 A candidate tool to perform sequence alignment with is
 [Collatex](https://collatex.net) by Ronald Haentjes-Dekker.
-We experimented with it, see the [collatexAfLk notebook](collatexAfLk.ipynb),
+We experimented with it, see the [`collatexAfLk` notebook](collatexAfLk.ipynb),
 but it took a very long time to run.
 
 However, the two editions are very similar,
 with very few transpositions but a lot of OCR errors.
 We have developed our own algorithm, which runs in about a second.
 
-The cleaned `LK` and `AF` are present in the Text-Fabric resources `fususl` and `fususa`.
-In this way we have each word precisely numbered in both version, and we also have a latin
-transcription of the words, which eases the visual comparison of similar words.
+The cleaned LK and AF are present in the Text-Fabric resources `fususl` and `fususa`.
+In this way we have each word precisely numbered in both version, and we also
+have a latin transcription of the words, which eases the visual comparison of
+similar words.
 We use the latin transcription,
 only because the author of this notebook (Dirk Roorda) is not trained to read Arabic,
-but also beecause the Arabaic letters change shape depending on their position in the word,
-which makes a task like this needlessly complicated.
+but also because the Arabic letters change shape depending on their position in
+the word, which makes a task like this needlessly complicated.
 
 # Edit distance
 
@@ -39,8 +40,8 @@ one word into another.
 Since one of the editions is the result of OCR, we expect (many) OCR errors,
 and for this the concept of edit distance is useful.
 
-However, we also need the slightly more refined notion of *ratio*, which takes the lengths
-of the words into account. It roughly corresponds to proportion
+However, we also need the slightly more refined notion of *ratio*, which takes
+the lengths of the words into account. It roughly corresponds to proportion
 of the common part of the words
 in relation to the totality of both words under comparison.
 In other words, an edit distance of 2 between words of length 10 tells you
@@ -53,8 +54,8 @@ The concepts *ratio* and *edit distance* can be computed by the
 [Levenshtein algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance),
 which is implemented in the Python module `Levenshtein`.
 
-We have included this module in the fusus dependencies, but if for some
-reason yoou have not recently installed fusus, you may have to
+We have included this module in the `fusus` dependencies, but if for some
+reason you have not recently installed `fusus`, you may have to
 
 ```
 pip3 install python-Levenshtein
@@ -139,13 +140,13 @@ left | right
 --- | ---
 A, BB, CCC, DDD, EEE | BB, CCC, DDD, EEE, X
 
-The best alignment is to decide that A on the left is not matched with anything on the right, 
-X on the right is not matched to anything on the left, and BB, CCC, DDD, EEE
-will be exact matches.
+The best alignment is to decide that A on the left is not matched with anything
+on the right, X on the right is not matched to anything on the left,
+and `BB`, `CCC`, `DDD`, `EEE` will be exact matches.
 
 Buth when comparing combinations of length 5, we get the comparison
 
-ABBCCCDDDEEE versus BBCCCDDDEEEX with distance and ratio:
+`ABBCCCDDDEEE` versus `BBCCCDDDEEEX` with distance and ratio:
 
 ```
 left = "ABBCCCDDDEEE"
@@ -185,7 +186,8 @@ to a given edit distance and ratio.
 The two words match if their edit distance is at most the given edit distance
 and their ratio is at least the given ratio.
 
-The function returns the decision, and the computed distance and ratio between the words.
+The function returns the decision, and the computed distance and ratio between
+the words.
 
 ## Comparing
 
@@ -213,23 +215,22 @@ Or vice versa.
 The following function checks whether there are successful jumps
 within a specific region and within a given strictness.
 Typically, this function is called with different strictnesses for different regions.
-For example, first we want to try short jumps with moderate strictness, and if that fails,
-we try out longer
-jumps with higher strictness.
+For example, first we want to try short jumps with moderate strictness, and if
+that fails, we try out longer jumps with higher strictness.
 
 Short jumps are tried out before long jumps, and we try the jumps
 in the left and right edition alternately.
 
-If a jump is successful, the next position will be returned, and a *catchup*
+If a jump is successful, the next position will be returned, and a *catch up*
 will be done for the
 edition in which the jump has been made.
 When there is no successful jump, None is returned.
 
-The catchup is a bit complicated, because the comparison that led to
+The catch up is a bit complicated, because the comparison that led to
 the successful jump has already been appended
 to the alignment table. So we have to pop that first
 (it could be multiple entries in case the comparison involved
-a combination of words), and then we can do the catchup,
+a combination of words), and then we can do the catch up,
 and then we can push the comparison entries again.
 We also need to update the indexes between slot numbers and the alignment table entries.
 
@@ -282,8 +283,8 @@ and defining special cases. More about this below.
 Finally we can write up the `doDiff` function which loops through the editions
 and produces an alignment table.
 
-But you can also run call it for a specific pair of positions and a limited number of steps.
-Handy for debugging and tweaking the decision parameters.
+But you can also run call it for a specific pair of positions and a limited
+number of steps.  Handy for debugging and tweaking the decision parameters.
 
 You specify the start positions by means of the slot numbers in the LK and AF.
 You can specify the number of steps, or pass -1 in order to continue to the end.
@@ -304,7 +305,7 @@ we take 3 resp. 4 consecutive words and declare that those 3 words in LK
 match those 3 words in AF.
 
 If for some reason the algorithm never reaches a point where the current position
-in LF is 1000 and the current position in AF is 1100, the case will be reported
+in LK is 1000 and the current position in AF is 1100, the case will be reported
 as a failed case.
 
 When you read the alignment table (by `printDiff` or `printLines`)
@@ -318,7 +319,7 @@ It could be just garbage.
 
 ## Sanity
 
-First of all we need to know whether all words of both LF and LK occur left and right,
+First of all we need to know whether all words of both AF and LK occur left and right,
 without gaps and duplications
 and in the right order. We check that. This is important,
 because the alignment algorithm is under 
@@ -355,4 +356,4 @@ It is advisable to tweak the algorithm until all suspect bad stretches are gone.
 We have done so.
 
 The remaining stretches are benign.
-We also show examples of benign bad strectches (at most three examples per size).
+We also show examples of benign bad stretches (at most three examples per size).

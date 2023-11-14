@@ -489,10 +489,10 @@ def convert(source, ocred, pages, versionTf):
 
 
 def director(cv):
-    """Read tsv data fields.
+    """Read TSV data fields.
 
     This is a function that does the work as indicated in the
-    [walker converion engine of Text-Fabric](https://annotation.github.io/text-fabric/tf/convert/walker.html)
+    [walker conversion engine of Text-Fabric](https://annotation.github.io/text-fabric/tf/convert/walker.html)
     See `fusus.convert` for a description of the fields in the TSV files.
     """
 

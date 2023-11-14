@@ -32,7 +32,7 @@
   Inspect intermediate results in a notebook.
 * [ocr](https://nbviewer.jupyter.org/github/among/fusus/blob/master/notebooks/example/ocr.ipynb)
   Read the proofs of Kraken-OCR.
-* [notebooks on nbviewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).
+* [notebooks on NBViewer](https://nbviewer.jupyter.org/github/among/fusus/tree/master/notebooks/).
   All notebooks.
 
 

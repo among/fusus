@@ -169,7 +169,7 @@ Here are the main works and the commentaries.
 They are given a keyword, and under that keyword are these fields:
 
 * **meta** metadata in the form of key value pairs
-  that will be copied into Text-Fabric tf files;
+  that will be copied into Text-Fabric TF files;
 * **source** specification of
   * **dir** directory of the work,
   * **file** the TSV data file within that directory;
@@ -216,9 +216,9 @@ def getWorkDir(source, ocred):
         or directory in the file system (*unknown work*).
     ocred: boolean or None
         Whether the work is in the OCR pipeline.
-        For known works this is known, but it can be overriden.
+        For known works this is known, but it can be overridden.
         For unknown works it must be specified, and if not, `True`
-        is assumend.
+        is assumed.
 
     Returns
     -------
@@ -226,7 +226,7 @@ def getWorkDir(source, ocred):
         If the work is known and exists, or unknown and exists,
         its working directory is returned.
         If `givenOcr` is `None`, and the work is known, its
-        ocr status is returned, otherwise None.
+        OCR status is returned, otherwise None.
     """
     if source not in WORKS:
         source = os.path.expanduser(source)
@@ -268,17 +268,17 @@ def getFile(source, ocred):
         or directory in the file system (*unknown work*).
     ocred: boolean or None
         Whether the work is in the OCR pipeline.
-        For known works this is known, but it can be overriden.
+        For known works this is known, but it can be overridden.
         For unknown works it must be specified, and if not, `True`
-        is assumend.
+        is assumed.
 
     Returns
     -------
         (string | None, boolean | None)
         If the work is known and exists, or unknown and exists,
-        its (tsv) data file is returned.
+        its (TSV) data file is returned.
         If `givenOcr` is `None`, and the work is known, its
-        ocr status is returned, otherwise None.
+        OCR status is returned, otherwise None.
     """
 
     (workDir, ocred) = getWorkDir(source, ocred)
@@ -305,7 +305,7 @@ def getFile(source, ocred):
 
 
 def getTfDest(source, versionTf):
-    """Resolve a work tf directory, given by key of directory.
+    """Resolve a work TF directory, given by key of directory.
 
     Parameters
     ----------
@@ -320,7 +320,7 @@ def getTfDest(source, versionTf):
     -------
         string | None
         If the work is known and exists, or unknown and exists,
-        its versioned tf data directory is returned.
+        its versioned TF data directory is returned.
     """
 
     (workDir, ocred) = getWorkDir(source, None)
