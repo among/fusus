@@ -7,7 +7,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5705044.svg)](https://doi.org/10.5281/zenodo.5705044)
 [![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/among/fusus/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/among/fusus)
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 
 # Fusus
 
@@ -62,7 +62,7 @@ but also in attributes of the text, notably the bounding box information of each
 ## Authors
 
 *   [Cornelis van Lit](https://digitalorientalist.com/about-cornelis-van-lit/)
-*   [Dirk Roorda](https://github.com/dirkroorda)
+*   [Dirk Roorda](https://github.com/dirkroorda) (retiring in 2026)
 
 
 ## Project
